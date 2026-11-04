@@ -9,6 +9,9 @@ echo   Universal Project Starter Kit - Standalone Binary Builder
 echo ======================================================================
 echo.
 
+:: 0. Kill any running Project-Review instance
+taskkill /F /IM Project-Review.exe >nul 2>&1
+
 :: 1. Check Python
 python --version >nul 2>&1
 if errorlevel 1 (
@@ -47,6 +50,7 @@ if errorlevel 1 (
 :: 5. Move executable to root directory and cleanup temporary files
 if exist "%~dp0dist\Project-Review.exe" (
     echo [INFO] Di chuyen Project-Review.exe ra thu muc goc...
+    taskkill /F /IM Project-Review.exe >nul 2>&1
     move /Y "%~dp0dist\Project-Review.exe" "%~dp0Project-Review.exe" >nul
 )
 

@@ -1,87 +1,69 @@
-#!/usr/bin/env python3
-"""
-GENERATE WINDOWS APP ICON (.ICO)
-Uses Pillow to create a multi-resolution Windows Icon with tech shield and AI core.
-Resolutions: 256x256, 128x128, 64x64, 48x48, 32x32, 16x16
-"""
-
 import os
 from pathlib import Path
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFilter
 
-def create_icon_image(size):
-    # Create high-res RGBA canvas
-    img = Image.new('RGBA', (size, size), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(img)
-
-    pad = int(size * 0.06)
-    w = size - 2 * pad
-    h = size - 2 * pad
-
-    # 1. Outer Dark Rounded Hexagon / Rounded Rect Background
-    # Dark Navy gradient-like feel
-    bg_color = (15, 23, 42, 255) # #0f172a
-    radius = int(size * 0.22)
-    draw.rounded_rectangle(
-        [pad, pad, size - pad, size - pad],
-        radius=radius,
-        fill=bg_color,
-        outline=(56, 189, 248, 255), # Cyan border
-        width=max(1, int(size * 0.04))
-    )
-
-    # 2. Tech Shield Shape in center
-    cx, cy = size / 2, size / 2
-    sw = size * 0.38
-    sh = size * 0.44
-
-    # Shield polygon
-    shield_pts = [
-        (cx - sw, cy - sh * 0.7),
-        (cx + sw, cy - sh * 0.7),
-        (cx + sw, cy + sh * 0.1),
-        (cx, cy + sh),
-        (cx - sw, cy + sh * 0.1),
-    ]
-
-    draw.polygon(shield_pts, fill=(30, 41, 59, 255), outline=(99, 102, 241, 255)) # Indigo border
-
-    # 3. Inner Glowing Core / Diamond AI Star
-    dw = sw * 0.55
-    dh = sh * 0.55
-    diamond_pts = [
-        (cx, cy - dh),
-        (cx + dw, cy),
-        (cx, cy + dh),
-        (cx - dw, cy)
-    ]
-    draw.polygon(diamond_pts, fill=(0, 245, 255, 255)) # Glowing Neon Cyan
-
-    # 4. Center Pupil / Spark
-    pw = dw * 0.4
-    draw.ellipse([cx - pw, cy - pw, cx + pw, cy + pw], fill=(255, 255, 255, 255))
-
-    return img
-
-def main():
-    root = Path(__file__).resolve().parent.parent
+def generate_custom_app_icon():
+    root = Path(r'D:/Github/Project-Starter-Kit')
     assets_dir = root / 'assets'
-    assets_dir.mkdir(exist_ok=True)
-    ico_path = assets_dir / 'app-icon.ico'
+    logo_mark_path = assets_dir / 'logo-mark.png'
+    ico_output_path = assets_dir / 'app-icon.ico'
+
+    if not logo_mark_path.exists():
+        print("logo-mark.png not found")
+        return
+
+    logo_img = Image.open(logo_mark_path).convert('RGBA')
 
     sizes = [256, 128, 64, 48, 32, 16]
-    images = [create_icon_image(s) for s in sizes]
+    icon_layers = []
 
-    # Save multi-size icon
-    images[0].save(
-        ico_path,
+    for s in sizes:
+        # Create base canvas with transparency
+        canvas = Image.new('RGBA', (s, s), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(canvas)
+
+        pad = max(1, int(s * 0.05))
+        corner_r = int(s * 0.22)
+
+        # 1. Dark squircle background (#0b0f19 with subtle border)
+        bg_rect = [pad, pad, s - pad, s - pad]
+        draw.rounded_rectangle(
+            bg_rect,
+            radius=corner_r,
+            fill=(11, 15, 25, 255),
+            outline=(16, 185, 129, 180), # Emerald green subtle border
+            width=max(1, int(s * 0.035))
+        )
+
+        # 2. Fit the logo-mark inside the squircle
+        logo_area = int(s * 0.65)
+        # Calculate aspect ratio
+        orig_w, orig_h = logo_img.size
+        ratio = min(logo_area / orig_w, logo_area / orig_h)
+        target_w = int(orig_w * ratio)
+        target_h = int(orig_h * ratio)
+
+        resized_logo = logo_img.resize((target_w, target_h), Image.Resampling.LANCZOS)
+
+        # Center position
+        pos_x = (s - target_w) // 2
+        pos_y = (s - target_h) // 2
+
+        canvas.alpha_composite(resized_logo, (pos_x, pos_y))
+        icon_layers.append(canvas)
+
+    # Save to ICO
+    icon_layers[0].save(
+        ico_output_path,
         format='ICO',
         sizes=[(s, s) for s in sizes],
-        append_images=images[1:]
+        append_images=icon_layers[1:]
     )
+    print(f"Successfully generated app-icon.ico with custom 'P' logo at {ico_output_path}")
 
-    print(f"Generated multi-resolution icon at: {ico_path}")
-    print(f"Icon sizes embedded: {sizes}")
+    # Also save a 256x256 preview PNG for web/docs
+    icon_layers[0].save(assets_dir / 'app-icon-preview.png')
+    print("Saved preview to assets/app-icon-preview.png")
 
 if __name__ == '__main__':
-    main()
+    generate_custom_app_icon()
