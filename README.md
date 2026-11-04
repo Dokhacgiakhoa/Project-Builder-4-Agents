@@ -83,7 +83,12 @@ flowchart TD
 ```
 ├── .github/                        # Tự động hóa CI/CD & Mẫu cộng tác
 │   ├── workflows/ci.yml            # CI Pipeline: Linting -> Test -> Quality Gate
-│   └── PULL_REQUEST_TEMPLATE.md    # Khung mở PR đối chiếu checklist DoD
+│   ├── ISSUE_TEMPLATE/             # Form tạo Issue có cấu trúc (Bug, Feature, Task)
+│   ├── PULL_REQUEST_TEMPLATE.md    # Khung mở PR đối chiếu checklist DoD
+│   ├── CONTRIBUTING.md             # Hướng dẫn đóng góp mã nguồn chuẩn
+│   ├── CODE_OF_CONDUCT.md          # Quy chuẩn hành vi Contributor Covenant
+│   ├── SECURITY.md                 # Chính sách & báo cáo lỗ hổng bảo mật
+│   └── dependabot.yml              # Quét & cập nhật bảo mật dependencies tự động
 ├── AGENTS.md                       # "Bản hiến pháp" điều phối hành vi cho AI Agents
 ├── specs/                          # Không gian đặc tả nghiệp vụ (Spec-driven)
 │   ├── product-vision.md           # Tầm nhìn sản phẩm, Outcome Tree, Khung Who-What-How
@@ -98,7 +103,9 @@ flowchart TD
 │   ├── 0002-tech-stack.md          # Công nghệ & Chiến lược Cloud Free-Tier
 │   ├── 0003-coding-conventions.md  # Chuẩn đặt tên & The Anti-Crash Standard
 │   ├── 0004-test-strategy.md       # Chiến lược kiểm thử tự động TDD đa tầng
-│   └── 0005-definition-of-done.md  # Tiêu chuẩn hoàn thành nghiệm thu (DoD)
+│   ├── 0005-definition-of-done.md  # Tiêu chuẩn hoàn thành nghiệm thu (DoD)
+│   ├── 0006-clean-architecture-and-ddd.md # Phân tầng Clean Architecture & CQRS
+│   └── 0007-agentic-patterns-and-evals.md # Agentic AI Patterns & RAG Evals
 ├── planning/                       # Kế hoạch & Quản trị tiến độ
 │   ├── roadmap.md                  # Lộ trình tổng thể & các Checkpoints
 │   ├── backlog.md                  # Danh mục User Stories (US-xxx) và Tasks (T-xxx)
@@ -117,7 +124,15 @@ flowchart TD
 │   ├── system-architecture.md      # Sơ đồ kiến trúc tổng thể (C4 Container Diagram)
 │   ├── deployment-guide.md         # Hướng dẫn deploy Local, Staging & Production
 │   └── reference-slides/           # Các bài giảng & slide tham khảo
-├── src/                            # Mã nguồn ứng dụng
+├── src/                            # Mã nguồn ứng dụng (Clean Architecture Blueprint)
+│   ├── Domain/                     # Enterprise Core & Entities (Độc lập 100%)
+│   ├── Application/                # Use Cases, CQRS Commands/Queries, DTOs
+│   ├── Infrastructure/             # DB Persistence, External Services, Caching
+│   ├── Presentation/               # REST API Controllers, Middlewares, DI Wiring
+│   └── README.md                   # Hướng dẫn ánh xạ Clean Architecture đa ngôn ngữ
+├── docker-compose.yml              # Khởi chạy hạ tầng local (Postgres+pgvector, Redis)
+├── Makefile                        # Bộ lệnh dev chuẩn hóa (make up, test, lint, clean)
+├── .editorconfig                   # Chuẩn hóa format code đa nền tảng IDE
 ├── tests/                          # Automated Test Suite (Unit, Integration, E2E)
 ├── .env.example                    # Mẫu cấu hình biến môi trường bảo mật
 ├── .gitignore                      # Quy chuẩn loại trừ file rác & secrets

@@ -1,0 +1,29 @@
+name: 🔨 Nhiệm Vụ Kỹ Thuật (Engineering Task)
+description: Khởi tạo một task kỹ thuật hoặc refactor cho đội ngũ
+title: "[TASK]: "
+labels: ["task"]
+body:
+  - type: input
+    id: us_id
+    attributes:
+      label: Mã User Story liên quan
+      placeholder: "US-001"
+    validations:
+      required: false
+  - type: textarea
+    id: goal
+    attributes:
+      label: Mục tiêu kỹ thuật
+      description: Cần thay đổi hoặc cài đặt thành phần nào?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Tiêu chí nghiệm thu (Acceptance Criteria)
+      placeholder: |
+        - [ ] Cài đặt endpoint theo Contract
+        - [ ] Pass 100% Unit Tests
+        - [ ] Cập nhật tài liệu specs/
+    validations:
+      required: true
