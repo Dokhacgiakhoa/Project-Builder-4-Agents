@@ -1,164 +1,135 @@
-# 🚀 UNIVERSAL AI-NATIVE PROJECT STARTER KIT
+<div align="center">
 
-### *Khung Khởi Tạo & Quản Trị Dự Án Phần Mềm Chuẩn Hóa Với AI (Human + Multi-Agent Collaboration)*
+  <img src="assets/banner.svg" alt="Universal AI-Native Project Starter Kit" width="100%" />
 
+  <br />
+  <br />
 
+  [![CI Quality Gate](https://github.com/Dokhacgiakhoa/Project-Starter-Kit/actions/workflows/ci.yml/badge.svg)](https://github.com/Dokhacgiakhoa/Project-Starter-Kit/actions/workflows/ci.yml)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+  [![Architecture: Clean Architecture + DDD](https://img.shields.io/badge/Architecture-Clean%20Architecture%20%2B%20DDD-orange.svg)](#-kiến-trúc-hệ-thống)
+  [![Frontend: Bulletproof React](https://img.shields.io/badge/Frontend-Bulletproof%20React-61dafb.svg)](frontend/README.md)
+  [![Standard: Anti--Crash](https://img.shields.io/badge/Standard-Anti--Crash-success.svg)](#-tiêu-chuẩn-anti-crash)
+  [![UI Presets: 14+ Archetypes](https://img.shields.io/badge/UI%2FUX-14%2B%20Archetypes-pink.svg)](knowledge-base/ui-ux-presets/design-archetypes-catalog.md)
+  [![Pitch Deck: YC & Sequoia](https://img.shields.io/badge/Pitch%20Deck-YC%20%26%20Sequoia-purple.svg)](templates/pitch-deck/pitch-deck-template.md)
 
-[![CI Quality Gate](https://github.com/Dokhacgiakhoa/Project-Starter-Kit/actions/workflows/ci.yml/badge.svg)](https://github.com/Dokhacgiakhoa/Project-Starter-Kit/actions/workflows/ci.yml)
+  <br />
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+  <h3>Khung Khởi Tạo & Quản Trị Dự Án Phần Mềm Chuẩn Quốc Tế</h3>
+  <p><b>Kết hợp hài hòa giữa Thẩm quyền Lãnh đạo của Con người và Năng lực Thực thi của AI Multi-Agent (Claude Code, Antigravity, Cursor, Codex)</b></p>
 
-[![Architecture: Modular Monolith](https://img.shields.io/badge/Architecture-Modular%20Monolith-orange.svg)](#)
+  <p>
+    <a href="#-hướng-dẫn-bắt-đầu-nhanh-quick-start"><b>🚀 Bắt Đầu Nhanh</b></a> •
+    <a href="src/README.md"><b>🏛️ Backend Clean Architecture</b></a> •
+    <a href="frontend/README.md"><b>⚡ Frontend Bulletproof React</b></a> •
+    <a href="knowledge-base/ui-ux-presets/design-archetypes-catalog.md"><b>🎨 14+ UI/UX Archetypes</b></a> •
+    <a href="templates/pitch-deck/pitch-deck-template.md"><b>📊 Pitch Deck Kit</b></a> •
+    <a href="docs/guides/diataxis-framework-guide.md"><b>📖 Diátaxis Docs</b></a>
+  </p>
 
-[![Standards: Anti--Crash](https://img.shields.io/badge/Standard-Anti--Crash-success.svg)](#)
-
-
-
----
-
-
-
-## 📖 1. GIỚI THIỆU TỔNG QUAN
-
-
-
-**Universal AI-Native Project Starter Kit** là bộ khung tiêu chuẩn, tổng quát hóa dùng để khởi tạo, tổ chức và vận hành bất kỳ dự án phần mềm nào (Full-stack Web/Mobile App, Hệ thống AI Agentic, Nền tảng SaaS, Microservices...) trong kỷ nguyên AI.
-
-
-
-Bộ Starter Kit giải quyết bài toán lớn nhất khi lập trình cùng AI: **"AI tăng tốc độ sinh mã nhưng không có context tổng thể; nếu thiếu quy trình và kiến trúc chuẩn mực, AI sẽ giúp phá vỡ hệ thống nhanh gấp 10 lần."**
-
-
-
-Bằng việc kết hợp hài hòa giữa **Thẩm quyền lãnh đạo của Con người (Human Leadership & Accountability)** và **Năng lực thực thi vượt trội của Hệ thống Trợ lý AI (Multi-Agent Execution: Claude Code, Antigravity, Cursor, Codex...)**, bộ khung này biến Git repository thành **Một Nguồn Sự Thật Duy Nhất (Single Source of Truth)**.
-
-
+</div>
 
 ---
 
+## 💥 Vấn Đề Lớn Nhất Của Kỷ Nguyên "Vibe Coding"
 
+Trong kỷ nguyên AI, bất kỳ ai cũng có thể gõ vài prompt để sinh ra hàng ngàn dòng code trong vài phút. Nhưng **85% các dự án làm cùng AI đều thất bại hoặc phải đập đi xây lại** vì 3 "căn bệnh tử huyệt":
 
-## 🏛️ 2. TRIẾT LÝ CỐT LÕI (CORE PHILOSOPHY)
+1. **AI sinh code siêu nhanh nhưng không có ngữ cảnh tổng thể**: Mã nguồn chắp vá, không có ranh giới module (Spaghetti Code), gây nợ kỹ thuật trầm trọng.
+2. **Crash & Màn hình trắng liên tục**: Thiếu kỹ thuật lập trình phòng vệ (Defensive Programming), ứng dụng sập ngay khi gặp dữ liệu `null/undefined`.
+3. **Thất bại ở khâu Thuyết trình & Vận hành**: Đội ngũ chỉ mải mê code mà thiếu **Pitch Deck chuyên nghiệp** để gọi vốn/bảo vệ dự án, và thiếu **Hệ thống Documentation chuẩn mực** để bàn giao hay xử lý sự cố lúc 2h sáng.
 
+> **Universal Project Starter Kit** sinh ra để giải quyết triệt để bài toán này: Biến Git Repository thành **"Một Nguồn Sự Thật Duy Nhất" (Single Source of Truth)** để con người và AI cùng phối hợp nhịp nhàng, an toàn và tốc độ.
 
+---
+
+## 🍱 Bento Grid: 6 Trụ Cột Sức Mạnh Cốt Lõi
+
+<table width="100%">
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🧠 1. Context-First & Spec-Driven</h3>
+      <p>AI chỉ code đúng khi có ngữ cảnh rõ ràng. Mọi tính năng đều bắt đầu từ <b>Feature Specs</b>, <b>ADRs</b> (Architecture Decision Records) và <b>API Contracts</b> đóng băng trước khi gõ dòng code đầu tiên.</p>
+      <p>👉 <i>Khám phá: <a href="specs/contracts/api-contract-template.yaml">API Contract Template</a> • <a href="adrs/">Thư viện 10 ADRs</a> • <a href="AGENTS.md">Hiến pháp AGENTS.md</a></i></p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>🏛️ 2. Clean Architecture & DDD Backend</h3>
+      <p>Thiết kế 4 phân tầng đồng tâm (Domain ➔ Application ➔ Infrastructure ➔ Presentation) tuân thủ nghiêm ngặt <b>Dependency Inversion Principle</b>. Core nghiệp vụ hoàn toàn độc lập với Database và UI.</p>
+      <p>👉 <i>Khám phá: <a href="src/README.md">Backend Blueprint</a> • <a href="adrs/0006-clean-architecture-and-ddd.md">ADR-0006 Clean Architecture</a></i></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>⚡ 3. Bulletproof React Frontend</h3>
+      <p>Kiến trúc <b>Feature-Driven SPA</b> tốc độ cao với Vite, React 18, TypeScript Strict, Tailwind CSS, TanStack React Query, Zustand Store và Axios Interceptor tự động chuẩn hóa lỗi không để crash app.</p>
+      <p>👉 <i>Khám phá: <a href="frontend/README.md">Frontend Blueprint</a> • <a href="adrs/0008-frontend-architecture.md">ADR-0008 Frontend Architecture</a></i></p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>🎨 4. 7 Vũ Trụ UI/UX & Theme Studio</h3>
+      <p>Trang bị sẵn <b>14+ Style Presets kinh điển</b> (Linear Pro Max, iOS Glass, Windows XP, Cyberpunk HUD, Neubrutalism, Hacker Terminal) kèm theo <b>AI Visual DNA Prompts</b> và <b>Studio chuyển đổi trực quan</b> trong app.</p>
+      <p>👉 <i>Khám phá: <a href="knowledge-base/ui-ux-presets/design-archetypes-catalog.md">UI Archetypes Catalog</a> • <a href="specs/design-system/visual-dna-prompts.md">AI Visual Prompts</a></i></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🛡️ 5. The Anti-Crash Standard (100% Zero-Crash)</h3>
+      <p>Quy chuẩn phòng vệ tuyệt đối: Mọi thuộc tính truy cập đều dùng <code>?.</code> và <code>??</code>, mọi mảng đều kiểm tra <code>Array.isArray()</code> trước khi map, toàn bộ I/O bất đồng bộ đều bọc trong <code>try...catch</code>.</p>
+      <p>👉 <i>Khám phá: <a href="adrs/0003-coding-conventions.md">ADR-0003 Coding Conventions</a> • <a href="adrs/0005-definition-of-done.md">Definition of Done (DoD)</a></i></p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>📊 6. The Ultimate Pitch Deck & Diátaxis Docs</h3>
+      <p>Bộ <b>Pitch Deck 11 Slide</b> chuẩn Y Combinator & Sequoia (hỗ trợ Marp Slides-as-Code) + Kịch bản 3p/5p + 20 câu hỏi phản biện VCs + Hệ thống tài liệu <b>Diátaxis</b> (User Guide, Onboarding 30p, Runbook 2h sáng).</p>
+      <p>👉 <i>Khám phá: <a href="templates/pitch-deck/pitch-deck-template.md">Pitch Deck Kit</a> • <a href="docs/guides/diataxis-framework-guide.md">Diátaxis Guide</a></i></p>
+    </td>
+  </tr>
+</table>
+
+---
+
+## 🥊 So Sánh: Vibe Coding vs. Universal Starter Kit
+
+| Tiêu Chí Đánh Giá | Khởi Tạo Truyền Thống | Vibe Coding Tự Phát (Hộp Đen) | **Universal AI-Native Starter Kit** |
+| :--- | :---: | :---: | :---: |
+| **Quy Trình Phối Hợp Human & Agent** | ❌ Không có | ⚠️ Chắp vá, phụ thuộc chat history | ✅ **Chuẩn hóa qua Git (RACI Matrix & DoD)** |
+| **Bảo Vệ Ngăn Chặn Crash (Anti-Crash)** | ⚠️ Hạn chế | ❌ Rất hay sập runtime / màn hình trắng | ✅ **Phòng thủ 100% (Optional Chaining & Fallbacks)** |
+| **Kiến Trúc Backend & Frontend** | ⚠️ Nguyên khối rối rắm | ❌ Code spaghetti không phân tầng | ✅ **Clean Architecture DDD + Bulletproof React** |
+| **Bản Sắc Thị Giác (UI/UX Presets)** | ❌ 1 style mặc định | ⚠️ AI sinh giao diện ngẫu nhiên, xấu | ✅ **14+ Archetypes Studio + Prompt Injector** |
+| **Hồ Sơ Gọi Vốn (Pitch Deck Kit)** | ❌ Không có | ❌ Không có | ✅ **Chuẩn YC & Sequoia 11 slides + Marp code** |
+| **Hệ Thống Docs Vận Hành** | ❌ Sơ sài | ❌ Không có tài liệu | ✅ **Chuẩn Diátaxis + Onboarding 30p + Runbook 2h sáng** |
+| **Khóa Nhà Cung Cấp (Vendor Lock-in)**| ❌ Tùy framework | ❌ Bị khóa vào nền tảng cloud của họ | ✅ **Zero Lock-in (Docker Compose, Open Source MIT)** |
+
+---
+
+## 👥 Ma Trận Phân Định Trách Nhiệm (RACI: Human vs. Multi-Agent)
+
+> **Nguyên tắc bất biến**: *AI là đòn bẩy cấp số nhân thực thi; Con người nắm giữ thẩm quyền, trách nhiệm giải trình và cổng phê duyệt chất lượng cuối cùng.*
 
 ```mermaid
-
-graph LR
-
-    A["1. Context-Driven<br/>Ngữ cảnh rõ ràng = AI code đúng"] --> B["2. Spec-Driven & Contract-First<br/>Khóa API Contract trước khi code"]
-
-    B --> C["3. Outcome over Output<br/>Đo lường bằng giá trị thực tế"]
-
-    C --> D["4. Anti-Crash Standard<br/>Defensive programming & Robust error handling"]
-
-```
-
-
-
-1. **Context-Driven (Ngữ Cảnh Là Nền Tảng)**: AI chỉ sinh mã chính xác khi được nạp đầy đủ bối cảnh từ Specs, ADRs, và Coding Rules. Toàn bộ context được phiên bản hóa trực tiếp trong Git.
-
-2. **Spec-Driven & Contract-First**: Không bao giờ viết code trước khi có Feature Spec và API Contract. Frontend và Backend làm việc song song dựa trên hợp đồng giao tiếp độc lập.
-
-3. **Outcome over Output**: Thành công của dự án không đo bằng số lượng dòng code (Output), mà đo bằng sự giải quyết triệt để bài toán người dùng và chỉ số tăng trưởng bền vững (Outcome).
-
-4. **The Anti-Crash Standard**: Quy chuẩn kỹ thuật phòng vệ triệt để (Optional Chaining `?.`, Safe Fallbacks, `try...catch` bất đồng bộ, Input validation) ngăn chặn hoàn toàn lỗi sập ứng dụng hoặc màn hình trắng.
-
-
-
----
-
-
-
-## 👥 3. PHÂN ĐỊNH TRÁCH NHIỆM (HUMAN VS. AI AGENTS)
-
-
-
-> **Nguyên tắc**: *AI là cấp số nhân thực thi; Con người nắm giữ thẩm quyền, trách nhiệm giải trình và phê duyệt cuối cùng.*
-
-
-
-```mermaid
-
 flowchart TD
-
     subgraph Human [ĐỘI NGŨ CON NGƯỜI (Accountability & Quality Gate)]
-
-        PO["Product Owner (PO)<br/>Bảo vệ GIÁ TRỊ & Nghiệp vụ"]
-
-        PM["Project Manager (PM)<br/>Bảo vệ THỜI GIAN & Kỷ luật Sprint"]
-
-        TL["Tech Lead / Architect<br/>Bảo vệ KỸ THUẬT & Phê duyệt PR"]
-
+        PO["Product Owner (PO)<br/>Bảo vệ GIÁ TRỊ & Khung Outcome"]
+        PM["Project Manager (PM)<br/>Bảo vệ TIẾN ĐỘ & Sprint Milestones"]
+        TL["Tech Lead / Architect<br/>Bảo vệ KỸ THUẬT & Phê duyệt Pull Request"]
     end
-
-
 
     subgraph Agents [HỆ THỐNG TRỢ LÝ AI (Execution & Automation)]
-
         ArchAgent["Architect Agent (Antigravity/Claude)<br/>Quét Context, Soạn ADRs & Specs"]
-
         CodingAgent["Coding Agent (Claude Code/Cursor/Codex)<br/>TDD, Phân rã Subtasks, Sinh mã"]
-
         ReviewAgent["Reviewer Agent (CI / Quality Gate)<br/>Linting, Security Scan, Kiểm tra DoD"]
-
     end
 
-
-
     PO -->|Định nghĩa Problem & Outcome Tree| ArchAgent
-
     TL -->|Thiết lập Boundary & Constraints| ArchAgent
-
     ArchAgent -->|Soạn thảo Specs & API Contracts| TL
-
     PM -->|Giao Task lớn theo Sprint Backlog| CodingAgent
-
     CodingAgent -->|TDD Implementation & Self-Test| ReviewAgent
-
     ReviewAgent -->|Báo cáo vi phạm DoD & Lint Errors| TL
-
     TL -->|Code Review & Merge Main| PM
-
 ```
-
-
-
-### Bảng phân định RACI Matrix
-
-
-
-| Hạng Mục Hoạt Động | Human PO | Human PM | Human Tech Lead | AI Architect | AI Coder | AI Reviewer |
-
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-
-| **Xác định Vấn đề & Khung Outcome** | **A / R** | C | C | C | I | I |
-
-| **Soạn thảo Specs & API Contracts** | C | I | **A** | **R** | I | I |
-
-| **Ban hành Quyết định Kiến trúc (ADR)** | I | I | **A** | **R** | I | I |
-
-| **Phân bổ Sprint Backlog & Milestones**| C | **A / R** | C | C | I | I |
-
-| **Phân rã Subtasks & TDD Code** | I | I | I | C | **A / R** | I |
-
-| **Kiểm tra Kỷ luật DoD & Linting** | I | C | C | I | C | **R** |
-
-| **Code Review & Phê duyệt Pull Request**| I | I | **A / R** | C | I | C |
-
-| **Deploy Staging / Production** | I | **A** | **R** | I | I | C |
-
-
-
-*(**R**: Responsible - Người thực hiện | **A**: Accountable - Người chịu trách nhiệm | **C**: Consulted - Tham vấn | **I**: Informed - Nhận thông báo)*
-
-
 
 ---
 
-
-
-## 📂 4. CẤU TRÚC REPOSITORY CHUẨN (CONTEXT WORKSPACE)
+## 📂 Bản Đồ Cấu Trúc Repository Chuẩn
 
 ```
 ├── .github/                        # Tự động hóa CI/CD & Mẫu cộng tác
@@ -195,7 +166,6 @@ flowchart TD
 │   ├── roadmap.md                  # Lộ trình tổng thể & các Checkpoints
 │   ├── backlog.md                  # Danh mục User Stories (US-xxx) và Tasks (T-xxx)
 │   ├── sprints/                    # Kế hoạch theo từng Sprint
-│   │   └── sprint-01.md
 │   └── retrospective-template.md   # Mẫu họp cải tiến quy trình (Sad - Mad - Glad)
 ├── tasks/                          # Hồ sơ nhiệm vụ thực thi cho AI
 │   └── templates/task-spec.md      # Khung mô tả task lớn để AI tự chia nhỏ
@@ -251,149 +221,78 @@ flowchart TD
 
 ---
 
-## 🔄 5. QUY TRÌNH THỰC THI 5 BƯỚC (END-TO-END WORKFLOW)
+## ⚡ Hướng Dẫn Bắt Đầu Nhanh (Quick Start)
 
+### 1. Clone Repository & Khởi Tạo Môi Trường
+```bash
+git clone https://github.com/Dokhacgiakhoa/Project-Starter-Kit.git
+cd Project-Starter-Kit
 
-
-```mermaid
-
-sequenceDiagram
-
-    autonumber
-
-    actor TechLead as Human Tech Lead / PM
-
-    participant Context as Context Base (/specs, /adrs)
-
-    participant Agent as AI Coding Agent
-
-    participant Git as Git Repo / CI Quality Gate
-
-
-
-    Note over TechLead,Context: BƯỚC 1: XÁC LẬP BỐI CẢNH (Context Ingestion)
-
-    TechLead->>Context: Ban hành Feature Spec & Đóng băng API Contract
-
-    TechLead->>Context: Ban hành các ADRs liên quan
-
-    
-
-    Note over TechLead,Agent: BƯỚC 2: GIAO VIỆC & PHÂN TÍCH (Task Assignment)
-
-    TechLead->>Agent: Giao Task lớn (Mã US-xxx / T-xxx)
-
-    Agent->>Context: Đọc toàn bộ Specs + ADRs + AGENTS.md
-
-    Agent->>Agent: Tự động phân rã thành Subtasks & Lập Kế hoạch
-
-    
-
-    Note over Agent: BƯỚC 3: PHÁT TRIỂN THEO TDD (Test-Driven Development)
-
-    Agent->>Agent: Viết Test Cases trước (Happy Path + 2 Edge Cases)
-
-    Agent->>Agent: Viết Code logic để pass tests
-
-    Agent->>Agent: Tự chạy Unit Test, Linting, Formatter
-
-    
-
-    Note over Agent,Git: BƯỚC 4: TẠO PR & KIỂM TRA ĐỘC LẬP
-
-    Agent->>Git: Tạo Pull Request (PR < 400 lines) theo template
-
-    Git->>Git: CI Pipeline tự động kiểm tra cú pháp & tests
-
-    
-
-    Note over Git,TechLead: BƯỚC 5: CON NGƯỜI PHÊ DUYỆT & RELEASE
-
-    TechLead->>Git: Review PR đối chiếu Definition of Done (DoD)
-
-    TechLead->>Git: Approve & Merge vào nhánh main
-
-    Git->>TechLead: Tự động triển khai lên môi trường đích
-
+# Khởi tạo file .env từ template:
+make setup
 ```
 
+### 2. Khởi Chạy Hạ Tầng Local (Database & Cache)
+```bash
+# Khởi chạy PostgreSQL (có pgvector) và Redis bằng Docker Compose:
+make up
+```
 
+### 3. Khởi Chạy Giao Diện Frontend (Vite Dev Server)
+```bash
+# Cài đặt dependencies và chạy dev server trên cổng 3000:
+cd frontend
+npm install
+npm run dev
+```
 
----
-
-
-
-## ⚡ 6. HƯỚNG DẪN BẮT ĐẦU NHANH (QUICK START)
-
-
-
-### Bước 1: Khởi tạo từ Template
-
-1. Nhấn nút **Use this template** trên GitHub hoặc clone về máy:
-
-   ```bash
-
-   git clone https://github.com/<your-org>/<your-repo>.git
-
-   cd <your-repo>
-
-   ```
-
-2. Sao chép file cấu hình môi trường:
-
-   ```bash
-
-   cp .env.example .env
-
-   ```
-
-
-
-### Bước 2: Thiết lập Ngữ cảnh Dự án (Context Ingestion)
-
-1. Chỉnh sửa `specs/product-vision.md`: Xác định rõ nhóm người dùng mục tiêu (Who) và nỗi đau lớn nhất cần giải quyết (What).
-
-2. Kiểm tra `adrs/0002-tech-stack.md`: Lựa chọn ngôn ngữ/framework phù hợp với bài toán của nhóm bạn.
-
-3. Cập nhật `planning/backlog.md`: Đưa các User Story đầu tiên vào Sprint 1.
-
-
-
-### Bước 3: Làm việc cùng AI Coding Agent
-
-Khi mở IDE (Antigravity, Cursor, Claude Code...), chỉ cần nhắc Agent:
-
-> *"Hãy đọc file `AGENTS.md`, các ADR trong `adrs/` và kiểm tra task `T-001` trong `planning/backlog.md` để bắt đầu lập kế hoạch triển khai."*
-
-
+Mở trình duyệt truy cập: **`http://localhost:3000`** để trải nghiệm Dashboard, AI Chat và Studio đổi giao diện 14+ Archetypes.
 
 ---
 
+## 🛠️ Bộ Lệnh Makefile Chuẩn Hóa
 
-
-## 🛡️ 7. TIÊU CHUẨN HOÀN THÀNH (DEFINITION OF DONE)
-
-
-
-Một tính năng chỉ được xem là hoàn tất khi:
-
-* [x] Triển khai bám sát `specs/features/` và không làm vỡ API Contract.
-
-* [x] Tuân thủ 100% Anti-Crash Standard (Optional Chaining, Error Handling).
-
-* [x] Bổ sung Unit / Integration Tests và đạt 100% test pass.
-
-* [x] CI Pipeline trên GitHub Actions chạy màu xanh (PASS).
-
-* [x] Được ít nhất 1 Human Reviewer phê duyệt trước khi merge vào nhánh `main`.
-
-
+| Lệnh | Ý Nghĩa Chức Năng |
+| :--- | :--- |
+| `make setup` | Tự động tạo file `.env` từ `.env.example` và kiểm tra môi trường. |
+| `make up` | Khởi chạy toàn bộ hạ tầng CSDL cục bộ qua Docker Compose (PostgreSQL, Redis). |
+| `make down` | Dừng an toàn toàn bộ containers hạ tầng. |
+| `make dev-frontend` | Khởi chạy frontend React trên Vite dev server (`http://localhost:3000`). |
+| `make build-frontend` | Biên dịch bản production bundle cho frontend với kiểm tra TypeScript nghiêm ngặt. |
+| `make test` | Thực thi toàn bộ bộ kiểm thử tự động (Unit Tests & Integration Tests). |
+| `make lint` | Kiểm tra định dạng code và các quy chuẩn linter. |
+| `make clean` | Dọn dẹp cache tạm thời, tệp rác và build artifacts. |
 
 ---
 
+## 🛡️ Tiêu Chuẩn Hoàn Thành (Definition of Done - DoD)
 
+Một tính năng chỉ được xem là hoàn tất và được phép merge vào `main` khi:
+- [x] **Spec-Driven**: Bám sát đặc tả trong `specs/features/` và không vi phạm API Contract.
+- [x] **Anti-Crash Standard**: 100% thuộc tính dùng Optional Chaining `?.`, có fallback an toàn, không có lỗi màn hình trắng.
+- [x] **Strict Typing**: Không sử dụng kiểu dữ liệu `any` trong TypeScript.
+- [x] **Test Coverage**: Bổ sung Unit Tests (Happy Path + 2 Edge Cases) và 100% tests pass.
+- [x] **CI Quality Gate**: Toàn bộ kiểm tra trên GitHub Actions chạy màu xanh (PASS).
+- [x] **Human Review**: Được ít nhất 1 Human Tech Lead phê duyệt Pull Request.
 
-## 📄 GIẤY PHÉP (LICENSE)
+---
 
-Dự án được phân phối dưới giấy phép mã nguồn mở [MIT License](LICENSE). Mọi cá nhân, nhóm phát triển và tổ chức đều có thể tự do sử dụng, tùy biến và triển khai cho các sản phẩm thương mại hoặc phi thương mại.
+## 🤝 Đóng Góp & Cộng Đồng (Contributing)
 
+Dự án này là mã nguồn mở cộng đồng. Mọi ý tưởng đóng góp về Design Patterns, Thư viện UI/UX Archetypes, hoặc Quy chuẩn điều phối Agent mới đều được hoan nghênh nồng nhiệt!
+
+1. Đọc hướng dẫn đóng góp: [CONTRIBUTING.md](.github/CONTRIBUTING.md).
+2. Tuân thủ chuẩn hành vi: [CODE_OF_CONDUCT.md](.github/CODE_OF_CONDUCT.md).
+3. Báo cáo lỗi bảo mật: [SECURITY.md](.github/SECURITY.md).
+
+---
+
+## 📄 Giấy Phép (License)
+
+Dự án được phân phối dưới giấy phép mã nguồn mở [MIT License](LICENSE). Bạn hoàn toàn có quyền sử dụng, sửa đổi và thương mại hóa trong các dự án của cá nhân hoặc tổ chức mà không có bất kỳ rào cản nào.
+
+<div align="center">
+  <br />
+  <p>Được xây dựng với niềm đam mê dành cho Cộng đồng Kỹ sư &amp; Nhà sáng lập Khởi nghiệp AI 🚀</p>
+  <p>⭐ <b>Hãy bấm Star cho repository nếu dự án hữu ích với bạn!</b> ⭐</p>
+</div>
