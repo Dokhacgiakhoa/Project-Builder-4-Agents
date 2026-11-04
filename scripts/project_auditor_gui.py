@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-UNIVERSAL PROJECT STARTER KIT - ARCHITECTURE AUDITOR GUI
-Windows 11 AI-Agent Dark Interface (Ultra-Crisp Per-Monitor High-DPI, Immersive Dark Titlebar, Offline & Portable)
+UNIVERSAL PROJECT STARTER KIT - ARCHITECTURE REVIEWER GUI
+True Dark UI (Antigravity Style, Pro-Max Cyan/Emerald Gradient, Rule-Based Engine, Offline & Portable)
 """
 
 import os
@@ -11,6 +11,7 @@ import ctypes
 from pathlib import Path
 import tkinter as tk
 from tkinter import filedialog, messagebox
+from PIL import Image, ImageDraw, ImageFont, ImageTk
 
 # ---------------------------------------------------------------------------
 # 0. Windows 11 High-DPI & DWM Immersive Dark Mode Pre-flight Initialization
@@ -35,35 +36,34 @@ except ImportError:
 
 
 class ProjectAuditorGUI:
-    # Windows Agent Deep Dark Palette (GitHub Dark / Windows Copilot Theme)
-    C_BG = "#090d16"             # Deep obsidian background
-    C_SURFACE = "#111827"        # Elevated card surface
-    C_SURFACE_HOVER = "#1f293d"  # Card hover surface
-    C_BORDER = "#1f2937"         # Clean 1px border
-    C_BORDER_FOCUS = "#38bdf8"   # Focus border (Sky Blue)
+    # Antigravity Pure Jet Dark Palette
+    C_BG = "#0e0e10"             # Pure neutral dark background (No blue tint)
+    C_SURFACE = "#18181b"        # Card panel surface (Zinc 900)
+    C_SURFACE_HOVER = "#27272a"  # Card hover surface
+    C_BORDER = "#27272a"         # Subtle 1px border
+    C_BORDER_FOCUS = "#3f3f46"   # Active border
     
-    C_TEXT = "#f9fafb"           # Bright white title
-    C_TEXT_MUTED = "#9ca3af"     # Secondary text
-    C_TEXT_DIM = "#6b7280"       # Muted placeholders
+    C_TEXT = "#ffffff"           # High contrast pure white
+    C_TEXT_MUTED = "#a1a1aa"     # Neutral gray (Zinc 400)
+    C_TEXT_DIM = "#71717a"       # Dim gray (Zinc 500)
     
-    C_TERMINAL_BG = "#040711"    # Dark console background
-    C_INPUT_BG = "#0b1120"       # Text input background
+    C_CONSOLE_BG = "#111113"     # Terminal console background
+    C_INPUT_BG = "#111113"       # Text input background
     
-    # AI Agent Neon Accents
-    C_EMERALD = "#10b981"        # Neon Emerald (Pass / Online)
+    # Status Colors
+    C_EMERALD = "#10b981"        # Neon Emerald
     C_EMERALD_BG = "#064e3b"     # Emerald badge background
     C_CYAN = "#06b6d4"           # Cyan accent
-    C_SKY = "#0ea5e9"            # Fluent Sky Blue
-    C_ROSE = "#f43f5e"           # Gap / Deficit Red
+    C_ROSE = "#f43f5e"           # Deficit Red
     C_ROSE_BG = "#4c0519"        # Rose badge background
     C_AMBER = "#f59e0b"          # Warning Amber
     C_AMBER_BG = "#78350f"       # Amber badge background
 
     def __init__(self, root):
         self.root = root
-        self.root.title("Project Review Agent • AI-Native Architecture Auditor")
-        self.root.geometry("700x700")
-        self.root.minsize(650, 640)
+        self.root.title("Project Architecture Reviewer • Rule-Based Auditor")
+        self.root.geometry("690x710")
+        self.root.minsize(640, 640)
         self.root.configure(bg=self.C_BG)
 
         # Apply Windows 11 Immersive Dark Titlebar & Smooth Corners
@@ -76,9 +76,10 @@ class ProjectAuditorGUI:
         self.auditor = None
         self.is_running = False
         self.report_path = None
+        self.btn_images = {}
 
         # Center window on screen
-        self.center_window(700, 700)
+        self.center_window(690, 710)
 
         # Build UI Components
         self.create_widgets()
@@ -123,42 +124,124 @@ class ProjectAuditorGUI:
         y = max(0, (screen_height // 2) - (height // 2) - 20)
         self.root.geometry(f"{width}x{height}+{x}+{y}")
 
+    def make_gradient_pill(self, w, h, r, text, font_size=10, state="normal"):
+        """Generates a super-sampled antialiased Cyan-to-Emerald gradient button."""
+        scale = 2
+        w2, h2, r2 = w * scale, h * scale, r * scale
+        canvas = Image.new('RGBA', (w2, h2), (0, 0, 0, 0))
+
+        if state == "disabled":
+            stops = [(0.0, (39, 39, 42)), (1.0, (39, 39, 42))]
+            text_color = (113, 113, 122, 255)
+        elif state == "hover":
+            stops = [
+                (0.0, (34, 211, 238)),  # Cyan 400
+                (0.35, (45, 212, 191)), # Teal 400
+                (0.70, (52, 211, 153)), # Emerald 400
+                (1.0, (110, 231, 183))  # Mint 300
+            ]
+            text_color = (2, 44, 34, 255)
+        else:
+            stops = [
+                (0.0, (6, 182, 212)),   # Cyan 500
+                (0.35, (20, 184, 166)),  # Teal 500
+                (0.70, (16, 185, 129)),  # Emerald 500
+                (1.0, (52, 211, 153))   # Emerald 400
+            ]
+            text_color = (2, 44, 34, 255)
+
+        def interpolate_color(t):
+            if t <= stops[0][0]:
+                return stops[0][1]
+            if t >= stops[-1][0]:
+                return stops[-1][1]
+            for i in range(len(stops) - 1):
+                t0, c0 = stops[i]
+                t1, c1 = stops[i + 1]
+                if t0 <= t <= t1:
+                    factor = (t - t0) / float(t1 - t0)
+                    return (
+                        int(c0[0] + (c1[0] - c0[0]) * factor),
+                        int(c0[1] + (c1[1] - c0[1]) * factor),
+                        int(c0[2] + (c1[2] - c0[2]) * factor),
+                    )
+            return stops[-1][1]
+
+        line_img = Image.new('RGB', (w2, 1))
+        line_pixels = [interpolate_color(x / float(w2 - 1)) for x in range(w2)]
+        line_img.putdata(line_pixels)
+        grad_img = line_img.resize((w2, h2), Image.Resampling.NEAREST)
+
+        mask = Image.new('L', (w2, h2), 0)
+        d_mask = ImageDraw.Draw(mask)
+        d_mask.rounded_rectangle([0, 0, w2 - 1, h2 - 1], radius=r2, fill=255)
+        canvas.paste(grad_img, (0, 0), mask)
+
+        draw = ImageDraw.Draw(canvas)
+        font_path = "segoeuib.ttf" if os.name == 'nt' else None
+        try:
+            font = ImageFont.truetype(font_path, font_size * scale)
+        except Exception:
+            font = ImageFont.load_default()
+
+        bbox = draw.textbbox((0, 0), text, font=font)
+        tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
+        tx = (w2 - tw) // 2
+        ty = (h2 - th) // 2 - 2
+        draw.text((tx, ty), text, fill=text_color, font=font)
+
+        resized = canvas.resize((w, h), Image.Resampling.LANCZOS)
+        return ImageTk.PhotoImage(resized)
+
     def create_widgets(self):
         # -------------------------------------------------------------
-        # 1. Agent Header Banner
+        # 0. Top Accent Gradient Line (Pro Max UI Detail)
         # -------------------------------------------------------------
-        header = tk.Frame(self.root, bg=self.C_SURFACE, padx=20, pady=16, highlightthickness=1, highlightbackground=self.C_BORDER)
-        header.pack(fill=tk.X, padx=16, pady=(16, 12))
+        top_accent = tk.Canvas(self.root, height=3, bg=self.C_BG, highlightthickness=0)
+        top_accent.pack(fill=tk.X)
+        self.root.update_idletasks()
+        win_w = 690
+        for i in range(win_w):
+            t = i / float(win_w)
+            r = int(6 + (52 - 6) * t)
+            g = int(182 + (211 - 182) * t)
+            b = int(212 + (153 - 212) * t)
+            color_hex = f"#{r:02x}{g:02x}{b:02x}"
+            top_accent.create_line(i, 0, i, 3, fill=color_hex)
+
+        # -------------------------------------------------------------
+        # 1. Header Banner
+        # -------------------------------------------------------------
+        header = tk.Frame(self.root, bg=self.C_SURFACE, padx=20, pady=14, highlightthickness=1, highlightbackground=self.C_BORDER)
+        header.pack(fill=tk.X, padx=16, pady=(12, 10))
 
         top_row = tk.Frame(header, bg=self.C_SURFACE)
         top_row.pack(fill=tk.X)
 
-        # Agent Status Dot + Title
         title_group = tk.Frame(top_row, bg=self.C_SURFACE)
         title_group.pack(side=tk.LEFT)
 
-        self.agent_dot = tk.Label(
+        self.status_dot = tk.Label(
             title_group,
             text="●",
             font=("Segoe UI", 12),
             fg=self.C_EMERALD,
             bg=self.C_SURFACE
         )
-        self.agent_dot.pack(side=tk.LEFT, padx=(0, 6))
+        self.status_dot.pack(side=tk.LEFT, padx=(0, 6))
 
         title_lbl = tk.Label(
             title_group,
-            text="PROJECT REVIEW AGENT",
+            text="PROJECT ARCHITECTURE REVIEWER",
             font=("Segoe UI Variable Display", 13, "bold"),
             fg=self.C_TEXT,
             bg=self.C_SURFACE
         )
         title_lbl.pack(side=tk.LEFT)
 
-        # Agent Badge
         badge = tk.Label(
             top_row,
-            text=" AI-NATIVE 2.0 • OFFLINE ",
+            text=" RULE-BASED • OFFLINE 100% ",
             font=("Segoe UI Variable Text", 8, "bold"),
             fg=self.C_EMERALD,
             bg=self.C_EMERALD_BG,
@@ -169,7 +252,7 @@ class ProjectAuditorGUI:
 
         sub_lbl = tk.Label(
             header,
-            text="Autonomous Architecture Governance & System Design Audit Engine",
+            text="Kiểm toán kiến trúc đối chiếu chuẩn Clean Architecture & System Design Starter Kit",
             font=("Segoe UI Variable Text", 9),
             fg=self.C_TEXT_MUTED,
             bg=self.C_SURFACE
@@ -183,12 +266,12 @@ class ProjectAuditorGUI:
         body.pack(fill=tk.BOTH, expand=True)
 
         # --- Target Scope Card ---
-        dir_card = tk.Frame(body, bg=self.C_SURFACE, padx=14, pady=12, highlightthickness=1, highlightbackground=self.C_BORDER)
+        dir_card = tk.Frame(body, bg=self.C_SURFACE, padx=14, pady=10, highlightthickness=1, highlightbackground=self.C_BORDER)
         dir_card.pack(fill=tk.X, pady=(0, 10))
 
         dir_lbl = tk.Label(
             dir_card,
-            text="TARGET REPOSITORY PATH",
+            text="THƯ MỤC DỰ ÁN CẦN KIỂM TOÁN",
             font=("Segoe UI Variable Text", 8, "bold"),
             fg=self.C_TEXT_MUTED,
             bg=self.C_SURFACE
@@ -210,54 +293,58 @@ class ProjectAuditorGUI:
             insertbackground=self.C_EMERALD,
             relief=tk.FLAT,
             highlightthickness=1,
-            highlightbackground="#374151",
+            highlightbackground="#27272a",
             highlightcolor=self.C_EMERALD
         )
-        self.path_entry.pack(side=tk.LEFT, fill=tk.X, expand=True, ipady=6, padx=(0, 8))
+        self.path_entry.pack(side=tk.LEFT, fill=tk.X, expand=True, ipady=5, padx=(0, 8))
 
         browse_btn = tk.Button(
             dir_input_row,
-            text=" Browse... ",
+            text=" Duyệt... ",
             font=("Segoe UI Variable Text", 9, "bold"),
-            bg="#1f2937",
+            bg="#27272a",
             fg=self.C_TEXT,
-            activebackground="#374151",
+            activebackground="#3f3f46",
             activeforeground="#ffffff",
             relief=tk.FLAT,
             padx=14,
             pady=4,
             cursor="hand2",
             highlightthickness=1,
-            highlightbackground="#4b5563",
+            highlightbackground="#3f3f46",
             command=self.browse_directory
         )
         browse_btn.pack(side=tk.RIGHT)
 
-        # --- Primary Action CTA (Agent Execution Button) ---
-        self.start_btn = tk.Button(
+        # --- Primary Action CTA (Pro-Max Gradient Button) ---
+        self.btn_w = 654
+        self.btn_h = 42
+        self.img_btn_normal = self.make_gradient_pill(self.btn_w, self.btn_h, 8, "⚡  BẮT ĐẦU KIỂM TOÁN KIẾN TRÚC", font_size=10, state="normal")
+        self.img_btn_hover = self.make_gradient_pill(self.btn_w, self.btn_h, 8, "⚡  BẮT ĐẦU KIỂM TOÁN KIẾN TRÚC", font_size=10, state="hover")
+        self.img_btn_disabled = self.make_gradient_pill(self.btn_w, self.btn_h, 8, "⏳  ĐANG KIỂM TOÁN KIẾN TRÚC...", font_size=10, state="disabled")
+        self.img_btn_again = self.make_gradient_pill(self.btn_w, self.btn_h, 8, "🔄  QUÉT LẠI / QUÉT TIẾP", font_size=10, state="normal")
+        self.img_btn_again_hover = self.make_gradient_pill(self.btn_w, self.btn_h, 8, "🔄  QUÉT LẠI / QUÉT TIẾP", font_size=10, state="hover")
+
+        self.start_btn = tk.Label(
             body,
-            text="⚡  RUN ARCHITECTURE AUDIT",
-            font=("Segoe UI Variable Display", 10, "bold"),
-            bg=self.C_EMERALD,
-            fg="#022c22",
-            activebackground="#059669",
-            activeforeground="#ffffff",
-            relief=tk.FLAT,
-            pady=10,
-            cursor="hand2",
-            command=self.start_audit_thread
+            image=self.img_btn_normal,
+            bg=self.C_BG,
+            cursor="hand2"
         )
         self.start_btn.pack(fill=tk.X, pady=(0, 10))
+        self.start_btn.bind("<Button-1>", lambda e: self.start_audit_thread())
+        self.start_btn.bind("<Enter>", lambda e: self._on_btn_hover(True))
+        self.start_btn.bind("<Leave>", lambda e: self._on_btn_hover(False))
 
-        # --- Progress Bar (Sleek Neon Accent Bar) ---
+        # --- Progress Bar (Canvas Based Smooth Gradient Bar) ---
         prog_frame = tk.Frame(body, bg=self.C_SURFACE, padx=14, pady=10, highlightthickness=1, highlightbackground=self.C_BORDER)
         prog_frame.pack(fill=tk.X, pady=(0, 10))
 
-        self.progress_canvas = tk.Canvas(prog_frame, height=8, bg=self.C_TERMINAL_BG, highlightthickness=0)
+        self.progress_canvas = tk.Canvas(prog_frame, height=8, bg=self.C_CONSOLE_BG, highlightthickness=0)
         self.progress_canvas.pack(fill=tk.X)
         self.progress_rect = self.progress_canvas.create_rectangle(0, 0, 0, 8, fill=self.C_EMERALD, width=0)
 
-        self.status_var = tk.StringVar(value="Agent ready. Press 'RUN ARCHITECTURE AUDIT' to inspect against Starter Kit standards.")
+        self.status_var = tk.StringVar(value="Sẵn sàng. Nhấn 'BẮT ĐẦU KIỂM TOÁN KIẾN TRÚC' để đối chiếu mã nguồn.")
         status_lbl = tk.Label(
             prog_frame,
             textvariable=self.status_var,
@@ -276,55 +363,55 @@ class ProjectAuditorGUI:
         # Metric 1: Total Score
         m1 = tk.Frame(grid_frame, bg=self.C_SURFACE, padx=12, pady=8, highlightthickness=1, highlightbackground=self.C_BORDER)
         m1.grid(row=0, column=0, sticky="nsew", padx=(0, 5))
-        tk.Label(m1, text="COMPLIANCE SCORE", font=("Segoe UI Variable Text", 8, "bold"), fg=self.C_TEXT_DIM, bg=self.C_SURFACE).pack(anchor="w")
+        tk.Label(m1, text="ĐIỂM TUÂN THỦ (SCORE)", font=("Segoe UI Variable Text", 8, "bold"), fg=self.C_TEXT_DIM, bg=self.C_SURFACE).pack(anchor="w")
         self.score_val_lbl = tk.Label(m1, text="-- / 100", font=("Segoe UI Variable Display", 13, "bold"), fg=self.C_TEXT, bg=self.C_SURFACE)
         self.score_val_lbl.pack(anchor="w", pady=(2, 0))
 
         # Metric 2: Grade Pill
         m2 = tk.Frame(grid_frame, bg=self.C_SURFACE, padx=12, pady=8, highlightthickness=1, highlightbackground=self.C_BORDER)
         m2.grid(row=0, column=1, sticky="nsew", padx=5)
-        tk.Label(m2, text="ARCH RATING", font=("Segoe UI Variable Text", 8, "bold"), fg=self.C_TEXT_DIM, bg=self.C_SURFACE).pack(anchor="w")
-        self.grade_val_lbl = tk.Label(m2, text="PENDING", font=("Segoe UI Variable Display", 13, "bold"), fg=self.C_TEXT_MUTED, bg=self.C_SURFACE)
+        tk.Label(m2, text="XẾP HẠNG KIẾN TRÚC", font=("Segoe UI Variable Text", 8, "bold"), fg=self.C_TEXT_DIM, bg=self.C_SURFACE).pack(anchor="w")
+        self.grade_val_lbl = tk.Label(m2, text="CHƯA QUÉT", font=("Segoe UI Variable Display", 13, "bold"), fg=self.C_TEXT_MUTED, bg=self.C_SURFACE)
         self.grade_val_lbl.pack(anchor="w", pady=(2, 0))
 
         # Metric 3: Pillars Checked
         m3 = tk.Frame(grid_frame, bg=self.C_SURFACE, padx=12, pady=8, highlightthickness=1, highlightbackground=self.C_BORDER)
         m3.grid(row=0, column=2, sticky="nsew", padx=(5, 0))
-        tk.Label(m3, text="GOVERNANCE SCOPE", font=("Segoe UI Variable Text", 8, "bold"), fg=self.C_TEXT_DIM, bg=self.C_SURFACE).pack(anchor="w")
-        self.scope_val_lbl = tk.Label(m3, text="7 Pillars Ready", font=("Segoe UI Variable Display", 11, "bold"), fg=self.C_CYAN, bg=self.C_SURFACE)
+        tk.Label(m3, text="PHẠM VI ĐỐI CHIẾU", font=("Segoe UI Variable Text", 8, "bold"), fg=self.C_TEXT_DIM, bg=self.C_SURFACE).pack(anchor="w")
+        self.scope_val_lbl = tk.Label(m3, text="7 Trụ Cột Starter Kit", font=("Segoe UI Variable Display", 11, "bold"), fg=self.C_CYAN, bg=self.C_SURFACE)
         self.scope_val_lbl.pack(anchor="w", pady=(4, 0))
 
-        # --- Agent Console Output (Terminal View) ---
-        console_frame = tk.Frame(body, bg=self.C_TERMINAL_BG, highlightthickness=1, highlightbackground=self.C_BORDER)
+        # --- Console Output (Terminal View) ---
+        console_frame = tk.Frame(body, bg=self.C_CONSOLE_BG, highlightthickness=1, highlightbackground=self.C_BORDER)
         console_frame.pack(fill=tk.BOTH, expand=True, pady=(0, 10))
 
-        console_title_bar = tk.Frame(console_frame, bg="#0d1526", padx=10, pady=4)
+        console_title_bar = tk.Frame(console_frame, bg="#18181b", padx=10, pady=4)
         console_title_bar.pack(fill=tk.X)
         tk.Label(
             console_title_bar,
-            text="AGENT DIAGNOSTICS & TELEMETRY",
+            text="NHẬT KÝ KIỂM TOÁN KIẾN TRÚC (AUDIT LOG)",
             font=("Segoe UI Variable Text", 8, "bold"),
             fg=self.C_TEXT_MUTED,
-            bg="#0d1526"
+            bg="#18181b"
         ).pack(side=tk.LEFT)
 
         self.details_box = tk.Text(
             console_frame,
             height=7,
             font=("Cascadia Code", 9),
-            bg=self.C_TERMINAL_BG,
-            fg="#cbd5e1",
+            bg=self.C_CONSOLE_BG,
+            fg="#e4e4e7",
             relief=tk.FLAT,
             padx=12,
             pady=8,
             insertbackground=self.C_EMERALD
         )
         self.details_box.pack(fill=tk.BOTH, expand=True)
-        self.details_box.insert(tk.END, "Agent initialized. Standing by to benchmark repository against Starter Kit.\n")
+        self.details_box.insert(tk.END, "Hệ thống kiểm toán sẵn sàng. Bấm nút phía trên để bắt đầu đối chiếu mã nguồn.\n")
         self.details_box.config(state=tk.DISABLED)
 
         # Report path notification
-        self.report_notice_var = tk.StringVar(value="Report output: PROJECT_REVIEW_REPORT.md will be generated in repository root.")
+        self.report_notice_var = tk.StringVar(value="Báo cáo: PROJECT_REVIEW_REPORT.md sẽ được tạo tại thư mục dự án.")
         report_lbl = tk.Label(
             body,
             textvariable=self.report_notice_var,
@@ -343,17 +430,17 @@ class ProjectAuditorGUI:
 
         self.open_report_btn = tk.Button(
             footer,
-            text="📄 Open Report",
+            text="📄 Mở Báo Cáo",
             font=("Segoe UI Variable Text", 9, "bold"),
-            bg="#1e293b",
+            bg="#18181b",
             fg=self.C_TEXT_MUTED,
-            activebackground="#334155",
+            activebackground="#27272a",
             activeforeground="#ffffff",
             relief=tk.FLAT,
             padx=12,
             pady=6,
             highlightthickness=1,
-            highlightbackground="#334155",
+            highlightbackground="#27272a",
             state=tk.DISABLED,
             command=self.open_report_file
         )
@@ -361,17 +448,17 @@ class ProjectAuditorGUI:
 
         self.open_folder_btn = tk.Button(
             footer,
-            text="📁 Show in Folder",
+            text="📁 Mở Thư Mục Báo Cáo",
             font=("Segoe UI Variable Text", 9, "bold"),
-            bg="#1e293b",
+            bg="#18181b",
             fg=self.C_TEXT_MUTED,
-            activebackground="#334155",
+            activebackground="#27272a",
             activeforeground="#ffffff",
             relief=tk.FLAT,
             padx=12,
             pady=6,
             highlightthickness=1,
-            highlightbackground="#334155",
+            highlightbackground="#27272a",
             state=tk.DISABLED,
             command=self.open_report_folder
         )
@@ -379,7 +466,7 @@ class ProjectAuditorGUI:
 
         self.copy_prompt_btn = tk.Button(
             footer,
-            text="🤖 Copy AI Agent Prompt",
+            text="📋 Copy Prompt Cho AI",
             font=("Segoe UI Variable Text", 9, "bold"),
             bg="#0284c7",
             fg="#ffffff",
@@ -395,11 +482,11 @@ class ProjectAuditorGUI:
 
         close_btn = tk.Button(
             footer,
-            text="Close",
+            text="Đóng",
             font=("Segoe UI Variable Text", 9),
             bg=self.C_BG,
             fg=self.C_TEXT_MUTED,
-            activebackground="#1e293b",
+            activebackground="#18181b",
             activeforeground="#ffffff",
             relief=tk.FLAT,
             padx=14,
@@ -408,10 +495,18 @@ class ProjectAuditorGUI:
         )
         close_btn.pack(side=tk.RIGHT)
 
+    def _on_btn_hover(self, is_hover):
+        if self.is_running:
+            return
+        if self.auditor is not None:
+            self.start_btn.config(image=self.img_btn_again_hover if is_hover else self.img_btn_again)
+        else:
+            self.start_btn.config(image=self.img_btn_hover if is_hover else self.img_btn_normal)
+
     def browse_directory(self):
         chosen = filedialog.askdirectory(
             initialdir=self.path_var.get(),
-            title="Select target repository folder to audit"
+            title="Chọn thư mục dự án cần kiểm toán"
         )
         if chosen:
             self.path_var.set(os.path.normpath(chosen))
@@ -425,22 +520,22 @@ class ProjectAuditorGUI:
         self.root.after(0, _do_update)
 
     def start_audit_thread(self):
-        target_dir = self.path_var.get().strip()
-        if not target_dir or not Path(target_dir).is_dir():
-            messagebox.showerror(
-                "Invalid Directory",
-                "The selected target repository path does not exist!\nPlease browse and select a valid directory."
-            )
-            return
-
         if self.is_running:
             return
 
+        target_dir = self.path_var.get().strip()
+        if not target_dir or not Path(target_dir).is_dir():
+            messagebox.showerror(
+                "Lỗi Đường Dẫn",
+                "Thư mục dự án không tồn tại!\nVui lòng chọn lại thư mục hợp lệ."
+            )
+            return
+
         self.is_running = True
-        self.agent_dot.config(fg=self.C_AMBER)
-        self.start_btn.config(state=tk.DISABLED, text="⏳  AUDITING REPOSITORY...", bg="#334155", fg="#94a3b8")
-        self.open_report_btn.config(state=tk.DISABLED, fg="#94a3b8")
-        self.open_folder_btn.config(state=tk.DISABLED, fg="#94a3b8")
+        self.status_dot.config(fg=self.C_AMBER)
+        self.start_btn.config(image=self.img_btn_disabled)
+        self.open_report_btn.config(state=tk.DISABLED, fg=self.C_TEXT_DIM)
+        self.open_folder_btn.config(state=tk.DISABLED, fg=self.C_TEXT_DIM)
         self.copy_prompt_btn.config(state=tk.DISABLED)
         self.progress_canvas.coords(self.progress_rect, 0, 0, 0, 8)
 
@@ -458,8 +553,8 @@ class ProjectAuditorGUI:
 
     def _on_audit_finished(self, total_score):
         self.is_running = False
-        self.agent_dot.config(fg=self.C_EMERALD)
-        self.start_btn.config(state=tk.NORMAL, text="🔄  RUN NEW AUDIT SCAN", bg=self.C_EMERALD, fg="#022c22")
+        self.status_dot.config(fg=self.C_EMERALD)
+        self.start_btn.config(image=self.img_btn_again)
         self.open_report_btn.config(state=tk.NORMAL, fg=self.C_TEXT)
         self.open_folder_btn.config(state=tk.NORMAL, fg=self.C_TEXT)
         self.copy_prompt_btn.config(state=tk.NORMAL)
@@ -482,17 +577,17 @@ class ProjectAuditorGUI:
             fg=score_fg
         )
         self.grade_val_lbl.config(
-            text=f"GRADE {grade.split()[0]}",
+            text=f"{grade.split()[0]}",
             fg=grade_fg
         )
         self.scope_val_lbl.config(
-            text=f"{len(self.auditor.scores)} Pillars Verified",
+            text=f"{len(self.auditor.scores)} Trụ Cột Đã Quét",
             fg=self.C_CYAN
         )
 
         details_text = []
         details_text.append("════════════════════════════════════════════════════════════════════")
-        details_text.append("  BENCHMARK AUDIT RESULTS (COMPLIANCE BREAKDOWN)")
+        details_text.append("  KẾT QUẢ ĐỐI CHIẾU KIẾN TRÚC (COMPLIANCE AUDIT)")
         details_text.append("════════════════════════════════════════════════════════════════════\n")
         
         for pillar, score in self.auditor.scores.items():
@@ -501,12 +596,12 @@ class ProjectAuditorGUI:
             details_text.append(f"  • {pillar:<30} [{bar}] {score:>3}%  {status_tag}")
 
         if self.auditor.innovations:
-            details_text.append("\n🌟 ADVANCED INNOVATIONS DETECTED:")
+            details_text.append("\n🌟 ĐIỂM SÁNG CAO CẤP HƠN STARTER KIT (INNOVATIONS):")
             for item in self.auditor.innovations:
                 details_text.append(f"    ✔ {item}")
 
         if self.auditor.gaps:
-            details_text.append("\n⚠️ ARCHITECTURAL GAPS REQUIRING ATTENTION:")
+            details_text.append("\n⚠️ KHOẢNG TRỐNG KIẾN TRÚC CẦN KHẮC PHỤC (GAPS):")
             for gap in self.auditor.gaps:
                 details_text.append(f"    ✖ {gap}")
 
@@ -516,22 +611,22 @@ class ProjectAuditorGUI:
         self.details_box.config(state=tk.DISABLED)
 
         if self.report_path:
-            self.report_notice_var.set(f"✔ Audit report generated: {self.report_path.resolve()}")
+            self.report_notice_var.set(f"✔ Đã xuất file báo cáo tại: {self.report_path.resolve()}")
 
     def _on_audit_error(self, err_msg):
         self.is_running = False
-        self.agent_dot.config(fg=self.C_ROSE)
-        self.start_btn.config(state=tk.NORMAL, text="⚡  RUN ARCHITECTURE AUDIT", bg=self.C_EMERALD, fg="#022c22")
-        messagebox.showerror("Audit Error", f"An error occurred while auditing the project:\n{err_msg}")
+        self.status_dot.config(fg=self.C_ROSE)
+        self.start_btn.config(image=self.img_btn_normal)
+        messagebox.showerror("Lỗi Kiểm Toán", f"Có lỗi xảy ra trong quá trình quét:\n{err_msg}")
 
     def open_report_file(self):
         if self.report_path and self.report_path.exists():
             try:
                 os.startfile(str(self.report_path.resolve()))
             except Exception as e:
-                messagebox.showerror("Error", f"Failed to open report file: {e}")
+                messagebox.showerror("Lỗi", f"Không thể mở file báo cáo: {e}")
         else:
-            messagebox.showwarning("Warning", "Report file not found yet!")
+            messagebox.showwarning("Cảnh Báo", "Chưa tìm thấy file báo cáo!")
 
     def open_report_folder(self):
         target_dir = self.path_var.get().strip()
@@ -539,7 +634,7 @@ class ProjectAuditorGUI:
             try:
                 os.startfile(target_dir)
             except Exception as e:
-                messagebox.showerror("Error", f"Failed to open directory: {e}")
+                messagebox.showerror("Lỗi", f"Không thể mở thư mục: {e}")
 
     def copy_ai_prompt(self):
         if self.auditor:
@@ -547,10 +642,10 @@ class ProjectAuditorGUI:
             self.root.clipboard_clear()
             self.root.clipboard_append(prompt_text)
             messagebox.showinfo(
-                "Prompt Copied!",
-                "AI Agent Prompt has been copied to Clipboard!\n\n"
-                "👉 Open your AI Coding Agent session (Claude Code, Cursor, Antigravity) "
-                "and paste (Ctrl+V) to start automated refactoring based on the audit report."
+                "Đã Sao Chép!",
+                "Đã sao chép đoạn Prompt cho AI Agent vào Clipboard!\n\n"
+                "👉 Bạn chỉ cần mở cửa sổ Chat với AI (Claude Code, Cursor, Antigravity) "
+                "và nhấn Ctrl+V để dán nội dung cho AI đọc và sửa code."
             )
 
 
