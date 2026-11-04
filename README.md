@@ -215,6 +215,9 @@ flowchart TD
 ├── tests/                          # Automated Test Suite (Unit, Integration, E2E)
 ├── .env.example                    # Mẫu cấu hình biến môi trường bảo mật
 ├── .gitignore                      # Quy chuẩn loại trừ file rác & secrets
+├── Project-Review.bat              # Thanh tra kiến trúc tự động (Windows click-and-run)
+├── Project-Review.sh               # Thanh tra kiến trúc tự động (Linux/macOS)
+├── scripts/                        # Scripts công cụ thanh tra (project_auditor.py)
 ├── PLAN.md                         # Kế hoạch chi tiết của Starter Kit
 └── LICENSE                         # Giấy phép mã nguồn mở (MIT)
 ```
@@ -222,6 +225,18 @@ flowchart TD
 ---
 
 ## ⚡ Hướng Dẫn Bắt Đầu Nhanh (Quick Start)
+
+### 0. Thanh Tra Kiến Trúc Dự Án (Project Review)
+Chạy bộ thanh tra tự động (100% Offline, Zero-Token) để đối chiếu mã nguồn với chuẩn mực Starter Kit:
+```bash
+# Trên Windows (hoặc nhấp đúp file Project-Review.bat):
+.\Project-Review.bat
+
+# Hoặc qua Makefile / Linux:
+make review
+# hoặc: ./Project-Review.sh
+```
+> Script sẽ quét 7 trụ cột kiến trúc và xuất ra file **`PROJECT_REVIEW_REPORT.md`**. Bạn chỉ cần ném file này vào chat với **Claude Code, Cursor, hoặc Antigravity** để AI tự động sửa các lỗi thiếu sót mà không tốn token quét file!
 
 ### 1. Clone Repository & Khởi Tạo Môi Trường
 ```bash
@@ -255,6 +270,7 @@ Mở trình duyệt truy cập: **`http://localhost:3000`** để trải nghiệ
 | Lệnh | Ý Nghĩa Chức Năng |
 | :--- | :--- |
 | `make setup` | Tự động tạo file `.env` từ `.env.example` và kiểm tra môi trường. |
+| `make review` | Thanh tra toàn diện kiến trúc dự án (Xuất PROJECT_REVIEW_REPORT.md). |
 | `make up` | Khởi chạy toàn bộ hạ tầng CSDL cục bộ qua Docker Compose (PostgreSQL, Redis). |
 | `make down` | Dừng an toàn toàn bộ containers hạ tầng. |
 | `make dev-frontend` | Khởi chạy frontend React trên Vite dev server (`http://localhost:3000`). |
