@@ -105,7 +105,8 @@ flowchart TD
 │   ├── 0004-test-strategy.md       # Chiến lược kiểm thử tự động TDD đa tầng
 │   ├── 0005-definition-of-done.md  # Tiêu chuẩn hoàn thành nghiệm thu (DoD)
 │   ├── 0006-clean-architecture-and-ddd.md # Phân tầng Clean Architecture & CQRS
-│   └── 0007-agentic-patterns-and-evals.md # Agentic AI Patterns & RAG Evals
+│   ├── 0007-agentic-patterns-and-evals.md # Agentic AI Patterns & RAG Evals
+│   └── 0008-frontend-architecture.md     # Feature-Driven Architecture (Bulletproof React)
 ├── planning/                       # Kế hoạch & Quản trị tiến độ
 │   ├── roadmap.md                  # Lộ trình tổng thể & các Checkpoints
 │   ├── backlog.md                  # Danh mục User Stories (US-xxx) và Tasks (T-xxx)
@@ -124,7 +125,14 @@ flowchart TD
 │   ├── system-architecture.md      # Sơ đồ kiến trúc tổng thể (C4 Container Diagram)
 │   ├── deployment-guide.md         # Hướng dẫn deploy Local, Staging & Production
 │   └── reference-slides/           # Các bài giảng & slide tham khảo
-├── src/                            # Mã nguồn ứng dụng (Clean Architecture Blueprint)
+├── frontend/                       # FRONTEND STARTER KIT (Bulletproof React)
+│   ├── src/app/                    # Application Providers & Router
+│   ├── src/components/             # UI Components dùng chung (Buttons, Cards, Layouts)
+│   ├── src/features/               # Modules nghiệp vụ độc lập (Auth, Dashboard, AI Chat)
+│   ├── src/lib/api-client.ts       # Axios client có interceptors & error normalization
+│   ├── src/stores/                 # Quản lý Global Client State qua Zustand
+│   └── README.md                   # Hướng dẫn chi tiết kiến trúc Frontend
+├── src/                            # BACKEND & DOMAIN (Clean Architecture Blueprint)
 │   ├── Domain/                     # Enterprise Core & Entities (Độc lập 100%)
 │   ├── Application/                # Use Cases, CQRS Commands/Queries, DTOs
 │   ├── Infrastructure/             # DB Persistence, External Services, Caching

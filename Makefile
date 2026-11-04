@@ -8,6 +8,12 @@ setup: ## Khởi tạo môi trường (Copy .env, tạo thư mục)
 	@if [ ! -f .env ]; then cp .env.example .env && echo "Created .env from .env.example"; fi
 	@echo "Setup completed successfully."
 
+dev-frontend: ## Khởi chạy Frontend React (Vite dev server)
+	cd frontend && npm run dev
+
+build-frontend: ## Biên dịch production build cho Frontend
+	cd frontend && npm run build
+
 up: ## Khởi chạy toàn bộ hạ tầng local qua Docker Compose
 	docker compose up -d
 
