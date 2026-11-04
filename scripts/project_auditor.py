@@ -567,7 +567,23 @@ class ProjectAuditor:
 
 
 if __name__ == '__main__':
-    target = sys.argv[1] if len(sys.argv) > 1 else '.'
+    # Determine project root:
+    default_dir = Path(sys.executable).resolve().parent if getattr(sys, 'frozen', False) else Path.cwd()
+    
+    target = default_dir
+    if len(sys.argv) > 1:
+        arg_path = Path(sys.argv[1]).resolve()
+        if arg_path.is_dir():
+            target = arg_path
+
     auditor = ProjectAuditor(target)
     score = auditor.run()
+
+    # If running interactively as frozen exe without arguments, pause so console window stays open
+    if getattr(sys, 'frozen', False) and (len(sys.argv) <= 1 or sys.argv[1] not in ('ci-mode', '--no-pause')):
+        try:
+            input("Nhấn phím Enter để đóng cửa sổ...")
+        except Exception:
+            pass
+
     sys.exit(0 if score >= 70 else 1)

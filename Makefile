@@ -1,4 +1,4 @@
-.PHONY: help setup review dev-frontend build-frontend up down restart logs test lint clean
+.PHONY: help setup review build-exe dev-frontend build-frontend up down restart logs test lint clean
 
 help: ## Hiển thị danh mục các lệnh hỗ trợ
 	@echo "Universal Project Starter Kit - Developer Commands:"
@@ -10,6 +10,9 @@ setup: ## Khởi tạo môi trường (Copy .env, tạo thư mục)
 
 review: ## Thanh tra toàn diện kiến trúc dự án (Xuất PROJECT_REVIEW_REPORT.md)
 	python scripts/project_auditor.py
+
+build-exe: ## Đóng gói Project-Review.exe độc lập có gắn icon ứng dụng
+	build-exe.bat "ci-mode"
 
 dev-frontend: ## Khởi chạy Frontend React (Vite dev server)
 	cd frontend && npm run dev

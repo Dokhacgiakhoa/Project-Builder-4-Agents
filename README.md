@@ -215,9 +215,12 @@ flowchart TD
 ├── tests/                          # Automated Test Suite (Unit, Integration, E2E)
 ├── .env.example                    # Mẫu cấu hình biến môi trường bảo mật
 ├── .gitignore                      # Quy chuẩn loại trừ file rác & secrets
-├── Project-Review.bat              # Thanh tra kiến trúc tự động (Windows click-and-run)
-├── Project-Review.sh               # Thanh tra kiến trúc tự động (Linux/macOS)
-├── scripts/                        # Scripts công cụ thanh tra (project_auditor.py)
+├── Project-Review.exe              # Ứng dụng thanh tra kiến trúc có Icon độc quyền (Standalone)
+├── Project-Review.bat              # Script thanh tra kiến trúc (Windows)
+├── Project-Review.sh               # Script thanh tra kiến trúc (Linux/macOS)
+├── build-exe.bat                   # Tự động đóng gói Project-Review.exe
+├── assets/                         # Vector Hero Banner & App Icon (.ico)
+├── scripts/                        # Engine thanh tra kiến trúc & sinh icon
 ├── PLAN.md                         # Kế hoạch chi tiết của Starter Kit
 └── LICENSE                         # Giấy phép mã nguồn mở (MIT)
 ```
@@ -229,14 +232,15 @@ flowchart TD
 ### 0. Thanh Tra Kiến Trúc Dự Án (Project Review)
 Chạy bộ thanh tra tự động (100% Offline, Zero-Token) để đối chiếu mã nguồn với chuẩn mực Starter Kit:
 ```bash
-# Trên Windows (hoặc nhấp đúp file Project-Review.bat):
-.\Project-Review.bat
+# Cách 1 (Khuyến nghị trên Windows): Nhấp đúp trực tiếp vào file:
+Project-Review.exe
+# (Hoặc chạy: .\Project-Review.bat)
 
-# Hoặc qua Makefile / Linux:
+# Cách 2 (Qua Makefile hoặc Linux/macOS):
 make review
 # hoặc: ./Project-Review.sh
 ```
-> Script sẽ quét 7 trụ cột kiến trúc và xuất ra file **`PROJECT_REVIEW_REPORT.md`**. Bạn chỉ cần ném file này vào chat với **Claude Code, Cursor, hoặc Antigravity** để AI tự động sửa các lỗi thiếu sót mà không tốn token quét file!
+> Tệp **`Project-Review.exe`** có gắn **Custom App Icon độc quyền**, nhúng sẵn runtime độc lập (chạy ngay cả khi máy tính hoàn toàn chưa cài Python). Script sẽ quét 7 trụ cột kiến trúc và xuất ra file **`PROJECT_REVIEW_REPORT.md`**. Bạn chỉ cần ném file này vào chat với **Claude Code, Cursor, hoặc Antigravity** để AI tự động sửa các lỗi thiếu sót mà không tốn token quét file!
 
 ### 1. Clone Repository & Khởi Tạo Môi Trường
 ```bash
@@ -271,6 +275,7 @@ Mở trình duyệt truy cập: **`http://localhost:3000`** để trải nghiệ
 | :--- | :--- |
 | `make setup` | Tự động tạo file `.env` từ `.env.example` và kiểm tra môi trường. |
 | `make review` | Thanh tra toàn diện kiến trúc dự án (Xuất PROJECT_REVIEW_REPORT.md). |
+| `make build-exe` | Đóng gói Project-Review.exe độc lập có gắn icon ứng dụng. |
 | `make up` | Khởi chạy toàn bộ hạ tầng CSDL cục bộ qua Docker Compose (PostgreSQL, Redis). |
 | `make down` | Dừng an toàn toàn bộ containers hạ tầng. |
 | `make dev-frontend` | Khởi chạy frontend React trên Vite dev server (`http://localhost:3000`). |
