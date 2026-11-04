@@ -5,7 +5,7 @@
 ## 🚀 1. MÔI TRƯỜNG PHÁT TRIỂN LOCAL
 1. Clone repository về máy:
    ```bash
-   git clone https://github.com/Dokhacgiakhoa/Project-Starter-Kit.git
+   git clone https://github.com/<your-org>/<your-repo>.git
    cd Project-Starter-Kit
    ```
 2. Tạo file `.env` từ file mẫu:

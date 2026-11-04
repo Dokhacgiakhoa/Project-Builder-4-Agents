@@ -199,7 +199,7 @@ export const AccountPage: React.FC = () => {
                   <h2 className="text-xl font-black text-slate-950 truncate">{fullName}</h2>
                   <div className="flex items-center gap-1.5 text-xs text-slate-500 font-semibold truncate">
                     <Mail className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                    <span>{user?.email || 'dokhacgiakhoa666@gmail.com'}</span>
+                    <span>{user?.email || 'user@example.com'}</span>
                   </div>
                   <div className="octa-card-sm inline-flex items-center gap-1 px-2.5 py-0.5 bg-blue-100 text-blue-950 text-[11px] font-black">
                     <Award className="w-3.5 h-3.5 text-orange-600" />
@@ -332,7 +332,7 @@ export const AccountPage: React.FC = () => {
                     <input
                       type="email"
                       disabled
-                      value={user?.email || 'dokhacgiakhoa666@gmail.com'}
+                      value={user?.email || 'user@example.com'}
                       className="w-full px-5 py-3.5 bg-slate-200/80 text-sm text-slate-500 font-bold rounded-lg cursor-not-allowed"
                     />
                   </div>
@@ -566,7 +566,7 @@ export const AccountPage: React.FC = () => {
               <h3 className="text-2xl font-black text-slate-950">Xác Thực Hộp Thư Email</h3>
               <p className="text-xs text-slate-600 font-semibold">
                 Mã xác nhận 6 số đã được gửi tới: <br />
-                <strong className="text-blue-700">{user?.email || 'dokhacgiakhoa666@gmail.com'}</strong>
+                <strong className="text-blue-700">{user?.email || 'user@example.com'}</strong>
               </p>
             </div>
 
