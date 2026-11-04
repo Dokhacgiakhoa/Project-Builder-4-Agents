@@ -1,0 +1,1841 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Claude Code cho G19</title>
+  <meta name="description"
+    content="Slide chia sẻ cách quản lý context khi dùng Claude Code cho nhóm G19, Cohort 4. Mentor: Phan Minh Tâm và Bùi Việt Hoàng.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    :root {
+      --bg: #EEF1F4;
+      --surface: #FFFFFF;
+      --ink: #15202B;
+      --muted: #5A6672;
+      --line: #D3DAE1;
+      --accent: #0E7C7B;
+      --accent-ink: #0A5C5B;
+      --accent-soft: #DDF0EE;
+      --warn: #B4531A;
+      --warn-ink: #8F3F10;
+      --warn-soft: #F8E6DA;
+      --code-bg: #1B2530;
+      --code-ink: #E6EDF3;
+      --shadow: 0 18px 50px rgba(21, 32, 43, .14);
+      --display: "Bricolage Grotesque", "Manrope", "Segoe UI", system-ui, sans-serif;
+      --body: "Manrope", "Segoe UI", system-ui, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --bg: #0D141B;
+        --surface: #16202A;
+        --ink: #E8EEF3;
+        --muted: #9AA7B4;
+        --line: #2A3744;
+        --accent: #3FB8B4;
+        --accent-ink: #8BE0DC;
+        --accent-soft: #12302F;
+        --warn: #E28A4E;
+        --warn-ink: #F2B184;
+        --warn-soft: #3A2415;
+        --code-bg: #0A1016;
+        --code-ink: #E6EDF3;
+        --shadow: 0 18px 50px rgba(0, 0, 0, .5);
+      }
+    }
+
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #0D141B;
+      --surface: #16202A;
+      --ink: #E8EEF3;
+      --muted: #9AA7B4;
+      --line: #2A3744;
+      --accent: #3FB8B4;
+      --accent-ink: #8BE0DC;
+      --accent-soft: #12302F;
+      --warn: #E28A4E;
+      --warn-ink: #F2B184;
+      --warn-soft: #3A2415;
+      --code-bg: #0A1016;
+      --code-ink: #E6EDF3;
+      --shadow: 0 18px 50px rgba(0, 0, 0, .5);
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.45;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased
+    }
+
+    /* ---------- stage ---------- */
+    .deck {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 16px
+    }
+
+    .slide {
+      position: absolute;
+      width: 1280px;
+      height: 720px;
+      transform: scale(var(--s, 1));
+      transform-origin: center;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: 14px;
+      display: none;
+      flex-direction: column;
+      padding: 56px 80px 48px;
+      overflow: hidden
+    }
+
+    .slide.active {
+      display: flex
+    }
+
+    .slide .notes {
+      display: none
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 24px;
+      margin-bottom: 22px
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 14px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent)
+    }
+
+    .eyebrow.warn {
+      color: var(--warn)
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: .04em
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--display);
+      text-wrap: balance;
+      margin: 0;
+      font-weight: 700;
+      letter-spacing: -.01em
+    }
+
+    h1 {
+      font-size: 64px;
+      line-height: 1.05
+    }
+
+    h2 {
+      font-size: 42px;
+      line-height: 1.12;
+      margin-bottom: 26px
+    }
+
+    h3 {
+      font-size: 22px;
+      line-height: 1.25;
+      margin-bottom: 10px
+    }
+
+    .body {
+      flex: 1;
+      min-height: 0;
+      font-size: 22px;
+      line-height: 1.5;
+      overflow: hidden
+    }
+
+    .foot {
+      flex-shrink: 0
+    }
+
+    .body p {
+      margin: 0 0 14px
+    }
+
+    .body ul,
+    .body ol {
+      margin: 0;
+      padding-left: 28px
+    }
+
+    .body li {
+      margin-bottom: 10px
+    }
+
+    .body li::marker {
+      color: var(--accent)
+    }
+
+    .lead {
+      font-size: 26px;
+      line-height: 1.45;
+      color: var(--ink)
+    }
+
+    .muted {
+      color: var(--muted)
+    }
+
+    .big {
+      font-family: var(--display);
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.25;
+      text-wrap: balance
+    }
+
+    .foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 18px;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .foot .n {
+      font-variant-numeric: tabular-nums
+    }
+
+    code,
+    kbd {
+      font-family: var(--mono);
+      font-size: .92em
+    }
+
+    code {
+      background: var(--accent-soft);
+      color: var(--accent-ink);
+      padding: 2px 7px;
+      border-radius: 5px
+    }
+
+    kbd {
+      border: 1px solid var(--line);
+      border-bottom-width: 2px;
+      border-radius: 5px;
+      padding: 1px 7px;
+      background: var(--bg);
+      color: var(--ink)
+    }
+
+    pre {
+      margin: 0;
+      background: var(--code-bg);
+      color: var(--code-ink);
+      font-family: var(--mono);
+      font-size: 20px;
+      line-height: 1.55;
+      padding: 22px 26px;
+      border-radius: 10px;
+      white-space: pre-wrap
+    }
+
+    pre .c {
+      color: #8BE0DC
+    }
+
+    pre .d {
+      color: #9AA7B4
+    }
+
+    .cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      height: 100%
+    }
+
+    .cols-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px
+    }
+
+    .cols-2-1 {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 40px
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 22px 26px;
+      background: var(--bg)
+    }
+
+    .panel.good {
+      border-color: var(--accent);
+      background: var(--accent-soft)
+    }
+
+    .panel.bad {
+      border-color: var(--warn);
+      background: var(--warn-soft)
+    }
+
+    .panel h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .panel.good h3 {
+      color: var(--accent-ink)
+    }
+
+    .panel.bad h3 {
+      color: var(--warn-ink)
+    }
+
+    .panel ul {
+      font-size: 21px
+    }
+
+    .callout {
+      border-left: 5px solid var(--accent);
+      background: var(--accent-soft);
+      padding: 16px 22px;
+      border-radius: 0 10px 10px 0;
+      font-size: 22px
+    }
+
+    .callout.warn {
+      border-color: var(--warn);
+      background: var(--warn-soft)
+    }
+
+    .callout strong {
+      font-family: var(--display)
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 20px;
+      line-height: 1.4
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top
+    }
+
+    th {
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      border-bottom: 2px solid var(--line)
+    }
+
+    td:first-child {
+      font-weight: 600
+    }
+
+    tr:last-child td {
+      border-bottom: none
+    }
+
+    table.tight td,
+    table.tight th {
+      padding: 8px 12px
+    }
+
+    .keys {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px
+    }
+
+    .key {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px 18px 16px;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      gap: 8px
+    }
+
+    .key .name {
+      font-family: var(--display);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--accent-ink)
+    }
+
+    .key .what {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.4
+    }
+
+    .key .when {
+      font-size: 17px;
+      line-height: 1.4
+    }
+
+    /* decision flow */
+    .flow {
+      display: grid;
+      grid-template-columns: 1fr 96px 220px;
+      gap: 10px 14px;
+      align-items: center;
+      font-size: 20px
+    }
+
+    .flow .q {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 16px;
+      background: var(--bg)
+    }
+
+    .flow .yes {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+      letter-spacing: .06em;
+      white-space: nowrap
+    }
+
+    .flow .a {
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 22px;
+      text-align: center;
+      background: var(--accent-soft);
+      color: var(--accent-ink);
+      border: 1px solid var(--accent)
+    }
+
+    .flow .a.last {
+      background: var(--bg);
+      color: var(--ink);
+      border-color: var(--line)
+    }
+
+    .flow .down {
+      grid-column: 1;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--muted);
+      padding-left: 16px;
+      letter-spacing: .06em
+    }
+
+    /* phases */
+    .phases {
+      display: grid;
+      grid-template-columns: 1fr 40px 1fr 40px 1fr 40px 1fr;
+      align-items: stretch;
+      gap: 0 6px;
+      margin: 8px 0 22px
+    }
+
+    .phase {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px 20px;
+      background: var(--bg)
+    }
+
+    .phase .name {
+      font-family: var(--display);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent-ink)
+    }
+
+    .phase .desc {
+      font-size: 18px;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.4
+    }
+
+    .phase.v {
+      border-color: var(--accent);
+      background: var(--accent-soft)
+    }
+
+    .arrow {
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: 26px
+    }
+
+    .loop {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--warn);
+      letter-spacing: .04em;
+      text-align: center
+    }
+
+    .numlist {
+      counter-reset: s;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 36px
+    }
+
+    .numlist li {
+      counter-increment: s;
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 12px;
+      font-size: 20px;
+      line-height: 1.4
+    }
+
+    .numlist li::before {
+      content: counter(s);
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 26px;
+      color: var(--accent);
+      line-height: 1.1
+    }
+
+    .patterns {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: auto auto auto;
+      gap: 10px 14px
+    }
+
+    .pattern {
+      border-top: 4px solid var(--warn);
+      padding-top: 12px;
+      display: grid;
+      grid-template-rows: subgrid;
+      grid-row: span 3;
+      gap: 8px
+    }
+
+    .pattern .name {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 21px;
+      line-height: 1.2
+    }
+
+    .pattern .sym {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.4
+    }
+
+    .pattern .fix {
+      font-size: 17px;
+      line-height: 1.4;
+      padding-top: 10px;
+      border-top: 1px dashed var(--line)
+    }
+
+    .pattern .fix b {
+      color: var(--accent-ink)
+    }
+
+    .title-slide {
+      justify-content: flex-end;
+      background:
+        linear-gradient(135deg, var(--surface) 0%, var(--surface) 55%, var(--accent-soft) 100%)
+    }
+
+    .title-slide .kicker {
+      font-family: var(--mono);
+      font-size: 15px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 22px
+    }
+
+    .title-slide .sub {
+      font-size: 26px;
+      color: var(--muted);
+      margin-top: 22px;
+      max-width: 900px;
+      text-wrap: balance
+    }
+
+    .title-slide .meta {
+      display: flex;
+      gap: 48px;
+      margin-top: 56px;
+      font-size: 18px
+    }
+
+    .title-slide .meta b {
+      display: block;
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      margin-bottom: 6px
+    }
+
+    .section-slide {
+      justify-content: center;
+      background: linear-gradient(180deg, var(--surface), var(--bg))
+    }
+
+    .section-slide .step {
+      font-family: var(--display);
+      font-size: 120px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      letter-spacing: -.03em;
+      opacity: .9
+    }
+
+    .section-slide h2 {
+      font-size: 56px;
+      margin: 12px 0 18px
+    }
+
+    .section-slide .goal {
+      font-size: 26px;
+      color: var(--muted);
+      max-width: 900px
+    }
+
+    .sources {
+      font-size: 17px;
+      line-height: 1.5;
+      columns: 2;
+      column-gap: 40px
+    }
+
+    .sources li {
+      break-inside: avoid;
+      margin-bottom: 8px
+    }
+
+    .sources a {
+      color: var(--accent-ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line)
+    }
+
+    /* ---------- chrome ---------- */
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: var(--accent);
+      width: 0;
+      transition: width .25s ease;
+      z-index: 5
+    }
+
+    .ctrl {
+      position: fixed;
+      right: 18px;
+      bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      z-index: 6;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .ctrl button {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      border-radius: 8px;
+      width: 36px;
+      height: 32px;
+      cursor: pointer;
+      font-size: 15px
+    }
+
+    .ctrl button:hover {
+      border-color: var(--accent)
+    }
+
+    .ctrl button:focus-visible,
+    .slide a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px
+    }
+
+    .hint {
+      position: fixed;
+      left: 18px;
+      bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      z-index: 6
+    }
+
+    .hint kbd {
+      font-size: 11px
+    }
+
+    .drawer {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--surface);
+      border-top: 2px solid var(--accent);
+      padding: 16px 24px calc(16px + env(safe-area-inset-bottom, 0px));
+      max-height: 34vh;
+      overflow: auto;
+      z-index: 7;
+      font-size: 16px;
+      line-height: 1.5;
+      box-shadow: var(--shadow)
+    }
+
+    .drawer[hidden] {
+      display: none
+    }
+
+    .drawer .lbl {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px
+    }
+
+    .drawer p {
+      margin: 0 0 8px
+    }
+
+    @media (max-width:700px) {
+      .hint {
+        display: none
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      .progress {
+        transition: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="progress" id="progress"></div>
+
+  <main class="deck" id="deck" aria-live="polite">
+
+    <!-- 1 -->
+    <section class="slide title-slide" id="s1">
+      <div class="kicker">Cohort 4 · Chương trình đào tạo 20.000 kỹ sư AI Việt Nam · Nhóm G19</div>
+      <h1>Dùng Claude Code hiệu quả</h1>
+      <p class="sub">Quản lý context cho session dài: khi nào Continue, Rewind, Clear, Compact hay Subagent, và cách
+        tách pha Explore → Plan → Implement → Verify.</p>
+      <div class="meta">
+        <div><b>Mentor</b>Phan Minh Tâm · Bùi Việt Hoàng</div>
+        <div><b>Dành cho</b>Kỹ sư đầu dùng AI coding agent</div>
+        <div><b>Thời lượng</b>45 phút chia sẻ · 15 phút hỏi đáp</div>
+      </div>
+      <aside class="notes">
+        <p>Mở đầu: hỏi nhanh ai đã dùng Claude Code hoặc Cursor, Copilot. Nói rõ đây là kinh nghiệm thực chiến của đội,
+          không phải chuẩn tuyệt đối. Mục tiêu buổi này là các bạn về thử ngay trong tuần.</p>
+      </aside>
+    </section>
+
+    <!-- 2 -->
+    <section class="slide" id="s2">
+      <div class="top"><span class="eyebrow">Vì sao có buổi này</span><span class="tag">Cohort 4 · G19</span></div>
+      <h2>Ai đã từng thấy Claude "càng chạy càng ngu đi"?</h2>
+      <div class="body cols">
+        <div>
+          <p class="lead">Session ban đầu rất tốt. Sau một giờ, Claude bắt đầu quên yêu cầu, sửa sai chỗ, lặp lại lỗi
+            cũ.</p>
+          <p>Phản xạ thường gặp: đổ lỗi cho model, đổi model khác, hoặc tiếp tục sửa chồng lên nhau.</p>
+          <p>Trong hầu hết trường hợp đội mình gặp, nguyên nhân không nằm ở model. Nó nằm ở <strong>context đã phình to
+              và đầy nhiễu</strong>.</p>
+        </div>
+        <div class="panel">
+          <h3>Buổi này các bạn sẽ mang về</h3>
+          <ul>
+            <li>Một mental model: context là ngân sách.</li>
+            <li>Năm lựa chọn sau mỗi turn và khi nào dùng cái nào.</li>
+            <li>Vòng lặp bốn pha có bằng chứng pass/fail.</li>
+            <li>Cách viết CLAUDE.md và spec để Clear không còn đáng sợ.</li>
+            <li>Năm failure pattern để tự chẩn đoán.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Giơ tay: ai từng gặp cảnh này? Kể một ví dụ thật của bạn trong 30 giây. Nhấn mạnh: kỹ năng quản lý session
+          mới là thứ phân biệt người dùng AI hiệu quả với người chỉ "chat với AI".</p>
+      </aside>
+    </section>
+
+    <!-- 3 -->
+    <section class="slide" id="s3">
+      <div class="top"><span class="eyebrow">Điểm chính cần nhớ</span><span class="tag">Nếu chỉ nhớ một slide</span>
+      </div>
+      <h2>Năm câu để mang về</h2>
+      <div class="body">
+        <ol class="numlist" style="grid-template-columns:1fr">
+          <li><span><strong>Context là ngân sách, không phải bộ đệm.</strong> Chỉ tiêu vào những gì phục vụ trực tiếp
+              task hiện tại.</span></li>
+          <li><span><strong>Sau mỗi turn, chủ động chọn</strong> Continue, Rewind, Clear, Compact hoặc Subagent thay vì
+              mặc định "tiếp tục".</span></li>
+          <li><span><strong>Tách pha Explore → Plan → Implement → Verify</strong> và luôn cho Claude một tín hiệu
+              pass/fail cụ thể.</span></li>
+          <li><span><strong>CLAUDE.md càng ngắn càng tốt.</strong> Nếu bỏ một dòng mà Claude không dễ làm sai, hãy cắt
+              dòng đó.</span></li>
+          <li><span><strong>Với task lớn, chốt spec trong repo trước khi code.</strong> Spec tốt làm cho lệnh Clear "rẻ"
+              hơn rất nhiều.</span></li>
+        </ol>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Đọc lướt 5 câu, chưa giải thích. Nói: phần còn lại của buổi chỉ là mở rộng 5 câu này. Cuối buổi quay lại
+          slide này để chốt.</p>
+      </aside>
+    </section>
+
+    <!-- 4 -->
+    <section class="slide section-slide" id="s4">
+      <div class="step">01</div>
+      <h2>Coi context là ngân sách, không phải bộ đệm</h2>
+      <p class="goal">Kết thúc bước này, bạn có một tiêu chí rõ ràng để quyết định thứ gì đáng nằm trong context.</p>
+      <aside class="notes">
+        <p>Chuyển sang phần nền tảng. Bước 1 là lý thuyết duy nhất, các bước sau đều là thao tác.</p>
+      </aside>
+    </section>
+
+    <!-- 5 -->
+    <section class="slide" id="s5">
+      <div class="top"><span class="eyebrow">Bước 1 / 8</span><span class="tag">Context window</span></div>
+      <h2>Claude chỉ "biết" những gì đang nằm trong cửa sổ context</h2>
+      <div class="body cols-2-1">
+        <div>
+          <p class="lead">Mọi thứ Claude suy luận đều dựa trên một danh sách hữu hạn:</p>
+          <ul>
+            <li>Chỉ dẫn hệ thống và CLAUDE.md</li>
+            <li>Lịch sử chat của phiên hiện tại</li>
+            <li>Tool call và output công cụ (test log, grep, cat file…)</li>
+            <li>File đã đọc</li>
+            <li><span style="color:var(--warn-ink)">Mọi nhánh thử nghiệm trước đó, kể cả nhánh đã fail</span></li>
+          </ul>
+          <p style="margin-top:18px">Vì vậy context không phải nơi "chất đống cho chắc". Nó là một <strong>ngân sách cần
+              tiêu có chọn lọc</strong>.</p>
+        </div>
+        <div class="callout">
+          <strong>Context rot</strong><br>
+          Khi context đầy dần, attention bị trải mỏng, thông tin cũ kéo lệch hướng hiện tại. Câu trả lời vẫn nghe tự tin
+          nhưng bắt đầu sai về intent. Không có cảnh báo nào cả.
+        </div>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>So sánh với sinh viên ôn thi: mở 40 tab cùng lúc thì không tab nào đọc kỹ. Context rot là kiểu suy giảm nguy
+          hiểm nhất vì không có lỗi đỏ nào hiện ra.</p>
+      </aside>
+    </section>
+
+    <!-- 6 -->
+    <section class="slide" id="s6">
+      <div class="top"><span class="eyebrow">Bước 1 / 8</span><span class="tag">Bằng chứng</span></div>
+      <h2>Đây không chỉ là cảm nhận chủ quan</h2>
+      <div class="body cols-3">
+        <div class="panel">
+          <h3>Chroma Research, 07/2025</h3>
+          <p style="font-size:19px">Nghiên cứu "Context Rot" đánh giá 18 mô hình ngôn ngữ lớn: model <strong>không dùng
+              context một cách đồng đều</strong>, hiệu năng ngày càng kém ổn định khi độ dài input tăng.</p>
+        </div>
+        <div class="panel">
+          <h3>Anthropic Engineering, 09/2025</h3>
+          <p style="font-size:19px">Bài về context engineering: khi số token trong cửa sổ context tăng, <strong>khả năng
+              truy hồi chính xác</strong> thông tin trong đó giảm.</p>
+        </div>
+        <div class="panel">
+          <h3>Claude Code Best Practices</h3>
+          <p style="font-size:19px">Cửa sổ context là <strong>tài nguyên quan trọng nhất</strong> cần quản lý. Hầu hết
+            best practice xuất phát từ một ràng buộc: context đầy rất nhanh và hiệu năng giảm khi nó đầy.</p>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:22px">
+        <strong>Quy tắc thô của đội mình</strong> (không phải con số chính thức): cố giữ conversation active ở khoảng
+        <strong>một phần ba</strong> cửa sổ context. Kiểm tra nhanh bằng lệnh <code>/context</code>.
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Nguồn đầy đủ ở slide cuối. Nếu có máy, demo lệnh /context để các bạn thấy lưới màu. Nhấn mạnh 1/3 là
+          heuristic nội bộ.</p>
+      </aside>
+    </section>
+
+    <!-- 7 -->
+    <section class="slide" id="s7">
+      <div class="top"><span class="eyebrow">Bước 1 / 8</span><span class="tag">Tiêu vào đâu</span></div>
+      <h2>Tiêu context vào thứ phục vụ task hiện tại</h2>
+      <div class="body cols">
+        <div class="panel good">
+          <h3>Đáng giữ</h3>
+          <ul>
+            <li>File thật sự liên quan đến task</li>
+            <li>Ràng buộc kỹ thuật, quy ước repo</li>
+            <li>Quyết định đã chốt</li>
+            <li>Bằng chứng verify: test output, build log ngắn</li>
+          </ul>
+        </div>
+        <div class="panel bad">
+          <h3>Chỉ còn là nhiễu</h3>
+          <ul>
+            <li>Các vòng debug đã thất bại</li>
+            <li>Nhánh khám phá cũ không dẫn tới đâu</li>
+            <li>Output công cụ dài nhưng đã hết giá trị</li>
+            <li>Task trước đó không liên quan task này</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:22px">
+        <strong>Cách tự kiểm:</strong> trước khi gửi prompt tiếp theo, tự hỏi "phần lịch sử phía trên có giúp Claude làm
+        đúng task này không?". Nếu "phần lớn là không", chuyển sang bước 2.
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Câu hỏi tự kiểm này là thứ đơn giản nhất để các bạn thực hành ngay hôm nay.</p>
+      </aside>
+    </section>
+
+    <!-- 8 -->
+    <section class="slide" id="s8">
+      <div class="top"><span class="eyebrow">Bước 2 / 8</span><span class="tag">Mỗi turn là một điểm rẽ</span></div>
+      <h2>Năm lựa chọn sau mỗi turn</h2>
+      <div class="body">
+        <p class="muted" style="font-size:20px;margin-bottom:22px">Thariq Shihipar (đội Claude Code, Anthropic) gọi đây
+          là "every turn as a branching point". Khi bắt đầu task mới, hãy bắt đầu session mới.</p>
+        <div class="keys">
+          <div class="key">
+            <div class="name">Continue</div>
+            <div class="what">Tiếp tục cùng session</div>
+            <div class="when">Task kế tiếp thực sự phụ thuộc vào context vừa xây</div>
+          </div>
+          <div class="key">
+            <div class="name">Rewind</div>
+            <div class="what">Quay về một message trước, bỏ phần đi sau</div>
+            <div class="when">Vừa đi vào ngõ cụt, muốn thử lại mà không mang theo nhánh fail</div>
+          </div>
+          <div class="key">
+            <div class="name">Clear</div>
+            <div class="what">Bắt đầu session mới</div>
+            <div class="when">Chuyển sang task không liên quan, hoặc session đã quá bẩn</div>
+          </div>
+          <div class="key">
+            <div class="name">Compact</div>
+            <div class="what">Tóm tắt session rồi tiếp trên bản tóm tắt</div>
+            <div class="when">Vẫn cần phần lớn context nhưng history đã quá dài</div>
+          </div>
+          <div class="key">
+            <div class="name">Subagent</div>
+            <div class="what">Giao việc cho agent con có context riêng</div>
+            <div class="when">Chỉ cần kết luận cuối, không cần toàn bộ tool output</div>
+          </div>
+        </div>
+      </div>
+      <div class="callout warn" style="margin-top:22px"><strong>Nguyên tắc nhanh:</strong> nếu bạn chỉ đang giữ thói
+        quen Continue, rất có thể bạn đang trả giá bằng tốc độ, chi phí và chất lượng suy luận.</div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Đây là slide trung tâm của buổi. Đi chậm qua từng cột. Hỏi: các bạn đã dùng cái nào trong 5 cái này? Thường
+          chỉ Continue và Clear.</p>
+      </aside>
+    </section>
+
+    <!-- 9 -->
+    <section class="slide" id="s9">
+      <div class="top"><span class="eyebrow">Bước 2 / 8</span><span class="tag">Sơ đồ quyết định</span></div>
+      <h2>Continue là lựa chọn cuối cùng, không phải mặc định</h2>
+      <div class="body">
+        <div class="flow">
+          <div class="q">Task tiếp theo có phụ thuộc trực tiếp vào context vừa xây không?</div>
+          <div class="yes">KHÔNG →</div>
+          <div class="a">Clear</div>
+          <div class="down">↓ có</div>
+          <div></div>
+          <div></div>
+          <div class="q">Claude vừa đi sai hướng, nhánh đó không còn giá trị?</div>
+          <div class="yes">CÓ →</div>
+          <div class="a">Rewind</div>
+          <div class="down">↓ không</div>
+          <div></div>
+          <div></div>
+          <div class="q">Việc tiếp theo chỉ cần kết luận, không cần tool output trung gian?</div>
+          <div class="yes">CÓ →</div>
+          <div class="a">Subagent</div>
+          <div class="down">↓ không</div>
+          <div></div>
+          <div></div>
+          <div class="q">History đã quá dài nhưng vẫn cần phần lớn nội dung?</div>
+          <div class="yes">CÓ →</div>
+          <div class="a">Compact</div>
+          <div class="down">↓ không</div>
+          <div></div>
+          <div class="a last">Continue</div>
+        </div>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Đi từ trên xuống. Điểm gây ngạc nhiên: Continue nằm cuối. Đây là thứ đảo ngược thói quen chat thread kéo dài
+          nhiều giờ.</p>
+      </aside>
+    </section>
+
+    <!-- 10 -->
+    <section class="slide" id="s10">
+      <div class="top"><span class="eyebrow">Bước 2 / 8</span><span class="tag">Continue hay Clear</span></div>
+      <h2>Khi nào Continue, khi nào Clear?</h2>
+      <div class="body cols">
+        <div class="panel good">
+          <h3>Continue</h3>
+          <p style="font-size:20px">Task tiếp theo dùng trực tiếp phần hiểu biết vừa xây.</p>
+          <p style="font-size:20px"><em>Ví dụ:</em> vừa implement một feature xong, giờ viết docs hoặc bổ sung test cho
+            <strong>chính feature đó</strong>. Claude không phải đọc lại toàn bộ file.
+          </p>
+        </div>
+        <div class="panel bad">
+          <h3>Clear</h3>
+          <p style="font-size:20px">Chuyển sang bài toán khác về bản chất.</p>
+          <p style="font-size:20px"><em>Ví dụ:</em> vừa refactor auth xong, giờ debug một Kafka consumer. Context cũ
+            không còn là tài sản, nó là nhiễu. Anthropic cũng khuyên dùng <code>/clear</code> giữa các task.</p>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:22px">
+        <strong>Cách tổ chức của đội mình:</strong> tách conversation theo mục đích. Một cho implementation, một cho
+        review, một riêng cho investigation hoặc spike kỹ thuật. Reviewer trong context sạch thường sắc hơn vì không bị
+        thiên vị bởi lịch sử debug.
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Ý "reviewer trong context sạch" rất đáng nhấn: cùng một model, nhưng session review riêng bắt được lỗi mà
+          session implement bỏ qua.</p>
+      </aside>
+    </section>
+
+    <!-- 11 -->
+    <section class="slide" id="s11">
+      <div class="top"><span class="eyebrow">Bước 3 / 8</span><span class="tag">Biến Rewind thành phản xạ</span></div>
+      <h2>Giữ phần "đắt", bỏ phần "độc"</h2>
+      <div class="body cols">
+        <div>
+          <p class="lead">Phản xạ phổ biến khi Claude fail: nhắn tiếp "không đúng, thử cách khác đi".</p>
+          <p>Cách này <strong>giữ nguyên nhánh sai trong context</strong>. Sau vài lần, session ngập bởi các hướng đi
+            thất bại và Claude suy luận quanh đống lỗi cũ.</p>
+          <p>Rewind: quay về ngay sau bước đọc file có ích, loại bỏ nhánh fail, rồi prompt lại với bài học vừa rút ra.
+          </p>
+          <ul style="margin-top:8px">
+            <li><span style="color:var(--accent-ink);font-weight:600">Phần đắt:</span> quá trình đọc hiểu codebase.</li>
+            <li><span style="color:var(--warn-ink);font-weight:600">Phần độc:</span> reasoning dựa trên hướng sai.</li>
+          </ul>
+        </div>
+        <div>
+          <pre><span class="d"># prompt sau khi rewind</span>
+Đừng dùng approach A vì module đó
+không expose API cần thiết.
+Đi thẳng sang approach B.</pre>
+          <div class="panel" style="margin-top:18px;font-size:19px">
+            <h3>Cơ chế</h3>
+            Mỗi prompt tạo một checkpoint. Nhấn <kbd>Esc</kbd> <kbd>Esc</kbd> hoặc gõ <code>/rewind</code>, chọn khôi
+            phục conversation, code, hoặc cả hai.<br><br>
+            <span style="color:var(--warn-ink)">Giới hạn:</span> checkpoint chỉ theo dõi thay đổi qua công cụ sửa file
+            của Claude, không bắt thay đổi từ Bash hay tiến trình ngoài. <strong>Rewind không thay thế Git.</strong>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Nếu có máy, demo Esc Esc. Nhắc các bạn commit thường xuyên: Rewind là công cụ dọn context, không phải công cụ
+          khôi phục mã nguồn.</p>
+      </aside>
+    </section>
+
+    <!-- 12 -->
+    <section class="slide" id="s12">
+      <div class="top"><span class="eyebrow">Bước 3 / 8</span><span class="tag">Mẹo nâng cao</span></div>
+      <h2>Ghi lại bài học trước khi rewind</h2>
+      <div class="body cols">
+        <div>
+          <p class="lead">Trước khi rewind, yêu cầu Claude tóm tắt ngắn: điều gì không hiệu quả và vì sao.</p>
+          <p>Dùng phần tóm tắt đó làm <strong>handoff note</strong> cho lần thử tiếp theo. Bạn mã hóa được bài học mà
+            không phải giữ cả nhánh thất bại trong context.</p>
+          <pre style="font-size:18px">Trước khi mình rewind: tóm tắt trong 3 dòng
+approach vừa rồi fail ở đâu và vì sao.
+Không đề xuất cách mới.</pre>
+        </div>
+        <div class="callout warn" style="align-self:start">
+          <strong>Quy tắc "hai lần" của đội mình</strong><br><br>
+          Nếu đã phải sửa Claude <strong>hơn hai lần về cùng một lỗi</strong> trong cùng session, hãy Clear và viết lại
+          prompt tốt hơn.<br><br>
+          Tiếp tục sửa chồng lên nhau tạo ra context rất bẩn, và lỗi thường nằm ở prompt ban đầu, không phải ở lần sửa
+          thứ ba.
+        </div>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Quy tắc hai lần rất dễ nhớ cho người mới. Kể ví dụ: sửa lần 3 thường là lúc mình bắt đầu cáu và prompt càng
+          mơ hồ hơn.</p>
+      </aside>
+    </section>
+
+    <!-- 13 -->
+    <section class="slide" id="s13">
+      <div class="top"><span class="eyebrow">Bước 4 / 8</span><span class="tag">Compact và Clear</span></div>
+      <h2>Khác nhau ở "ai quyết định điều gì đáng giữ"</h2>
+      <div class="body cols">
+        <div>
+          <table class="tight" style="font-size:19px">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Compact</th>
+                <th>Clear</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Ai tóm tắt</td>
+                <td>Claude tự tóm tắt, giữ điều nó cho là quan trọng</td>
+                <td>Bạn tự viết brief mới</td>
+              </tr>
+              <tr>
+                <td>Tốc độ</td>
+                <td>Nhanh</td>
+                <td>Tốn công hơn</td>
+              </tr>
+              <tr>
+                <td>Rủi ro</td>
+                <td>Mất chi tiết quan trọng</td>
+                <td>Thấp, nếu bạn biết task cần gì</td>
+              </tr>
+              <tr>
+                <td>Kiểm soát</td>
+                <td>Thấp</td>
+                <td>Chính xác</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="callout" style="margin-top:14px;font-size:19px;padding:12px 18px">
+            <strong>Quy tắc hai phút:</strong> viết lại brief mất dưới hai phút thì ưu tiên Clear. Không thì Compact,
+            nhưng kèm hướng dẫn rõ phần giữ và phần bỏ.
+          </div>
+        </div>
+        <div>
+          <pre><span class="c">/compact</span> Giữ kết luận về auth refactor
+và danh sách file đã sửa.
+Bỏ phần debug test cũ.</pre>
+          <p style="font-size:19px;margin-top:16px"><code>/compact</code> nhận hướng dẫn tùy chỉnh. Thứ luôn cần sống
+            sót qua compact có thể ghi vào CLAUDE.md, kiểu "khi compact, luôn giữ danh sách file đã sửa và các lệnh
+            test".</p>
+          <p style="font-size:19px;color:var(--muted)"><strong>Compact sớm, đừng đợi đầy.</strong> Do context rot, model
+            đang ở điểm kém thông minh nhất đúng lúc nó phải compact. Compact chủ động kèm mô tả việc muốn làm tiếp cho
+            bản tóm tắt tốt hơn.</p>
+        </div>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Ý "compact sớm" là của Thariq Shihipar. Ví von: đừng để người mệt nhất trong phòng viết biên bản cuộc họp.
+        </p>
+      </aside>
+    </section>
+
+    <!-- 14 -->
+    <section class="slide" id="s14">
+      <div class="top"><span class="eyebrow">Bước 5 / 8</span><span class="tag">Subagent</span></div>
+      <h2>Subagent là một "phòng sạch"</h2>
+      <div class="body cols">
+        <div>
+          <p class="lead">Agent con có context riêng: đọc rất nhiều file, chạy nhiều công cụ, tạo nhiều output trung
+            gian mà <strong>không làm bẩn parent context</strong>.</p>
+          <p>Parent chỉ nhận lại kết luận hoặc báo cáo cuối. Mỗi subagent có system prompt, quyền công cụ và permission
+            độc lập.</p>
+          <div class="callout" style="margin-top:14px;font-size:20px">
+            <strong>Dấu hiệu nên delegate:</strong> nếu bạn tự hỏi "mình có thật sự cần toàn bộ output này quay lại main
+            thread không?", câu trả lời thường là không.
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Việc hợp với subagent</h3>
+          <ul>
+            <li>Điều tra một flow kỹ thuật và chỉ trả findings</li>
+            <li>Review diff theo spec và chỉ báo mismatch</li>
+            <li>Viết draft docs từ git diff</li>
+            <li>Tìm edge case hoặc race condition trong một vùng code</li>
+          </ul>
+          <p style="font-size:18px;color:var(--muted);margin-top:14px">Điểm chung: bạn chỉ cần kết quả, không cần giữ
+            toàn bộ quá trình.</p>
+        </div>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Ví von phòng sạch trong nhà máy chip: việc bụi bặm làm ở phòng khác, chỉ mang sản phẩm ra. Với người mới: cứ
+          thử Task tool với yêu cầu "chỉ trả về kết luận".</p>
+      </aside>
+    </section>
+
+    <!-- 15 -->
+    <section class="slide" id="s15">
+      <div class="top"><span class="eyebrow">Bước 6 / 8</span><span class="tag">Vòng lặp bốn pha</span></div>
+      <h2>Explore → Plan → Implement → Verify</h2>
+      <div class="body">
+        <div class="phases">
+          <div class="phase">
+            <div class="name">Explore</div>
+            <div class="desc">Đọc file, hiểu hệ thống, chưa sửa gì. Plan mode: <kbd>Shift</kbd>+<kbd>Tab</kbd></div>
+          </div>
+          <div class="arrow">→</div>
+          <div class="phase">
+            <div class="name">Plan</div>
+            <div class="desc">Mô tả thay đổi, file liên quan, ràng buộc, flow dự kiến</div>
+          </div>
+          <div class="arrow">→</div>
+          <div class="phase">
+            <div class="name">Implement</div>
+            <div class="desc">Chỉ bắt đầu code khi hướng đi đã rõ</div>
+          </div>
+          <div class="arrow">→</div>
+          <div class="phase v">
+            <div class="name">Verify</div>
+            <div class="desc">Chạy test, build, script, hoặc kiểm tra đầu ra đọc được</div>
+          </div>
+        </div>
+        <p class="loop">↺ Verify chưa đạt thì quay lại Explore, không sửa mò</p>
+        <div class="cols" style="height:auto;margin-top:18px">
+          <p style="font-size:20px">Anthropic gọi workflow này là "Explore, Plan, Implement, Commit". Đội mình đổi pha
+            cuối thành <strong>Verify</strong>, vì commit chỉ có ý nghĩa sau khi đã có bằng chứng pass/fail.</p>
+          <div class="callout" style="font-size:20px"><strong>Khi nào bỏ qua Plan?</strong> Nếu bạn mô tả được diff
+            trong một câu, làm thẳng. Khi thay đổi đụng nhiều file, có dependency ngầm, hoặc bạn chưa hiểu vùng code,
+            plan giảm rework đáng kể.</div>
+        </div>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Với sinh viên mới: đây cũng là cách làm việc tốt cho chính bạn, không chỉ cho AI. Hỏi: ai từng để Claude nhảy
+          thẳng vào code rồi phải revert?</p>
+      </aside>
+    </section>
+
+    <!-- 16 -->
+    <section class="slide" id="s16">
+      <div class="top"><span class="eyebrow">Bước 6 / 8</span><span class="tag">Tự verify</span></div>
+      <h2>Luôn cho Claude một cách tự verify</h2>
+      <div class="body">
+        <p style="font-size:21px;margin-bottom:18px">Claude thường dừng khi công việc <em>có vẻ</em> xong. Không có cơ
+          chế kiểm chứng, <strong>bạn</strong> trở thành vòng verify thủ công cho mọi thứ: vừa chậm vừa dễ sót.</p>
+        <table>
+          <thead>
+            <tr>
+              <th style="width:32%">Prompt mơ hồ</th>
+              <th>Prompt tốt hơn</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Implement hàm validate email</td>
+              <td>Viết <code>validateEmail</code>, thêm test cho các case hợp lệ và không hợp lệ, rồi chạy test sau khi
+                implement</td>
+            </tr>
+            <tr>
+              <td>Fix login bug</td>
+              <td>Tái hiện lỗi login sau session timeout, viết failing test, fix root cause, rồi verify test pass</td>
+            </tr>
+            <tr>
+              <td>Làm UI đẹp hơn</td>
+              <td>Dựa trên screenshot tham chiếu, implement lại, chụp screenshot kết quả, liệt kê khác biệt còn lại và
+                sửa tiếp</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="callout" style="margin-top:20px;font-size:20px"><strong>Đừng chỉ hỏi "xong chưa".</strong> Hãy yêu
+          cầu bằng chứng: lệnh đã chạy, output test, ảnh chụp, hoặc danh sách khác biệt còn lại. Đó là khác biệt giữa
+          session bạn phải ngồi canh và session bạn có thể rời đi.</div>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Tín hiệu pass/fail có thể là: test suite, linter, build command, script kiểm tra, screenshot đối chiếu. Hỏi
+          các bạn: project hiện tại của bạn có test chạy được không? Nếu chưa, đó là việc đầu tiên.</p>
+      </aside>
+    </section>
+
+    <!-- 17 -->
+    <section class="slide" id="s17">
+      <div class="top"><span class="eyebrow">Bước 6 / 8</span><span class="tag">Prompt cụ thể</span></div>
+      <h2>Prompt cụ thể giúp giảm số vòng sửa</h2>
+      <div class="body cols">
+        <div>
+          <p class="lead">Claude suy ra được khá nhiều, nhưng không đọc được suy nghĩ của bạn.</p>
+          <ul>
+            <li><strong>Chỉ rõ file hoặc thư mục</strong> liên quan.</li>
+            <li><strong>Nêu constraint quan trọng:</strong> "tránh mock", "không đổi API public", "giữ backward
+              compatibility".</li>
+            <li><strong>Trỏ tới pattern có sẵn</strong> trong codebase nếu muốn Claude làm giống một ví dụ tốt.</li>
+            <li><strong>Mô tả triệu chứng quan sát được</strong> thay vì chỉ nêu nhãn chung như "bug login".</li>
+          </ul>
+        </div>
+        <div>
+          <pre style="font-size:18px">Trong <span class="c">src/payments/</span>, thêm retry cho
+<span class="c">chargeCard()</span> khi gateway trả 5xx.
+Làm theo pattern retry sẵn có ở
+<span class="c">src/notifications/sendEmail.ts</span>.
+Không đổi signature public.
+Thêm test cho case 3 lần fail liên tiếp,
+chạy <span class="c">npm test</span> và dán kết quả.</pre>
+          <div class="callout warn" style="margin-top:16px;font-size:19px"><strong>Ngoại lệ:</strong> trong pha khám
+            phá, câu hỏi mở có thể hữu ích hơn prompt quá chặt, nếu mục tiêu là tìm góc khuất hoặc rủi ro tiềm ẩn.</div>
+        </div>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Prompt ví dụ này do mentor tự soạn để minh họa, không phải trích từ tài liệu. Chỉ ra 4 yếu tố: scope,
+          pattern, constraint, verify.</p>
+      </aside>
+    </section>
+
+    <!-- 18 -->
+    <section class="slide" id="s18">
+      <div class="top"><span class="eyebrow">Bước 7 / 8</span><span class="tag">CLAUDE.md</span></div>
+      <h2>Giữ CLAUDE.md ngắn và thực dụng</h2>
+      <div class="body cols-2-1">
+        <div>
+          <p style="font-size:20px;margin-bottom:16px">CLAUDE.md được nạp vào đầu mỗi conversation. Hữu ích cho thứ code
+            không tự nói lên được. Nhưng <strong>càng dài, phần quan trọng càng dễ chìm</strong>: Anthropic cảnh báo
+            CLAUDE.md phình to khiến Claude bỏ qua chính chỉ dẫn của bạn.</p>
+          <table class="tight">
+            <thead>
+              <tr>
+                <th>Nên giữ</th>
+                <th>Nên tránh</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Lệnh Bash đặc thù của repo</td>
+                <td>Giải thích dài mà code tự thể hiện được</td>
+              </tr>
+              <tr>
+                <td>Rule code style khác mặc định</td>
+                <td>Lời khuyên chung như "viết code sạch"</td>
+              </tr>
+              <tr>
+                <td>Quy trình test, branch, PR</td>
+                <td>Tài liệu API chi tiết có thể link ngoài</td>
+              </tr>
+              <tr>
+                <td>Quyết định kiến trúc riêng của dự án</td>
+                <td>Thông tin thay đổi thường xuyên</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div class="callout" style="font-size:21px"><strong>Câu hỏi duy nhất để cắt gọn:</strong><br><br>"Nếu bỏ dòng
+            này đi, Claude có dễ làm sai không?"<br><br>Nếu không, cắt.</div>
+          <div class="panel" style="font-size:18px">Bắt đầu bằng <code>/init</code> để tạo file khởi đầu, rồi
+            <code>/context</code> để xác nhận file đã được nạp.
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Bài tập nhanh: mở CLAUDE.md của project nhóm, đọc từng dòng với câu hỏi này. Thường cắt được một nửa.</p>
+      </aside>
+    </section>
+
+    <!-- 19 -->
+    <section class="slide" id="s19">
+      <div class="top"><span class="eyebrow">Bước 8 / 8</span><span class="tag">Spec trước với task lớn</span></div>
+      <h2>Đưa intent ra khỏi chat, vào repo</h2>
+      <div class="body cols">
+        <div>
+          <p class="lead">Với task lớn, nhiều module, hoặc cần phối hợp nhóm: chốt spec trước khi để Claude triển khai.
+          </p>
+          <p>Khi spec, plan và task breakdown sống trong repo, chúng là <strong>context bền vững hơn hẳn lịch sử
+              chat</strong>.</p>
+          <ul>
+            <li>Giảm nguy cơ giải sai bài toán</li>
+            <li>Dễ mở session mới mà không mất định hướng</li>
+            <li>Dễ chia task nhỏ, tránh kitchen-sink session</li>
+            <li>Acceptance criteria ổn định qua nhiều vòng làm việc</li>
+          </ul>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div class="big" style="color:var(--accent-ink)">Spec tốt làm cho Clear rẻ hơn.</div>
+          <div class="panel" style="font-size:19px">
+            <h3>Cách tối giản, không cần công cụ</h3>
+            Yêu cầu Claude phỏng vấn bạn chi tiết (công cụ AskUserQuestion) cho tới khi phủ hết mọi khía cạnh, viết spec
+            hoàn chỉnh ra <code>SPEC.md</code>, rồi mở session mới để thực thi spec đó.
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Với đồ án nhóm trong Cohort, đây là bước phù hợp nhất: mỗi thành viên mở session riêng nhưng cùng đọc một
+          spec.</p>
+      </aside>
+    </section>
+
+    <!-- 20 -->
+    <section class="slide" id="s20">
+      <div class="top"><span class="eyebrow">Bước 8 / 8</span><span class="tag">GitHub Spec Kit</span></div>
+      <h2>Workflow gợi ý với Spec Kit</h2>
+      <div class="body">
+        <table class="tight">
+          <thead>
+            <tr>
+              <th style="width:18%">Bước</th>
+              <th style="width:24%">Lệnh</th>
+              <th>Mục tiêu</th>
+              <th style="width:26%">Artifact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1. Constitution</td>
+              <td><code>/speckit.constitution</code></td>
+              <td>Chốt nguyên tắc bất biến cho dự án</td>
+              <td><code>constitution.md</code></td>
+            </tr>
+            <tr>
+              <td>2. Specify</td>
+              <td><code>/speckit.specify</code></td>
+              <td>Viết rõ cái gì cần xây và tại sao, chưa bàn tech stack</td>
+              <td><code>spec.md</code></td>
+            </tr>
+            <tr>
+              <td>3. Clarify</td>
+              <td><code>/speckit.clarify</code></td>
+              <td>Làm rõ điểm mơ hồ trước khi lập plan</td>
+              <td>Clarifications trong spec</td>
+            </tr>
+            <tr>
+              <td>4. Plan</td>
+              <td><code>/speckit.plan</code></td>
+              <td>Chuyển spec thành kế hoạch kỹ thuật</td>
+              <td><code>plan.md</code>, <code>research.md</code>, <code>data-model.md</code></td>
+            </tr>
+            <tr>
+              <td>5. Tasks</td>
+              <td><code>/speckit.tasks</code></td>
+              <td>Chia plan thành task có dependency và scope rõ</td>
+              <td><code>tasks.md</code></td>
+            </tr>
+            <tr>
+              <td>6. Analyze</td>
+              <td><code>/speckit.analyze</code></td>
+              <td>Kiểm tra nhất quán và coverage trước khi implement</td>
+              <td>Báo cáo mismatch</td>
+            </tr>
+            <tr>
+              <td>7. Implement</td>
+              <td><code>/speckit.implement</code></td>
+              <td>Thực thi task theo plan, rồi chạy test/build/lint</td>
+              <td>Code thay đổi</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="muted" style="font-size:17px;margin-top:14px">Spec Kit là bộ công cụ mã nguồn mở của GitHub cho
+          spec-driven development (giới thiệu 09/2025), hoạt động với Claude Code và nhiều coding agent khác. Bài blog
+          gốc dùng tên lệnh cũ chưa có tiền tố; repo hiện tại dùng namespace <code>/speckit.*</code>.</p>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Không cần đi sâu từng lệnh. Điểm chính: mỗi bước sinh một artifact trong repo, và artifact đó là context cho
+          session sau.</p>
+      </aside>
+    </section>
+
+    <!-- 21 -->
+    <section class="slide" id="s21">
+      <div class="top"><span class="eyebrow">Bước 8 / 8</span><span class="tag">Spec Kit + Claude Code</span></div>
+      <h2>Hai lớp, hai vai trò</h2>
+      <div class="body">
+        <div class="cols" style="height:auto;margin-bottom:16px">
+          <div class="panel" style="padding:12px 20px">
+            <h3 style="margin-bottom:4px;font-size:20px">Spec Kit giữ</h3>
+            <p style="font-size:19px;margin:0">"Ý định sản phẩm" và tiêu chí đúng/sai.</p>
+          </div>
+          <div class="panel good" style="padding:12px 20px">
+            <h3 style="margin-bottom:4px;font-size:20px">Claude Code xử lý</h3>
+            <p style="font-size:19px;margin:0">"Đọc code, sửa code, chạy test."</p>
+          </div>
+        </div>
+        <ol class="numlist" style="font-size:19px;gap:8px 32px">
+          <li><span><strong>Viết spec trước:</strong> problem, mục tiêu, non-goals, user flow, constraint, acceptance
+              criteria.</span></li>
+          <li><span><strong>Cho Claude đọc spec:</strong> chỉ explore để kiểm tra tính khả thi, chưa sửa file.</span>
+          </li>
+          <li><span><strong>Yêu cầu plan theo spec:</strong> file sẽ đổi, rủi ro, dependency, test cần thêm, điểm còn mơ
+              hồ.</span></li>
+          <li><span><strong>Breakdown thành task nhỏ:</strong> mỗi task có output rõ và cách verify riêng.</span></li>
+          <li><span><strong>Implement từng task:</strong> Clear hoặc session mới cho từng cụm việc, vì spec trong repo
+              đã giữ context chung.</span></li>
+          <li><span><strong>Verify ngược lại spec:</strong> đối chiếu implementation với acceptance criteria, liệt kê
+              phần chưa đạt.</span></li>
+        </ol>
+        <div class="callout warn" style="margin-top:14px;font-size:18px;padding:10px 18px"><strong>Tránh nhầm:</strong>
+          spec không thay thế verify. Spec nói rõ "đúng là gì"; Claude vẫn phải chạy test, build, lint để chứng minh
+          implementation đạt spec.</div>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Bước 5 là chỗ mọi thứ khớp lại: nhờ spec, Clear giữa các task không còn "mất trí nhớ dự án".</p>
+      </aside>
+    </section>
+
+    <!-- 22 -->
+    <section class="slide" id="s22">
+      <div class="top"><span class="eyebrow warn">Tự chẩn đoán</span><span class="tag">Cách gọi tên của Anthropic</span>
+      </div>
+      <h2>Năm failure pattern thường gặp</h2>
+      <div class="body">
+        <div class="patterns">
+          <div class="pattern">
+            <div class="name">Kitchen sink session</div>
+            <div class="sym">Nhồi nhiều task không liên quan vào một thread dài.</div>
+            <div class="fix"><b>Sửa:</b> tách conversation theo mục đích, Clear khi đổi bài toán.</div>
+          </div>
+          <div class="pattern">
+            <div class="name">Correcting over and over</div>
+            <div class="sym">Sửa mãi một vấn đề nhưng giữ nguyên các nhánh fail trong context.</div>
+            <div class="fix"><b>Sửa:</b> Rewind, hoặc Clear sau lần sửa thứ hai.</div>
+          </div>
+          <div class="pattern">
+            <div class="name">Over-specified CLAUDE.md</div>
+            <div class="sym">File hướng dẫn quá dài làm rule quan trọng bị chìm.</div>
+            <div class="fix"><b>Sửa:</b> "bỏ dòng này Claude có làm sai không?"</div>
+          </div>
+          <div class="pattern">
+            <div class="name">Trust-then-verify gap</div>
+            <div class="sym">Thấy "có vẻ đúng" rồi dừng, không verify độc lập.</div>
+            <div class="fix"><b>Sửa:</b> luôn yêu cầu bằng chứng pass/fail.</div>
+          </div>
+          <div class="pattern">
+            <div class="name">Infinite exploration</div>
+            <div class="sym">Yêu cầu investigate quá rộng, Claude đọc quá nhiều thứ không cần.</div>
+            <div class="fix"><b>Sửa:</b> giới hạn scope hoặc đẩy điều tra vào subagent.</div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Các pattern này hiếm khi hỏng ngay từ đầu. Chúng âm thầm kéo chậm và làm bạn tưởng vấn đề ở model. Hỏi: bạn
+          nhận ra mình ở pattern nào?</p>
+      </aside>
+    </section>
+
+    <!-- 23 -->
+    <section class="slide" id="s23">
+      <div class="top"><span class="eyebrow">Bảng tra nhanh</span><span class="tag">Chụp lại slide này</span></div>
+      <h2>Tình huống nào, dùng gì</h2>
+      <div class="body">
+        <table class="tight" style="font-size:19px">
+          <thead>
+            <tr>
+              <th style="width:44%">Tình huống</th>
+              <th style="width:16%">Nên dùng</th>
+              <th>Lý do</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cùng task, context còn hữu ích</td>
+              <td>Continue</td>
+              <td>Không cần trả chi phí dựng lại</td>
+            </tr>
+            <tr>
+              <td>Claude vừa đi sai hướng</td>
+              <td>Rewind</td>
+              <td>Giữ phần đọc có ích, bỏ nhánh fail</td>
+            </tr>
+            <tr>
+              <td>Task hoàn toàn mới</td>
+              <td>Clear</td>
+              <td>Loại bỏ noise và context rot</td>
+            </tr>
+            <tr>
+              <td>Session dài nhưng vẫn cần phần lớn lịch sử</td>
+              <td>Compact</td>
+              <td>Thu gọn nhanh, nhất là khi chưa kịp viết lại brief</td>
+            </tr>
+            <tr>
+              <td>Cần investigation sâu nhưng chỉ muốn kết luận</td>
+              <td>Subagent</td>
+              <td>Cách ly tool noise khỏi main conversation</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="cols-3" style="margin-top:18px">
+          <div class="panel" style="font-size:17px;padding:14px 18px">
+            <h3 style="font-size:18px;margin-bottom:6px">Kết quả 1</h3>Session ngắn hơn, mỗi session một mục đích. Bạn
+            Clear thường xuyên mà không sợ mất định hướng.
+          </div>
+          <div class="panel" style="font-size:17px;padding:14px 18px">
+            <h3 style="font-size:18px;margin-bottom:6px">Kết quả 2</h3>Số vòng sửa cho cùng một lỗi giảm, vì nhánh fail
+            không còn trong context.
+          </div>
+          <div class="panel" style="font-size:17px;padding:14px 18px">
+            <h3 style="font-size:18px;margin-bottom:6px">Kết quả 3</h3>Bạn không còn là bước verify thủ công. Claude tự
+            chạy test và trả bằng chứng.
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Dừng ở đây 20 giây cho các bạn chụp. Ba kết quả bên dưới là thứ quan sát được sau 1–2 tuần áp dụng.</p>
+      </aside>
+    </section>
+
+    <!-- 24 -->
+    <section class="slide" id="s24">
+      <div class="top"><span class="eyebrow">Thực hành tuần này</span><span class="tag">Gợi ý cho G19</span></div>
+      <h2>Ba việc để thử trước buổi mentoring tiếp theo</h2>
+      <div class="body">
+        <ol class="numlist" style="grid-template-columns:1fr;gap:20px">
+          <li><span><strong>Một ngày làm việc, mỗi turn tự hỏi:</strong> Continue, Rewind, Clear, Compact hay Subagent?
+              Ghi lại số lần bạn chọn khác Continue. Chạy <code>/context</code> ít nhất ba lần.</span></li>
+          <li><span><strong>Rà CLAUDE.md của project nhóm</strong> bằng câu hỏi "bỏ dòng này Claude có làm sai không?".
+              Đếm số dòng trước và sau.</span></li>
+          <li><span><strong>Chọn một task vừa</strong> (đụng từ 3 file trở lên), viết <code>SPEC.md</code> trước, rồi
+              làm theo Explore → Plan → Implement → Verify. Yêu cầu Claude dán output test làm bằng chứng.</span></li>
+        </ol>
+        <div class="callout" style="margin-top:26px;font-size:20px"><strong>Mang tới buổi sau:</strong> một session bạn
+          thấy tệ nhất và một session bạn thấy tốt nhất. Cả nhóm cùng chẩn đoán theo năm failure pattern.</div>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Điều chỉnh khối lượng theo lịch của nhóm. Việc 1 là bắt buộc, việc 2 và 3 tùy chọn nếu nhóm đang bận đồ án.
+        </p>
+      </aside>
+    </section>
+
+    <!-- 25 -->
+    <section class="slide" id="s25">
+      <div class="top"><span class="eyebrow">Câu hỏi thường gặp</span><span class="tag">Trước phần hỏi đáp</span></div>
+      <h2>Ba câu các bạn thường hỏi</h2>
+      <div class="body cols-3">
+        <div class="panel">
+          <h3>Rewind có hoàn tác thay đổi do Bash tạo ra không?</h3>
+          <p style="font-size:19px"><strong>Không.</strong> Checkpoint chỉ theo dõi thay đổi qua công cụ sửa file của
+            Claude. Hãy commit thường xuyên; coi Rewind là công cụ dọn context, không phải khôi phục mã nguồn.</p>
+        </div>
+        <div class="panel">
+          <h3>Có cần plan cho mọi thay đổi không?</h3>
+          <p style="font-size:19px"><strong>Không.</strong> Nếu phải đoán file nào sẽ đổi, hãy plan. Nếu đã liệt kê được
+            file và diff trong đầu, làm thẳng. Với vùng code lạ, plan là cách rẻ nhất để phát hiện đang giải sai bài
+            toán.</p>
+        </div>
+        <div class="panel">
+          <h3>Spec Kit có bắt buộc để làm spec-first không?</h3>
+          <p style="font-size:19px"><strong>Không.</strong> Bạn có thể tự viết spec, plan, task dưới dạng markdown trong
+            repo, hoặc để Claude phỏng vấn rồi viết <code>SPEC.md</code>. Spec Kit chỉ chuẩn hóa quy trình bằng lệnh và
+            template.</p>
+        </div>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Ba câu này trả lời trước để tiết kiệm thời gian hỏi đáp cho câu khó hơn.</p>
+      </aside>
+    </section>
+
+    <!-- 26 -->
+    <section class="slide" id="s26">
+      <div class="top"><span class="eyebrow">Nguồn tham khảo</span><span class="tag">Truy cập 2026-09-03</span></div>
+      <h2>Đọc thêm</h2>
+      <div class="body">
+        <ol class="sources">
+          <li>Anthropic, <a href="https://code.claude.com/docs/en/best-practices">Claude Code Best Practices</a>:
+            context là tài nguyên quan trọng nhất, /clear, /compact, Explore-Plan-Implement-Commit, CLAUDE.md, failure
+            pattern.</li>
+          <li>Anthropic, <a href="https://code.claude.com/docs/en/checkpointing">Checkpointing</a>: cơ chế và giới hạn
+            của Rewind.</li>
+          <li>Anthropic, <a href="https://code.claude.com/docs/en/sub-agents">Subagents</a>: context riêng, system
+            prompt và permission độc lập.</li>
+          <li>Anthropic, <a href="https://code.claude.com/docs/en/commands">Claude Code Commands</a>: lệnh /context.
+          </li>
+          <li>Anthropic Engineering, 29/09/2025, <a
+              href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context
+              engineering for AI agents</a>.</li>
+          <li>Thariq Shihipar, Claude Blog, 15/04/2026, <a
+              href="https://claude.com/blog/using-claude-code-session-management-and-1m-context">Session management and
+              1M context</a>: "every turn as a branching point", compact sớm.</li>
+          <li>Chroma Research, 14/07/2025, <a href="https://www.trychroma.com/research/context-rot">Context Rot</a>:
+            đánh giá 18 mô hình ngôn ngữ lớn.</li>
+          <li>GitHub Blog, 02/09/2025, <a
+              href="https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/">Spec-driven
+              development with AI</a>; repo <a href="https://github.com/github/spec-kit">github/spec-kit</a>.</li>
+          <li>Phan Minh Tâm, bài viết gốc <em>Dùng Claude Code hiệu quả: Hướng dẫn quản lý context 2026</em>, bản đầy đủ
+            của nội dung buổi này.</li>
+        </ol>
+      </div>
+      <div class="foot"><span>Dùng Claude Code hiệu quả</span><span class="n"></span></div>
+      <aside class="notes">
+        <p>Gửi link slide này cho nhóm sau buổi để các bạn tự tra nguồn.</p>
+      </aside>
+    </section>
+
+    <!-- 27 -->
+    <section class="slide title-slide" id="s27">
+      <div class="kicker">Cohort 4 · Nhóm G19 · Hỏi đáp</div>
+      <h1>Bắt đầu từ một câu hỏi</h1>
+      <p class="sub">"Phần lịch sử phía trên có giúp Claude làm đúng task này không?"<br>Nếu phần lớn là không, bạn đã
+        biết phải làm gì.</p>
+      <div class="meta">
+        <div><b>Mentor</b>Phan Minh Tâm · Bùi Việt Hoàng</div>
+        <div><b>Điểm chốt</b>Context là ngân sách · Mỗi turn là điểm rẽ · Luôn có bằng chứng pass/fail</div>
+      </div>
+      <aside class="notes">
+        <p>Quay lại slide 3 nếu cần chốt 5 câu. Mở phần hỏi đáp. Nhắc bài thực hành tuần này.</p>
+      </aside>
+    </section>
+
+  </main>
+
+  <div class="hint"><kbd>←</kbd> <kbd>→</kbd> chuyển slide · <kbd>N</kbd> ghi chú · <kbd>F</kbd> toàn màn hình</div>
+  <div class="ctrl">
+    <button type="button" id="prev" aria-label="Slide trước">‹</button>
+    <span id="counter" class="n">1 / 27</span>
+    <button type="button" id="next" aria-label="Slide sau">›</button>
+  </div>
+  <aside class="drawer" id="drawer" hidden>
+    <div class="lbl">Ghi chú người nói</div>
+    <div id="notes"></div>
+  </aside>
+
+  <script>
+    (function () {
+      var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+      var n = slides.length, cur = 0;
+      var counter = document.getElementById('counter'), progress = document.getElementById('progress');
+      var drawer = document.getElementById('drawer'), notesEl = document.getElementById('notes');
+      slides.forEach(function (s, i) { var f = s.querySelector('.foot .n'); if (f) f.textContent = (i + 1) + ' / ' + n; });
+
+      function fit() {
+        var w = window.innerWidth - 32, h = window.innerHeight - 32;
+        if (!drawer.hidden) h -= Math.min(window.innerHeight * 0.34, drawer.offsetHeight || 0);
+        var s = Math.min(w / 1280, h / 720);
+        document.documentElement.style.setProperty('--s', String(s));
+      }
+      function show(i, push) {
+        if (i < 0) i = 0; if (i > n - 1) i = n - 1;
+        slides[cur].classList.remove('active');
+        cur = i; slides[cur].classList.add('active');
+        counter.textContent = (cur + 1) + ' / ' + n;
+        progress.style.width = ((cur + 1) / n * 100) + '%';
+        var note = slides[cur].querySelector('.notes');
+        notesEl.innerHTML = note ? note.innerHTML : '<p>(Không có ghi chú cho slide này.)</p>';
+        if (push !== false) { try { history.replaceState(null, '', '#s' + (cur + 1)); } catch (e) { } }
+        try { localStorage.setItem('g19-slide', String(cur)); } catch (e) { }
+      }
+      function fromHash() {
+        var m = /^#s(\d+)$/.exec(location.hash || '');
+        if (m) return Math.max(0, Math.min(n - 1, parseInt(m[1], 10) - 1));
+        return -1;
+      }
+      var start = fromHash();
+      if (start < 0) { try { var saved = parseInt(localStorage.getItem('g19-slide'), 10); if (!isNaN(saved)) start = saved; } catch (e) { } }
+      if (start < 0) start = 0;
+      slides.forEach(function (s) { s.classList.remove('active'); });
+      slides[start].classList.add('active'); cur = start; show(start, false);
+      fit();
+
+      document.getElementById('prev').addEventListener('click', function () { show(cur - 1); });
+      document.getElementById('next').addEventListener('click', function () { show(cur + 1); });
+      window.addEventListener('resize', fit);
+      window.addEventListener('hashchange', function () { var h = fromHash(); if (h >= 0 && h !== cur) show(h, false); });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        switch (e.key) {
+          case 'ArrowRight': case 'ArrowDown': case 'PageDown': case ' ': case 'Enter': e.preventDefault(); show(cur + 1); break;
+          case 'ArrowLeft': case 'ArrowUp': case 'PageUp': case 'Backspace': e.preventDefault(); show(cur - 1); break;
+          case 'Home': e.preventDefault(); show(0); break;
+          case 'End': e.preventDefault(); show(n - 1); break;
+          case 'n': case 'N': drawer.hidden = !drawer.hidden; fit(); break;
+          case 'f': case 'F':
+            if (document.fullscreenElement) { document.exitFullscreen && document.exitFullscreen().catch(function () { }); }
+            else if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen().catch(function () { }); }
+            break;
+        }
+      });
+
+      var tx = null;
+      document.addEventListener('touchstart', function (e) { tx = e.changedTouches[0].clientX; }, { passive: true });
+      document.addEventListener('touchend', function (e) {
+        if (tx === null) return; var dx = e.changedTouches[0].clientX - tx; tx = null;
+        if (Math.abs(dx) > 50) show(dx < 0 ? cur + 1 : cur - 1);
+      }, { passive: true });
+    })();
+  </script>
+</body>
+
+</html>

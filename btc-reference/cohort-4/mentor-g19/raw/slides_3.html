@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI in Action · Cohort 4 · Session 03</title>
+<style>
+  :root {
+    --navy: #0b2447;
+    --navy-2: #123a6b;
+    --blue: #2563eb;
+    --blue-soft: #3b82f6;
+    --blue-pale: #eaf1ff;
+    --bg: #f7faff;
+    --white: #ffffff;
+    --ink: #16233b;
+    --muted: #5b6b85;
+    --line: #d8e4f5;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--ink); overflow: hidden; }
+
+  .deck { position: relative; width: 100vw; height: 100vh; }
+  .slide {
+    position: absolute; inset: 0; display: none; flex-direction: column;
+    padding: clamp(2rem, 5vh, 4rem) clamp(2.5rem, 6vw, 6rem);
+    background: var(--bg);
+  }
+  .slide.active { display: flex; animation: fadeIn .45s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .slide::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(37, 99, 235, .06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(37, 99, 235, .06) 1px, transparent 1px);
+    background-size: 48px 48px; pointer-events: none;
+  }
+  .slide > * { position: relative; z-index: 1; }
+
+  .slide-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: clamp(1.2rem, 3.5vh, 2.4rem); }
+  .slide-index { font-family: var(--mono); color: var(--blue); font-size: clamp(.8rem, 1.4vw, 1rem); letter-spacing: .08em; }
+  h2.slide-title { font-size: clamp(1.8rem, 3.6vw, 2.9rem); color: var(--navy); font-weight: 800; letter-spacing: -.02em; }
+  .slide-title .accent { color: var(--blue); }
+  .section-label {
+    font-family: var(--mono); font-size: clamp(.68rem, 1.1vw, .8rem);
+    color: var(--muted); letter-spacing: .22em; text-transform: uppercase;
+    display: flex; align-items: center; gap: .8rem;
+  }
+  .section-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .role-note { text-align: center; color: var(--muted); font-size: clamp(.78rem, 1.4vw, .95rem); }
+  .role-note strong { color: var(--navy); }
+
+  /* ---------- title slide ---------- */
+  #s1 { align-items: center; justify-content: center; text-align: center; gap: 2.2rem; }
+  #s1 .program {
+    font-family: var(--mono); letter-spacing: .35em; text-transform: uppercase;
+    color: var(--navy-2); font-size: clamp(.85rem, 1.6vw, 1.1rem);
+    display: flex; align-items: center; gap: .9rem;
+  }
+  #s1 .program::before, #s1 .program::after { content: ""; width: 44px; height: 1px; background: var(--line); }
+  .terminal {
+    width: min(680px, 86vw); background: var(--navy); border-radius: 14px;
+    box-shadow: 0 24px 60px rgba(11, 36, 71, .25);
+    text-align: left; overflow: hidden; border: 1px solid rgba(37,99,235,.35);
+  }
+  .term-bar {
+    display: flex; align-items: center; gap: .45rem; padding: .7rem 1rem;
+    background: rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .dot.r { background: #ff5f57; } .dot.y { background: #febc2e; } .dot.g { background: #28c840; }
+  .term-title { margin-left: auto; font-family: var(--mono); font-size: .72rem; color: rgba(255,255,255,.45); }
+  .term-body { padding: 1.4rem 1.6rem 1.7rem; font-family: var(--mono); font-size: clamp(.95rem, 1.9vw, 1.2rem); line-height: 2; }
+  .term-body .prompt { color: #7dd3fc; }
+  .term-body .cmd { color: #e2e8f0; }
+  .term-body .fn { color: #93c5fd; }
+  .term-body .str { color: #86efac; }
+  .term-out { color: #fff; font-weight: 700; font-size: clamp(1.9rem, 5vw, 3.2rem); margin-top: .4rem; }
+  .cursor { display: inline-block; width: .55em; height: 1.1em; margin-left: .18em; background: var(--blue-soft); vertical-align: text-bottom; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  #s1 .mentor { font-size: clamp(1.05rem, 2.2vw, 1.45rem); color: var(--ink); }
+  #s1 .mentor strong { color: var(--blue); font-weight: 700; }
+
+  /* ---------- agenda ---------- */
+  .agenda { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: clamp(.8rem, 2.2vh, 1.3rem); }
+  .ag-item {
+    display: flex; align-items: center; gap: clamp(1rem, 2.2vw, 1.6rem);
+    background: var(--white); border: 1px solid var(--line); border-radius: 14px;
+    padding: clamp(.9rem, 2vw, 1.3rem) clamp(1.1rem, 2.4vw, 1.7rem);
+    box-shadow: 0 10px 28px rgba(11,36,71,.07);
+    position: relative; overflow: hidden;
+  }
+  .ag-item::before {
+    content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 4px;
+    background: linear-gradient(180deg, var(--blue), var(--navy-2));
+  }
+  .ag-num { font-family: var(--mono); font-size: clamp(1.2rem, 2.6vw, 1.8rem); font-weight: 700; color: var(--blue); }
+  .ag-body h3 { color: var(--navy); font-size: clamp(1rem, 2vw, 1.35rem); letter-spacing: -.01em; }
+  .ag-body p { color: var(--muted); font-size: clamp(.75rem, 1.35vw, .92rem); margin-top: .2rem; }
+
+  /* ---------- chapter divider ---------- */
+  .slide.dark { background: var(--navy); }
+  .slide.dark::before {
+    background-image:
+      linear-gradient(rgba(125, 211, 252, .07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(125, 211, 252, .07) 1px, transparent 1px);
+  }
+  .chapter { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 1.2rem; max-width: 900px; }
+  .chapter .ch-kicker {
+    font-family: var(--mono); color: #7dd3fc; letter-spacing: .3em;
+    font-size: clamp(.75rem, 1.3vw, .95rem); text-transform: uppercase;
+    display: flex; align-items: center; gap: .9rem;
+  }
+  .chapter .ch-kicker::before { content: ""; width: 40px; height: 2px; background: var(--blue-soft); }
+  .chapter h2 { color: #fff; font-size: clamp(2.2rem, 5.2vw, 4rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.12; }
+  .chapter .ch-sub { color: rgba(255,255,255,.65); font-size: clamp(.95rem, 1.9vw, 1.25rem); font-family: var(--mono); }
+  .chapter .ch-sub .hl { color: #86efac; }
+
+  /* ---------- shared building blocks (dùng cho các slide nội dung sau) ---------- */
+  .chips { display: flex; flex-wrap: wrap; gap: .45rem; }
+  .chip {
+    font-family: var(--mono); font-size: clamp(.62rem, 1.05vw, .76rem);
+    color: var(--navy-2); background: var(--blue-pale);
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: .3rem .65rem; white-space: nowrap;
+  }
+  .mini-cards { display: flex; gap: clamp(.8rem, 1.8vw, 1.4rem); }
+  .mini-card {
+    flex: 1; background: var(--white); border: 1px solid var(--line); border-radius: 14px;
+    padding: clamp(.9rem, 1.8vw, 1.3rem);
+    box-shadow: 0 10px 28px rgba(11,36,71,.07);
+    position: relative; overflow: hidden;
+  }
+  .mini-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--navy-2)); }
+  .mini-card h4 { color: var(--navy); font-size: clamp(.95rem, 1.7vw, 1.15rem); letter-spacing: -.01em; }
+  .mini-card p { color: var(--muted); font-size: clamp(.75rem, 1.3vw, .88rem); margin-top: .3rem; line-height: 1.45; }
+  .flow { display: flex; align-items: center; justify-content: center; gap: clamp(.5rem, 1.2vw, 1rem); }
+  .node {
+    background: var(--white); border: 1px solid var(--line); border-radius: 12px;
+    padding: clamp(.7rem, 1.5vw, 1rem) clamp(.9rem, 1.8vw, 1.3rem);
+    box-shadow: 0 10px 26px rgba(11,36,71,.07); text-align: center; position: relative;
+  }
+  .node .n-icon { font-size: clamp(1rem, 2vw, 1.4rem); }
+  .node .n-label { font-family: var(--mono); font-size: clamp(.66rem, 1.15vw, .82rem); font-weight: 600; color: var(--navy); margin-top: .3rem; white-space: nowrap; }
+  .node .n-owner {
+    font-family: var(--mono); font-size: clamp(.55rem, .95vw, .68rem);
+    color: var(--blue); margin-top: .25rem; white-space: nowrap;
+    background: var(--blue-pale); border: 1px solid var(--line);
+    border-radius: 999px; padding: .1rem .45rem; display: inline-block;
+  }
+  .node.hub { border-color: var(--blue-soft); box-shadow: 0 12px 30px rgba(37,99,235,.18); }
+  .arrow { font-family: var(--mono); color: var(--blue); font-size: clamp(1rem, 2vw, 1.5rem); font-weight: 700; }
+  .work-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(.5rem, 1.2vw, .9rem); }
+  .work-item {
+    display: flex; align-items: center; gap: .6rem; flex: 0 1 auto;
+    background: var(--white); border: 1px solid var(--line); border-radius: 12px;
+    padding: clamp(.55rem, 1.2vw, .8rem) clamp(.7rem, 1.4vw, 1rem);
+    box-shadow: 0 8px 20px rgba(11,36,71,.06);
+  }
+  .work-item .w-icon { font-size: clamp(.95rem, 1.7vw, 1.2rem); }
+  .work-item .w-name { font-weight: 700; color: var(--navy); font-size: clamp(.78rem, 1.35vw, .95rem); white-space: nowrap; }
+  .work-item .w-desc { font-family: var(--mono); color: var(--muted); font-size: clamp(.6rem, 1vw, .72rem); margin-top: .1rem; }
+  .converge { display: flex; flex-direction: column; align-items: center; gap: .3rem; }
+  .result-bar {
+    display: inline-flex; align-items: center; gap: .7rem;
+    background: var(--navy); color: #fff; border-radius: 12px; padding: .8rem 1.6rem;
+    font-family: var(--mono); font-size: clamp(.8rem, 1.5vw, 1rem); font-weight: 600;
+    box-shadow: 0 14px 36px rgba(11,36,71,.28); border: 1px solid rgba(37,99,235,.4);
+  }
+  .result-bar .ok { color: #86efac; }
+  .rule-bar {
+    align-self: center; font-family: var(--mono); font-size: clamp(.68rem, 1.25vw, .85rem); font-weight: 600;
+    color: #b45309; background: #fef3c7; border: 1px solid #fcd34d;
+    border-radius: 10px; padding: .55rem 1rem;
+  }
+
+  /* ---------- chapter 1 : PRD blocks ---------- */
+  .mini-card ul { list-style: none; margin-top: .55rem; display: flex; flex-direction: column; gap: .35rem; }
+  .mini-card li {
+    display: block; position: relative; padding-left: 1.1em;
+    color: var(--ink); font-size: clamp(.72rem, 1.25vw, .88rem); line-height: 1.5;
+  }
+  .mini-card li::before { content: "▸"; color: var(--blue); font-family: var(--mono); position: absolute; left: 0; top: 0; }
+  .mini-card li strong { color: var(--navy); }
+  .mini-card.bad { border-color: #fecaca; }
+  .mini-card.bad::before { background: #dc2626; }
+  .mini-card.good { border-color: #bbf7d0; }
+  .mini-card.good::before { background: #16a34a; }
+  .code-card {
+    background: var(--navy); border: 1px solid rgba(37,99,235,.4); border-radius: 12px;
+    padding: clamp(.8rem, 1.6vw, 1.1rem) clamp(1rem, 2vw, 1.4rem);
+    font-family: var(--mono); font-size: clamp(.68rem, 1.2vw, .85rem);
+    color: #e2e8f0; line-height: 1.75;
+    box-shadow: 0 14px 36px rgba(11,36,71,.25);
+  }
+  .code-card .kw { color: #7dd3fc; font-weight: 700; }
+  .code-card .val { color: #86efac; }
+  .code-card .cm { color: rgba(255,255,255,.45); }
+
+  /* ---------- PRD spec grid (slide Mini-PRD) ---------- */
+  .prd-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(.6rem, 1.3vw, 1rem); }
+  .prd-item {
+    background: var(--white); border: 1px solid var(--line); border-radius: 12px;
+    padding: clamp(.7rem, 1.4vw, 1rem);
+    box-shadow: 0 8px 22px rgba(11,36,71,.06);
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; gap: .4rem;
+  }
+  .prd-item::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--navy-2)); }
+  .pi-head { display: flex; align-items: center; gap: .5rem; }
+  .pi-num {
+    font-family: var(--mono); font-size: .7rem; font-weight: 700; color: var(--blue);
+    background: var(--blue-pale); border: 1px solid var(--line); border-radius: 6px; padding: .08rem .4rem;
+  }
+  .pi-name { font-weight: 800; color: var(--navy); font-size: clamp(.78rem, 1.35vw, .95rem); letter-spacing: -.01em; }
+  .pi-def { color: var(--ink); font-size: clamp(.66rem, 1.15vw, .8rem); line-height: 1.45; }
+  .pi-def strong { color: var(--navy); }
+  .pi-ex {
+    font-family: var(--mono); color: var(--blue); font-size: clamp(.58rem, 1vw, .7rem); line-height: 1.4;
+    border-top: 1px dashed var(--line); padding-top: .4rem; margin-top: auto;
+  }
+
+  /* ---------- framework rows (SMART / MoSCoW) ---------- */
+  .fw-row {
+    display: flex; align-items: flex-start; gap: .65rem;
+    padding: clamp(.4rem, .9vh, .55rem) 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .fw-row:last-child { border-bottom: none; }
+  .fw-badge {
+    font-family: var(--mono); font-size: clamp(.68rem, 1.15vw, .82rem); font-weight: 700;
+    color: #fff; background: var(--blue); border-radius: 8px;
+    padding: .18rem .55rem; flex: 0 0 auto; min-width: 2.1em; text-align: center;
+  }
+  .fw-badge.soft { color: var(--navy-2); background: var(--blue-pale); border: 1px solid var(--line); }
+  .fw-badge.won { color: var(--muted); background: #f1f5f9; border: 1px solid var(--line); }
+  .fw-body { font-size: clamp(.7rem, 1.2vw, .85rem); line-height: 1.45; color: var(--ink); }
+  .fw-body strong { color: var(--navy); }
+  .fw-body .fw-ex { font-family: var(--mono); color: var(--blue); font-size: clamp(.6rem, 1.05vw, .74rem); display: block; margin-top: .12rem; }
+
+  /* ---------- nesting diagram PRD ⊃ feature ⊃ story ---------- */
+  .nest {
+    border: 2px solid var(--navy); border-radius: 16px;
+    padding: clamp(1.4rem, 2.6vw, 1.9rem) clamp(.9rem, 1.8vw, 1.3rem) clamp(.9rem, 1.8vw, 1.3rem);
+    background: var(--white); position: relative;
+    box-shadow: 0 12px 34px rgba(11,36,71,.08);
+  }
+  .nest-tag {
+    position: absolute; top: -12px; left: 16px;
+    font-family: var(--mono); font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+    color: #fff; background: var(--navy); border-radius: 999px; padding: .18rem .7rem;
+  }
+  .nest-row { display: flex; gap: clamp(.6rem, 1.4vw, 1rem); align-items: stretch; }
+  .nest-feat {
+    flex: 1; border: 2px dashed var(--blue-soft); border-radius: 12px;
+    padding: clamp(1.1rem, 2vw, 1.4rem) clamp(.6rem, 1.2vw, .9rem) clamp(.6rem, 1.2vw, .9rem);
+    position: relative; background: rgba(37,99,235,.03);
+    display: flex; flex-direction: column; gap: .4rem; justify-content: center;
+  }
+  .nest-feat .nf-tag {
+    position: absolute; top: -10px; left: 12px;
+    font-family: var(--mono); font-size: .6rem; font-weight: 700;
+    color: var(--blue); background: var(--blue-pale); border: 1px solid var(--line);
+    border-radius: 999px; padding: .12rem .55rem; white-space: nowrap;
+  }
+  .nest-feat.open { flex: 2; background: rgba(37,99,235,.06); }
+  .nest-story {
+    font-family: var(--mono); font-size: clamp(.6rem, 1.05vw, .74rem); font-weight: 600;
+    color: var(--navy-2); background: var(--white);
+    border: 1px solid var(--blue-soft); border-radius: 8px;
+    padding: .35rem .6rem; text-align: center;
+  }
+  .nest-story.dim { opacity: .45; border-style: dashed; }
+  .nest-more { font-family: var(--mono); font-size: .7rem; color: var(--muted); text-align: center; align-self: center; }
+
+  /* ---------- nav / chrome ---------- */
+  .progress {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--blue-soft));
+    transition: width .3s ease; z-index: 10;
+  }
+  .nav { position: fixed; bottom: 1.4rem; right: 1.6rem; display: flex; align-items: center; gap: .7rem; z-index: 10; }
+  .nav button {
+    width: 40px; height: 40px; border-radius: 10px;
+    border: 1px solid var(--line); background: var(--white);
+    color: var(--navy); font-size: 1rem; cursor: pointer;
+    box-shadow: 0 4px 14px rgba(11,36,71,.08); transition: all .15s ease;
+  }
+  .nav button:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-1px); }
+  .counter { font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+  .counter .cur { color: var(--blue); font-weight: 700; }
+  .brand {
+    position: fixed; bottom: 1.7rem; left: 1.8rem; z-index: 10;
+    font-family: var(--mono); font-size: .72rem; color: var(--muted); letter-spacing: .18em;
+  }
+
+  /* p3 additions */
+  .cols { flex: 0 1 auto; margin: auto 0; min-height: 0; display: flex; gap: clamp(.8rem, 1.8vw, 1.3rem); align-items: stretch; }
+  .col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: clamp(.55rem, 1.3vh, .9rem); }
+  .col > .mini-card, .col > .code-card { flex: 0 1 auto; }
+  .ag-item.dim { opacity: .45; }
+  .stat-chip { font-family: var(--mono); font-weight: 700; }
+
+  .board { flex: 1; min-height: 0; display: flex; gap: clamp(.5rem, 1.1vw, .8rem); align-items: stretch; }
+  .bcol { flex: 1; min-width: 0; background: var(--blue-pale); border: 1px solid var(--line); border-radius: 12px; padding: .55rem; display: flex; flex-direction: column; gap: .45rem; }
+  .bcol h5 { font-family: var(--mono); font-size: clamp(.58rem, .95vw, .7rem); color: var(--muted); letter-spacing: .1em; text-transform: uppercase; display: flex; justify-content: space-between; padding: .1rem .2rem; }
+  .bcard { border: 1px solid var(--line); border-left: 3px solid var(--blue); border-radius: 8px; padding: .45rem .55rem; font-size: clamp(.6rem, 1vw, .76rem); color: var(--ink); background: var(--white); box-shadow: 0 4px 10px rgba(11,36,71,.05); }
+  .bcard .bmeta { font-family: var(--mono); font-size: clamp(.5rem, .85vw, .62rem); color: var(--blue); margin-top: .25rem; }
+  .bcard.done { opacity: .6; border-left-color: #16a34a; }
+  .bcard.done .bmeta { color: #16a34a; }
+  .bcard.wip { border-left-color: #f59e0b; }
+
+  .n-sub { font-family: var(--mono); font-size: clamp(.52rem, .9vw, .66rem); color: var(--muted); margin-top: .2rem; }
+  .node.mvp { background: var(--navy); border-color: var(--blue-soft); }
+  .node.mvp .n-label { color: #fff; }
+  .node.mvp .n-sub { color: #7dd3fc; }
+  .node.done-n { border-color: #bbf7d0; }
+  .node.done-n .n-label { color: #16a34a; }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck">
+
+<!-- ===== 1 · TITLE ===== -->
+<section class="slide active" id="s1">
+  <div class="program">AI in Action · Cohort 4 · Session 03 · Nhóm G19</div>
+  <div class="terminal">
+    <div class="term-bar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="term-title">mentor@ai-in-action:~/p3</span>
+    </div>
+    <div class="term-body">
+      <span class="prompt">$</span> <span class="cmd">./session03</span> <span class="fn">--run</span> <span class="str">--checkpoint 17/10</span><br>
+      <span class="term-out">Ship it!<span class="cursor"></span></span>
+    </div>
+  </div>
+  <div class="mentor">Project Setup &amp; Build Loop · <strong>Bùi Việt Hoàng</strong> × <strong>Phan Minh Tâm</strong></div>
+</section>
+
+<!-- ===== 2 · AGENDA ===== -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="slide-index"></span>
+    <h2 class="slide-title">Hôm nay: <span class="accent">design freeze → code</span></h2>
+  </div>
+  <div class="agenda">
+    <div class="ag-item"><span class="ag-num">00</span>
+      <div class="ag-body"><h3>Summarization &amp; Chốt sổ Architecture</h3>
+      <p>Kiểm tra đầu vào trước khi build · xử lý blocker · design freeze sau khi team tự chấm</p></div>
+    </div>
+    <div class="ag-item"><span class="ag-num">01</span>
+      <div class="ag-body"><h3>Từ design đến backlog</h3>
+      <p>Chia user story đúng cách · story → task · Definition of Done 3 cấp · demo trực tiếp trên GitHub Projects</p></div>
+    </div>
+    <div class="ag-item"><span class="ag-num">02</span>
+      <div class="ag-body"><h3>Build Loop &amp; Project Setup</h3>
+      <p>Repo · vai trò DevOps &amp; CI/CD tự động · walking skeleton · contract-first với coding agent · luật PR · mock song song</p></div>
+    </div>
+    <div class="ag-item"><span class="ag-num">03</span>
+      <div class="ag-body"><h3>Countdown to Final Review</h3>
+      <p>Kế hoạch mentor đề xuất: 03/10 → 17/10 — một đồng hồ chung cho mọi team</p></div>
+    </div>
+    <div class="ag-item dim"><span class="ag-num">→</span>
+      <div class="ag-body"><h3>Mốc chính thức của BTC</h3>
+      <p>MVP · Demo Day · deliverables: cập nhật khi BTC công bố</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3 · SUMMARIZATION ===== -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="slide-index"></span>
+    <h2 class="slide-title">Architecture Review <span class="accent">· checkpoint 03/10</span></h2>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <div class="section-label">Đầu vào cần có trước khi build</div>
+      <div class="mini-card good">
+        <ul>
+          <li><strong>Problem và happy path rõ</strong> — team biết đang giải quyết việc gì cho ai</li>
+          <li><strong>Scope Must vừa capacity</strong> — có estimate và owner cho từng story</li>
+          <li><strong>Architecture có boundary</strong> — mũi tên ghi rõ data flow và sync/async</li>
+          <li><strong>Interface contract đủ chia việc</strong> — FE, BE và AI có thể code song song</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col">
+      <div class="section-label">Red flags cần sửa ngay</div>
+      <div class="mini-card bad">
+        <ul>
+          <li><strong>Scope không khớp capacity</strong> — quá nhiều Must, chưa tính ngày công tích hợp và test</li>
+          <li><strong>Thiếu interface contract</strong> — tuần này không ai làm song song được</li>
+          <li><strong>Tài liệu chưa nằm trên nhánh chính</strong> — reviewer không có một nguồn sự thật</li>
+          <li><strong>Ràng buộc in đậm trong đề bị bỏ sót</strong> — ràng buộc của đề là Must mặc định, không phải gợi ý</li>
+          <li><strong>PRD lẫn tech term · pain point không số · AC thiếu Given/When/Then</strong> — đúng các red flag đã dạy buổi 2</li>
+          <li><strong>Diagram mũi tên trần</strong> — không nhãn, không sync/async, không boundary, không lý do chọn component</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="rule-bar">📊 Team tự đánh dấu từng mục: <strong>đạt · cần sửa · blocker</strong> — chỉ freeze design khi không còn blocker</div>
+</section>
+
+<!-- ===== 4 · DESIGN FREEZE ===== -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="slide-index"></span>
+    <h2 class="slide-title">Chốt sổ <span class="accent">Architecture</span></h2>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <div class="section-label">Checklist 5 câu — tự chấm lần cuối</div>
+      <div class="mini-card"><ul>
+        <li><strong>Cover đủ PRD?</strong> — mọi feature Must có chỗ đứng trong diagram</li>
+        <li><strong>Đúng đặc tính task?</strong> — task lâu → bg task · cần nhanh → tối ưu latency</li>
+        <li><strong>Có SPOF không?</strong> — chết 1 component thì chuyện gì xảy ra</li>
+        <li><strong>Contract đủ rõ để chia việc?</strong> — FE/BE/AI nhìn spec là code song song được</li>
+        <li><strong>Effort khớp capacity?</strong> — tính theo người và số ngày còn lại, đã trừ tích hợp &amp; test</li>
+      </ul></div>
+    </div>
+    <div class="col">
+      <div class="section-label">Từ hôm nay</div>
+      <div class="mini-card good"><h4>Design freeze</h4>
+        <p>Architecture đã chốt là <strong>hợp đồng làm việc</strong> của team. Muốn đổi phải mang đến mentor duty: lý do gì, ảnh hưởng task nào, tốn thêm bao nhiêu ngày — được duyệt mới đổi.</p>
+      </div>
+      <div class="mini-card"><h4>Vì sao khắt khe?</h4>
+        <p>"Nghĩ lại cho hay hơn" ở tuần build là kẻ giết MVP số một. Doanh nghiệp cũng vậy: quyết định có deadline, sau deadline là thực thi — muốn hay hơn, ghi vào backlog bản sau.</p>
+      </div>
+    </div>
+  </div>
+  <div class="rule-bar">🔒 Từ 03/10: đổi architecture = lý do + ảnh hưởng + chi phí → mentor duyệt. Không có ngoại lệ im lặng.</div>
+</section>
+
+<!-- ===== 5 · DIVIDER CH01 ===== -->
+<section class="slide dark">
+  <div class="chapter">
+    <div class="ch-kicker">Chapter 01</div>
+    <h2>Từ design<br>đến backlog</h2>
+    <div class="ch-sub">story → task → board · <span class="hl">demo GitHub Projects</span></div>
+  </div>
+</section>
+
+<!-- ===== 6 · CHIA USER STORY ===== -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="slide-index"></span>
+    <h2 class="slide-title">Chia user story <span class="accent">— cắt ở đâu?</span></h2>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <div class="section-label">Công thức cắt</div>
+      <div class="mini-card"><ul>
+        <li>1 story = <strong>1 role + 1 hành động + 1 kết quả quan sát được</strong> — role kép hoặc chữ "và" trong hành động = 2 story</li>
+        <li>Đi theo <strong>hành trình user</strong> qua feature: chỗ nào user <strong>THẤY kết quả</strong> thì cắt một nhát</li>
+        <li>Bước user không thấy (parse, chunk, embed...) = <strong>task kỹ thuật bên trong story</strong>, không phải story riêng</li>
+      </ul></div>
+      <div class="section-label">3 phép thử — fail 1 là chưa phải story</div>
+      <div class="mini-card"><ul>
+        <li><strong>Viết được AC?</strong> — 1–3 kịch bản Given/When/Then, không viết nổi = còn mơ hồ, quay lại hỏi PO</li>
+        <li><strong>Demo được?</strong> — cuối story chỉ ra được cái gì chạy cho người khác xem</li>
+        <li><strong>Break được ≤ 1 ngày/subtask?</strong> — không break nổi = chưa thấy đáy → spike 1 ngày</li>
+      </ul></div>
+    </div>
+    <div class="col">
+      <div class="section-label">Ví dụ — feature "Upload tài liệu" (RAG)</div>
+      <div class="code-card">
+        <span class="kw">feature:</span> Upload &amp; xử lý tài liệu<br>
+        &nbsp;&nbsp;<span class="val">US-1</span> Là nhân viên, tôi upload file và <span class="val">thấy trạng thái xử lý</span><br>
+        &nbsp;&nbsp;<span class="val">US-2</span> Là nhân viên, tôi <span class="val">xem bảng action item</span> trích xuất được<br>
+        &nbsp;&nbsp;<span class="val">US-3</span> Là quản trị, tôi <span class="val">duyệt field</span> có confidence thấp<br>
+        <span class="cm"># parse / chunk / embed / index → task bên trong US-1, user không thấy</span>
+      </div>
+      <div class="mini-card"><h4>Story quá to? 2 nhát dao thực dụng nhất (SPIDR)</h4><ul>
+        <li><strong>Theo path</strong> — happy path 1 story · các case lỗi 1 story riêng</li>
+        <li><strong>Theo rule</strong> — mỗi rule nghiệp vụ 1 story (log bình thường ≠ cảnh báo ngưỡng)</li>
+      </ul></div>
+      <div class="role-note">Story cắt <strong>dọc theo giá trị user</strong> · task cắt <strong>theo việc kỹ thuật</strong> · role <strong>gán sau cùng</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 7 · STORY → TASK ===== -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="slide-index"></span>
+    <h2 class="slide-title">Story → Task <span class="accent">— chia theo việc, không theo role</span></h2>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <div class="section-label">US-1 "Upload và thấy trạng thái" → 5 task</div>
+      <div class="code-card">
+        <span class="kw">T1</span> Chốt contract API upload (req/res/error) <span class="val">0.5d</span> <span class="cm">BE+FE cùng chốt</span><br>
+        <span class="kw">T2</span> BE: endpoint upload + lưu storage <span class="val">1d</span><br>
+        <span class="kw">T3</span> AI: worker parse tài liệu <span class="val">1d</span><br>
+        <span class="kw">T4</span> FE: màn upload + trạng thái <span class="cm">(mock từ T1, song song)</span> <span class="val">1d</span><br>
+        <span class="kw">T5</span> Ghép &amp; test tích hợp <span class="val">0.5d</span><br>
+        <span class="cm"># không có task DevOps nào — và thế là đúng: CI/deploy là việc cấp dự án tuần 1</span>
+      </div>
+      <div class="rule-bar">📏 Subtask ≤ 1 ngày · không break nổi = spike 1 ngày rồi mới estimate · task ảo cho "đủ role" = phá estimate</div>
+    </div>
+    <div class="col">
+      <div class="section-label">2 task luôn bị quên</div>
+      <div class="mini-card good"><h4>T1 — Chốt contract (đầu story)</h4>
+        <p>Cái cho phép BE/FE/AI chạy <strong>song song không giẫm chân</strong>. Chưa chốt contract mà đã code = tuần sau ghép lại đập đi.</p>
+      </div>
+      <div class="mini-card good"><h4>T5 — Ghép &amp; test (cuối story)</h4>
+        <p>Luôn tốn thời gian mà <strong>không ai đặt tên cho nó</strong> — nên nó ăn vào buổi tối trước demo. Đặt tên, đặt estimate, gán owner như mọi task khác.</p>
+      </div>
+      <div class="role-note">Phép kiểm scope: 5 story × 4 task × 1 ngày = 20 ngày công/feature — quỹ thật ~30 ngày → nhân số ra là biết thừa hay thiếu</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8 · DEFINITION OF DONE ===== -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="slide-index"></span>
+    <h2 class="slide-title">Mark done <span class="accent">— 3 cấp, done là nhị phân</span></h2>
+  </div>
+  <div class="mini-cards" style="flex:1; min-height:0; align-items:stretch;">
+    <div class="mini-card"><h4>✅ Task done</h4><ul>
+      <li>Code + test đi kèm chạy pass</li>
+      <li>PR được review và <strong>merge về develop</strong></li>
+      <li>Không còn TODO/hardcode tạm trong phần mình sửa</li>
+    </ul></div>
+    <div class="mini-card"><h4>✅ Story done</h4><ul>
+      <li>Toàn bộ <strong>AC Given/When/Then pass</strong> — chạy thật, không phải "chắc là được"</li>
+      <li><strong>Demo được end-to-end</strong> trên môi trường chung, không phải máy cá nhân</li>
+      <li>Không còn bug chặn hành trình chính</li>
+    </ul></div>
+    <div class="mini-card"><h4>✅ Feature done</h4><ul>
+      <li>Mọi story Must của feature done</li>
+      <li>AC cấp feature pass + <strong>eval đạt ngưỡng</strong> (feature AI phải có số)</li>
+      <li>PO/người khác trong team <strong>bấm thử được</strong> mà không cần người làm ngồi cạnh</li>
+    </ul></div>
+  </div>
+  <div class="rule-bar">🚫 Không tồn tại "done 90%" · "xong trên máy em" · "xong rồi chỉ còn ghép" — chưa demo được trên môi trường chung = <strong>chưa done</strong></div>
+</section>
+
+<!-- ===== 9 · GITHUB PROJECTS ===== -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="slide-index"></span>
+    <h2 class="slide-title">GitHub Projects <span class="accent">— board là nguồn sự thật</span></h2>
+  </div>
+  <div class="cols">
+    <div class="col" style="flex:1.25;">
+      <div class="section-label">Board chuẩn của team (demo live)</div>
+      <div class="board">
+        <div class="bcol"><h5>Backlog <span>4</span></h5>
+          <div class="bcard">US-4 Hỏi đáp có trích dẫn<div class="bmeta">feat:qa · Must · 3d</div></div>
+          <div class="bcard">US-5 Phân quyền 2 role<div class="bmeta">feat:auth · Must · 2d</div></div>
+          <div class="bcard">US-6 Tóm tắt theo mẫu<div class="bmeta">feat:sum · Should</div></div>
+        </div>
+        <div class="bcol"><h5>In progress <span>2</span></h5>
+          <div class="bcard wip">US-2 Xem bảng action item<div class="bmeta">@an · feat:extract · 2d</div></div>
+          <div class="bcard wip">T3 AI: worker parse<div class="bmeta">@binh · trong US-1 · 1d</div></div>
+        </div>
+        <div class="bcol"><h5>In review <span>1</span></h5>
+          <div class="bcard">US-1 Upload thấy trạng thái<div class="bmeta">PR #14 · Closes #3</div></div>
+        </div>
+        <div class="bcol"><h5>Done <span>3</span></h5>
+          <div class="bcard done">Setup repo + CI<div class="bmeta">tuần 1</div></div>
+          <div class="bcard done">Contract /v1 upload<div class="bmeta">#2 · merged</div></div>
+          <div class="bcard done">Walking skeleton<div class="bmeta">10/10 ✓</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="section-label">Quy ước — để board không thành đồ trang trí</div>
+      <div class="mini-card"><ul>
+        <li><strong>1 issue = 1 story</strong>, title là câu story · task = checklist trong issue</li>
+        <li><strong>Label</strong> = feature + MoSCoW · <strong>Milestone</strong> = review 17/10 · field estimate theo ngày</li>
+        <li>PR ghi <strong>"Closes #12"</strong> → merge là card tự sang Done — board không cần tay kéo</li>
+        <li>Card ở In progress <strong>&gt; 2 ngày không nhúc nhích</strong> = tín hiệu daily phải hỏi</li>
+        <li>Daily meeting <strong>đứng nhìn board</strong>, không kể chuyện theo trí nhớ</li>
+      </ul></div>
+      <div class="role-note">TL break task trên board · PO nhìn board biết tiến độ · mentor nhìn board biết team sống hay chết — <strong>không cần hỏi ai</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 10 · DIVIDER CH02 ===== -->
+<section class="slide dark">
+  <div class="chapter">
+    <div class="ch-kicker">Chapter 02</div>
+    <h2>Build Loop<br>&amp; Project Setup</h2>
+    <div class="ch-sub">setup 1 lần · lặp nhịp đến review cuối · <span class="hl">deadline skeleton 10/10</span></div>
+  </div>
+</section>
+
+<!-- ===== 11 · PROJECT SETUP ===== -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="slide-index"></span>
+    <h2 class="slide-title">Project Setup <span class="accent">— tuần này phải xong</span></h2>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <div class="section-label">Repo khớp architecture — nhìn cây = nhìn diagram</div>
+      <div class="code-card">
+        repo/<br>
+        ├─ <span class="kw">frontend/</span> <span class="cm"># màn hình + gọi API theo contract</span><br>
+        ├─ <span class="kw">backend/</span><br>
+        │&nbsp;&nbsp;├─ <span class="val">api/</span> <span class="cm"># routes = contract /v1</span><br>
+        │&nbsp;&nbsp;├─ <span class="val">agent/</span> <span class="cm"># LangGraph flows</span><br>
+        │&nbsp;&nbsp;├─ <span class="val">rag/</span> <span class="cm"># ingest + retrieval</span><br>
+        │&nbsp;&nbsp;└─ <span class="val">core/</span> <span class="cm"># config · models · repository</span><br>
+        ├─ <span class="kw">tests/</span> <span class="cm"># unit + integration (mock LLM)</span><br>
+        ├─ <span class="kw">eval/</span> <span class="cm"># bộ câu hỏi chuẩn + report</span><br>
+        ├─ docker-compose.yml <span class="cm"># 1 lệnh cả stack</span><br>
+        └─ README.md <span class="cm"># runbook 15 phút</span><br>
+        <span class="cm"># mỗi component trong diagram phải chỉ tay được vào 1 thư mục</span>
+      </div>
+    </div>
+    <div class="col">
+      <div class="section-label">4 hạng mục — checklist setup</div>
+      <div class="mini-card"><ul>
+        <li><strong>Config &amp; secrets</strong> — .env + .env.example commit, key thật KHÔNG commit; hardcode key = lỗi 100% sinh viên mắc</li>
+        <li><strong>docker-compose</strong> — <span style="font-family:var(--mono)">docker compose up</span> dựng cả stack: ai clone về cũng chạy được y hệt nhau</li>
+        <li><strong>CI tối thiểu</strong> — lint + test chạy trên mọi PR; PR đỏ = không merge, không ngoại lệ</li>
+        <li><strong>README = runbook</strong> — người mới clone → chạy được trong 15 phút; template BTC trống thì điền hoặc xoá</li>
+      </ul></div>
+      <div class="rule-bar">💰 Setup là khoản đầu tư trả lãi mỗi ngày — tuần này không xong, tuần sau trả nợ gấp 3</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 12 · VAI TRÒ DEVOPS ===== -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="slide-index"></span>
+    <h2 class="slide-title">Vai trò DevOps <span class="accent">— dựng sân cho cả đội đá</span></h2>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <div class="section-label">Dựng môi trường từ dưới lên</div>
+      <div class="code-card">
+        <span class="kw">L1 · Infra</span> <span class="cm">— VM/cloud, network, domain, firewall: nơi mọi thứ đứng</span><br>
+        <span class="kw">L2 · Components</span> <span class="cm">— Postgres, Redis, vector DB, registry: dựng kèm HA config</span><br>
+        <span class="kw">L3 · App runtime</span> <span class="cm">— container BE/FE build từ template image chung</span><br>
+        <span class="kw">L4 · Pipeline</span> <span class="cm">— CI/CD nối code → env, không ai deploy tay</span><br>
+        <span class="cm"># dev env dựng xong tuần 1 — test/prod là copy của dev, chỉ đổi config</span>
+      </div>
+      <div class="mini-card"><h4>📥 Nhận requirement từ FE/BE — như một contract</h4><ul>
+        <li>Cần <strong>env var / secret</strong> gì · port nào · <strong>healthcheck endpoint</strong> nào</li>
+        <li>Phụ thuộc service gì (DB, Redis, LLM API) · cần <strong>resource</strong> bao nhiêu (RAM model, disk upload)</li>
+        <li>Chốt bằng file: <strong>service definition trong docker-compose</strong> = contract dev ↔ devops</li>
+      </ul></div>
+    </div>
+    <div class="col">
+      <div class="section-label">Template build image — viết 1 lần, mọi service dùng</div>
+      <div class="mini-card"><ul>
+        <li><strong>Dockerfile multi-stage chuẩn</strong> cho BE (deps → build → runtime mỏng) và FE — service mới chỉ copy template, đổi tên</li>
+        <li>Image <strong>không chứa config/secret</strong> — 1 image chạy mọi env, config bơm qua env var lúc run</li>
+        <li>.dockerignore đầy đủ — không nhét .env, node_modules, data vào image</li>
+      </ul></div>
+      <div class="mini-card good"><h4>🛡️ HA — mặc định, không phải nâng cao</h4><ul>
+        <li><strong>Docker</strong>: restart: always + healthcheck cho MỌI service · data DB nằm trong volume</li>
+        <li><strong>K8s</strong> (nếu dùng): replicas ≥ 2 + liveness/readiness probe</li>
+        <li>Chết là tự dậy — không phải gọi điện cho bạn devops lúc nửa đêm</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="rule-bar">🎯 Nghiệm thu vai DevOps: <strong>"tắt container bất kỳ — hệ tự sống lại không?"</strong></div>
+</section>
+
+<!-- ===== 13 · CI/CD PIPELINE ===== -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="slide-index"></span>
+    <h2 class="slide-title">CI/CD <span class="accent">— deploy là side effect của merge</span></h2>
+  </div>
+  <div class="flow" style="margin-bottom: clamp(.6rem,1.5vh,1rem); flex-wrap:wrap;">
+    <div class="node"><div class="n-icon">🔀</div><div class="n-label">Merge vào dev</div><div class="n-sub">PR xanh</div></div>
+    <span class="arrow">→</span>
+    <div class="node"><div class="n-icon">🧪</div><div class="n-label">CI: lint + test</div><div class="n-sub">đỏ = dừng</div></div>
+    <span class="arrow">→</span>
+    <div class="node hub"><div class="n-icon">📦</div><div class="n-label">Build image :sha</div><div class="n-sub">push registry</div></div>
+    <span class="arrow">→</span>
+    <div class="node"><div class="n-icon">📡</div><div class="n-label">Detect change</div><div class="n-sub">deploy job / watcher</div></div>
+    <span class="arrow">→</span>
+    <div class="node"><div class="n-icon">🚀</div><div class="n-label">Auto deploy dev env</div><div class="n-sub">pull + up -d</div></div>
+    <span class="arrow">→</span>
+    <div class="node"><div class="n-icon">🔔</div><div class="n-label">Smoke + notify</div><div class="n-sub">/health · báo channel</div></div>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <div class="section-label">Workflow rút gọn (GitHub Actions)</div>
+      <div class="code-card">
+        <span class="kw">on:</span> push: { branches: [<span class="val">dev</span>] }<br>
+        <span class="kw">jobs:</span><br>
+        &nbsp;&nbsp;<span class="val">test:</span> ruff + pytest <span class="cm"># fail → dừng cả pipeline</span><br>
+        &nbsp;&nbsp;<span class="val">build:</span> docker build -t ghcr.io/team/app:<span class="val">${GITHUB_SHA}</span> &amp;&amp; push<br>
+        &nbsp;&nbsp;<span class="val">deploy:</span> needs: build<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;ssh dev-server <span class="cm">"docker compose pull &amp;&amp; docker compose up -d"</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;curl --fail http://dev.team.app/<span class="val">health</span> <span class="cm"># smoke check</span>
+      </div>
+    </div>
+    <div class="col">
+      <div class="section-label">3 nguyên tắc</div>
+      <div class="mini-card"><ul>
+        <li><strong>Tag image = git sha</strong> — nhìn env biết đang chạy đúng commit nào; :latest là mù khi debug</li>
+        <li><strong>Env tách khỏi image</strong> — build 1 lần, chạy dev/test/prod bằng config khác nhau</li>
+        <li><strong>Không ai deploy tay</strong> — lên server gõ lệnh = thao tác không lặp lại được, hỏng không truy được</li>
+      </ul></div>
+      <div class="role-note">Chuẩn MVP: merge dev → <strong>3–5 phút sau</strong> bản mới tự chạy trên dev env, cả team bấm được link — demo cho mentor bằng đúng link đó</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 14 · WALKING SKELETON ===== -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="slide-index"></span>
+    <h2 class="slide-title">Walking skeleton <span class="accent">— chạy trước 10/10</span></h2>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <div class="section-label">Là gì?</div>
+      <div class="mini-card"><h4>Đường mỏng nhất xuyên hết mọi component</h4>
+        <p>1 màn hình → 1 endpoint → 1 lượt agent trả lời → 1 dòng ghi DB — <strong>xấu cũng được, ngu cũng được, nhưng phải chạy end-to-end trên môi trường chung</strong>. Sau đó mới làm dày từng khúc.</p>
+      </div>
+      <div class="mini-card"><h4>Vì sao trước, không phải sau?</h4>
+        <p>Rủi ro lớn nhất của mọi team không nằm trong từng module — nằm ở <strong>chỗ ghép</strong>. Skeleton ép mọi chỗ ghép lộ mặt ngay tuần đầu, khi còn thời gian sửa.</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="section-label">Skeleton = nhiệt kế đo scope</div>
+      <div class="flow">
+        <div class="node"><div class="n-label">FE 1 màn</div></div>
+        <span class="arrow">→</span>
+        <div class="node"><div class="n-label">API 1 endpoint</div></div>
+        <span class="arrow">→</span>
+        <div class="node hub"><div class="n-label">Agent 1 lượt</div></div>
+        <span class="arrow">→</span>
+        <div class="node"><div class="n-label">DB 1 dòng</div></div>
+      </div>
+      <div class="mini-card bad"><h4>🌡️ 2 tuần chưa xong skeleton</h4>
+        <p>Bài quá lớn hoặc architecture quá phức tạp → cắt Must ngay, đừng đợi tuần 4 mới nhận ra.</p>
+      </div>
+      <div class="mini-card good"><h4>🌡️ 2 ngày xong, hết chỗ đào</h4>
+        <p>Bài quá nông → chọn 1 mũi khoan sâu (eval, HITL, replan...) làm điểm nhấn demo.</p>
+      </div>
+    </div>
+  </div>
+  <div class="rule-bar">⏰ Deadline skeleton: <strong>T7 10/10</strong> — mentor duty sẽ bấm thử từng team, không nghe kể</div>
+</section>
+
+<!-- ===== 15 · NHỊP 1 TASK VỚI CODING AGENT ===== -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="slide-index"></span>
+    <h2 class="slide-title">Nhịp 1 task <span class="accent">— contract-first với coding agent</span></h2>
+  </div>
+  <div class="flow" style="margin-bottom: clamp(.6rem,1.5vh,1rem);">
+    <div class="node"><div class="n-icon">📋</div><div class="n-label">Nhận task</div><div class="n-sub">từ board</div></div>
+    <span class="arrow">→</span>
+    <div class="node hub"><div class="n-icon">📐</div><div class="n-label">Viết interface + test</div><div class="n-sub">người làm</div></div>
+    <span class="arrow">→</span>
+    <div class="node"><div class="n-icon">🤖</div><div class="n-label">Agent implement</div><div class="n-sub">máy làm</div></div>
+    <span class="arrow">→</span>
+    <div class="node"><div class="n-icon">🔍</div><div class="n-label">Tự review + chạy test</div><div class="n-sub">người kiểm</div></div>
+    <span class="arrow">→</span>
+    <div class="node"><div class="n-icon">🔀</div><div class="n-label">PR nhỏ</div><div class="n-sub">Closes #n</div></div>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <div class="section-label">Interface + constraint = prompt tốt nhất</div>
+      <div class="code-card">
+        <span class="cm"># đề bài cho agent = contract, không phải văn xuôi</span><br>
+        <span class="kw">class</span> DocumentParser(Protocol):<br>
+        &nbsp;&nbsp;<span class="kw">def</span> <span class="val">parse</span>(self, file: bytes, mime: str) -&gt; ParsedDoc: ...<br>
+        <span class="cm"># constraints:</span><br>
+        <span class="cm">#  - raise ParseError(reason) khi file hỏng — không nuốt lỗi</span><br>
+        <span class="cm">#  - từ chối file &gt; 50MB theo input spec của PRD</span><br>
+        <span class="cm">#  - tests/test_parser.py phải pass, không sửa test</span>
+      </div>
+    </div>
+    <div class="col">
+      <div class="section-label">Vì sao nhịp này?</div>
+      <div class="mini-card"><ul>
+        <li><strong>Người giữ 2 đầu</strong>: quyết contract (đầu) và gác chất lượng (cuối) — agent chỉ ở giữa</li>
+        <li>Test viết trước = <strong>định nghĩa done cho agent</strong> — nó biết lúc nào được dừng</li>
+        <li>Agent code nhanh gấp 10 — đề mơ hồ thì nó <strong>code sai cũng nhanh gấp 10</strong></li>
+      </ul></div>
+      <div class="role-note">Dành thời gian cho interface — code giờ là phần rẻ nhất, contract là phần đắt nhất để sửa (slide 20 buổi 2)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 16 · LUẬT PR & REVIEW ===== -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="slide-index"></span>
+    <h2 class="slide-title">Luật PR <span class="accent">&amp; review</span></h2>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <div class="section-label">5 luật — dán vào README</div>
+      <div class="mini-card"><ul>
+        <li><strong>PR &lt; 400 dòng</strong> — quá thì tách; PR to = review lướt = bug lọt</li>
+        <li><strong>1 PR = 1 task/story</strong> — không gộp "tiện tay sửa luôn"</li>
+        <li><strong>Review trong ngày</strong> — PR treo qua đêm là chặn đồng đội; review là việc có SLA, không phải việc rảnh mới làm</li>
+        <li><strong>CI đỏ không merge</strong> — không có "merge tạm rồi fix sau"</li>
+        <li><strong>Mô tả PR</strong>: Closes #n + cách test + ảnh hưởng gì — người review không phải đoán</li>
+      </ul></div>
+    </div>
+    <div class="col">
+      <div class="section-label">Review thời coding agent</div>
+      <div class="mini-card bad"><h4>❌ Approve bằng mắt thường</h4>
+        <p>Lướt 10 giây thấy "code đẹp" rồi approve — code agent sinh ra <strong>luôn nhìn đẹp</strong>, kể cả khi sai. Đẹp không phải bằng chứng.</p>
+      </div>
+      <div class="mini-card good"><h4>✅ Review = chạy thử</h4>
+        <p>Checkout, chạy test, bấm thử happy path + 1 case xấu khi đụng logic chính. Hỏi 1 câu: <strong>"case nào làm code này gãy?"</strong> — người viết trả lời được mới approve.</p>
+      </div>
+      <div class="role-note">Ownership (buổi 1): người approve chịu trách nhiệm ngang người viết</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 17 · MOCK ĐỂ LÀM SONG SONG ===== -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="slide-index"></span>
+    <h2 class="slide-title">Mock <span class="accent">— để không ai ngồi đợi ai</span></h2>
+  </div>
+  <div class="mini-cards" style="flex:1; min-height:0; align-items:stretch;">
+    <div class="mini-card"><h4>🖥️ FE mock từ contract</h4><ul>
+      <li>Stub response đúng theo spec /v1 (msw / json-server / fixture)</li>
+      <li>FE xong trước cả khi BE có thật — ghép chỉ là đổi base_url</li>
+      <li>Contract đổi → mock đổi → FE biết ngay, không đợi tới lúc ghép</li>
+    </ul></div>
+    <div class="mini-card"><h4>🤖 Mock LLM trong test</h4><ul>
+      <li>Fake client trả kịch bản cố định: happy · refusal · lỗi timeout</li>
+      <li>Test chạy nhanh, 0 đồng, CI không cần API key</li>
+      <li>Logic quanh LLM (parse output, retry, guardrail) test được như code thường</li>
+    </ul></div>
+    <div class="mini-card"><h4>🗃️ Seed data giả</h4><ul>
+      <li>1 script tạo dữ liệu mẫu: user 2 role, tài liệu, bản ghi lịch sử</li>
+      <li>Ai demo cũng cùng một bộ dữ liệu — hết cảnh "trên máy em có mà"</li>
+      <li>Case xấu trong input spec (file hỏng, đơn vị lạ...) nằm sẵn trong seed</li>
+    </ul></div>
+  </div>
+  <div class="rule-bar">⚠️ Mock chỉ để phát triển song song — checkpoint 17/10 phải chạy flow thật trên env chung</div>
+</section>
+
+<!-- ===== 18 · COUNTDOWN TO FINAL REVIEW ===== -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="slide-index"></span>
+    <h2 class="slide-title">Countdown <span class="accent">— một đồng hồ chung</span></h2>
+  </div>
+  <div class="col" style="flex:1; justify-content:center; gap:clamp(.9rem,2.4vh,1.6rem);">
+  <div class="flow" style="flex-wrap:wrap;">
+    <div class="node done-n"><div class="n-icon">🔒</div><div class="n-label">Design freeze</div><div class="n-sub">T7 03/10 · hôm nay</div></div>
+    <span class="arrow">→</span>
+    <div class="node"><div class="n-icon">🦴</div><div class="n-label">Walking skeleton chạy</div><div class="n-sub">T7 10/10 · mentor bấm thử</div></div>
+    <span class="arrow">→</span>
+    <div class="node"><div class="n-icon">🧊</div><div class="n-label">Done dev — code freeze</div><div class="n-sub">T5 15/10 · chỉ còn fix bug</div></div>
+    <span class="arrow">→</span>
+    <div class="node"><div class="n-icon">🧪</div><div class="n-label">Rà test + deploy</div><div class="n-sub">16/10 · trên env chung</div></div>
+    <span class="arrow">→</span>
+    <div class="node mvp"><div class="n-icon">🚀</div><div class="n-label">FINAL REVIEW</div><div class="n-sub">T7 17/10 · mentor checkpoint</div></div>
+  </div>
+  <div class="cols" style="flex:0 1 auto;">
+    <div class="col">
+      <div class="mini-card"><h4>Đọc lịch theo kiểu backward</h4>
+        <p>Muốn review ngày 17/10 → phải deploy ngày 16/10 → phải freeze ngày 15/10. Team dùng quỹ thời gian còn lại cho <strong>Must features, tích hợp và test</strong>.</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="mini-card bad"><h4>Luật 15/10</h4>
+        <p>Feature chưa done ngày 15/10 chuyển khỏi scope review ngày 17/10. Sau code freeze, team chỉ fix bug và ổn định flow chính.</p>
+      </div>
+    </div>
+  </div>
+  <div class="rule-bar">📅 17/10 là checkpoint theo lịch mentor, không tự coi là MVP hoặc Demo Day chính thức</div>
+  </div>
+</section>
+
+<!-- ===== 19 · Q&A ===== -->
+<section class="slide dark">
+  <div class="chapter">
+    <div class="ch-kicker">Session 03 · The end</div>
+    <h2>Q&amp;A</h2>
+    <div class="ch-sub">$ ./mentor --duty <span class="hl">T7 · 20:00–22:00</span> · hỏi async: tag mentor trong issue trên board</div>
+  </div>
+</section>
+
+</div>
+
+<div class="brand">AI IN ACTION · COHORT 4 · SESSION 03 · G19</div>
+<div class="nav">
+  <span class="counter"><span class="cur" id="cur">1</span> / <span id="total">3</span></span>
+  <button id="prev" aria-label="Previous">←</button>
+  <button id="next" aria-label="Next">→</button>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  let idx = 0;
+  const cur = document.getElementById('cur');
+  const total = document.getElementById('total');
+  const progress = document.getElementById('progress');
+  total.textContent = slides.length;
+  slides.forEach((s, i) => {
+    const el = s.querySelector('.slide-index');
+    if (el) el.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+  });
+  function show(i) {
+    idx = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach((s, j) => s.classList.toggle('active', j === idx));
+    cur.textContent = idx + 1;
+    progress.style.width = ((idx + 1) / slides.length * 100) + '%';
+  }
+  document.getElementById('next').onclick = () => show(idx + 1);
+  document.getElementById('prev').onclick = () => show(idx - 1);
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); show(idx + 1); }
+    if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); show(idx - 1); }
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End') show(slides.length - 1);
+  });
+  let x0 = null;
+  document.addEventListener('touchstart', e => x0 = e.touches[0].clientX);
+  document.addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 50) show(idx + (dx < 0 ? 1 : -1));
+    x0 = null;
+  });
+  show(0);
+</script>
+</body>
+</html>

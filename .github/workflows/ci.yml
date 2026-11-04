@@ -1,0 +1,35 @@
+name: Continuous Integration (CI)
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  quality-gate:
+    name: Code Quality & Test Gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Verify Context Files Integrity
+        run: |
+          echo "Checking mandatory context and spec files..."
+          test -f AGENTS.md || (echo "Missing AGENTS.md" && exit 1)
+          test -d specs || (echo "Missing specs directory" && exit 1)
+          test -d adrs || (echo "Missing adrs directory" && exit 1)
+
+      - name: Run Linter & Static Analysis
+        run: |
+          echo "Running static analysis and linting..."
+          # Customize based on tech stack:
+          # npm run lint / ruff check / dotnet format --verify-no-changes
+
+      - name: Run Automated Tests
+        run: |
+          echo "Running Unit and Integration tests..."
+          # Customize based on tech stack:
+          # npm test / pytest / dotnet test
