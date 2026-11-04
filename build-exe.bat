@@ -34,11 +34,11 @@ if errorlevel 1 (
     pip install pyinstaller
 )
 
-:: 4. Build Standalone Exe with PyInstaller
-echo [INFO] Dang bien dich Project-Review.exe voi Icon doc quyen...
+:: 4. Build Standalone Exe with PyInstaller (Native Windows GUI, No Console)
+echo [INFO] Dang bien dich Project-Review.exe giao dien Windows GUI voi Icon doc quyen...
 echo.
 
-pyinstaller --noconfirm --clean --onefile --console --icon="%~dp0assets\app-icon.ico" --name="Project-Review" "%~dp0scripts\project_auditor.py"
+pyinstaller --noconfirm --clean --onefile --windowed --paths="%~dp0scripts" --icon="%~dp0assets\app-icon.ico" --name="Project-Review" "%~dp0scripts\project_auditor_gui.py"
 
 if errorlevel 1 (
     echo.

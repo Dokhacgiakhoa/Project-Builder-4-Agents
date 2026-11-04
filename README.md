@@ -234,13 +234,18 @@ Chạy bộ thanh tra tự động (100% Offline, Zero-Token) để đối chi�
 ```bash
 # Cách 1 (Khuyến nghị trên Windows): Nhấp đúp trực tiếp vào file:
 Project-Review.exe
-# (Hoặc chạy: .\Project-Review.bat)
+# (Giao diện Windows GUI phong cách Unikey: Chọn thư mục dự án, thanh tiến trình động, 1-click mở báo cáo & copy prompt AI)
+# Hoặc chạy qua dòng lệnh: .\Project-Review.bat
 
 # Cách 2 (Qua Makefile hoặc Linux/macOS):
 make review
 # hoặc: ./Project-Review.sh
-```
-> Tệp **`Project-Review.exe`** có gắn **Custom App Icon độc quyền**, nhúng sẵn runtime độc lập (chạy ngay cả khi máy tính hoàn toàn chưa cài Python). Script sẽ quét 7 trụ cột kiến trúc và xuất ra file **`PROJECT_REVIEW_REPORT.md`**. Bạn chỉ cần ném file này vào chat với **Claude Code, Cursor, hoặc Antigravity** để AI tự động sửa các lỗi thiếu sót mà không tốn token quét file!
+`
+> Tệp **Project-Review.exe** là ứng dụng **Portable Windows GUI độc lập (phong cách Unikey)** có gắn **Custom App Icon độc quyền**, nhúng sẵn runtime 100% Offline (chạy ngay trên mọi máy tính Windows mà không cần cài Python).
+> - Bấm **Duyệt...** để chọn bất kỳ thư mục dự án nào cần kiểm tra trên máy.
+> - Theo dõi **Thanh tiến trình trực quan** quét qua 8 giai đoạn kiến trúc.
+> - File báo cáo **PROJECT_REVIEW_REPORT.md** sẽ được tạo **ngay tại thư mục dự án được review**.
+> - Tích hợp nút **📋 Sao Chép Prompt Cho AI** để ném lệnh ngay vào chat với **Claude Code, Cursor, hoặc Antigravity** sửa code tự động!
 
 ### 1. Clone Repository & Khởi Tạo Môi Trường
 ```bash

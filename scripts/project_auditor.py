@@ -27,26 +27,58 @@ class ProjectAuditor:
         self.innovations = []
         self.violations = []
         self.details = {}
+        self.report_path = None
 
-    def run(self):
+    def run(self, progress_callback=None):
         print("\n" + "=" * 70)
         print("  🚀 UNIVERSAL PROJECT REVIEW & ARCHITECTURE AUDITOR")
         print("  Benchmarking against: Universal AI-Native Starter Kit Standards")
         print("=" * 70 + "\n")
 
-        self.audit_clean_architecture()
-        self.audit_system_design_specs()
-        self.audit_frontend_architecture()
-        self.audit_anti_crash_code()
-        self.audit_ai_governance()
-        self.audit_ui_ux_archetypes()
-        self.audit_pitch_and_docs()
-        self.detect_advanced_innovations()
+        steps = [
+            ("Clean Architecture & DDD (src/)", 12, self.audit_clean_architecture),
+            ("System Design Specs & Contracts (specs/)", 25, self.audit_system_design_specs),
+            ("Frontend Architecture (frontend/)", 38, self.audit_frontend_architecture),
+            ("The Anti-Crash Standard (null-safety, try-catch)", 55, self.audit_anti_crash_code),
+            ("AI Governance & Context (AGENTS.md, adrs/)", 70, self.audit_ai_governance),
+            ("UI/UX Archetypes & Design Systems", 82, self.audit_ui_ux_archetypes),
+            ("Pitch Deck & Diátaxis Documentation (docs/)", 90, self.audit_pitch_and_docs),
+            ("Advanced Innovations (pgvector, Redis, CI/CD)", 95, self.detect_advanced_innovations)
+        ]
+
+        import time
+        for name, pct, fn in steps:
+            if progress_callback:
+                progress_callback(pct, f"Đang rà soát: {name}...")
+                time.sleep(0.08)
+            fn()
+
+        if progress_callback:
+            progress_callback(98, "Đang tổng hợp điểm số và tạo báo cáo Markdown...")
+            time.sleep(0.05)
 
         total_score = self.calculate_total_score()
-        report_path = self.generate_markdown_report(total_score)
-        self.print_console_summary(total_score, report_path)
+        self.report_path = self.generate_markdown_report(total_score)
+        
+        if progress_callback:
+            progress_callback(100, f"Đã hoàn thành! Báo cáo: {self.report_path.name}")
+
+        self.print_console_summary(total_score, self.report_path)
         return total_score
+
+    def get_ai_prompt(self):
+        return (
+            "[ROLE & GOAL]: Bạn là Principal Software Architect & Senior Code Reviewer.\n"
+            f"[TASK]: Hãy đọc toàn bộ nội dung bản báo cáo này (`{self.report_path.name if self.report_path else 'PROJECT_REVIEW_REPORT.md'}`).\n"
+            "[CONTEXT]: Dự án của chúng tôi đang áp dụng chuẩn 'Universal AI-Native Project Starter Kit'.\n"
+            "Báo cáo trên đã chỉ ra chính xác các điểm thiếu sót và các file vi phạm tại Mục 4 và Mục 5.\n\n"
+            "[YÊU CẦU THỰC HIỆN]:\n"
+            "1. Hãy phân tích các vi phạm Anti-Crash tại Mục 5 và đề xuất mã nguồn refactor tương ứng.\n"
+            "2. Lập kế hoạch từng bước (Step-by-step Execution Plan) để giải quyết các khoảng trống tại Mục 4.\n"
+            "3. Tuân thủ nghiêm ngặt nguyên tắc Defensive Programming (dùng ?., ??, Array.isArray(), try-catch).\n"
+            "4. Đừng sửa đổi các điểm sáng vượt trội đã được ghi nhận tại Mục 3.\n"
+            "5. Bắt đầu bằng kế hoạch xử lý cho các đầu việc P0 trước!"
+        )
 
     # -------------------------------------------------------------
     # 1. Clean Architecture & DDD Audit
