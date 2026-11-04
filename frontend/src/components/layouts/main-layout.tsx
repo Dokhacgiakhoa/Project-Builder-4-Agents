@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuthStore } from '@/stores/use-auth-store';
 import { Button } from '@/components/ui/button';
-import { Bot, Layers, LogOut, ShieldCheck } from 'lucide-react';
+import { Bot, LogOut, ShieldCheck } from 'lucide-react';
 
 export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, isAuthenticated, logout } = useAuthStore();
