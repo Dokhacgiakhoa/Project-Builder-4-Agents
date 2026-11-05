@@ -50,6 +50,7 @@ flowchart TD
     D -.trả về.-> A
     style D fill:#e8f0e8
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNo1kTFvwjAQhf_KKR1pEAmtWhiQApG6QIe2G2Zw4gtYOE5kzkEI-O89B-LBsp_P77tnX6OyURjNIapMcy4P0hH85cICj2z7LXWH8JN9QTpJUyEs1gUqED5NZilQ08bHYbNeb3YQx4vbCByenSaEERwuhdMKguSkPd5guc1UJ23JJk_XKbt2wicoCwsJGOEnSTEJAk6J75HT2OHu0dFyIDSetN2zsbaElnhRe0M6biUdbrDabhrljXQD5I0hdfBUH3q48tjPCFrdotF2YKyejNZIa9Gx9d5J1S9KjqXLPg65yw3ybbZnK5YGTszTe4D13ZwIW6DAqRI49ZmUDBH7Rp68HOIxuf4FptC_RJmM4wVkj-MTXQxyUaWNmb_gZzXBz-gVohpdLbUKP3cNlSKiA9YoWBCRwkpyByIS9h6Kpafm92JLPiTnkRXfKkmYa8nh6qd8_wfNEqYz)
 
 Lưu ý mũi tên đứt: agentic RAG **không thay thế** naive RAG. Trong phân tầng traffic (mục 6.7), 70% request vẫn đi đường naive + cache. Cấp cao hơn nghĩa là đắt hơn — chỉ dùng cho số ít query xứng đáng.
 
@@ -283,6 +284,7 @@ flowchart TD
     style P fill:#e8f0e8
     style T fill:#f5e8e8
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNp1ksFu2zAMhl-F8I5bAttBtqCHDYPb-VZkmXeycmBsOhGgyJ0stfCSvPsoyV2DrfXFEqnv109Sp6TpW0puIOlU_9Qc0FioboUG_r7XPwcy8MuRGbcwm32Gdb1WqDUZIfTDQbg0pVyDCYsF2BhJ9QEGt5t5TtKwjWLrILCpN2Q5-hgkPJBRlzWMSrB-Qzu9_0uPE7sJbHkqDbYBFC7PPy5zaPtmACXDtajZKeovl8iUnjlzJssyL4yZPUN5d1-XxP7R9l5nGNkDDfI3QROrcWBNOL4A5f9tK7fXgmzUh3edO0NVVwb10PXmGFw9TikbUczkde82k8zdfdgWp8JIKxvmmtAGXAYuzXZpaMSCG_Finz49F1a8VtjX-pvUqIDtPPHI3kMjLVrZ6-f2F_-5ZyMxVcFsbuJUWMGvxjiLlguI9yDk839KmO9jH_mOt5jMM0VkBjsq4kfQSaVu3tGqS2l1nammTLekFa2SD5BwT48oW_80T_6kSHhURxIcEElLHTplRSL0xR9GZ_sfo244aY0jjriHFi3dStwbPE7hyx82mfCJ)
 
 Sáu node: **Planner** (phân rã query) → **Retriever** → **Grader** (đánh giá relevance) → nếu thiếu → **Transformer** (viết lại query, vòng lặp) → **Generator** → **Critic** (chấm câu trả lời). Hai vòng lặp — transform query khi retrieval kém, tái sinh khi trả lời kém.
 

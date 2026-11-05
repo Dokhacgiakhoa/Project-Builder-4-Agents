@@ -15,7 +15,10 @@ Các ứng dụng hiện đại tích hợp LLM không chỉ dừng lại ở c�
 
 ### 2.1. Các Mẫu Kiến Trúc Tác Tử Chuẩn (Agentic Patterns)
 1. **ReAct Pattern (Reasoning + Acting)**:
-   - Vòng lặp: $	ext{Thought} ightarrow 	ext{Action (Tool Call)} ightarrow 	ext{Observation} ightarrow 	ext{Final Answer}$.
+   - Vòng lặp: $	ext{Thought} 
+ightarrow 	ext{Action (Tool Call)} 
+ightarrow 	ext{Observation} 
+ightarrow 	ext{Final Answer}$.
 2. **Supervisor & Subagent Hierarchy**:
    - Sử dụng một Supervisor Agent để phân loại intent và điều phối tác vụ tới các Subagents chuyên biệt (DB Agent, Search Agent, Coding Agent).
 3. **Model Context Protocol (MCP)**:
@@ -34,8 +37,9 @@ flowchart TD
     Guardrail -->|Yes| HITL[Human-in-the-Loop Approval]
     Guardrail -->|No| ToolExec[Execute Tool via MCP]
     HITL -->|Approved| ToolExec
-    HITL -->|Rejected| Fallback[Cancel & Inform User]
+    HITL -->|Rejected| Fallback["Cancel & Inform User"]
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNplkstOwzAQRX9l5AUCQcSeBai0QJEKgqYgoaSLqTNtDYkdHLtQNf137Ngtryz8GN97PLnyhnFVEDsDNi_VB1-iNjAZ5BLc99SQPsz8CGN6t9SY6REkyTmMlTWkNylVKI3gcQ-nkNqa9Eo0Sm8DIp44U_toSa9hgAZn2FALg8vegqTJdhXotnAMd_0HSB9HMFGqnP7D3Mq50hUaoSSkhJovWxj3bgLLLfaYZ-JG6aj5z7n6JG47So_7qY1zAIV1YEVvGH-IuihuLOpCoyg3fS1cFlhGyUVMYC_obn2hpoXh7WSUDa0LLxEyMUtKRkrV0KtrrVa4--ffxnvVdoH4trPQO3UFWAn0kUWXZ3eGQKPi2_ZHMKZXl5AXXGNZzpC_ZTnro-RUwgGEmLsnkLMpOwFWkYtdFP6pbDwqZ67zinJXyFlBc7SlyVkut16M1qh0Lbk7NNqSq9i6QEMDgQuNVSxvvwByLtXk)
 
 ### 2.2. Pipeline Đánh Giá Định Lượng (AI Evaluation Pipeline)
 Đo lường chất lượng hệ thống RAG và Agent thông qua **RAG Triad Metrics**:

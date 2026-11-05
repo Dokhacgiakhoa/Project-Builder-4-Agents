@@ -335,6 +335,7 @@ flowchart LR
     G4 --> G5["G5 Tuan 5: before/after + slop CLEAN"]
     G5 --> G6["G6 Tuan 6: 10/10 deliverables"]
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNpF0E1rwzAMBuC_InzdSpvPQw6D0o1QKKOs22neQU2UNMyxg-NklNL_PhkX4oMP0vtIoJuoTE2iANEo81dd0Do4fEgN_MroW4oygs8JNUQFfJ2O8ASDNYMZUUnxA6vVC5SxT8UhFRdQd9ha7Dm5Pe5h_CVFzmhOP4bGQSVeJUElBWBL2gHvvzJsJ7S1xU4tKgkq9SoNKuVdNCjjxW7PH82oYDa6hWiBaYCZh1mAWQFnaoylNTaOLMtRmQF2h7ft-wKzAHMP8wDzAqLNOtrwXtXNZPGsaGQhnkH0ZHvsan_Jm58ghbtQT5ILUtTU4KScFFLffRgnZ05XXXHT2Ym4Mg01OnoNt3uU7_9KY3l_)
 
 ## 10.x Gates G1-G6 — rubric tiến độ theo tuần
 

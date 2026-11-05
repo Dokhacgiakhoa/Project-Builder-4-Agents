@@ -93,6 +93,7 @@ flowchart TD
     E -- "Dat" --> F["Tra ket qua<br/>map lai placeholder neu can"]
     E -- "Khong dat" --> G["Tu choi hoac chay lai<br/>log vi tri loi"]
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNpdkl1r2zAUhv_KQbdbU_ZxNUaKG7tFJHFLYgJj2sWpfGqJ2FKmSN1KyH_fsdyFMV-J8_G873vwSWjfkvgC4rn3v7TBEKEplQP-iu9KSHdIEVyXvIU2uU6JH3B1NYdb7n2YwbrYLr8-hev5Y6Cjba2HdxCoo9-wqyEafIVHKeEJXQeHHjUZ37cUGDIp3GbWglkfZ3Bf1dWmaKrMW63WoI2dGLwPLcKAx_1ldZFXS179NINttS7qRi5gV6xkWTTyoc6UpaUBYkDwKY459sazk2gspeuetOFgxmIePXp44Yw25_1frMxi1UmJzzOQ9a7YSNaDXbWRd9_y-sMkoD27TphTD97ecG--wMQekv5rYjwjHLWhAW-UOE8KFSuAEiVGJbLYHSdr2PmeIvxMk8cBD9Cj_feU4CiBRnex-gZa5qTtBXc_4njScEbjUfOLD8uwDO59By987GCh95ZZ4j2IgcKAth3_jdPIViKyZ1JcUKKlZ0w905U7j8OYot--Os1NzkpcSQdWp9JiF3B4K5__ALRrwvg=)
 
 Ý nghĩa từng bước:
 
@@ -209,6 +210,7 @@ flowchart TD
     F --> H["Audit log<br/>muc rui ro + hanh dong escalation"]
     G --> H
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNpdkkFPwzAMhf-KlROIod0RGhrb2BCCSbAb4eAlWWO1TaY0EZqm_XecdBS0Hio1jr_3_NyjUF4bcQdi1_hvZTFE2MylA36mn1JsyIGzyK8qeQKdXCXFF9zeTuCRy-_U1aAa7DrakQn32zCeXLVMbLjLj4CBB4gheXXNbT32sXTPjlK8JgUhEQT_IMWpr864CqxrcS9FuTlnnekz7LMLyx625CxEm7yril4NtWmLPweR3KDzSwrsuTSdeYsLHg-ATNyi_4fT1PFY1JpwyZuhhzHUFsEhg2ub8dZjDqbwn5j_slq_LUEbYKGYOAGExlPhLzqFDUby7g4sGceZ-kLgW70DtgNbP1Y2HbhcEYLy5wUMZuZFaslS6xT3KUKVMOg-_5p4gCw5jFg2wFapKP6tYtFT-o-n8rHK6SRNkQ33-bbDluAGbI5KZ8NmmGPALXuCGIHg4FoknX-sYy5KEa1pjeQDKbTZYWqiFNKd8mVM0X8cnOIiOzV8kvYao5kTVgHb8_HpBzxw1is=)
 
 Ba chi tiết quyết định chất lượng của mô hình này:
 

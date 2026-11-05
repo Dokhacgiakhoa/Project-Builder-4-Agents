@@ -91,11 +91,12 @@ style: |
 
 ```mermaid
 graph LR
-    A[Human PO / Architect] -->|Specs & ADRs| B[Context Layer]
+    A["Human PO / Architect"] -->|Specs & ADRs| B[Context Layer]
     B -->|Defensive Contracts| C[AI Coding Agents]
     C -->|TDD Implementation| D[CI Quality Gate]
     D -->|Zero-Crash Guarantee| E[Production Release]
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNotkMtugzAQRX9l5EVXRd13EYngKkWK1JR0VcxiZE_AEraRH1VRyL_XULzznXvuPO5MOkXsFVjvcRrg3AgL-ZWtYO_JoIXLB7xA6eWgI8koWAdFcViuE8kAT1DyJixwbCtnI_1GOONMvvvPOG5OTjeyQf8QrB6PMmagass6_5W2PZQ92Rh2ptqYL86hNtNIJpcwamcX4G1Vw2fCUccZThhpJ_hGfJN3ReUxDHBK6DFPQwu8tRfvVJJrAjQ0Egbq2DMwQ96gVuve9zVGsDjkZiILgim6YRrzqsI-VjOm6K6zlbkYfaKspEnlAbjGfDSzy48_1MtsMQ==)
 
 * **Clean Architecture**: Tách rời hoàn toàn Core Domain khỏi Database và Frameworks.
 * **Feature-Driven UI**: 7 Vũ trụ thiết kế (UI/UX Archetypes) chuyển đổi linh hoạt.

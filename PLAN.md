@@ -31,13 +31,13 @@ Trong kỷ nguyên mới của ngành kỹ thuật phần mềm (**AI-Native Sof
 
 ```mermaid
 flowchart TD
-    subgraph HumanLeadership [ĐỘI NGŨ CON NGƯỜI (Accountability & Authority)]
+    subgraph HumanLeadership ["ĐỘI NGŨ CON NGƯỜI (Accountability & Authority)"]
         PO["Product Owner (PO)<br/>Bảo vệ GIÁ TRỊ & Nghiệp vụ"]
         PM["Project Manager (PM)<br/>Bảo vệ THỜI GIAN & Kỷ luật Sprint"]
         TL["Tech Lead / Software Architect<br/>Bảo vệ KỸ THUẬT & Phê duyệt PR"]
     end
 
-    subgraph MultiAgentSwarm [HỆ THỐNG TRỢ LÝ AI (Execution & Automation)]
+    subgraph MultiAgentSwarm ["HỆ THỐNG TRỢ LÝ AI (Execution & Automation)"]
         AgentArch["Architect Agent (Antigravity/Claude)<br/>Quét Context, Soạn Thảo Specs & ADRs"]
         AgentCode["Coding Agent (Claude Code/Cursor/Codex)<br/>TDD, Phân rã Subtask, Sinh mã"]
         AgentReview["Reviewer Agent (Automated CI / Quality Gate)<br/>Linting, Security Scan, Kiểm tra DoD"]
@@ -51,6 +51,7 @@ flowchart TD
     AgentReview -->|Phát hiện vi phạm DoD & Lỗi cú pháp| TL
     TL -->|Code Review & Merge vào Main| PM
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNp1VNtuGjEQ_ZXRPkSJRAUkyqVVFYlAS1C4BbZ96fbBaw-sW9a78tqQKOTfO7bZQC7lBV9m58ycc8ZPES8ERl8gWqyKDc-YNhD3EgX0q2y61KzM4NbmTA2RCdRVJkv4lUSJbbXbrcS2UVwNYNx3-4sr6E7Guw1b-Es-gOMO54VVhqVyJc0jHEHHmqzQtD5Jot8By_2mE0o81YWw3MBko1DD8XRy8jXVzesbl42dFbB2C34J_QGhtHgb4pk_YZR3vMxkuC5DHJ6_BhgFgD9IACOm2NJDjP4DEd_WLfQHnTHlv3P7xSWsrA8VBuallsq8AomHBBIjz8AxBk2YFwuzYRqho3kmDWF_DBeyXxHsD3_FY4KcZq5NZCDsY4gzMJ29AKISiXqj1siujOwsUZk5weZOLd8Iv6g7ao37O9rwFIYOQAjokFLfHpBbIwsVRCpy5javVfKZXSuU96WjcEpSKyOpijVp2-yumBUYuL23vo3PBrqFMvhgGkSL77KtIM5qKuYl8sph92bVe9AuOZVA6U-qZY0YUMDdNbtWV4VuuvVDwI17vUbN4akC7RdnMLepYdVfKkKqDPJw-h5whmuJG4IMCzJL3WbgBgV0B6TwvWXe2X06CrhDcgUVSQBEqHM6zDlTDbgL_jzLwWgGvaL3kZLTCXz6dL3djxhPqcrQBKcVOThdYU48TazhRY7bvSghQzz0GeIwDunCwCo4toQbGkXBtBtDb1LSo6JaqN7qXZqXbcgW9DpQaTrwcmrG3cfxcFf-yIfvWU-96c7hOzJjaQ5ior4Ck2Gxm5_tXt8DYLd9S4TgtYHghlXYgJ8vHcZYkavcR9tD9Q4ShoPD4toG6hdDwVpCGZzYzp001OHQV34pgbvwBfMB7rty3-6Oa1_tDuEIRqiX6CabglsFvTVSbYmYqAFRjjpnUrgn98llSCJiIseEDpJI4ILR-NL7qp5dMCOjzR8Vp0ujLfUb2VKQy3qS0Zjlu-Pnfwyv2Xw=)
 
 ### Bảng phân định RACI chi tiết
 
@@ -187,6 +188,7 @@ sequenceDiagram
     TechLead->>Git: Approve & Merge vào nhánh main
     Git->>TechLead: Tự động Deploy lên môi trường Staging/Production
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNqFVd-P2kYQ_ldGPFRcwxV8l1YtD5EcTDgU4FwwUSvxsqwHWJ2963jX5FCU_72zu_bhK1zLA7bH8-Obb74df-9wlWJnCB2NXyuUHCPB9iXLNxLoxyqjZJVvsayfuVElJMgPM2QpMA0PVc6ks4Az9SGee9-ClUZwUTBpYKSkwWdjA5rbJRZKC0p3gm5fF8h1D_osLfXNZXi4R-mCwynFp0LuvenScyKcn73YAgRnNIVYFJgJiRvpAxbKIKgjnjvp1aiG8HFTDQK221QBpmwEwRD-IsuAByOYWSPjsfWhtwPC4ix3iwfoNm1FuBNSGKFk3UdT4vbDh5ciX4QN3O4MfEJmqhJhRQRAd66MODIbDLeUSYu9vYkzJm_gJwjjqWOvpCm8nfsjjeNgIeNAHiCMlhoy4Z7pxdeK_roRMwzmNPes5ye3Mow_1XjfpMgxfkHQ3RAm0_ARvkythf82IqDxg6PsbgGJu0lHRFDC9BOE2vaUU6JLdur8E8EUOOfM1dgS4LnDfw_r1e3z8zOBtpc6gwtrE2DxBQOHJuVgVM0FbF26PxzVGt55at69MOpMk_EiWf2Sp69T18gSm2AX-AKBz0ZKLDzbdxLKGqY587-qtoZ60cSKl09awGc_fDgoZwloADbC5ia8B3F9Dtfpvx82bAcJJEs_BEv8w_gRkigi3lGb26gUR5QkqSNmqmjx_68Wz8K0YcCZRg3GltwOXOGAGrYuaDs_-gEJCDnHwjDaHjAqhcFSMDBlE2Z9-P-Uo1ONkKm94C16-T2dbU0ACIu-mmB08BSe4En4iJwKMwvZmgXkbhL0PlOcZdBd09l0vfVgJkgwZQ8-qTJnhm5v_oP4Hm2UC_Lf15pgg0eI17MZLMd_rserhIb9uZ7EnIYStiSZ_n7eI687cgXiSh_AbmTSASqQXkgBCWnnF0X_Z8u6FVfTo6KgLKNtR-tb13uBcjUZW-vPR1wKmL-Q2GInORU0zAPyJytdooqW7nV-qEyvOcYXFP1KCB4XsJi0zHzaaJZBtP7b7w1L2nI8G4er8cVmcI0s8SjwG8TLNnyaMD_UIqpauxfUDiJFLXcjFd1cTxgWRUkNUN05lntseH3Fes6EbFN67vONZRBhkamTXV1-4Tr97d6L18chJU_auXvitB-XKq24Bd3pQSdHEqNI7Qf5uy286ZAQctyQYdNJcceqzGw6G_nDOtuv8-okOb00ZYVkqYqUmeYTXpt__AN_NoZ8)
 
 ---
 

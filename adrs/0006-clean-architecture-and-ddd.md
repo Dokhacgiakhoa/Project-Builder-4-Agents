@@ -17,20 +17,20 @@ Chúng ta áp dụng mô hình **Clean Architecture (Onion / Hexagonal Architect
 ```mermaid
 graph TD
     subgraph Presentation [4. Presentation Layer / Web / API]
-        Controllers[Controllers / Routers]
-        Middlewares[Middlewares / Guards]
+        Controllers["Controllers / Routers"]
+        Middlewares["Middlewares / Guards"]
     end
 
     subgraph Infrastructure [3. Infrastructure Layer / External]
-        DB[Database Persistence / ORM]
-        External[Third-party APIs / Message Bus]
-        Cache[Redis / In-memory Caching]
+        DB["Database Persistence / ORM"]
+        External["Third-party APIs / Message Bus"]
+        Cache["Redis / In-memory Caching"]
     end
 
     subgraph Application [2. Application Layer / Use Cases]
-        Commands[CQRS Commands & Handlers]
-        Queries[CQRS Queries & Handlers]
-        DTOs[Data Transfer Objects / Mappers]
+        Commands["CQRS Commands & Handlers"]
+        Queries["CQRS Queries & Handlers"]
+        DTOs["Data Transfer Objects / Mappers"]
     end
 
     subgraph Domain [1. Domain Layer / Enterprise Core]
@@ -45,6 +45,7 @@ graph TD
     Application --> Domain
     Infrastructure -.->|Implements Interfaces| Domain
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNp9U8tu2zAQ_BWCh54qF32cegiQWEEroIYdxW0PUg9rcW2zkEiCj7ZGkn_vUpYcynWjg8Rdzu7OcKgH3miB_CPjOwtmz9Z5rRg9LmyOiZVFh8qDl1qx6sNsmvgCB7TsDfuOG3pfr4ofx_L4zLXyVrctWlfVPIkIWergaVXzBL-QQrT4G6g_4ZOI8J8CWPEMRyVqdUa0UFsLztvQ-GCRVe9n56mR7O0fmq2gTWbnNzQyBw8bcMhWRE06j6pBgi_LxYTnWE4V6720IjNg_SGKj0wX6BzskN2Eqbo5NHukkhKFjLhCZR122h76Hal2L4q7NqaVzWDCu9kkHmV9JeZzou8mHnQdKNEbcFfen2L2in2mb3vuwV1AK_EEH8L_ofP10g3nxtYWlNsSkeXmJza-PwowJi25JCzXHUjS9HY2Lk8uKTpmY2VUpS2mBigvfWRZyubUYUwmuG_QBhzoVH0wkkub_aLL7KqxSx8l2yUaXUQmW2jiRAqd9NG25-y_8ib_SJZdpX4dEWdX8yImNTkCjhwv18-yq8eiMy12UUBC7nEo468Z79DSUsS__SG2qbnfU0FNiZoL3EJofc1r9RTBELy-P6iGNmkMUiYYAR5zCWRdN6Sf_gLT32Tt)
 
 ### Các quy tắc bất di bất dịch:
 1. **Quy tắc phụ thuộc (Dependency Rule)**: Mũi tên phụ thuộc luôn hướng vào trong. Tầng `Domain` là trung tâm, độc lập 100% với mọi framework, DB hoặc UI.

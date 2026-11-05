@@ -72,9 +72,10 @@ flowchart LR
     TEST --> BUILD[Docker build multi-stage]
     BUILD --> SCAN[Health check container]
     SCAN --> DEPLOY{branch?}
-    DEPLOY -->|develop| STG[Staging: Render/Vercel preview]
+    DEPLOY -->|develop| STG["Staging: Render/Vercel preview"]
     DEPLOY -->|main| PROD[Production deploy]
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNplkMtuwjAQRX9l5G2Luu-iFSUIIkUQkVCpsrMw9iSxSOzIsUEI-Pc6D6mLennP8VzN3IkwEsk7kLIxV1Fz6yA5MA3hpcdsSyvloPN9XcBi8QGrmG6U2_oTLIVTRvfFpK7iESfxLqfWlyWIGsV5hkM64nyd5bS7OewdvIAwF7S8wtka4Gh9HeMkopERZ7Rw8qqR0PrGqUXv_uxRGvVstdzRLfLG1VNrGKwdVxrt7A7GqEbrNNn_3E-Wa1F_Pic6hQN_SLxgY7oHZPmGMpKFPqWrdziglmjfvtEKbKCzeFF4ZaT4N6ANtQ9ID_uIptZIP94IJHaNuRXkFUiLNjhyuPd9-M2Iq7FFFgJGJJY8LMoI089B5t6Z7KZFgM56DInvJHcYKV5Z3s7x8xexOI_z)
 
 ## 12.2 Multi-stage Dockerfile
 

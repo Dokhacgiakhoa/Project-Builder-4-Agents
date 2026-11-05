@@ -10,14 +10,15 @@ weight: 1
 
 ```mermaid
 graph TB
-    User([User]) --> UI[Frontend<br/>React/Next.js]
+    User([User]) --> UI["Frontend<br/>React/Next.js"]
     UI -->|REST API| API[FastAPI Backend]
     API --> Agent[LangGraph Agent]
-    Agent --> LLM[LLM Service<br/>GPT-4o / Gemini]
+    Agent --> LLM["LLM Service<br/>GPT-4o / Gemini"]
     Agent --> Tools[Agent Tools]
-    Tools --> DB[(Database)]
-    Agent --> VS[Vector Store<br/>ChromaDB]
+    Tools --> DB[("Database")]
+    Agent --> VS["Vector Store<br/>ChromaDB"]
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNplUUFuwjAQ_IrlE0hNc-kJVUikKVGktEIkcIk5LM42SUts5DhVK-DvXZvQHurDeLyenR3ZJy51hXzGeG3g2LAiEorR2vRoJqXD3ZQFwZxt0lLwpdHKoqoe9yacrxGkDV_xy96_94LvxsbUyc_r57xgi1V6dlAuobe0swjkB7WPUldx1osalS0zUHXiM_jzTeO4V2XZCyUgZDmaz1aiD5GsiuBBs5Al2LWq_Y3x11dofejL69nzUeG5V8RRORE8Bgt76FHw6T-PbU6jtyitNiwnuM5-aozuII5oKL9jvEPTQVu5tzw5A8Ftgx35zYhW-AbDwQou1MWJYbA6_1aSLq0ZkCrDsQKLcQv0Ed1YvvwAV8iBEw==)
 
 ## Components
 

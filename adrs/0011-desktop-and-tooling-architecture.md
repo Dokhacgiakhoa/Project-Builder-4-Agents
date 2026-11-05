@@ -33,12 +33,12 @@ flowchart TD
         WV2["Microsoft Edge WebView2 Native Runtime (Built-in Windows 10/11)"]
     end
 
-    subgraph Application [Application & Controller]
+    subgraph Application ["Application & Controller"]
         Bridge["Event Bridge / IPC (Python / .NET)"]
         LLMAdapter["LLM Provider Adapter (Gemini, Claude, OpenAI)"]
     end
 
-    subgraph Core [Domain & Core Engine]
+    subgraph Core ["Domain & Core Engine"]
         Engine["Offline Diagnostic Engine (Pure Python/CLI, 0-token)"]
         ReportGen["Markdown / JSON Report Generator"]
     end
@@ -51,6 +51,7 @@ flowchart TD
     Bridge --> ReportGen
     Bridge -.-> LLMAdapter
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNp9U01r4zAQ_SuDDyWBpGkKeynLQuqENiVf1CE9xHtQ7bEtqoyMLCeU0v--o1jJxqXUJ8-bN6OZ96SPINEpBncQZEofkkIYC-txTMBfVb_mRpQFrAxWSFZYqQm2rSgqUCnow5y7GIIXfP3bFLuPo1DQXlTbOHhcz2e_YHAihlHEwUaQVErAUwQNMQ4uytcF7nAuSORouMMxhAnlkvAOxsK8QWdEVvKMe2nfIVLCYheuYCbzwrY6RWitpLziw4XiVqfYkWdzGK2mEGrKZF6b41rnYqQ0pi9qPOrKwnbBxD3Ci6RUH47Y5eKbWz5lLhOjK51ZmKQ5OjU2Eg-34Eufax6eN-rc11LZviTfrILhzWA47P44xKgslUy8I3FwGV65XazRSqFpqXBvJM_B7Mme_fMhuzBdhdBZvduCiwdwvZisu606lmiUitIeXXB6rYzeS7YRPAydB9xJkj0IlahT7MGyRBpNf14h1Abd7GO9E7IZ25z8bZ3fQMxcZpniPxhLkRMrLhOf4_Frrm12GISzaQ9u-la_IbU3ecZSG_uA5NzhC8Rqu5WfouXC54CTyJdAm-9mP19o-N3v_3E2N_jlTfWpE7MhtC7gtwzu1eCNLQ3oLXKw1-UrfN6onbnm1H_bgh4EOzQsc-pe-ofjxoF1Q8cMxEGKmagVv5mYPh1Z1FZH75Rw0pqa_QzqMuXX5YQ3Yufhz3_1hFkq)
 
 ### 2.1. Tách Rời 100% Core Engine & Presentation Shell
 * **Core Engine**: Bắt buộc là Pure Logic, chạy độc lập dưới dạng CLI hoặc xuất JSON. Không phụ thuộc vào bất kỳ thư viện UI nào. Phải có unit tests độc lập.

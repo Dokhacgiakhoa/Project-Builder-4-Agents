@@ -33,6 +33,7 @@ graph TD
     BO <--> PO
     PO <--> DO
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNp1U21r20AM_ivC0NHCTO1kwaSEwFozBl2XsHb7stuHy53sOxafja0LhNL_vntxm6Tt_MGW9fJIeiQ9JqKVmFxBUve8U_BQMgPuuV79Zsm1HbTBYYCVJdE2COd3zOaIMwGkmc0y5BbKlhsFplba20TRXSw2_eWS2Uk2mcCDc8uzqamBei9uMu8lK6eQIZCUhcsAl-OmIvg7wjQglIZOhTTyfcgfSGhItwY-QMn1dg-fBekdws8B--E_ZXj4qoBtTOOy2H0Qpwa8U56HAmeaJX8iFfG99oSs-1ZaQQc-blSIncMQonK491_usLpg4fMGUljfwTfk8jUxJ3WszKblvdS-xNh05tgRXqo-OeX5Eors7C0ELwwMNkgzAtWOoccgFKRcwC5Oz6P6Ysknd_AzfYKqG0ypTb_ofqD0F99a1-cCpuMsKk4Xr6gpPTUlDrpHeaDmNjQ4jUmFdC18r482QGqQAW9u6pOuvr7XwoGH3bgfAozy--N9cp4bmGVnxzC36iUkBk88IG8PbFCYEBZH4GEYm6KLAs9PiLmJo22g1i8Q2kQyudy7HeRmRJ80gaLnU4JFmi7dBj1vUvwvV8lHSBrsG66lv8BHb2cJKWyQOQVLJFbcboklzDx5Z26pvd8b4YzUW3Qa20lOWGruzrcZ1U__ABFkMgc=)
 
 ---
 

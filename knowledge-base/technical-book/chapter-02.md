@@ -125,6 +125,7 @@ flowchart LR
     F --> G[make run: server + Swagger UI]
     G --> H[Branch develop + commit dau]
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNotkM1uwjAQhF9l5WsLUtsbh0oQfopUVai0J4fDKl5si9ibOnYAId69TohP1sw3s17fRMWKxAzEseZzZTBE-PwuPeQzl18GPQRqGGIgDzvD5O3lAJPJOyxkUbOnh63YHh6hxWAW8gcZOvId7K7RsIe36cvriBQDspQFNuANxlzxl2wgRz6203iJI7ccuJUs2B-thmlum8F8t4UTXeEJKmwrVAQuL1CPkdUQWcs9xdTAfAs1a229BsN8akdoPUAb6fCUn5_8DFoKHYXcuT-j1vn2ux3ZzcB-yEVAXxlQ1FHNTT-dnbMRFKaDeAbhKDi0qv_IW58sRTR5oTILpVB0xFTHUpT-3sOYIu-vvspmDImykhqFkZYWdUA3yvd_h8SBlA==)
 
 ## Thiết lập môi trường — Đừng để "trên máy tôi chạy được"
 

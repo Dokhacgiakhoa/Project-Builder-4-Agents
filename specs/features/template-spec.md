@@ -37,6 +37,7 @@
       Backend->>Database: Query / Persist
       Backend-->>Frontend: Trả về kết quả
   ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNp1UU1LAzEQ_StDTgoWu3gQ9lDQFsVb_brlMk1m3dBusp1MhFL6303q5qBoLhPem_fmTXJUJlhSLahI-0Te0MrhB-OgPZwPGgkM75G4IiOyOONG9AIPHLyQt39x92i2_1ArFNxgpMoV-9liUd1aeOt1aqhrDPSu3MytB-kxgOg0n1NjqrJKsnqa18JjUZB1cLd-gpeyVhS4WOZGztvMTBjGncsxLqvJpMweNVgLz4n4ANewJo4uyu_Wn2m5TMQb-DxnbWBb6qYT2KdvRl2BGogHdLa89bHYaSU9DaQzoJWlDtNOtNL-VJoxSXg9eJNJ4UQZSaNFqb8zwacvwT6SDQ==)
 * **API Endpoints**: [Trỏ link tới `specs/contracts/` hoặc định nghĩa endpoint mới]
 * **Data Model / Schema**: [Bảng mới, trường dữ liệu mới, quan hệ khóa ngoại]
 * **Trường hợp biên & Xử lý lỗi (Edge Cases & Errors)**:

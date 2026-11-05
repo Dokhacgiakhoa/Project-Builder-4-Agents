@@ -27,6 +27,7 @@ flowchart TD
     H -- "Co" --> I["COMMIT:<br/>positioning = decision filter"]
     I --> J["Chuong 4: build agent<br/>theo dung USP da chon"]
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNplk09vGjEQxb_Kk680SihpDqhNFSAkNIpAhbSHugfjNbtWdu2V_7RCiO_esZcAUfew0o49v3kzb3bHpC0UG4JtavtXVsIFrCbcgJ67X5xNFNZCc_YbFxe3GO04WykfcDfDTyfaVrnh57W7vG1rETbWNahFg0Yrg7bS-SQ4a0rcIFTClF8523fsEfHA2dhy1pH7qZjVqGK6X-SyGVBZIRE0oW2LUgsEp9HYk6Z3wKeK0g_MMSHH9I0XrxymV52eCFlRnevLT4heQQqvPLE6yjgnTlKidQrLKKXyHlMhg3U5f0UqBnhSW3xXPtbBo7AoopVHxiQz7okxNwoL63XQ1mjqahlEUI0yIZN6CGmUA5IQ8YckmTLmt80D72D3GTYl2LNwryrAKVHrsKUmlHzNnAEp0DTfiB76V5mWGqTm3BEzzZgHwoyirgtog0Vc11riI0IUJoNu0FpPDfVIk9elEfVpMA8Z8Ej-TyL6h-MzgzvMyd_H_-1YUPXF7Md81a1MEn0wBtnjFGiFNm_Gjt-RjpsyS-bMn59nB057NuAvtDhSe_rCRtfhbACznPstb0TesOsh1nkUonwzJFQqWUmHL8sFCpEWJalhH8Aa5Rqhi_Sj7BKRM7rdKE4Bzgq1EbQKnHGzT5dFDHa5NZIOg4uKIrEtyPqJFqUTzSG8_wfPpRKU)
 
 Mỗi mục dưới đây đi kèm bài tập có output dạng file `usp/*.md` trong repo đội bạn. Đây là bằng chứng positioning cho QA và ban giám khảo — không có file, coi như chưa làm.
 

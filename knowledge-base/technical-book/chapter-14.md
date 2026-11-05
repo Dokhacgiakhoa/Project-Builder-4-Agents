@@ -309,6 +309,7 @@ flowchart TD
     RK --> WEEK2
     DL --> WEEK2
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNpdUk2PmzAQ_Ssjru1KCTlU4tAVXWi1SlQpH0oPkMPUnsXWgh0ZO21E8t87LjRRygke78PzxkMirKQkg-Sttb-EQudhV9QG-Nnu8s2uKqyGzuoMpBUgsCcwaMG7YMXzAZ6ePsN6PmzRwFFhB8LCJv_2fB0d1vNIuAh7iWi1osa22MMH-B5cnkWM35uATjrULZzhXVk8PGgZMc0F1umw5wxJIJQ2CloEOmF7C0pvQeW-yl_hqzZoBLF9Llp0us_-8gGdYKwj77ToDw_if0mL4YsGqakDr_AIJw0u_GT6LWtxH2pZbagnNlVL7WE2T7NROSp4HOTOuODDg3RKKlZVQacXi0LBbJbGWuh36EsZ-PNTFs-qtCfhg4uDvLxOLrG22PuPslym1S5uAnzgdtJxSYtxTQ0jRqFnKUp79DCH9zPPFNBPRuX-7jNZL_9HitUdST5C0pHrUMt4Y4bIqBOvqKOagTqR9Iah9XVSm2skY_B2ezaCf_KFIUbCUaKnQmPjsJvg6x-dQsZS)
 
 ## Cách dùng chương này
 

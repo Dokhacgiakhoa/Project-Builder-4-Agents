@@ -366,6 +366,7 @@ timeline
     Tuần 5 : Tổng duyệt trước BGK (đúng 1 tuần) : Quay video backup + screenshot step-by-step : Chỉnh pitch deck theo feedback
     Tuần 6 : Demo Day — seed showcase mode : Pre-login demo account, tắt notifications : Tập lần 3 + Q&A prep
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNplVMFS2zAQ_ZUdHzrpkAx2QsiQW4gZShkYKLQnX2RpHWuQJdeSQj0M_96VnECa5hLZefve09vdvCXcCEyWkDjZoJIaCw30cdIphHNwvvAZsoWGwqdZloWnstKQY2MgZ_2Afv5AZbCEtTIawWHTKuZwDAJbZXo4rZEpV4MiphSZBq6MF4S_C8WiAl4jf1HSOshSKlJyix0rFVoY3RsnjT69lu6bL-HGWo_2K5X-koMhBz-uVvndFZTRyOzQLlv4Y5dTKr2PqhcttJ1pjWUKRnQiuWYM3mI3hp9PD0Hjth44DdjoPHMwO6AXmQQXIbiAE2jjkVd6A9tYN9cwj4Q7FBOOSC_jkXz_45MgHjZGCdQgmGMW3bH1WSj2Uglw0Y3QNehAks5Iktf7l2NY35yuc_jDCLCEvAtilKtVUiC00vGaMuYvn4m5WFudEfq78Z2mRJp4wYUEvYm8aQ_TyQx4fJj-F2sovZPilfVETfOhh4jloCEuSAINrG7yFQHjxVMDuCWhbZSe0g0yGJV07zCJUCQlVqbDIgl9eBjuNtWDfnVG6OgrK9PILyT89qS9pRua6ODY4JxoniN2TsXC97FXCweuO-ApOVxe38Jo3xrSYtHZxzIEO4-fUiXjL76l5lveIWpbGwfWYTsp-0n4DjsxjMUFNeMg-5hHhSRJDMdmz0PbdmtGaU3T7AwsYYH4XzllBA2tbgimw4kyG6mH1Bnnxms3DgMyzJim7akkZ2GH7D4CJtqwivupOoHHLyvaBWyTMSQNdg2TIvwvvAVfRUJWG2oE9S0RWDGvXJEU-j2AmXfmqdecfnSdp4VPfEvTi7lkm441u9fvfwHkpWut)
 
 Ba mốc không thể trễ: **proposal tuần 2** (trễ thì build sai thứ), **midway demo tuần 4** (không có thì không phát hiện demo sự cố kịp sửa), **tổng duyệt tuần 5** (BGK khuyến nghị 1 tuần buffer — tổng duyệt sát ngày thì không còn thời gian fix).
 

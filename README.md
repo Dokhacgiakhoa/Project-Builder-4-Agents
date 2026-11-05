@@ -106,13 +106,13 @@ Trong kỷ nguyên AI, bất kỳ ai cũng có thể gõ vài prompt để sinh 
 
 ```mermaid
 flowchart TD
-    subgraph Human [ĐỘI NGŨ CON NGƯỜI (Accountability & Quality Gate)]
+    subgraph Human ["ĐỘI NGŨ CON NGƯỜI (Accountability & Quality Gate)"]
         PO["Product Owner (PO)<br/>Bảo vệ GIÁ TRỊ & Khung Outcome"]
         PM["Project Manager (PM)<br/>Bảo vệ TIẾN ĐỘ & Sprint Milestones"]
         TL["Tech Lead / Architect<br/>Bảo vệ KỸ THUẬT & Phê duyệt Pull Request"]
     end
 
-    subgraph Agents [HỆ THỐNG TRỢ LÝ AI (Execution & Automation)]
+    subgraph Agents ["HỆ THỐNG TRỢ LÝ AI (Execution & Automation)"]
         ArchAgent["Architect Agent (Antigravity/Claude)<br/>Quét Context, Soạn ADRs & Specs"]
         CodingAgent["Coding Agent (Claude Code/Cursor/Codex)<br/>TDD, Phân rã Subtasks, Sinh mã"]
         ReviewAgent["Reviewer Agent (CI / Quality Gate)<br/>Linting, Security Scan, Kiểm tra DoD"]
@@ -126,6 +126,7 @@ flowchart TD
     ReviewAgent -->|Báo cáo vi phạm DoD & Lint Errors| TL
     TL -->|Code Review & Merge Main| PM
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNp1VFFP2zAQ_iunPkwgFbUBiQGakNoGlYqWljZ7Wvbg2NckI7E7xy4gyn_f2Umg3Vhfej7b33fffee8drgS2LmCzrpQTzxj2kAUxhLoV9kk1WyTwa0tmYQfcSe2_SDoxzZAcTGB-7Fbn1_AaH7fLNjab_IJHA04V1YaluRFbl7gCzxY5qMxM3gcd37WJO63mBP2QithuYH5k0QNR4v58bdE966HDpCdKdi6gH-F8YSI-jyAaOkzjKDvMitTmFvDVYmH0LMa-hcS9IxJlnrw2X_Ao4kLEryHfanEsNroXBJCXmBllMTqgCWaEkuEPIMpMgE9GGie5YY4P6e5c__rC4huv_stHhHFInPCkIGwL_U5AwtbFLDE35ZY3xlRilj-ZdEgRWkq59Gtv3tO2L74_v246RSewtQxCAED8ufmGbk1uZJEPbBGlcwtDo1xMjwy4b5LqrnIYGlyIt-Sp71RwazAuqkP1uu4NDBS0uCz6cJKeZmBhEG4rHw7kR-2cKRELtOWrF61TDW6O4K9kdWV0j0XP9d8URh22-adStA-OIOVTQyrHitiz2UGZZ0-4FziNsenlrNe0Xi0rBMy8mBoPd2U5oBqI1jqn3Z7K85kF-5y3_izEoxmEKrwM78Wczg5ud59DBdPqDaZuuqD00sGNKpJgSW1qJlmiDTi7sOJGieaepwo86TJ2kDhOyw2MKRXJ5h2L476X1ExVHD1D8L70gN9GGSydli9R244FhPvpGbc4UTTRsrM3xznTEFEja4rEImDQNU-mCHjj4VKd_v-1vf3ErWWMIRJuSHxlGHNYK6wWJ9ENPy7fbNqgL2EBxh6hwMFvA22OWxqOUHpHCFA5x7caK30npSmm26mGlQ6OUOdIn0ycrkjrZ0udErUJcuF-1i-uotxh5S6780VhQLXzBb0SGP55g4zelKrF8lp02iLlLEbQUMU5oweTdmk3_4AKILDPA==)
 
 ---
 

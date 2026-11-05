@@ -8,9 +8,10 @@ flowchart LR
     W1[Tuan 1 - G1: idea + USP] --> W2[Tuan 2 - G2: architecture + repo chay]
     W2 --> W3[Tuan 3 - G3: agent + tools + guardrail]
     W3 --> W4[Tuan 4 - G4: deploy + eval vong 1]
-    W4 --> W5[Tuan 5 - G5: before/after + tong duyet BGK]
+    W4 --> W5["Tuan 5 - G5: before/after + tong duyet BGK"]
     W5 --> W6[Tuan 6 - G6: Demo Day + 10 deliverables]
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNo10D1rwzAQBuC_cmhtTevPwUOHYsjQDqVpyRB5uFjnD5Alo0guJuS_V4oSL4a797kXdGGdFsRqYL3Uf92IxsLnN1fgv0N6_HGoIIUEdmkNkyCEJ_jdf7WQJG9wyOI-C_usBjTdOFnqrDPkc4YWDf7i1t7PZVHlUeVB5V4NpKyPW63l2f8Hh0YYnOSD5ZEVkRWBFTUIWqTefJ5WlLBqNUD6EEUU5ZGzmymDKWs4Ua8NvWBvydwaPRJuIwvvuw_OHryMvIqFVcBVDQ3NGhoMlemrr5fTSgZPks4tewY2k5lxEuElL-EOZ3akmbgfcCaoRyctZ1xdQxid1ftNdX5pjSM_cYtAS82Eg8H5Pr7-A9rneqI=)
 
 ## Mục tiêu của tài liệu này
 

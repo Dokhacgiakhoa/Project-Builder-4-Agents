@@ -58,13 +58,14 @@ FastAPI có thể không phù hợp khi:
 flowchart LR
     C[Client] --> MW[Middleware: CORS + logging]
     MW --> V[Pydantic validator: request schema]
-    V --> R[Route handler /api/v1/chat]
-    R --> AG[Agent graph: src/agents/graph.py]
+    V --> R["Route handler /api/v1/chat"]
+    R --> AG["Agent graph: src/agents/graph.py"]
     AG --> SS{streaming?}
     SS -->|yes| ST[StreamingResponse: chunk tung phan]
     SS -->|no| JSON[JSON response: schema locked]
-    ST --> E[Error mapping 4xx/5xx]
+    ST --> E["Error mapping 4xx/5xx"]
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNpVkTFvwjAQhf_KyWtLo0rtkqEVogipKqWKER0SBss-EovEdh0bgoD_3kuASvXg4d37fO_ORyatQpYC29R2LyvhA3xkhQE6k3xSazRhDaPRC8y_87lWqsa98JjCZJFxuIPalqU25fpCzL8H6yr_OihhgpawE7VWIlifgsefiG2AVlbYiCuxGoAsL1hmY0CohKEWHhLhdLJ7TChRKNjVnA3m8Yzc45KCQemFq1JovUxEL7TJoDy4wx8zng0Q58c2eBQNhX09X0qc96XTAdsT8GXOb_UMW2dNS0PKKpothGhKcJRs_Y8z9gTvfPGZ9xdNd4Mu89Fm5BbVDVkOKaaUfOq99dAI56gVPHVd8tx1FJfdA2vQN0Kr_juOPViwQG9hQULBFG5ErGkbhTn3ZhGD5QcjqRh8RFKio1Xjmxa0heYqn38B10Gb0g==)
 
 ## 8.2 Routes và Schemas
 

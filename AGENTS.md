@@ -32,11 +32,12 @@ Khi được giao một Task (`T-xxx`) hoặc User Story (`US-xxx`), Agent phả
 
 ```mermaid
 flowchart LR
-    S1[1. Ingest Context] --> S2[2. Plan & Break Subtasks]
+    S1[1. Ingest Context] --> S2["2. Plan & Break Subtasks"]
     S2 --> S3[3. Write Tests First]
     S3 --> S4[4. Implement Code]
-    S4 --> S5[5. Self-Verify & DoD Check]
+    S4 --> S5["5. Self-Verify & DoD Check"]
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNo1jz1rwzAQhv_KoaFTbYjtLB06NCZQ6FCq0g5WBtU6x8L6CNKZNoT8955xcuN7z3sPdxF9NCieQAwu_vajTgRvHyoAj9x0mxJewxEzwS4Gwj86QFE8g6w6JaoS3p0O8AAvCfUEcv4hnaesxOHWr1a47uoSvpMlhE8-lWFvU6Y7VK9Q0zXs8ieHHsOiM3gnmpXYsnNbgkQ3FF-Y7HBmdRtb2I3YT2wVjyA8Jq-tWR66LHUlaOSLigMlDA56dqSECtcF1jNFeQ49LynNyMl8MpqwtfqYtL_F13_KEli4)
 
 1. **Bước 1 - Nạp Ngữ Cảnh (Ingest Context)**:
    - Đọc kỹ `specs/product-vision.md`, `specs/domains.md`, các ADR trong `adrs/`, và file đặc tả task tương ứng.

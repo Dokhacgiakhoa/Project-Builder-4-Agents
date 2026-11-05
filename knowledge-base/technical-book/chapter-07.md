@@ -144,6 +144,7 @@ flowchart TD
     H --> I
     F --> J["Ket thuc co trang thai\nFAILED — KHONG im lang"]
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNptUl1vEzEQ_Csrv7aBtkJCikRRkssXqdqKlCfMw9a3OVu9s4OzBlVR_jvr-yCAuJeT1zOzs7M-KhNKUmNQuzr8NBYjw1OhPcg3-arVlwNFsDpdk9k5-J4QBMNafYPR6Bamgpisx7C36KEO6MB5Js9a-wuIxNHRD4LNVPCd5LSlzY5azYLfuZK8Ibj9AFdv3n_U6tSBZgICrTY2-EqrlrGSRo_zz9uH-7EYCFCmV-JLiMEBR5TW8rcJTGZo_9_yYKFXn4VeuuhnODhvwWAamKLzQg0Yx8gu-N_8omXNhbVMGMuIroYbIeyFcDCWGoQLeEbvqRztkZnimTvvei8m67u--0J07kIFuTQv2tw4zy0KofWfp02yhH81Hifbba-xzHGKcdvCsREVGww8Z5m3UoVDOIe7HMYHnW6urt-BdZUdRXd4GaL-C_fnEtbi9amPtbWU3VbWAabSsZTPIa86QndYtIdPwt4Q54UY2UiOWfyxxZx0N_5gabN6uF-Ca6DGdnHqElRDsUFX5pd6zLJasWRNWgpalbTDVMuz1P6UwZg4bF-9kUuOiaSS9iUyFQ6riE1fPv0CxsTnXQ==)
 
 Đọc sơ đồ: nhánh người (node `PERSON`) chỉ kích hoạt khi confidence thấp HOẶC chủ đề high-risk — mọi trường hợp còn lại AI tự chạy để giữ trải nghiệm nhanh.
 
@@ -222,6 +223,7 @@ flowchart TD
     G --> H
     C --> I["Người duyệt xong mới\nchạy tiếp + log người duyệt"]
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNptk29r2zAQxr_KoVcbS1jUDEYG62icNDEtZbC8m_pCluRYJJY8V6ILId99J8mt7TC_8J_T6fndcyefibBSkW9AyqN9FRVvHexWzABed78ZWTI_o8WMeapkIcC11uzh1baHkM7IM0ynt7A8M7INKVx6-OPj2xxeuAaB22flnDETdChNSxbMvtdVcwFvq4PYD0YuqY4lQoCRhwrZjERihqVt890jFFGxdFBErFwIZD1sA1Z-edqAC9GSQo-Xi6DyPJLObKe7QiePOuxW3KAVvDkddglqOhYVE0T8zPMJnJJ8UU6gqeIm2sAxWpZ9-asrRjYKD12tkX6Xg7Cm1FIZoeD2O7JGzaLY_96MKEyFQxkNqSevr8j32LXdfxsCn4B7qR0cbd-c9aBC-AyH-JQWpLeiU9y8zcFVyg4Kx6o_4AGZDqwwf0MXN1D5mpuP74z7KLNFmaxS4tBYbRzs0wRoDS_pxY0OUDR9iD7maSiy1KMjJaV-J2wSIX1k8SNH3NM4HU2dovZXB3-Dzzp1UyNZVGnwp-4sFGWD_cJOXTMHIognEyC1amuuZfi_zqECRrBRtWIYYESqkvsjpjJzCcncO_vrZAQuutYrjPhGcqdWmu9bXnfhyz-vJiKf)
 
 ---
 
@@ -304,6 +306,7 @@ flowchart LR
     D -- "Fail" --> Y["Retry 1 lan\nroi fallback DEGRADED"]
     D -- "Pass" --> E["User"]
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNp1kE1LxDAQhv_KkKv24HUPQtt0ZaHgUhUUIzIm6QdNk5ImSFn2vzvdFhHF3DJ5nzcPc2LSKc12wGrjPmWLPkBZCQt00lfBnibtobNjDIK9QZLcQkbT0o1wA_k9L3ZCWNlq2b9fQnAFx1mhDZ2k_FqTEQaCZcbJXrBLxzN1PEaQreuIMK6BfXooC_6bOeI0bUhOSHqAgWwNMaN3wxhgwlo3Eb36JvNLmv8j6WJYLSe6D5isThvK10_32Jnt0xeqqXTwMxUZtFTjybhGYz5Q9sCLuyrlP7T5H-1i2yFF2DWwQfsBO7Xs-7QgggXy0IIGgildYzS0aGHPSxhjcA-zlfQYfNQ0iaPCoHmHjcdhG5-_AL4WiBE=)
 
 ---
 

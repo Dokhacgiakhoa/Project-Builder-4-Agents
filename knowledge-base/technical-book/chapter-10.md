@@ -759,6 +759,7 @@ flowchart LR
     H --> I[User thật ≥5\n→ fix → re-run]
     I -->|data flywheel| A
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNpVUsFq4zAU_JWHD3vpmrXTZqE9LJs0bVrIXhJ6krKgyM-2NrZkZIk2xPn3Psku7RoEw-jNMKPncyJNgckdJGVjXmUtrIPNlmugb8HWpilQQyGc6NFxrm_mVyAJg6u5z1EUbg9p-guWbFGhdiBHOj_RrOQ-y8pr6J3pOqUrkFY5tErsR_tlVN6fd9JYtJeRvA_kEDKlskZ5HGDFdoRaAVdgscI3cqYMygmnjIaX7Wb_VbnZ_En_-aLCAR7Y1h-sknBDsVTIJXNP6ngN3M9mPzOg1GiFM_Y_l9q3Qg_wyGagK6qRH7KgLwr10XDeQhvBIVjmWXyVyWMF3-CBzmMsuGZsGSev6QladJSoJ0kn-v73EX5AAH-P-0m7jpontjMQQ8CBfBulcaxt2g6d-oz7FMef2UuP9nMnY7n5nDSE8tsZlOoNJmgxtV5P-udYN-wXyub0WiM2AyyS75C0aFuhivBnnMMsTxxtATkRPCmwFL5xPOH6EoaFd2Z30pIunfVIjO_IFFdKVFa0E315B7EZxuw=)
 
 ### Bảng "lên Giỏi" — tiêu chí Đánh giá hiệu quả (Demo Day)
 

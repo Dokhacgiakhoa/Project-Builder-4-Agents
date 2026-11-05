@@ -22,6 +22,7 @@ gantt
     section Nghiệm Thu
     Kiểm tra Anti-Crash & Mở PR            :27, 03m
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNp9Uk1rGzEQ_SvDQpIGEpDimqW-pTa-5KMhMT3pIktjr6glGe0oJIT8945WG9eE0DlI4mnmvTcjvTUmWmxm0Gx1IFIBOMjRDuFWZYn2B1BSWQg0oYNfYR11si5sYSLgoSsXGz1WWU24jMlrAvC-YvrF9R_Yyd2ZChXu0ZCLAVadKyLrDVU1bfc1YT5ICge8SymHpJbADILfWd4UCKcQym5kABrqJ3x1CvNdDAiPuI8wE-ICxHS0c9MNPW3cmC5jJdLTDN2hy_VoKoCveq7OQK7FUG5ZpMRMTL_kNl0lf4XxMKq1XLeI5g8m9viE6dkZ7AcieWzyMJxUW3Jwv61zMu1_tJYpBsJgmfunZhE-_YuZPLa6-mg-1KYlN30Kvw9vsXSp5xU15YTwbbVYnBeOq-Ky_eTyyBs_Zx79VWjieXAargO5y3nSfVG5q87h4RGO_V21zD3xzQU0Hvm_OFv-5FuhUw116FExoBqLG513pBoV3kuyzhSfXoPhS0oZGcn78hEXTm-T9iP8_heEOuNM)
 
 ---
 

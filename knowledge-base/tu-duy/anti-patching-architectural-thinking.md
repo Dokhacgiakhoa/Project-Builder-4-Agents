@@ -40,14 +40,15 @@ Nếu bạn (AI Agent) thấy mình rơi vào 1 trong các dấu hiệu dưới 
 
 ```mermaid
 flowchart TD
-    Q1[Bước 1: Tiếp nhận Yêu Cầu] --> Q2[Bước 2: Phân Tích NFR & Extensibility]
+    Q1[Bước 1: Tiếp nhận Yêu Cầu] --> Q2["Bước 2: Phân Tích NFR & Extensibility"]
     Q2 --> Q3{Nền tảng có đáp ứng được?}
-    Q3 -- Có --> Q4[Triển khai theo Clean Architecture & DoD]
-    Q3 -- Không --> Q5[DỪNG LẠI & Đề xuất Nâng cấp Kiến trúc]
+    Q3 -- Có --> Q4["Triển khai theo Clean Architecture & DoD"]
+    Q3 -- Không --> Q5["DỪNG LẠI & Đề xuất Nâng cấp Kiến trúc"]
     Q4 --> Q6{Có phải sửa lần 2?}
     Q6 -- Không --> Done[Hoàn tất chuẩn mực]
     Q6 -- Có (Lần 2 không đạt) --> Q7[CIRCUIT BREAKER: Dừng vá, đánh giá lại nền tảng]
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNptUt1v0zAQ_1dOfkAgbVKcdJvWB9DWFKg6VVsJD1PdB8dxaovEiTIbNlX937HPaQeDPF3u4_dx5z0RXSXJFEjddL-E4oOFImcG_PdAN7fMJbRMmKOyKgXQKRQ6_JR1D0aFiFcGHn1XIrmDGWau3BbOzz_CQ7ph5A1COoV7he2pgQKDSihYfV7DO5g_W2medKkbbV8Y2Y4y0oiW7VcBRVADFnkyswMRIOoMAguliEd7CGV57cun9ChBZuLTYYTNPGxQjPPIMPF6iwENiszAD8U1WCU7mDWSG7gZhNJWCusG6dXmXf6qEcGW6KyeeGLEu_B4OdLy1Re4Q9HJwo-irCS6gWeHhQsLq3ExaCukeliO6_aeBwTn4pV0Emku90cXfTxJpuEJaSsOTTyJgfRk_PI_WvPOyM3XDgUkxwV7SUJFddcG2hDUVGz_hDkyv7878fi9naCP-_claj9EuVeb2WI9-74o4HY9v1nO11OISyr9wM94wrO_DmoU7HQMRz9Ug_nnMWzJGZBWDi3XVXjR-yCUEX_BVjKfYKSSNXeNZYSZQ2jmznbfXozwRTs46TOur7iVuea7gbdj-vAb9KvzOQ==)
 
 ### Bước 1: Tiếp nhận và Đặt câu hỏi tương lai (Future-proofing)
 - Đừng chỉ hỏi "Tính năng này làm gì?".

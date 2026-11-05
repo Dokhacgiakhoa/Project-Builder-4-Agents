@@ -1086,6 +1086,7 @@ flowchart LR
     FIN --> OUT[Output + citations]
     ESC --> OUT
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNplUttO4zAQ_ZWRXxd-oA-LKna3IHGRkvQpqdDImdYWrh2c8aJs03_fiRNAQF4sndvcclI6tKRWoPYuvGqDkeGuaDzId_tQb3uK8JIoDju4vPwJm6LeJIxtROvA-i4xaEP6eTc7NkVWFWUdCfvgV8IGDwa9gTb4wyIryllWnTgEBxqduzovVDVRY8bZJPGMsL6uatQ8heEAmUIvL_rdd1NMFmIY4WZ7v36oG3VzW91Jp0wxpi5nBPCHFCy0aSBu1OeMNgkOz5b8CH9kAXvr0dl_JEZMwBHBBbtYconZJX3CkDv9SnGaStpRhp4p0eTp12WNfU99v4KPoqJNeLXkr_OaxgmCH6BlkX_zPt6TZt4QL8Tv8vq94adXy-apk3tadCugXmNHcgnWZomX8XIjj9uqfkw83VKqWEa2wfeLSCLfROoC1JHiEW07_S-nSdAoNnSkRoBGtbTH5GSljT9PYkwcysFrITkmEiR1LTL9sniIeFzg839QtM0G)
 
 ## 4.8A Harness Engineering — Khung quanh agent
 
@@ -1353,6 +1354,7 @@ flowchart TD
     J -->|"Đạt"| Out["Trả lời người dùng"]
     J -->|"Không đạt - sinh lại"| Strong
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNp9kl1rwyAUhv_KwetlJGvHaGDdRXqVMcba3s1dGDVRiCZYZZS2_31q0mxltLkIx_Px-L4HD4h2jKMcUN1231QQY2G7whr89_GJUYFdmvIHBwK7jNNagm58KqvScGZMAgsd9cKn0RckyRLWB4zWnbPc5EDP42Emy8KfZBoaGabJTIMge-gjmy8o2JjO-heMToOGdUAe_-i4AsLoCIXgpPea37yjFkyoVFUOTW-TeZcoqaWXeAX7X0MgbqzpdDMh1VDS4gydePHq6L7w7otO15JxTTksnyG9f_r1U4wXRxvpwLPhqvKy_iriWue6mRzHVkiA7yhpieW_AofRIY4iSi-5dKzhOaio3I72oCJAY0we1UiOK6QzNZkpr2l8d9aDt2bYObTnJ3DrSVwib9jaSS0GJPGSJm_oDpDiRhHJwis9BB5GVnDlF5D7kPGauNbrw_oUmomz3WavqS9a47jPuJ75da0kaQxRY_r0A2Fw60E=)
 
 Theo các số liệu công bố về cascade routing (OpenAI, Microsoft AI agent design patterns), cách phân tầng này thường giúp **giảm đáng kể chi phí** — con số ~60% được ghi nhận ở các hệ thống có tỷ lệ lớn câu hỏi đơn giản — vì phần lớn request không bao giờ chạm tới model đắt. Đội bạn nên đo tỷ lệ escalate thực tế của chính mình thay vì lấy số của người khác.
 

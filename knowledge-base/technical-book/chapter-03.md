@@ -21,9 +21,9 @@ graph TB
 
     subgraph Backend["Backend (FastAPI)"]
         API[API Endpoints]
-        Auth[Xác thực & Phân quyền]
-        DB[(Database)]
-        Cache[(Cache)]
+        Auth["Xác thực & Phân quyền"]
+        DB[("Database")]
+        Cache[("Cache")]
     end
 
     subgraph Agent["AI Agent (LangGraph)"]
@@ -44,6 +44,7 @@ graph TB
     Router --> LLM
     Tools --> LLM
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNptU9FKwzAU_ZVLHmSC080X0QdhsyqFKUMdCIkPd03WVm0y20Qcw3_3Jtlm6yyknHtOcnvODV2zzEjFLoDlNS4LeBoLDfQ0bh6Jm9poq7Tkgm0h9B4UZhZO4F592ePX5lCwl3jMP7OU35ZoQJbCDVV2pkHnwg2G84GvpSxBUjlYnOu8deqqQMv9C1L6SL3ATLXUBJtibrCWfIc2KvkR-o_nMWZv0fIGQe8GGzuapl2nRHBacK3l0pTaNm3N2YIaPHurapiBLbz7BaEDmBaBPdXw4VYh5FB3Gidj3hMsQYtzbJRgh-2gmBXKywH8av8FGeVKW3IxSiOE3gR1fuu1bpIH42ho3I-OdsWqJT8Z897w2CLglnanKlOvNmIsWupkcsdpwbQ2n6XcNW2ZnaXQ71_6WcY63GGH2V1Zl_aTDwRNussk424d80Qu4kCHJHtsjLBHU4jIhVNbih0Bq1RdYSn9P7D2WwSzharoZi4ISrVA924FE_rbb0ZnzeNKZyTa2ili3FKiVUmJdGXVhv7-AafmARs=)
 
 **Frontend** là tầng người dùng tương tác trực tiếp. Nó gửi HTTP requests đến Backend và hiển thị kết quả. Trong ngữ cảnh AI Agent, Frontend thường có dạng chat interface (giao diện trò chuyện) nơi người dùng nhập câu hỏi và nhận câu trả lời từ Agent. Frontend cũng có thể bao gồm dashboard hiển thị thống kê, lịch sử hội thoại, và các tính năng quản lý.
 
@@ -97,10 +98,11 @@ graph LR
         Streaming[Streaming Display]
     end
 
-    Input -->|User sends message| API[POST /api/v1/chat]
+    Input -->|User sends message| API["POST /api/v1/chat"]
     API -->|SSE stream| Streaming
     Streaming --> Messages
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNpNUEFqwzAQ_Mqic4PptYdC2_RgSGiompPVw9ba2oJIFlqpNMT5e2XLxN2DGGZGO8NeRDtoEg8guoC-h927cpCH01chXnqMcKwLO03tfIrN_MLz8Pu5Kntixo64WQDsDMd_uoyB0BrXNTcEW8P-hOfFRU4rV2AJ2GwexyNTAM4Sgy2LR3g61I0Shzf5ARV6U_3cV20uqsSyKOvzXylfgeewcY0vlrVDNt66izsQloJFo6ejXCavErEnSyoTSmj6xnTKScpdJzOmOMiza7MYQ6LMJK8x0tZgPqBd6OsfnItz0g==)
 
 **Input Box** — Nơi người dùng nhập câu hỏi. Nên hỗ trợ multi-line (nhiều dòng) và gửi bằng Enter (Shift+Enter cho dòng mới). Có thể thêm nút upload file nếu Agent hỗ trợ xử lý tài liệu.
 
@@ -273,6 +275,7 @@ graph TD
     C --> G
     G --> H[Output]
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNptUcFOwzAM_RUrZya1gDSJA9LaboULCAanZAevddeKNq2yBDSt-3ecFNBA5BDJz--9-DlHUfQliRsQO4NDDS-Z0sBnIV_3ZOBeD85uYDa7hUQ-984y9sCCzcRKfGdMlYsiunRQKxdTUTXAQBzH_sZYw67xOF7pEVKZNYYKCwu9_yDz14ZZcw02-BUdvAXhtupGyOSa0BQ8YN-3_8tKtLjFPY2wlFkCT47M4ZyehRgruXzH1qH9zrCc4KlYBcswfuR9aQ629uNU13oHtuEIucxJk2GD3yEmaerZ8TbCnx14kxGSiZSGx_KpyENxJx-d9VsWFyA6Mh02pf-PoycpYWvqSDGgREkVutYqofTJk9HZfn3QBTetccSIG3gJlDXIn9l9wadPnd-Tvg==)
 
 Sơ đồ trên minh họa một Agent đơn giản nhưng thực tế. Khi nhận câu hỏi, Router Node phân loại và quyết định luồng xử lý:
 
@@ -474,8 +477,8 @@ graph TB
     end
 
     subgraph "Data Layer"
-        SQLite[(SQLite DB)]
-        Chroma[(ChromaDB)]
+        SQLite[("SQLite DB")]
+        Chroma[("ChromaDB")]
     end
 
     Browser --> API
@@ -493,6 +496,7 @@ graph TB
     AgentOrchestrator --> MemoryMgr
     AgentOrchestrator --> Chroma
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNp9VMFu2zAM_RVBpxZYf2CHAnaytQESdF0C9GDvwNisbUyWDFlqaxT994mmO8tJER8s6r1HkSIJvcvClCi_C1lZ6GpxSHMtwtf7IwMr1aB2DNKXWvPao82e8Php_5nZnTk2CjNeRNJ1E4e6zPXJybn8Cb1Lfm1ECsVfUsj5oABnRN2Bw1cYohCJd3VGvxCs9Aojao993xi9q2w2mWIHGqpFiqsa3D3oUoVLkC2mzcVMk41IqlAHcbUFXd0Rer1Il8gHW9TYOwvO2IzlMRTl8Nt4F8JvtCMR7xb3gOB3MEaNZeZtxK_TkVun4tGjjYuzAlV4RdFGxbyNe4StsQMVia2TGn1dgB9vIUUNKiRjX5oC-_j2Dx3qZJPxQq2Loh3gpVFDxsvyKl9HWoMDsYUBbRxi_7htHGZXuWQr1CCX14u2WtMCCdiK-SjQNLLi5uaWEmVwGtcFRsM3AmHSlkg0QExEALucDsPkfwqPYm4-K9ge4XkEziju_hm8bD3T8ymjhJtw5sl9m0rxORycxVjrS-n_118ScUfkNyFbtC00Jb037-SRS1dji3kAclniM3jlqO0fJAbvzH7QRSCd9RgQ35XhPVg3EIalneCPf6Kgf6c=)
 
 **2. Agent Flow Diagram** — Hiển thị chi tiết luồng xử lý bên trong Agent: nodes, edges, conditions, và loops.
 
@@ -517,6 +521,7 @@ graph TD
     Check -->|Pass| Output([Final Answer])
     Check -->|Fail| Generate
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNptUkFuwyAQ_MqKUyI1H-ihUhQraS5t47jqAedA8SZGxWBhaBTF-XvBhkZt4oPZnd2BmYUz4bpC8gjkYFhbQ5GVCvy3LeZ5MaHvHRrYOOys0Go3hdnsCXLtLBq6VhaVjdluZI1J6OpXBtEKdeghEwa5peMCOXatVh3eMpaMW8ckbHrfZI3AbyZpPl9ds1vOwhkTVKzVXvewRWZ4TT_wM4ZQaH2PxSR3kgVPPYSEJkSbRImkdPTgfGVYhXT4Q6a5a_zRXdx-RMPuOUrPULaHFSo0zHpKDGCuuuPvtK6UFx0Gk2g5Ho3wrLiG-ZtTchGx4SKSuKQ2mh6kxhPHQrB3B45X8rcQtSXFobiokX_RZyal40INcxuxKGqIByNvrOt6eHW2dXZCl75ZJs_T_71LJuR1RuQBSIOmYaIKr_Ecuktia2yw9EBJKtwzJ21JSnUJzcxZvT0p7ovWOPSIayu_USaYf8pNhC8_IhT3NQ==)
 
 Diagram Agent Flow này đặc biệt quan trọng vì nó thể hiện **agentic loop** — khả năng rẽ nhánh và lặp lại của Agent. Đây là điểm khác biệt chính giữa Agent và simple chain.
 
@@ -530,15 +535,15 @@ graph LR
             Agent[LangGraph Agent]
         end
         subgraph "DB Container"
-            PG[(PostgreSQL)]
+            PG[("PostgreSQL")]
         end
         subgraph "Vector Container"
-            Chroma[(ChromaDB)]
+            Chroma[("ChromaDB")]
         end
     end
 
     subgraph "External"
-        GitHub[GitHub Actions CI/CD]
+        GitHub["GitHub Actions CI/CD"]
         OpenAI[OpenAI API]
     end
 
@@ -548,6 +553,7 @@ graph LR
     Agent --> OpenAI
     GitHub -->|Deploy| FastAPI
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNqNUl1rgzAU_SshTxVW9t6HgdXNCYW5CXsxfUj1TmXNB_E6Vtr-9yWmglsrLC_35ORwTnJvjrRUFdAVobXhuiGbNyaJXV2_8wSjsSo_wZBICa06YNQL_ohCra1CIm8lmKnGrSfeYZilxaWSHMwXmO1vUViDxGLDZZ0MnsN-ogFZ3UyO1_PBWVIsGM1Uh7WB_HXDaPAPx3coUZl516gxSnDn7FG8nvEdwFU_H78RjOT7qW3S4nO_Kxj1gIQltkp2JErvo5jRifmLBhmmhS_EdnN7lZVKFwC4WIwoCMhy-TDOwavGYbiDLLnm_Ns8P8xiYH2uZy93tfQpBr1Xh9NoQO8IFWAEbyv3tY5Ozyg2IOz_WVlYwQfv9-hacHZi3qPKD7K0h2h6sEyvK44Qt9y2TVzo8w-cb8tv)
 
 ### Quy tắc vẽ diagram tốt
 

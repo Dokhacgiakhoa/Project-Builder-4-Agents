@@ -139,6 +139,7 @@ flowchart LR
     M["1. Motivation (Động lực)<br/>Giải quyết vấn đề gì?<br/>Mục tiêu kỳ vọng?"] --> D["2. Design (Thiết kế)<br/>Kiến trúc, DB Schema, API,<br/>AI Prompts, Edge cases"]
     D --> P["3. Plan (Kế hoạch)<br/>Chia nhỏ Task, Timeline,<br/>Tiêu chí nghiệm thu Done"]
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNo9kVFPwjAUhf_KTZ80GUglxEgMBJ0xBEmI7M36cGm7tWFrcWsxhPDfbTt0T-ee9t7v3O5MuBWSTIGUtf3hClsH7x_MQPjWn4zQIayt00d02hq4YX5E6Yh5KsWjqaCOqqT89mnX3s3edCxxrOHbn6LclQ6OyZsYSK00VpxCFaqR5PPUt46mnHBwOtnoYZ8Gj_tuLkw1Z-QLBoMZ5CHU_RBy2ekqBCqU_iPte9FnWV1tA66NQ0vkGeTPsOVKNpjBYrPM0sXFEjatbQ6uy-BVVBI4drILtP4N8gTdBOh4CJsaA3LVTwZl02qUqx75ojSCUSlxCQV2-wwK3chaG9mziv_9uEpKgKn6BfhDA055yK2RAU4yII1sG9Qi_ptzDMOIC9nD6TRIIUv0tWOEmUu8jN7Z7cnwcOhaL4PjDwKdzDVWLTZX-_ILmlqdtg==)
 
 > **Tại sao phải viết Spec?** Để suy nghĩ thấu đáo, thống nhất luồng dữ liệu giữa Frontend và Backend, tránh tuyệt đối tình trạng "code xong rồi đập đi xây lại".
 

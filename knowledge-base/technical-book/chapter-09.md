@@ -155,10 +155,11 @@ flowchart LR
     SW --> API["POST /api/v1/chat/stream"]
     API -->|SSE chunks| BUF[Buffer + render tung dong]
     BUF --> STATES{UI states}
-    STATES -->|loading| SP[Spinner / skeleton]
+    STATES -->|loading| SP["Spinner / skeleton"]
     STATES -->|error| ER[Error message + retry]
     STATES -->|done| DK[Sources + citations hien thi]
 ```
+> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNplkEFqwzAQRa8yaNsG020XhaRxIbTQEMVkYWUh7LEtbEtGGrWEOHfv2DGlUK3E15uvJ11F4UoUzyCqzn0XjfYEHwdlgVeWZwE9GDtEOsNq9QLylMvTARrnWogBXxtN5zsrTzOw3u9yJfaf8giJHkzy9ZRwJyWBPOpeiYVmbMJHKVMommjbMMIme8s3sar4xgfwaEveULQ1lM7Wyxwzd4_j-pjKa7aDQJow3BaJOZ6bO6dLY-sR5J6F5GCs5b4EQosdkrO_Kn9m0HvnR0gPeTrtoMcQdI2zDvnL_wE2wxG277l00RcYmCwMCxlnAzQGLVBjzuIRRI--16ac_vk61ShBDfaoOFCixErHjpRQ9jbBOpKTF1vwIfmInMSh5Gduja697pf49gMqYo38)
 
 ## 9.1 Setup Next.js
 
