@@ -3,7 +3,7 @@
 > **Bạn là AI coding agent** (Claude Code, Antigravity, Codex...). Người dùng có thể là fresher/vibe coder, **không biết repo này có tệp gì** và không biết dùng git thành thạo. Bạn phải **chủ động** làm theo quy trình này dựa trên lời mô tả hoặc cuộc trò chuyện của họ. Đừng bảo họ gõ lệnh hay chỉ tên tệp.
 > Đọc hết tệp này, rồi thực hiện tuần tự. Trả lời bằng ngôn ngữ người dùng đang dùng.
 
-Kho tài liệu (kit): `https://github.com/Dokhacgiakhoa/Project-Builder-Kit` · Chỉ mục ý định: [INDEX.md](INDEX.md)
+Kho tài liệu (kit): `https://github.com/Dokhacgiakhoa/Project-Builder-4-Agents` · Chỉ mục ý định: [INDEX.md](INDEX.md)
 
 ---
 
@@ -12,7 +12,7 @@ Kho tài liệu (kit): `https://github.com/Dokhacgiakhoa/Project-Builder-Kit` ·
 2. Xem thư mục:
    * **Rỗng/chưa có**: dựng mới.
    * **Đã có nội dung (dự án đang làm dở)**: chế độ **MERGE** — chỉ **thêm** tệp còn thiếu, **không ghi đè** bất cứ thứ gì của họ. Tệp trùng tên thì ghi bản của kit thành `<tên>.kit-suggested` rồi báo họ.
-3. Lấy nội dung kit về **thư mục tạm** (không đặt vào dự án): ưu tiên `git clone --depth 1 https://github.com/Dokhacgiakhoa/Project-Builder-Kit <tmp>`; nếu không có git, tải từng tệp qua raw URL (`https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-Kit/main/<đường dẫn>`). Ghi lại commit/tag đã dùng làm `kit_ref`.
+3. Lấy nội dung kit về **thư mục tạm** (không đặt vào dự án): ưu tiên `git clone --depth 1 https://github.com/Dokhacgiakhoa/Project-Builder-4-Agents <tmp>`; nếu không có git, tải từng tệp qua raw URL (`https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/<đường dẫn>`). Ghi lại commit/tag đã dùng làm `kit_ref`.
 
 ## BƯỚC 1 — Dựng khung Core (chung cho mọi dự án)
 Đây là phần **bắt buộc**, đặc tả đầy đủ ở [core/README.md](core/README.md). Không phụ thuộc ngôn ngữ hay kiến trúc.

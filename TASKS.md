@@ -54,7 +54,7 @@ Thứ tự đề xuất: **C2 → B3 → B1 → B8 (push) → C1 → B2 → A1 �
 
 | ID | Việc | Ưu tiên | Công sức | Người | Phụ thuộc | Trạng thái |
 | :-- | :-- | :-: | :-: | :-- | :-- | :-: |
-| B1 | **Đổi tên repo GitHub** thành `Project-Builder-Kit` (mọi link trong tài liệu đã trỏ tên mới) | P0 | S | Cậu | — | TODO |
+| B1 | **Đổi tên repo GitHub** thành `Project-Builder-4-Agents` (mọi link trong tài liệu đã trỏ tên mới) | P0 | S | Cậu | — | TODO |
 | B8 | **Push** các commit lên GitHub sau khi đổi tên (hiện mới commit cục bộ; Agent không lấy được kit qua URL khi chưa push) | P0 | S | Cậu | B1 | BLOCKED |
 | B2 | **Thay URL/tên cũ** `Project-Starter-Kit` còn sót (guides trong `profiles/documentation`, pitch deck, tên thư mục cấu hình `~/.starter-kit`), `grep` toàn repo | P1 | S | Claude | B1 | BLOCKED |
 | B3 | **Chạy CI trên GitHub lần đầu** (ma trận Python 3.12/3.14, pytest, eslint/tsc/vitest, `check_links`); sửa mọi lỗi lộ ra | P0 | S | Claude (cậu push) | — | TODO |

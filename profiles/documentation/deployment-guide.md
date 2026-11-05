@@ -11,7 +11,7 @@ when: "Hướng dẫn triển khai"
 1. Clone repository về máy:
    ```bash
    git clone https://github.com/<your-org>/<your-repo>.git
-   cd Project-Starter-Kit
+   cd Project-Builder-4-Agents
    ```
 2. Tạo file `.env` từ file mẫu:
    ```bash

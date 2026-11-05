@@ -33,8 +33,8 @@
 ## 4. Giao tiếp với người dùng
 Người dùng có thể là người mới. Giải thích bằng ngôn ngữ đời thường, ngắn gọn; nói rõ việc đã làm, kết quả kiểm chứng, và việc tiếp theo. Dùng đúng ngôn ngữ họ đang dùng.
 
-## 5. KNOWLEDGE ROUTER — tra cứu Project-Builder-Kit một cách chủ động
-Dự án này được dựng bằng **Project-Builder-Kit**. Cấu hình ở `.builder/kit.json`.
+## 5. KNOWLEDGE ROUTER — tra cứu Project-Builder-4-Agents một cách chủ động
+Dự án này được dựng bằng **Project-Builder-4-Agents**. Cấu hình ở `.builder/kit.json`.
 
 * Kho tài liệu: `{{KIT_REPO_URL}}` (ghim phiên bản: `{{KIT_REF}}`)
 * Chỉ mục định tuyến theo ý định: `{{KIT_RAW_BASE}}/INDEX.md`

@@ -1,6 +1,6 @@
 {
-  "kit": "Project-Builder-Kit",
-  "kit_repo": "https://github.com/Dokhacgiakhoa/Project-Builder-Kit",
+  "kit": "Project-Builder-4-Agents",
+  "kit_repo": "https://github.com/Dokhacgiakhoa/Project-Builder-4-Agents",
   "kit_ref": "main",
   "core_version": "1.0.0",
   "bootstrapped_at": "{{DATE}}",

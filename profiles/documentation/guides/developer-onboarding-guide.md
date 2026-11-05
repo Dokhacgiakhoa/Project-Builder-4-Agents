@@ -45,8 +45,8 @@ Trước khi bắt đầu, hãy đảm bảo máy tính của bạn đã cài đ
 
 ### Bước 1: Clone Repository & Kiểm tra Nhánh (2 phút)
 ```bash
-git clone https://github.com/Dokhacgiakhoa/Project-Starter-Kit.git
-cd Project-Starter-Kit
+git clone https://github.com/Dokhacgiakhoa/Project-Builder-4-Agents.git
+cd Project-Builder-4-Agents
 git checkout main
 git pull origin main
 ```

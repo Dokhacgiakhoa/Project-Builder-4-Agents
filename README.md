@@ -1,8 +1,8 @@
 <div align="center">
 
-  <img src="assets/banner.svg" alt="Project-Builder-Kit" width="100%" />
+  <img src="assets/banner.svg" alt="Project-Builder-4-Agents" width="100%" />
 
-  <h3>Project-Builder-Kit</h3>
+  <h3>Project-Builder-4-Agents</h3>
   <p><b>Để AI agent dựng dự án chuẩn kiến trúc cho bạn — không cần clone, không cần biết repo có gì.</b></p>
   <p>Dùng được với <b>Claude Code · Antigravity · Codex</b></p>
 
@@ -21,7 +21,7 @@
 2. Dán đúng một câu:
 
    ```text
-   Hãy dùng https://github.com/Dokhacgiakhoa/Project-Builder-Kit để dựng dự án giúp mình. Mình muốn làm: <mô tả ngắn dự án của bạn>
+   Hãy dùng https://github.com/Dokhacgiakhoa/Project-Builder-4-Agents để dựng dự án giúp mình. Mình muốn làm: <mô tả ngắn dự án của bạn>
    ```
 3. Trò chuyện với Agent: nó sẽ hỏi bạn vài câu đơn giản, đề xuất công nghệ và kiến trúc, rồi tự dựng khung, cấu hình rule/skill/workflow cho chính nó, cài lệnh test/lint và CI.
 4. Về sau cứ nhờ Agent làm việc bình thường. Nó đã mang sẵn "bộ định tuyến tri thức" trong `AGENTS.md` nên tự tra kit khi cần kiến trúc, pattern, giao diện, test.

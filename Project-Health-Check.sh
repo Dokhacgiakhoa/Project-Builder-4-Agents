@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Project-Builder-Kit - Project Health Check (Linux/macOS)
+# Project-Builder-4-Agents - Project Health Check (Linux/macOS)
 
 set -e
 

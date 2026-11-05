@@ -1,4 +1,4 @@
-# AGENTS.md — DÀNH CHO AGENT ĐANG SỬA CHÍNH Project-Builder-Kit
+# AGENTS.md — DÀNH CHO AGENT ĐANG SỬA CHÍNH Project-Builder-4-Agents
 
 > Tệp này chỉ áp dụng khi bạn chỉnh sửa **repo kit này**. Nếu người dùng muốn **dựng dự án của họ** bằng kit, hãy đọc [BOOTSTRAP.md](BOOTSTRAP.md). Chỉ dẫn mà dự án của người dùng nhận được nằm ở [core/templates/AGENTS.md](core/templates/AGENTS.md).
 

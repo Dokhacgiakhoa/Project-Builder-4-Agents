@@ -1,6 +1,6 @@
 # INDEX — BẢNG ĐỊNH TUYẾN Ý ĐỊNH → TÀI LIỆU (DÀNH CHO AGENT)
 
-> Người dùng **không biết** repo có tài liệu nào. Hãy đọc cột **"Khi nào dùng"**, khớp với việc người dùng đang nói/làm, rồi mở đúng tài liệu. Đọc tối đa 2–3 tài liệu mỗi lần. Địa chỉ thô: `https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-Kit/<ref>/<đường dẫn>`.
+> Người dùng **không biết** repo có tài liệu nào. Hãy đọc cột **"Khi nào dùng"**, khớp với việc người dùng đang nói/làm, rồi mở đúng tài liệu. Đọc tối đa 2–3 tài liệu mỗi lần. Địa chỉ thô: `https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/<ref>/<đường dẫn>`.
 > Tầng: **C** = Core (bắt buộc mọi dự án) · **P** = Profile (chọn theo dự án) · **L** = Library (tham khảo/tùy chọn).
 
 ## 1. Khởi tạo và vòng đời

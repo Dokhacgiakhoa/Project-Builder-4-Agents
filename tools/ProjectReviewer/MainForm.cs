@@ -301,7 +301,7 @@ public class MainForm : Form
         if (!File.Exists(scriptPath))
         {
             MessageBox.Show(
-                "Không tìm thấy scripts\\reviewer_app.py cạnh Project-Health-Check.exe.\nHãy đặt thư mục engine\\ cạnh file exe, hoặc chạy exe trong thư mục repo Project-Builder-Kit.",
+                "Không tìm thấy scripts\\reviewer_app.py cạnh Project-Health-Check.exe.\nHãy đặt thư mục engine\\ cạnh file exe, hoặc chạy exe trong thư mục repo Project-Builder-4-Agents.",
                 "Thiếu Core Engine",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);

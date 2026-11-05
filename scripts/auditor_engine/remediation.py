@@ -1,5 +1,5 @@
 """
-Ánh xạ phát hiện của Health Check → mã ổn định, mức độ và tài liệu khắc phục trong Project-Builder-Kit.
+Ánh xạ phát hiện của Health Check → mã ổn định, mức độ và tài liệu khắc phục trong Project-Builder-4-Agents.
 
 Agent đọc `project-review.md`, thấy mã + liên kết tài liệu, rồi tra đúng tài liệu để sửa.
 Danh sách DOCS phải khớp `INDEX.md` của kit (có test kiểm tra mỗi đường dẫn đều tồn tại).
@@ -10,7 +10,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 
-KIT_REPO = "https://github.com/Dokhacgiakhoa/Project-Builder-Kit"
+KIT_REPO = "https://github.com/Dokhacgiakhoa/Project-Builder-4-Agents"
 DEFAULT_REF = "main"
 
 # id -> (đường dẫn trong kit, tiêu đề). Trùng ID với INDEX.md.

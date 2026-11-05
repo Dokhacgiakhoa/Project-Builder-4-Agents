@@ -1,9 +1,9 @@
 ---
 name: kit-consult
-description: Dùng khi cần hướng dẫn kiến trúc, pattern, design system, test, CI hoặc cách sửa phát hiện trong project-review.md mà repo chưa có hướng dẫn. Tự tra Project-Builder-Kit theo ý định thay vì bịa quy ước.
+description: Dùng khi cần hướng dẫn kiến trúc, pattern, design system, test, CI hoặc cách sửa phát hiện trong project-review.md mà repo chưa có hướng dẫn. Tự tra Project-Builder-4-Agents theo ý định thay vì bịa quy ước.
 ---
 
-# Tra cứu Project-Builder-Kit
+# Tra cứu Project-Builder-4-Agents
 
 1. Đọc `.builder/kit.json` để biết địa chỉ kit (`kit_repo`, `kit_ref`) và profile đã chọn.
 2. Tải `INDEX.md` của kit (raw URL: `https://raw.githubusercontent.com/<owner>/<repo>/<kit_ref>/INDEX.md`).

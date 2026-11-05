@@ -1,6 +1,6 @@
 .PHONY: help review build-exe test lint check-links
 
-help: ## Hiển thị danh mục lệnh (dành cho người phát triển Project-Builder-Kit)
+help: ## Hiển thị danh mục lệnh (dành cho người phát triển Project-Builder-4-Agents)
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-14s %s\n", $$1, $$2}'
 
 review: ## Project Health Check: make review [TARGET=đường/dẫn] -> project-review.md

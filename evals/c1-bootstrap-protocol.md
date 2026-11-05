@@ -9,7 +9,7 @@
 * Người thử trả lời **đúng theo vai (mục 3)**, không gợi ý thêm.
 
 ## 2. Prompt (đúng một câu)
-a. Có URL: `Hãy dùng https://github.com/Dokhacgiakhoa/Project-Builder-Kit để dựng dự án giúp mình. Mình muốn làm: <mô tả ở mục 3>`
+a. Có URL: `Hãy dùng https://github.com/Dokhacgiakhoa/Project-Builder-4-Agents để dựng dự án giúp mình. Mình muốn làm: <mô tả ở mục 3>`
 b. Chưa có URL (thử sớm): `Hãy dùng bộ tài liệu ở <đường dẫn thư mục kit trên máy> để dựng dự án giúp mình, bắt đầu từ BOOTSTRAP.md. Mình muốn làm: <mô tả ở mục 3>`
 
 ## 3. Kịch bản và vai người dùng

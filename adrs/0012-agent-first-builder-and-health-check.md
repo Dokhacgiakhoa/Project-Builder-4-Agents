@@ -14,7 +14,7 @@
 ## 2. QUYẾT ĐỊNH (DECISION)
 
 ### 2.1. Hai sản phẩm trong một repo
-| | **Project-Builder-Kit** | **Project Health Check** |
+| | **Project-Builder-4-Agents** | **Project Health Check** |
 |---|---|---|
 | Là gì | Bộ tri thức + quy trình để Agent dựng và đồng hành cùng dự án | Công cụ (exe/CLI) kiểm tra dự án đang "bị" gì |
 | Ai dùng | Agent, qua trò chuyện với người dùng | Người dùng bấm exe, hoặc Agent chạy dòng lệnh |

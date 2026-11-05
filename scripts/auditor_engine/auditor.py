@@ -405,7 +405,7 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
         return (
             f"Hãy đọc tệp `{name}` ở gốc dự án (do Project Health Check sinh ra) và sửa dự án theo đó:\n"
             "1. Xử lý các phát hiện mức Cao trước, rồi Trung bình, rồi Thấp.\n"
-            "2. Với mỗi phát hiện, mở tài liệu khắc phục ghi cạnh nó trong Project-Builder-Kit "
+            "2. Với mỗi phát hiện, mở tài liệu khắc phục ghi cạnh nó trong Project-Builder-4-Agents "
             "(hoặc dùng skill `kit-consult` nếu có) và làm theo hướng dẫn, không tự bịa quy ước.\n"
             "3. Không đổi hợp đồng API/schema nếu chưa có ADR và chưa hỏi người dùng.\n"
             "4. Chạy lệnh test/lint/build trong AGENTS.md, rồi chạy lại Health Check để xác nhận.\n"
@@ -428,7 +428,7 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
         lines = [
             "---",
             "report: project-review",
-            "generator: Project Health Check (Project-Builder-Kit)",
+            "generator: Project Health Check (Project-Builder-4-Agents)",
             f"generated: {now_str}",
             f"score: {total_score}",
             f"grade: \"{grade}\"",
@@ -441,7 +441,7 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
             "# project-review — Báo cáo sức khỏe dự án",
             "",
             "> **Dành cho Agent**: đọc Mục 0 (cảnh báo an toàn) trước, Mục 7 (phạm vi quét) để biết đã quét/bỏ qua gì và KHÔNG mở lại các thư mục bị bỏ qua. Sau đó xử lý các phát hiện ở Mục 2 theo thứ tự Cao → Trung bình → Thấp. "
-            "Mỗi phát hiện có *tài liệu khắc phục* trong Project-Builder-Kit: đọc đúng tài liệu đó rồi sửa, "
+            "Mỗi phát hiện có *tài liệu khắc phục* trong Project-Builder-4-Agents: đọc đúng tài liệu đó rồi sửa, "
             "chạy lại lệnh kiểm chứng trong `AGENTS.md`, rồi chạy lại Health Check. "
             "(Link `blob` đổi thành `raw.githubusercontent.com` để tải thô.)",
             "> **Dành cho người**: Mục 1 là tổng quan, Mục 2 là việc cần làm, Mục 3 là thang điểm. "

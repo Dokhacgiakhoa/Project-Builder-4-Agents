@@ -178,4 +178,4 @@ graph LR
 ### Sẵn sàng bước vào phần Hỏi & Đáp (Q&A)
 
 **Demo Trực Tiếp**: [https://project-starter-kit.demo.app]
-**Tài liệu Dự Án**: [https://github.com/Dokhacgiakhoa/Project-Starter-Kit]
+**Tài liệu Dự Án**: [https://github.com/Dokhacgiakhoa/Project-Builder-4-Agents]

@@ -351,7 +351,7 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
 
     def _handle_check_update(self):
         try:
-            url = "https://api.github.com/repos/Dokhacgiakhoa/Project-Builder-Kit/releases/latest"
+            url = "https://api.github.com/repos/Dokhacgiakhoa/Project-Builder-4-Agents/releases/latest"
             req = urllib.request.Request(url, headers={"User-Agent": "Project-Reviewer-App"})
             with urllib.request.urlopen(req, timeout=5) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
@@ -362,7 +362,7 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
                     "latest_version": latest_tag,
                     "has_update": has_update,
                     "release_notes": data.get("body", "Phiên bản mới nhất trên GitHub."),
-                    "html_url": data.get("html_url", "https://github.com/Dokhacgiakhoa/Project-Builder-Kit")
+                    "html_url": data.get("html_url", "https://github.com/Dokhacgiakhoa/Project-Builder-4-Agents")
                 })
         except Exception as e:
             self._send_json({
