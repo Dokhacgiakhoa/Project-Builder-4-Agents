@@ -1,3 +1,8 @@
+---
+id: O-008
+type: reference
+when: "Viết **hướng dẫn sử dụng** cho người dùng cuối"
+---
 # 📖 [TÊN SẢN PHẨM] - HƯỚNG DẪN DÀNH CHO NGƯỜI DÙNG CUỐI (USER GUIDE)
 
 > **Dành cho**: Khách hàng, Đối tác, và Người dùng cuối sử dụng phần mềm.  

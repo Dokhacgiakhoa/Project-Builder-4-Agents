@@ -1,3 +1,8 @@
+---
+id: K-003
+type: reference
+when: "Cần biết **thế nào là đạt chuẩn tối thiểu** cho mọi repo dùng Agent"
+---
 # CORE BASELINE — NHỮNG THỨ BẮT BUỘC CHO MỌI REPO DÙNG AGENT
 
 > Dành cho Agent. Áp dụng cho **mọi** dự án, bất kể ngôn ngữ hay kiểu kiến trúc. Cấu hình sâu hơn thuộc `../profiles/` và được chọn sau bước phỏng vấn (`discovery.md`).

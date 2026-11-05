@@ -1,3 +1,8 @@
+---
+id: T-004
+type: reference
+when: "Hướng dẫn triển khai"
+---
 # HƯỚNG DẪN TRIỂN KHAI HỆ THỐNG (DEPLOYMENT GUIDE)
 
 ---

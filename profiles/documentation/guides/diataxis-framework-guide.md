@@ -1,3 +1,8 @@
+---
+id: O-006
+type: reference
+when: "Phân loại/viết tài liệu theo **Diátaxis** (tutorial, how-to, reference, explanation)"
+---
 # 📚 THE DIÁTAXIS DOCUMENTATION FRAMEWORK
 
 > **Tiêu chuẩn Quốc tế về Cấu trúc Tài liệu Kỹ thuật**  

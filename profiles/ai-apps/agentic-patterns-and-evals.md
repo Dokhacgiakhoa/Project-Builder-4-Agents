@@ -1,3 +1,8 @@
+---
+id: I-001
+type: reference
+when: "Sản phẩm có Agent, tool calling, RAG, MCP; cần đánh giá chất lượng (evals)"
+---
 # ADR 0007: AI AGENTIC ARCHITECTURAL PATTERNS & EVALUATION PIPELINES
 
 * **Trạng thái**: Đã phê duyệt (Accepted)

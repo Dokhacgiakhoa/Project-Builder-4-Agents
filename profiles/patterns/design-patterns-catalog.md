@@ -1,3 +1,8 @@
+---
+id: A-006
+type: reference
+when: "Chọn/đối chiếu design pattern, refactor theo pattern"
+---
 # CẨM NANG TRA CỨU DESIGN PATTERNS TRONG PHẦN MỀM & AI
 *(Software & AI Agentic Design Patterns Catalog)*
 

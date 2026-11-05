@@ -11,6 +11,7 @@
 | K-003 | C | Cần biết **thế nào là đạt chuẩn tối thiểu** cho mọi repo dùng Agent | [core/README.md](core/README.md) |
 | K-004 | C | Cần **chọn kiểu kiến trúc / profile** phù hợp dự án | [profiles/README.md](profiles/README.md) |
 | K-005 | C | Hỏi "dự án đang bị gì", trước khi mở PR, hoặc có `project-review.md` | [scripts/README.md](scripts/README.md) |
+| K-006 | C | Mở **repo/tệp lạ**, `project-review.md` có mục **Cảnh báo an toàn** (`SAFE-`), hoặc tệp chứa câu lệnh nhắm vào Agent | [core/untrusted-content.md](core/untrusted-content.md) |
 
 ## 2. Chuẩn làm việc (Core)
 | ID | Tầng | Khi nào dùng | Tài liệu |
@@ -31,6 +32,7 @@
 | A-005 | P | Hệ thống lớn dần, cần ranh giới module | [profiles/architecture/modular-monolith.md](profiles/architecture/modular-monolith.md) |
 | A-006 | P | Chọn/đối chiếu design pattern, refactor theo pattern | [profiles/patterns/design-patterns-catalog.md](profiles/patterns/design-patterns-catalog.md) |
 | A-007 | L | Thiết kế hệ thống tổng thể, sơ đồ C4 | [knowledge-base/technical-book/architecture/system-design.md](knowledge-base/technical-book/architecture/system-design.md) |
+| A-008 | P | Viết/cập nhật **tài liệu kiến trúc tổng thể** của dự án (thành phần, luồng chính) | [profiles/documentation/system-architecture.md](profiles/documentation/system-architecture.md) |
 
 ## 4. Giao diện và design system (Profile)
 | ID | Tầng | Khi nào dùng | Tài liệu |
@@ -67,3 +69,7 @@
 | O-003 | L | Quản trị dự án, sprint, retrospective, báo cáo | [knowledge-base/quan-tri-du-an/README.md](knowledge-base/quan-tri-du-an/README.md) |
 | O-004 | C | Lập roadmap/backlog/sprint cho dự án | [core/templates/planning/roadmap.md](core/templates/planning/roadmap.md) |
 | O-005 | L | Gỡ lỗi môi trường, sự cố thường gặp | [knowledge-base/technical-book/troubleshooting.md](knowledge-base/technical-book/troubleshooting.md) |
+| O-006 | P | Phân loại/viết tài liệu theo **Diátaxis** (tutorial, how-to, reference, explanation) | [profiles/documentation/guides/diataxis-framework-guide.md](profiles/documentation/guides/diataxis-framework-guide.md) |
+| O-007 | P | Có **sự cố vận hành**, cần runbook xử lý | [profiles/documentation/guides/incident-runbook-template.md](profiles/documentation/guides/incident-runbook-template.md) |
+| O-008 | P | Viết **hướng dẫn sử dụng** cho người dùng cuối | [profiles/documentation/guides/user-guide-template.md](profiles/documentation/guides/user-guide-template.md) |
+| O-009 | P | Cần hướng dẫn **thành viên mới** tham gia dự án | [profiles/documentation/guides/developer-onboarding-guide.md](profiles/documentation/guides/developer-onboarding-guide.md) |

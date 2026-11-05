@@ -7,7 +7,7 @@ import json
 import datetime
 from pathlib import Path
 
-from .constants import IGNORE_DIRS, CODE_EXTENSIONS  # noqa: F401
+from .constants import IGNORE_DIRS, CODE_EXTENSIONS, SKIP_REASONS  # noqa: F401
 
 
 class ProjectTree:
@@ -28,6 +28,10 @@ class ProjectTree:
 
         self.files_by_ext = {}
 
+        # (đường dẫn tương đối, lý do) của các thư mục bị bỏ qua, để báo cáo cho Agent
+
+        self.skipped = []
+
         self._scan()
 
     def _scan(self):
@@ -35,6 +39,14 @@ class ProjectTree:
         for dirpath, dirnames, filenames in os.walk(self.root):
 
             # Cắt tỉa thư mục ngay tại chỗ để os.walk không đi sâu vào các thư mục rác
+
+            for d in dirnames:
+
+                if d in IGNORE_DIRS:
+
+                    rel = (Path(dirpath) / d).relative_to(self.root).as_posix()
+
+                    self.skipped.append((rel, SKIP_REASONS.get(d, '')))
 
             dirnames[:] = [d for d in dirnames if d not in IGNORE_DIRS and not d.startswith('.')]
 

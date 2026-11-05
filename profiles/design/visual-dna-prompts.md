@@ -1,3 +1,8 @@
+---
+id: D-005
+type: reference
+when: "Cần prompt mô tả phong cách để Agent dựng giao diện đúng gu"
+---
 # AI Visual DNA Prompt Cookbook (Sổ Tay Prompt Giao Diện Cho Agent)
 
 Tài liệu này cung cấp các đoạn **System Prompt & Style Injection Prompt** chuẩn hóa sẵn sàng copy-paste vào **Claude Code, Cursor, Antigravity, ChatGPT, v0**. Khi bắt đầu phát triển giao diện một tính năng, người dùng chỉ cần đưa đoạn prompt tương ứng vào, AI Agent sẽ tự động sinh mã nguồn (HTML/Tailwind CSS/React) tuân thủ 100% bản sắc thị giác của phong cách đó.

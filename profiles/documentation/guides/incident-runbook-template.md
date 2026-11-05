@@ -1,3 +1,8 @@
+---
+id: O-007
+type: reference
+when: "Có **sự cố vận hành**, cần runbook xử lý"
+---
 # 🚨 PRODUCTION INCIDENT RESPONSE RUNBOOK (SỔ TAY XỬ LÝ SỰ CỐ PRODUCTION)
 
 > **Mục đích**: Hướng dẫn khẩn cấp dành cho Kỹ sư trực ca (On-Call Engineer) và Tech Lead khi hệ thống gặp sự cố nghiêm trọng trên môi trường Production (Đặc biệt vào các khung giờ nhạy cảm như 2h sáng).

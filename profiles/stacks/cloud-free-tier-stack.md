@@ -1,3 +1,8 @@
+---
+id: T-001
+type: reference
+when: "Stack miễn phí (free tier) cho dự án nhỏ"
+---
 # ADR 0002: TECHNOLOGY STACK & CLOUD FREE-TIER GUIDELINES
 
 * **Trạng thái**: Đã phê duyệt (Accepted)

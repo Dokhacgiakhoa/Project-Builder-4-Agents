@@ -1,3 +1,8 @@
+---
+id: K-002
+type: playbook
+when: "Cần **hỏi người dùng** để hiểu dự án, chốt luồng, stack"
+---
 # DISCOVERY — KỊCH BẢN PHỎNG VẤN DỰ ÁN (BƯỚC 2)
 
 > Dành cho Agent. Mục tiêu: từ lời mô tả của người dùng, chốt được **bản tóm tắt dự án**, **stack** và **profile kiến trúc**, rồi ghi lại thành tài liệu. Người dùng có thể là fresher hoặc người vibe coding: dùng ngôn ngữ đời thường, giải thích thuật ngữ trong một câu, **đừng hỏi dồn**.
@@ -19,16 +24,7 @@
 7. **Quy mô dự kiến**: demo/đồ án, sản phẩm nhỏ, hay sản phẩm sẽ lớn dần.
 
 ## Từ câu trả lời đến quyết định
-| Tín hiệu | Gợi ý | Tài liệu |
-| :-- | :-- | :-- |
-| Demo, đồ án, một người làm, ít nghiệp vụ | Layered đơn giản | `../profiles/architecture/simple-layered.md` |
-| Nghiệp vụ phức tạp, sống lâu, cần test sâu | Clean Architecture (+DDD khi cần) | `../profiles/architecture/clean-architecture.md` |
-| Nhiều tính năng độc lập, nhóm nhỏ làm song song | Vertical Slice hoặc Modular Monolith | `../profiles/architecture/vertical-slice.md`, `../profiles/architecture/modular-monolith.md` |
-| Có LLM/Agent/RAG bên trong | Thêm profile AI | `../profiles/ai-apps/agentic-patterns-and-evals.md` |
-| Có giao diện web nhiều màn hình | Thêm profile frontend + design system | `../profiles/frontend/bulletproof-react.md`, `../profiles/design/ui-ux-archetypes-and-presets.md` |
-| Ngân sách bằng 0 | Stack free tier | `../profiles/stacks/cloud-free-tier-stack.md` |
-
-Chi tiết cách chọn: `../profiles/README.md`. Nếu không có profile phù hợp: dùng Technology Selection Gate trong `templates/AGENTS.md` mục 6.
+Đọc [../profiles/README.md](../profiles/README.md): bảng tín hiệu → kiến trúc, mức rào chắn (M1–M3) và profile bổ sung. Suy ra từ câu trả lời, **không** hỏi người dùng tên kiến trúc. Nếu không có profile phù hợp: dùng Technology Selection Gate trong `core/templates/AGENTS.md` mục 6.
 
 ## Đầu ra bắt buộc của bước 2
 1. `docs/project-brief.md` điền đủ (kể cả **các giả định** đã tự chọn).

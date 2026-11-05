@@ -1,3 +1,8 @@
+---
+id: S-003
+type: reference
+when: "Trước khi báo \"xong\" / mở PR"
+---
 # ADR 0005: DEFINITION OF DONE (DOD) & QUALITY GATE
 
 * **Trạng thái**: Đã phê duyệt (Accepted)

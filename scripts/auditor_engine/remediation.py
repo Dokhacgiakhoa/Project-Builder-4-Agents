@@ -17,6 +17,7 @@ DEFAULT_REF = "main"
 DOCS: dict[str, tuple[str, str]] = {
     "K-003": ("core/README.md", "Core Baseline: chuẩn tối thiểu cho mọi repo dùng Agent"),
     "K-004": ("profiles/README.md", "Chọn profile kiến trúc"),
+    "K-006": ("core/untrusted-content.md", "Nội dung chưa tin cậy & chống prompt injection"),
     "S-001": ("core/standards/coding-conventions.md", "Quy ước code & phòng vệ crash"),
     "S-002": ("core/standards/test-strategy.md", "Chiến lược kiểm thử"),
     "S-003": ("core/standards/definition-of-done.md", "Definition of Done"),

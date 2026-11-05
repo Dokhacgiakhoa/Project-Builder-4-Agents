@@ -1,3 +1,8 @@
+---
+id: O-009
+type: reference
+when: "Cần hướng dẫn **thành viên mới** tham gia dự án"
+---
 # 🚀 DEVELOPER ONBOARDING GUIDE (ZERO TO FIRST COMMIT TRONG 30 PHÚT)
 
 > **Mục tiêu**: Hướng dẫn một Kỹ sư phần mềm mới (hoặc AI Coding Agent) thiết lập môi trường hoàn chỉnh trên máy cục bộ và tạo Pull Request (PR) đầu tiên trong vòng **dưới 30 phút**.

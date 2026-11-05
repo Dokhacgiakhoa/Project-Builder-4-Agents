@@ -1,3 +1,8 @@
+---
+id: D-001
+type: reference
+when: "Làm giao diện web React theo cấu trúc tính năng"
+---
 # ADR 0008: FRONTEND FEATURE-DRIVEN ARCHITECTURE (BULLETPROOF REACT)
 
 * **Trạng thái**: Đã phê duyệt (Accepted)

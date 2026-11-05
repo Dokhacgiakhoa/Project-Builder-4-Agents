@@ -1,3 +1,8 @@
+---
+id: D-003
+type: reference
+when: "Chọn phong cách giao diện, theme sáng/tối, design system"
+---
 # ADR 0009: UI/UX DESIGN ARCHETYPES AND THEME PRESET CATALOG
 
 * **Trạng thái**: Đã phê duyệt (Accepted)

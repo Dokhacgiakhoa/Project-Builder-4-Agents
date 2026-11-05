@@ -1,3 +1,8 @@
+---
+id: S-002
+type: reference
+when: "Viết test, thiếu test, chọn mức test (unit/integration/e2e)"
+---
 # ADR 0004: AUTOMATED TESTING STRATEGY (TDD)
 
 * **Trạng thái**: Đã phê duyệt (Accepted)

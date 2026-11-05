@@ -1,3 +1,8 @@
+---
+id: D-004
+type: reference
+when: "Xem danh mục phong cách UI (archetype) để chọn"
+---
 # Bảng Tổng Hợp UI/UX Design Archetypes & Thư Viện Mã Nguồn Mở
 
 Tài liệu này định nghĩa chi tiết **7 Vũ trụ thẩm mỹ (Aesthetic Universes)** và **14 Phong cách thiết kế (Design Archetypes)** phổ biến nhất trong phát triển phần mềm và thiết kế số. Bộ tài liệu đóng vai trò là "Sổ tay bản thể thị giác" (Visual DNA Specification) giúp Product Manager, Designer, Human Developer và AI Agent (Claude Code, Cursor, Antigravity, v0) dễ dàng lựa chọn và hiện thực hóa giao diện đồng nhất.

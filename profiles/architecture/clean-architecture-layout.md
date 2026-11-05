@@ -1,3 +1,8 @@
+---
+id: A-003
+type: reference
+when: "Cần sơ đồ thư mục Clean Architecture theo .NET/Python/TypeScript"
+---
 # CẤU TRÚC PHÂN TẦNG CLEAN ARCHITECTURE (LAYERED BLUEPRINT)
 
 Thư mục `src/` được tổ chức theo chuẩn **Clean Architecture & Domain-Driven Design (DDD)**. Bất kể bạn sử dụng tech stack nào (.NET, Python, TypeScript/Node, Go), mã nguồn nên được ánh xạ theo 4 tầng đồng tâm dưới đây:

@@ -1,3 +1,8 @@
+---
+id: O-001
+type: reference
+when: "Viết tài liệu người dùng/vận hành theo khung Diátaxis, runbook sự cố"
+---
 # ADR 0010: DOCUMENTATION FRAMEWORK (DIÁTAXIS) AND PITCH DECK STANDARDS
 
 * **Trạng thái**: Đã phê duyệt (Accepted)

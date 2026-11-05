@@ -40,8 +40,8 @@ Làm theo [core/discovery.md](core/discovery.md): hỏi ít, gợi ý mặc đ�
 * Tóm tắt để người dùng **xác nhận** trước khi sang bước 3
 
 ## BƯỚC 3 — Áp profile đã chọn (cấu hình sâu theo dự án)
-1. Đọc [profiles/README.md](profiles/README.md) và các tài liệu profile đã chọn (tra thêm qua [INDEX.md](INDEX.md)).
-2. Dựng **sơ đồ thư mục** theo profile kiến trúc; cài công cụ build/test/lint của stack.
+1. Đọc [profiles/README.md](profiles/README.md): chọn kiến trúc **từ tín hiệu** trong `docs/project-brief.md` (đừng hỏi người dùng tên kiến trúc), chọn mức rào chắn M1–M3, rồi đọc tài liệu profile đã chọn (tra thêm qua [INDEX.md](INDEX.md)).
+2. Dựng **sơ đồ thư mục** theo profile kiến trúc; cài công cụ build/test/lint của stack **và rào chắn theo mức đã chọn** (ví dụ luật lint/tách project ép ranh giới import ở M2+).
 3. Điền mục "Lệnh kiểm chứng" trong `AGENTS.md` bằng lệnh **thật** và đã chạy thử.
 4. Tạo `.github/workflows/ci.yml` chạy đúng các lệnh đó (không dùng bước giả lập `echo`).
 5. Bổ sung rule/skill riêng cho dự án nếu profile yêu cầu (ví dụ quy ước thêm tính năng, design system).

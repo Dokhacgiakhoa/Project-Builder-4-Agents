@@ -1,3 +1,8 @@
+---
+id: A-008
+type: reference
+when: "Viết/cập nhật **tài liệu kiến trúc tổng thể** của dự án (thành phần, luồng chính)"
+---
 # KIẾN TRÚC TỔNG THỂ HỆ THỐNG (SYSTEM ARCHITECTURE)
 
 ---

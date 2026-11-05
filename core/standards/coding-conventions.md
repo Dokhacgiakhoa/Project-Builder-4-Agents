@@ -1,3 +1,8 @@
+---
+id: S-001
+type: reference
+when: "Viết code: đặt tên, xử lý lỗi, phòng vệ crash, không hardcode"
+---
 # ADR 0003: CODING CONVENTIONS & THE ANTI-CRASH STANDARD
 
 * **Trạng thái**: Đã phê duyệt (Accepted)
