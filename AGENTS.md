@@ -5,6 +5,8 @@
 ## Kit là gì (xem ADR-0012)
 Hai sản phẩm: **Builder** (tri thức + quy trình cho Agent: `BOOTSTRAP.md`, `INDEX.md`, `core/`, `profiles/`, thư viện `knowledge-base/`, `templates/`) và **Project Health Check** (`scripts/`, `tools/`). Tài liệu viết **cho Agent đọc là chính**.
 
+Kế hoạch và trạng thái công việc của kit: [TASKS.md](TASKS.md). Cập nhật nó khi hoàn thành hoặc đổi hướng một hạng mục.
+
 ## Quy tắc khi sửa kit
 1. **Tầng nội dung**: Core = bắt buộc cho mọi repo; Profile = tùy biến theo dự án; Library = tham khảo. Đừng đẩy thứ phụ thuộc stack/kiến trúc vào `core/`.
 2. **Mọi tài liệu Agent cần tìm đều phải có dòng trong `INDEX.md`** với cột "Khi nào dùng" viết theo cách người dùng nói. Thêm/đổi/xóa tài liệu → cập nhật `INDEX.md` và chạy `python scripts/check_links.py`.
