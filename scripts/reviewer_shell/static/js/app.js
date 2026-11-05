@@ -41,8 +41,12 @@ function initEventListeners() {
   }
 
   // Footer Actions
-  document.getElementById("openReportBtn").addEventListener("click", openReportFile);
-  document.getElementById("openFolderBtn").addEventListener("click", openTargetFolder);
+  const openRep = document.getElementById("openReportBtn");
+  if (openRep) openRep.addEventListener("click", openReportFile);
+  const openFld = document.getElementById("openFolderBtn");
+  if (openFld) openFld.addEventListener("click", openTargetFolder);
+  const copyRepPath = document.getElementById("copyReportPathBtn");
+  if (copyRepPath) copyRepPath.addEventListener("click", copyReportPath);
 
   // AI Deep Review
   document.getElementById("triggerLLMBtn").addEventListener("click", triggerLLMReview);
@@ -240,12 +244,21 @@ async function handleTopAIDeepReview() {
     if (!currentAuditData) return;
   }
 
-  // Kích hoạt tab Tổng quan -> AI Deep Review
-  document.querySelectorAll(".pillar-item").forEach(i => {
-    i.classList.toggle("active", i.getAttribute("data-pillar") === "overview");
-  });
-  handlePillarSelection("overview");
-  switchOverviewTab("tab-ai-deep");
+  // Chuyển sang panel AI Deep Review chuyên biệt
+  const progressView = document.getElementById("installerProgressView");
+  const resultView = document.getElementById("auditResultView");
+  const overviewBanner = document.getElementById("overviewMetricsBanner");
+  const overviewTabs = document.getElementById("overviewTabsNav");
+
+  if (progressView) progressView.style.display = "none";
+  if (resultView) resultView.style.display = "flex";
+  if (overviewBanner) overviewBanner.style.display = "none";
+  if (overviewTabs) overviewTabs.style.display = "none";
+
+  document.querySelectorAll(".pillar-item").forEach(i => i.classList.remove("active"));
+  document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+  const aiDeepPanel = document.getElementById("tab-ai-deep");
+  if (aiDeepPanel) aiDeepPanel.classList.add("active");
 
   // Kích hoạt phân tích chuyên sâu bằng AI
   await triggerLLMReview();
@@ -267,9 +280,39 @@ function addInstallerLog(message, type = 'info') {
   if (!feed) return;
   const line = document.createElement("div");
   line.className = `log-line log-${type}`;
-  line.textContent = `${getTimestamp()} ${message}`;
+  const hasTime = /^\[\d{2}:\d{2}:\d{2}\]/.test(message);
+  line.textContent = hasTime ? message : `${getTimestamp()} ${message}`;
   feed.appendChild(line);
   feed.scrollTop = feed.scrollHeight;
+}
+
+function renderDynamicSegments(activePillars) {
+  const container = document.getElementById("installerSegmentsContainer");
+  const labelEl = document.getElementById("segmentedBarLabel");
+  if (!container) return;
+
+  const count = Array.isArray(activePillars) ? activePillars.length : 0;
+  if (labelEl) {
+    labelEl.textContent = `Các chặng đo kiểm tiêu chuẩn (${count} Hạng mục)`;
+  }
+
+  container.innerHTML = "";
+  if (Array.isArray(activePillars)) {
+    activePillars.forEach((p, idx) => {
+      const stepEl = document.createElement("div");
+      stepEl.className = "segment-step pending";
+      stepEl.id = `seg_${p.key}`;
+      stepEl.innerHTML = `
+        <div class="segment-top">
+          <span class="segment-num">${idx + 1}</span>
+          <span class="segment-name" title="${escapeHtml(p.name)}">${escapeHtml(p.name)}</span>
+        </div>
+        <div class="segment-track"><div class="segment-fill"></div></div>
+        <div class="segment-points">${p.max}đ</div>
+      `;
+      container.appendChild(stepEl);
+    });
+  }
 }
 
 function setSegmentStatus(segKey, status) {
@@ -331,10 +374,9 @@ function showInstallerProgressView(targetDir) {
     scoreHistory.style.color = "#f59e0b";
   }
 
-  // Reset toàn bộ 6 vạch về pending
-  ["readme", "backend", "frontend", "database", "anticrash", "contracts"].forEach(k => {
-    setSegmentStatus(k, "pending");
-  });
+  // Reset container các chặng kiểm tra
+  const segContainer = document.getElementById("installerSegmentsContainer");
+  if (segContainer) segContainer.innerHTML = "";
 
   setOverallProgress(0, "Đang khởi tạo các module kiểm tra...", "Khởi động");
 }
@@ -400,94 +442,13 @@ async function runBenchmark() {
 
   const runBtn = document.getElementById("runAuditBtn");
   runBtn.disabled = true;
-  runBtn.innerHTML = "<span>Đang phân tích...</span>";
-  setStatus("Đang quét mã nguồn sâu...");
+  runBtn.innerHTML = `<span>Đang thẩm định...</span>`;
+  setStatus("Đang đo kiểm kiến trúc mã nguồn...");
 
   // 1. Mở màn hình tiến trình thẩm định kiểu cài đặt app
   showInstallerProgressView(folder);
   addInstallerLog("Khởi động bộ máy đo kiểm Universal Project Auditor...", "info");
   addInstallerLog(`Khảo sát tệp tin cấu hình tại: ${folder}`, "muted");
-
-  // 2. Kịch bản các chặng chia vạch thời gian thực
-  const stageTimeline = [
-    {
-      seg: "readme",
-      pct: 18,
-      msg: "Đang rà soát Onboarding & Readme...",
-      badge: "Chặng 1/6",
-      logs: [
-        { text: "[1/6] Thẩm định Readme & Onboarding: Kiểm tra README.md, QUICK_START, .env...", type: "info" },
-        { text: "  -> Rà soát tiêu đề, bài toán và khối lệnh cài đặt cục bộ...", type: "muted" }
-      ]
-    },
-    {
-      seg: "backend",
-      pct: 36,
-      prev: "readme",
-      msg: "Đang phân tích Backend & Luồng dữ liệu...",
-      badge: "Chặng 2/6",
-      logs: [
-        { text: "[2/6] Thẩm định Backend: Quét kiến trúc phân tầng, Controller, Service...", type: "info" },
-        { text: "  -> Kiểm tra mức độ tách biệt Domain và Data Access Layer...", type: "muted" }
-      ]
-    },
-    {
-      seg: "frontend",
-      pct: 54,
-      prev: "backend",
-      msg: "Đang kiểm tra Frontend & UI/UX...",
-      badge: "Chặng 3/6",
-      logs: [
-        { text: "[3/6] Thẩm định Frontend: Quét Design System, Tailwind Tokens, Props...", type: "info" },
-        { text: "  -> Rà soát độ phình to của component và layout responsive...", type: "muted" }
-      ]
-    },
-    {
-      seg: "database",
-      pct: 72,
-      prev: "frontend",
-      msg: "Đang thẩm định Database & An toàn query...",
-      badge: "Chặng 4/6",
-      logs: [
-        { text: "[4/6] Thẩm định Database: Rà soát Migrations, Entity schemas & SQL query...", type: "info" },
-        { text: "  -> Kiểm tra phòng chống SQL Injection và cơ chế Migrate tự động...", type: "muted" }
-      ]
-    },
-    {
-      seg: "anticrash",
-      pct: 88,
-      prev: "database",
-      msg: "Đang quét sâu tiêu chuẩn Anti-Crash...",
-      badge: "Chặng 5/6",
-      logs: [
-        { text: "[5/6] Thẩm định Runtime Anti-Crash: Quét lỗi Unhandled Null, Array safety...", type: "info" },
-        { text: "  -> Phân tích mã nguồn chống màn hình trắng (Blank page prevention)...", type: "muted" }
-      ]
-    },
-    {
-      seg: "contracts",
-      pct: 96,
-      prev: "anticrash",
-      msg: "Đang đối soát API Contract & Specs...",
-      badge: "Chặng 6/6",
-      logs: [
-        { text: "[6/6] Thẩm định API Contract & Agent: Rà soát AGENTS.md, Specs, ADRs...", type: "info" },
-        { text: "  -> Kiểm tra Hiến pháp Agent và Circuit Breaker 2-strike rule...", type: "muted" }
-      ]
-    }
-  ];
-
-  let currentStageIdx = 0;
-  installerTimer = setInterval(() => {
-    if (currentStageIdx < stageTimeline.length) {
-      const stage = stageTimeline[currentStageIdx];
-      if (stage.prev) setSegmentStatus(stage.prev, "completed");
-      setSegmentStatus(stage.seg, "active");
-      setOverallProgress(stage.pct, stage.msg, stage.badge);
-      stage.logs.forEach(l => addInstallerLog(l.text, l.type));
-      currentStageIdx++;
-    }
-  }, 240);
 
   try {
     const res = await fetch("/api/run-audit", {
@@ -497,72 +458,97 @@ async function runBenchmark() {
     });
     const data = await res.json();
 
-    if (installerTimer) clearInterval(installerTimer);
-
     if (!data.success) {
       addInstallerLog(`Lỗi đo kiểm: ${data.error}`, "error");
       setOverallProgress(100, `Thất bại: ${data.error}`, "LỖI");
       alert("Lỗi Review: " + data.error);
       setStatus("Đo kiểm thất bại.");
+      runBtn.disabled = false;
+      runBtn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg><span>Standard Review</span>`;
       return;
     }
 
-    // Hoàn tất toàn bộ 6 vạch
-    ["readme", "backend", "frontend", "database", "anticrash", "contracts"].forEach(k => {
-      setSegmentStatus(k, "completed");
-    });
-    setOverallProgress(100, `✓ Hoàn tất đo kiểm toàn diện! Tổng điểm: ${data.total_score}/100`, "XONG 100%");
-
-    addInstallerLog("----------------------------------------------------------------", "muted");
-    addInstallerLog(`✓ HOÀN THÀNH ĐO KIỂM TOÀN DIỆN! TỔNG ĐIỂM: ${data.total_score}/100 [HẠNG: ${data.grade}]`, "success");
-    addInstallerLog(`Tệp báo cáo lưu tại: ${data.report_file || "reports/ARCH_BENCHMARK_REPORT.md"}`, "info");
-    addInstallerLog("✓ Quá trình quét hoàn tất thành công. Bạn có thể nhấn 'Xem Kết Quả Tổng Quan' hoặc chọn hạng mục bên trái để xem chi tiết.", "info");
-
     currentAuditData = data;
-    renderAuditResults(data);
-    setStatus(`Hoàn tất Review! Điểm: ${data.total_score}/100.`);
 
-    // Dừng xoay spinner và hiển thị trạng thái hoàn tất
-    const spinnerEl = document.getElementById("installerSpinner");
-    const mainTitleEl = document.getElementById("installerMainTitle");
-    if (spinnerEl) spinnerEl.className = "installer-spinner spinner-done";
-    if (mainTitleEl) mainTitleEl.textContent = `Đã hoàn tất đo kiểm kiến trúc (${data.total_score}/100)`;
+    // 2. Render các chặng đo kiểm tiêu chuẩn động theo đúng active_pillars thực tế của dự án
+    renderDynamicSegments(data.active_pillars || []);
 
-    // Cập nhật trạng thái "Lịch sử quét" trên Sidebar
-    const dotHistory = document.getElementById("dot_history");
-    const scoreHistory = document.getElementById("score_history");
-    if (dotHistory) {
-      dotHistory.className = "status-dot dot-success";
-    }
-    if (scoreHistory) {
-      scoreHistory.textContent = "Hoàn tất";
-      scoreHistory.style.color = "#10b981";
-    }
+    // 3. Playback authentic real scan logs từ backend Python
+    const logs = Array.isArray(data.scan_logs) && data.scan_logs.length > 0 
+      ? data.scan_logs 
+      : [{ text: "Đã hoàn thành quét dự án.", type: "info" }];
 
-    // Hiển thị thanh thông báo hoàn tất với nút chuyển
-    const finishBox = document.getElementById("installerFinishBox");
-    if (finishBox) finishBox.style.display = "flex";
-    const summaryEl = document.getElementById("finishScoreSummary");
-    if (summaryEl) summaryEl.textContent = `Hoàn tất đo kiểm toàn diện! Tổng điểm: ${data.total_score}/100 [Hạng ${data.grade}]`;
+    let logIdx = 0;
+    const playbackInterval = 40; // 40ms mỗi dòng log (~1.2s toàn bộ)
+    const totalLogs = logs.length;
 
-    // GIỮ NGUYÊN GIAO DIỆN LỊCH SỬ TIẾN TRÌNH QUÉT (Không tự động chuyển view)
-    if (autoSwitchTimer) {
-      clearTimeout(autoSwitchTimer);
-      autoSwitchTimer = null;
-    }
+    if (installerTimer) clearInterval(installerTimer);
+    installerTimer = setInterval(() => {
+      if (logIdx < totalLogs) {
+        const item = logs[logIdx];
+        addInstallerLog(item.text, item.type || "info");
+
+        // Cập nhật trạng thái chặng tương ứng nếu có
+        if (item.stage && item.stage !== "general" && item.stage !== "init" && item.stage !== "finish" && item.stage !== "indexing" && item.stage !== "profiling") {
+          setSegmentStatus(item.stage, "active");
+        }
+
+        const pct = Math.min(95, Math.round(((logIdx + 1) / totalLogs) * 95));
+        const cleanMsg = item.text.replace(/^\[\d{2}:\d{2}:\d{2}\]\s*/, '');
+        setOverallProgress(pct, `Đang xử lý: ${cleanMsg.slice(0, 55)}...`, `${pct}%`);
+        logIdx++;
+      } else {
+        clearInterval(installerTimer);
+        installerTimer = null;
+
+        // Hoàn tất tất cả các chặng
+        if (data.active_pillars) {
+          data.active_pillars.forEach(p => setSegmentStatus(p.key, "completed"));
+        }
+        setOverallProgress(100, `✓ Hoàn tất đo kiểm toàn diện! Tổng điểm: ${data.total_score}/100`, "XONG 100%");
+
+        // Dừng xoay spinner và hiển thị trạng thái hoàn tất
+        const spinnerEl = document.getElementById("installerSpinner");
+        const mainTitleEl = document.getElementById("installerMainTitle");
+        if (spinnerEl) spinnerEl.className = "installer-spinner spinner-done";
+        if (mainTitleEl) mainTitleEl.textContent = `Đã hoàn tất đo kiểm kiến trúc (${data.total_score}/100)`;
+
+        // Cập nhật trạng thái "Lịch sử quét" trên Sidebar
+        const dotHistory = document.getElementById("dot_history");
+        const scoreHistory = document.getElementById("score_history");
+        if (dotHistory) dotHistory.className = "status-dot dot-success";
+        if (scoreHistory) {
+          scoreHistory.textContent = "Hoàn tất";
+          scoreHistory.style.color = "#10b981";
+        }
+
+        // Hiển thị thanh thông báo hoàn tất với nút chuyển
+        const finishBox = document.getElementById("installerFinishBox");
+        if (finishBox) finishBox.style.display = "flex";
+        const summaryEl = document.getElementById("finishScoreSummary");
+        if (summaryEl) summaryEl.textContent = `Hoàn tất đo kiểm toàn diện! Tổng điểm: ${data.total_score}/100 [Hạng ${data.grade}]`;
+
+        // Render toàn bộ 12 hạng mục (với N/A disable) lên sidebar
+        renderAuditResults(data);
+        setStatus(`Hoàn tất Review! Điểm: ${data.total_score}/100.`);
+
+        // Khôi phục nút bấm
+        runBtn.disabled = false;
+        runBtn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg><span>Standard Review</span>`;
+      }
+    }, playbackInterval);
 
   } catch (e) {
     if (installerTimer) clearInterval(installerTimer);
+    installerTimer = null;
     addInstallerLog(`Lỗi kết nối Backend: ${e.message}`, "error");
     setOverallProgress(100, `Lỗi kết nối: ${e.message}`, "LỖI");
     alert("Lỗi kết nối Backend: " + e.message);
     setStatus("Lỗi kết nối.");
-  } finally {
     runBtn.disabled = false;
     runBtn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg><span>Standard Review</span>`;
   }
 }
-
 function updateStatusDot(dotId, score, max) {
   const dot = document.getElementById(dotId);
   if (!dot) return;
@@ -710,38 +696,71 @@ function renderAuditResults(data) {
     archStyleEl.setAttribute("title", rawStyle);
   }
 
-  // 3. Điểm số các Hạng mục (Sidebar) & Màu sắc điểm (Không ghi "đ", xử lý N/A)
-  const catMap = {
-    readme: data.categories?.["01_readme"],
-    backend: data.categories?.["02_backend"],
-    frontend: data.categories?.["03_frontend"],
-    database: data.categories?.["04_database"],
-    anticrash: data.categories?.["05_anticrash"],
-    contracts: data.categories?.["06_contracts"]
-  };
+  // 3. Render Dynamic Sidebar Pillars (Luôn hiển thị đủ 12 hạng mục tiêu chuẩn)
+  const pillarList = document.getElementById("pillarList");
+  const sidebarTitle = document.getElementById("sidebarPillarsTitle") || document.querySelector(".sidebar-title");
 
-  Object.keys(catMap).forEach(key => {
-    const c = catMap[key];
-    const scoreEl = document.getElementById(`score_${key}`);
-    if (c && scoreEl) {
-      if (c.is_na || c.max === 0) {
-        scoreEl.textContent = "N/A";
-        scoreEl.className = "pillar-score";
-        scoreEl.style.color = "var(--text-dim)";
-        updateStatusDot(`dot_${key}`, 0, 0);
-      } else {
-        scoreEl.textContent = `${c.score} / ${c.max}`;
-        scoreEl.className = "pillar-score";
-        scoreEl.style.color = "";
-        const ratio = c.score / c.max;
-        if (ratio >= 0.8) scoreEl.classList.add("score-success");
-        else if (ratio >= 0.5) scoreEl.classList.add("score-warning");
-        else scoreEl.classList.add("score-danger");
+  const pillarsToRender = (data.all_pillars && Array.isArray(data.all_pillars) && data.all_pillars.length > 0)
+    ? data.all_pillars
+    : (data.active_pillars || []);
 
-        updateStatusDot(`dot_${key}`, c.score, c.max);
-      }
+  if (pillarList && pillarsToRender.length > 0) {
+    if (sidebarTitle) {
+      sidebarTitle.textContent = `Hạng mục kiểm tra (${pillarsToRender.length})`;
     }
-  });
+    pillarList.innerHTML = "";
+    pillarsToRender.forEach(p => {
+      const li = document.createElement("li");
+      li.setAttribute("data-pillar", p.key);
+
+      if (p.is_na) {
+        // Hạng mục N/A: không áp dụng cho dự án, hiển thị xám và disable không click được
+        li.className = "pillar-item pillar-disabled";
+        li.setAttribute("title", "Hạng mục này không áp dụng cho cấu trúc dự án hiện tại");
+        li.innerHTML = `
+          <div class="pillar-left">
+            <span class="status-dot dot-neutral" id="dot_${p.key}"></span>
+            <span class="pillar-name" style="color: var(--text-dim);">${escapeHtml(p.name)}</span>
+          </div>
+          <span class="pillar-score pillar-score-na" id="score_${p.key}">N/A</span>
+        `;
+      } else {
+        // Hạng mục ĐANG HOẠT ĐỘNG: hiển thị điểm, màu trạng thái và click được
+        li.className = "pillar-item";
+        let dotClass = "dot-neutral";
+        let scoreClass = "";
+        if (p.max > 0) {
+          const ratio = p.score / p.max;
+          if (ratio >= 0.8) {
+            dotClass = "dot-success";
+            scoreClass = "score-success";
+          } else if (ratio >= 0.5) {
+            dotClass = "dot-warning";
+            scoreClass = "score-warning";
+          } else {
+            dotClass = "dot-danger";
+            scoreClass = "score-danger";
+          }
+        }
+
+        li.innerHTML = `
+          <div class="pillar-left">
+            <span class="status-dot ${dotClass}" id="dot_${p.key}"></span>
+            <span class="pillar-name">${escapeHtml(p.name)}</span>
+          </div>
+          <span class="pillar-score ${scoreClass}" id="score_${p.key}">${p.score} / ${p.max}</span>
+        `;
+
+        li.addEventListener("click", () => {
+          document.querySelectorAll(".pillar-item").forEach(item => item.classList.remove("active"));
+          li.classList.add("active");
+          handlePillarSelection(p.key);
+        });
+      }
+
+      pillarList.appendChild(li);
+    });
+  }
 
   // 4. Tech Stack Tags
   const techCloud = document.getElementById("techStackTags");
@@ -821,15 +840,48 @@ function renderAuditResults(data) {
   if (violationBadge) violationBadge.textContent = (data.violations || []).length;
   renderGroupedViolations(data.violations || [], document.getElementById("violationGroupedContainer"));
 
-  // 8. AI Prompt
-  const promptBox = document.getElementById("aiPromptBox");
-  if (promptBox) promptBox.textContent = data.ai_prompt || "";
+  // 8. Cập nhật Panel Báo cáo & Prompt AI
+  updateReportPromptPanel();
+}
 
-  // 9. Show Report Action Buttons
-  if (data.report_file) {
-    const row = document.getElementById("reportActionRow");
-    if (row) row.style.display = "flex";
+function updateReportPromptPanel() {
+  const pathDisplay = document.getElementById("reportFilePathDisplay");
+  const statusBadge = document.getElementById("reportFileStatusBadge");
+  const promptBox = document.getElementById("aiPromptBox");
+
+  if (pathDisplay) {
+    pathDisplay.textContent = currentAuditData?.report_file || "Chưa có báo cáo. Nhấn 'Standard Review' để khởi tạo.";
   }
+  if (statusBadge) {
+    if (currentAuditData?.report_file) {
+      statusBadge.textContent = "Đã xuất bản";
+      statusBadge.className = "status-pill pill-ready";
+    } else {
+      statusBadge.textContent = "Chưa có";
+      statusBadge.className = "status-pill";
+      statusBadge.style.color = "var(--text-dim)";
+    }
+  }
+  if (promptBox) {
+    promptBox.textContent = currentAuditData?.ai_prompt || "Nhấn 'Standard Review' để sinh prompt chuẩn cho Agent.";
+  }
+}
+
+function copyReportPath() {
+  const pathText = currentAuditData?.report_file;
+  if (!pathText) {
+    alert("Chưa có tệp báo cáo để sao chép đường dẫn.");
+    return;
+  }
+  navigator.clipboard.writeText(pathText).then(() => {
+    const btn = document.getElementById("copyReportPathBtn");
+    if (btn) {
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>Đã sao chép!</span>`;
+      setTimeout(() => {
+        btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Sao chép đường dẫn</span>`;
+      }, 2000);
+    }
+  });
 }
 
 function handlePillarSelection(pillarKey) {
@@ -861,7 +913,21 @@ function handlePillarSelection(pillarKey) {
     return;
   }
 
-  // 3. Chế độ XEM CHI TIẾT HẠNG MỤC:
+  if (pillarKey === "report_prompt") {
+    // 3. Chế độ BÁO CÁO & PROMPT AI CHUYÊN BIỆT
+    if (overviewBanner) overviewBanner.style.display = "none";
+    if (overviewTabs) overviewTabs.style.display = "none";
+    if (tabPillar) tabPillar.classList.remove("active");
+
+    document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+    const reportPanel = document.getElementById("tab-report-prompt");
+    if (reportPanel) reportPanel.classList.add("active");
+
+    updateReportPromptPanel();
+    return;
+  }
+
+  // 4. Chế độ XEM CHI TIẾT HẠNG MỤC:
   // Ẩn thanh tabs và metrics banner của tổng quan để tránh gây nhiễu
   if (overviewBanner) overviewBanner.style.display = "none";
   if (overviewTabs) overviewTabs.style.display = "none";
@@ -876,7 +942,8 @@ function handlePillarSelection(pillarKey) {
     frontend: "Frontend & UI/UX",
     database: "Database & Query Safety",
     anticrash: "Runtime Anti-Crash",
-    contracts: "API Contract & Agent"
+    agent_ecosystem: "Hệ Sinh Thái AI Agent (Rules, Skills & Workflows)",
+    contracts: "Hồ Sơ Kiến Trúc & Hợp Đồng API"
   };
 
   const catMap = {
@@ -885,10 +952,12 @@ function handlePillarSelection(pillarKey) {
     frontend: currentAuditData?.categories?.["03_frontend"],
     database: currentAuditData?.categories?.["04_database"],
     anticrash: currentAuditData?.categories?.["05_anticrash"],
+    agent_ecosystem: currentAuditData?.categories?.["07_agent_ecosystem"],
     contracts: currentAuditData?.categories?.["06_contracts"]
   };
 
-  const cat = catMap[pillarKey];
+  const activePillar = currentAuditData?.all_pillars?.find(p => p.key === pillarKey) || currentAuditData?.active_pillars?.find(p => p.key === pillarKey);
+  const cat = activePillar || catMap[pillarKey];
   const titleEl = document.getElementById("pillarDetailTitle");
   const subTitleEl = document.getElementById("pillarDetailSubtitle");
   const scoreValEl = document.getElementById("pillarDetailScore");
@@ -897,7 +966,7 @@ function handlePillarSelection(pillarKey) {
   const missingTitleEl = document.getElementById("pillarMissingTitle");
   const violationsSection = document.getElementById("pillarViolationsSection");
 
-  if (titleEl) titleEl.textContent = titleMap[pillarKey] || pillarKey;
+  if (titleEl) titleEl.textContent = activePillar ? activePillar.name : (titleMap[pillarKey] || pillarKey);
   if (subTitleEl) subTitleEl.textContent = "Thẩm định chi tiết theo bộ tiêu chuẩn Starter Kit";
 
   if (!cat) {
@@ -1005,12 +1074,19 @@ function switchOverviewTab(tabId) {
 }
 
 function copyAiPrompt() {
-  const promptText = document.getElementById("aiPromptBox").textContent;
+  const promptBox = document.getElementById("aiPromptBox");
+  const promptText = promptBox ? promptBox.textContent : "";
   if (!promptText) return;
   navigator.clipboard.writeText(promptText).then(() => {
+    const txtSpan = document.getElementById("copyPromptBtnText");
     const btn = document.getElementById("copyPromptBtn");
-    btn.textContent = "Đã sao chép!";
-    setTimeout(() => { btn.textContent = "Sao chép Prompt"; }, 2000);
+    if (txtSpan) {
+      txtSpan.textContent = "Đã sao chép!";
+      setTimeout(() => { txtSpan.textContent = "Sao chép Prompt"; }, 2000);
+    } else if (btn) {
+      btn.textContent = "Đã sao chép!";
+      setTimeout(() => { btn.textContent = "Sao chép Prompt"; }, 2000);
+    }
   });
 }
 
@@ -1119,6 +1195,21 @@ function escapeHtml(text) {
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
 }
+
+// -------------------------------------------------------------
+// -------------------------------------------------------------
+// DYNAMIC OVERLAY SCROLLBAR CONTROLLER
+// -------------------------------------------------------------
+window.addEventListener('scroll', (e) => {
+  const target = e.target;
+  if (target && target.classList) {
+    target.classList.add('is-scrolling');
+    if (target._scrollTimeout) clearTimeout(target._scrollTimeout);
+    target._scrollTimeout = setTimeout(() => {
+      target.classList.remove('is-scrolling');
+    }, 1200);
+  }
+}, true);
 
 // -------------------------------------------------------------
 // KEEPALIVE HEARTBEAT & SHUTDOWN DETECTOR

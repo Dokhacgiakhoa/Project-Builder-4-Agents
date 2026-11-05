@@ -205,12 +205,20 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
                     "missing": auditor.details.get('anti_crash', {}).get('missing', [])
                 },
                 "06_contracts": {
-                    "name": "API Contract & Agent",
+                    "name": "Hồ Sơ Kiến Trúc & Hợp Đồng API",
                     "score": auditor.details.get('contracts', {}).get('points_earned', 0),
                     "max": auditor.details.get('contracts', {}).get('max_points', 10),
                     "is_na": auditor.details.get('contracts', {}).get('is_na', False),
                     "found": auditor.details.get('contracts', {}).get('found', []),
                     "missing": auditor.details.get('contracts', {}).get('missing', [])
+                },
+                "07_agent_ecosystem": {
+                    "name": "Hệ Sinh Thái AI Agent",
+                    "score": auditor.details.get('agent_ecosystem', {}).get('points_earned', 0),
+                    "max": auditor.details.get('agent_ecosystem', {}).get('max_points', 15),
+                    "is_na": auditor.details.get('agent_ecosystem', {}).get('is_na', False),
+                    "found": auditor.details.get('agent_ecosystem', {}).get('found', []),
+                    "missing": auditor.details.get('agent_ecosystem', {}).get('missing', [])
                 },
             }
 
@@ -220,6 +228,11 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
                 "total_score": score,
                 "grade": grade,
                 "profiler": auditor.profile,
+                "all_pillars": auditor.all_pillars,
+                "active_pillars": auditor.active_pillars,
+                "scan_logs": auditor.scan_logs,
+                "total_files": len(auditor.tree.all_files),
+                "code_files": len(auditor.tree.code_files),
                 "categories": categories,
                 "strengths": auditor.innovations if auditor.innovations else auditor.details.get('readme', {}).get('found', []),
                 "gaps": auditor.gaps,
