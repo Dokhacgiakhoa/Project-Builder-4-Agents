@@ -1,4 +1,4 @@
-# TASKS — KẾ HOẠCH HOÀN THIỆN PROJECT-BUILDER-KIT
+# TASKS — KẾ HOẠCH HOÀN THIỆN PROJECT-BUILDER-4-AGENTS
 
 > Tệp quản lý công việc của **người bảo trì kit** (không phải tài liệu cho Agent của dự án người dùng). Cập nhật cột *Trạng thái* khi làm; thêm việc mới ở cuối nhóm tương ứng.
 > Cập nhật lần cuối: 2026-11-05 · Nền tảng hiện tại: commit `a8ba04d` (51 test pass, 0 link hỏng, 0 lỗi khuôn tài liệu).
@@ -54,9 +54,9 @@ Thứ tự đề xuất: **C2 → B3 → B1 → B8 (push) → C1 → B2 → A1 �
 
 | ID | Việc | Ưu tiên | Công sức | Người | Phụ thuộc | Trạng thái |
 | :-- | :-- | :-: | :-: | :-- | :-- | :-: |
-| B1 | **Đổi tên repo GitHub** thành `Project-Builder-4-Agents` (mọi link trong tài liệu đã trỏ tên mới) | P0 | S | Cậu | — | TODO |
-| B8 | **Push** các commit lên GitHub sau khi đổi tên (hiện mới commit cục bộ; Agent không lấy được kit qua URL khi chưa push) | P0 | S | Cậu | B1 | BLOCKED |
-| B2 | **Thay URL/tên cũ** `Project-Starter-Kit` còn sót (guides trong `profiles/documentation`, pitch deck, tên thư mục cấu hình `~/.starter-kit`), `grep` toàn repo | P1 | S | Claude | B1 | BLOCKED |
+| B1 | **Đổi tên repo GitHub** thành `Project-Builder-4-Agents` (mọi link trong tài liệu và mã đã trỏ tên mới; `origin` cục bộ đã đổi) | P0 | S | Cậu | — | DONE |
+| B8 | **Push** các commit lên GitHub (hiện mới commit cục bộ; Agent không lấy được kit qua URL khi chưa push) | P0 | S | Cậu | B1 | TODO |
+| B2 | **Dọn tên cũ còn sót**: URL `Project-Starter-Kit` đã thay; còn đường dẫn máy cứng trong `scripts/build_brand_assets.py` và `generate_icon.py`, thư mục cấu hình `~/.starter-kit`, demo URL trong pitch deck, tên gói `ai-native-frontend-starter-kit` | P2 | S | Claude | — | TODO |
 | B3 | **Chạy CI trên GitHub lần đầu** (ma trận Python 3.12/3.14, pytest, eslint/tsc/vitest, `check_links`); sửa mọi lỗi lộ ra | P0 | S | Claude (cậu push) | — | TODO |
 | B4 | **Gắn tag phiên bản** `v0.1.0` + `CHANGELOG.md`; `kit_ref` trong `kit.json` mẫu ghim tag thay vì `main` | P1 | S | Claude | B3 | BLOCKED |
 | B5 | **Lệnh thay `make` trên Windows**: ghi lệnh tương đương (`python -m pytest tests -q`, `python scripts/check_links.py`) vào README; kiểm tra Makefile trên Linux/macOS | P2 | S | Claude | — | TODO |
@@ -140,5 +140,6 @@ Thứ tự đề xuất: **C2 → B3 → B1 → B8 (push) → C1 → B2 → A1 �
 ## Nhật ký thay đổi kế hoạch
 | Ngày | Thay đổi |
 | :-- | :-- |
+| 2026-11-05 | Repo đổi tên thành `Project-Builder-4-Agents` (B1 DONE). Đã thay `Project-Builder-Kit` và URL `Project-Starter-Kit` trong 22 tệp. Còn B8 (push) trước khi chạy C1 bằng URL. |
 | 2026-11-05 | Chốt Q1 (GitHub Releases) và Q5 (Claude Code + Antigravity). Thêm C0 (kịch bản, DONE), C7, B8 (push); C1 phụ thuộc B1 + B8 vì Agent cần lấy kit qua URL. |
 | 2026-11-05 | Lập kế hoạch lần đầu sau commit `a8ba04d`. Đã hoàn thành trước đó (không liệt kê lại): tái cấu trúc Core/Profiles/Library, `project-review.md`, quét an toàn (Mục 0), phạm vi quét (Mục 7), khuôn tài liệu + kiểm tra tự động, bảng chọn kiểu dự án. |
