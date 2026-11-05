@@ -54,3 +54,6 @@ yarn-error.log*
 # OS Files
 .DS_Store
 Thumbs.db
+
+# Generated review output
+PROJECT_REVIEW_REPORT.md

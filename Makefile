@@ -1,4 +1,4 @@
-.PHONY: help setup review build-exe dev-frontend build-frontend up down restart logs test lint clean
+.PHONY: help setup init review build-exe dev-frontend build-frontend up down restart logs test lint clean
 
 help: ## Hiển thị danh mục các lệnh hỗ trợ
 	@echo "Universal Project Starter Kit - Developer Commands:"
@@ -8,11 +8,14 @@ setup: ## Khởi tạo môi trường (Copy .env, tạo thư mục)
 	@if [ ! -f .env ]; then cp .env.example .env && echo "Created .env from .env.example"; fi
 	@echo "Setup completed successfully."
 
-review: ## Thanh tra toàn diện kiến trúc dự án (Xuất PROJECT_REVIEW_REPORT.md)
-	python scripts/project_auditor.py
+init: ## Khởi tạo dự án mới (make init TARGET=đường/dẫn [NAME=tên] [FLAGS="--frontend --docker --git"])
+	python scripts/init_project.py $(TARGET) $(if $(NAME),--name "$(NAME)") $(FLAGS)
+
+review: ## Thanh tra kiến trúc (make review [TARGET=đường/dẫn/dự/án]; xuất PROJECT_REVIEW_REPORT.md)
+	python scripts/project_auditor.py $(or $(TARGET),.)
 
 build-exe: ## Đóng gói Project-Review.exe độc lập có gắn icon ứng dụng
-	build-exe.bat "ci-mode"
+	python scripts/build_exe.py
 
 dev-frontend: ## Khởi chạy Frontend React (Vite dev server)
 	cd frontend && npm run dev
@@ -32,12 +35,12 @@ logs: ## Xem logs thời gian thực của Docker containers
 	docker compose logs -f
 
 test: ## Chạy bộ kiểm thử tự động
-	@echo "Running test suite..."
-	# Tùy biến lệnh test: pytest / npm test / dotnet test
+	python -m pytest tests -q
+	cd frontend && npm test
 
 lint: ## Chạy kiểm tra định dạng và linter
-	@echo "Running linter..."
-	# Tùy biến lệnh lint: ruff check / npm run lint / dotnet format
+	python -m compileall -q scripts
+	cd frontend && npm run lint
 
 clean: ## Dọn dẹp các tệp tạm, cache và build artifacts
 	@echo "Cleaning temporary files..."

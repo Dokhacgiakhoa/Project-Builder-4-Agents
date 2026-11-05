@@ -147,8 +147,12 @@ function closeModal(modalId) {
 }
 
 function updateApiKeyInputForProvider(provider) {
-  const keyField = `${provider}_api_key`;
-  document.getElementById("settingsApiKeyInput").value = appSettings[keyField] || "";
+  // Server không bao giờ trả API key về UI; chỉ hiển thị trạng thái đã lưu.
+  const input = document.getElementById("settingsApiKeyInput");
+  input.value = "";
+  input.placeholder = appSettings[`has_${provider}_api_key`]
+    ? "•••••••• (đã lưu — để trống để giữ nguyên)"
+    : "Nhập API Key";
 }
 
 document.getElementById("settingsLLMProvider").addEventListener("change", (e) => {
@@ -158,7 +162,7 @@ document.getElementById("settingsLLMProvider").addEventListener("change", (e) =>
   } else if (e.target.value === "openai") {
     document.getElementById("settingsModelInput").value = "gpt-4o";
   } else if (e.target.value === "claude") {
-    document.getElementById("settingsModelInput").value = "claude-3-5-sonnet-20241022";
+    document.getElementById("settingsModelInput").value = "claude-sonnet-5-5";
   }
 });
 
@@ -173,7 +177,7 @@ async function saveSettingsFromModal() {
     llm_provider: provider,
     selected_model: model
   };
-  updates[`${provider}_api_key`] = apiKey;
+  if (apiKey) updates[`${provider}_api_key`] = apiKey;
 
   try {
     const res = await fetch("/api/settings", {
@@ -185,6 +189,10 @@ async function saveSettingsFromModal() {
     if (result.success) {
       document.documentElement.setAttribute("data-theme", theme);
       appSettings = { ...appSettings, ...updates };
+      if (apiKey) {
+        appSettings[`has_${provider}_api_key`] = true;
+        appSettings[`${provider}_api_key`] = "";
+      }
       updateAIButtonState();
       closeSettingsModal();
       setStatus("Cấu hình đã được lưu thành công.");
@@ -202,12 +210,10 @@ async function saveSettingsFromModal() {
 function hasConfiguredApiKey() {
   if (!appSettings) return false;
   const currentProvider = appSettings.llm_provider || "gemini";
-  const currentKey = appSettings[`${currentProvider}_api_key`];
-  if (currentKey && currentKey.trim().length > 0) return true;
+  if (appSettings[`has_${currentProvider}_api_key`]) return true;
 
   // Fallback: kiểm tra bất kỳ provider nào có key
-  const anyKey = appSettings.gemini_api_key || appSettings.openai_api_key || appSettings.claude_api_key;
-  return !!(anyKey && anyKey.trim().length > 0);
+  return !!(appSettings.has_gemini_api_key || appSettings.has_openai_api_key || appSettings.has_claude_api_key);
 }
 
 function updateAIButtonState() {

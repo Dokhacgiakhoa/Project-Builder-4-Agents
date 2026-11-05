@@ -12,6 +12,8 @@ import urllib.parse
 import urllib.request
 import subprocess
 import threading
+import logging
+import platform
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 
@@ -31,6 +33,57 @@ else:
 CURRENT_VERSION = "2.1.0"
 
 SHUTDOWN_EVENT = threading.Event()
+
+logger = logging.getLogger("reviewer_shell")
+
+MAX_BODY_BYTES = 2 * 1024 * 1024  # 2 MB
+API_KEY_FIELDS = ("gemini_api_key", "openai_api_key", "claude_api_key")
+
+# Chỉ cho phép mở các đường dẫn do chính server này sinh ra (báo cáo / thư mục đã quét).
+_ALLOWED_OPEN_PATHS = set()
+_ALLOWED_LOCK = threading.Lock()
+
+
+def _norm_path(p):
+    return os.path.normcase(os.path.realpath(str(p)))
+
+
+def allow_open_path(p):
+    with _ALLOWED_LOCK:
+        _ALLOWED_OPEN_PATHS.add(_norm_path(p))
+
+
+def is_open_allowed(p):
+    with _ALLOWED_LOCK:
+        return _norm_path(p) in _ALLOWED_OPEN_PATHS
+
+
+def open_with_shell(path):
+    """Mở tệp/thư mục bằng ứng dụng mặc định của hệ điều hành."""
+    if hasattr(os, "startfile"):
+        os.startfile(path)
+    elif platform.system() == "Darwin":
+        subprocess.Popen(["open", path])
+    else:
+        subprocess.Popen(["xdg-open", path])
+
+
+def parse_version(v):
+    """'2.10.0' -> (2, 10, 0); các thành phần không phải số được coi là 0."""
+    parts = []
+    for chunk in str(v).lstrip("vV").split("."):
+        digits = "".join(ch for ch in chunk if ch.isdigit())
+        parts.append(int(digits) if digits else 0)
+    return tuple(parts)
+
+
+def mask_settings(settings):
+    """Không bao giờ trả API key về trình duyệt; chỉ báo đã cấu hình hay chưa."""
+    safe = dict(settings)
+    for field in API_KEY_FIELDS:
+        safe["has_" + field] = bool(str(safe.get(field, "")).strip())
+        safe[field] = ""
+    return safe
 
 
 def choose_folder_native(initial_dir=""):
@@ -69,15 +122,28 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
         # Ẩn bớt console log để giữ terminal sạch
         pass
 
+    def _request_is_local(self):
+        """Chặn truy cập chéo trang (CSRF) và DNS rebinding: Host/Origin phải là loopback."""
+        port = self.server.server_address[1]
+        allowed_hosts = {f"127.0.0.1:{port}", f"localhost:{port}", f"[::1]:{port}"}
+        if (self.headers.get("Host") or "").lower() not in allowed_hosts:
+            return False
+        origin = self.headers.get("Origin")
+        if origin is not None and origin.lower() not in {f"http://{h}" for h in allowed_hosts}:
+            return False
+        return True
+
     def do_GET(self):
+        if not self._request_is_local():
+            self.send_error(403, "Forbidden")
+            return
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
 
         if path == "/api/status":
             self._send_json({"status": "ready", "version": CURRENT_VERSION})
         elif path == "/api/settings":
-            settings = SettingsManager.get_settings()
-            self._send_json(settings)
+            self._send_json(mask_settings(SettingsManager.get_settings()))
         elif path == "/api/check-update":
             self._handle_check_update()
         else:
@@ -85,6 +151,9 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
             super().do_GET()
 
     def do_POST(self):
+        if not self._request_is_local():
+            self.send_error(403, "Forbidden")
+            return
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
         body = self._read_json_body()
@@ -101,7 +170,16 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
             self._send_json({"folder": folder})
 
         elif path == "/api/settings":
-            ok, msg = SettingsManager.save_settings(body)
+            updates = dict(body)
+            for field in API_KEY_FIELDS:
+                # Khóa rỗng nghĩa là "giữ nguyên khóa đã lưu" (UI không bao giờ nhận lại khóa).
+                if not str(updates.get(field, "")).strip():
+                    updates.pop(field, None)
+                else:
+                    updates[field] = str(updates[field]).strip()
+            for k in [k for k in updates if k.startswith("has_")]:
+                updates.pop(k, None)
+            ok, msg = SettingsManager.save_settings(updates)
             self._send_json({"success": ok, "message": msg})
 
         elif path == "/api/run-audit":
@@ -109,16 +187,16 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
 
         elif path == "/api/open-report":
             report_path = body.get("path", "")
-            if report_path and os.path.exists(report_path):
-                os.startfile(report_path)
+            if report_path and os.path.exists(report_path) and is_open_allowed(report_path):
+                open_with_shell(report_path)
                 self._send_json({"success": True})
             else:
                 self._send_json({"success": False, "error": "Tệp báo cáo không tồn tại."})
 
         elif path == "/api/open-folder":
             folder_path = body.get("path", "")
-            if folder_path and os.path.isdir(folder_path):
-                os.startfile(folder_path)
+            if folder_path and os.path.isdir(folder_path) and is_open_allowed(folder_path):
+                open_with_shell(folder_path)
                 self._send_json({"success": True})
             else:
                 self._send_json({"success": False, "error": "Thư mục không tồn tại."})
@@ -132,11 +210,15 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
     def _read_json_body(self):
         try:
             length = int(self.headers.get("Content-Length", 0))
+            if length > MAX_BODY_BYTES:
+                logger.warning("Request body quá lớn: %s bytes", length)
+                return {}
             if length > 0:
                 raw = self.rfile.read(length).decode("utf-8")
-                return json.loads(raw)
-        except Exception:
-            pass
+                data = json.loads(raw)
+                return data if isinstance(data, dict) else {}
+        except Exception as e:
+            logger.warning("Không đọc được JSON body: %s", e)
         return {}
 
     def _send_json(self, data: dict, status: int = 200):
@@ -144,7 +226,8 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
-        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("X-Content-Type-Options", "nosniff")
         self.end_headers()
         self.wfile.write(body)
 
@@ -159,6 +242,8 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
             auditor = ProjectAuditor(target_path)
             score = auditor.run()
             report_file = auditor.generate_markdown_report(score)
+            allow_open_path(report_file.resolve())
+            allow_open_path(target_path)
 
             # Chuẩn hóa dữ liệu trả về cho Frontend UI
             grade = auditor.get_letter_grade(score)
@@ -271,7 +356,7 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
             with urllib.request.urlopen(req, timeout=5) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
                 latest_tag = data.get("tag_name", "v2.1.0").lstrip("v")
-                has_update = latest_tag > CURRENT_VERSION
+                has_update = parse_version(latest_tag) > parse_version(CURRENT_VERSION)
                 self._send_json({
                     "current_version": CURRENT_VERSION,
                     "latest_version": latest_tag,

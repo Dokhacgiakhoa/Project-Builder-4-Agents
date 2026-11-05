@@ -4,8 +4,13 @@ PROJECT ARCHITECTURE BENCHMARK SUITE - MODERN ANTIGRAVITY 2.0 SHELL
 Universal Desktop Launcher (Decoupled Core Engine + Edge WebView2 App Mode)
 """
 
-import os
 import sys
+
+if sys.version_info < (3, 12):
+    print("[ERROR] Cần Python 3.12 trở lên (đang chạy %d.%d). Khuyến nghị 3.14." % sys.version_info[:2], file=sys.stderr)
+    sys.exit(1)
+
+import os
 import time
 import socket
 import subprocess

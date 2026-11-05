@@ -113,33 +113,19 @@ public class MainForm : Form
         }
     }
 
-    private static string FindPythonExecutable()
-    {
-        string[] candidates = new[]
-        {
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Programs\Python\Python314\python.exe"),
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Programs\Python\Python313\python.exe"),
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Programs\Python\Python312\python.exe"),
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), @"Python314\python.exe"),
-            "python.exe",
-            "python"
-        };
-
-        foreach (var c in candidates)
-        {
-            if (File.Exists(c)) return c;
-        }
-        return "python";
-    }
-
     private async void OnFormLoadAsync(object? sender, EventArgs e)
     {
         try
         {
             _serverPort = GetFreePort();
 
+            // Đảm bảo có Python >= 3.12 và WebView2 Runtime (tự cài qua winget nếu thiếu, có hỏi người dùng)
+            string? pythonExe = await EnsurePythonAsync();
+            if (pythonExe == null) { Close(); return; }
+            if (!await EnsureWebView2Async()) { Close(); return; }
+
             // Khởi chạy Backend Server ở chế độ ngầm (Headless)
-            StartPythonBackend(_serverPort);
+            if (!StartPythonBackend(_serverPort, pythonExe)) { Close(); return; }
 
             // Chờ server sẵn sàng (tối đa 3 giây)
             await WaitForServerReadyAsync(_serverPort);
@@ -202,7 +188,68 @@ public class MainForm : Form
         }
     }
 
-    private void StartPythonBackend(int port)
+    private async Task<string?> EnsurePythonAsync()
+    {
+        string? pythonExe = PythonRuntime.Find();
+        if (pythonExe != null) return pythonExe;
+
+        var answer = MessageBox.Show(
+            "Công cụ cần Python 3.12 trở lên để chạy bộ máy thanh tra nhưng chưa tìm thấy trên máy.\n\n" +
+            "Cài đặt tự động Python 3.12 qua winget ngay bây giờ?",
+            "Thiếu Python",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question);
+        if (answer != DialogResult.Yes) return null;
+
+        Text = "Đang cài đặt Python 3.12...";
+        bool installed = await PythonRuntime.InstallWithWingetAsync(PythonRuntime.WingetPythonId);
+        pythonExe = installed ? PythonRuntime.Find() : null;
+        if (pythonExe == null)
+        {
+            MessageBox.Show(
+                "Không thể cài đặt tự động. Vui lòng cài Python 3.12+ thủ công tại:\n" + PythonRuntime.PythonDownloadUrl,
+                "Cài đặt Python thất bại",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning);
+        }
+        Text = "Project Review";
+        return pythonExe;
+    }
+
+    private async Task<bool> EnsureWebView2Async()
+    {
+        try
+        {
+            if (!string.IsNullOrEmpty(CoreWebView2Environment.GetAvailableBrowserVersionString())) return true;
+        }
+        catch (Exception)
+        {
+            // Chưa có WebView2 Runtime: thử cài đặt bên dưới.
+        }
+
+        var answer = MessageBox.Show(
+            "Công cụ cần Microsoft Edge WebView2 Runtime để hiển thị giao diện nhưng chưa tìm thấy.\n\n" +
+            "Cài đặt tự động qua winget ngay bây giờ?",
+            "Thiếu WebView2 Runtime",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question);
+        if (answer != DialogResult.Yes) return false;
+
+        Text = "Đang cài đặt WebView2 Runtime...";
+        bool installed = await PythonRuntime.InstallWithWingetAsync(PythonRuntime.WingetWebView2Id);
+        Text = "Project Review";
+        if (!installed)
+        {
+            MessageBox.Show(
+                "Không thể cài đặt tự động. Vui lòng tải WebView2 Runtime từ Microsoft rồi chạy lại.",
+                "Cài đặt WebView2 thất bại",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning);
+        }
+        return installed;
+    }
+
+    private bool StartPythonBackend(int port, string pythonExe)
     {
         string baseDir = AppContext.BaseDirectory;
         string projectRoot = baseDir;
@@ -220,7 +267,16 @@ public class MainForm : Form
         }
 
         string scriptPath = Path.Combine(projectRoot, "scripts", "reviewer_app.py");
-        string pythonExe = FindPythonExecutable();
+
+        if (!File.Exists(scriptPath))
+        {
+            MessageBox.Show(
+                "Không tìm thấy scripts\\reviewer_app.py cạnh Project-Review.exe.\nHãy chạy file exe trong thư mục repo Starter Kit.",
+                "Thiếu Core Engine",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            return false;
+        }
 
         var psi = new ProcessStartInfo
         {
@@ -233,6 +289,7 @@ public class MainForm : Form
         };
 
         _pythonProcess = Process.Start(psi);
+        return _pythonProcess != null;
     }
 
     private static async Task WaitForServerReadyAsync(int port)

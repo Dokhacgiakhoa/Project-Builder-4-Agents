@@ -203,10 +203,10 @@ flowchart TD
 │   │   ├── dashboard/              # Màn hình điều khiển số liệu
 │   │   ├── ai-chat/                # Trợ lý giao tiếp AI Agent
 │   │   └── theme-showcase/         # Studio chuyển đổi trực quan 7 UI/UX Archetypes
-│   ├── src/lib/api-client.ts       # Axios client có interceptors & error normalization
+│   ├── src/lib/                    # (Sẽ bổ sung) Axios client có interceptors & error normalization
 │   ├── src/stores/                 # Quản lý Global Client State qua Zustand
 │   └── README.md                   # Hướng dẫn chi tiết kiến trúc Frontend
-├── src/                            # BACKEND & DOMAIN (Clean Architecture Blueprint)
+├── src/                            # BACKEND & DOMAIN — SKELETON (thư mục rỗng, bạn tự triển khai theo Blueprint)
 │   ├── Domain/                     # Enterprise Core & Entities (Độc lập 100%)
 │   ├── Application/                # Use Cases, CQRS Commands/Queries, DTOs
 │   ├── Infrastructure/             # DB Persistence, External Services, Caching
@@ -215,18 +215,20 @@ flowchart TD
 ├── docker-compose.yml              # Khởi chạy hạ tầng local (Postgres+pgvector, Redis)
 ├── Makefile                        # Bộ lệnh dev chuẩn hóa (make up, test, lint, clean)
 ├── .editorconfig                   # Chuẩn hóa format code đa nền tảng IDE
-├── tests/                          # Automated Test Suite (Unit, Integration, E2E)
+├── tests/                          # pytest cho Core Engine & Reviewer server (frontend có vitest riêng)
 ├── .env.example                    # Mẫu cấu hình biến môi trường bảo mật
 ├── .gitignore                      # Quy chuẩn loại trừ file rác & secrets
 ├── Project-Review.exe              # Ứng dụng thanh tra kiến trúc có Icon độc quyền (Standalone)
-├── Project-Review.bat              # Script thanh tra kiến trúc (Windows)
 ├── Project-Review.sh               # Script thanh tra kiến trúc (Linux/macOS)
-├── build-exe.bat                   # Tự động đóng gói Project-Review.exe
 ├── assets/                         # Vector Hero Banner & App Icon (.ico)
 ├── tools/                          # Bộ công cụ Native Desktop cho lập trình viên
 │   └── ProjectReviewer/            # Native Host Shell chuẩn hóa (.NET 10 + WebView2)
 ├── scripts/                        # Core Engine thanh tra & Decoupled Web Shell
-│   ├── project_auditor.py          # Core Engine phân tích kiến trúc (CLI & 100% Offline)
+│   ├── init_project.py             # CLI khởi tạo dự án mới (make init)
+│   ├── kit_init/                   # Init Engine: danh mục tệp, sinh README/Makefile/CI, merge an toàn
+│   ├── build_exe.py                # Đóng gói Project-Review.exe (make build-exe)
+│   ├── project_auditor.py          # CLI entrypoint mỏng của Core Engine
+│   ├── auditor_engine/             # Core Engine: tree, profiler, các Pillar (docs/app/infra), auditor
 │   ├── reviewer_shell/             # Modern Web Shell & Local Bridge (HTML5/CSS)
 │   │   ├── llm_evaluator.py        # Adapter kết nối AI LLM (Gemini, Claude, OpenAI)
 │   │   ├── settings_manager.py     # Quản lý cấu hình Settings & API Keys bảo mật
@@ -246,20 +248,35 @@ Chạy bộ thanh tra tự động (100% Offline, Zero-Token) để đối chi�
 # Cách 1 (Khuyến nghị trên Windows): Nhấp đúp trực tiếp vào file:
 Project-Review.exe
 # (Giao diện Modern Native WebView2 phong cách Antigravity: Chọn thư mục dự án, thanh tiến trình động, 1-click mở báo cáo & copy prompt AI)
-# Hoặc chạy qua dòng lệnh: .\Project-Review.bat
+# Hoặc chạy qua dòng lệnh: python scripts/project_auditor.py <đường_dẫn_dự_án>
 
 # Cách 2 (Qua Makefile hoặc Linux/macOS):
 make review
 # hoặc: ./Project-Review.sh
 ```
 
-> Tệp **Project-Review.exe** là ứng dụng **Portable Windows GUI Hiện Đại** xây dựng theo chuẩn **ADR-0011 (Decoupled Engine + Native WebView2 Shell)** có gắn **Custom App Icon độc quyền**, tích hợp sẵn runtime (chạy ngay trên mọi máy tính Windows mà không cần cài Python).
+> Tệp **Project-Review.exe** là **Native Host Shell (.NET + WebView2)** theo chuẩn **ADR-0011 (Decoupled Engine + Native WebView2 Shell)**, có gắn **Custom App Icon độc quyền**. Nó khởi chạy Core Engine Python cục bộ, nên **máy cần Python 3.12+ (khuyến nghị 3.14), .NET 10 Desktop Runtime và WebView2 Runtime** — exe tự phát hiện Python/WebView2 còn thiếu và đề nghị cài qua `winget` (chỉ khi bạn đồng ý); riêng .NET 10 Desktop Runtime phải có sẵn để exe khởi động được (chỉ hỗ trợ Windows). Trên Linux/macOS (hoặc CI) dùng `./Project-Review.sh /đường/dẫn/dự/án` hoặc `make review TARGET=/đường/dẫn/dự/án` để xuất báo cáo từ dòng lệnh (bỏ tham số để quét chính repo này); giao diện web có thể chạy bằng `python scripts/reviewer_app.py` (mở trình duyệt mặc định).
 > - **Hiển thị Hiện đại & Sắc nét**: Typography vector chuẩn DirectWrite, không vỡ layout khi thay đổi DPI màn hình, hỗ trợ chuyển đổi linh hoạt **Dark Theme (Slate Dark)** và **Light Theme**.
-> - **Tách rời Core Engine & UI**: Khối lõi chẩn đoán chạy 100% Offline (Zero-Token), quét qua 8 giai đoạn kiến trúc chuẩn Starter Kit.
+> - **Tách rời Core Engine & UI**: Khối lõi chẩn đoán (`scripts/auditor_engine/`) chạy 100% Offline (Zero-Token), dựa trên heuristic (regex, tên tệp, cấu trúc thư mục) nên điểm số mang tính **định hướng**, không thay thế code review của con người.
 > - **Báo cáo Tự động**: File báo cáo **`PROJECT_REVIEW_REPORT.md`** được xuất ngay tại thư mục dự án được review.
-> - **⚙️ Cài đặt & AI Deep Review**: Modal Settings lưu trữ an toàn cấu hình và API Key (Gemini, Claude, OpenAI) cho phép AI đánh giá sâu và gợi ý refactor code.
+> - **⚙️ Cài đặt & AI Deep Review (tùy chọn)**: Modal Settings lưu cấu hình và API Key (Gemini, Claude, OpenAI) tại `~/.starter-kit/settings.json` (văn bản thuần, hãy dùng key có hạn mức thấp). Key không bao giờ được trả ngược về giao diện. **Lưu ý**: chỉ khi bấm "Phân Tích Bằng AI", tóm tắt kết quả thanh tra mới được gửi tới nhà cung cấp LLM bạn chọn; mọi chức năng khác chạy 100% offline.
+> - **🔒 Bảo mật server cục bộ**: chỉ lắng nghe `127.0.0.1`, từ chối request có `Host`/`Origin` ngoài loopback (chống CSRF & DNS rebinding), không bật CORS, và chỉ mở các tệp/thư mục do chính lần quét sinh ra.
 > - **🔄 Kiểm tra Cập nhật (Auto Check-Update)**: Tích hợp 1-click kiểm tra phiên bản mới từ GitHub Releases.
 > - **📋 Sao Chép Prompt Cho AI**: 1-click ném toàn bộ prompt phản biện kèm báo cáo vào chat với **Claude Code, Cursor, hoặc Antigravity** để sửa code tự động!
+
+### 0.5. Khởi Tạo Dự Án Mới (từ thư mục rỗng hoặc dự án đang làm dở)
+```bash
+# Thư mục rỗng/chưa tồn tại -> sinh bộ khung chuẩn (AGENTS.md, adrs/, specs/, planning/, docs/, .github/, src/, tests/...)
+python scripts/init_project.py ../my-app --name "My App" --git
+#   tùy chọn kèm theo: --frontend (Bulletproof React)  --docker (Postgres+Redis)  --pitch (Pitch Deck Kit)
+
+# Dự án đang làm dở -> chỉ THÊM tệp còn thiếu, không bao giờ ghi đè tệp của bạn
+python scripts/init_project.py ../my-wip-project --merge
+
+# Xem trước, không ghi gì:   --dry-run        Ghi đè tệp trùng tên:   --force
+# Hoặc qua Makefile:         make init TARGET=../my-app NAME="My App" FLAGS="--frontend --git"
+```
+Sau khi khởi tạo, chấm điểm bằng `Project-Review.exe` hoặc `python scripts/project_auditor.py ../my-app` (thư mục rỗng vừa khởi tạo đạt khoảng 80/100).
 
 ### 1. Clone Repository & Khởi Tạo Môi Trường
 ```bash
@@ -312,7 +329,7 @@ Một tính năng chỉ được xem là hoàn tất và được phép merge v�
 - [x] **Anti-Crash Standard**: 100% thuộc tính dùng Optional Chaining `?.`, có fallback an toàn, không có lỗi màn hình trắng.
 - [x] **Strict Typing**: Không sử dụng kiểu dữ liệu `any` trong TypeScript.
 - [x] **Test Coverage**: Bổ sung Unit Tests (Happy Path + 2 Edge Cases) và 100% tests pass.
-- [x] **CI Quality Gate**: Toàn bộ kiểm tra trên GitHub Actions chạy màu xanh (PASS).
+- [x] **CI Quality Gate**: Toàn bộ kiểm tra trên GitHub Actions (pytest, ESLint, `tsc` + build, vitest) chạy màu xanh (PASS).
 - [x] **Human Review**: Được ít nhất 1 Human Tech Lead phê duyệt Pull Request.
 
 ---

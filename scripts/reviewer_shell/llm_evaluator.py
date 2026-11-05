@@ -45,7 +45,7 @@ Hãy trả lời bằng tiếng Việt, súc tích, chuyên nghiệp, định d�
             elif provider == "openai":
                 return LLMEvaluator._call_openai(api_key, model or "gpt-4o", prompt)
             elif provider == "claude":
-                return LLMEvaluator._call_claude(api_key, model or "claude-3-5-sonnet-20241022", prompt)
+                return LLMEvaluator._call_claude(api_key, model or "claude-sonnet-5-5", prompt)
             else:
                 return {"success": False, "error": f"Nhà cung cấp không hỗ trợ: {provider}"}
         except Exception as e:
@@ -53,7 +53,7 @@ Hãy trả lời bằng tiếng Việt, súc tích, chuyên nghiệp, định d�
 
     @staticmethod
     def _call_gemini(api_key: str, model: str, prompt: str) -> dict:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
         payload = {
             "contents": [{
                 "parts": [{"text": prompt}]
@@ -66,7 +66,7 @@ Hãy trả lời bằng tiếng Việt, súc tích, chuyên nghiệp, định d�
         req = urllib.request.Request(
             url,
             data=json.dumps(payload).encode("utf-8"),
-            headers={"Content-Type": "application/json"}
+            headers={"Content-Type": "application/json", "x-goog-api-key": api_key}
         )
         try:
             with urllib.request.urlopen(req, timeout=45) as resp:
