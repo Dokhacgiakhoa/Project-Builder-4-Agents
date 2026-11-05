@@ -1,0 +1,76 @@
+# ADR 0011: DESKTOP & DEVELOPER TOOLING ARCHITECTURE STANDARD
+
+* **Trạng thái**: Đã phê duyệt (Accepted)
+* **Ngày quyết định**: 2026-11-05
+* **Người quyết định**: AI Architect & Tech Lead
+
+---
+
+## 1. BỐI CẢNH (CONTEXT)
+Trong quá trình phát triển các công cụ hỗ trợ nhà phát triển (Developer Utilities / CLI / Desktop Diagnostics), việc lựa chọn công nghệ GUI thường rơi vào bẫy "tiện đâu làm đấy": dùng các thư viện GUI cổ điển (Tkinter, WinForms cơ bản) vì nghĩ rằng chúng nhẹ. 
+
+Tuy nhiên, các hệ thống GUI cổ điển này gặp phải các giới hạn chết người:
+1. **Rendering & DPI mismatch**: Thiếu Subpixel Font Anti-Aliasing, vỡ layout khi DPI thay đổi trên Windows 11.
+2. **Không thể mở rộng giao diện chuẩn hiện đại**: Cực kỳ khó khăn hoặc bất khả thi để tái hiện phong cách thiết kế phẳng, không viền, typography chuẩn như Antigravity 2.0 / VS Code / Cursor.
+3. **Chi phí bảo trì cực cao**: Cố gắng vá víu bo góc, đổ bóng, màu sắc bằng canvas thủ công gây lãng phí thời gian và dễ lỗi.
+4. **Không có khả năng chuyển đổi Theme và Settings**: Khó tích hợp Theme Sáng / Tối, lưu trữ API Key LLM, hoặc xây dựng trải nghiệm cấu hình hiện đại.
+
+---
+
+## 2. QUYẾT ĐỊNH (DECISION)
+
+Chúng tôi quyết định chuẩn hóa toàn bộ các công cụ Desktop / Developer Review Tools trong hệ sinh thái dự án theo mô hình: **Decoupled Core Engine + Modern Web View Shell (WebView2)**.
+
+```mermaid
+flowchart TD
+    subgraph Presentation [Presentation Shell - Modern Web]
+        WebCanvas["HTML5 / Modern CSS / Vanilla JS Canvas"]
+        ThemeManager["Theme Engine: Dark (Antigravity Slate) & Light"]
+        SettingsModal["Settings & LLM API Configuration"]
+    end
+
+    subgraph Host [Native Window Host]
+        WV2["Microsoft Edge WebView2 Native Runtime (Built-in Windows 10/11)"]
+    end
+
+    subgraph Application [Application & Controller]
+        Bridge["Event Bridge / IPC (Python / .NET)"]
+        LLMAdapter["LLM Provider Adapter (Gemini, Claude, OpenAI)"]
+    end
+
+    subgraph Core [Domain & Core Engine]
+        Engine["Offline Diagnostic Engine (Pure Python/CLI, 0-token)"]
+        ReportGen["Markdown / JSON Report Generator"]
+    end
+
+    WebCanvas <--> WV2
+    ThemeManager <--> WebCanvas
+    SettingsModal <--> WebCanvas
+    WV2 <--> Bridge
+    Bridge --> Engine
+    Bridge --> ReportGen
+    Bridge -.-> LLMAdapter
+```
+
+### 2.1. Tách Rời 100% Core Engine & Presentation Shell
+* **Core Engine**: Bắt buộc là Pure Logic, chạy độc lập dưới dạng CLI hoặc xuất JSON. Không phụ thuộc vào bất kỳ thư viện UI nào. Phải có unit tests độc lập.
+* **Presentation Shell**: Sử dụng HTML5/Tailwind/CSS Variables và WebView2 native của Windows. 
+  - Đảm bảo 100% độ sắc nét typography (Vector Font, ClearType/DirectWrite).
+  - Phẳng hoàn toàn, loại bỏ các đường viền đóng khung xơ cứng.
+  - Tích hợp sẵn CSS Variables cho Theme Sáng / Tối.
+
+### 2.2. Tiêu Chuẩn Bộ Công Cụ & Khả Năng Tiến Hóa
+Mọi công cụ desktop phải có:
+1. **Tab/Modal Cài Đặt (Settings)**: Lưu trữ cấu hình trong `~/.starter-kit/settings.json` (Theme, Rule overrides, LLM API keys).
+2. **AI Deep Review Integration**: Tùy chọn gọi LLM (Gemini / Claude / OpenAI) để phân tích chuyên sâu các đoạn code phức tạp khi người dùng nhập API key.
+3. **Cơ chế Tự Kiểm Tra Cập Nhật (Check Update)**: Tích hợp nút kiểm tra phiên bản mới từ GitHub Releases.
+
+---
+
+## 3. HỆ QUẢ (CONSEQUENCES)
+* **Tích cực**:
+  - Giao diện đẹp, chuyên nghiệp, đồng nhất với Antigravity 2.0.
+  - Zero-Crash về mặt hiển thị: Web CSS xử lý mượt mà mọi độ phân giải màn hình và DPI.
+  - Dễ dàng nâng cấp tính năng mới (Settings, AI Chat, Themes) mà không phải đập đi xây lại GUI.
+* **Tiêu cực**:
+  - Cần máy tính có cài sẵn WebView2 Runtime (đã tích hợp mặc định trên 100% Windows 11 và Windows 10 hiện đại).

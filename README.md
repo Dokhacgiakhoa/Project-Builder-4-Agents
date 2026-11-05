@@ -50,7 +50,7 @@ Trong kỷ nguyên AI, bất kỳ ai cũng có thể gõ vài prompt để sinh 
     <td width="50%" valign="top">
       <h3>🧠 1. Context-First & Spec-Driven</h3>
       <p>AI chỉ code đúng khi có ngữ cảnh rõ ràng. Mọi tính năng đều bắt đầu từ <b>Feature Specs</b>, <b>ADRs</b> (Architecture Decision Records) và <b>API Contracts</b> đóng băng trước khi gõ dòng code đầu tiên.</p>
-      <p>👉 <i>Khám phá: <a href="specs/contracts/api-contract-template.yaml">API Contract Template</a> • <a href="adrs/">Thư viện 10 ADRs</a> • <a href="AGENTS.md">Hiến pháp AGENTS.md</a></i></p>
+      <p>👉 <i>Khám phá: <a href="specs/contracts/api-contract-template.yaml">API Contract Template</a> • <a href="adrs/">Thư viện 11 ADRs</a> • <a href="AGENTS.md">Hiến pháp AGENTS.md</a></i></p>
     </td>
     <td width="50%" valign="top">
       <h3>🏛️ 2. Clean Architecture & DDD Backend</h3>
@@ -74,7 +74,7 @@ Trong kỷ nguyên AI, bất kỳ ai cũng có thể gõ vài prompt để sinh 
     <td width="50%" valign="top">
       <h3>🛡️ 5. The Anti-Crash Standard (100% Zero-Crash)</h3>
       <p>Quy chuẩn phòng vệ tuyệt đối: Mọi thuộc tính truy cập đều dùng <code>?.</code> và <code>??</code>, mọi mảng đều kiểm tra <code>Array.isArray()</code> trước khi map, toàn bộ I/O bất đồng bộ đều bọc trong <code>try...catch</code>.</p>
-      <p>👉 <i>Khám phá: <a href="adrs/0003-coding-conventions.md">ADR-0003 Coding Conventions</a> • <a href="adrs/0005-definition-of-done.md">Definition of Done (DoD)</a></i></p>
+      <p>👉 <i>Khám phá: <a href="adrs/0003-coding-conventions.md">ADR-0003 Coding Conventions</a> • <a href="adrs/0011-desktop-and-tooling-architecture.md">ADR-0011 Desktop Tooling</a> • <a href="knowledge-base/tu-duy/anti-patching-architectural-thinking.md">Tư duy Anti-Patching</a></i></p>
     </td>
     <td width="50%" valign="top">
       <h3>📊 6. The Ultimate Pitch Deck & Diátaxis Docs</h3>
@@ -161,7 +161,8 @@ flowchart TD
 │   ├── 0007-agentic-patterns-and-evals.md # Agentic AI Patterns & RAG Evals
 │   ├── 0008-frontend-architecture.md     # Feature-Driven Architecture (Bulletproof React)
 │   ├── 0009-ui-ux-archetypes-and-design-presets.md # Quy chuẩn 7 Vũ trụ UI/UX & Theme Engine
-│   └── 0010-documentation-and-pitch-standards.md # Chuẩn Diátaxis & The Ultimate Pitch Deck
+│   ├── 0010-documentation-and-pitch-standards.md # Chuẩn Diátaxis & The Ultimate Pitch Deck
+│   └── 0011-desktop-and-tooling-architecture.md  # Chuẩn hóa kiến trúc Desktop Tooling & Modern WebView2 Shell
 ├── planning/                       # Kế hoạch & Quản trị tiến độ
 │   ├── roadmap.md                  # Lộ trình tổng thể & các Checkpoints
 │   ├── backlog.md                  # Danh mục User Stories (US-xxx) và Tasks (T-xxx)
@@ -184,6 +185,7 @@ flowchart TD
 │   ├── technical-book/             # 15 chương cẩm nang kỹ thuật phần mềm AI
 │   ├── quan-tri-du-an/             # Cẩm nang quản trị dự án thực chiến
 │   └── tu-duy/                     # Tư duy Product & AI-Native Engineering
+│       └── anti-patching-architectural-thinking.md # Tư duy chấm dứt bẫy vá víu & Circuit Breaker
 ├── docs/                           # Tài liệu thiết kế & triển khai (Diátaxis Framework)
 │   ├── guides/                     # HỆ THỐNG TÀI LIỆU HƯỚNG DẪN CHUẨN DIÁTAXIS
 │   │   ├── diataxis-framework-guide.md   # Quy chuẩn 4 góc phần tư Diátaxis
@@ -220,7 +222,15 @@ flowchart TD
 ├── Project-Review.sh               # Script thanh tra kiến trúc (Linux/macOS)
 ├── build-exe.bat                   # Tự động đóng gói Project-Review.exe
 ├── assets/                         # Vector Hero Banner & App Icon (.ico)
-├── scripts/                        # Engine thanh tra kiến trúc & sinh icon
+├── tools/                          # Bộ công cụ Native Desktop cho lập trình viên
+│   └── ProjectReviewer/            # Native Host Shell chuẩn hóa (.NET 10 + WebView2)
+├── scripts/                        # Core Engine thanh tra & Decoupled Web Shell
+│   ├── project_auditor.py          # Core Engine phân tích kiến trúc (CLI & 100% Offline)
+│   ├── reviewer_shell/             # Modern Web Shell & Local Bridge (HTML5/CSS)
+│   │   ├── llm_evaluator.py        # Adapter kết nối AI LLM (Gemini, Claude, OpenAI)
+│   │   ├── settings_manager.py     # Quản lý cấu hình Settings & API Keys bảo mật
+│   │   └── static/                 # Giao diện Antigravity Dark/Light Theme
+│   └── reviewer_app.py             # Entrypoint khởi chạy Web Shell
 ├── PLAN.md                         # Kế hoạch chi tiết của Starter Kit
 └── LICENSE                         # Giấy phép mã nguồn mở (MIT)
 ```
@@ -234,18 +244,21 @@ Chạy bộ thanh tra tự động (100% Offline, Zero-Token) để đối chi�
 ```bash
 # Cách 1 (Khuyến nghị trên Windows): Nhấp đúp trực tiếp vào file:
 Project-Review.exe
-# (Giao diện Windows GUI phong cách Unikey: Chọn thư mục dự án, thanh tiến trình động, 1-click mở báo cáo & copy prompt AI)
+# (Giao diện Modern Native WebView2 phong cách Antigravity: Chọn thư mục dự án, thanh tiến trình động, 1-click mở báo cáo & copy prompt AI)
 # Hoặc chạy qua dòng lệnh: .\Project-Review.bat
 
 # Cách 2 (Qua Makefile hoặc Linux/macOS):
 make review
 # hoặc: ./Project-Review.sh
-`
-> Tệp **Project-Review.exe** là ứng dụng **Portable Windows GUI độc lập (phong cách Unikey)** có gắn **Custom App Icon độc quyền**, nhúng sẵn runtime 100% Offline (chạy ngay trên mọi máy tính Windows mà không cần cài Python).
-> - Bấm **Duyệt...** để chọn bất kỳ thư mục dự án nào cần kiểm tra trên máy.
-> - Theo dõi **Thanh tiến trình trực quan** quét qua 8 giai đoạn kiến trúc.
-> - File báo cáo **PROJECT_REVIEW_REPORT.md** sẽ được tạo **ngay tại thư mục dự án được review**.
-> - Tích hợp nút **📋 Sao Chép Prompt Cho AI** để ném lệnh ngay vào chat với **Claude Code, Cursor, hoặc Antigravity** sửa code tự động!
+```
+
+> Tệp **Project-Review.exe** là ứng dụng **Portable Windows GUI Hiện Đại** xây dựng theo chuẩn **ADR-0011 (Decoupled Engine + Native WebView2 Shell)** có gắn **Custom App Icon độc quyền**, tích hợp sẵn runtime (chạy ngay trên mọi máy tính Windows mà không cần cài Python).
+> - **Hiển thị Hiện đại & Sắc nét**: Typography vector chuẩn DirectWrite, không vỡ layout khi thay đổi DPI màn hình, hỗ trợ chuyển đổi linh hoạt **Dark Theme (Slate Dark)** và **Light Theme**.
+> - **Tách rời Core Engine & UI**: Khối lõi chẩn đoán chạy 100% Offline (Zero-Token), quét qua 8 giai đoạn kiến trúc chuẩn Starter Kit.
+> - **Báo cáo Tự động**: File báo cáo **`PROJECT_REVIEW_REPORT.md`** được xuất ngay tại thư mục dự án được review.
+> - **⚙️ Cài đặt & AI Deep Review**: Modal Settings lưu trữ an toàn cấu hình và API Key (Gemini, Claude, OpenAI) cho phép AI đánh giá sâu và gợi ý refactor code.
+> - **🔄 Kiểm tra Cập nhật (Auto Check-Update)**: Tích hợp 1-click kiểm tra phiên bản mới từ GitHub Releases.
+> - **📋 Sao Chép Prompt Cho AI**: 1-click ném toàn bộ prompt phản biện kèm báo cáo vào chat với **Claude Code, Cursor, hoặc Antigravity** để sửa code tự động!
 
 ### 1. Clone Repository & Khởi Tạo Môi Trường
 ```bash

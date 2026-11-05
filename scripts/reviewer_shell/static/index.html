@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="vi" class="notranslate" translate="no" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google" content="notranslate">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0e0d13">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <title>Project Review</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- TOP UNIFIED TOOLBAR -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="folder-input-wrapper">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-muted); flex-shrink: 0;"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+        <input type="text" id="targetFolderInput" class="folder-input" placeholder="Chọn hoặc nhập đường dẫn thư mục dự án..." spellcheck="false">
+      </div>
+      <button class="btn btn-secondary" id="browseFolderBtn" title="Chọn thư mục từ máy tính">
+        <span>Duyệt</span>
+      </button>
+      <button class="btn btn-primary" id="runAuditBtn" title="Chạy thẩm định tiêu chuẩn toàn diện (offline / AST)">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+        <span>Standard Review</span>
+      </button>
+      <button class="btn btn-ai" id="topAIDeepReviewBtn" title="Cần cấu hình API Key trong Cài đặt để kích hoạt AI Review" disabled>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+        <span>AI Deep Review</span>
+      </button>
+    </div>
+    <div class="header-actions">
+      <button class="btn-icon" id="themeToggleBtn" title="Đổi giao diện Sáng / Tối">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+      </button>
+      <button class="btn-icon" id="updateBtn" title="Kiểm tra bản cập nhật">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+      </button>
+      <button class="btn-icon" id="settingsBtn" title="Cài đặt & API Key">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN 2-PANE WORKSPACE -->
+  <main class="app-workspace">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <!-- TOP: BÁO CÁO TỔNG QUAN -->
+      <div class="sidebar-top">
+        <div class="pillar-item active pillar-item-overview" data-pillar="overview">
+          <div class="pillar-left">
+            <span class="pillar-name overview-name">Báo cáo tổng quan</span>
+          </div>
+          <svg class="overview-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+      </div>
+
+      <!-- SECTION TITLE: HẠNG MỤC KIỂM TRA (ĐẶT DƯỚI BÁO CÁO TỔNG QUAN) -->
+      <div class="sidebar-title">Hạng mục kiểm tra</div>
+
+      <!-- 6 HẠNG MỤC KIỂM TRA -->
+      <ul class="pillar-list" id="pillarList">
+        <li class="pillar-item" data-pillar="readme">
+          <div class="pillar-left">
+            <span class="status-dot dot-neutral" id="dot_readme"></span>
+            <span class="pillar-name">Readme & Onboarding</span>
+          </div>
+          <span class="pillar-score" id="score_readme">-- / 15</span>
+        </li>
+        <li class="pillar-item" data-pillar="backend">
+          <div class="pillar-left">
+            <span class="status-dot dot-neutral" id="dot_backend"></span>
+            <span class="pillar-name">Backend & Core Flow</span>
+          </div>
+          <span class="pillar-score" id="score_backend">-- / 20</span>
+        </li>
+        <li class="pillar-item" data-pillar="frontend">
+          <div class="pillar-left">
+            <span class="status-dot dot-neutral" id="dot_frontend"></span>
+            <span class="pillar-name">Frontend & UI/UX</span>
+          </div>
+          <span class="pillar-score" id="score_frontend">-- / 20</span>
+        </li>
+        <li class="pillar-item" data-pillar="database">
+          <div class="pillar-left">
+            <span class="status-dot dot-neutral" id="dot_database"></span>
+            <span class="pillar-name">Database & Query Safety</span>
+          </div>
+          <span class="pillar-score" id="score_database">-- / 15</span>
+        </li>
+        <li class="pillar-item" data-pillar="anticrash">
+          <div class="pillar-left">
+            <span class="status-dot dot-neutral" id="dot_anticrash"></span>
+            <span class="pillar-name">Runtime Anti-Crash</span>
+          </div>
+          <span class="pillar-score" id="score_anticrash">-- / 20</span>
+        </li>
+        <li class="pillar-item" data-pillar="contracts">
+          <div class="pillar-left">
+            <span class="status-dot dot-neutral" id="dot_contracts"></span>
+            <span class="pillar-name">API Contract & Agent</span>
+          </div>
+          <span class="pillar-score" id="score_contracts">-- / 10</span>
+        </li>
+      </ul>
+
+      <!-- BOTTOM: LỊCH SỬ QUÉT (PHÂN CẤP TÁCH BIỆT Ở DƯỚI CÙNG) -->
+      <div class="sidebar-footer">
+        <div class="pillar-item pillar-item-history" data-pillar="history">
+          <div class="pillar-left">
+            <span class="status-dot dot-neutral" id="dot_history"></span>
+            <span class="pillar-name">Lịch sử quét</span>
+          </div>
+          <span class="pillar-score" id="score_history">--</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT MAIN CONTENT (SEAMLESS UNBOXED CANVAS) -->
+    <section class="content-area">
+
+      <!-- ========================================================
+           INSTALLATION-STYLE PROGRESS CONTAINER (CÓ CHIA VẠCH & LOG)
+           ======================================================== -->
+      <div class="installer-progress-container" id="installerProgressView" style="display: none;">
+        <div class="installer-header">
+          <div class="installer-title-row">
+            <div class="installer-spinner" id="installerSpinner"></div>
+            <div>
+              <h2 class="installer-title" id="installerMainTitle">Đang thẩm định kiến trúc mã nguồn...</h2>
+              <div class="installer-target" id="installerTargetDir">Dự án: --</div>
+            </div>
+          </div>
+          <div class="installer-percent" id="installerPercent">0%</div>
+        </div>
+
+        <!-- THANH CHIA 6 VẠCH (SEGMENTED PROGRESS BAR) -->
+        <div class="segmented-bar-wrapper">
+          <div class="segmented-bar-label">Các chặng đo kiểm tiêu chuẩn (6 Hạng mục)</div>
+          <div class="segmented-bar">
+            <div class="segment-step" id="seg_readme">
+              <div class="segment-top">
+                <span class="segment-num">1</span>
+                <span class="segment-name">Readme</span>
+              </div>
+              <div class="segment-track"><div class="segment-fill"></div></div>
+              <div class="segment-points">15đ</div>
+            </div>
+            <div class="segment-step" id="seg_backend">
+              <div class="segment-top">
+                <span class="segment-num">2</span>
+                <span class="segment-name">Backend</span>
+              </div>
+              <div class="segment-track"><div class="segment-fill"></div></div>
+              <div class="segment-points">20đ</div>
+            </div>
+            <div class="segment-step" id="seg_frontend">
+              <div class="segment-top">
+                <span class="segment-num">3</span>
+                <span class="segment-name">Frontend</span>
+              </div>
+              <div class="segment-track"><div class="segment-fill"></div></div>
+              <div class="segment-points">20đ</div>
+            </div>
+            <div class="segment-step" id="seg_database">
+              <div class="segment-top">
+                <span class="segment-num">4</span>
+                <span class="segment-name">Database</span>
+              </div>
+              <div class="segment-track"><div class="segment-fill"></div></div>
+              <div class="segment-points">15đ</div>
+            </div>
+            <div class="segment-step" id="seg_anticrash">
+              <div class="segment-top">
+                <span class="segment-num">5</span>
+                <span class="segment-name">Anti-Crash</span>
+              </div>
+              <div class="segment-track"><div class="segment-fill"></div></div>
+              <div class="segment-points">20đ</div>
+            </div>
+            <div class="segment-step" id="seg_contracts">
+              <div class="segment-top">
+                <span class="segment-num">6</span>
+                <span class="segment-name">Contracts</span>
+              </div>
+              <div class="segment-track"><div class="segment-fill"></div></div>
+              <div class="segment-points">10đ</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- THANH TIẾN ĐỘ TỔNG THỂ -->
+        <div class="overall-progress-wrapper">
+          <div class="overall-progress-info">
+            <span id="installerStatusMessage">Đang khởi tạo các module kiểm tra...</span>
+            <span id="installerStepBadge" class="installer-step-badge">Khởi động</span>
+          </div>
+          <div class="overall-progress-track">
+            <div class="overall-progress-fill" id="installerOverallFill"></div>
+          </div>
+        </div>
+
+        <!-- KHUNG NHẬT KÝ KIỂM TRA (INSTALLER ACTIVITY LOG) -->
+        <div class="installer-terminal">
+          <div class="terminal-top">
+            <div class="terminal-dots">
+              <span class="t-dot t-red"></span>
+              <span class="t-dot t-yellow"></span>
+              <span class="t-dot t-green"></span>
+            </div>
+            <span class="terminal-title">audit-runtime.log — Nhật ký quá trình quét</span>
+          </div>
+          <div class="terminal-body" id="installerLogFeed">
+            <div class="log-line log-muted">[00:00:00] Sẵn sàng quét mã nguồn.</div>
+          </div>
+        </div>
+
+        <!-- KHUNG HOÀN TẤT THẨM ĐỊNH -->
+        <div class="installer-finish-box" id="installerFinishBox" style="display: none;">
+          <div class="finish-text">
+            <span class="finish-icon">✓</span>
+            <span id="finishScoreSummary">Hoàn tất đo kiểm toàn diện! Tổng điểm: --/100</span>
+          </div>
+          <button class="btn btn-primary" id="viewReportNowBtn">Xem Kết Quả Tổng Quan</button>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           AUDIT RESULT VIEW (KẾT QUẢ ĐO KIỂM)
+           ======================================================== -->
+      <div class="audit-result-view" id="auditResultView">
+        <!-- TOP METRICS BANNER (DÀNH CHO TỔNG QUAN) -->
+        <div class="metrics-banner" id="overviewMetricsBanner">
+          <div class="score-summary-area">
+            <span class="score-summary-label">TỔNG ĐIỂM DỰ ÁN</span>
+            <div class="score-summary-value">
+              <span class="score-number" id="totalScore">--</span>
+              <span class="score-slash">/</span>
+              <span class="score-max">100</span>
+            </div>
+          </div>
+          <div class="metrics-divider"></div>
+          <div class="metadata-column">
+            <div class="meta-row">
+              <span class="meta-label">Loại hình:</span>
+              <span id="metaArchetype" class="meta-val" title="Chưa xác định">Chưa xác định</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">Kiến trúc:</span>
+              <span id="metaArchStyle" class="meta-val" title="Chưa xác định">Chưa xác định</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABS TỔNG QUAN -->
+        <nav class="content-tabs" id="overviewTabsNav">
+          <button class="tab-btn active" data-tab="tab-overview">Tổng quan</button>
+          <button class="tab-btn" data-tab="tab-gaps">Thiếu sót & Rác (<span id="gapCountBadge">0</span>)</button>
+          <button class="tab-btn" data-tab="tab-violations">Vi phạm mã nguồn (<span id="violationCountBadge">0</span>)</button>
+          <button class="tab-btn" data-tab="tab-prompt">Prompt AI Agent</button>
+          <button class="tab-btn" data-tab="tab-ai-deep">AI Deep Review</button>
+        </nav>
+
+        <!-- TAB CONTENT PANELS -->
+        <div class="tab-content">
+          <!-- PANEL: OVERVIEW -->
+          <div class="tab-panel active" id="tab-overview">
+            <div class="section-block">
+              <h3 class="section-title">Hồ sơ công nghệ</h3>
+              <p class="section-subtitle">Tự động nhận diện qua cấu hình, dependencies và cấu trúc thư mục:</p>
+              <div class="tag-cloud" id="techStackTags">
+                <span class="tech-tag">Chưa có dữ liệu</span>
+              </div>
+            </div>
+
+            <div class="section-block">
+              <h3 class="section-title">Điểm mạnh kiến trúc</h3>
+              <ul id="strengthList" class="clean-bullet-list">
+                <li>Sẵn sàng kiểm tra. Nhấn <strong>Standard Review</strong> để quét mã nguồn.</li>
+              </ul>
+            </div>
+
+            <div class="action-row" id="reportActionRow" style="display: none;">
+              <button class="btn btn-secondary" id="openReportBtn">Mở báo cáo Markdown</button>
+              <button class="btn btn-secondary" id="openFolderBtn">Mở thư mục báo cáo</button>
+            </div>
+          </div>
+
+          <!-- PANEL: PILLAR DETAIL VIEW -->
+          <div class="tab-panel" id="tab-pillar">
+            <div class="pillar-header-row">
+              <div>
+                <h2 class="pillar-detail-title" id="pillarDetailTitle">Readme & Onboarding</h2>
+                <div class="pillar-detail-subtitle" id="pillarDetailSubtitle">Thẩm định chi tiết theo chuẩn mực Starter Kit</div>
+              </div>
+              <div class="pillar-score-badge">
+                <span class="pillar-score-val" id="pillarDetailScore">-- / --</span>
+              </div>
+            </div>
+
+            <div class="section-block">
+              <h3 class="section-title section-title-success">Tiêu chí đã đạt</h3>
+              <ul id="pillarFoundList" class="clean-bullet-list">
+                <li class="muted-item">Chưa có dữ liệu.</li>
+              </ul>
+            </div>
+
+            <div class="section-block">
+              <h3 class="section-title" id="pillarMissingTitle">Tiêu chí chưa đạt</h3>
+              <ul id="pillarMissingList" class="clean-bullet-list">
+                <li class="muted-item">Chưa có dữ liệu.</li>
+              </ul>
+            </div>
+
+            <div class="section-block" id="pillarViolationsSection" style="display: none;">
+              <h3 class="section-title section-title-danger">Vi phạm mã nguồn cụ thể</h3>
+              <div id="pillarViolationsContainer"></div>
+            </div>
+          </div>
+
+        <!-- PANEL: GAPS & BLOAT -->
+        <div class="tab-panel" id="tab-gaps">
+          <div class="section-block">
+            <h3 class="section-title" style="color: #f59e0b;">Tiêu chuẩn kiến trúc chưa đạt</h3>
+            <ul id="gapsList" class="clean-bullet-list">
+              <li class="muted-item">Chưa có dữ liệu.</li>
+            </ul>
+          </div>
+
+          <div class="section-block">
+            <h3 class="section-title" style="color: #f87171;">Tệp tin thừa & Rủi ro bảo mật</h3>
+            <ul id="bloatList" class="clean-bullet-list">
+              <li class="muted-item">Chưa có dữ liệu.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- PANEL: VIOLATIONS (PHÂN LOẠI & GOM NHÓM THEO TẦN SUẤT) -->
+        <div class="tab-panel" id="tab-violations">
+          <div class="section-block" style="padding-top: 4px;">
+            <div id="violationGroupedContainer">
+              <div style="text-align: center; color: var(--text-dim); padding: 32px;">
+                Chưa có dữ liệu vi phạm.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANEL: AI PROMPT -->
+        <div class="tab-panel" id="tab-prompt">
+          <div class="section-block">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+              <h3 class="section-title" style="margin-bottom: 0;">Prompt tái cấu trúc cho AI Agent</h3>
+              <button class="btn btn-secondary" id="copyPromptBtn">Sao chép Prompt</button>
+            </div>
+            <div class="prompt-box" id="aiPromptBox">Nhấn 'Standard Review' để sinh prompt chuẩn cho Agent.</div>
+          </div>
+        </div>
+
+        <!-- PANEL: AI DEEP REVIEW (LLM) -->
+        <div class="tab-panel" id="tab-ai-deep">
+          <div class="section-block">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <h3 class="section-title" style="margin-bottom: 0;">Đánh giá chuyên sâu từ Senior Architect AI</h3>
+              <button class="btn btn-primary" id="triggerLLMBtn">Phân tích bằng AI</button>
+            </div>
+            <p class="section-subtitle">Gửi báo cáo đo kiểm tới LLM để nhận đề xuất kiến trúc và kế hoạch refactor chi tiết:</p>
+            <div class="prompt-box" id="llmAnalysisBox" style="min-height: 220px;">
+              Nhập API Key trong Cài đặt (góc trên bên phải), sau đó nhấn 'Phân tích bằng AI'.
+            </div>
+          </div>
+        </div>
+      </div>
+      </div> <!-- End auditResultView -->
+    </section>
+  </main>
+
+  <!-- SETTINGS MODAL -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span>Cài đặt hệ thống</span>
+        <button class="btn-icon" id="closeSettingsBtn">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Giao diện (Theme)</label>
+          <select class="form-select" id="settingsThemeSelect">
+            <option value="dark">Tối (Dark Slate)</option>
+            <option value="light">Sáng (Studio Light)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Nhà cung cấp AI (LLM Provider)</label>
+          <select class="form-select" id="settingsLLMProvider">
+            <option value="gemini">Google Gemini</option>
+            <option value="openai">OpenAI</option>
+            <option value="claude">Anthropic Claude</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">API Key</label>
+          <input type="password" class="form-input" id="settingsApiKeyInput" placeholder="Nhập API Key...">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tên Model</label>
+          <input type="text" class="form-input" id="settingsModelInput" value="gemini-2.0-flash">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancelSettingsBtn">Hủy</button>
+        <button class="btn btn-primary" id="saveSettingsBtn">Lưu cài đặt</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPDATE MODAL -->
+  <div class="modal-overlay" id="updateModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span>Kiểm tra cập nhật</span>
+        <button class="btn-icon" id="closeUpdateBtn">✕</button>
+      </div>
+      <div class="modal-body" id="updateModalBody">
+        Đang kiểm tra từ GitHub...
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="okUpdateBtn">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

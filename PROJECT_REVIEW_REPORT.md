@@ -1,88 +1,85 @@
-# 📋 BÁO CÁO THANH TRA KIẾN TRÚC & HỆ THỐNG DỰ ÁN
-> **Thời gian quét**: `2026-11-05 00:08:32`  
-> **Thước đo đối chiếu**: Universal AI-Native Project Starter Kit Standard  
-> **Phương pháp**: 100% Rule-Based Static Code Analysis (Deterministic, Zero-Token, Zero-Hallucination)
+# 📋 BÁO CÁO BENCHMARK KIẾN TRÚC & ĐỐI CHIẾU CHUẨN MỰC DỰ ÁN
+> **Thời gian benchmark**: `2026-11-05 06:58:26`  
+> **Loại hình dự án**: `Ứng dụng Giao Diện Độc Lập (FRONTEND SPA / MOBILE)`  
+> **Phương pháp**: 100% RULE-BASED DEEP WATERFLOW TRAVERSAL (ZERO-TOKEN, ZERO-HALLUCINATION)
 
 ---
 
-## 🎯 1. TỔNG KẾT TUÂN THỦ (EXECUTIVE SUMMARY)
+## 🎯 1. HỒ SƠ DỰ ÁN & TỔNG KẾT BENCHMARK (PROJECT PROFILE & EXECUTIVE SUMMARY)
 
-- **Điểm Tuân Thủ Toàn Diện (Compliance Score)**: **`100 / 100`**
-- **Xếp Hạng Kiến Trúc (Architecture Grade)**: **`A+ (Excellent - Production Grade)`**
-- **Tổng số tệp mã nguồn quét**: `30 tệp`
-- **Số vi phạm Anti-Crash phát hiện**: `0 vị trí`
-- **Số điểm cải tiến cao cấp (Innovations)**: `5 điểm sáng`
-
----
-
-## 📊 2. BẢNG ĐỐI CHIẾU 7 TRỤ CỘT CHUẨN MỰC (BENCHMARK MATRIX)
-
-| Trụ Cột Kiến Trúc | Mức Độ Đạt | Điểm Số | Đánh Giá Hiện Trạng |
-| :--- | :---: | :---: | :--- |
-| **Clean Architecture & DDD** | `✅ Đạt Chuẩn` | **100/100** | Đối chiếu theo quy chuẩn Starter Kit |
-| **System Design & Contracts** | `✅ Đạt Chuẩn` | **100/100** | Đối chiếu theo quy chuẩn Starter Kit |
-| **Frontend Architecture** | `✅ Đạt Chuẩn` | **100/100** | Đối chiếu theo quy chuẩn Starter Kit |
-| **The Anti-Crash Standard** | `✅ Đạt Chuẩn` | **100/100** | Đối chiếu theo quy chuẩn Starter Kit |
-| **AI Governance & Context** | `✅ Đạt Chuẩn` | **100/100** | Đối chiếu theo quy chuẩn Starter Kit |
-| **UI/UX Archetypes & Design** | `✅ Đạt Chuẩn` | **100/100** | Đối chiếu theo quy chuẩn Starter Kit |
-| **Pitch Deck & Diátaxis Docs** | `✅ Đạt Chuẩn` | **100/100** | Đối chiếu theo quy chuẩn Starter Kit |
+- **Điểm Benchmark Toàn Diện (BENCHMARK SCORE)**: **`92 / 100`**
+- **Xếp Hạng Kiến Trúc (ARCHITECTURE GRADE)**: **`A (RẤT TỐT - SẴN SÀNG STAGING)`**
+- **TECH STACK Nhận Diện**: JAVASCRIPT/TYPESCRIPT (REACT)
+- **DATABASE & Hạ Tầng**: POSTGRESQL, REDIS (DISTRIBUTED CACHE), VECTOR DATABASE (AI RAG) | DOCKER COMPOSE
+- **Phong Cách Kiến Trúc**: **CLEAN ARCHITECTURE / HEXAGONAL (PORTS & ADAPTERS)**
+- **Tổng số tệp mã nguồn quét sâu**: `75 tệp`
 
 ---
 
-## 🌟 3. CÁC ĐIỂM SÁNG VƯỢT TRỘI (SUPER-STANDARD INNOVATIONS DETECTED)
+## 📊 2. BẢNG ĐỐI CHIẾU CÁC HẠNG MỤC BENCHMARK (BENCHMARK MATRIX)
 
-- [x] 🏆 **Đã trang bị hạ tầng Vector Database (PostgreSQL pgvector) sẵn sàng cho RAG & AI Agents.**
-- [x] 🏆 **Đã cấu hình Distributed Caching với Redis container tối ưu hiệu năng.**
-- [x] 🏆 **Đã thiết lập GitHub Actions CI Pipeline tự động hóa kiểm tra Linting, Test và Quality Gate.**
-- [x] 🏆 **Đạt chuẩn GitHub Community Health cấp cao nhất (Security Policy + Tự động quét lỗ hổng Dependabot).**
-- [x] 🏆 **Có sẵn Studio trực quan cho phép click đổi nhanh giữa 7 phong cách thị giác ngay trong app.**
-
----
-
-## ⚠️ 4. CÁC KHOẢNG TRỐNG KIẾN TRÚC CẦN BỔ SUNG (GAPS & MISSING SPECS)
-
-- [x] 🎉 **Không phát hiện khoảng trống kiến trúc lớn. Hệ thống đạt độ phủ chuẩn mực 100%!**
+| Hạng Mục Benchmark | Trạng Thái | Điểm Hệ Số | Trọng Số Tối Đa | Đánh Giá Chi Tiết |
+| :--- | :---: | :---: | :---: | :--- |
+| **Tài Liệu & Hướng Dẫn (README & ONBOARDING)** | `✅ ĐẠT CHUẨN` | **15 ĐIỂM** | 15 Điểm | Đo kiểm sâu theo mã nguồn thực tế |
+| **Kiến Trúc BACKEND & Luồng Dữ Liệu CORE** | `✅ ĐẠT CHUẨN` | **17 ĐIỂM** | 20 Điểm | Đo kiểm sâu theo mã nguồn thực tế |
+| **Kiến Trúc FRONTEND & DESIGN SYSTEM (UI/UX)** | `✅ ĐẠT CHUẨN` | **18 ĐIỂM** | 20 Điểm | Đo kiểm sâu theo mã nguồn thực tế |
+| **Hạ Tầng DATABASE & An Toàn QUERY** | `⚠️ CẦN LƯU Ý` | **9 ĐIỂM** | 15 Điểm | Đo kiểm sâu theo mã nguồn thực tế |
+| **Tiêu Chuẩn An Toàn RUNTIME (ANTI-CRASH)** | `✅ ĐẠT CHUẨN` | **18 ĐIỂM** | 20 Điểm | Đo kiểm sâu theo mã nguồn thực tế |
+| **Quản Trị API CONTRACT & Cấu Hình AI AGENT** | `✅ ĐẠT CHUẨN` | **10 ĐIỂM** | 10 Điểm | Đo kiểm sâu theo mã nguồn thực tế |
 
 ---
 
-## 🚨 5. DANH SÁCH VI PHẠM MÃ NGUỒN CỤ THỂ (CODE-LEVEL VIOLATIONS LOG)
+## 🌟 3. DỰ ÁN CÓ ƯU ĐIỂM GÌ? (STRENGTHS & INNOVATIONS)
 
-- [x] 🎉 **Mã nguồn hoàn toàn sạch! Không phát hiện lỗi naked JSON.parse hay vi phạm strict typing.**
-
----
-
-## 📋 6. KẾ HOẠCH HÀNH ĐỘNG ƯU TIÊN (PRIORITIZED ACTION PLAN)
-
-### Mức Ưu Tiên P0 (Cần Khắc Phục Ngay Để Đảm Bảo Anti-Crash):
-- [x] Đạt chuẩn P0 (Không có vi phạm runtime crash khẩn cấp).
-
-### Mức Ưu Tiên P1 (Hoàn Thiện Kiến Trúc & Hợp Đồng Giao Tiếp):
-- [x] Đảm bảo tính toàn vẹn của API Contracts trong `specs/contracts/`.
-- [x] Đảm bảo tuân thủ nguyên tắc Dependency Inversion trong Clean Architecture.
-
-### Mức Ưu Tiên P2 (Tối Ưu Hóa & Tài Liệu Vận Hành):
-- [x] Cập nhật bảng kiểm tra Definition of Done (DoD) trước mỗi đợt Release.
-- [x] Đồng bộ hóa kịch bản thuyết trình Pitch Deck với các tính năng mới nhất.
+- [x] 🏆 **Trang bị hạ tầng VECTOR DATABASE sẵn sàng cho AI RAG & SEMANTIC SEARCH.**
+- [x] 🏆 **Cấu hình DISTRIBUTED CACHE với REDIS tối ưu tốc độ phản hồi.**
+- [x] 🏆 **Tự động hóa QUALITY GATE & CI/CD PIPELINE với GITHUB ACTIONS.**
+- [x] 🏆 **Chuẩn hóa môi trường phát triển nhất quán với DOCKER COMPOSE.**
+- [x] 🏆 **Hệ thống DESIGN SYSTEM & UI TOKENS độc quyền được thiết kế bài bản.**
 
 ---
 
-## 🤖 7. PROMPT READY FOR YOUR AI AGENT (LỆNH CHO CLAUDE / CURSOR / ANTIGRAVITY)
+## ⚠️ 4. DỰ ÁN ĐANG THIẾU GÌ? (MISSING GAPS)
 
-Copy toàn bộ đoạn lệnh dưới đây và dán vào cửa sổ chat với AI Agent trong IDE của bạn:
+- [ ] ❗ **Cảnh báo GOD COMPONENT phình to quá mức (> 350 dòng): examples\before-vibe-code\client\src\pages\AccountPage.tsx (641 dòng), examples\before-vibe-code\client\src\pages\StudioPage.tsx (425 dòng)**
+- [ ] ❗ **Thiếu hệ thống DATABASE MIGRATION có kiểm soát phiên bản.**
+- [ ] ❗ **Phát hiện 2 vị trí vi phạm tiêu chuẩn ANTI-CRASH trong mã nguồn.**
+
+---
+
+## 🧹 5. DỰ ÁN ĐANG THỪA / RÁC GÌ? (BLOAT & RISKS)
+
+- [x] 🎉 **Mã nguồn sạch sẽ! Không phát hiện tệp bí mật (.ENV) bị commit hay rác build artifacts.**
+
+---
+
+## 🚨 6. DANH SÁCH VI PHẠM MÃ NGUỒN CỤ THỂ (CODE-LEVEL VIOLATIONS LOG)
+
+| Tệp Tin & Số Dòng | Loại Vi Phạm | Mô Tả & Đoạn Mã |
+| :--- | :--- | :--- |
+| `scripts\build_brand_assets.py:197` | `PYTHON SILENT EXCEPTION EATER` | Bắt ngoại lệ không tường minh hoặc nuốt lỗi (bare EXCEPT hoặc EXCEPT EXCEPTION: PASS). <br/>`except:` |
+| `examples\before-vibe-code\client\src\services\api.ts:67` | `STRICT TYPING VIOLATION` | Sử dụng kiểu dữ liệu ": any" vi phạm quy chuẩn STRICT TYPING của TYPESCRIPT. <br/>`const unwrap = <T>(res: any): T => {` |
+
+---
+
+## 🤖 7. PROMPT DÀNH CHO AI AGENT ĐỂ REFACTOR (READY FOR CLAUDE / CURSOR / ANTIGRAVITY)
+
+Sao chép toàn bộ đoạn lệnh dưới đây và dán vào cửa sổ chat với AI AGENT trong IDE của bạn:
 
 ```markdown
-[ROLE & GOAL]: Bạn là Principal Software Architect & Senior Code Reviewer.
+[ROLE & GOAL]: Bạn là PRINCIPAL SOFTWARE ARCHITECT & SENIOR CODE REVIEWER.
 [TASK]: Hãy đọc toàn bộ nội dung bản báo cáo này (`PROJECT_REVIEW_REPORT.md`).
-[CONTEXT]: Dự án của chúng tôi đang áp dụng chuẩn 'Universal AI-Native Project Starter Kit'.
-Báo cáo trên đã chỉ ra chính xác các điểm thiếu sót và các file vi phạm tại Mục 4 và Mục 5.
+[CONTEXT DỰ ÁN]:
+- Loại hình dự án: Ứng dụng Giao Diện Độc Lập (FRONTEND SPA / MOBILE)
+- TECH STACK nhận diện: JAVASCRIPT/TYPESCRIPT | REACT
+- Phong cách ARCHITECTURE: CLEAN ARCHITECTURE / HEXAGONAL (PORTS & ADAPTERS)
 
 [YÊU CẦU THỰC HIỆN]:
-1. Hãy phân tích các vi phạm Anti-Crash tại Mục 5 và đề xuất mã nguồn refactor tương ứng.
-2. Lập kế hoạch từng bước (Step-by-step Execution Plan) để giải quyết các khoảng trống tại Mục 4.
-3. Tuân thủ nghiêm ngặt nguyên tắc Defensive Programming (dùng ?., ??, Array.isArray(), try-catch).
-4. Đừng sửa đổi các điểm sáng vượt trội đã được ghi nhận tại Mục 3.
-5. Bắt đầu bằng kế hoạch xử lý cho các đầu việc P0 trước!
+1. Phân tích và refactor ngay các vị trí vi phạm ANTI-CRASH tại Mục 6 (P0 PRIORITY).
+2. Lên phương án xử lý các tiêu chí kiến trúc chưa đạt tại Mục 4 theo đúng bản sắc của dự án.
+3. Dọn dẹp các tệp cấu hình thừa hoặc rủi ro bảo mật chỉ ra tại Mục 5.
+4. Giữ nguyên và tối ưu hóa các điểm sáng công nghệ đã được ghi nhận tại Mục 3.
 ```
 
 ---
-*Báo cáo được khởi tạo tự động bởi Project-Review Auditor Engine v1.0*
+*Báo cáo được khởi tạo tự động bởi Universal Project Reviewer Engine v2.0*

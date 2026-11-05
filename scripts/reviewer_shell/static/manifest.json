@@ -1,0 +1,15 @@
+{
+  "name": "Project Architecture Benchmark Suite",
+  "short_name": "Project Review",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050507",
+  "theme_color": "#0e0d13",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "256x256",
+      "type": "image/x-icon"
+    }
+  ]
+}

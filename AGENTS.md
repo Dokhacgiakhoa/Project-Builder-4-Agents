@@ -63,3 +63,27 @@ Agent **BẮT BUỘC DỪNG LẠI VÀ XIN Ý KIẾN CON NGƯỜI (HUMAN TECH LEA
 * Thao tác có nguy cơ phá vỡ tính tương thích ngược (Breaking Changes).
 * Đề xuất cài đặt thêm thư viện (dependencies) nặng ngoài tech stack đã chốt trong `adrs/0002-tech-stack.md`.
 * Thao tác có tính phá hủy dữ liệu (Drop table, broad delete, xóa file kiến trúc).
+
+---
+
+## 🛡️ 4. CHỐT CHẶN KIẾN TRÚC & QUY TẮC NGẮT MẠCH VÁ VÍU (CIRCUIT BREAKER)
+
+Để chấm dứt hoàn toàn căn bệnh "Vibe Coding - Thấy sai đâu sửa đấy (Patching) thay vì giải quyết kiến trúc (Architecting)", mọi Agent PHẢI tuân thủ:
+
+### 4.1. Quy tắc Ngắt mạch 2 Lần (2-Strike Circuit Breaker Rule)
+* **Định nghĩa**: Nếu một vấn đề (UI font/màu/layout, crash, lỗi kết nối) được sửa đến **lần thứ 2** mà vẫn không đáp ứng được yêu cầu hoặc sinh ra lỗi phụ thuộc:
+  * **HÀNH ĐỘNG CẤM**: Tuyệt đối **CẤM** tiếp tục sửa lần thứ 3 (đổi số font, chỉnh pixel padding, nhồi nhét thêm wrapper frame).
+  * **HÀNH ĐỘNG BẮT BUỘC**: Dừng thực thi ngay lập tức. Xác định đây là **Xung đột nền tảng (Architectural Impedance Mismatch)**. Đưa ra phân tích: "Nền tảng công nghệ hiện tại (ví dụ: GUI cổ điển GDI, DB query sai mô hình) không đủ năng lực đáp ứng yêu cầu". Đề xuất phương án đổi kiến trúc nền tảng (Platform/Architecture Migration).
+
+### 4.2. Chốt Chặn Lựa Chọn Công Nghệ (Technology Selection Gate)
+Trước khi khởi tạo một công cụ hoặc module mới, Agent **bắt buộc** phải lập bảng đánh giá Yêu Cầu Phi Chức Năng (Non-Functional Requirements - NFRs):
+1. **Khả năng hiển thị & Rendering**: Độ phân giải cao, Vector Font, Subpixel Anti-aliasing, DPI Scaling.
+2. **Khả năng Cá nhân hóa & Theme**: Chuyển đổi linh hoạt Theme Sáng (Light) / Tối (Dark) qua biến tập trung, không hardcode màu sắc.
+3. **Khả năng Quản trị & Lưu trữ Cấu hình**: Có cơ chế lưu trữ Settings/Config tách rời mã nguồn (Preferences, API Keys).
+4. **Khả năng Tiến hóa & Tích hợp**: Dễ dàng tích hợp AI LLM API (Streaming responses) và Kiểm tra Cập nhật tự động (Auto-updater).
+* *Bất kỳ công nghệ nào không đáp ứng đủ 4 tiêu chí trên đều không được phép chọn làm giải pháp chính.*
+
+### 4.3. Nguyên Tắc "Eat Your Own Dog Food" (Tự Thực Hành Chuẩn Mực)
+Mọi script, công cụ, hoặc module tiện ích (Utilities/Tools) viết cho dự án này PHẢI tuân thủ chính xác các kiến trúc và quy chuẩn mà Starter Kit đặt ra:
+* Tách biệt 100% giữa **Core Engine** (thuần logic, testable, CLI/headless) và **Presentation Shell** (Giao diện hiển thị).
+* Không viết file nguyên khối (Monolith) nhồi nhét cả UI, State và Data Query vào chung một script.

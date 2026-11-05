@@ -16,7 +16,15 @@
 
 ---
 
-## 2. THIẾT KẾ KỸ THUẬT (DESIGN)
+## 2. CHỐT CHẶN YÊU CẦU PHI CHỨC NĂNG (MANDATORY NFR CHECKLIST)
+* [ ] **DPI & Rendering**: Giao diện hiển thị sắc nét trên mọi mật độ điểm ảnh (Subpixel Anti-Aliasing, Responsive Canvas).
+* [ ] **Theming & Design Presets**: Hỗ trợ tối thiểu 2 Theme: Tối (Dark / Slate) và Sáng (Light / Studio). Không hardcode màu sắc.
+* [ ] **Config & Settings Persistence**: Cấu hình người dùng (Preferences, API Keys, Tokens) được lưu độc lập tại file cấu hình hoặc Local Storage.
+* [ ] **Extensibility & Integration**: Sẵn sàng kiến trúc cho việc tích hợp AI LLM API (Streaming) và Tự động kiểm tra bản cập nhật.
+
+---
+
+## 3. THIẾT KẾ KỸ THUẬT (DESIGN)
 * **Kiến trúc luồng dữ liệu (Data Flow)**:
   ```mermaid
   sequenceDiagram
@@ -39,7 +47,7 @@
 
 ---
 
-## 3. KẾ HOẠCH TRIỂN KHAI (PLAN & SUBTASKS)
+## 4. KẾ HOẠCH TRIỂN KHAI (PLAN & SUBTASKS)
 * [ ] **Subtask 1 (Tests First)**: Viết unit tests cho core logic validation.
 * [ ] **Subtask 2 (Backend)**: Cài đặt API endpoint và migration DB tương ứng.
 * [ ] **Subtask 3 (Frontend)**: Tích hợp API và xây dựng UI phòng vệ (Defensive rendering).
