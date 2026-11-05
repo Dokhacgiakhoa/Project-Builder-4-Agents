@@ -7,8 +7,10 @@ import json
 import datetime
 from pathlib import Path
 
-from .constants import IGNORE_DIRS, CODE_EXTENSIONS  # noqa: F401
+from .constants import IGNORE_DIRS, CODE_EXTENSIONS, REPORT_NAME  # noqa: F401
 from .tree import ProjectTree
+from .baseline import check_baseline, check_declared_profile, declared_architecture, read_kit_config
+from .remediation import DEFAULT_REF, DOCS, SEVERITY_ORDER, Finding, doc_markdown, from_text, from_violation
 from .profiler import ProjectProfiler
 from .pillars_docs import DocsPillarsMixin
 from .pillars_app import AppPillarsMixin
@@ -281,208 +283,142 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
 
         return 'F (CẦN TÁI CẤU TRÚC KIẾN TRÚC TOÀN DIỆN)'
 
+    # ------------------------------------------------------------------
+    # BÁO CÁO project-review.md (cho cả người và Agent)
+    # ------------------------------------------------------------------
+    def kit_config(self):
+        return read_kit_config(self.root)
+
+    def collect_findings(self):
+        """Gộp mọi phát hiện thành danh sách Finding có mã, mức độ và tài liệu khắc phục."""
+        findings = [from_violation(v) for v in self.violations]
+
+        texts = list(self.gaps) + list(self.bloat)
+        for pillar in self.active_pillars:
+            texts.extend(pillar.get('missing', []))
+        for text in texts:
+            finding = from_text(str(text))
+            if finding is not None:
+                findings.append(finding)
+
+        declared = declared_architecture(self.kit_config())
+        ok, message, doc_id = check_declared_profile(self.root, set(self.tree.all_dirs), declared)
+        if not ok:
+            findings.append(Finding("ARCH-007", "Trung bình", message, ".builder/kit.json", [doc_id] if doc_id else ["K-004"]))
+
+        for item in check_baseline(self.root):
+            if not item["ok"]:
+                findings.append(Finding(f"BASE-{item['id']}", "Cao" if item["id"] in ("B1", "B6") else "Trung bình",
+                                        f"Core Baseline {item['id']} chưa đạt: {item['detail']}", "", ["K-003"]))
+
+        unique, seen = [], set()
+        for f in findings:
+            key = (f.code, f.title, f.location)
+            if key not in seen:
+                seen.add(key)
+                unique.append(f)
+        unique.sort(key=lambda f: (SEVERITY_ORDER.get(f.severity, 9), f.code, f.location))
+        return unique
+
     def get_ai_prompt(self):
-
+        name = self.report_path.name if self.report_path else REPORT_NAME
         return (
-
-            "[ROLE & GOAL]: Bạn là PRINCIPAL SOFTWARE ARCHITECT & SENIOR CODE REVIEWER.\n"
-
-            f"[TASK]: Hãy đọc toàn bộ nội dung bản báo cáo này (`{self.report_path.name if self.report_path else 'PROJECT_REVIEW_REPORT.md'}`).\n"
-
-            f"[CONTEXT DỰ ÁN]:\n"
-
-            f"- Loại hình dự án: {self.profile.get('archetype')}\n"
-
-            f"- TECH STACK nhận diện: {', '.join(self.profile.get('languages', []))} | {', '.join(self.profile.get('frameworks', []))}\n"
-
-            f"- Phong cách ARCHITECTURE: {self.profile.get('arch_style')}\n\n"
-
-            "[YÊU CẦU THỰC HIỆN]:\n"
-
-            "1. Phân tích và refactor ngay các vị trí vi phạm ANTI-CRASH tại Mục 6 (P0 PRIORITY).\n"
-
-            "2. Lên phương án xử lý các tiêu chí kiến trúc chưa đạt tại Mục 4 theo đúng bản sắc của dự án.\n"
-
-            "3. Dọn dẹp các tệp cấu hình thừa hoặc rủi ro bảo mật chỉ ra tại Mục 5.\n"
-
-            "4. Giữ nguyên và tối ưu hóa các điểm sáng công nghệ đã được ghi nhận tại Mục 3."
-
+            f"Hãy đọc tệp `{name}` ở gốc dự án (do Project Health Check sinh ra) và sửa dự án theo đó:\n"
+            "1. Xử lý các phát hiện mức Cao trước, rồi Trung bình, rồi Thấp.\n"
+            "2. Với mỗi phát hiện, mở tài liệu khắc phục ghi cạnh nó trong Project-Builder-Kit "
+            "(hoặc dùng skill `kit-consult` nếu có) và làm theo hướng dẫn, không tự bịa quy ước.\n"
+            "3. Không đổi hợp đồng API/schema nếu chưa có ADR và chưa hỏi người dùng.\n"
+            "4. Chạy lệnh test/lint/build trong AGENTS.md, rồi chạy lại Health Check để xác nhận.\n"
+            f"Bối cảnh: {self.profile.get('archetype')} | "
+            f"{', '.join(self.profile.get('languages', []))} {', '.join(self.profile.get('frameworks', []))}"
         )
 
     def generate_markdown_report(self, total_score):
-
-        report_file = self.root / 'PROJECT_REVIEW_REPORT.md'
-
+        report_file = self.root / REPORT_NAME
+        self.report_path = report_file
         grade = self.get_letter_grade(total_score)
-
         now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        kit_cfg = self.kit_config()
+        declared = declared_architecture(kit_cfg)
+        ref = str(kit_cfg.get('kit_ref') or DEFAULT_REF)
+        findings = self.collect_findings()
+        counts = {sev: sum(1 for f in findings if f.severity == sev) for sev in SEVERITY_ORDER}
+        baseline = check_baseline(self.root)
 
         lines = [
-
-            f"# 📋 BÁO CÁO BENCHMARK KIẾN TRÚC & ĐỐI CHIẾU CHUẨN MỰC DỰ ÁN",
-
-            f"> **Thời gian benchmark**: `{now_str}`  ",
-
-            f"> **Loại hình dự án**: `{self.profile.get('archetype')}`  ",
-
-            f"> **Phương pháp**: 100% RULE-BASED DEEP WATERFLOW TRAVERSAL (ZERO-TOKEN, ZERO-HALLUCINATION)",
-
-            "",
-
             "---",
-
-            "",
-
-            "## 🎯 1. HỒ SƠ DỰ ÁN & TỔNG KẾT BENCHMARK (PROJECT PROFILE & EXECUTIVE SUMMARY)",
-
-            "",
-
-            f"- **Điểm Benchmark Toàn Diện (BENCHMARK SCORE)**: **`{total_score} / 100`**",
-
-            f"- **Xếp Hạng Kiến Trúc (ARCHITECTURE GRADE)**: **`{grade}`**",
-
-            f"- **TECH STACK Nhận Diện**: {', '.join(self.profile.get('languages', ['UNKNOWN']))} ({', '.join(self.profile.get('frameworks', ['STANDARD']))})",
-
-            f"- **DATABASE & Hạ Tầng**: {', '.join(self.profile.get('databases', ['NONE']))} | {', '.join(self.profile.get('tools', ['LOCAL']))}",
-
-            f"- **Phong Cách Kiến Trúc**: **{self.profile.get('arch_style')}**",
-
-            f"- **Tổng số tệp mã nguồn quét sâu**: `{self.details.get('anticrash', {}).get('scanned_files', 0)} tệp`",
-
-            "",
-
+            "report: project-review",
+            "generator: Project Health Check (Project-Builder-Kit)",
+            f"generated: {now_str}",
+            f"score: {total_score}",
+            f"grade: \"{grade}\"",
+            f"declared_architecture: {declared or 'chua-khai-bao'}",
+            f"findings: {{cao: {counts['Cao']}, trung_binh: {counts['Trung bình']}, thap: {counts['Thấp']}}}",
             "---",
-
             "",
-
-            "## 📊 2. BẢNG ĐỐI CHIẾU CÁC HẠNG MỤC BENCHMARK (BENCHMARK MATRIX)",
-
+            "# project-review — Báo cáo sức khỏe dự án",
             "",
-
-            "| Hạng Mục Benchmark | Trạng Thái | Điểm Hệ Số | Trọng Số Tối Đa | Đánh Giá Chi Tiết |",
-
-            "| :--- | :---: | :---: | :---: | :--- |"
-
+            "> **Dành cho Agent**: xử lý các phát hiện ở Mục 2 theo thứ tự Cao → Trung bình → Thấp. "
+            "Mỗi phát hiện có *tài liệu khắc phục* trong Project-Builder-Kit: đọc đúng tài liệu đó rồi sửa, "
+            "chạy lại lệnh kiểm chứng trong `AGENTS.md`, rồi chạy lại Health Check. "
+            "(Link `blob` đổi thành `raw.githubusercontent.com` để tải thô.)",
+            "> **Dành cho người**: Mục 1 là tổng quan, Mục 2 là việc cần làm, Mục 3 là thang điểm. "
+            "Điểm số chỉ mang tính định hướng (quét bằng quy tắc, không thay thế review của con người).",
+            "",
+            "## 1. Tổng quan",
+            "",
+            f"- **Điểm**: **{total_score} / 100** — **{grade}**",
+            f"- **Loại hình dự án**: {self.profile.get('archetype')}",
+            f"- **Tech stack nhận diện**: {', '.join(self.profile.get('languages', ['UNKNOWN']))} "
+            f"({', '.join(self.profile.get('frameworks', ['STANDARD']))})",
+            f"- **Hạ tầng/CSDL**: {', '.join(self.profile.get('databases', ['NONE']))} | {', '.join(self.profile.get('tools', ['LOCAL']))}",
+            f"- **Profile kiến trúc khai báo** (`.builder/kit.json`): {declared or '*chưa khai báo*'}"
+            f" — cấu trúc nhận diện: {self.profile.get('arch_style')}",
+            f"- **Số tệp mã nguồn quét**: {self.details.get('anticrash', {}).get('scanned_files', 0)}",
+            f"- **Phát hiện**: {counts['Cao']} Cao · {counts['Trung bình']} Trung bình · {counts['Thấp']} Thấp",
+            "",
+            "## 2. Phát hiện cần xử lý",
+            "",
         ]
 
+        if findings:
+            lines += ["| Mã | Mức | Vị trí | Mô tả | Tài liệu khắc phục |", "| :-- | :-: | :-- | :-- | :-- |"]
+            for f in findings:
+                docs = "<br>".join(doc_markdown(d, ref) for d in f.docs if d in DOCS) or "—"
+                title = f.title.replace("|", "\\|").replace("\n", " ")
+                location = f"`{f.location}`" if f.location else "—"
+                lines.append(f"| `{f.code}` | {f.severity} | {location} | {title} | {docs} |")
+        else:
+            lines.append("- Không có phát hiện nào cần xử lý. 🎉")
+
+        snippets = [v for v in self.violations if v.get('snippet')]
+        if snippets:
+            lines += ["", "<details><summary>Đoạn mã liên quan đến các vi phạm</summary>", ""]
+            for v in snippets[:30]:
+                lines += [f"`{v.get('file')}:{v.get('line')}` — {v.get('type')}", "```", str(v.get('snippet')), "```"]
+            lines += ["", "</details>"]
+
+        lines += ["", "## 3. Thang điểm theo hạng mục", "",
+                  "| Hạng mục | Trạng thái | Điểm | Tối đa | Đạt / Thiếu |", "| :-- | :-: | :-: | :-: | :-- |"]
         for p in self.active_pillars:
-
-            score_val = p.get('score', 0)
-
-            max_val = p.get('max', 20)
-
             ratio = p.get('ratio', 0)
+            status = "✅ Đạt" if ratio >= 0.8 else ("⚠️ Lưu ý" if ratio >= 0.5 else "❌ Nguy cơ")
+            lines.append(f"| {p.get('name')} | {status} | {p.get('score', 0)} | {p.get('max', 20)} | "
+                         f"{len(p.get('found', []))} / {len(p.get('missing', []))} |")
 
-            status_icon = "✅ ĐẠT CHUẨN" if ratio >= 0.8 else ("⚠️ CẦN LƯU Ý" if ratio >= 0.5 else "❌ NGUY CƠ CAO")
+        lines += ["", "## 4. Core Baseline (bắt buộc cho mọi repo dùng Agent)", "",
+                  f"Chi tiết: {doc_markdown('K-003', ref)}", "", "| Mã | Thành phần | Trạng thái |", "| :-- | :-- | :-- |"]
+        for item in baseline:
+            mark = "✅" if item["ok"] else f"❌ {item['detail']}"
+            lines.append(f"| {item['id']} | {item['name']} | {mark} |")
 
-            pts_str = f"**{score_val} ĐIỂM**"
-
-            max_str = f"{max_val} Điểm"
-
-            eval_str = f"Hoàn thành {len(p.get('found', []))} tiêu chí / Thiếu {len(p.get('missing', []))} tiêu chí"
-
-            lines.append(f"| **{p.get('name')}** | `{status_icon}` | {pts_str} | {max_str} | {eval_str} |")
-
-        lines.extend([
-
-            "",
-
-            "---",
-
-            "",
-
-            "## 🌟 3. DỰ ÁN CÓ ƯU ĐIỂM GÌ? (STRENGTHS & INNOVATIONS)",
-
-            ""
-
-        ])
-
+        lines += ["", "## 5. Điểm mạnh", ""]
         if self.innovations:
-
-            for item in self.innovations:
-
-                lines.append(f"- [x] 🏆 **{item}**")
-
+            lines += [f"- {item}" for item in self.innovations]
         else:
+            lines.append("- Chưa phát hiện điểm nổi bật.")
 
-            lines.append("*Dự án đang vận hành ở mức cơ bản, chưa phát hiện cấu hình công nghệ mở rộng.*")
-
-        lines.extend([
-
-            "",
-
-            "---",
-
-            "",
-
-            "## ⚠️ 4. DỰ ÁN ĐANG THIẾU GÌ? (MISSING GAPS)",
-
-            ""
-
-        ])
-
-        if self.gaps:
-
-            for gap in self.gaps:
-
-                lines.append(f"- [ ] ❗ **{gap}**")
-
-        else:
-
-            lines.append("- [x] 🎉 **Không phát hiện thiếu sót kiến trúc lớn. Hệ thống đạt độ phủ chuẩn mực!**")
-
-        lines.extend([
-
-            "",
-
-            "---",
-
-            "",
-
-            "## 🧹 5. DỰ ÁN ĐANG THỪA / RÁC GÌ? (BLOAT & RISKS)",
-
-            ""
-
-        ])
-
-        if self.bloat:
-
-            for b in self.bloat:
-
-                lines.append(f"- [ ] 🗑️ **{b}**")
-
-        else:
-
-            lines.append("- [x] 🍃 **Mã nguồn sạch sẽ, không có tệp thừa hoặc rác build lọt vào Git.**")
-
-        lines.extend([
-
-            "",
-
-            "---",
-
-            "",
-
-            "## 🚨 6. CHI TIẾT VI PHẠM MÃ NGUỒN CỤ THỂ (ANTI-CRASH VIOLATIONS)",
-
-            ""
-
-        ])
-
-        if self.violations:
-
-            for v in self.violations:
-
-                lines.append(f"- **`{v.get('type')}`** tại `{v.get('file')}:{v.get('line')}`: {v.get('desc')}")
-
-                if v.get('snippet'):
-
-                    lines.append(f"  ```\n  {v.get('snippet')}\n  ```")
-
-        else:
-
-            lines.append("- [x] 🛡️ **0 phát hiện vi phạm quy tắc Anti-Crash trên toàn bộ cây thư mục.**")
+        lines += ["", "## 6. Prompt gợi ý cho Agent", "", "```text", self.get_ai_prompt(), "```", ""]
 
         report_file.write_text("\n".join(lines), encoding='utf-8')
-
         return report_file

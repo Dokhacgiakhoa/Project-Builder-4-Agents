@@ -119,13 +119,19 @@ public class MainForm : Form
         {
             _serverPort = GetFreePort();
 
-            // Đảm bảo có Python >= 3.12 và WebView2 Runtime (tự cài qua winget nếu thiếu, có hỏi người dùng)
-            string? pythonExe = await EnsurePythonAsync();
-            if (pythonExe == null) { Close(); return; }
+            // Ưu tiên Engine đóng gói (không cần Python). Chỉ khi không có mới dùng Python >= 3.12
+            // (tự cài qua winget nếu thiếu, có hỏi người dùng). WebView2 Runtime cũng được kiểm tra tương tự.
+            string? enginePath = FindBundledEngine();
+            string? pythonExe = null;
+            if (enginePath == null)
+            {
+                pythonExe = await EnsurePythonAsync();
+                if (pythonExe == null) { Close(); return; }
+            }
             if (!await EnsureWebView2Async()) { Close(); return; }
 
             // Khởi chạy Backend Server ở chế độ ngầm (Headless)
-            if (!StartPythonBackend(_serverPort, pythonExe)) { Close(); return; }
+            if (!StartBackend(_serverPort, enginePath, pythonExe)) { Close(); return; }
 
             // Chờ server sẵn sàng (tối đa 3 giây)
             await WaitForServerReadyAsync(_serverPort);
@@ -249,8 +255,32 @@ public class MainForm : Form
         return installed;
     }
 
-    private bool StartPythonBackend(int port, string pythonExe)
+    /// <summary>Tìm engine đóng gói (engine\reviewer-engine.exe) cạnh file exe; null nếu không có.</summary>
+    private static string? FindBundledEngine()
     {
+        string candidate = Path.Combine(AppContext.BaseDirectory, "engine", "reviewer-engine.exe");
+        return File.Exists(candidate) ? candidate : null;
+    }
+
+    private bool StartBackend(int port, string? enginePath, string? pythonExe)
+    {
+        if (enginePath != null)
+        {
+            var enginePsi = new ProcessStartInfo
+            {
+                FileName = enginePath,
+                Arguments = $"serve --server-only --port={port}",
+                WorkingDirectory = Path.GetDirectoryName(enginePath) ?? AppContext.BaseDirectory,
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                WindowStyle = ProcessWindowStyle.Hidden
+            };
+            _pythonProcess = Process.Start(enginePsi);
+            return _pythonProcess != null;
+        }
+
+        if (pythonExe == null) return false;
+
         string baseDir = AppContext.BaseDirectory;
         string projectRoot = baseDir;
 
@@ -271,7 +301,7 @@ public class MainForm : Form
         if (!File.Exists(scriptPath))
         {
             MessageBox.Show(
-                "Không tìm thấy scripts\\reviewer_app.py cạnh Project-Review.exe.\nHãy chạy file exe trong thư mục repo Starter Kit.",
+                "Không tìm thấy scripts\\reviewer_app.py cạnh Project-Health-Check.exe.\nHãy đặt thư mục engine\\ cạnh file exe, hoặc chạy exe trong thư mục repo Project-Builder-Kit.",
                 "Thiếu Core Engine",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);

@@ -1,0 +1,13 @@
+{
+  "kit": "Project-Builder-Kit",
+  "kit_repo": "https://github.com/Dokhacgiakhoa/Project-Builder-Kit",
+  "kit_ref": "main",
+  "core_version": "1.0.0",
+  "bootstrapped_at": "{{DATE}}",
+  "agents": ["claude-code", "codex", "antigravity"],
+  "profiles": {
+    "architecture": "{{ARCHITECTURE_PROFILE}}",
+    "stack": ["{{STACK}}"],
+    "extras": []
+  }
+}

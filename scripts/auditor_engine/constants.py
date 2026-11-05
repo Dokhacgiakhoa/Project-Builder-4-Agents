@@ -11,3 +11,6 @@ IGNORE_DIRS = {
 }
 
 CODE_EXTENSIONS = {'.ts', '.tsx', '.js', '.jsx', '.cs', '.py', '.go', '.java', '.rs', '.php'}
+
+# Tên tệp báo cáo xuất ra thư mục dự án được quét (cả người và Agent đều đọc)
+REPORT_NAME = "project-review.md"

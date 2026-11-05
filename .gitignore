@@ -56,4 +56,7 @@ yarn-error.log*
 Thumbs.db
 
 # Generated review output
-PROJECT_REVIEW_REPORT.md
+project-review.md
+
+# Packaged engine (build output)
+engine/

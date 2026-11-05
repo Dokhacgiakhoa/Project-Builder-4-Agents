@@ -36,7 +36,10 @@ def test_auditor_scores_within_bounds_and_writes_report(sample_project):
     assert auditor.get_letter_grade(score)
     report = auditor.generate_markdown_report(score)
     assert report.exists()
-    assert "BENCHMARK" in report.read_text(encoding="utf-8")
+    assert report.name == "project-review.md"
+    text = report.read_text(encoding="utf-8")
+    assert text.startswith("---") and "report: project-review" in text.splitlines()[1]
+    assert "## 2. Phát hiện cần xử lý" in text
 
 
 def test_auditor_detects_silent_exception_eater(sample_project):

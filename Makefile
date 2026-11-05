@@ -1,51 +1,21 @@
-.PHONY: help setup init review build-exe dev-frontend build-frontend up down restart logs test lint clean
+.PHONY: help review build-exe test lint check-links
 
-help: ## Hiển thị danh mục các lệnh hỗ trợ
-	@echo "Universal Project Starter Kit - Developer Commands:"
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
+help: ## Hiển thị danh mục lệnh (dành cho người phát triển Project-Builder-Kit)
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-14s %s\n", $$1, $$2}'
 
-setup: ## Khởi tạo môi trường (Copy .env, tạo thư mục)
-	@if [ ! -f .env ]; then cp .env.example .env && echo "Created .env from .env.example"; fi
-	@echo "Setup completed successfully."
-
-init: ## Khởi tạo dự án mới (make init TARGET=đường/dẫn [NAME=tên] [FLAGS="--frontend --docker --git"])
-	python scripts/init_project.py $(TARGET) $(if $(NAME),--name "$(NAME)") $(FLAGS)
-
-review: ## Thanh tra kiến trúc (make review [TARGET=đường/dẫn/dự/án]; xuất PROJECT_REVIEW_REPORT.md)
+review: ## Project Health Check: make review [TARGET=đường/dẫn] -> project-review.md
 	python scripts/project_auditor.py $(or $(TARGET),.)
 
-build-exe: ## Đóng gói Project-Review.exe độc lập có gắn icon ứng dụng
+build-exe: ## Đóng gói engine + Project-Health-Check.exe (cần PyInstaller, .NET 10 SDK)
 	python scripts/build_exe.py
 
-dev-frontend: ## Khởi chạy Frontend React (Vite dev server)
-	cd frontend && npm run dev
-
-build-frontend: ## Biên dịch production build cho Frontend
-	cd frontend && npm run build
-
-up: ## Khởi chạy toàn bộ hạ tầng local qua Docker Compose
-	docker compose up -d
-
-down: ## Dừng toàn bộ hạ tầng Docker Compose
-	docker compose down
-
-restart: down up ## Khởi động lại toàn bộ containers
-
-logs: ## Xem logs thời gian thực của Docker containers
-	docker compose logs -f
-
-test: ## Chạy bộ kiểm thử tự động
+test: ## Chạy toàn bộ kiểm thử (pytest + vitest cho frontend mẫu)
 	python -m pytest tests -q
-	cd frontend && npm test
+	cd profiles/frontend/starter && npm test
 
-lint: ## Chạy kiểm tra định dạng và linter
+lint: ## Kiểm tra cú pháp Python và ESLint cho frontend mẫu
 	python -m compileall -q scripts
-	cd frontend && npm run lint
+	cd profiles/frontend/starter && npm run lint
 
-clean: ## Dọn dẹp các tệp tạm, cache và build artifacts
-	@echo "Cleaning temporary files..."
-	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
-	find . -type d -name "node_modules/.cache" -exec rm -rf {} + 2>/dev/null || true
-	find . -type d -name "bin" -exec rm -rf {} + 2>/dev/null || true
-	find . -type d -name "obj" -exec rm -rf {} + 2>/dev/null || true
-	@echo "Clean completed."
+check-links: ## Kiểm tra link tài liệu (INDEX.md không được dẫn Agent vào ngõ cụt)
+	python scripts/check_links.py

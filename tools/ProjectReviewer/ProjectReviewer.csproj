@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyName>Project-Review</AssemblyName>
+    <AssemblyName>Project-Health-Check</AssemblyName>
     <ApplicationIcon>..\..\assets\app-icon.ico</ApplicationIcon>
     <RootNamespace>ProjectReviewer</RootNamespace>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>

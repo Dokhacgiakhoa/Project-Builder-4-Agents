@@ -22,7 +22,7 @@ SCRIPTS_DIR = Path(__file__).resolve().parent.parent
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-from project_auditor import ProjectAuditor
+from auditor_engine import ProjectAuditor
 from reviewer_shell.settings_manager import SettingsManager
 from reviewer_shell.llm_evaluator import LLMEvaluator
 
@@ -351,7 +351,7 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
 
     def _handle_check_update(self):
         try:
-            url = "https://api.github.com/repos/Dokhacgiakhoa/Project-Starter-Kit/releases/latest"
+            url = "https://api.github.com/repos/Dokhacgiakhoa/Project-Builder-Kit/releases/latest"
             req = urllib.request.Request(url, headers={"User-Agent": "Project-Reviewer-App"})
             with urllib.request.urlopen(req, timeout=5) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
@@ -362,7 +362,7 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
                     "latest_version": latest_tag,
                     "has_update": has_update,
                     "release_notes": data.get("body", "Phiên bản mới nhất trên GitHub."),
-                    "html_url": data.get("html_url", "https://github.com/Dokhacgiakhoa/Project-Starter-Kit")
+                    "html_url": data.get("html_url", "https://github.com/Dokhacgiakhoa/Project-Builder-Kit")
                 })
         except Exception as e:
             self._send_json({

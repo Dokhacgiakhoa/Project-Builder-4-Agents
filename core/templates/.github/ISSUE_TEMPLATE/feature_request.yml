@@ -1,0 +1,29 @@
+name: ✨ Đề Xuất Tính Năng (Feature Request)
+description: Đề xuất một tính năng mới hoặc cải tiến sản phẩm
+title: "[FEAT]: "
+labels: ["enhancement", "needs-spec"]
+body:
+  - type: markdown
+    attributes:
+      value: Đề xuất tính năng theo chuẩn tư duy *Who - What - Outcome*.
+  - type: textarea
+    id: who
+    attributes:
+      label: 1. WHO (Đối tượng hưởng lợi)
+      description: Tính năng này phục vụ nhóm người dùng nào?
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: 2. WHAT (Nỗi đau & Vấn đề giải quyết)
+      description: Bài toán thực tế đang gặp phải là gì?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: 3. OUTCOME (Kết quả kỳ vọng)
+      description: Chỉ số hoặc kết quả cụ thể nào chứng minh tính năng này thành công?
+    validations:
+      required: true

@@ -11,6 +11,13 @@ if sys.version_info < (3, 12):
     print("[ERROR] Cần Python 3.12 trở lên (đang chạy %d.%d). Khuyến nghị 3.14." % sys.version_info[:2], file=sys.stderr)
     sys.exit(1)
 
+# Console Windows mặc định không in được tiếng Việt (cp1252): ép UTF-8, thay ký tự lỗi thay vì sập.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, OSError):
+        pass
+
 from auditor_engine import ProjectAuditor, ProjectProfiler, ProjectTree  # noqa: F401
 
 if __name__ == '__main__':
