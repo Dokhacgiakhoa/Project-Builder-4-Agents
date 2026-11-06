@@ -152,6 +152,12 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self):
         if not self._request_is_local():
+            # Đọc bỏ phần body chưa nhận để client không bị reset kết nối khi nhận 403
+            try:
+                self.rfile.read(min(int(self.headers.get("Content-Length", 0)), 1_000_000))
+            except (ValueError, OSError):
+                pass
+            self.close_connection = True
             self.send_error(403, "Forbidden")
             return
         parsed = urllib.parse.urlparse(self.path)

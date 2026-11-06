@@ -10,6 +10,7 @@ Sử dụng:
 
 import json
 import os
+import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -59,32 +60,52 @@ def categorize_file(rel_path: str) -> str:
     return "other"
 
 
+def list_repo_files():
+    """Danh sách tệp ổn định giữa máy dev và CI: ưu tiên `git ls-files`, nếu không thì duyệt thư mục."""
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(ROOT), "ls-files", "-z"],
+            capture_output=True, check=True, text=True, encoding="utf-8",
+        ).stdout
+        files = [f for f in out.split(chr(0)) if f]
+        if files:
+            return sorted(files)
+    except (OSError, subprocess.CalledProcessError):
+        pass
+    found = []
+    for dirpath, dirnames, filenames in os.walk(ROOT):
+        dirnames[:] = [d for d in dirnames if d not in SKIP_DIRS and not d.startswith(".git")]
+        for f in filenames:
+            found.append((Path(dirpath) / f).relative_to(ROOT).as_posix())
+    return sorted(found)
+
+
 def generate():
     manifest_files = {}
 
-    for dirpath, dirnames, filenames in os.walk(ROOT):
-        # Cắt tỉa các thư mục bỏ qua
-        dirnames[:] = [d for d in dirnames if d not in SKIP_DIRS and not d.startswith(".git")]
+    for rel_path in list_repo_files():
+        parts = rel_path.split("/")
+        if any(d in SKIP_DIRS or d.startswith(".git") for d in parts[:-1]):
+            continue
+        if parts[-1] in SKIP_FILES:
+            continue
 
-        for f in filenames:
-            if f in SKIP_FILES:
-                continue
+        full_path = ROOT / rel_path
+        if not full_path.is_file():
+            continue
 
-            full_path = Path(dirpath) / f
-            rel_path = full_path.relative_to(ROOT).as_posix()
+        # Không đưa chính MANIFEST.json vào danh sách của nó
+        if rel_path == "MANIFEST.json":
+            continue
 
-            # Không đưa chính MANIFEST.json vào danh sách của nó
-            if rel_path == "MANIFEST.json":
-                continue
+        category = categorize_file(rel_path)
+        raw_url = f"{RAW_BASE}/{rel_path}"
 
-            category = categorize_file(rel_path)
-            raw_url = f"{RAW_BASE}/{rel_path}"
-
-            manifest_files[rel_path] = {
-                "raw_url": raw_url,
-                "category": category,
-                "size_bytes": full_path.stat().st_size,
-            }
+        manifest_files[rel_path] = {
+            "raw_url": raw_url,
+            "category": category,
+            "size_bytes": full_path.stat().st_size,
+        }
 
     manifest = {
         "kit": "Project-Builder-4-Agents",

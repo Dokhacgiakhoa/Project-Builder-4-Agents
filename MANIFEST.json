@@ -9,9 +9,49 @@
     "how_it_works": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/HOW_IT_WORKS.md",
     "llms_txt": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/llms.txt"
   },
-  "generated_at": "2026-11-06T00:19:50.162698+00:00",
-  "total_files": 337,
+  "generated_at": "2026-11-06T10:05:38.148618+00:00",
+  "total_files": 335,
   "files": {
+    ".agents/skills/health-check/SKILL.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.agents/skills/health-check/SKILL.md",
+      "category": "other",
+      "size_bytes": 960
+    },
+    ".agents/skills/kit-consult/SKILL.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.agents/skills/kit-consult/SKILL.md",
+      "category": "other",
+      "size_bytes": 922
+    },
+    ".agents/skills/spec-first-task/SKILL.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.agents/skills/spec-first-task/SKILL.md",
+      "category": "other",
+      "size_bytes": 1270
+    },
+    ".builder/kit.json": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.builder/kit.json",
+      "category": "other",
+      "size_bytes": 467
+    },
+    ".claude/skills/health-check/SKILL.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.claude/skills/health-check/SKILL.md",
+      "category": "other",
+      "size_bytes": 960
+    },
+    ".claude/skills/kit-consult/SKILL.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.claude/skills/kit-consult/SKILL.md",
+      "category": "other",
+      "size_bytes": 922
+    },
+    ".claude/skills/spec-first-task/SKILL.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.claude/skills/spec-first-task/SKILL.md",
+      "category": "other",
+      "size_bytes": 1270
+    },
+    ".cursor/rules/agent-constitution.mdc": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.cursor/rules/agent-constitution.mdc",
+      "category": "other",
+      "size_bytes": 94
+    },
     ".editorconfig": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.editorconfig",
       "category": "other",
@@ -25,7 +65,7 @@
     ".gitattributes": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.gitattributes",
       "category": "other",
-      "size_bytes": 37
+      "size_bytes": 39
     },
     ".gitignore": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.gitignore",
@@ -35,57 +75,47 @@
     ".windsurfrules": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.windsurfrules",
       "category": "other",
-      "size_bytes": 111
+      "size_bytes": 113
     },
     "AGENTS.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/AGENTS.md",
       "category": "root",
-      "size_bytes": 4386
+      "size_bytes": 4412
     },
     "BOOTSTRAP.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/BOOTSTRAP.md",
       "category": "root",
-      "size_bytes": 6858
+      "size_bytes": 6936
     },
     "CLAUDE.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/CLAUDE.md",
       "category": "other",
-      "size_bytes": 11
-    },
-    "docker-compose.yml": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/docker-compose.yml",
-      "category": "other",
-      "size_bytes": 227
+      "size_bytes": 12
     },
     "Dockerfile": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/Dockerfile",
       "category": "other",
-      "size_bytes": 805
+      "size_bytes": 830
     },
     "HOW_IT_WORKS.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/HOW_IT_WORKS.md",
       "category": "root",
-      "size_bytes": 10071
+      "size_bytes": 10217
     },
     "INDEX.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/INDEX.md",
       "category": "root",
-      "size_bytes": 10560
+      "size_bytes": 10643
     },
     "LICENSE": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/LICENSE",
       "category": "other",
       "size_bytes": 1099
     },
-    "llms.txt": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/llms.txt",
-      "category": "root",
-      "size_bytes": 5316
-    },
     "Makefile": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/Makefile",
       "category": "other",
-      "size_bytes": 965
+      "size_bytes": 986
     },
     "Project-Health-Check.exe": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/Project-Health-Check.exe",
@@ -97,11 +127,6 @@
       "category": "other",
       "size_bytes": 2139
     },
-    "project-review.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/project-review.md",
-      "category": "other",
-      "size_bytes": 7598
-    },
     "README.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/README.md",
       "category": "root",
@@ -110,47 +135,7 @@
     "TASKS.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/TASKS.md",
       "category": "other",
-      "size_bytes": 16873
-    },
-    ".agents/skills/health-check/SKILL.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.agents/skills/health-check/SKILL.md",
-      "category": "other",
-      "size_bytes": 948
-    },
-    ".agents/skills/kit-consult/SKILL.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.agents/skills/kit-consult/SKILL.md",
-      "category": "other",
-      "size_bytes": 910
-    },
-    ".agents/skills/spec-first-task/SKILL.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.agents/skills/spec-first-task/SKILL.md",
-      "category": "other",
-      "size_bytes": 1256
-    },
-    ".builder/kit.json": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.builder/kit.json",
-      "category": "other",
-      "size_bytes": 454
-    },
-    ".claude/skills/health-check/SKILL.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.claude/skills/health-check/SKILL.md",
-      "category": "other",
-      "size_bytes": 948
-    },
-    ".claude/skills/kit-consult/SKILL.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.claude/skills/kit-consult/SKILL.md",
-      "category": "other",
-      "size_bytes": 910
-    },
-    ".claude/skills/spec-first-task/SKILL.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.claude/skills/spec-first-task/SKILL.md",
-      "category": "other",
-      "size_bytes": 1256
-    },
-    ".cursor/rules/agent-constitution.mdc": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.cursor/rules/agent-constitution.mdc",
-      "category": "other",
-      "size_bytes": 89
+      "size_bytes": 17381
     },
     "adrs/0011-desktop-and-tooling-architecture.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/adrs/0011-desktop-and-tooling-architecture.md",
@@ -160,17 +145,17 @@
     "adrs/0012-agent-first-builder-and-health-check.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/adrs/0012-agent-first-builder-and-health-check.md",
       "category": "adrs",
-      "size_bytes": 4859
+      "size_bytes": 4907
     },
     "adrs/0013-remote-knowledge-hub-and-zero-clone-bootstrap.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/adrs/0013-remote-knowledge-hub-and-zero-clone-bootstrap.md",
       "category": "adrs",
-      "size_bytes": 3941
+      "size_bytes": 3983
     },
     "adrs/0014-english-as-primary-language-for-token-efficiency.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/adrs/0014-english-as-primary-language-for-token-efficiency.md",
       "category": "adrs",
-      "size_bytes": 3355
+      "size_bytes": 3398
     },
     "assets/app-icon-preview.png": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/assets/app-icon-preview.png",
@@ -212,35 +197,50 @@
       "category": "other",
       "size_bytes": 2534
     },
-    "core/discovery.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/discovery.md",
-      "category": "core",
-      "size_bytes": 3464
-    },
     "core/README.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/README.md",
       "category": "core",
-      "size_bytes": 3131
+      "size_bytes": 3167
     },
-    "core/untrusted-content.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/untrusted-content.md",
+    "core/discovery.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/discovery.md",
       "category": "core",
-      "size_bytes": 2685
+      "size_bytes": 3510
     },
     "core/standards/coding-conventions.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/standards/coding-conventions.md",
       "category": "core",
-      "size_bytes": 1503
+      "size_bytes": 1526
     },
     "core/standards/definition-of-done.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/standards/definition-of-done.md",
       "category": "core",
-      "size_bytes": 1105
+      "size_bytes": 1125
     },
     "core/standards/test-strategy.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/standards/test-strategy.md",
       "category": "core",
-      "size_bytes": 906
+      "size_bytes": 924
+    },
+    "core/templates/.agents/skills/health-check/SKILL.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/.agents/skills/health-check/SKILL.md",
+      "category": "core",
+      "size_bytes": 960
+    },
+    "core/templates/.agents/skills/kit-consult/SKILL.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/.agents/skills/kit-consult/SKILL.md",
+      "category": "core",
+      "size_bytes": 922
+    },
+    "core/templates/.agents/skills/spec-first-task/SKILL.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/.agents/skills/spec-first-task/SKILL.md",
+      "category": "core",
+      "size_bytes": 1270
+    },
+    "core/templates/.builder/kit.json": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/.builder/kit.json",
+      "category": "core",
+      "size_bytes": 376
     },
     "core/templates/.editorconfig": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/.editorconfig",
@@ -255,47 +255,27 @@
     "core/templates/AGENTS.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/AGENTS.md",
       "category": "core",
-      "size_bytes": 6141
+      "size_bytes": 6210
     },
     "core/templates/CLAUDE.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/CLAUDE.md",
       "category": "core",
-      "size_bytes": 11
-    },
-    "core/templates/gitignore.tpl": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/gitignore.tpl",
-      "category": "core",
-      "size_bytes": 696
-    },
-    "core/templates/.agents/skills/health-check/SKILL.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/.agents/skills/health-check/SKILL.md",
-      "category": "core",
-      "size_bytes": 948
-    },
-    "core/templates/.agents/skills/kit-consult/SKILL.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/.agents/skills/kit-consult/SKILL.md",
-      "category": "core",
-      "size_bytes": 910
-    },
-    "core/templates/.agents/skills/spec-first-task/SKILL.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/.agents/skills/spec-first-task/SKILL.md",
-      "category": "core",
-      "size_bytes": 1256
-    },
-    "core/templates/.builder/kit.json": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/.builder/kit.json",
-      "category": "core",
-      "size_bytes": 363
+      "size_bytes": 12
     },
     "core/templates/adrs/0000-template.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/adrs/0000-template.md",
       "category": "core",
-      "size_bytes": 561
+      "size_bytes": 583
     },
     "core/templates/docs/project-brief.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/docs/project-brief.md",
       "category": "core",
-      "size_bytes": 969
+      "size_bytes": 1007
+    },
+    "core/templates/gitignore.tpl": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/gitignore.tpl",
+      "category": "core",
+      "size_bytes": 702
     },
     "core/templates/planning/backlog.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/planning/backlog.md",
@@ -320,12 +300,22 @@
     "core/templates/scripts/sync_docs.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/scripts/sync_docs.py",
       "category": "core",
-      "size_bytes": 2068
+      "size_bytes": 2129
+    },
+    "core/templates/specs/contracts/api-contract-template.yaml": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/specs/contracts/api-contract-template.yaml",
+      "category": "core",
+      "size_bytes": 1459
     },
     "core/templates/specs/domains.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/specs/domains.md",
       "category": "core",
       "size_bytes": 1852
+    },
+    "core/templates/specs/features/template-spec.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/specs/features/template-spec.md",
+      "category": "core",
+      "size_bytes": 3451
     },
     "core/templates/specs/product-vision.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/specs/product-vision.md",
@@ -337,65 +327,50 @@
       "category": "core",
       "size_bytes": 1096
     },
-    "core/templates/specs/contracts/api-contract-template.yaml": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/specs/contracts/api-contract-template.yaml",
-      "category": "core",
-      "size_bytes": 1459
-    },
-    "core/templates/specs/features/template-spec.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/specs/features/template-spec.md",
-      "category": "core",
-      "size_bytes": 3451
-    },
     "core/templates/tasks/task-spec.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/tasks/task-spec.md",
       "category": "core",
-      "size_bytes": 811
+      "size_bytes": 833
+    },
+    "core/untrusted-content.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/untrusted-content.md",
+      "category": "core",
+      "size_bytes": 2717
+    },
+    "docker-compose.yml": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/docker-compose.yml",
+      "category": "other",
+      "size_bytes": 238
     },
     "docs/project-brief.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/docs/project-brief.md",
       "category": "other",
-      "size_bytes": 2966
+      "size_bytes": 3003
     },
     "docs/standards/coding-conventions.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/docs/standards/coding-conventions.md",
       "category": "other",
-      "size_bytes": 1503
+      "size_bytes": 1526
     },
     "docs/standards/definition-of-done.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/docs/standards/definition-of-done.md",
       "category": "other",
-      "size_bytes": 1105
+      "size_bytes": 1125
     },
     "docs/standards/test-strategy.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/docs/standards/test-strategy.md",
       "category": "other",
-      "size_bytes": 906
-    },
-    "engine/reviewer-engine.exe": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/engine/reviewer-engine.exe",
-      "category": "other",
-      "size_bytes": 9147334
+      "size_bytes": 924
     },
     "evals/c1-bootstrap-protocol.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/evals/c1-bootstrap-protocol.md",
       "category": "other",
-      "size_bytes": 4478
+      "size_bytes": 4538
     },
     "examples/before-vibe-code/.gitignore": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/.gitignore",
       "category": "other",
       "size_bytes": 398
-    },
-    "examples/before-vibe-code/appsettings.Development.json": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/appsettings.Development.json",
-      "category": "other",
-      "size_bytes": 127
-    },
-    "examples/before-vibe-code/appsettings.json": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/appsettings.json",
-      "category": "other",
-      "size_bytes": 301
     },
     "examples/before-vibe-code/Before-Vibe-Coding.csproj": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Before-Vibe-Coding.csproj",
@@ -407,25 +382,105 @@
       "category": "other",
       "size_bytes": 73
     },
-    "examples/before-vibe-code/package.json": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/package.json",
+    "examples/before-vibe-code/Controllers/ProjectController.cs": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Controllers/ProjectController.cs",
       "category": "other",
-      "size_bytes": 221
+      "size_bytes": 3648
+    },
+    "examples/before-vibe-code/Data/ApplicationDbContext.cs": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Data/ApplicationDbContext.cs",
+      "category": "other",
+      "size_bytes": 1632
+    },
+    "examples/before-vibe-code/Dtos/Projects/CreateProjectDto.cs": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Dtos/Projects/CreateProjectDto.cs",
+      "category": "other",
+      "size_bytes": 521
+    },
+    "examples/before-vibe-code/Dtos/Projects/ProjectDetailDto.cs": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Dtos/Projects/ProjectDetailDto.cs",
+      "category": "other",
+      "size_bytes": 1835
+    },
+    "examples/before-vibe-code/Dtos/Projects/UpdateAudienceDto.cs": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Dtos/Projects/UpdateAudienceDto.cs",
+      "category": "other",
+      "size_bytes": 315
+    },
+    "examples/before-vibe-code/Dtos/Requirements/AddRequirementDto.cs": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Dtos/Requirements/AddRequirementDto.cs",
+      "category": "other",
+      "size_bytes": 553
+    },
+    "examples/before-vibe-code/Migrations/20261106000000_InitialCreate.cs": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Migrations/20261106000000_InitialCreate.cs",
+      "category": "other",
+      "size_bytes": 1118
+    },
+    "examples/before-vibe-code/Models/Entities/ArchitectureConfig.cs": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Models/Entities/ArchitectureConfig.cs",
+      "category": "other",
+      "size_bytes": 622
+    },
+    "examples/before-vibe-code/Models/Entities/Project.cs": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Models/Entities/Project.cs",
+      "category": "other",
+      "size_bytes": 867
+    },
+    "examples/before-vibe-code/Models/Entities/PromptArtifact.cs": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Models/Entities/PromptArtifact.cs",
+      "category": "other",
+      "size_bytes": 562
+    },
+    "examples/before-vibe-code/Models/Entities/Requirement.cs": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Models/Entities/Requirement.cs",
+      "category": "other",
+      "size_bytes": 728
     },
     "examples/before-vibe-code/Program.cs": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Program.cs",
       "category": "other",
-      "size_bytes": 2397
+      "size_bytes": 2481
+    },
+    "examples/before-vibe-code/Properties/launchSettings.json": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Properties/launchSettings.json",
+      "category": "other",
+      "size_bytes": 642
     },
     "examples/before-vibe-code/README.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/README.md",
       "category": "other",
       "size_bytes": 18
     },
-    "examples/before-vibe-code/vercel.json": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/vercel.json",
+    "examples/before-vibe-code/Repositories/IProjectRepository.cs": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Repositories/IProjectRepository.cs",
       "category": "other",
-      "size_bytes": 242
+      "size_bytes": 555
+    },
+    "examples/before-vibe-code/Repositories/ProjectRepository.cs": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Repositories/ProjectRepository.cs",
+      "category": "other",
+      "size_bytes": 3032
+    },
+    "examples/before-vibe-code/Services/IProjectService.cs": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Services/IProjectService.cs",
+      "category": "other",
+      "size_bytes": 657
+    },
+    "examples/before-vibe-code/Services/ProjectService.cs": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Services/ProjectService.cs",
+      "category": "other",
+      "size_bytes": 5101
+    },
+    "examples/before-vibe-code/appsettings.Development.json": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/appsettings.Development.json",
+      "category": "other",
+      "size_bytes": 127
+    },
+    "examples/before-vibe-code/appsettings.json": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/appsettings.json",
+      "category": "other",
+      "size_bytes": 301
     },
     "examples/before-vibe-code/client/index.html": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/index.html",
@@ -442,31 +497,6 @@
       "category": "other",
       "size_bytes": 86
     },
-    "examples/before-vibe-code/client/tailwind.config.js": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/tailwind.config.js",
-      "category": "other",
-      "size_bytes": 855
-    },
-    "examples/before-vibe-code/client/tsconfig.json": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/tsconfig.json",
-      "category": "other",
-      "size_bytes": 607
-    },
-    "examples/before-vibe-code/client/tsconfig.node.json": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/tsconfig.node.json",
-      "category": "other",
-      "size_bytes": 501
-    },
-    "examples/before-vibe-code/client/tsconfig.tsbuildinfo": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/tsconfig.tsbuildinfo",
-      "category": "other",
-      "size_bytes": 657
-    },
-    "examples/before-vibe-code/client/vite.config.ts": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/vite.config.ts",
-      "category": "other",
-      "size_bytes": 288
-    },
     "examples/before-vibe-code/client/public/bg-blue-orange.jpg": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/public/bg-blue-orange.jpg",
       "category": "other",
@@ -481,16 +511,6 @@
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/App.tsx",
       "category": "other",
       "size_bytes": 2031
-    },
-    "examples/before-vibe-code/client/src/index.css": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/index.css",
-      "category": "other",
-      "size_bytes": 2079
-    },
-    "examples/before-vibe-code/client/src/main.tsx": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/main.tsx",
-      "category": "other",
-      "size_bytes": 236
     },
     "examples/before-vibe-code/client/src/components/Footer.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/components/Footer.tsx",
@@ -530,7 +550,7 @@
     "examples/before-vibe-code/client/src/components/steps/Step4TechStack.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/components/steps/Step4TechStack.tsx",
       "category": "other",
-      "size_bytes": 13599
+      "size_bytes": 13880
     },
     "examples/before-vibe-code/client/src/components/steps/Step5AIAnalysis.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/components/steps/Step5AIAnalysis.tsx",
@@ -545,22 +565,32 @@
     "examples/before-vibe-code/client/src/components/steps/tech-stack-presets.ts": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/components/steps/tech-stack-presets.ts",
       "category": "other",
-      "size_bytes": 4547
+      "size_bytes": 4666
     },
     "examples/before-vibe-code/client/src/components/studio/StudioContextSummary.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/components/studio/StudioContextSummary.tsx",
       "category": "other",
-      "size_bytes": 6918
+      "size_bytes": 7083
     },
     "examples/before-vibe-code/client/src/context/AuthContext.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/context/AuthContext.tsx",
       "category": "other",
       "size_bytes": 2782
     },
+    "examples/before-vibe-code/client/src/index.css": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/index.css",
+      "category": "other",
+      "size_bytes": 2079
+    },
+    "examples/before-vibe-code/client/src/main.tsx": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/main.tsx",
+      "category": "other",
+      "size_bytes": 236
+    },
     "examples/before-vibe-code/client/src/pages/AccountPage.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/pages/AccountPage.tsx",
       "category": "other",
-      "size_bytes": 12056
+      "size_bytes": 12306
     },
     "examples/before-vibe-code/client/src/pages/ContactPage.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/pages/ContactPage.tsx",
@@ -580,97 +610,62 @@
     "examples/before-vibe-code/client/src/pages/StudioPage.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/pages/StudioPage.tsx",
       "category": "other",
-      "size_bytes": 9678
+      "size_bytes": 9952
     },
     "examples/before-vibe-code/client/src/pages/account/SecuritySection.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/pages/account/SecuritySection.tsx",
       "category": "other",
-      "size_bytes": 15392
+      "size_bytes": 15728
     },
     "examples/before-vibe-code/client/src/services/api.ts": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/services/api.ts",
       "category": "other",
       "size_bytes": 3632
     },
-    "examples/before-vibe-code/Controllers/ProjectController.cs": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Controllers/ProjectController.cs",
+    "examples/before-vibe-code/client/tailwind.config.js": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/tailwind.config.js",
       "category": "other",
-      "size_bytes": 3648
+      "size_bytes": 855
     },
-    "examples/before-vibe-code/Data/ApplicationDbContext.cs": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Data/ApplicationDbContext.cs",
+    "examples/before-vibe-code/client/tsconfig.json": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/tsconfig.json",
       "category": "other",
-      "size_bytes": 1632
+      "size_bytes": 607
     },
-    "examples/before-vibe-code/Dtos/Projects/CreateProjectDto.cs": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Dtos/Projects/CreateProjectDto.cs",
+    "examples/before-vibe-code/client/tsconfig.node.json": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/tsconfig.node.json",
       "category": "other",
-      "size_bytes": 521
+      "size_bytes": 501
     },
-    "examples/before-vibe-code/Dtos/Projects/ProjectDetailDto.cs": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Dtos/Projects/ProjectDetailDto.cs",
-      "category": "other",
-      "size_bytes": 1835
-    },
-    "examples/before-vibe-code/Dtos/Projects/UpdateAudienceDto.cs": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Dtos/Projects/UpdateAudienceDto.cs",
-      "category": "other",
-      "size_bytes": 315
-    },
-    "examples/before-vibe-code/Dtos/Requirements/AddRequirementDto.cs": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Dtos/Requirements/AddRequirementDto.cs",
-      "category": "other",
-      "size_bytes": 553
-    },
-    "examples/before-vibe-code/Migrations/20261106000000_InitialCreate.cs": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Migrations/20261106000000_InitialCreate.cs",
-      "category": "other",
-      "size_bytes": 1083
-    },
-    "examples/before-vibe-code/Models/Entities/ArchitectureConfig.cs": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Models/Entities/ArchitectureConfig.cs",
-      "category": "other",
-      "size_bytes": 622
-    },
-    "examples/before-vibe-code/Models/Entities/Project.cs": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Models/Entities/Project.cs",
-      "category": "other",
-      "size_bytes": 867
-    },
-    "examples/before-vibe-code/Models/Entities/PromptArtifact.cs": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Models/Entities/PromptArtifact.cs",
-      "category": "other",
-      "size_bytes": 562
-    },
-    "examples/before-vibe-code/Models/Entities/Requirement.cs": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Models/Entities/Requirement.cs",
-      "category": "other",
-      "size_bytes": 728
-    },
-    "examples/before-vibe-code/Properties/launchSettings.json": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Properties/launchSettings.json",
-      "category": "other",
-      "size_bytes": 642
-    },
-    "examples/before-vibe-code/Repositories/IProjectRepository.cs": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Repositories/IProjectRepository.cs",
-      "category": "other",
-      "size_bytes": 555
-    },
-    "examples/before-vibe-code/Repositories/ProjectRepository.cs": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Repositories/ProjectRepository.cs",
-      "category": "other",
-      "size_bytes": 3032
-    },
-    "examples/before-vibe-code/Services/IProjectService.cs": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Services/IProjectService.cs",
+    "examples/before-vibe-code/client/tsconfig.tsbuildinfo": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/tsconfig.tsbuildinfo",
       "category": "other",
       "size_bytes": 657
     },
-    "examples/before-vibe-code/Services/ProjectService.cs": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Services/ProjectService.cs",
+    "examples/before-vibe-code/client/vite.config.ts": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/vite.config.ts",
       "category": "other",
-      "size_bytes": 5101
+      "size_bytes": 288
+    },
+    "examples/before-vibe-code/package.json": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/package.json",
+      "category": "other",
+      "size_bytes": 221
+    },
+    "examples/before-vibe-code/vercel.json": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/vercel.json",
+      "category": "other",
+      "size_bytes": 242
+    },
+    "examples/before-vibe-code/wwwroot/assets/index-DBkpOnLZ.css": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/wwwroot/assets/index-DBkpOnLZ.css",
+      "category": "other",
+      "size_bytes": 33472
+    },
+    "examples/before-vibe-code/wwwroot/assets/index-DamMNCcJ.js": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/wwwroot/assets/index-DamMNCcJ.js",
+      "category": "other",
+      "size_bytes": 493304
     },
     "examples/before-vibe-code/wwwroot/bg-blue-orange.jpg": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/wwwroot/bg-blue-orange.jpg",
@@ -687,15 +682,15 @@
       "category": "other",
       "size_bytes": 1172
     },
-    "examples/before-vibe-code/wwwroot/assets/index-DamMNCcJ.js": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/wwwroot/assets/index-DamMNCcJ.js",
-      "category": "other",
-      "size_bytes": 493304
+    "knowledge-base/README_boilerplate.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/README_boilerplate.md",
+      "category": "knowledge-base",
+      "size_bytes": 2862
     },
-    "examples/before-vibe-code/wwwroot/assets/index-DBkpOnLZ.css": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/wwwroot/assets/index-DBkpOnLZ.css",
-      "category": "other",
-      "size_bytes": 33472
+    "knowledge-base/archive/PLAN.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/archive/PLAN.md",
+      "category": "knowledge-base",
+      "size_bytes": 18796
     },
     "knowledge-base/claude-code.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/claude-code.md",
@@ -706,21 +701,6 @@
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/phuong-phap-mentor.md",
       "category": "knowledge-base",
       "size_bytes": 7745
-    },
-    "knowledge-base/README_boilerplate.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/README_boilerplate.md",
-      "category": "knowledge-base",
-      "size_bytes": 2862
-    },
-    "knowledge-base/sample_prd.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/sample_prd.md",
-      "category": "knowledge-base",
-      "size_bytes": 14986
-    },
-    "knowledge-base/archive/PLAN.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/archive/PLAN.md",
-      "category": "knowledge-base",
-      "size_bytes": 18796
     },
     "knowledge-base/quan-tri-du-an/02-kinh-nghiem-quan-tri-du-an-va-xu-ly-xung-dot.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/quan-tri-du-an/02-kinh-nghiem-quan-tri-du-an-va-xu-ly-xung-dot.md",
@@ -822,15 +802,15 @@
       "category": "knowledge-base",
       "size_bytes": 17876131
     },
-    "knowledge-base/quan-tri-du-an/raw/team_project_management_template.xlsx": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/quan-tri-du-an/raw/team_project_management_template.xlsx",
-      "category": "knowledge-base",
-      "size_bytes": 69041
-    },
     "knowledge-base/quan-tri-du-an/raw/Template Project Charter + Mẫu báo cáo.xlsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/quan-tri-du-an/raw/Template Project Charter + Mẫu báo cáo.xlsx",
       "category": "knowledge-base",
       "size_bytes": 46608
+    },
+    "knowledge-base/quan-tri-du-an/raw/team_project_management_template.xlsx": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/quan-tri-du-an/raw/team_project_management_template.xlsx",
+      "category": "knowledge-base",
+      "size_bytes": 69041
     },
     "knowledge-base/reference-slides/product-thinking-mindset.pdf": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/reference-slides/product-thinking-mindset.pdf",
@@ -846,6 +826,121 @@
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/reference-slides/software-engineering-team-and-ai.pdf",
       "category": "knowledge-base",
       "size_bytes": 3129353
+    },
+    "knowledge-base/sample_prd.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/sample_prd.md",
+      "category": "knowledge-base",
+      "size_bytes": 14986
+    },
+    "knowledge-base/technical-book/PHOENIX_BOOK_INDEX.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/PHOENIX_BOOK_INDEX.md",
+      "category": "knowledge-base",
+      "size_bytes": 2037
+    },
+    "knowledge-base/technical-book/agent-practices/_index.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/agent-practices/_index.md",
+      "category": "knowledge-base",
+      "size_bytes": 1975
+    },
+    "knowledge-base/technical-book/agent-practices/context-management.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/agent-practices/context-management.md",
+      "category": "knowledge-base",
+      "size_bytes": 2621
+    },
+    "knowledge-base/technical-book/agent-practices/evals.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/agent-practices/evals.md",
+      "category": "knowledge-base",
+      "size_bytes": 2184
+    },
+    "knowledge-base/technical-book/agent-practices/guardrails.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/agent-practices/guardrails.md",
+      "category": "knowledge-base",
+      "size_bytes": 3032
+    },
+    "knowledge-base/technical-book/agent-practices/multi-tool-config.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/agent-practices/multi-tool-config.md",
+      "category": "knowledge-base",
+      "size_bytes": 3162
+    },
+    "knowledge-base/technical-book/agent-practices/prompts.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/agent-practices/prompts.md",
+      "category": "knowledge-base",
+      "size_bytes": 2684
+    },
+    "knowledge-base/technical-book/anti-patterns/_index.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/anti-patterns/_index.md",
+      "category": "knowledge-base",
+      "size_bytes": 850
+    },
+    "knowledge-base/technical-book/anti-patterns/cohort-1-2-agent-mistakes.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/anti-patterns/cohort-1-2-agent-mistakes.md",
+      "category": "knowledge-base",
+      "size_bytes": 2988
+    },
+    "knowledge-base/technical-book/anti-patterns/common-mistakes.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/anti-patterns/common-mistakes.md",
+      "category": "knowledge-base",
+      "size_bytes": 2461
+    },
+    "knowledge-base/technical-book/architecture/_index.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/architecture/_index.md",
+      "category": "knowledge-base",
+      "size_bytes": 740
+    },
+    "knowledge-base/technical-book/architecture/system-design.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/architecture/system-design.md",
+      "category": "knowledge-base",
+      "size_bytes": 2359
+    },
+    "knowledge-base/technical-book/bmad/_index.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/bmad/_index.md",
+      "category": "knowledge-base",
+      "size_bytes": 772
+    },
+    "knowledge-base/technical-book/bmad/overview.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/bmad/overview.md",
+      "category": "knowledge-base",
+      "size_bytes": 1876
+    },
+    "knowledge-base/technical-book/book-media/free-accounts/cohere.jpg": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/book-media/free-accounts/cohere.jpg",
+      "category": "knowledge-base",
+      "size_bytes": 527027
+    },
+    "knowledge-base/technical-book/book-media/free-accounts/gemini.jpg": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/book-media/free-accounts/gemini.jpg",
+      "category": "knowledge-base",
+      "size_bytes": 360135
+    },
+    "knowledge-base/technical-book/book-media/free-accounts/groq.jpg": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/book-media/free-accounts/groq.jpg",
+      "category": "knowledge-base",
+      "size_bytes": 397881
+    },
+    "knowledge-base/technical-book/book-media/free-accounts/huggingface.jpg": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/book-media/free-accounts/huggingface.jpg",
+      "category": "knowledge-base",
+      "size_bytes": 868963
+    },
+    "knowledge-base/technical-book/book-media/free-accounts/langsmith.jpg": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/book-media/free-accounts/langsmith.jpg",
+      "category": "knowledge-base",
+      "size_bytes": 291894
+    },
+    "knowledge-base/technical-book/book-media/free-accounts/mistral.jpg": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/book-media/free-accounts/mistral.jpg",
+      "category": "knowledge-base",
+      "size_bytes": 359191
+    },
+    "knowledge-base/technical-book/book-media/free-accounts/render.jpg": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/book-media/free-accounts/render.jpg",
+      "category": "knowledge-base",
+      "size_bytes": 708611
+    },
+    "knowledge-base/technical-book/book-media/free-accounts/vercel.jpg": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/book-media/free-accounts/vercel.jpg",
+      "category": "knowledge-base",
+      "size_bytes": 197190
     },
     "knowledge-base/technical-book/chapter-01.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/chapter-01.md",
@@ -922,150 +1017,40 @@
       "category": "knowledge-base",
       "size_bytes": 22138
     },
-    "knowledge-base/technical-book/cost-management.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/cost-management.md",
+    "knowledge-base/technical-book/code-style/_index.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/code-style/_index.md",
       "category": "knowledge-base",
-      "size_bytes": 7137
-    },
-    "knowledge-base/technical-book/free-accounts.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/free-accounts.md",
-      "category": "knowledge-base",
-      "size_bytes": 19250
-    },
-    "knowledge-base/technical-book/PHOENIX_BOOK_INDEX.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/PHOENIX_BOOK_INDEX.md",
-      "category": "knowledge-base",
-      "size_bytes": 2037
-    },
-    "knowledge-base/technical-book/troubleshooting.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/troubleshooting.md",
-      "category": "knowledge-base",
-      "size_bytes": 8530
-    },
-    "knowledge-base/technical-book/agent-practices/context-management.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/agent-practices/context-management.md",
-      "category": "knowledge-base",
-      "size_bytes": 2621
-    },
-    "knowledge-base/technical-book/agent-practices/evals.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/agent-practices/evals.md",
-      "category": "knowledge-base",
-      "size_bytes": 2184
-    },
-    "knowledge-base/technical-book/agent-practices/guardrails.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/agent-practices/guardrails.md",
-      "category": "knowledge-base",
-      "size_bytes": 3032
-    },
-    "knowledge-base/technical-book/agent-practices/multi-tool-config.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/agent-practices/multi-tool-config.md",
-      "category": "knowledge-base",
-      "size_bytes": 3162
-    },
-    "knowledge-base/technical-book/agent-practices/prompts.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/agent-practices/prompts.md",
-      "category": "knowledge-base",
-      "size_bytes": 2684
-    },
-    "knowledge-base/technical-book/agent-practices/_index.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/agent-practices/_index.md",
-      "category": "knowledge-base",
-      "size_bytes": 1975
-    },
-    "knowledge-base/technical-book/anti-patterns/cohort-1-2-agent-mistakes.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/anti-patterns/cohort-1-2-agent-mistakes.md",
-      "category": "knowledge-base",
-      "size_bytes": 2988
-    },
-    "knowledge-base/technical-book/anti-patterns/common-mistakes.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/anti-patterns/common-mistakes.md",
-      "category": "knowledge-base",
-      "size_bytes": 2461
-    },
-    "knowledge-base/technical-book/anti-patterns/_index.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/anti-patterns/_index.md",
-      "category": "knowledge-base",
-      "size_bytes": 850
-    },
-    "knowledge-base/technical-book/architecture/system-design.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/architecture/system-design.md",
-      "category": "knowledge-base",
-      "size_bytes": 2359
-    },
-    "knowledge-base/technical-book/architecture/_index.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/architecture/_index.md",
-      "category": "knowledge-base",
-      "size_bytes": 740
-    },
-    "knowledge-base/technical-book/bmad/overview.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/bmad/overview.md",
-      "category": "knowledge-base",
-      "size_bytes": 1876
-    },
-    "knowledge-base/technical-book/bmad/_index.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/bmad/_index.md",
-      "category": "knowledge-base",
-      "size_bytes": 772
-    },
-    "knowledge-base/technical-book/book-media/free-accounts/cohere.jpg": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/book-media/free-accounts/cohere.jpg",
-      "category": "knowledge-base",
-      "size_bytes": 527027
-    },
-    "knowledge-base/technical-book/book-media/free-accounts/gemini.jpg": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/book-media/free-accounts/gemini.jpg",
-      "category": "knowledge-base",
-      "size_bytes": 360135
-    },
-    "knowledge-base/technical-book/book-media/free-accounts/groq.jpg": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/book-media/free-accounts/groq.jpg",
-      "category": "knowledge-base",
-      "size_bytes": 397881
-    },
-    "knowledge-base/technical-book/book-media/free-accounts/huggingface.jpg": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/book-media/free-accounts/huggingface.jpg",
-      "category": "knowledge-base",
-      "size_bytes": 868963
-    },
-    "knowledge-base/technical-book/book-media/free-accounts/langsmith.jpg": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/book-media/free-accounts/langsmith.jpg",
-      "category": "knowledge-base",
-      "size_bytes": 291894
-    },
-    "knowledge-base/technical-book/book-media/free-accounts/mistral.jpg": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/book-media/free-accounts/mistral.jpg",
-      "category": "knowledge-base",
-      "size_bytes": 359191
-    },
-    "knowledge-base/technical-book/book-media/free-accounts/render.jpg": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/book-media/free-accounts/render.jpg",
-      "category": "knowledge-base",
-      "size_bytes": 708611
-    },
-    "knowledge-base/technical-book/book-media/free-accounts/vercel.jpg": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/book-media/free-accounts/vercel.jpg",
-      "category": "knowledge-base",
-      "size_bytes": 197190
+      "size_bytes": 652
     },
     "knowledge-base/technical-book/code-style/python.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/code-style/python.md",
       "category": "knowledge-base",
       "size_bytes": 1910
     },
-    "knowledge-base/technical-book/code-style/_index.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/code-style/_index.md",
+    "knowledge-base/technical-book/cost-management.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/cost-management.md",
       "category": "knowledge-base",
-      "size_bytes": 652
+      "size_bytes": 7137
+    },
+    "knowledge-base/technical-book/devops/_index.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/devops/_index.md",
+      "category": "knowledge-base",
+      "size_bytes": 705
     },
     "knowledge-base/technical-book/devops/docker-cicd.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/devops/docker-cicd.md",
       "category": "knowledge-base",
       "size_bytes": 1728
     },
-    "knowledge-base/technical-book/devops/_index.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/devops/_index.md",
+    "knowledge-base/technical-book/free-accounts.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/free-accounts.md",
       "category": "knowledge-base",
-      "size_bytes": 705
+      "size_bytes": 19250
+    },
+    "knowledge-base/technical-book/langgraph/_index.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/langgraph/_index.md",
+      "category": "knowledge-base",
+      "size_bytes": 834
     },
     "knowledge-base/technical-book/langgraph/nodes-and-edges.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/langgraph/nodes-and-edges.md",
@@ -1082,85 +1067,90 @@
       "category": "knowledge-base",
       "size_bytes": 1993
     },
-    "knowledge-base/technical-book/langgraph/_index.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/langgraph/_index.md",
+    "knowledge-base/technical-book/patterns/_index.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/patterns/_index.md",
       "category": "knowledge-base",
-      "size_bytes": 834
+      "size_bytes": 734
     },
     "knowledge-base/technical-book/patterns/rag-pattern.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/patterns/rag-pattern.md",
       "category": "knowledge-base",
       "size_bytes": 2039
     },
-    "knowledge-base/technical-book/patterns/_index.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/patterns/_index.md",
+    "knowledge-base/technical-book/resources/_index.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/resources/_index.md",
       "category": "knowledge-base",
-      "size_bytes": 734
+      "size_bytes": 649
     },
     "knowledge-base/technical-book/resources/recommended-courses.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/resources/recommended-courses.md",
       "category": "knowledge-base",
       "size_bytes": 6084
     },
-    "knowledge-base/technical-book/resources/_index.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/resources/_index.md",
+    "knowledge-base/technical-book/setup/_index.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/setup/_index.md",
       "category": "knowledge-base",
-      "size_bytes": 649
+      "size_bytes": 707
     },
     "knowledge-base/technical-book/setup/quick-start.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/setup/quick-start.md",
       "category": "knowledge-base",
       "size_bytes": 2613
     },
-    "knowledge-base/technical-book/setup/_index.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/setup/_index.md",
+    "knowledge-base/technical-book/testing/_index.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/testing/_index.md",
       "category": "knowledge-base",
-      "size_bytes": 707
+      "size_bytes": 709
     },
     "knowledge-base/technical-book/testing/writing-tests.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/testing/writing-tests.md",
       "category": "knowledge-base",
       "size_bytes": 1972
     },
-    "knowledge-base/technical-book/testing/_index.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/testing/_index.md",
+    "knowledge-base/technical-book/troubleshooting.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/troubleshooting.md",
       "category": "knowledge-base",
-      "size_bytes": 709
-    },
-    "knowledge-base/tu-duy/anti-patching-architectural-thinking.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/tu-duy/anti-patching-architectural-thinking.md",
-      "category": "knowledge-base",
-      "size_bytes": 4909
+      "size_bytes": 8530
     },
     "knowledge-base/tu-duy/Slide_TuDuyProduct.pdf": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/tu-duy/Slide_TuDuyProduct.pdf",
       "category": "knowledge-base",
       "size_bytes": 4048508
     },
-    "knowledge-base/tu-duy/software-engineering-ai-teamwork.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/tu-duy/software-engineering-ai-teamwork.md",
-      "category": "knowledge-base",
-      "size_bytes": 4272
-    },
     "knowledge-base/tu-duy/SoftwareEngineeringAITeamWork.pdf": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/tu-duy/SoftwareEngineeringAITeamWork.pdf",
       "category": "knowledge-base",
       "size_bytes": 3129353
+    },
+    "knowledge-base/tu-duy/anti-patching-architectural-thinking.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/tu-duy/anti-patching-architectural-thinking.md",
+      "category": "knowledge-base",
+      "size_bytes": 4909
+    },
+    "knowledge-base/tu-duy/software-engineering-ai-teamwork.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/tu-duy/software-engineering-ai-teamwork.md",
+      "category": "knowledge-base",
+      "size_bytes": 4272
     },
     "knowledge-base/tu-duy/tu-duy-product.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/tu-duy/tu-duy-product.md",
       "category": "knowledge-base",
       "size_bytes": 3273
     },
+    "llms.txt": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/llms.txt",
+      "category": "root",
+      "size_bytes": 5352
+    },
     "profiles/README.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/README.md",
       "category": "profiles",
-      "size_bytes": 4179
+      "size_bytes": 4232
     },
     "profiles/agent-configs/curated-mcp-matrix.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/agent-configs/curated-mcp-matrix.md",
       "category": "profiles",
-      "size_bytes": 2951
+      "size_bytes": 3018
     },
     "profiles/ai-apps/agentic-patterns-and-evals.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/ai-apps/agentic-patterns-and-evals.md",
@@ -1170,32 +1160,32 @@
     "profiles/architecture/clean-architecture-layout.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/architecture/clean-architecture-layout.md",
       "category": "profiles",
-      "size_bytes": 2655
+      "size_bytes": 2703
     },
     "profiles/architecture/clean-architecture.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/architecture/clean-architecture.md",
       "category": "profiles",
-      "size_bytes": 2615
+      "size_bytes": 2653
     },
     "profiles/architecture/modular-monolith.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/architecture/modular-monolith.md",
       "category": "profiles",
-      "size_bytes": 2285
+      "size_bytes": 2325
     },
     "profiles/architecture/simple-layered.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/architecture/simple-layered.md",
       "category": "profiles",
-      "size_bytes": 2476
+      "size_bytes": 2523
     },
     "profiles/architecture/vertical-slice.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/architecture/vertical-slice.md",
       "category": "profiles",
-      "size_bytes": 2574
+      "size_bytes": 2620
     },
     "profiles/deployment/go-live-production-checklist.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/deployment/go-live-production-checklist.md",
       "category": "profiles",
-      "size_bytes": 3233
+      "size_bytes": 3291
     },
     "profiles/design/design-archetypes-catalog.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/design/design-archetypes-catalog.md",
@@ -1205,7 +1195,7 @@
     "profiles/design/screenshot-to-code-reverse-engineering.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/design/screenshot-to-code-reverse-engineering.md",
       "category": "profiles",
-      "size_bytes": 6235
+      "size_bytes": 6345
     },
     "profiles/design/ui-ux-archetypes-and-presets.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/design/ui-ux-archetypes-and-presets.md",
@@ -1227,11 +1217,6 @@
       "category": "profiles",
       "size_bytes": 4070
     },
-    "profiles/documentation/system-architecture.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/documentation/system-architecture.md",
-      "category": "profiles",
-      "size_bytes": 1933
-    },
     "profiles/documentation/guides/developer-onboarding-guide.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/documentation/guides/developer-onboarding-guide.md",
       "category": "profiles",
@@ -1252,6 +1237,11 @@
       "category": "profiles",
       "size_bytes": 4344
     },
+    "profiles/documentation/system-architecture.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/documentation/system-architecture.md",
+      "category": "profiles",
+      "size_bytes": 1933
+    },
     "profiles/frontend/bulletproof-react.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/bulletproof-react.md",
       "category": "profiles",
@@ -1265,7 +1255,12 @@
     "profiles/frontend/starter/.eslintrc.cjs": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/.eslintrc.cjs",
       "category": "profiles",
-      "size_bytes": 490
+      "size_bytes": 503
+    },
+    "profiles/frontend/starter/README.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/README.md",
+      "category": "profiles",
+      "size_bytes": 2817
     },
     "profiles/frontend/starter/index.html": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/index.html",
@@ -1282,50 +1277,10 @@
       "category": "profiles",
       "size_bytes": 86
     },
-    "profiles/frontend/starter/README.md": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/README.md",
-      "category": "profiles",
-      "size_bytes": 2817
-    },
-    "profiles/frontend/starter/tailwind.config.js": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/tailwind.config.js",
-      "category": "profiles",
-      "size_bytes": 361
-    },
-    "profiles/frontend/starter/tsconfig.json": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/tsconfig.json",
-      "category": "profiles",
-      "size_bytes": 683
-    },
-    "profiles/frontend/starter/tsconfig.node.json": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/tsconfig.node.json",
-      "category": "profiles",
-      "size_bytes": 223
-    },
-    "profiles/frontend/starter/vite.config.ts": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/vite.config.ts",
-      "category": "profiles",
-      "size_bytes": 386
-    },
     "profiles/frontend/starter/src/App.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/App.tsx",
       "category": "profiles",
-      "size_bytes": 3241
-    },
-    "profiles/frontend/starter/src/index.css": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/index.css",
-      "category": "profiles",
-      "size_bytes": 111
-    },
-    "profiles/frontend/starter/src/main.tsx": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/main.tsx",
-      "category": "profiles",
-      "size_bytes": 246
-    },
-    "profiles/frontend/starter/src/vite-env.d.ts": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/vite-env.d.ts",
-      "category": "profiles",
-      "size_bytes": 39
+      "size_bytes": 3313
     },
     "profiles/frontend/starter/src/app/provider.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/app/provider.tsx",
@@ -1350,47 +1305,42 @@
     "profiles/frontend/starter/src/components/ui/error-boundary.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/components/ui/error-boundary.tsx",
       "category": "profiles",
-      "size_bytes": 1042
+      "size_bytes": 1079
     },
     "profiles/frontend/starter/src/config/index.ts": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/config/index.ts",
       "category": "profiles",
       "size_bytes": 501
     },
-    "profiles/frontend/starter/src/features/ai-chat/index.ts": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/features/ai-chat/index.ts",
-      "category": "profiles",
-      "size_bytes": 72
-    },
     "profiles/frontend/starter/src/features/ai-chat/components/chat-interface.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/features/ai-chat/components/chat-interface.tsx",
       "category": "profiles",
       "size_bytes": 3238
+    },
+    "profiles/frontend/starter/src/features/ai-chat/index.ts": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/features/ai-chat/index.ts",
+      "category": "profiles",
+      "size_bytes": 72
     },
     "profiles/frontend/starter/src/features/ai-chat/types/index.ts": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/features/ai-chat/types/index.ts",
       "category": "profiles",
       "size_bytes": 132
     },
-    "profiles/frontend/starter/src/features/dashboard/index.ts": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/features/dashboard/index.ts",
-      "category": "profiles",
-      "size_bytes": 72
-    },
     "profiles/frontend/starter/src/features/dashboard/components/dashboard-view.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/features/dashboard/components/dashboard-view.tsx",
       "category": "profiles",
       "size_bytes": 1929
     },
+    "profiles/frontend/starter/src/features/dashboard/index.ts": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/features/dashboard/index.ts",
+      "category": "profiles",
+      "size_bytes": 72
+    },
     "profiles/frontend/starter/src/features/dashboard/types/index.ts": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/features/dashboard/types/index.ts",
       "category": "profiles",
       "size_bytes": 155
-    },
-    "profiles/frontend/starter/src/features/theme-showcase/index.ts": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/features/theme-showcase/index.ts",
-      "category": "profiles",
-      "size_bytes": 200
     },
     "profiles/frontend/starter/src/features/theme-showcase/components/preview-card.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/features/theme-showcase/components/preview-card.tsx",
@@ -1412,20 +1362,35 @@
       "category": "profiles",
       "size_bytes": 14535
     },
+    "profiles/frontend/starter/src/features/theme-showcase/index.ts": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/features/theme-showcase/index.ts",
+      "category": "profiles",
+      "size_bytes": 200
+    },
     "profiles/frontend/starter/src/features/theme-showcase/types/index.ts": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/features/theme-showcase/types/index.ts",
       "category": "profiles",
       "size_bytes": 680
     },
+    "profiles/frontend/starter/src/index.css": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/index.css",
+      "category": "profiles",
+      "size_bytes": 111
+    },
     "profiles/frontend/starter/src/lib/api-client.ts": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/lib/api-client.ts",
       "category": "profiles",
-      "size_bytes": 552
+      "size_bytes": 572
+    },
+    "profiles/frontend/starter/src/main.tsx": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/main.tsx",
+      "category": "profiles",
+      "size_bytes": 246
     },
     "profiles/frontend/starter/src/stores/use-auth-store.test.ts": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/stores/use-auth-store.test.ts",
       "category": "profiles",
-      "size_bytes": 1388
+      "size_bytes": 1431
     },
     "profiles/frontend/starter/src/stores/use-auth-store.ts": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/stores/use-auth-store.ts",
@@ -1437,10 +1402,35 @@
       "category": "profiles",
       "size_bytes": 324
     },
+    "profiles/frontend/starter/src/vite-env.d.ts": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/src/vite-env.d.ts",
+      "category": "profiles",
+      "size_bytes": 39
+    },
+    "profiles/frontend/starter/tailwind.config.js": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/tailwind.config.js",
+      "category": "profiles",
+      "size_bytes": 361
+    },
+    "profiles/frontend/starter/tsconfig.json": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/tsconfig.json",
+      "category": "profiles",
+      "size_bytes": 683
+    },
+    "profiles/frontend/starter/tsconfig.node.json": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/tsconfig.node.json",
+      "category": "profiles",
+      "size_bytes": 223
+    },
+    "profiles/frontend/starter/vite.config.ts": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/frontend/starter/vite.config.ts",
+      "category": "profiles",
+      "size_bytes": 387
+    },
     "profiles/knowledge-map/agent-ecosystem-taxonomy.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/knowledge-map/agent-ecosystem-taxonomy.md",
       "category": "profiles",
-      "size_bytes": 6813
+      "size_bytes": 6893
     },
     "profiles/patterns/design-patterns-catalog.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/patterns/design-patterns-catalog.md",
@@ -1450,17 +1440,17 @@
     "profiles/playbooks/anti-doom-loop-guide.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/playbooks/anti-doom-loop-guide.md",
       "category": "profiles",
-      "size_bytes": 3277
+      "size_bytes": 3334
     },
     "profiles/playbooks/living-documentation-sync.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/playbooks/living-documentation-sync.md",
       "category": "profiles",
-      "size_bytes": 2376
+      "size_bytes": 2441
     },
     "profiles/skills-catalog/curated-agent-skills.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/skills-catalog/curated-agent-skills.md",
       "category": "profiles",
-      "size_bytes": 15159
+      "size_bytes": 15423
     },
     "profiles/stacks/cloud-free-tier-stack.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/stacks/cloud-free-tier-stack.md",
@@ -1472,70 +1462,30 @@
       "category": "profiles",
       "size_bytes": 1124
     },
-    "scripts/build_brand_assets.py": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/build_brand_assets.py",
-      "category": "scripts",
-      "size_bytes": 10888
-    },
-    "scripts/build_exe.py": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/build_exe.py",
-      "category": "scripts",
-      "size_bytes": 4439
-    },
-    "scripts/check_links.py": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/check_links.py",
-      "category": "scripts",
-      "size_bytes": 6210
-    },
-    "scripts/engine_main.py": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/engine_main.py",
-      "category": "scripts",
-      "size_bytes": 1920
-    },
-    "scripts/generate_icon.py": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/generate_icon.py",
-      "category": "scripts",
-      "size_bytes": 2243
-    },
-    "scripts/generate_manifest.py": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/generate_manifest.py",
-      "category": "scripts",
-      "size_bytes": 3238
-    },
-    "scripts/project_auditor.py": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/project_auditor.py",
-      "category": "scripts",
-      "size_bytes": 998
-    },
     "scripts/README.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/README.md",
       "category": "scripts",
-      "size_bytes": 2590
+      "size_bytes": 2623
     },
-    "scripts/reviewer_app.py": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/reviewer_app.py",
+    "scripts/auditor_engine/__init__.py": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/auditor_engine/__init__.py",
       "category": "scripts",
-      "size_bytes": 3547
-    },
-    "scripts/sync_docs.py": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/sync_docs.py",
-      "category": "scripts",
-      "size_bytes": 5890
+      "size_bytes": 268
     },
     "scripts/auditor_engine/auditor.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/auditor_engine/auditor.py",
       "category": "scripts",
-      "size_bytes": 26388
+      "size_bytes": 26896
     },
     "scripts/auditor_engine/baseline.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/auditor_engine/baseline.py",
       "category": "scripts",
-      "size_bytes": 5027
+      "size_bytes": 5125
     },
     "scripts/auditor_engine/constants.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/auditor_engine/constants.py",
       "category": "scripts",
-      "size_bytes": 2857
+      "size_bytes": 2911
     },
     "scripts/auditor_engine/pillars_app.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/auditor_engine/pillars_app.py",
@@ -1560,22 +1510,57 @@
     "scripts/auditor_engine/remediation.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/auditor_engine/remediation.py",
       "category": "scripts",
-      "size_bytes": 6039
+      "size_bytes": 6148
     },
     "scripts/auditor_engine/safety.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/auditor_engine/safety.py",
       "category": "scripts",
-      "size_bytes": 8635
+      "size_bytes": 8839
     },
     "scripts/auditor_engine/tree.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/auditor_engine/tree.py",
       "category": "scripts",
       "size_bytes": 2451
     },
-    "scripts/auditor_engine/__init__.py": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/auditor_engine/__init__.py",
+    "scripts/build_brand_assets.py": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/build_brand_assets.py",
       "category": "scripts",
-      "size_bytes": 268
+      "size_bytes": 10888
+    },
+    "scripts/build_exe.py": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/build_exe.py",
+      "category": "scripts",
+      "size_bytes": 4562
+    },
+    "scripts/check_links.py": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/check_links.py",
+      "category": "scripts",
+      "size_bytes": 6355
+    },
+    "scripts/engine_main.py": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/engine_main.py",
+      "category": "scripts",
+      "size_bytes": 1976
+    },
+    "scripts/generate_icon.py": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/generate_icon.py",
+      "category": "scripts",
+      "size_bytes": 2174
+    },
+    "scripts/generate_manifest.py": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/generate_manifest.py",
+      "category": "scripts",
+      "size_bytes": 4084
+    },
+    "scripts/project_auditor.py": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/project_auditor.py",
+      "category": "scripts",
+      "size_bytes": 998
+    },
+    "scripts/reviewer_app.py": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/reviewer_app.py",
+      "category": "scripts",
+      "size_bytes": 3547
     },
     "scripts/reviewer_shell/llm_evaluator.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/reviewer_shell/llm_evaluator.py",
@@ -1585,12 +1570,17 @@
     "scripts/reviewer_shell/server.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/reviewer_shell/server.py",
       "category": "scripts",
-      "size_bytes": 16579
+      "size_bytes": 16907
     },
     "scripts/reviewer_shell/settings_manager.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/reviewer_shell/settings_manager.py",
       "category": "scripts",
       "size_bytes": 1819
+    },
+    "scripts/reviewer_shell/static/css/style.css": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/reviewer_shell/static/css/style.css",
+      "category": "scripts",
+      "size_bytes": 32537
     },
     "scripts/reviewer_shell/static/favicon.ico": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/reviewer_shell/static/favicon.ico",
@@ -1602,25 +1592,25 @@
       "category": "scripts",
       "size_bytes": 27286
     },
-    "scripts/reviewer_shell/static/manifest.json": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/reviewer_shell/static/manifest.json",
-      "category": "scripts",
-      "size_bytes": 324
-    },
-    "scripts/reviewer_shell/static/css/style.css": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/reviewer_shell/static/css/style.css",
-      "category": "scripts",
-      "size_bytes": 34285
-    },
     "scripts/reviewer_shell/static/js/app.js": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/reviewer_shell/static/js/app.js",
       "category": "scripts",
       "size_bytes": 50528
     },
+    "scripts/reviewer_shell/static/manifest.json": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/reviewer_shell/static/manifest.json",
+      "category": "scripts",
+      "size_bytes": 309
+    },
+    "scripts/sync_docs.py": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/sync_docs.py",
+      "category": "scripts",
+      "size_bytes": 6041
+    },
     "templates/pitch-deck/ai-pitch-generator-prompts.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/templates/pitch-deck/ai-pitch-generator-prompts.md",
       "category": "other",
-      "size_bytes": 4522
+      "size_bytes": 4449
     },
     "templates/pitch-deck/marp-presentation.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/templates/pitch-deck/marp-presentation.md",
@@ -1630,12 +1620,12 @@
     "templates/pitch-deck/pitch-deck-template.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/templates/pitch-deck/pitch-deck-template.md",
       "category": "other",
-      "size_bytes": 8615
+      "size_bytes": 8491
     },
     "templates/pitch-deck/pitch-scripts-and-qa-guide.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/templates/pitch-deck/pitch-scripts-and-qa-guide.md",
       "category": "other",
-      "size_bytes": 14076
+      "size_bytes": 13956
     },
     "templates/project-management/project-charter-and-reports-template.xlsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/templates/project-management/project-charter-and-reports-template.xlsx",
@@ -1660,17 +1650,17 @@
     "tests/test_doc_format.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/tests/test_doc_format.py",
       "category": "other",
-      "size_bytes": 2988
+      "size_bytes": 3061
     },
     "tests/test_health_check_report.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/tests/test_health_check_report.py",
       "category": "other",
-      "size_bytes": 6311
+      "size_bytes": 6449
     },
     "tests/test_reviewer_server.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/tests/test_reviewer_server.py",
       "category": "other",
-      "size_bytes": 3889
+      "size_bytes": 4001
     },
     "tests/test_safety_scan.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/tests/test_safety_scan.py",
@@ -1685,7 +1675,7 @@
     "tools/ProjectReviewer/Program.cs": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/tools/ProjectReviewer/Program.cs",
       "category": "other",
-      "size_bytes": 377
+      "size_bytes": 390
     },
     "tools/ProjectReviewer/ProjectReviewer.csproj": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/tools/ProjectReviewer/ProjectReviewer.csproj",
@@ -1695,7 +1685,7 @@
     "tools/ProjectReviewer/PythonRuntime.cs": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/tools/ProjectReviewer/PythonRuntime.cs",
       "category": "other",
-      "size_bytes": 4628
+      "size_bytes": 4751
     }
   }
 }
