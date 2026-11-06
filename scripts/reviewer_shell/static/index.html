@@ -7,7 +7,7 @@
   <meta name="color-scheme" content="dark light">
   <meta name="theme-color" content="#0e0d13">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <title>Project Review</title>
+  <title>Project Health Check — Project-Builder-4-Agents</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -22,9 +22,9 @@
       <button class="btn btn-secondary" id="browseFolderBtn" title="Chọn thư mục từ máy tính">
         <span>Duyệt</span>
       </button>
-      <button class="btn btn-primary" id="runAuditBtn" title="Chạy thẩm định tiêu chuẩn toàn diện (offline / AST)">
+      <button class="btn btn-primary" id="runAuditBtn" title="Chạy thẩm định tiêu chuẩn toàn diện (Zero-Token, Offline)">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
-        <span>Standard Review</span>
+        <span>Health Check</span>
       </button>
       <button class="btn btn-ai" id="topAIDeepReviewBtn" title="Cần cấu hình API Key trong Cài đặt để kích hoạt AI Review" disabled>
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
@@ -149,9 +149,8 @@
         </li>
       </ul>
 
-      <!-- BOTTOM: BÁO CÁO & PROMPT AI + LỊCH SỬ QUÉT (PHÂN CẤP TÁCH BIỆT Ở DƯỚI CÙNG) -->
+      <!-- BOTTOM: BÁO CÁO & PROMPT AI + LỊCH SỬ QUÉT -->
       <div class="sidebar-footer">
-        <!-- HẠNG MỤC CHUYÊN BIỆT: BÁO CÁO & PROMPT AI (NẰM TRÊN LỊCH SỬ QUÉT) -->
         <div class="pillar-item pillar-item-action" data-pillar="report_prompt" id="pillar_report_prompt">
           <div class="pillar-left">
             <span class="status-dot dot-info" id="dot_report_prompt"></span>
@@ -253,15 +252,18 @@
               <span id="metaArchetype" class="meta-val" title="Chưa xác định">Chưa xác định</span>
             </div>
             <div class="meta-row">
-              <span class="meta-label">Kiến trúc:</span>
+              <span class="meta-label">Kiến trúc & Profile:</span>
               <span id="metaArchStyle" class="meta-val" title="Chưa xác định">Chưa xác định</span>
             </div>
           </div>
         </div>
 
-        <!-- TABS TỔNG QUAN (CHUYÊN MÔN MÃ NGUỒN) -->
+        <!-- TABS TỔNG QUAN (ĐẦY ĐỦ MỤC 0, 1, 2, 4, 7 CỦA PROJECT-REVIEW.MD) -->
         <nav class="content-tabs" id="overviewTabsNav">
           <button class="tab-btn active" data-tab="tab-overview">Tổng quan</button>
+          <button class="tab-btn" data-tab="tab-findings">Phát hiện & Khắc phục (<span id="findingCountBadge">0</span>)</button>
+          <button class="tab-btn" data-tab="tab-baseline">Core Baseline (<span id="baselineCountBadge">0/9</span>)</button>
+          <button class="tab-btn" data-tab="tab-safety-scope">An toàn & Phạm vi (<span id="safetyCountBadge">0</span>)</button>
           <button class="tab-btn" data-tab="tab-gaps">Thiếu sót & Rác (<span id="gapCountBadge">0</span>)</button>
           <button class="tab-btn" data-tab="tab-violations">Vi phạm mã nguồn (<span id="violationCountBadge">0</span>)</button>
         </nav>
@@ -274,8 +276,8 @@
               <!-- CỘT 1: HỒ SƠ CÔNG NGHỆ -->
               <div class="dashboard-card">
                 <div class="dashboard-card-header">
-                  <h3 class="section-title">Hồ sơ công nghệ</h3>
-                  <p class="section-subtitle">Tự động nhận diện qua cấu hình, dependencies và cấu trúc thư mục:</p>
+                  <h3 class="section-title">Hồ sơ công nghệ & Cấu hình Kit</h3>
+                  <p class="section-subtitle">Tự động nhận diện qua cấu hình, dependencies và `.builder/kit.json`:</p>
                 </div>
                 <div class="tag-cloud" id="techStackTags">
                   <span class="tech-tag">Chưa có dữ liệu</span>
@@ -289,8 +291,61 @@
                   <p class="section-subtitle">Các tiêu chuẩn và điểm sáng tạo đã đạt chuẩn mực:</p>
                 </div>
                 <ul id="strengthList" class="clean-bullet-list">
-                  <li>Sẵn sàng kiểm tra. Nhấn <strong>Standard Review</strong> để quét mã nguồn.</li>
+                  <li>Sẵn sàng kiểm tra. Nhấn <strong>Health Check</strong> để quét mã nguồn.</li>
                 </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANEL: ACTIONABLE FINDINGS & REMEDIATION DOCS (MỤC 2) -->
+          <div class="tab-panel" id="tab-findings">
+            <div class="dashboard-card">
+              <div class="dashboard-card-header">
+                <h3 class="section-title">Danh sách phát hiện cần xử lý (Mục 2 — Actionable Findings)</h3>
+                <p class="section-subtitle">Sắp xếp theo thứ tự ưu tiên Cao → Trung bình → Thấp kèm liên kết trực tiếp tới tài liệu khắc phục trong Project-Builder-4-Agents:</p>
+              </div>
+              <div id="findingsTableContainer">
+                <div style="text-align: center; color: var(--text-dim); padding: 24px;">Chưa có dữ liệu đo kiểm.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANEL: CORE BASELINE B1-B9 (MỤC 4) -->
+          <div class="tab-panel" id="tab-baseline">
+            <div class="dashboard-card">
+              <div class="dashboard-card-header">
+                <h3 class="section-title">Core Baseline B1–B9 (Mục 4 — Chuẩn bắt buộc cho mọi repo dùng Agent)</h3>
+                <p class="section-subtitle">9 thành phần nền tảng không phụ thuộc ngôn ngữ hay kiểu kiến trúc theo tài liệu <code>core/README.md</code> (K-003):</p>
+              </div>
+              <div id="baselineTableContainer">
+                <div style="text-align: center; color: var(--text-dim); padding: 24px;">Chưa có dữ liệu đo kiểm.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANEL: SAFETY & AUDIT SCOPE (MỤC 0 & MỤC 7) -->
+          <div class="tab-panel" id="tab-safety-scope">
+            <div class="dashboard-grid-2col">
+              <!-- MỤC 0: CẢNH BÁO AN TOÀN -->
+              <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                  <h3 class="section-title" id="safetySectionTitle">0. Cảnh báo an toàn (Prompt Injection)</h3>
+                  <p class="section-subtitle">Quét tệp văn bản (md, json, html, txt, yaml...) tìm lệnh ẩn, ký tự zero-width và hook/MCP thực thi lệnh (<code>SAFE-001</code>..<code>SAFE-005</code>):</p>
+                </div>
+                <div id="safetyContainer">
+                  <div class="muted-item">Chưa có dữ liệu quét an toàn.</div>
+                </div>
+              </div>
+
+              <!-- MỤC 7: PHẠM VI QUÉT -->
+              <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                  <h3 class="section-title">7. Phạm vi quét (Audit Scope)</h3>
+                  <p class="section-subtitle">Giúp AI Agent biết thư mục chính, các thư mục sinh tự động cần bỏ qua và điểm vào nên đọc trước:</p>
+                </div>
+                <div id="scopeContainer">
+                  <div class="muted-item">Chưa có dữ liệu phạm vi quét.</div>
+                </div>
               </div>
             </div>
           </div>
@@ -300,7 +355,7 @@
             <div class="pillar-header-row" style="margin-bottom: 20px;">
               <div>
                 <h2 class="pillar-detail-title" id="pillarDetailTitle">Readme & Onboarding</h2>
-                <div class="pillar-detail-subtitle" id="pillarDetailSubtitle">Thẩm định chi tiết theo chuẩn mực Starter Kit</div>
+                <div class="pillar-detail-subtitle" id="pillarDetailSubtitle">Thẩm định chi tiết theo chuẩn mực Project-Builder-4-Agents</div>
               </div>
               <div class="pillar-score-badge">
                 <span class="pillar-score-val" id="pillarDetailScore">-- / --</span>
@@ -381,7 +436,7 @@
                   <span class="file-path-label">Đường dẫn tệp:</span>
                   <code class="file-path-code" id="reportFilePathDisplay">Chưa có báo cáo</code>
                 </div>
-                <p class="card-desc">Bản báo cáo kỹ thuật độc quyền gồm ma trận kiến trúc, điểm số 12 hạng mục, chi tiết thiếu sót và danh mục vi phạm mã nguồn cần refactor.</p>
+                <p class="card-desc">Bản báo cáo kỹ thuật độc quyền gồm Cảnh báo an toàn (Mục 0), Phát hiện kèm tài liệu khắc phục (Mục 2), Điểm 12 hạng mục (Mục 3), Core Baseline B1–B9 (Mục 4) và Phạm vi quét (Mục 7).</p>
                 <div class="card-action-row">
                   <button class="btn btn-primary" id="openReportBtn">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -410,8 +465,8 @@
                     <span id="copyPromptBtnText">Sao chép Prompt</span>
                   </button>
                 </div>
-                <p class="card-desc">Sử dụng prompt này cho <strong>Claude 3.7 Sonnet, Cursor Composer, Antigravity hoặc ChatGPT</strong> để chỉ dẫn Agent tái cấu trúc mã nguồn theo chuẩn Starter Kit:</p>
-                <div class="prompt-box prompt-box-large" id="aiPromptBox">Nhấn 'Standard Review' để sinh prompt chuẩn cho Agent.</div>
+                <p class="card-desc">Sử dụng prompt này cho <strong>Claude Code, Antigravity, Cursor hoặc Codex</strong> để chỉ dẫn Agent đọc <code>project-review.md</code> và tự sửa lỗi theo tài liệu khắc phục trong <strong>Project-Builder-4-Agents</strong>:</p>
+                <div class="prompt-box prompt-box-large" id="aiPromptBox">Nhấn 'Health Check' để sinh prompt chuẩn cho Agent.</div>
               </div>
             </div>
           </div>

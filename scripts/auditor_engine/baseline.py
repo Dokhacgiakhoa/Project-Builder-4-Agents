@@ -6,14 +6,35 @@ không phụ thuộc ngôn ngữ hay kiểu kiến trúc. Chạy trên hệ th�
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
-# Profile kiến trúc khai báo -> dấu hiệu thư mục kỳ vọng (một trong các nhóm).
+# Profile kiến trúc khai báo -> dấu hiệu thư mục kỳ vọng (một trong các nhóm) trên đa ngôn ngữ (.NET/Python/TS).
 PROFILE_EXPECTATIONS: dict[str, tuple[list[set[str]], str]] = {
-    "clean-architecture": ([{"domain", "entities", "core"}, {"application", "usecases", "interactors", "infrastructure", "adapters"}], "A-002"),
-    "vertical-slice": ([{"features", "slices"}], "A-004"),
-    "modular-monolith": ([{"modules"}], "A-005"),
-    "simple-layered": ([{"services", "routes", "controllers", "handlers", "api", "pages"}], "A-001"),
+    "clean-architecture": (
+        [{"domain", "entities", "core"}, {"application", "usecases", "interactors", "infrastructure", "adapters"}],
+        "A-002",
+    ),
+    "vertical-slice": (
+        [{"features", "slices", "modules"}],
+        "A-004",
+    ),
+    "modular-monolith": (
+        [{"modules", "bounded-contexts", "domains", "packages"}],
+        "A-005",
+    ),
+    "simple-layered": (
+        [{"services", "routes", "controllers", "handlers", "api", "pages", "views", "models", "components"}],
+        "A-001",
+    ),
+}
+
+# Mức rào chắn mặc định theo profile nếu chưa khai báo tường minh trong .builder/kit.json
+DEFAULT_PROFILE_GUARDRAIL = {
+    "simple-layered": "M1",
+    "vertical-slice": "M2",
+    "clean-architecture": "M2",
+    "modular-monolith": "M3",
 }
 
 
@@ -41,6 +62,17 @@ def declared_architecture(kit_cfg: dict) -> str | None:
     if not isinstance(value, str) or not value.strip() or "{{" in value:
         return None
     return value.strip().lower()
+
+
+def declared_guardrail_level(kit_cfg: dict) -> str | None:
+    """Lấy mức rào chắn M1/M2/M3 khai báo trong kit.json (hoặc suy ra từ profile tiêu chuẩn)."""
+    raw = kit_cfg.get("guardrail_level") or (
+        (kit_cfg.get("profiles") or {}).get("guardrails") if isinstance(kit_cfg.get("profiles"), dict) else None
+    )
+    if isinstance(raw, str) and raw.strip().upper() in {"M1", "M2", "M3"}:
+        return raw.strip().upper()
+    arch = declared_architecture(kit_cfg)
+    return DEFAULT_PROFILE_GUARDRAIL.get(arch or "")
 
 
 def check_baseline(root: Path) -> list[dict]:
@@ -96,3 +128,76 @@ def check_declared_profile(root: Path, all_dirs: set[str], declared: str | None)
         return False, (f"Dự án khai báo profile `{declared}` nhưng cấu trúc thư mục chưa thấy dấu hiệu tương ứng "
                        f"(chưa có thư mục kiểu: {', '.join(missing)})."), doc_id
     return True, "", doc_id
+
+
+def check_guardrails(root: Path, kit_cfg: dict) -> tuple[bool, str, list[str]]:
+    """
+    Kiểm tra ARCH-008: dự án khai báo profile/mức rào chắn M1-M3 nhưng thiếu công cụ kiểm soát ranh giới hoặc CI.
+    Trả về (ok, message, doc_ids).
+    """
+    root = Path(root)
+    declared_arch = declared_architecture(kit_cfg)
+    explicit_level = kit_cfg.get("guardrail_level") or (
+        (kit_cfg.get("profiles") or {}).get("guardrails") if isinstance(kit_cfg.get("profiles"), dict) else None
+    )
+    level = declared_guardrail_level(kit_cfg)
+    if not level:
+        return True, "", []
+
+    # Nếu chỉ khai báo profile (không khai báo guardrail_level tường minh) và chưa có mã nguồn/cấu trúc profile -> để ARCH-007 xử lý trước
+    if not explicit_level and declared_arch in PROFILE_EXPECTATIONS:
+        workflows_dir = root / ".github" / "workflows"
+        if not workflows_dir.is_dir():
+            return True, "", []
+
+    workflows_dir = root / ".github" / "workflows"
+    workflows = list(workflows_dir.glob("*.y*ml")) if workflows_dir.is_dir() else []
+    if not workflows:
+        return (
+            False,
+            f"Dự án yêu cầu mức rào chắn `{level}` nhưng chưa có workflow CI tự động trong `.github/workflows/`.",
+            ["K-004", "S-002"],
+        )
+
+    if level in ("M2", "M3"):
+        # Kiểm tra dấu hiệu rào chắn ranh giới (boundary lint rules, import-linter, eslint boundary, nhiều .csproj, hoặc test kiến trúc)
+        has_boundary_guard = False
+        boundary_patterns = re.compile(
+            r"(no-restricted-imports|boundaries|eslint-plugin-boundaries|import-linter|depcruiser|archunit|netarchtest|enforce-module-boundaries|check_links|test_doc_format|test_health_check)",
+            re.IGNORECASE,
+        )
+
+        # Kiểm tra các tệp cấu hình lint / test / csproj
+        candidate_files = [
+            root / "package.json",
+            root / "pyproject.toml",
+            root / ".eslintrc.js",
+            root / ".eslintrc.cjs",
+            root / ".eslintrc.json",
+            root / "eslint.config.js",
+            root / "eslint.config.mjs",
+            root / ".importlinter",
+        ]
+        candidate_files.extend(workflows)
+        if (root / "tests").is_dir():
+            candidate_files.extend((root / "tests").glob("test_*.py"))
+
+        csproj_files = list(root.rglob("*.csproj"))
+        if len(csproj_files) >= 2:
+            has_boundary_guard = True
+
+        if not has_boundary_guard:
+            for cf in candidate_files:
+                if cf.is_file() and boundary_patterns.search(_read(cf)):
+                    has_boundary_guard = True
+                    break
+
+        if not has_boundary_guard:
+            doc_id = PROFILE_EXPECTATIONS.get(declared_arch or "", ([], "K-004"))[1]
+            return (
+                False,
+                f"Dự án khai báo mức rào chắn `{level}` ({declared_arch or 'custom'}) nhưng thiếu rào chắn kiểm soát ranh giới kiến trúc (luật chặn import chéo, tách project, hoặc test kiến trúc trong CI).",
+                ["K-004", doc_id] if doc_id != "K-004" else ["K-004", "S-002"],
+            )
+
+    return True, "", []

@@ -243,9 +243,9 @@ async function handleTopAIDeepReview() {
     return;
   }
 
-  // Nếu chưa có dữ liệu đo kiểm tiêu chuẩn, tự động chạy Standard Review trước
+  // Nếu chưa có dữ liệu đo kiểm tiêu chuẩn, tự động chạy Health Check trước
   if (!currentAuditData) {
-    setStatus("Đang chạy Standard Review trước để thu thập dữ liệu thẩm định cho AI...");
+    setStatus("Đang chạy Health Check trước để thu thập dữ liệu thẩm định cho AI...");
     await runBenchmark();
     if (!currentAuditData) return;
   }
@@ -442,7 +442,7 @@ async function selectFolderNative() {
 async function runBenchmark() {
   const folder = document.getElementById("targetFolderInput").value.trim();
   if (!folder) {
-    alert("Vui lòng chọn thư mục dự án cần Review.");
+    alert("Vui lòng chọn thư mục dự án cần kiểm tra.");
     return;
   }
 
@@ -467,10 +467,10 @@ async function runBenchmark() {
     if (!data.success) {
       addInstallerLog(`Lỗi đo kiểm: ${data.error}`, "error");
       setOverallProgress(100, `Thất bại: ${data.error}`, "LỖI");
-      alert("Lỗi Review: " + data.error);
+      alert("Lỗi Health Check: " + data.error);
       setStatus("Đo kiểm thất bại.");
       runBtn.disabled = false;
-      runBtn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg><span>Standard Review</span>`;
+      runBtn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg><span>Health Check</span>`;
       return;
     }
 
@@ -485,7 +485,7 @@ async function runBenchmark() {
       : [{ text: "Đã hoàn thành quét dự án.", type: "info" }];
 
     let logIdx = 0;
-    const playbackInterval = 40; // 40ms mỗi dòng log (~1.2s toàn bộ)
+    const playbackInterval = 35;
     const totalLogs = logs.length;
 
     if (installerTimer) clearInterval(installerTimer);
@@ -494,7 +494,6 @@ async function runBenchmark() {
         const item = logs[logIdx];
         addInstallerLog(item.text, item.type || "info");
 
-        // Cập nhật trạng thái chặng tương ứng nếu có
         if (item.stage && item.stage !== "general" && item.stage !== "init" && item.stage !== "finish" && item.stage !== "indexing" && item.stage !== "profiling") {
           setSegmentStatus(item.stage, "active");
         }
@@ -507,19 +506,16 @@ async function runBenchmark() {
         clearInterval(installerTimer);
         installerTimer = null;
 
-        // Hoàn tất tất cả các chặng
-        if (data.active_pillars) {
+        if (Array.isArray(data.active_pillars)) {
           data.active_pillars.forEach(p => setSegmentStatus(p.key, "completed"));
         }
         setOverallProgress(100, `✓ Hoàn tất đo kiểm toàn diện! Tổng điểm: ${data.total_score}/100`, "XONG 100%");
 
-        // Dừng xoay spinner và hiển thị trạng thái hoàn tất
         const spinnerEl = document.getElementById("installerSpinner");
         const mainTitleEl = document.getElementById("installerMainTitle");
         if (spinnerEl) spinnerEl.className = "installer-spinner spinner-done";
         if (mainTitleEl) mainTitleEl.textContent = `Đã hoàn tất đo kiểm kiến trúc (${data.total_score}/100)`;
 
-        // Cập nhật trạng thái "Lịch sử quét" trên Sidebar
         const dotHistory = document.getElementById("dot_history");
         const scoreHistory = document.getElementById("score_history");
         if (dotHistory) dotHistory.className = "status-dot dot-success";
@@ -528,19 +524,16 @@ async function runBenchmark() {
           scoreHistory.style.color = "#10b981";
         }
 
-        // Hiển thị thanh thông báo hoàn tất với nút chuyển
         const finishBox = document.getElementById("installerFinishBox");
         if (finishBox) finishBox.style.display = "flex";
         const summaryEl = document.getElementById("finishScoreSummary");
         if (summaryEl) summaryEl.textContent = `Hoàn tất đo kiểm toàn diện! Tổng điểm: ${data.total_score}/100 [Hạng ${data.grade}]`;
 
-        // Render toàn bộ 12 hạng mục (với N/A disable) lên sidebar
         renderAuditResults(data);
-        setStatus(`Hoàn tất Review! Điểm: ${data.total_score}/100.`);
+        setStatus(`Hoàn tất Health Check! Điểm: ${data.total_score}/100.`);
 
-        // Khôi phục nút bấm
         runBtn.disabled = false;
-        runBtn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg><span>Standard Review</span>`;
+        runBtn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg><span>Health Check</span>`;
       }
     }, playbackInterval);
 
@@ -552,24 +545,7 @@ async function runBenchmark() {
     alert("Lỗi kết nối Backend: " + e.message);
     setStatus("Lỗi kết nối.");
     runBtn.disabled = false;
-    runBtn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg><span>Standard Review</span>`;
-  }
-}
-function updateStatusDot(dotId, score, max) {
-  const dot = document.getElementById(dotId);
-  if (!dot) return;
-  dot.className = "status-dot";
-  if (!max || max <= 0) {
-    dot.classList.add("dot-neutral");
-    return;
-  }
-  const ratio = score / max;
-  if (ratio >= 0.8) {
-    dot.classList.add("dot-success");
-  } else if (ratio >= 0.5) {
-    dot.classList.add("dot-warning");
-  } else {
-    dot.classList.add("dot-danger");
+    runBtn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg><span>Health Check</span>`;
   }
 }
 
@@ -608,7 +584,7 @@ function groupViolations(violations) {
 
 function renderGroupedViolations(violations, containerEl) {
   if (!containerEl) return;
-  if (!violations || violations.length === 0) {
+  if (!violations || !Array.isArray(violations) || violations.length === 0) {
     containerEl.innerHTML = `<div style="color: #10b981; font-size: 13px; padding: 16px 0;">🎉 Không phát hiện vi phạm mã nguồn hoặc lỗi Anti-Crash.</div>`;
     return;
   }
@@ -662,7 +638,6 @@ function renderGroupedViolations(violations, containerEl) {
   html += `</div>`;
   containerEl.innerHTML = html;
 
-  // Gắn sự kiện mở rộng/thu gọn danh sách chi tiết các vị trí
   containerEl.querySelectorAll(".btn-toggle-locations").forEach(btn => {
     btn.addEventListener("click", () => {
       const targetId = btn.getAttribute("data-target");
@@ -677,6 +652,221 @@ function renderGroupedViolations(violations, containerEl) {
   });
 }
 
+// -------------------------------------------------------------
+// RENDER MỤC 2 (ACTIONABLE FINDINGS), MỤC 4 (BASELINE), MỤC 0 & 7 (SAFETY & SCOPE)
+// -------------------------------------------------------------
+function getSeverityClass(sev) {
+  if (sev === "Cao") return "sev-high";
+  if (sev === "Trung bình") return "sev-medium";
+  return "sev-low";
+}
+
+function renderFindingsTable(findings) {
+  const container = document.getElementById("findingsTableContainer");
+  const badge = document.getElementById("findingCountBadge");
+  const list = Array.isArray(findings) ? findings : [];
+  if (badge) badge.textContent = list.length;
+  if (!container) return;
+
+  if (list.length === 0) {
+    container.innerHTML = `<div style="color: #10b981; font-size: 13px; padding: 12px 0;">🎉 Không có phát hiện nào cần xử lý! Dự án đạt chuẩn toàn diện.</div>`;
+    return;
+  }
+
+  const rowsHtml = list.map(f => {
+    const docsList = Array.isArray(f?.docs) ? f.docs : [];
+    const docsHtml = docsList.length > 0
+      ? docsList.map(d => `<a href="${escapeHtml(d.url)}" target="_blank" rel="noopener noreferrer" class="doc-link" title="${escapeHtml(d.title)}">[${escapeHtml(d.id)}] ${escapeHtml(d.path)} ↗</a>`).join("<br>")
+      : "—";
+    const locHtml = f?.location ? `<code class="code-pill">${escapeHtml(f.location)}</code>` : "—";
+
+    return `
+      <tr>
+        <td><span class="code-pill">${escapeHtml(f?.code ?? "GEN-001")}</span></td>
+        <td><span class="sev-badge ${getSeverityClass(f?.severity)}">${escapeHtml(f?.severity ?? "Trung bình")}</span></td>
+        <td>${locHtml}</td>
+        <td>${escapeHtml(f?.title ?? "")}</td>
+        <td>${docsHtml}</td>
+      </tr>
+    `;
+  }).join("");
+
+  container.innerHTML = `
+    <div class="audit-table-wrapper">
+      <table class="audit-table">
+        <thead>
+          <tr>
+            <th>Mã</th>
+            <th>Mức độ</th>
+            <th>Vị trí</th>
+            <th>Mô tả phát hiện</th>
+            <th>Tài liệu khắc phục (Kit)</th>
+          </tr>
+        </thead>
+        <tbody>${rowsHtml}</tbody>
+      </table>
+    </div>
+  `;
+}
+
+function renderBaselineTable(baseline) {
+  const container = document.getElementById("baselineTableContainer");
+  const badge = document.getElementById("baselineCountBadge");
+  const list = Array.isArray(baseline) ? baseline : [];
+  const passedCount = list.filter(b => b?.ok).length;
+  if (badge) badge.textContent = `${passedCount}/${list.length || 9}`;
+  if (!container) return;
+
+  if (list.length === 0) {
+    container.innerHTML = `<div class="muted-item">Chưa có dữ liệu Core Baseline.</div>`;
+    return;
+  }
+
+  const rowsHtml = list.map(item => {
+    const statusHtml = item?.ok
+      ? `<span class="sev-badge sev-ok">✓ Đạt</span>`
+      : `<span class="sev-badge sev-high">✗ Chưa đạt</span> <span style="margin-left: 6px; color: #f87171;">${escapeHtml(item?.detail ?? "")}</span>`;
+
+    return `
+      <tr>
+        <td><span class="code-pill">${escapeHtml(item?.id ?? "")}</span></td>
+        <td style="font-weight: 500; color: var(--text-primary);">${escapeHtml(item?.name ?? "")}</td>
+        <td>${statusHtml}</td>
+      </tr>
+    `;
+  }).join("");
+
+  container.innerHTML = `
+    <div class="audit-table-wrapper">
+      <table class="audit-table">
+        <thead>
+          <tr>
+            <th style="width: 80px;">Mã</th>
+            <th>Thành phần Core Baseline</th>
+            <th>Trạng thái kiểm tra</th>
+          </tr>
+        </thead>
+        <tbody>${rowsHtml}</tbody>
+      </table>
+    </div>
+  `;
+}
+
+function renderSafetyAndScope(safety, scope) {
+  const safetyContainer = document.getElementById("safetyContainer");
+  const scopeContainer = document.getElementById("scopeContainer");
+  const safetyBadge = document.getElementById("safetyCountBadge");
+  const safetyTitle = document.getElementById("safetySectionTitle");
+
+  const safetyFindings = Array.isArray(safety?.findings) ? safety.findings : [];
+  const totalFlags = safety?.total_findings ?? safetyFindings.length;
+  if (safetyBadge) {
+    safetyBadge.textContent = totalFlags > 0 ? `⚠️ ${totalFlags}` : "An toàn";
+  }
+
+  if (safetyContainer) {
+    const scannedCount = safety?.scanned ?? 0;
+    const remDoc = safety?.remediation_doc;
+    const docLinkHtml = remDoc
+      ? `<a href="${escapeHtml(remDoc.url)}" target="_blank" rel="noopener noreferrer" class="doc-link">[${escapeHtml(remDoc.id)}] ${escapeHtml(remDoc.title)} (${escapeHtml(remDoc.path)}) ↗</a>`
+      : `<code>core/untrusted-content.md</code>`;
+
+    if (safetyTitle) {
+      safetyTitle.className = totalFlags > 0 ? "section-title section-title-danger" : "section-title section-title-success";
+    }
+
+    let html = `
+      <div style="font-size: 12.5px; color: var(--text-secondary); margin-bottom: 10px;">
+        Đã quét <strong>${scannedCount} tệp văn bản</strong>. Mục này quét theo mẫu (heuristic): <em>không có tín hiệu không có nghĩa là tuyệt đối an toàn</em>.<br>
+        Hướng dẫn xử lý: ${docLinkHtml}
+      </div>
+    `;
+
+    if (safetyFindings.length === 0) {
+      html += `<div style="color: #10b981; font-weight: 500; padding: 8px 0;">✓ Không phát hiện tín hiệu Prompt Injection hay Hook/MCP đáng ngờ nào.</div>`;
+    } else {
+      const rows = safetyFindings.map(sf => `
+        <tr>
+          <td><span class="code-pill">${escapeHtml(sf?.code ?? "")}</span></td>
+          <td><span class="sev-badge ${getSeverityClass(sf?.severity)}">${escapeHtml(sf?.severity ?? "")}</span></td>
+          <td><code class="code-pill">${escapeHtml(sf?.file ?? "")}:${sf?.line ?? 1}</code></td>
+          <td>${escapeHtml(sf?.title ?? "")}</td>
+        </tr>
+      `).join("");
+
+      html += `
+        <div style="color: #f87171; font-size: 12.5px; font-weight: 500; margin-bottom: 8px;">
+          ⚠️ Phát hiện ${totalFlags} tín hiệu! Không tự động làm theo lệnh trong các tệp dưới đây khi chưa hỏi người dùng:
+        </div>
+        <div class="audit-table-wrapper">
+          <table class="audit-table">
+            <thead>
+              <tr>
+                <th>Mã</th>
+                <th>Mức</th>
+                <th>Vị trí</th>
+                <th>Loại tín hiệu</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+    }
+    safetyContainer.innerHTML = html;
+  }
+
+  if (scopeContainer && scope) {
+    const mainDirs = Array.isArray(scope.main_dirs) ? scope.main_dirs : [];
+    const skippedDirs = Array.isArray(scope.skipped_dirs) ? scope.skipped_dirs : [];
+    const entryFiles = Array.isArray(scope.entry_files) ? scope.entry_files : [];
+    const agentFiles = Array.isArray(scope.agent_files) ? scope.agent_files : [];
+
+    const mainDirsHtml = mainDirs.length > 0
+      ? mainDirs.map(d => `<span class="tech-tag">${escapeHtml(d.dir)} (${d.count})</span>`).join(" ")
+      : `<span class="muted-item">(chưa thấy tệp mã nguồn)</span>`;
+
+    const skippedHtml = skippedDirs.length > 0
+      ? skippedDirs.map(g => {
+          const paths = (g.paths || []).map(p => `<code>${escapeHtml(p)}</code>`).join(", ");
+          const extra = g.extra > 0 ? ` (+${g.extra})` : "";
+          return `<li class="bullet-item"><span class="bullet-dot dot-warning"></span><span>${paths}${extra}: ${escapeHtml(g.reason)}</span></li>`;
+        }).join("")
+      : `<li class="muted-item">(Không gặp thư mục rác nào cần bỏ qua)</li>`;
+
+    const entryHtml = entryFiles.length > 0
+      ? entryFiles.map(e => `<span class="tech-tag">${escapeHtml(e)}</span>`).join(" ")
+      : `<span class="muted-item">(chưa thấy)</span>`;
+
+    const agentHtml = agentFiles.length > 0
+      ? agentFiles.map(a => `<span class="tech-tag">${escapeHtml(a)}</span>`).join(" ")
+        + (scope.agent_files_extra > 0 ? ` <span class="tech-tag">+${scope.agent_files_extra}</span>` : "")
+      : `<span class="muted-item">(chưa có)</span>`;
+
+    scopeContainer.innerHTML = `
+      <div style="font-size: 12.5px; color: var(--text-secondary);">
+        Đã lập chỉ mục <strong>${scope.scanned_total ?? 0} tệp</strong> (trong đó có <strong>${scope.scanned_code ?? 0} tệp mã nguồn</strong> và <strong>${scope.scanned_safety ?? 0} tệp văn bản</strong> quét an toàn).
+      </div>
+      <div class="scope-block">
+        <div class="scope-block-title">Thư mục mã nguồn chính:</div>
+        <div class="tag-cloud">${mainDirsHtml}</div>
+      </div>
+      <div class="scope-block">
+        <div class="scope-block-title">Tệp cấu hình / điểm vào nên đọc trước:</div>
+        <div class="tag-cloud">${entryHtml}</div>
+      </div>
+      <div class="scope-block">
+        <div class="scope-block-title">Tệp chỉ dẫn / cấu hình AI Agent nhận diện:</div>
+        <div class="tag-cloud">${agentHtml}</div>
+      </div>
+      <div class="scope-block">
+        <div class="scope-block-title">Thư mục đã tự động cắt tỉa (Agent KHÔNG đọc lại để tiết kiệm token):</div>
+        <ul class="clean-bullet-list">${skippedHtml}</ul>
+      </div>
+    `;
+  }
+}
+
 function renderAuditResults(data) {
   // 1. Total Score & Màu điểm
   const totalScoreEl = document.getElementById("totalScore");
@@ -688,7 +878,7 @@ function renderAuditResults(data) {
     else totalScoreEl.classList.add("score-danger");
   }
 
-  // 2. Metadata (Có title đầy đủ khi hover, không bị tràn đè)
+  // 2. Metadata (Kèm thông tin Profile & Guardrail từ .builder/kit.json)
   const archTypeEl = document.getElementById("metaArchetype");
   const archStyleEl = document.getElementById("metaArchStyle");
   if (archTypeEl) {
@@ -698,8 +888,15 @@ function renderAuditResults(data) {
   }
   if (archStyleEl) {
     const rawStyle = data.profiler?.arch_style || "Chưa xác định";
-    archStyleEl.textContent = rawStyle;
-    archStyleEl.setAttribute("title", rawStyle);
+    const declaredProfile = data.kit_config?.declared_architecture;
+    const guardrailLvl = data.kit_config?.guardrail_level;
+    const kitRef = data.kit_config?.kit_ref;
+    const profileSuffix = declaredProfile
+      ? ` · Profile: ${declaredProfile}${guardrailLvl ? ` (${guardrailLvl})` : ""}${kitRef ? ` [${kitRef}]` : ""}`
+      : "";
+    const fullStyle = `${rawStyle}${profileSuffix}`;
+    archStyleEl.textContent = fullStyle;
+    archStyleEl.setAttribute("title", fullStyle);
   }
 
   // 3. Render Dynamic Sidebar Pillars (Luôn hiển thị đủ 12 hạng mục tiêu chuẩn)
@@ -720,7 +917,6 @@ function renderAuditResults(data) {
       li.setAttribute("data-pillar", p.key);
 
       if (p.is_na) {
-        // Hạng mục N/A: không áp dụng cho dự án, hiển thị xám và disable không click được
         li.className = "pillar-item pillar-disabled";
         li.setAttribute("title", "Hạng mục này không áp dụng cho cấu trúc dự án hiện tại");
         li.innerHTML = `
@@ -731,7 +927,6 @@ function renderAuditResults(data) {
           <span class="pillar-score pillar-score-na" id="score_${p.key}">N/A</span>
         `;
       } else {
-        // Hạng mục ĐANG HOẠT ĐỘNG: hiển thị điểm, màu trạng thái và click được
         li.className = "pillar-item";
         let dotClass = "dot-neutral";
         let scoreClass = "";
@@ -768,7 +963,7 @@ function renderAuditResults(data) {
     });
   }
 
-  // 4. Tech Stack Tags
+  // 4. Tech Stack Tags & Kit Ledger Tags
   const techCloud = document.getElementById("techStackTags");
   if (techCloud) {
     techCloud.innerHTML = "";
@@ -778,6 +973,12 @@ function renderAuditResults(data) {
       ...(data.profiler?.databases || []),
       ...(data.profiler?.tools || [])
     ];
+    if (data.kit_config?.declared_architecture) {
+      allTechs.push(`PROFILE: ${data.kit_config.declared_architecture.toUpperCase()}`);
+    }
+    if (data.kit_config?.guardrail_level) {
+      allTechs.push(`GUARDRAIL: ${data.kit_config.guardrail_level}`);
+    }
     if (allTechs.length === 0) {
       techCloud.innerHTML = `<span class="tech-tag">Không nhận diện được framework cụ thể</span>`;
     } else {
@@ -794,7 +995,7 @@ function renderAuditResults(data) {
   const strList = document.getElementById("strengthList");
   if (strList) {
     strList.innerHTML = "";
-    if (data.strengths && data.strengths.length > 0) {
+    if (Array.isArray(data.strengths) && data.strengths.length > 0) {
       data.strengths.forEach(s => {
         const li = document.createElement("li");
         li.className = "bullet-item";
@@ -810,7 +1011,7 @@ function renderAuditResults(data) {
   const gapsList = document.getElementById("gapsList");
   if (gapsList) {
     gapsList.innerHTML = "";
-    if (data.gaps && data.gaps.length > 0) {
+    if (Array.isArray(data.gaps) && data.gaps.length > 0) {
       data.gaps.forEach(g => {
         const li = document.createElement("li");
         li.className = "bullet-item";
@@ -829,7 +1030,7 @@ function renderAuditResults(data) {
   const bloatList = document.getElementById("bloatList");
   if (bloatList) {
     bloatList.innerHTML = "";
-    if (data.bloat && data.bloat.length > 0) {
+    if (Array.isArray(data.bloat) && data.bloat.length > 0) {
       data.bloat.forEach(b => {
         const li = document.createElement("li");
         li.className = "bullet-item";
@@ -846,7 +1047,12 @@ function renderAuditResults(data) {
   if (violationBadge) violationBadge.textContent = (data.violations || []).length;
   renderGroupedViolations(data.violations || [], document.getElementById("violationGroupedContainer"));
 
-  // 8. Cập nhật Panel Báo cáo & Prompt AI
+  // 8. Render Mục 2 (Findings), Mục 4 (Core Baseline B1-B9), Mục 0 & 7 (Safety & Scope)
+  renderFindingsTable(data.findings ?? []);
+  renderBaselineTable(data.baseline ?? []);
+  renderSafetyAndScope(data.safety ?? {}, data.scope ?? {});
+
+  // 9. Cập nhật Panel Báo cáo & Prompt AI
   updateReportPromptPanel();
 }
 
@@ -856,7 +1062,7 @@ function updateReportPromptPanel() {
   const promptBox = document.getElementById("aiPromptBox");
 
   if (pathDisplay) {
-    pathDisplay.textContent = currentAuditData?.report_file || "Chưa có báo cáo. Nhấn 'Standard Review' để khởi tạo.";
+    pathDisplay.textContent = currentAuditData?.report_file || "Chưa có báo cáo. Nhấn 'Health Check' để khởi tạo.";
   }
   if (statusBadge) {
     if (currentAuditData?.report_file) {
@@ -869,7 +1075,7 @@ function updateReportPromptPanel() {
     }
   }
   if (promptBox) {
-    promptBox.textContent = currentAuditData?.ai_prompt || "Nhấn 'Standard Review' để sinh prompt chuẩn cho Agent.";
+    promptBox.textContent = currentAuditData?.ai_prompt || "Nhấn 'Health Check' để sinh prompt chuẩn cho Agent.";
   }
 }
 
@@ -898,29 +1104,24 @@ function handlePillarSelection(pillarKey) {
   const tabPillar = document.getElementById("tab-pillar");
 
   if (pillarKey === "history") {
-    // 1. Chế độ LỊCH SỬ QUÉT: Hiển thị lại toàn bộ tiến trình quét, 6 chặng chia vạch và log feed
     if (progressView) progressView.style.display = "flex";
     if (resultView) resultView.style.display = "none";
     return;
   }
 
-  // Với mọi hạng mục khác: Ẩn tiến trình quét và hiển thị canvas kết quả đo kiểm
   if (progressView) progressView.style.display = "none";
   if (resultView) resultView.style.display = "flex";
 
   if (pillarKey === "overview") {
-    // 2. Chế độ TỔNG QUAN: Hiển thị lại banner điểm tổng và các tabs tổng quan
     if (overviewBanner) overviewBanner.style.display = "flex";
     if (overviewTabs) overviewTabs.style.display = "flex";
     if (tabPillar) tabPillar.classList.remove("active");
 
-    // Mặc định kích hoạt tab Tổng quan
     switchOverviewTab("tab-overview");
     return;
   }
 
   if (pillarKey === "report_prompt") {
-    // 3. Chế độ BÁO CÁO & PROMPT AI CHUYÊN BIỆT
     if (overviewBanner) overviewBanner.style.display = "none";
     if (overviewTabs) overviewTabs.style.display = "none";
     if (tabPillar) tabPillar.classList.remove("active");
@@ -933,12 +1134,9 @@ function handlePillarSelection(pillarKey) {
     return;
   }
 
-  // 4. Chế độ XEM CHI TIẾT HẠNG MỤC:
-  // Ẩn thanh tabs và metrics banner của tổng quan để tránh gây nhiễu
   if (overviewBanner) overviewBanner.style.display = "none";
   if (overviewTabs) overviewTabs.style.display = "none";
 
-  // Ẩn toàn bộ các tab panel của tổng quan
   document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
   if (tabPillar) tabPillar.classList.add("active");
 
@@ -947,6 +1145,11 @@ function handlePillarSelection(pillarKey) {
     backend: "Backend & Core Flow",
     frontend: "Frontend & UI/UX",
     database: "Database & Query Safety",
+    security: "Bảo Mật & Chuỗi Cung Ứng",
+    cloud: "Hạ Tầng Cloud & DevOps",
+    microservices: "Hệ Thống Phân Tán & Gateway",
+    data_caching: "Kỹ Thuật Dữ Liệu & Cache",
+    observability: "Giám Sát & Vận Hành",
     anticrash: "Runtime Anti-Crash",
     agent_ecosystem: "Hệ Sinh Thái AI Agent (Rules, Skills & Workflows)",
     contracts: "Hồ Sơ Kiến Trúc & Hợp Đồng API"
@@ -958,8 +1161,13 @@ function handlePillarSelection(pillarKey) {
     frontend: currentAuditData?.categories?.["03_frontend"],
     database: currentAuditData?.categories?.["04_database"],
     anticrash: currentAuditData?.categories?.["05_anticrash"],
+    contracts: currentAuditData?.categories?.["06_contracts"],
     agent_ecosystem: currentAuditData?.categories?.["07_agent_ecosystem"],
-    contracts: currentAuditData?.categories?.["06_contracts"]
+    security: currentAuditData?.categories?.["08_security"],
+    cloud: currentAuditData?.categories?.["09_cloud"],
+    microservices: currentAuditData?.categories?.["10_microservices"],
+    data_caching: currentAuditData?.categories?.["11_data_caching"],
+    observability: currentAuditData?.categories?.["12_observability"]
   };
 
   const activePillar = currentAuditData?.all_pillars?.find(p => p.key === pillarKey) || currentAuditData?.active_pillars?.find(p => p.key === pillarKey);
@@ -973,7 +1181,7 @@ function handlePillarSelection(pillarKey) {
   const violationsSection = document.getElementById("pillarViolationsSection");
 
   if (titleEl) titleEl.textContent = activePillar ? activePillar.name : (titleMap[pillarKey] || pillarKey);
-  if (subTitleEl) subTitleEl.textContent = "Thẩm định chi tiết theo bộ tiêu chuẩn Starter Kit";
+  if (subTitleEl) subTitleEl.textContent = "Thẩm định chi tiết theo bộ tiêu chuẩn Project-Builder-4-Agents";
 
   if (!cat) {
     if (scoreValEl) {
@@ -988,7 +1196,6 @@ function handlePillarSelection(pillarKey) {
     return;
   }
 
-  // Xử lý trường hợp hạng mục N/A (không áp dụng cho dự án)
   if (cat.is_na || cat.max === 0) {
     if (scoreValEl) {
       scoreValEl.textContent = "N/A (Không áp dụng)";
@@ -1008,7 +1215,6 @@ function handlePillarSelection(pillarKey) {
     return;
   }
 
-  // Điểm số có màu sắc động (Không có chữ "đ")
   const ratio = cat.max > 0 ? (cat.score / cat.max) : 0;
   if (scoreValEl) {
     scoreValEl.textContent = `${cat.score} / ${cat.max}`;
@@ -1019,10 +1225,9 @@ function handlePillarSelection(pillarKey) {
     else scoreValEl.classList.add("score-danger");
   }
 
-  // Danh sách Tiêu chí đã đạt (Chỉ dùng bullet tròn màu xanh lá)
   if (foundList) {
     foundList.innerHTML = "";
-    if (cat.found && cat.found.length > 0) {
+    if (Array.isArray(cat.found) && cat.found.length > 0) {
       cat.found.forEach(item => {
         const li = document.createElement("li");
         li.className = "bullet-item";
@@ -1034,8 +1239,6 @@ function handlePillarSelection(pillarKey) {
     }
   }
 
-  // Danh sách Tiêu chí chưa đạt:
-  // Đổi màu tiêu đề và bullet động: Đỏ khi < 50% (nguy cơ cao), Cam khi 50% - 79% (cảnh báo)
   if (missingTitleEl) {
     if (ratio < 0.5) {
       missingTitleEl.className = "section-title section-title-danger";
@@ -1046,7 +1249,7 @@ function handlePillarSelection(pillarKey) {
 
   if (missingList) {
     missingList.innerHTML = "";
-    if (cat.missing && cat.missing.length > 0) {
+    if (Array.isArray(cat.missing) && cat.missing.length > 0) {
       const dotClass = ratio < 0.5 ? "bullet-dot dot-danger" : "bullet-dot dot-warning";
       cat.missing.forEach(item => {
         const li = document.createElement("li");
@@ -1059,7 +1262,6 @@ function handlePillarSelection(pillarKey) {
     }
   }
 
-  // Riêng hạng mục Anti-Crash: hiển thị chi tiết vi phạm mã nguồn gom nhóm theo loại & tần suất
   if (violationsSection) {
     if (pillarKey === "anticrash") {
       violationsSection.style.display = "block";
@@ -1116,7 +1318,7 @@ async function openTargetFolder() {
 
 async function triggerLLMReview() {
   if (!currentAuditData) {
-    alert("Vui lòng chạy Benchmark trước khi yêu cầu AI phân tích.");
+    alert("Vui lòng chạy Health Check trước khi yêu cầu AI phân tích.");
     return;
   }
 
@@ -1202,7 +1404,6 @@ function escapeHtml(text) {
     .replace(/'/g, "&#039;");
 }
 
-// -------------------------------------------------------------
 // -------------------------------------------------------------
 // DYNAMIC OVERLAY SCROLLBAR CONTROLLER
 // -------------------------------------------------------------

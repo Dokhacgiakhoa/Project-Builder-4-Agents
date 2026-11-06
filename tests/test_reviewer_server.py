@@ -110,3 +110,19 @@ def test_parse_version_orders_numerically(a, b):
 
 def test_parse_version_garbage_is_safe():
     assert srv.parse_version("abc") == (0,)
+
+
+def test_run_audit_returns_full_12_categories_and_extended_sections(live_server, tmp_path):
+    (tmp_path / "README.md").write_text("# Test Project\n\n```bash\nnpm test\n```\n", encoding="utf-8")
+    resp, raw = call(live_server, "POST", "/api/run-audit", {"target_dir": str(tmp_path)})
+    assert resp.status == 200
+    data = json.loads(raw)
+    assert data["success"] is True
+    assert len(data["categories"]) == 12
+    assert "05_anticrash" in data["categories"]
+    assert not data["categories"]["05_anticrash"]["is_na"]
+    assert "findings" in data and isinstance(data["findings"], list)
+    assert "baseline" in data and len(data["baseline"]) == 9
+    assert "safety" in data and "scanned" in data["safety"]
+    assert "scope" in data and "scanned_total" in data["scope"]
+    assert "kit_config" in data

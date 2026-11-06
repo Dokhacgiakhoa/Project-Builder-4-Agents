@@ -6,14 +6,14 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "======================================================================"
-echo "  PROJECT-BUILDER-KIT - PROJECT HEALTH CHECK"
+echo "  PROJECT-BUILDER-4-AGENTS — PROJECT HEALTH CHECK"
 echo "  Thanh Tra Kiến Trúc & Đối Chiếu Chuẩn Mực (Zero-Token, Offline)"
 echo "======================================================================"
 echo ""
 
 if ! command -v python3 &> /dev/null && ! command -v python &> /dev/null; then
     echo "[ERROR] Không tìm thấy Python trên hệ thống!"
-    echo "Vui lòng cài đặt Python 3 để chạy bộ thanh tra kiến trúc."
+    echo "Vui lòng cài đặt Python 3.12+ để chạy bộ thanh tra kiến trúc."
     exit 1
 fi
 
@@ -46,9 +46,9 @@ EXIT_CODE=$?
 echo ""
 echo "======================================================================"
 echo "  [HƯỚNG DẪN SỬ DỤNG CHO AI AGENT]"
-echo "  1. Mở tệp: project-review.md vừa được tạo."
-echo "  2. Cuộn xuống Mục 6, sao chép đoạn Prompt sẵn có (hoặc bảo Agent đọc thẳng tệp)."
-echo "  3. Dán vào Claude Code, Cursor, hoặc Antigravity để AI tự sửa code!"
+echo "  1. Mở tệp: project-review.md vừa được tạo tại thư mục dự án."
+echo "  2. Đọc Mục 0 (An toàn), Mục 7 (Phạm vi), rồi xử lý Mục 2 theo thứ tự ưu tiên."
+echo "  3. Dán Prompt ở Mục 6 vào Claude Code, Antigravity, Cursor hoặc Codex!"
 echo "======================================================================"
 echo ""
 

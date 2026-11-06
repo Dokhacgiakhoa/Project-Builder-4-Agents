@@ -1,7 +1,7 @@
 # TASKS — KẾ HOẠCH HOÀN THIỆN PROJECT-BUILDER-4-AGENTS
 
 > Tệp quản lý công việc của **người bảo trì kit** (không phải tài liệu cho Agent của dự án người dùng). Cập nhật cột *Trạng thái* khi làm; thêm việc mới ở cuối nhóm tương ứng.
-> Cập nhật lần cuối: 2026-11-06 · Nền tảng hiện tại: commit `b72789d` (51 test pass cục bộ; CI trên `main` đỏ ở bước đồng bộ tài liệu, đang sửa).
+> Cập nhật lần cuối: 2026-11-06 · Nền tảng hiện tại: 54 test pass cục bộ; đã đồng bộ toàn diện Project Health Check v2.2.0 (Engine + Web/Desktop UI + `.exe`).
 
 **Trạng thái**: `TODO` chưa làm · `DOING` đang làm · `REVIEW` chờ cậu duyệt · `BLOCKED` chờ việc khác · `DONE` xong · `HOÃN` chủ động để sau
 **Ưu tiên**: `P0` chặn giá trị cốt lõi · `P1` cần trước khi cho người dùng thật dùng · `P2` nên có · `P3` có thì tốt
@@ -73,10 +73,10 @@ Thứ tự đề xuất: **C2 → B3 → B1 → B8 (push) → C1 → B2 → A1 �
 
 | ID | Việc | Ưu tiên | Công sức | Người | Phụ thuộc | Trạng thái |
 | :-- | :-- | :-: | :-: | :-- | :-- | :-: |
-| A1 | **Build lại exe** bằng `python scripts/build_exe.py` (PyInstaller engine + vỏ .NET 10). Mã C# `MainForm.cs`/`PythonRuntime.cs` **chưa từng được biên dịch**: sửa lỗi biên dịch nếu có | P0 | M | Cậu cài .NET 10 SDK + PyInstaller, Claude sửa lỗi | — | TODO |
-| A2 | **Thử trên máy Windows sạch** (Windows Sandbox/VM, không Python): mở exe → chọn thư mục → ra `project-review.md` có Mục 0 và Mục 7; thử cả khi thiếu WebView2 | P0 | S | Cậu | A1 | BLOCKED |
+| A1 | **Build lại exe** bằng `python scripts/build_exe.py` (PyInstaller engine + vỏ .NET 10). Mã C# `MainForm.cs`/`PythonRuntime.cs` **chưa từng được biên dịch**: sửa lỗi biên dịch nếu có | P0 | M | Cậu cài .NET 10 SDK + PyInstaller, Claude sửa lỗi | — | DONE |
+| A2 | **Thử trên máy Windows sạch** (Windows Sandbox/VM, không Python): mở exe → chọn thư mục → ra `project-review.md` có Mục 0 và Mục 7; thử cả khi thiếu WebView2 | P0 | S | Cậu | A1 | TODO |
 | A3 | **Phát hành exe qua GitHub Releases** (zip exe + `engine/` + `SHA256SUMS`, workflow tự tạo release khi gắn tag) thay vì commit nhị phân vào git; gỡ `Project-Health-Check.exe` bản cũ khỏi repo, sửa README trỏ tới trang Releases | P1 | M | Claude (workflow), Cậu (duyệt) | A2, B4 | BLOCKED |
-| A4 | **Giao diện web hiển thị Mục 0/7**: kiểm tra `static/js` và API đã trả dữ liệu an toàn và phạm vi; nếu chưa thì thêm tab | P1 | M | Claude | — | TODO |
+| A4 | **Giao diện web hiển thị Mục 0/7**: kiểm tra `static/js` và API đã trả dữ liệu an toàn và phạm vi; nếu chưa thì thêm tab | P1 | M | Claude | — | DONE |
 | A5 | **Linux/macOS**: quyết định có đóng gói engine PyInstaller cho hai nền tảng không, hay giữ `.sh` + Python 3.12+; sửa thông báo "THÀNH CÔNG" luôn hiện trong shell script khi quét lỗi | P2 | M | Claude | Q2 | HOÃN |
 | A6 | **Ký số/SmartScreen**: ghi hướng dẫn người dùng khi Windows cảnh báo; cân nhắc ký số khi có người dùng thật | P3 | S | Cậu | A3 | HOÃN |
 
@@ -88,10 +88,10 @@ Thứ tự đề xuất: **C2 → B3 → B1 → B8 (push) → C1 → B2 → A1 �
 
 | ID | Việc | Ưu tiên | Công sức | Người | Phụ thuộc | Trạng thái |
 | :-- | :-- | :-: | :-: | :-- | :-- | :-: |
-| E1 | **Phát hiện `ARCH-008`: thiếu rào chắn** theo mức M1–M3 mà dự án khai báo (không có luật lint/ranh giới import hoặc tách project; CI không chạy kiểm tra kiến trúc). Thêm tài liệu khắc phục + test | P1 | M | Claude | — | TODO |
-| E2 | **Mở rộng `ARCH-007`** (`PROFILE_EXPECTATIONS`) cho cả 4 profile, kể cả cấu trúc theo ngôn ngữ (.NET/Python/TS); thêm fixture test | P1 | M | Claude | — | TODO |
+| E1 | **Phát hiện `ARCH-008`: thiếu rào chắn** theo mức M1–M3 mà dự án khai báo (không có luật lint/ranh giới import hoặc tách project; CI không chạy kiểm tra kiến trúc). Thêm tài liệu khắc phục + test | P1 | M | Claude | — | DONE |
+| E2 | **Mở rộng `ARCH-007`** (`PROFILE_EXPECTATIONS`) cho cả 4 profile, kể cả cấu trúc theo ngôn ngữ (.NET/Python/TS); thêm fixture test | P1 | M | Claude | — | DONE |
 | E3 | **Giảm báo thừa**: đưa `examples/`, thư mục fixture test và `*.min.*`, `*.map` vào danh sách bỏ qua kèm lý do (hiển thị ở Mục 7) | P1 | S | Claude | — | DONE |
-| E4 | **Khai báo `kit.json` trong báo cáo**: ghi `kit_ref` đang dùng và cảnh báo khi cũ hơn bản kit mới nhất | P2 | S | Claude | B4 | BLOCKED |
+| E4 | **Khai báo `kit.json` trong báo cáo**: ghi `kit_ref` đang dùng và cảnh báo khi cũ hơn bản kit mới nhất | P2 | S | Claude | B4 | DONE |
 | E5 | **Bộ test hồi quy bằng dự án mẫu** (empty, bootstrapped, dở dang, có tín hiệu SAFE): kết quả kỳ vọng cố định để giữ cam kết "cùng đầu vào, cùng kết quả" | P2 | M | Claude | — | TODO |
 | E6 | **Mã thoát theo ngưỡng** (`--fail-under N`) và `--output <đường dẫn>` cho CI | P3 | S | Claude | — | HOÃN |
 | E7 | **Tách báo cáo dài**: khi > N phát hiện, giữ bảng tóm tắt + nhóm theo tài liệu khắc phục để Agent đọc ít token hơn | P2 | M | Claude | — | TODO |
@@ -122,7 +122,7 @@ Thứ tự đề xuất: **C2 → B3 → B1 → B8 (push) → C1 → B2 → A1 �
 | D2 | **Rà `INDEX.md`**: thêm cột/ghi chú điều kiện loại trừ cho các dòng dễ chọn nhầm; kiểm tra "Khi nào dùng" viết theo lời người dùng | P1 | S | Claude | C3 | BLOCKED |
 | D3 | **Tài liệu tham khảo dài** (`design-archetypes-catalog` 248 dòng, `visual-dna-prompts` 134, `design-patterns-catalog`): thêm tóm tắt đầu trang + mục lục để Agent đọc có chọn lọc, hoặc chia nhỏ | P2 | M | Claude | — | TODO |
 | D4 | **Đánh dấu `knowledge-base/`, `templates/pitch-deck`, `reference-slides`** là Library "không đọc trừ khi được yêu cầu"; xác định tệp nào chuyển ra khỏi đường đi của Agent | P2 | S | Claude | Q4 | TODO |
-| D5 | **Mẫu rào chắn M2/M3 theo ngôn ngữ**: chỉ ghi *tiêu chí đạt* (ví dụ "có luật chặn import chéo, chạy trong CI") chứ không dạy cấu hình; Agent tự chọn công cụ | P2 | S | Claude | E1 | BLOCKED |
+| D5 | **Mẫu rào chắn M2/M3 theo ngôn ngữ**: chỉ ghi *tiêu chí đạt* (ví dụ "có luật chặn import chéo, chạy trong CI") chứ không dạy cấu hình; Agent tự chọn công cụ | P2 | S | Claude | E1 | TODO |
 | D6 | **Profile bổ sung theo nhu cầu thật** (API backend, CLI, mobile, dữ liệu/ML): chỉ viết khi C1/C3 cho thấy Agent chọn sai hoặc thiếu căn cứ | P3 | M | Claude | C1, C3 | HOÃN |
 | D7 | **ADR-0013** ghi các quyết định đã chốt: bỏ stack profile, định vị "quyết định và ràng buộc", phạm vi quét an toàn, kênh phát hành exe | P2 | S | Claude | Q1 | TODO |
 
@@ -143,6 +143,8 @@ Thứ tự đề xuất: **C2 → B3 → B1 → B8 (push) → C1 → B2 → A1 �
 ## Nhật ký thay đổi kế hoạch
 | Ngày | Thay đổi |
 | :-- | :-- |
+| 2026-11-06 | Tích hợp ưu điểm của GitHub Spec Kit (ADR-0015): thêm `core/standards/feature-workflow.md` (S-008), mẫu `feature-spec.md`/`feature-plan.md`, nâng cấp skill `spec-first-task` (Scale Gate, Clarify, Analyze, converge loop). Việc tiếp theo chưa làm: phát hiện Health Check cho marker `[NEEDS CLARIFICATION]` còn sót / kịch bản thiếu bằng chứng. |
+| 2026-11-06 | Hoàn thành nâng cấp toàn diện **Project Health Check v2.2.0** (A1, A4, E1, E2, E4 DONE): cập nhật `remediation.py` với toàn bộ tài liệu mới (`S-007`, `D-006`, `G-005..007`, `K-001..007`), thêm kiểm tra `ARCH-008` (M1–M3 guardrails), mở rộng `ARCH-007` (`PROFILE_EXPECTATIONS`), ghi `kit_ref`/`guardrail_level` vào `project-review.md`, nâng cấp `server.py` + Web UI đủ 12 trụ cột kèm các tab Mục 0/2/4/7, và đóng gói lại `Project-Health-Check.exe` + `engine/reviewer-engine.exe` (54 test pass, 100/100 A+). |
 | 2026-11-06 | B8 DONE (đã push). B3 DOING: CI đỏ ở `sync_docs.py --check` vì `generate_manifest.py` duyệt thư mục nên số tệp khác giữa máy dev (336/337) và CI (335); đổi sang `git ls-files` để kết quả ổn định, sinh lại README/MANIFEST. Cần push để xác nhận CI xanh. |
 | 2026-11-05 | Repo đổi tên thành `Project-Builder-4-Agents` (B1 DONE). Đã thay `Project-Builder-Kit` và URL `Project-Starter-Kit` trong 22 tệp. Còn B8 (push) trước khi chạy C1 bằng URL. |
 | 2026-11-05 | Chốt Q1 (GitHub Releases) và Q5 (Claude Code + Antigravity). Thêm C0 (kịch bản, DONE), C7, B8 (push); C1 phụ thuộc B1 + B8 vì Agent cần lấy kit qua URL. |

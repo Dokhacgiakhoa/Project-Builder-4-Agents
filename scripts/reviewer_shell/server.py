@@ -1,5 +1,5 @@
 """
-Backend Server for Project Reviewer (Modern Antigravity 2.0 Web Shell)
+Backend Server for Project Health Check (Modern Antigravity 2.0 Web Shell)
 Built on Python Standard Library (http.server + threading + json)
 100% Zero-dependency & Offline-capable.
 """
@@ -30,7 +30,7 @@ if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     STATIC_DIR = Path(sys._MEIPASS) / "reviewer_shell" / "static"
 else:
     STATIC_DIR = Path(__file__).resolve().parent / "static"
-CURRENT_VERSION = "2.1.0"
+CURRENT_VERSION = "2.2.0"
 
 SHUTDOWN_EVENT = threading.Event()
 
@@ -92,7 +92,7 @@ def choose_folder_native(initial_dir=""):
         ps_code = """
 Add-Type -AssemblyName System.Windows.Forms
 $dialog = New-Object System.Windows.Forms.FolderBrowserDialog
-$dialog.Description = 'Chọn thư mục dự án cần Benchmark'
+$dialog.Description = 'Chọn thư mục dự án cần kiểm tra sức khỏe (Project Health Check)'
 $dialog.ShowNewFolderButton = $false
 if ($dialog.ShowDialog() -eq [System.Windows.Forms.DialogResult]::OK) {
     [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
@@ -251,66 +251,33 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
             allow_open_path(report_file.resolve())
             allow_open_path(target_path)
 
-            # Chuẩn hóa dữ liệu trả về cho Frontend UI
             grade = auditor.get_letter_grade(score)
-            
+            report_data = auditor.serialize_report_data()
+
+            def _cat(key, default_name, default_max):
+                d = auditor.details.get(key) or {}
+                return {
+                    "name": d.get("name", default_name),
+                    "score": d.get("points_earned", 0),
+                    "max": d.get("max_points", default_max),
+                    "is_na": d.get("is_na", key not in auditor.details),
+                    "found": d.get("found", []),
+                    "missing": d.get("missing", []),
+                }
+
             categories = {
-                "01_readme": {
-                    "name": "Readme & Onboarding",
-                    "score": auditor.details.get('readme', {}).get('points_earned', 0),
-                    "max": auditor.details.get('readme', {}).get('max_points', 15),
-                    "is_na": auditor.details.get('readme', {}).get('is_na', False),
-                    "found": auditor.details.get('readme', {}).get('found', []),
-                    "missing": auditor.details.get('readme', {}).get('missing', [])
-                },
-                "02_backend": {
-                    "name": "Backend & Core Flow",
-                    "score": auditor.details.get('backend', {}).get('points_earned', 0),
-                    "max": auditor.details.get('backend', {}).get('max_points', 20),
-                    "is_na": auditor.details.get('backend', {}).get('is_na', False),
-                    "found": auditor.details.get('backend', {}).get('found', []),
-                    "missing": auditor.details.get('backend', {}).get('missing', [])
-                },
-                "03_frontend": {
-                    "name": "Frontend & UI/UX",
-                    "score": auditor.details.get('frontend', {}).get('points_earned', 0),
-                    "max": auditor.details.get('frontend', {}).get('max_points', 20),
-                    "is_na": auditor.details.get('frontend', {}).get('is_na', False),
-                    "found": auditor.details.get('frontend', {}).get('found', []),
-                    "missing": auditor.details.get('frontend', {}).get('missing', [])
-                },
-                "04_database": {
-                    "name": "Database & Query Safety",
-                    "score": auditor.details.get('database', {}).get('points_earned', 0),
-                    "max": auditor.details.get('database', {}).get('max_points', 15),
-                    "is_na": auditor.details.get('database', {}).get('is_na', False),
-                    "found": auditor.details.get('database', {}).get('found', []),
-                    "missing": auditor.details.get('database', {}).get('missing', [])
-                },
-                "05_anticrash": {
-                    "name": "Runtime Anti-Crash",
-                    "score": auditor.details.get('anti_crash', {}).get('points_earned', 0),
-                    "max": auditor.details.get('anti_crash', {}).get('max_points', 20),
-                    "is_na": auditor.details.get('anti_crash', {}).get('is_na', False),
-                    "found": auditor.details.get('anti_crash', {}).get('found', []),
-                    "missing": auditor.details.get('anti_crash', {}).get('missing', [])
-                },
-                "06_contracts": {
-                    "name": "Hồ Sơ Kiến Trúc & Hợp Đồng API",
-                    "score": auditor.details.get('contracts', {}).get('points_earned', 0),
-                    "max": auditor.details.get('contracts', {}).get('max_points', 10),
-                    "is_na": auditor.details.get('contracts', {}).get('is_na', False),
-                    "found": auditor.details.get('contracts', {}).get('found', []),
-                    "missing": auditor.details.get('contracts', {}).get('missing', [])
-                },
-                "07_agent_ecosystem": {
-                    "name": "Hệ Sinh Thái AI Agent",
-                    "score": auditor.details.get('agent_ecosystem', {}).get('points_earned', 0),
-                    "max": auditor.details.get('agent_ecosystem', {}).get('max_points', 15),
-                    "is_na": auditor.details.get('agent_ecosystem', {}).get('is_na', False),
-                    "found": auditor.details.get('agent_ecosystem', {}).get('found', []),
-                    "missing": auditor.details.get('agent_ecosystem', {}).get('missing', [])
-                },
+                "01_readme": _cat("readme", "Readme & Onboarding", 15),
+                "02_backend": _cat("backend", "Backend & Core Flow", 20),
+                "03_frontend": _cat("frontend", "Frontend & UI/UX", 20),
+                "04_database": _cat("database", "Database & Query Safety", 15),
+                "05_anticrash": _cat("anticrash", "Runtime Anti-Crash", 20),
+                "06_contracts": _cat("contracts", "Hồ Sơ Kiến Trúc & Hợp Đồng API", 10),
+                "07_agent_ecosystem": _cat("agent_ecosystem", "Hệ Sinh Thái AI Agent", 15),
+                "08_security": _cat("security", "Bảo Mật & Chuỗi Cung Ứng", 15),
+                "09_cloud": _cat("cloud", "Hạ Tầng Cloud & DevOps", 15),
+                "10_microservices": _cat("microservices", "Hệ Thống Phân Tán & Gateway", 15),
+                "11_data_caching": _cat("data_caching", "Kỹ Thuật Dữ Liệu & Cache", 15),
+                "12_observability": _cat("observability", "Giám Sát & Vận Hành", 15),
             }
 
             result = {
@@ -319,6 +286,7 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
                 "total_score": score,
                 "grade": grade,
                 "profiler": auditor.profile,
+                "kit_config": report_data["kit_config"],
                 "all_pillars": auditor.all_pillars,
                 "active_pillars": auditor.active_pillars,
                 "scan_logs": auditor.scan_logs,
@@ -329,8 +297,12 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
                 "gaps": auditor.gaps,
                 "bloat": auditor.bloat,
                 "violations": auditor.violations,
+                "findings": report_data["findings"],
+                "baseline": report_data["baseline"],
+                "safety": report_data["safety"],
+                "scope": report_data["scope"],
                 "ai_prompt": auditor.get_ai_prompt(),
-                "report_file": str(report_file.resolve())
+                "report_file": str(report_file.resolve()),
             }
 
             # Cập nhật thư mục gần nhất vào settings
@@ -358,10 +330,10 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
     def _handle_check_update(self):
         try:
             url = "https://api.github.com/repos/Dokhacgiakhoa/Project-Builder-4-Agents/releases/latest"
-            req = urllib.request.Request(url, headers={"User-Agent": "Project-Reviewer-App"})
+            req = urllib.request.Request(url, headers={"User-Agent": "Project-Health-Check-App"})
             with urllib.request.urlopen(req, timeout=5) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
-                latest_tag = data.get("tag_name", "v2.1.0").lstrip("v")
+                latest_tag = data.get("tag_name", f"v{CURRENT_VERSION}").lstrip("v")
                 has_update = parse_version(latest_tag) > parse_version(CURRENT_VERSION)
                 self._send_json({
                     "current_version": CURRENT_VERSION,

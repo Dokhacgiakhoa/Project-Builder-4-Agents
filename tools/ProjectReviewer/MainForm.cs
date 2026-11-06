@@ -28,7 +28,7 @@ public class MainForm : Form
     public MainForm(string[] args)
     {
         // 1. Cấu hình Form Windows chuẩn Native
-        Text = "Project Review";
+        Text = "Project Health Check — Project-Builder-4-Agents";
         Width = 1260;
         Height = 840;
         StartPosition = FormStartPosition.CenterScreen;
@@ -218,7 +218,7 @@ public class MainForm : Form
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Warning);
         }
-        Text = "Project Review";
+        Text = "Project Health Check — Project-Builder-4-Agents";
         return pythonExe;
     }
 
@@ -243,7 +243,7 @@ public class MainForm : Form
 
         Text = "Đang cài đặt WebView2 Runtime...";
         bool installed = await PythonRuntime.InstallWithWingetAsync(PythonRuntime.WingetWebView2Id);
-        Text = "Project Review";
+        Text = "Project Health Check — Project-Builder-4-Agents";
         if (!installed)
         {
             MessageBox.Show(

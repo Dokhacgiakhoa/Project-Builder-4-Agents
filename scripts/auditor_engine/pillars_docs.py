@@ -60,7 +60,7 @@ class DocsPillarsMixin:
 
                 # Hướng dẫn khởi chạy (Quick Start)
 
-                if re.search(r'```(?:bash|sh|shell|cmd|powershell)?\s*\n.*?(?:npm|pnpm|yarn|docker|go run|dotnet|python|pip)', content, re.DOTALL | re.IGNORECASE):
+                if re.search(r'```(?:bash|sh|shell|cmd|powershell)?\s*\n.*?(?:npm|pnpm|yarn|docker|go run|dotnet|python|pip|make)', content, re.DOTALL | re.IGNORECASE):
 
                     score += 25
 
@@ -84,7 +84,7 @@ class DocsPillarsMixin:
 
                 # Cấu trúc kiến trúc / Thư mục
 
-                if re.search(r'(architecture|cấu trúc|project structure|folder structure|kiến trúc)', content, re.IGNORECASE):
+                if re.search(r'(architecture|cấu trúc|project structure|folder structure|kiến trúc|what\'s inside|tiers)', content, re.IGNORECASE):
 
                     score += 15
 
@@ -93,6 +93,13 @@ class DocsPillarsMixin:
                 else:
 
                     missing.append("Sơ đồ hoặc tài liệu mô tả cấu trúc thư mục ARCHITECTURE")
+
+                # Living Documentation & Auto-Sync Pipeline (S-007)
+                has_sync_script = (self.root / 'scripts' / 'sync_docs.py').is_file() or bool(self.tree.find_by_name('sync_docs.py'))
+                has_auto_gen_stats = '<!-- AUTO-GEN:STATS -->' in content
+                has_pre_commit = (self.root / '.githooks' / 'pre-commit').is_file()
+                if has_sync_script or has_auto_gen_stats or has_pre_commit:
+                    found.append("Cơ chế Tài liệu sống & Đồng bộ tự động 4 lớp (LIVING DOCUMENTATION AUTO-SYNC PIPELINE)")
 
             except Exception:
 
@@ -134,7 +141,7 @@ class DocsPillarsMixin:
 
         # 1. AI AGENT Governance (AGENTS.md / .cursorrules / CLAUDE.md)
 
-        ai_rules_files = ['AGENTS.md', '.cursorrules', 'CLAUDE.md', '.github/copilot-instructions.md']
+        ai_rules_files = ['AGENTS.md', '.cursorrules', 'CLAUDE.md', '.windsurfrules', '.github/copilot-instructions.md']
 
         has_ai_rules = False
 
@@ -174,7 +181,7 @@ class DocsPillarsMixin:
 
             missing.append("Hồ sơ ARCHITECTURE DECISION RECORDS (ADRS)")
 
-        # 3. API CONTRACTS (OpenAPI / Swagger / Contracts)
+        # 3. API CONTRACTS (OpenAPI / Swagger / Contracts / MANIFEST.json)
 
         api_contracts = [p for p in self.tree.all_files if any(k in p.name.lower() for k in ['openapi', 'swagger', 'contract']) and p.suffix in {'.yaml', '.yml', '.json'}]
 
@@ -224,7 +231,7 @@ class DocsPillarsMixin:
             matches = self.tree.find_by_name(rc)
             for m in matches:
                 rule_files.append(m)
-        
+
         # Thêm các file .mdc (Cursor Rules)
         rule_files.extend([p for p in self.tree.all_files if p.suffix.lower() == '.mdc'])
 
@@ -242,9 +249,9 @@ class DocsPillarsMixin:
                     txt = rf.read_text(encoding='utf-8', errors='ignore')
                     if re.search(r'(cấm|không được|tuyệt đối không|never|prohibited|forbidden|do not)', txt, re.IGNORECASE):
                         has_negative_constraints = True
-                    if re.search(r'(dừng lại hỏi|stop & ask|hỏi ý kiến|circuit breaker|xin ý kiến|confirm)', txt, re.IGNORECASE):
+                    if re.search(r'(dừng lại hỏi|stop & ask|hỏi ý kiến|circuit breaker|xin ý kiến|confirm|2-attempt)', txt, re.IGNORECASE):
                         has_stop_and_ask = True
-                    if re.search(r'(anti-crash|try-catch|defensive|null safety|chống đổ vỡ)', txt, re.IGNORECASE):
+                    if re.search(r'(anti-crash|try-catch|defensive|null safety|chống đổ vỡ|zero-drift)', txt, re.IGNORECASE):
                         has_anti_crash_rules = True
                 except Exception:
                     pass
@@ -257,9 +264,9 @@ class DocsPillarsMixin:
 
             if has_stop_and_ask:
                 score += 10
-                found.append("Cơ chế ngắt mạch dừng lại hỏi (STOP & ASK / CIRCUIT BREAKER) khi yêu cầu mơ hồ hoặc có rủi ro")
+                found.append("Cơ chế ngắt mạch dừng lại hỏi (STOP & ASK / 2-ATTEMPT CIRCUIT BREAKER) chống vòng lặp Doom Loop")
             else:
-                missing.append("Cơ chế chốt chặn STOP & ASK (buộc Agent dừng lại xin ý kiến khi chạm rủi ro kiến trúc)")
+                missing.append("Cơ chế chốt chặn STOP & ASK / CIRCUIT BREAKER (buộc Agent dừng lại xin ý kiến khi chạm rủi ro kiến trúc)")
 
             if has_anti_crash_rules:
                 score += 10
@@ -269,7 +276,7 @@ class DocsPillarsMixin:
         else:
             missing.append("Thiếu tệp hiến pháp định hướng hành vi cho AI Agent (AGENTS.md, .cursorrules hoặc .mdc)")
 
-        # 2. Quét Agent Skills Catalog (skills/*/SKILL.md, .agent/skills/)
+        # 2. Quét Agent Skills Catalog (.agents/skills/*/SKILL.md, .claude/skills/*/SKILL.md, skills/*/SKILL.md)
         skill_files = [p for p in self.tree.all_files if 'skills' in p.parts and p.name.lower() in {'skill.md', 'skill.json'}]
         valid_skills_count = 0
         has_yaml_frontmatter = False
@@ -295,24 +302,24 @@ class DocsPillarsMixin:
             else:
                 missing.append("Chuẩn hóa YAML FRONTMATTER (name, description) cho các tệp SKILL.md")
         else:
-            missing.append("Thư mục đóng gói kỹ năng AGENT SKILLS (skills/*/SKILL.md) để mở rộng năng lực tự động")
+            missing.append("Thư mục đóng gói kỹ năng AGENT SKILLS (.agents/skills/*/SKILL.md) để mở rộng năng lực tự động")
 
-        # 3. Quét Agent Workflows & Automation Pipelines (.agent/workflows/, workflows/, prompts/)
+        # 3. Quét Agent Workflows, Playbooks & Automation Pipelines (.agent/workflows/, workflows/, playbooks/, prompts/)
         workflow_files = [
-            p for p in self.tree.all_files 
-            if ('workflows' in p.parts or 'prompts' in p.parts or 'agent-practices' in p.parts) and p.suffix.lower() in {'.md', '.yaml', '.yml'}
+            p for p in self.tree.all_files
+            if ('workflows' in p.parts or 'playbooks' in p.parts or 'prompts' in p.parts or 'agent-practices' in p.parts) and p.suffix.lower() in {'.md', '.yaml', '.yml'}
         ]
         has_verification_step = False
 
         if workflow_files:
             score += 15
             wf_names = ", ".join(sorted(list({p.name for p in workflow_files}))[:3])
-            found.append(f"Quy trình tự động hóa tác vụ AGENT WORKFLOWS ({len(workflow_files)} kịch bản quy trình: {wf_names})")
+            found.append(f"Quy trình tự động hóa tác vụ AGENT WORKFLOWS & PLAYBOOKS ({len(workflow_files)} kịch bản: {wf_names})")
 
             for wf in workflow_files:
                 try:
                     txt = wf.read_text(encoding='utf-8', errors='ignore')
-                    if re.search(r'(verify|test|lint|tự kiểm tra|nghiệm thu|checklist|validation)', txt, re.IGNORECASE):
+                    if re.search(r'(verify|test|lint|tự kiểm tra|nghiệm thu|checklist|validation|sync_docs)', txt, re.IGNORECASE):
                         has_verification_step = True
                         break
                 except Exception:
@@ -325,6 +332,10 @@ class DocsPillarsMixin:
                 missing.append("Chặng tự kiểm thử và nghiệm thu (SELF-VERIFICATION) trong kịch bản Workflow")
         else:
             missing.append("Quy trình kịch bản tác vụ nhiều bước (AGENT WORKFLOWS) hỗ trợ cộng tác tự động")
+
+        # Ghi nhận thêm nếu repo có MANIFEST.json / llms.txt (Zero-Clone Remote Hub)
+        if (self.root / 'MANIFEST.json').is_file() or (self.root / 'llms.txt').is_file():
+            found.append("Hạ tầng chỉ mục máy đọc ZERO-CLONE REMOTE HUB (MANIFEST.json / llms.txt)")
 
         score = min(100, score)
         self.scores['Hệ Sinh Thái AI AGENT (RULES, SKILLS & WORKFLOWS)'] = score

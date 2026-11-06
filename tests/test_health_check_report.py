@@ -136,3 +136,36 @@ def test_bootstrapped_project_scores_better_than_bare_project(tmp_path):
     (built / "README.md").write_text("# x\n", encoding="utf-8")
     simulate_bootstrap_step1(built)
     assert ProjectAuditor(built).run() > ProjectAuditor(bare).run()
+
+
+def test_guardrails_arch008_detected_when_missing_boundary_or_ci(tmp_path):
+    from auditor_engine.baseline import check_guardrails
+
+    # 1. Khai báo M2 nhưng chưa có CI workflow -> báo ARCH-008
+    cfg = {"guardrail_level": "M2", "profiles": {"architecture": "vertical-slice"}}
+    ok, msg, docs = check_guardrails(tmp_path, cfg)
+    assert not ok and "M2" in msg and "K-004" in docs
+
+    # 2. Đã có CI workflow nhưng chưa có boundary lint/test -> vẫn báo ARCH-008
+    wf = tmp_path / ".github" / "workflows"
+    wf.mkdir(parents=True)
+    (wf / "ci.yml").write_text("name: ci\n", encoding="utf-8")
+    ok, msg, docs = check_guardrails(tmp_path, cfg)
+    assert not ok and "ranh giới" in msg
+
+    # 3. Khi có luật chặn import chéo (eslint-plugin-boundaries) -> đạt
+    (tmp_path / "package.json").write_text('{"devDependencies": {"eslint-plugin-boundaries": "^4.0.0"}}', encoding="utf-8")
+    ok, _msg, _docs = check_guardrails(tmp_path, cfg)
+    assert ok
+
+
+def test_serialize_report_data_contains_all_sections(tmp_path):
+    simulate_bootstrap_step1(tmp_path)
+    auditor = ProjectAuditor(tmp_path)
+    auditor.run()
+    data = auditor.serialize_report_data()
+    assert "findings" in data and isinstance(data["findings"], list)
+    assert "baseline" in data and len(data["baseline"]) == 9
+    assert "safety" in data and "scanned" in data["safety"]
+    assert "scope" in data and "entry_files" in data["scope"]
+    assert "kit_config" in data and data["kit_config"]["present"] is True
