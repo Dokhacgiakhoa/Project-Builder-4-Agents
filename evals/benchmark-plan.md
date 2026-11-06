@@ -8,7 +8,7 @@
 | :-- | :-- | :-- | :-- | :-- |
 | M1 | Docs are small (< 120 lines each) | Count lines of governed docs | `evals/measure_docs.py limit 120` | EXISTS. Result: 5 of 34 exceed (see results file) |
 | M2 | Bootstrap read budget is small | Sum size of the bootstrap path docs | `evals/measure_docs.py path` | EXISTS (proxy estimate; real tokens need counter `api` or `cli`) |
-| M3 | English docs cost 40-60% fewer tokens than Vietnamese | Token count on a true parallel corpus with a real Claude tokenizer | `measure_docs.py --counter api|cli` + parallel corpus | PARTIAL: counter code exists but is untested here (no API key; nested CLI not authenticated); parallel corpus TO BUILD |
+| M3 | English docs cost 40-60% fewer tokens than Vietnamese | Token count with a real Claude tokenizer | `measure_docs.py --counter cli lang 58e5df8` | MEASURED on 9 near-parallel docs: about 10% fewer (claim contradicted). A frozen exact-translation corpus is still TO BUILD for a tighter number |
 | M4 | Health Check is fast (A2: 5,000 files < 30 s) | Wall-clock on synthetic and real repos, repeated runs | `evals/bench_health_check.py` | EXISTS |
 | M5 | Health Check finds real problems without noise (F1: false positives <= 2%, detection >= 90%) | Labeled corpus: >= 20 public repos + self-written attack samples; precision/recall per finding code | TO BUILD (`evals/bench_detection.py` + labeled corpus) | TODO |
 | M6 | Agents read BOOTSTRAP.md, interview, pick the right profile (C1/C3) | Fresh-session agent runs, scored by checklist and a 20-prompt routing set | `evals/c1-bootstrap-protocol.md` (manual), runner TO BUILD | TODO |
@@ -27,7 +27,7 @@
 
 ## 3. Tools still to build, in order
 
-1. `evals/make_parallel_corpus.py`: pair each kit doc with a Vietnamese translation produced once, reviewed, and frozen, so M3 compares equal meaning (needs a person to review the translation).
+1. `evals/make_parallel_corpus.py`: pair each kit doc with a Vietnamese translation produced once, reviewed, and frozen, so M3 compares equal meaning exactly (needs a person to review the translation).
 2. `evals/run_trial.py`: create a temp dir, run `claude -p` (headless, fresh session) with the condition's setup and prompt, capture JSON usage/cost/turns, then run the hidden acceptance tests. Needs a logged-in Claude Code or an API key; must be tried on one trial before trusting it.
 3. `evals/bench_detection.py`: run the safety scan and the auditor over a labeled corpus, output a confusion matrix per finding code.
 

@@ -9,7 +9,7 @@
     "how_it_works": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/HOW_IT_WORKS.md",
     "llms_txt": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/llms.txt"
   },
-  "generated_at": "2026-11-06T19:44:32.967051+00:00",
+  "generated_at": "2026-11-06T20:29:19.917030+00:00",
   "total_files": 344,
   "files": {
     ".agents/skills/health-check/SKILL.md": {
@@ -100,7 +100,7 @@
     "HOW_IT_WORKS.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/HOW_IT_WORKS.md",
       "category": "root",
-      "size_bytes": 11425
+      "size_bytes": 11546
     },
     "INDEX.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/INDEX.md",
@@ -130,12 +130,12 @@
     "README.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/README.md",
       "category": "root",
-      "size_bytes": 7239
+      "size_bytes": 7251
     },
     "TASKS.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/TASKS.md",
       "category": "other",
-      "size_bytes": 19356
+      "size_bytes": 19725
     },
     "adrs/0011-desktop-and-tooling-architecture.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/adrs/0011-desktop-and-tooling-architecture.md",
@@ -155,7 +155,7 @@
     "adrs/0014-english-as-primary-language-for-token-efficiency.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/adrs/0014-english-as-primary-language-for-token-efficiency.md",
       "category": "adrs",
-      "size_bytes": 3832
+      "size_bytes": 3935
     },
     "adrs/0015-staged-feature-workflow-with-verification-gates.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/adrs/0015-staged-feature-workflow-with-verification-gates.md",
@@ -395,7 +395,7 @@
     "evals/benchmark-plan.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/evals/benchmark-plan.md",
       "category": "other",
-      "size_bytes": 4072
+      "size_bytes": 4071
     },
     "evals/c1-bootstrap-protocol.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/evals/c1-bootstrap-protocol.md",
@@ -405,12 +405,12 @@
     "evals/measure_docs.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/evals/measure_docs.py",
       "category": "other",
-      "size_bytes": 9105
+      "size_bytes": 10223
     },
     "evals/results/2026-11-07-measurements.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/evals/results/2026-11-07-measurements.md",
       "category": "other",
-      "size_bytes": 2372
+      "size_bytes": 4057
     },
     "examples/before-vibe-code/.gitignore": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/.gitignore",

@@ -57,7 +57,7 @@ This project is new and has no external users or independent benchmarks. Treat i
 | Claim | Status |
 | :-- | :-- |
 | Agents read `BOOTSTRAP.md`, interview the user, and pick a suitable profile | **Untested** (eval protocol in `evals/c1-bootstrap-protocol.md`, not yet run) |
-| English-only docs reduce token use (40-60%) | **Unverified**. Proxy measurement (2026-11-07): English files were 0.92x the bytes / 0.85x the words of their earlier Vietnamese versions; real-tokenizer test still to do |
+| English-only docs reduce token use by 40-60% | **Contradicted by measurement (2026-11-07)**: real Claude tokenizer, 9 near-parallel docs, English used about 10% fewer tokens (2-21% per file). Small sample, not exact translations |
 | Docs are under 120 lines | **Not true**: 5 of 34 governed docs exceed 120 lines (largest 264); only architecture profiles are enforced |
 | Health Check is fast | **Measured 2026-11-07** (Python, one machine): median 0.84 s on this repo (381 files), 1.8 s on 5,000 synthetic files. `.exe` and clean machine not measured |
 | Works with Claude Code / Antigravity / Cursor / Windsurf | **Untested end-to-end**; Cursor/Windsurf adapters are generated file stubs |

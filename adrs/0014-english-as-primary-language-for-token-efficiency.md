@@ -33,10 +33,10 @@
 
 ## 3. Consequences
 
-> **Measurement note (2026-11-07)**: a proxy comparison of 11 files that were Vietnamese before and are English now found English at 0.92x the bytes and 0.85x the words (not parallel translations, not tokens). The 40-60% figure below is therefore unverified and likely overstated for raw text size; a real-tokenizer measurement on a parallel corpus is planned in `evals/benchmark-plan.md` (M3).
+> **Measurement note (2026-11-07)**: counted with a real Claude tokenizer (`claude -p`, differential) on 9 near-parallel docs (Vietnamese at 58e5df8 vs English now): English used 8,727 tokens vs 9,691 for Vietnamese, about **10% fewer** (per file 2-21% fewer). The 40-60% figure below is **contradicted** for this kit's markdown-heavy docs. Caveat: pairs are near-parallel, not exact translations, and the sample is small. Language choice may still matter for instruction-following, which was not measured.
 
 * **Positive**:
-  - Expected reduction in token consumption for equivalent text (estimated 40–60% from tokenizer properties; **not measured** on real agent sessions).
+  - Reduction in token consumption for equivalent text: about 10% measured on this kit's docs (the original 40-60% estimate was not supported).
   - Possible improvement in instruction-following across agent runtimes (hypothesis; no evaluation has been run, and Codex is unverified).
   - Broader readability for agents and international contributors.
   - Vibe coders converse with their agent in their own language (depends on the agent following AGENTS.md Section 4).

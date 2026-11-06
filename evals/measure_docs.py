@@ -30,8 +30,10 @@ import json
 import math
 import os
 import re
+import shutil
 import subprocess
 import sys
+import tempfile
 import urllib.request
 from pathlib import Path
 
@@ -67,10 +69,15 @@ def count_api(text: str) -> int:
 
 
 def _cli_total(prompt: str) -> int:
+    exe = shutil.which("claude")
+    if not exe:
+        sys.exit("`claude` not found on PATH")
+    # Flags strip skills/MCP/settings so the fixed overhead is ~200 tokens instead of ~57,000.
     out = subprocess.run(
-        ["claude", "-p", "--output-format", "json", "--no-session-persistence", "--tools", "",
+        [exe, "-p", "--output-format", "json", "--no-session-persistence", "--tools", "",
+         "--disable-slash-commands", "--strict-mcp-config", "--setting-sources", "",
          "--system-prompt", "Reply with the single word OK."],
-        input=prompt, capture_output=True, text=True, encoding="utf-8", timeout=300, cwd=os.environ.get("TEMP", "."),
+        input=prompt, capture_output=True, text=True, encoding="utf-8", timeout=300, cwd=tempfile.gettempdir(),
     ).stdout
     d = json.loads(out)
     if d.get("is_error"):
@@ -132,7 +139,9 @@ def cmd_size(a) -> None:
     ctr = COUNTERS[a.counter]
     rows, tot = [], 0
     for r in a.roots:
-        for p in sorted((ROOT / r).rglob("*.md")):
+        target = ROOT / r
+        files = [target] if target.is_file() else sorted(target.rglob("*.md"))
+        for p in files:
             t = read(p)
             s = stats(t)
             n = ctr(t)
@@ -190,7 +199,9 @@ def git_show(rev: str, rel: str) -> str | None:
 
 
 def cmd_lang(a) -> None:
-    rows, agg = [], {"bytes": [0, 0], "words": [0, 0], "chars": [0, 0]}
+    ctr = COUNTERS[a.counter]
+    rows, agg = [], {"bytes": [0, 0], "words": [0, 0], "tokens": [0, 0]}
+    skipped = []
     for p in governed_docs():
         rel = p.relative_to(ROOT).as_posix()
         old = git_show(a.rev, rel)
@@ -198,19 +209,27 @@ def cmd_lang(a) -> None:
             continue
         new = read(p)
         d_old, d_new = vi_density(old), vi_density(new)
-        if d_old >= a.vi_threshold and d_new < a.vi_threshold:  # Vietnamese then, English now
-            so, sn = stats(old), stats(new)
-            for k in agg:
-                agg[k][0] += so[k]
-                agg[k][1] += sn[k]
-            rows.append([rel, so["bytes"], sn["bytes"], so["words"], sn["words"], f"{d_old:.1%}", f"{d_new:.1%}"])
-    print(md_table(["file", "bytes vi", "bytes en", "words vi", "words en", "vi-char% then", "now"], rows))
-    print(f"\nFiles compared: {len(rows)} (Vietnamese at {a.rev}, English at HEAD)")
+        if not (d_old >= a.vi_threshold and d_new < a.vi_threshold):  # Vietnamese then, English now
+            continue
+        so, sn = stats(old), stats(new)
+        ratio = sn["words"] / so["words"]
+        if not (a.min_words_ratio <= ratio <= a.max_words_ratio):  # drop pairs whose content clearly diverged
+            skipped.append((rel, f"{ratio:.2f}"))
+            continue
+        to, tn = ctr(old), ctr(new)
+        for k, (vo, vn) in {"bytes": (so["bytes"], sn["bytes"]), "words": (so["words"], sn["words"]), "tokens": (to, tn)}.items():
+            agg[k][0] += vo
+            agg[k][1] += vn
+        rows.append([rel, so["bytes"], sn["bytes"], so["words"], sn["words"], to, tn, f"{tn / to:.2f}" if to else "n/a"])
+    print(md_table(["file", "bytes vi", "bytes en", "words vi", "words en", f"tok vi[{a.counter}]", "tok en", "en/vi"], rows))
+    print(f"\nPairs compared: {len(rows)} (Vietnamese at {a.rev}, English at HEAD, word ratio in "
+          f"[{a.min_words_ratio}, {a.max_words_ratio}])")
+    if skipped:
+        print("Skipped (content diverged): " + ", ".join(f"{f} ({r})" for f, r in skipped))
     for k, (o, n) in agg.items():
         if o:
-            print(f"{k}: vi={o} en={n} en/vi={n / o:.2f}")
-    print("\nCAVEAT: the files are NOT line-by-line translations (content also changed), and bytes/words are NOT tokens.")
-    print("Use --counter api|cli on a true parallel corpus to measure the token claim.")
+            print(f"{k}: vi={o} en={n} en/vi={n / o:.2f}  (English uses {100 * (1 - n / o):.0f}% fewer)")
+    print("\nCAVEAT: near-parallel, not exact translations; sample is small. With --counter proxy, 'tokens' is chars/4 and NOT a real tokenizer.")
 
 
 def main() -> None:
@@ -221,7 +240,10 @@ def main() -> None:
     s = sub.add_parser("size"); s.add_argument("roots", nargs="+"); s.set_defaults(fn=cmd_size)
     s = sub.add_parser("limit"); s.add_argument("max_lines", type=int); s.set_defaults(fn=cmd_limit)
     s = sub.add_parser("path"); s.add_argument("--profile", default="vertical-slice"); s.set_defaults(fn=cmd_path)
-    s = sub.add_parser("lang"); s.add_argument("rev"); s.add_argument("--vi-threshold", type=float, default=0.03); s.set_defaults(fn=cmd_lang)
+    s = sub.add_parser("lang"); s.add_argument("rev"); s.add_argument("--vi-threshold", type=float, default=0.03)
+    s.add_argument("--min-words-ratio", type=float, default=0.75)
+    s.add_argument("--max-words-ratio", type=float, default=1.25)
+    s.set_defaults(fn=cmd_lang)
     a = ap.parse_args()
     a.fn(a)
 
