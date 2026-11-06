@@ -9,7 +9,7 @@
     "how_it_works": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/HOW_IT_WORKS.md",
     "llms_txt": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/llms.txt"
   },
-  "generated_at": "2026-11-06T21:31:42.043476+00:00",
+  "generated_at": "2026-11-06T22:17:05.339386+00:00",
   "total_files": 353,
   "files": {
     ".agents/skills/health-check/SKILL.md": {
