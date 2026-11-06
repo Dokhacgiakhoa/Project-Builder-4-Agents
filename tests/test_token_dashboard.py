@@ -130,3 +130,36 @@ def test_server_api_and_loopback_guard(tmp_path):
     finally:
         srv.shutdown()
         srv.server_close()
+
+
+def prompt(i, text, ts=None):
+    ts = ts or T0 + timedelta(minutes=i) - timedelta(seconds=30)
+    return json.dumps({"type": "user", "timestamp": ts.isoformat().replace("+00:00", "Z"), "sessionId": "s",
+                       "origin": {"kind": "human"}, "message": {"role": "user", "content": text}})
+
+
+def test_payload_includes_exchanges_with_preview_and_today(tmp_path):
+    root = tmp_path / "projects"
+    now = datetime.now(timezone.utc)
+    write(root / "p" / "s.jsonl", [
+        prompt(1, "hello world", now - timedelta(minutes=5)),
+        rec(1, out=40, cc=100, cr=1000, inp=5, ts=now - timedelta(minutes=4)),
+        rec(2, out=60, cc=50, cr=2000, inp=5, ts=now - timedelta(minutes=3)),
+    ])
+    p = TokenService(root).payload("p")
+    assert p["prompts"] == 1
+    ex = p["exchanges"][0]
+    assert ex["preview"] == "hello world" and ex["calls"] == 2
+    assert (ex["in_new"], ex["cache_read"], ex["out"]) == (160, 3000, 100)
+    assert p["today"]["out"] == 100 and p["today"]["calls"] == 2
+
+
+def test_prompts_are_picked_up_incrementally(tmp_path):
+    root = tmp_path / "projects"
+    write(root / "p" / "s.jsonl", [prompt(1, "first"), rec(1)])
+    svc = TokenService(root)
+    assert svc.payload("p")["prompts"] == 1
+    with open(root / "p" / "s.jsonl", "a", encoding="utf-8") as f:
+        f.write(prompt(5, "second") + "\n" + rec(5) + "\n")
+    p = svc.payload("p")
+    assert p["prompts"] == 2 and [e["preview"] for e in p["exchanges"]] == ["first", "second"]

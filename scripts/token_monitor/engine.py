@@ -95,6 +95,60 @@ def parse_line(line: str, session_id: str = "") -> UsageEvent | None:
     )
 
 
+@dataclass(frozen=True)
+class Prompt:
+    """A message typed by the human (not a tool result, not a local command echo)."""
+    ts: datetime
+    session_id: str
+    preview: str
+
+
+def _first_text(content) -> str:
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        for b in content:
+            if isinstance(b, dict) and b.get("type") == "text":
+                return str(b.get("text") or "")
+    return ""
+
+
+def parse_prompt(line: str, session_id: str = "", preview_len: int = 80) -> Prompt | None:
+    """Parse a human prompt line; None for anything else.
+
+    Verified on real Claude Code transcripts (2026-11-07): human prompts are `user` records with
+    `origin.kind == "human"`; tool results carry `toolUseResult` / tool_result blocks and local
+    command echoes start with `<local-command` or `<command-`. When `origin` is absent (older
+    versions, unverified) a plain-text, non-meta record not starting with `<` is accepted.
+    """
+    if '"user"' not in line:
+        return None
+    try:
+        d = json.loads(line)
+    except json.JSONDecodeError:
+        return None
+    if not isinstance(d, dict) or d.get("type") != "user" or d.get("isSidechain") or d.get("isMeta"):
+        return None
+    if "toolUseResult" in d:
+        return None
+    m = d.get("message")
+    content = m.get("content") if isinstance(m, dict) else None
+    if isinstance(content, list) and any(isinstance(b, dict) and b.get("type") == "tool_result" for b in content):
+        return None
+    ts = _parse_ts(d.get("timestamp"))
+    text = _first_text(content).strip()
+    if ts is None or not text:
+        return None
+    origin = d.get("origin")
+    if isinstance(origin, dict):
+        if origin.get("kind") != "human":
+            return None
+    elif text.startswith("<"):
+        return None
+    one_line = " ".join(text.split())
+    return Prompt(ts=ts, session_id=str(d.get("sessionId") or session_id), preview=one_line[:preview_len])
+
+
 def project_dir_name(project_path: str) -> str:
     """Claude Code stores a project's transcripts in a folder named after its path."""
     return re.sub(r"[^A-Za-z0-9]", "-", str(project_path))
@@ -135,11 +189,59 @@ class Snapshot:
     warnings: list[str] = field(default_factory=list)
 
 
+@dataclass
+class Exchange:
+    """Everything the model did in response to one human prompt (many API calls when tools are used)."""
+    ts: datetime
+    preview: str
+    calls: int = 0
+    input_new: int = 0       # fresh input + cache write
+    cache_read: int = 0
+    output: int = 0
+    seconds: float = 0.0
+
+    @property
+    def input_total(self) -> int:
+        return self.input_new + self.cache_read
+
+
 class Aggregator:
     """Accumulates events with de-duplication; call snapshot() any time."""
 
     def __init__(self) -> None:
         self._events: dict[tuple[str, str], UsageEvent] = {}
+        self._prompts: dict[tuple[str, str], Prompt] = {}
+
+    def add_prompt(self, p: Prompt) -> None:
+        self._prompts[(p.session_id, p.ts.isoformat())] = p
+
+    def exchanges(self, include_sidechain: bool = True) -> list[Exchange]:
+        """Group usage events under the most recent human prompt of the same session (chronological)."""
+        by_session: dict[str, list[Prompt]] = {}
+        for p in sorted(self._prompts.values(), key=lambda p: p.ts):
+            by_session.setdefault(p.session_id, []).append(p)
+        out: dict[tuple[str, str], Exchange] = {}
+        last_ts: dict[tuple[str, str], datetime] = {}
+        for e in self.events(include_sidechain):
+            prompts = by_session.get(e.session_id, [])
+            owner = None
+            for p in prompts:           # prompts are few; keep the latest one not after the event
+                if p.ts <= e.ts:
+                    owner = p
+                else:
+                    break
+            if owner is None:
+                continue
+            key = (owner.session_id, owner.ts.isoformat())
+            ex = out.setdefault(key, Exchange(ts=owner.ts, preview=owner.preview))
+            ex.calls += 1
+            ex.input_new += e.input_tokens + e.cache_creation
+            ex.cache_read += e.cache_read
+            ex.output += e.output_tokens
+            last_ts[key] = max(last_ts.get(key, e.ts), e.ts)
+        for key, ex in out.items():
+            ex.seconds = max(0.0, (last_ts[key] - ex.ts).total_seconds())
+        return sorted(out.values(), key=lambda x: x.ts)
 
     def add(self, e: UsageEvent) -> bool:
         """Add an event. Returns True if it changed state. Duplicate responses keep the larger output."""

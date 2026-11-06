@@ -159,6 +159,7 @@ Thứ tự đề xuất: **C2 → B3 → B1 → B8 (push) → C1 → B2 → A1 �
 ## Nhật ký thay đổi kế hoạch
 | Ngày | Thay đổi |
 | :-- | :-- |
+| 2026-11-07 | Đổi trọng tâm dashboard theo phản hồi của cậu: bảng Ngữ cảnh của ứng dụng đã đầy đủ (và cho thấy cửa sổ 1M, 447.4k đã dùng), thứ chưa có là token vào/ra. Dashboard giờ hiển thị tổng vào mới / đọc cache / ra, chi phí từng tin nhắn của người dùng (nhận diện qua `origin.kind == human`), tích luỹ theo thời gian; ngữ cảnh chỉ còn một ô. Tổng theo tin nhắn khớp tổng engine (594.687 / 46.417.816 / 193.229 / 162 lần gọi). Mở bằng file:// sẽ báo cần máy chủ. 86 test pass. |
 | 2026-11-07 | Dashboard Token (H2): trang web cục bộ làm mới 2 giây; kiểm tra bằng trình duyệt thật (desktop, mobile 375px, sáng/tối), sửa trục số lẻ (6.250) và tràn ngang trên mobile; palette 2 màu qua kiểm tra validate_palette (CVD ΔE ≥ 24). 79 test pass. Chỉ Claude Code. |
 | 2026-11-07 | Thêm Token Monitor (nhóm H): engine thuần + CLI `--watch`, 15 test. Phát hiện log Claude Code ghi mỗi phản hồi nhiều lần nên cộng thô đếm dư khoảng 2,3 lần; engine loại trùng theo (message.id, requestId) và khớp phép tính độc lập trên phiên thật 114 lượt. Chưa có tab Web/exe, chưa hỗ trợ agent khác. |
 | 2026-11-07 | Đo token bằng tokenizer Claude thật (sau `claude auth login`, sửa `measure_docs.py`: tìm `claude` bằng `shutil.which`, tắt skills/MCP để overhead 180 token thay vì 57.543): 9 cặp tài liệu gần song song, tiếng Anh dùng ít hơn khoảng 10% token (2–21%/tệp). Tuyên bố 40–60% bị bác bỏ cho tài liệu của kit. |

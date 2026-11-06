@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from token_monitor import Aggregator, TranscriptTailer, parse_line, project_dir_name  # noqa: E402
+from token_monitor import Aggregator, TranscriptTailer, parse_line, parse_prompt, project_dir_name  # noqa: E402
 
 MAX_STATES = 8
 
@@ -97,6 +97,10 @@ class TokenService:
                 e = parse_line(line, f.stem)
                 if e:
                     st["agg"].add(e)
+                    continue
+                q = parse_prompt(line, f.stem)
+                if q:
+                    st["agg"].add_prompt(q)
 
         agg: Aggregator = st["agg"]
         snap = agg.snapshot(window_min=window_min, top_n=top_n)
@@ -104,6 +108,15 @@ class TokenService:
         series = [{"t": _iso(e.ts), "ctx": e.context_tokens, "in": e.input_tokens + e.cache_creation,
                    "out": e.output_tokens, "cr": e.cache_read, "m": e.model, "side": e.sidechain}
                   for e in evs[-max_points:]]
+        today = datetime.now().astimezone().date()
+        t = {"in_new": 0, "cache_read": 0, "out": 0, "calls": 0}
+        for e in evs:
+            if e.ts.astimezone().date() == today:
+                t["in_new"] += e.input_tokens + e.cache_creation
+                t["cache_read"] += e.cache_read
+                t["out"] += e.output_tokens
+                t["calls"] += 1
+        exchanges = agg.exchanges()
         return {
             "project": project_id,
             "session": resolved,
@@ -120,6 +133,11 @@ class TokenService:
             "by_model": [{"model": m, "turns": t.turns, "output": t.output_tokens} for m, t in sorted(snap.by_model.items())],
             "top_turns": [{"t": _iso(e.ts), "new": e.new_tokens, "cache_write": e.cache_creation, "out": e.output_tokens}
                           for e in snap.top_turns[:top_n]],
+            "today": t,
+            "prompts": len(exchanges),
+            "exchanges": [{"t": _iso(x.ts), "preview": x.preview, "calls": x.calls, "in_new": x.input_new,
+                           "cache_read": x.cache_read, "out": x.output, "secs": round(x.seconds)}
+                          for x in exchanges[-40:]],
             "series": series,
             "truncated": max(0, len(evs) - len(series)),
             "warnings": snap.warnings,
