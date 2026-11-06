@@ -6,7 +6,7 @@ when: "When needing to **look up authoritative ecosystem tools, keywords, and pr
 
 # AGENT ECOSYSTEM TAXONOMY & SEARCH COMPASS
 
-> **Verification log (2026-11-07)**: coordinates for shadcn-ui/ui, Leonxlnx/taste-skill, nextlevelbuilder/ui-ux-pro-max-skill, jdan/98.css, botoxparty/XP.css, nostalgic-css/NES.css, magicuidesign/magicui, microsoft/playwright-mcp, ChromeDevTools/chrome-devtools-mcp, github/github-mcp-server, crystaldba/postgres-mcp were confirmed via the GitHub API and are active; steipete/agent-rules is archived; RPGUI and aceternity repos were not found and are unverified. Existence and activity are not endorsements of quality.
+> **Verification log (2026-11-07)**: coordinates for shadcn-ui/ui, Leonxlnx/taste-skill, nextlevelbuilder/ui-ux-pro-max-skill, jdan/98.css, botoxparty/XP.css, nostalgic-css/NES.css, magicuidesign/magicui, microsoft/playwright-mcp, ChromeDevTools/chrome-devtools-mcp, github/github-mcp-server, crystaldba/postgres-mcp were confirmed via the GitHub API and are active; steipete/agent-rules is archived; RonenNess/RPGUI (960 stars, last push 2023-10-08, zlib license) exists but is inactive; Aceternity UI has no official GitHub component repo found by search (copy-paste from its website). Existence and activity are not endorsements of quality.
 >
 > **For AI Agents**: When facing unfamiliar technical domains, naive agents guess vague search queries (`"how to make UI pretty"`), wasting tokens crawling low-quality pages. This document provides a pre-computed map of commonly referenced open-source tools (coordinates not re-verified; confirm a tool exists and is maintained before adopting it), exact repository coordinates, related search vectors, and one-hit precision queries.
 > **Role in the Triad Model**: Acts as the Translator's technical dictionary, providing the AI Agent (Company) with exact industry terminology to fulfill the Vibe Coder's (Client's) intent without hallucination.
@@ -19,8 +19,8 @@ when: "When needing to **look up authoritative ecosystem tools, keywords, and pr
 | :-- | :-- | :-- | :-- |
 | **Generative Art Direction** | `Leonxlnx/taste-skill`<br>(tasteskill.dev) | `design-taste-frontend`, `DESIGN_VARIANCE`, `MOTION_INTENSITY`, `VISUAL_DENSITY` | `site:github.com "Leonxlnx/taste-skill"` |
 | **Comprehensive UI/UX Intelligence** | `nextlevelbuilder/ui-ux-pro-max-skill` | Bento Grid, Glassmorphism, Neumorphism, Google Font pairings, UX guidelines | `site:github.com "nextlevelbuilder/ui-ux-pro-max-skill"` |
-| **Modern Component Primitives** | `shadcn/ui`, `magicui` (aceternity repo not verified) | Radix primitives, Tailwind CSS v4, accessible ARIA, unstyled headless | `site:github.com/shadcn-ui/ui` |
-| **Retro & Niche Archetypes** | `98.css`, `XP.css`, `NES.css` (`RPGUI` repo not verified) | Nostalgic UI, pixel-art styling, brutalist paper CSS | `site:github.com "98.css" OR "XP.css"` |
+| **Modern Component Primitives** | `shadcn/ui`, `magicui`, Aceternity UI (copy-paste site aceternity.com; no official component repo found) | Radix primitives, Tailwind CSS v4, accessible ARIA, unstyled headless | `site:github.com/shadcn-ui/ui` |
+| **Retro & Niche Archetypes** | `98.css`, `XP.css`, `NES.css`, `RonenNess/RPGUI` | Nostalgic UI, pixel-art styling, brutalist paper CSS | `site:github.com "98.css" OR "XP.css"` |
 | **Screenshot Replication** | `profiles/design/screenshot-to-code-reverse-engineering.md` | Replicative mode, Design Tokens first, 1px subtle borders (`border-white/10`), Mirror test | Local kit doc (`D-006`) |
 
 *Search Traps to Avoid*: Do not search generic terms like `"clean modern UI"`. Query exact package names and token standards.

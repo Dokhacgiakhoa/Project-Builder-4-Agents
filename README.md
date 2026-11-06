@@ -3,7 +3,7 @@
 <!-- AUTO-GEN:STATS -->
 [![Health Score](https://img.shields.io/badge/Health_Score-100%2F100_A%2B-brightgreen)](project-review.md)
 [![Automated Tests](https://img.shields.io/badge/Tests-52_passed-blue)](tests/)
-[![Indexed Files](https://img.shields.io/badge/Indexed_Files-340_files-purple)](MANIFEST.json)
+[![Indexed Files](https://img.shields.io/badge/Indexed_Files-344_files-purple)](MANIFEST.json)
 [![Architecture](https://img.shields.io/badge/Architecture-Remote_Knowledge_Hub-emerald)](HOW_IT_WORKS.md)
 <!-- /AUTO-GEN:STATS -->
 
@@ -57,7 +57,9 @@ This project is new and has no external users or independent benchmarks. Treat i
 | Claim | Status |
 | :-- | :-- |
 | Agents read `BOOTSTRAP.md`, interview the user, and pick a suitable profile | **Untested** (eval protocol in `evals/c1-bootstrap-protocol.md`, not yet run) |
-| English-only docs under 120 lines reduce token use | **Estimate** from tokenizer properties; not measured on real sessions |
+| English-only docs reduce token use (40-60%) | **Unverified**. Proxy measurement (2026-11-07): English files were 0.92x the bytes / 0.85x the words of their earlier Vietnamese versions; real-tokenizer test still to do |
+| Docs are under 120 lines | **Not true**: 5 of 34 governed docs exceed 120 lines (largest 264); only architecture profiles are enforced |
+| Health Check is fast | **Measured 2026-11-07** (Python, one machine): median 0.84 s on this repo (381 files), 1.8 s on 5,000 synthetic files. `.exe` and clean machine not measured |
 | Works with Claude Code / Antigravity / Cursor / Windsurf | **Untested end-to-end**; Cursor/Windsurf adapters are generated file stubs |
 | Works with Codex | **Unverified** |
 | Health Check runs on a clean Windows machine | **Untested** (exe not yet tried on a machine without Python) |

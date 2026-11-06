@@ -10,7 +10,7 @@
 
 * The kit's `spec-first-task` skill was a flat 7-step list. It had no clarification gate, no cross-artifact consistency check, and no defined loop until acceptance criteria pass.
 * GitHub Spec Kit (open source, MIT) offers a staged flow: constitution, specify, clarify, plan, tasks, analyze, implement, converge. Published reviews praise its structure and criticize its overhead (thousands of markdown lines for small changes), non-deterministic output, spec/code drift, and lack of verification.
-* This kit's strengths are different: decision rails, token-lean docs (<120 lines), real verification commands, a 2-attempt circuit breaker, and a Health Check that makes no model calls. These strengths are design goals, not validated results.
+* This kit's strengths are different: decision rails, short docs (architecture profiles capped at 120 lines; 5 of 34 governed docs exceed it, measured 2026-11-07), real verification commands, a 2-attempt circuit breaker, and a Health Check that makes no model calls. These strengths are design goals, not validated results.
 
 ## 2. Decision
 

@@ -12,7 +12,7 @@
 2. **Discovery & Architecture Selection**: Agent conducts 3-question interview $\rightarrow$ Maps requirements to Simple Layered, Clean Architecture, Vertical Slice, or Modular Monolith $\rightarrow$ Injects curated skills.
 3. **Anti-Doom-Loop Development**: Agent works in 3 operating loops (Spec-First, CI Green, Git Checkpoint) with a 2-attempt circuit breaker.
 4. **Visual Reverse-Engineering**: Vibe coder provides UI screenshot $\rightarrow$ Agent executes 5-step replication protocol with subtle 1px borders and 4-state completeness.
-5. **Quality Audit & Go-Live**: Project Health Check runs offline (about 1 second on this repo, single run on the maintainer's machine) $\rightarrow$ Outputs `project-review.md` scoring 0-100 with remediation docs $\rightarrow$ Deploys to a free-tier cloud.
+5. **Quality Audit & Go-Live**: Project Health Check runs offline (median 0.84 s over 5 runs on this repo, see evals/results) $\rightarrow$ Outputs `project-review.md` scoring 0-100 with remediation docs $\rightarrow$ Deploys to a free-tier cloud.
 
 ## 3. Data & Authentication
 * **Architecture**: Standalone static Python 3.12+ stdlib engine + .NET 10 desktop host wrapper.

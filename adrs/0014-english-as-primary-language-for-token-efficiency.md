@@ -33,6 +33,8 @@
 
 ## 3. Consequences
 
+> **Measurement note (2026-11-07)**: a proxy comparison of 11 files that were Vietnamese before and are English now found English at 0.92x the bytes and 0.85x the words (not parallel translations, not tokens). The 40-60% figure below is therefore unverified and likely overstated for raw text size; a real-tokenizer measurement on a parallel corpus is planned in `evals/benchmark-plan.md` (M3).
+
 * **Positive**:
   - Expected reduction in token consumption for equivalent text (estimated 40–60% from tokenizer properties; **not measured** on real agent sessions).
   - Possible improvement in instruction-following across agent runtimes (hypothesis; no evaluation has been run, and Codex is unverified).
