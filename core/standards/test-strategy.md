@@ -1,21 +1,18 @@
 ---
 id: S-002
 type: reference
-when: "Viết test, thiếu test, chọn mức test (unit/integration/e2e)"
+when: "Designing automated tests, resolving test gaps, choosing test levels (unit/integration/e2e)"
 ---
-# ADR 0004: AUTOMATED TESTING STRATEGY (TDD)
-
-* **Trạng thái**: Đã phê duyệt (Accepted)
-* **Ngày quyết định**: 2026-11-04
+# AUTOMATED TESTING STRATEGY (TEST PYRAMID & TDD)
 
 ---
 
-## 1. KIM TỰ THÁP KIỂM THỬ (TEST PYRAMID)
-* **Unit Tests (70%)**: Kiểm thử các hàm xử lý logic nghiệp vụ độc lập, hàm tính toán, helper functions. Mocking toàn bộ I/O bên ngoài.
-* **Integration Tests (20%)**: Kiểm thử luồng tích hợp giữa Controller -> Service -> Repository / Database.
-* **Contract Tests / E2E (10%)**: Kiểm thử tính tương thích giữa API Request/Response so với file OpenAPI Spec.
+## 1. Test Pyramid
+* **Unit Tests (70%)**: Verify isolated domain logic, business services, calculations, and utility helpers. Mock all external I/O.
+* **Integration Tests (20%)**: Verify data and contract flow across architectural layers (Controller $\rightarrow$ Service $\rightarrow$ Repository / Database).
+* **Contract Tests / E2E (10%)**: Verify API request/response conformance against API specifications and end-to-end critical user journeys.
 
-## 2. NGUYÊN TẮC TDD CHO AI AGENT
-* *"Test là hợp đồng hành vi của hệ thống"*.
-* Khi nhận task, Agent phải viết test case cho Happy Path và ít nhất 2 Failure Cases trước.
-* Mã code hoàn thành chỉ khi toàn bộ test suite chạy XANH (PASS 100%).
+## 2. Test Discipline for AI Agents
+* *"Tests are the executable behavioral contract of the codebase."*
+* When implementing a task, write 1 Happy Path test and at least 2 Failure / Edge Case tests.
+* Work is complete only when 100% of the test suite passes GREEN.

@@ -194,7 +194,7 @@ def build_brand_assets():
     try:
         font_main = ImageFont.truetype("arialbd.ttf", 96)
         font_sub = ImageFont.truetype("arial.ttf", 36)
-    except:
+    except (OSError, IOError):
         font_main = ImageFont.load_default()
         font_sub = ImageFont.load_default()
 

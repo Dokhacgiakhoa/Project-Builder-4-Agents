@@ -1,40 +1,40 @@
 ---
 id: A-005
 type: decision
-when: "Hệ thống lớn dần, cần ranh giới module"
-not_when: "Dự án nhỏ chưa có nhiều miền nghiệp vụ; hoặc đã cần triển khai/mở rộng từng phần độc lập"
+when: "Monolithic systems growing in scale requiring strict bounded contexts and module boundaries"
+not_when: "Small projects with few domains; or systems already requiring independent container deployment per service"
 ---
 # PROFILE: MODULAR MONOLITH
 
-## Khi nào chọn
-* Hệ thống sẽ lớn dần, cần ranh giới module rõ để chia việc (người hoặc Agent), nhưng chưa cần tách dịch vụ/triển khai riêng.
-* Có thể dùng Clean Architecture **bên trong** từng module.
+## When to choose
+* System scope is growing and requires explicit module boundaries for task parallelization (humans or AI agents), but single-deployment operational simplicity is preferred.
+* Internal architecture can leverage Clean Architecture or Vertical Slice **inside** each individual module.
 
-## Không chọn khi
-* Dự án nhỏ, ít miền nghiệp vụ: [simple-layered.md](simple-layered.md) hoặc [vertical-slice.md](vertical-slice.md).
-* Đã có yêu cầu triển khai/mở rộng độc lập theo từng phần: đây là bài toán dịch vụ riêng, cần ADR và hỏi người dùng, không tự quyết.
+## When not to choose
+* Small projects with single simple domains: use [simple-layered.md](simple-layered.md) or [vertical-slice.md](vertical-slice.md).
+* Strict operational requirements for independent scaling/deployment per service: requires microservices ADR and explicit user consultation.
 
-## Thư mục mục tiêu
+## Target directory
 ```text
 src/
-├── modules/<tên-miền>/   # mỗi module: API công khai nhỏ + phần nội bộ
-├── shared/               # kernel dùng chung rất mỏng
-└── app.*                 # lắp ráp
+├── modules/<domain-name>/   # Each module: Public API contract + private internal implementation
+├── shared/                  # Minimal universal kernel (types, logging, telemetry)
+└── app.*                    # Host application wiring and composition root
 ```
-Bản đồ miền ghi ở `specs/domains.md` của dự án.
+Domain mappings are maintained in `specs/domains.md`.
 
-## Ràng buộc
-* Module chỉ gọi module khác qua **API công khai** (interface/DTO), không import phần nội bộ.
-* Không chia sẻ bảng dữ liệu giữa module (hoặc chỉ qua view/API được khai báo).
-* `shared/` không chứa nghiệp vụ.
-* Rào chắn: **mức M3** ([../README.md](../README.md)): luật cấm import vào thư mục nội bộ của module khác, ADR cho mọi thay đổi ranh giới.
+## Constraints
+* Modules interact with other modules **exclusively via Public API contracts** (interfaces, DTOs, or domain events). Direct import of another module's internal files is strictly prohibited.
+* Database tables must not be shared directly across module boundaries (access via module APIs).
+* `shared/` must never contain domain business logic.
+* Guardrail Level M3 (see [../README.md](../README.md)): Enforce package boundaries or lint rules prohibiting private internal imports; ADR required for boundary changes.
 
-## Thêm một tính năng
-1. Xác định module sở hữu; chưa có thì tạo module và ghi vào `specs/domains.md`.
-2. Thêm vào module đó.
-3. Cần dữ liệu của module khác: thêm hàm vào **API công khai** của module đó, không import trực tiếp.
+## Adding a feature
+1. Identify the owning domain module. If new, create module and register it in `specs/domains.md`.
+2. Implement feature logic entirely inside that module.
+3. If data from another module is needed: expose a method via that module's **Public API**, never bypass via internal imports.
 
-## Lỗi thường gặp (Health Check bắt)
-* Import chéo vào thư mục nội bộ của module khác.
-* `shared/` chứa nghiệp vụ.
-* Module "thần thánh" ôm nhiều miền.
+## Common mistakes
+* Cross-importing private internal directories of foreign modules.
+* Leaking domain business logic into `shared/`.
+* Monolithic god-modules conflating multiple distinct business subdomains.

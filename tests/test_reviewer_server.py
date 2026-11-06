@@ -51,11 +51,11 @@ def test_status_ok(live_server):
 
 
 def test_settings_never_return_api_key(live_server):
-    secret = "sk-test-SECRET-123"
-    resp, _ = call(live_server, "POST", "/api/settings", {"claude_api_key": secret})
+    dummy_key = "dummy_val_123"
+    resp, _ = call(live_server, "POST", "/api/settings", {"claude_api_key": dummy_key})
     assert resp.status == 200
     resp, raw = call(live_server, "GET", "/api/settings")
-    assert secret not in raw.decode()
+    assert dummy_key not in raw.decode()
     data = json.loads(raw)
     assert data["claude_api_key"] == ""
     assert data["has_claude_api_key"] is True

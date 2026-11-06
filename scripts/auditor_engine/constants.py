@@ -41,6 +41,7 @@ SAFETY_MAX_BYTES = 1_000_000
 # Tệp chỉ dẫn/cấu hình cho Agent: coi là chưa tin cậy nếu dự án không do người dùng tạo
 AGENT_FILE_NAMES = {'agents.md', 'claude.md', 'gemini.md', '.cursorrules', '.windsurfrules', '.clinerules', '.mcp.json', 'skill.md'}
 AGENT_DIR_MARKERS = ('.claude', '.agents', '.cursor', '.gemini', '.codex', '.windsurf', '.github/copilot')
+ALLOWED_DOT_DIRS = {'.agents', '.claude', '.cursor', '.gemini', '.codex', '.windsurf', '.github', '.builder'}
 
 # Tệp cấu hình/điểm vào nên đọc trước để nắm dự án nhanh
 ENTRY_FILES = (

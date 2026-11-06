@@ -24,8 +24,14 @@ SKIP_PREFIXES = ("http://", "https://", "mailto:", "#", "data:")
 GOVERNED_ROOTS = ("core/", "profiles/")
 GOVERNED_EXCLUDES = ("core/templates/", "profiles/frontend/starter/")
 DOC_TYPES = {"decision", "router", "playbook", "reference"}
-DECISION_SECTIONS = ("khi nào chọn", "không chọn khi", "thư mục mục tiêu", "ràng buộc",
-                     "thêm một tính năng", "lỗi thường gặp")
+DECISION_SECTION_ALIASES = (
+    ("khi nào chọn", "when to choose"),
+    ("không chọn khi", "when not to choose", "not when"),
+    ("thư mục mục tiêu", "target directory", "target structure", "target folder"),
+    ("ràng buộc", "constraints"),
+    ("thêm một tính năng", "adding a feature", "how to add a feature"),
+    ("lỗi thường gặp", "common mistakes", "common errors"),
+)
 DECISION_MAX_LINES = 120
 INDEX_ROW = re.compile(r"^\| ([A-Z]-\d{3}) \| [CPL] \| .*? \| \[[^\]]*\]\(([^)]+)\) \|\s*$", re.M)
 
@@ -94,9 +100,9 @@ def check_doc_format(root: Path = ROOT, docs: list[Path] | None = None) -> list[
             if not meta.get("not_when"):
                 errors.append(f"{rel}: type=decision thiếu 'not_when'")
             headings = [re.sub(r"^[#\s\d.]+", "", h).strip().lower() for h in re.findall(r"^##\s+(.+)$", text, re.M)]
-            for section in DECISION_SECTIONS:
-                if not any(h.startswith(section) for h in headings):
-                    errors.append(f"{rel}: thiếu mục '## {section}'")
+            for aliases in DECISION_SECTION_ALIASES:
+                if not any(any(h.startswith(alias) for alias in aliases) for h in headings):
+                    errors.append(f"{rel}: thiếu mục '## {aliases[0]} / {aliases[1]}'")
             if len(text.splitlines()) > DECISION_MAX_LINES:
                 errors.append(f"{rel}: dài quá {DECISION_MAX_LINES} dòng (tài liệu quyết định phải ngắn)")
     return errors

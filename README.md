@@ -1,64 +1,76 @@
+# Project-Builder-4-Agents
+
 <div align="center">
 
   <img src="assets/banner.svg" alt="Project-Builder-4-Agents" width="100%" />
 
   <h3>Project-Builder-4-Agents</h3>
-  <p><b>Để AI agent dựng dự án chuẩn kiến trúc cho bạn — không cần clone, không cần biết repo có gì.</b></p>
-  <p>Dùng được với <b>Claude Code · Antigravity · Codex</b></p>
+  <p><b>Hosted Agent Brain & Living Knowledge Hub — Enables AI Coding Agents to self-configure, select production stacks, and bootstrap vibe coding projects remotely (Zero-Clone).</b></p>
+  <p>Seamlessly compatible with <b>Claude Code · Antigravity · Cursor (.cursor/rules/*.mdc) · Windsurf · Codex</b></p>
 
 </div>
 
 ---
 
-> ## 🤖 DÀNH CHO AI AGENT
-> Nếu người dùng nhờ bạn dựng/khởi tạo dự án, thiết lập rule–skill–workflow cho Agent, hoặc "làm cho repo này chuẩn hơn": **đọc [BOOTSTRAP.md](BOOTSTRAP.md) và làm theo**. Cần hướng dẫn kiến trúc/pattern/design system/test/CI: **tra [INDEX.md](INDEX.md)** theo ý định, đừng chờ người dùng chỉ tên tệp. Muốn biết dự án đang "bị" gì: dùng **Project Health Check** ([scripts/README.md](scripts/README.md)).
+> ## 🤖 FOR AI CODING AGENTS (REMOTE ACCESS & ZERO-CLONE)
+> If a user sends you this repo URL to bootstrap their project:
+> 1. **DO NOT ask the user to clone the whole repository**: Read remotely via [BOOTSTRAP.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/BOOTSTRAP.md) or inspect the tree at [MANIFEST.json](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/MANIFEST.json) / [llms.txt](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/llms.txt).
+> 2. **Never download until Stack is finalized**: Ingest `core/discovery.md` to interview the user, then consult `profiles/README.md` to match an architecture pattern.
+> 3. **Selective pull**: Fetch only the Core Baseline (B1–B9) and the chosen Architecture Profile into the target workspace (via direct raw HTTP fetch or shallow temp clone).
+> 4. **Continuous Companion & Go-Live**: Consult [INDEX.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/INDEX.md) during sprints; run [Project Health Check](scripts/README.md) to maintain an A+ production score.
+> Full operational specifications: [HOW_IT_WORKS.md](HOW_IT_WORKS.md).
 
 ---
 
-## Dùng thế nào (cho người)
+## How to Use (For Human Vibe Coders)
 
-1. Mở Claude Code, Antigravity hoặc Codex trong một thư mục trống (hoặc thư mục dự án đang làm dở).
-2. Dán đúng một câu:
+1. Open Claude Code, Antigravity, Cursor, or Codex in an empty folder (or an in-progress project).
+2. Paste this single prompt:
+   > "Use https://github.com/Dokhacgiakhoa/Project-Builder-4-Agents to bootstrap this project. I want to build a [describe your product vision in 1–2 sentences]."
+3. Your Agent will fetch `BOOTSTRAP.md`, ask up to 3 clarifying questions, recommend the right architecture profile, install guardrails, and wire up `AGENTS.md`.
 
-   ```text
-   Hãy dùng https://github.com/Dokhacgiakhoa/Project-Builder-4-Agents để dựng dự án giúp mình. Mình muốn làm: <mô tả ngắn dự án của bạn>
-   ```
-3. Trò chuyện với Agent: nó sẽ hỏi bạn vài câu đơn giản, đề xuất công nghệ và kiến trúc, rồi tự dựng khung, cấu hình rule/skill/workflow cho chính nó, cài lệnh test/lint và CI.
-4. Về sau cứ nhờ Agent làm việc bình thường. Nó đã mang sẵn "bộ định tuyến tri thức" trong `AGENTS.md` nên tự tra kit khi cần kiến trúc, pattern, giao diện, test.
-5. Muốn biết dự án đang "bị" gì: bấm **Project Health Check** (mục dưới) hoặc nhờ Agent chạy; kết quả là tệp `project-review.md`.
+---
 
-## Kit có gì (3 tầng)
+## What's Inside
 
-| Tầng | Thư mục | Vai trò |
+Three distinct tiers, so you never drown your Agent in irrelevant context:
+
+| Tier | Where | Contents |
 | :-- | :-- | :-- |
-| **Core** — bắt buộc cho mọi repo dùng Agent | [core/](core/README.md) | `AGENTS.md`, lớp tương thích Agent, project brief, ADR, chuẩn làm việc, lệnh kiểm chứng + CI, vệ sinh repo, PR template |
-| **Profiles** — chọn theo từng dự án | [profiles/](profiles/README.md) | Kiểu kiến trúc (Layered đơn giản, Clean Architecture, Vertical Slice, Modular Monolith), pattern, frontend, design system, ứng dụng AI, stack, tài liệu |
-| **Library** — tham khảo / tùy chọn | `knowledge-base/`, `templates/` | Sách kỹ thuật, tư duy, quản trị dự án, pitch deck |
+| **Core** — Mandatory for all agent-driven repos | [core/](core/README.md) | `AGENTS.md` Constitution, Agent compatibility layer, project brief, ADR templates, coding standards, verification commands, PR template |
+| **Profiles** — Selected per project domain | [profiles/](profiles/README.md) | Architecture patterns (Layered, Clean Architecture, Vertical Slice, Modular Monolith), Curated 16+ Skills Matrix, Curated MCP Matrix, Go-Live Checklist, Anti-Doom-Loop Playbook |
+| **Library** — Reference & Optional | `knowledge-base/`, `templates/` | Technical playbooks, system design philosophy, project management, pitch decks |
 
-Cấu hình sâu (kiến trúc, pattern, rule, skill) **không dùng chung**: Agent chọn theo dự án của bạn sau bước phỏng vấn. Chỉ Core là bắt buộc.
+Deep architectural profiles, rules, and skills are **never dumped together**: Your Agent picks only the relevant subset after the Phase 1 interview. Only Core is universally applied.
+
+## Configuration & Environment Variables (.ENV)
+
+Project-Builder-4-Agents and its companion Project Health Check engine operate offline with zero tokens and zero external secrets required. For local environment overrides or port customizations, copy `.env.example` to `.env`:
+
+```bash
+cp .env.example .env
+```
 
 ## Project Health Check
 
-Quét **một thư mục dự án bất kỳ** (mọi ngôn ngữ), offline, không tốn token, rồi xuất **`project-review.md`** — người đọc được, Agent cũng đọc được. Mỗi phát hiện có **mã, mức độ, vị trí tệp:dòng và tài liệu khắc phục** trong kit để Agent tra và sửa.
+Scans **any project workspace** (any language), offline, with zero token consumption, generating **`project-review.md`** for both humans and agents. Each finding includes a **unique code, severity, file:line location, and a direct remediation doc** in the kit.
 
-| Cách chạy | Ghi chú |
+| Execution Method | Notes |
 | :-- | :-- |
-| `Project-Health-Check.exe` (Windows) | Giao diện: chọn thư mục, xem kết quả |
-| `python scripts/project_auditor.py <thư_mục>` | Cần Python 3.12+ (Linux/macOS/CI) |
-| `./Project-Health-Check.sh <thư_mục>` | Linux/macOS |
+| `Project-Health-Check.exe` (Windows) | GUI: Select folder, inspect findings |
+| `python scripts/project_auditor.py <target_dir>` | Requires Python 3.12+ (Linux/macOS/CI) |
+| `./Project-Health-Check.sh <target_dir>` | Linux/macOS shell script |
 
-Chi tiết: [scripts/README.md](scripts/README.md). Đóng gói exe: `make build-exe` (người dùng cuối không cần Python; cần .NET 10 Desktop Runtime và WebView2).
+Details: [scripts/README.md](scripts/README.md). Build standalone executable: `make build-exe`.
 
-> ⚠️ `Project-Health-Check.exe` trong repo là bản dựng cũ (vẫn cần Python 3.12+ trên máy). Cần `make build-exe` để có bản dùng engine đóng gói.
-
-## Cho người phát triển kit
+## For Kit Contributors
 
 ```bash
-make test         # pytest + vitest
-make check-links  # INDEX.md không được dẫn Agent vào ngõ cụt
-make review       # Health Check chính repo này
+make test         # Run pytest + vitest
+make check-links  # Verify INDEX.md routing and format constraints
+make review       # Run Health Check against this repository
 ```
-Quy tắc đóng góp: [AGENTS.md](AGENTS.md) · Quyết định định vị: [ADR-0012](adrs/0012-agent-first-builder-and-health-check.md), [ADR-0011](adrs/0011-desktop-and-tooling-architecture.md).
+Contribution rules: [AGENTS.md](AGENTS.md) · Architecture Decisions: [ADR-0012](adrs/0012-agent-first-builder-and-health-check.md), [ADR-0013](adrs/0013-remote-knowledge-hub-and-zero-clone-bootstrap.md), [ADR-0014](adrs/0014-english-as-primary-language-for-token-efficiency.md).
 
-## Giấy phép
+## License
 [MIT](LICENSE).

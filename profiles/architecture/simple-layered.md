@@ -1,47 +1,47 @@
 ---
 id: A-001
 type: decision
-when: "Demo, đồ án, MVP nhỏ, CRUD đơn giản"
-not_when: "Nghiệp vụ phức tạp, sống nhiều năm, cần test sâu logic độc lập framework"
+when: "Small MVPs, student projects, prototypes, simple CRUD"
+not_when: "Complex business logic, multi-year lifespans, deep domain testing independent of frameworks"
 ---
-# PROFILE: LAYERED ĐƠN GIẢN
+# PROFILE: SIMPLE LAYERED ARCHITECTURE
 
-## Khi nào chọn
-* Một người hoặc nhóm rất nhỏ, ít nghiệp vụ, cần ra sản phẩm nhanh.
-* Dữ liệu chủ yếu là CRUD; chưa cần thay thế database hay framework.
+## When to choose
+* Solo developer or small team, lightweight business logic, rapid prototype delivery required.
+* Primarily CRUD data access; zero need to decouple database or framework.
 
-## Không chọn khi
-* Nghiệp vụ phức tạp hoặc sống nhiều năm, cần test sâu logic độc lập framework: dùng [clean-architecture.md](clean-architecture.md).
-* Nhiều tính năng độc lập cần làm song song: dùng [vertical-slice.md](vertical-slice.md).
+## When not to choose
+* Complex business rules requiring framework-independent domain unit tests: use [clean-architecture.md](clean-architecture.md).
+* Multiple independent features developed in parallel: use [vertical-slice.md](vertical-slice.md).
 
-## Thư mục mục tiêu
+## Target directory
 ```text
 src/
-├── routes/ (hoặc controllers/, pages/)  # nhận request, gọi service. KHÔNG chứa nghiệp vụ
-├── services/                            # nghiệp vụ của ứng dụng
-├── data/ (hoặc repositories/, models/)  # truy cập database/API ngoài
-├── lib/                                 # tiện ích dùng chung (log, validate)
-└── config/                              # đọc biến môi trường một chỗ duy nhất
-tests/                                   # phản chiếu cấu trúc src/
+├── routes/ (or controllers/, pages/)  # Handles HTTP requests, calls services. NO business logic
+├── services/                          # Application business logic
+├── data/ (or repositories/, models/)  # Database and external API access
+├── lib/                               # Shared utilities (logging, validation)
+└── config/                            # Environment configuration singleton
+tests/                                 # Mirrors src/ directory structure
 ```
 
-## Ràng buộc
-* `routes → services → data`. Chiều ngược lại **cấm**; `routes` không truy vấn DB trực tiếp.
-* `lib/` và `config/` ai cũng dùng được nhưng không phụ thuộc ngược vào ba tầng trên.
-* Rào chắn tối thiểu (mức M1, xem [../README.md](../README.md)): lint + test + CI chạy được.
+## Constraints
+* Dependency flow: `routes → services → data`. Reverse direction is **strictly prohibited**; `routes` never query the DB directly.
+* `lib/` and `config/` are shared helpers and must not depend on the three layers above.
+* Guardrail Level M1 (see [../README.md](../README.md)): Working lint + test + build running in CI.
 
-## Thêm một tính năng
-1. Ghi mục tiêu và tiêu chí chấp nhận (`tasks/task-spec.md`).
-2. Viết test cho `services` (thành công + 2 trường hợp biên/lỗi).
-3. Thêm hàm ở `services`, truy cập dữ liệu qua `data`.
-4. Thêm route mỏng gọi service; kiểm tra dữ liệu vào ở route.
-5. Chạy test/lint/build; cập nhật `docs/project-brief.md` nếu luồng đổi.
+## Adding a feature
+1. Record objective and acceptance criteria in `tasks/task-spec.md`.
+2. Write unit tests for `services` (1 happy path + 2 edge/failure cases).
+3. Implement business logic function in `services`, accessing storage via `data`.
+4. Create a thin route handler calling the service; validate inputs at the route layer.
+5. Run test/lint/build verification commands; update `docs/project-brief.md` if user journeys change.
 
-## Lỗi thường gặp (Health Check bắt)
-* Route chứa truy vấn DB hoặc logic dài (rò rỉ tầng).
-* Tệp "thần thánh" > 350 dòng gom UI + state + truy vấn.
-* Secret trong code; thiếu `.env.example`.
-* Nuốt lỗi im lặng, `JSON.parse` không bọc xử lý lỗi.
+## Common mistakes
+* Route layer containing direct SQL/ORM queries or complex calculations (layer leakage).
+* Monolithic god-files > 350 lines combining UI, state, and database queries.
+* Committing credentials; missing `.env.example`.
+* Swallowing errors silently; bare `JSON.parse` without error handling.
 
-## Dấu hiệu cần nâng cấp
-`services` phình to và test phải dựng DB/framework mới viết được: chuyển dần sang Clean Architecture bằng một ADR mới (tách `domain` khỏi `data`).
+## Upgrade Indicators
+When `services` bloats and unit tests require spinning up real databases, transition to Clean Architecture via an ADR (isolating `domain` from `data`).

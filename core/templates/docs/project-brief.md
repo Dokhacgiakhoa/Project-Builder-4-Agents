@@ -1,38 +1,38 @@
 # PROJECT BRIEF — {{PROJECT_NAME}}
 
-> Bộ nhớ dài hạn của dự án cho cả người và Agent. Agent điền sau bước phỏng vấn và cập nhật khi yêu cầu thay đổi.
+> Long-term memory for both human and AI Agent. The Agent completes this document after the Phase 1 discovery interview and updates it whenever requirements pivot.
 
-## 1. Vấn đề và người dùng
-* **Ai dùng**: 
-* **Nỗi đau chính**: 
-* **"Xong" nghĩa là**: (một câu đo được)
+## 1. Problem & Target Audience
+* **Target Audience / Persona**: 
+* **Core Pain Point**: 
+* **Definition of Done**: (One measurable sentence)
 
-## 2. Luồng chính (3–5 luồng, từ đầu đến cuối)
+## 2. Core User Journeys (3–5 journeys, start-to-finish)
 1. 
 2. 
 3. 
 
-## 3. Dữ liệu và tài khoản
-* Đăng nhập/phân quyền: 
-* Dữ liệu lưu: 
-* Dữ liệu nhạy cảm: 
+## 3. Data & Authentication
+* Authentication / RBAC: 
+* Persisted Data Entities: 
+* Sensitive Data / Credentials: 
 
-## 4. Ràng buộc
-* Ngân sách / free tier: 
-* Hạn chót: 
-* Công nghệ bắt buộc hoặc đã quen: 
-* Nơi triển khai: 
+## 4. Constraints
+* Budget / Cloud Free-Tier: 
+* Target Deadline: 
+* Required or Preferred Tech Stack: 
+* Deployment Target: 
 
-## 5. Quyết định kỹ thuật (tóm tắt, chi tiết ở `adrs/`)
+## 5. Technical Decisions (Summary; details in `adrs/`)
 * **Stack**: 
-* **Kiểu kiến trúc**: 
-* **Sơ đồ thư mục mục tiêu**:
+* **Architecture Profile**: 
+* **Target Folder Structure**:
 ```text
-(Agent vẽ theo profile đã chọn)
+(Agent draws structure based on chosen profile)
 ```
 
-## 6. Giả định đã tự chọn (người dùng chưa xác nhận)
+## 6. Assumptions (Self-selected safe defaults pending user confirmation)
 * 
 
-## 7. Ngoài phạm vi (làm sau)
+## 7. Out of Scope (Future Sprints)
 * 

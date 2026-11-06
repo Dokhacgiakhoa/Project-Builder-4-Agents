@@ -7,7 +7,7 @@ import json
 import datetime
 from pathlib import Path
 
-from .constants import IGNORE_DIRS, CODE_EXTENSIONS, SKIP_REASONS  # noqa: F401
+from .constants import IGNORE_DIRS, CODE_EXTENSIONS, SKIP_REASONS, ALLOWED_DOT_DIRS  # noqa: F401
 
 
 class ProjectTree:
@@ -48,7 +48,7 @@ class ProjectTree:
 
                     self.skipped.append((rel, SKIP_REASONS.get(d, '')))
 
-            dirnames[:] = [d for d in dirnames if d not in IGNORE_DIRS and not d.startswith('.')]
+            dirnames[:] = [d for d in dirnames if d not in IGNORE_DIRS and (not d.startswith('.') or d in ALLOWED_DOT_DIRS)]
 
             for d in dirnames:
 

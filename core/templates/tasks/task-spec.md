@@ -1,21 +1,22 @@
-# TASK SPEC: [MÃ TASK - TÊN NHIỆM VỤ]
+# TASK SPEC: [TASK_ID - TASK_TITLE]
 
-* **Mã Task**: `T-xxx`
-* **Mã US liên quan**: `US-xxx`
-* **Người thực hiện**: AI Coding Agent / Human Dev
-* **Độ ưu tiên**: [P0 - Blocker | P1 - High | P2 - Medium]
+* **Task ID**: `T-xxx`
+* **Related User Story**: `US-xxx`
+* **Assignee**: AI Coding Agent / Human Dev
+* **Priority**: [P0 - Blocker | P1 - High | P2 - Medium]
 
 ---
 
-## 🎯 1. MỤC TIÊU CẦN ĐẠT (GOAL)
-[Mô tả ngắn gọn kết quả cần đạt được sau khi hoàn thành task này]
+## 🎯 1. Objective (Goal)
+[Concise summary of the concrete outcome delivered by this task]
 
-## 📋 2. TIÊU CHÍ NGHIỆM THU (ACCEPTANCE CRITERIA)
-- [ ] 1. Endpoint / Hàm trả về đúng định dạng theo Contract.
-- [ ] 2. Xử lý an toàn khi payload rỗng hoặc null.
-- [ ] 3. Có ít nhất 3 unit tests bao phủ các tình huống chính.
+## 📋 2. Acceptance Criteria (Definition of Done for this Task)
+- [ ] 1. Endpoint / Function conforms strictly to API/Interface contract.
+- [ ] 2. Defensive handling for empty/null/malformed inputs with fallback defaults.
+- [ ] 3. At least 3 unit tests covering Happy Path and 2 Edge/Failure cases.
+- [ ] 4. All verification commands (`AGENTS.md` Section 2) pass green.
 
-## 📂 3. CÁC TÀI LIỆU CẦN ĐỌC TRƯỚC KHI CODE (CONTEXT INGESTION)
+## 📂 3. Context Documents to Read Before Coding
 * `AGENTS.md`
 * `docs/standards/coding-conventions.md`
-* `specs/contracts/...`
+* Relevant feature spec or contract

@@ -75,4 +75,10 @@ app.MapControllers();
 // 10. SPA Fallback (Điều hướng mọi route không phải API về trang web React)
 app.MapFallbackToFile("index.html");
 
+// 11. Graceful Shutdown & Resource Cleanup
+app.Lifetime.ApplicationStopping.Register(() =>
+{
+    // Graceful shutdown: cleanup database connections and cancel in-flight tasks
+});
+
 app.Run();

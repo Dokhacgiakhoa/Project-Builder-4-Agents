@@ -1,22 +1,22 @@
-# ADR NNNN: TIÊU ĐỀ QUYẾT ĐỊNH
+# ADR NNNN: TITLE OF ARCHITECTURAL DECISION
 
-* **Trạng thái**: Đề xuất | Đã phê duyệt | Thay thế bởi ADR-XXXX
-* **Ngày**: YYYY-MM-DD
-* **Người quyết định**: (người dùng / tech lead)
+* **Status**: Proposed | Accepted | Deprecated | Superseded by ADR-XXXX
+* **Date**: YYYY-MM-DD
+* **Deciders**: (User / Tech Lead / AI Agent)
 
-## 1. Bối cảnh
-Vấn đề cần quyết định và các ràng buộc (từ `docs/project-brief.md`).
+## 1. Context
+The problem statement and relevant constraints (from `docs/project-brief.md`).
 
-## 2. Các phương án đã cân nhắc
-| Phương án | Ưu | Nhược |
+## 2. Considered Alternatives
+| Alternative | Pros | Cons |
 | :-- | :-- | :-- |
-| A | | |
-| B | | |
+| Option A | | |
+| Option B | | |
 
-## 3. Quyết định
-Chọn phương án nào và vì sao.
+## 3. Decision
+Which alternative was selected and the rationale.
 
-## 4. Hệ quả
-* Tích cực:
-* Hạn chế / đánh đổi:
-* Cách kiểm chứng quyết định này vẫn đúng:
+## 4. Consequences
+* Positive:
+* Trade-offs / Limitations:
+* Verification / Re-evaluation trigger:

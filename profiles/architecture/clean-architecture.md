@@ -1,39 +1,38 @@
 ---
 id: A-002
 type: decision
-when: "Nghiệp vụ phức tạp, test độc lập framework, đổi hạ tầng"
-not_when: "Demo, CRUD nhỏ, một người làm, ít nghiệp vụ"
+when: "Complex business logic, framework-independent domain models, long-term evolvability"
+not_when: "Small demos, simple CRUD, solo prototypes with minimal business logic"
 ---
-# PROFILE: CLEAN ARCHITECTURE (+ DDD KHI CẦN)
+# PROFILE: CLEAN ARCHITECTURE (+ OPTIONAL DDD)
 
-## Khi nào chọn
-* Nghiệp vụ phức tạp, sống lâu, nhiều quy tắc phải nhất quán.
-* Cần test logic nghiệp vụ mà không dựng DB/framework.
-* Có khả năng đổi hạ tầng (database, nhà cung cấp, framework).
+## When to choose
+* Rich enterprise business rules requiring consistent invariants across a long product lifecycle.
+* Need to execute high-speed unit tests on core business logic without spinning up databases or HTTP web servers.
+* Infrastructure volatility (anticipating swaps of database, cloud providers, or UI frameworks).
 
-## Không chọn khi
-* Demo, đồ án, CRUD nhỏ: dùng [simple-layered.md](simple-layered.md); chi phí DTO/interface sẽ lớn hơn lợi ích.
-* Chỉ cần tách theo tính năng độc lập: [vertical-slice.md](vertical-slice.md).
+## When not to choose
+* Demos, prototypes, simple CRUD: use [simple-layered.md](simple-layered.md); DTO and interface boilerplate exceeds benefits.
+* Systems best structured around independent feature workflows: use [vertical-slice.md](vertical-slice.md).
 
-## Thư mục mục tiêu
-Bốn tầng đồng tâm `Domain → Application → Infrastructure → Presentation`. Bản đồ chi tiết theo .NET / Python / TypeScript: [clean-architecture-layout.md](clean-architecture-layout.md). Dùng **tên thư mục theo thông lệ ngôn ngữ**, miễn giữ đúng ranh giới tầng.
+## Target directory
+Four concentric layers: `Domain → Application → Infrastructure → Presentation`. Detailed folder mappings for .NET / Python / TypeScript are specified in [clean-architecture-layout.md](clean-architecture-layout.md). Maintain idiomatic language naming conventions while preserving layer boundaries.
 
-## Ràng buộc
-* **Phụ thuộc chỉ hướng vào trong.** `Domain` không import gì từ tầng khác hay framework; `Application` chỉ biết `Domain` và interface do chính nó định nghĩa.
-* `Domain` định nghĩa interface lưu trữ; `Infrastructure` cài đặt. Ghép nối (DI) ở **một** nơi (composition root).
-* Đặt kiểm tra hợp lệ và biến đổi trạng thái **trong entity** (không để entity là túi dữ liệu).
-* CQRS (tách Command/Query) chỉ áp dụng khi đọc và ghi thật sự khác nhau; không bắt buộc.
-* Rào chắn: **mức M2** trở lên ([../README.md](../README.md)): cài công cụ ép ranh giới import (tách project/package hoặc luật lint) để Agent không "đi đường tắt".
+## Constraints
+* **Dependency Rule: All dependencies point inward.** `Domain` must not import anything from outer layers or external frameworks. `Application` depends only on `Domain` and its own declared interfaces.
+* `Domain`/`Application` defines repository interfaces; `Infrastructure` provides concrete implementations. Wire dependencies via Dependency Injection (DI) at a single **Composition Root**.
+* Enforce domain invariants and state mutations **inside rich entities** (avoid anemic data bags).
+* Guardrail Level M2 (see [../README.md](../README.md)): Enforce package boundaries or linting rules prohibiting inward dependency leaks.
 
-## Thêm một tính năng
-1. Domain: entity / value object / quy tắc.
-2. Application: use case và interface cần thêm.
-3. Infrastructure: cài interface.
-4. Presentation: endpoint mỏng, chỉ gọi use case.
-5. Viết test từ Domain/Application trước (không cần DB thật).
+## Adding a feature
+1. Domain: Define or extend entities, value objects, domain events, and core invariants.
+2. Application: Implement the use case and declare necessary repository/gateway interfaces.
+3. Infrastructure: Implement repository interfaces against database or external APIs.
+4. Presentation: Expose a thin HTTP endpoint that dispatches directly to the use case.
+5. Automated Testing: Write domain and use case unit tests first (no database fixtures needed).
 
-## Lỗi thường gặp (Health Check bắt)
-* Controller chứa truy vấn DB (`ARCH-001`).
-* `Domain` import ORM/HTTP; use case phụ thuộc lớp cụ thể của hạ tầng.
-* Entity chỉ có getter/setter, nghiệp vụ nằm ở service thủ tục.
-* Thiếu composition root; DI rải rác khắp nơi.
+## Common mistakes
+* Controllers or routes querying the database directly (`ARCH-001`).
+* `Domain` importing ORM libraries, database drivers, or HTTP clients.
+* Anemic entities (getters/setters only) with procedural business logic leaked into services.
+* Missing composition root; ad-hoc DI registration scattered across the codebase.

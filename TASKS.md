@@ -37,8 +37,11 @@ Thứ tự đề xuất: **C2 → B3 → B1 → B8 (push) → C1 → B2 → A1 �
 | ID | Việc | Ưu tiên | Công sức | Người | Phụ thuộc | Trạng thái |
 | :-- | :-- | :-: | :-: | :-- | :-- | :-: |
 | C0 | **Soạn kịch bản và checklist C1** (`evals/c1-bootstrap-protocol.md`: 3 kịch bản, vai người dùng, 16 mục chấm, mẫu ghi kết quả) | P0 | S | Claude | — | DONE |
+| C0.1 | **Triển khai ADR-0013 & Zero-Clone Remote Hub**: MANIFEST.json, llms.txt, HOW_IT_WORKS.md, curated-skills, curated-mcp | P0 | M | Claude | — | DONE |
+| C0.2 | **Triển khai ADR-0014 & English-First Standardization**: Chuyển ngữ toàn diện bộ khung core/profiles/templates/index sang tiếng Anh để tiết kiệm ~50% tokens | P0 | M | Claude | — | DONE |
+| C0.3 | **Đóng gói Playbook Visual Reverse-Engineering (D-006)**: Giao thức Screenshot-to-Code chống UI Doom Loop, tích hợp luật thực chứng (Rule 10 & 11 trong AGENTS.md) | P0 | S | Claude | — | DONE |
 | C1 | **Chạy thử BOOTSTRAP thật** với **Claude Code** và **Antigravity** (Codex chưa kiểm chứng): S1 thư mục rỗng, S2 dự án dở, S3 dự án phức tạp. Chạy trong phiên mới không ngữ cảnh. Dùng URL sau khi B1 + push; trước đó dùng biến thể đường dẫn cục bộ | P0 | M | Claude (phiên mới) + Cậu (Antigravity, và Claude Code nếu muốn) | C0; URL cần B1 + B8 | TODO |
-| C2 | **Xác minh định dạng cấu hình Agent** theo tài liệu chính thức: `AGENTS.md`, import trong `CLAUDE.md`, đường dẫn skills (`.agents/skills`, `.claude/skills`), rule/workflow của Antigravity (đường dẫn global còn mâu thuẫn giữa các nguồn). Sửa `BOOTSTRAP.md` bước 1.3 theo kết quả | P0 | S | Claude | — | TODO |
+| C2 | **Xác minh định dạng cấu hình Agent** theo tài liệu chính thức: `AGENTS.md`, import trong `CLAUDE.md`, đường dẫn skills (`.agents/skills`, `.claude/skills`), rule/workflow của Antigravity (đường dẫn global còn mâu thuẫn giữa các nguồn). Sửa `BOOTSTRAP.md` bước 1.3 theo kết quả | P0 | S | Claude | — | DONE |
 | C3 | **Bộ eval định tuyến**: 20 câu mô tả dự án của người không chuyên → kỳ vọng (profile, mức rào chắn, tài liệu đã tra). Chạy với từng Agent, đo tỉ lệ chọn đúng | P1 | M | Claude viết, Cậu chạy | C1 | TODO |
 | C4 | **Sửa nội dung theo kết quả C1/C3**: chỗ Agent bỏ qua, hiểu sai, đọc thừa; chỉnh `BOOTSTRAP.md`, `INDEX.md` ("Khi nào dùng"), `profiles/README.md` | P1 | M | Claude | C1, C3 | BLOCKED |
 | C7 | **README ghi rõ Codex chưa kiểm chứng** (hiện ghi "Dùng được với Claude Code · Antigravity · Codex") cho tới khi có người chạy thử | P2 | S | Claude | — | TODO |
@@ -87,7 +90,7 @@ Thứ tự đề xuất: **C2 → B3 → B1 → B8 (push) → C1 → B2 → A1 �
 | :-- | :-- | :-: | :-: | :-- | :-- | :-: |
 | E1 | **Phát hiện `ARCH-008`: thiếu rào chắn** theo mức M1–M3 mà dự án khai báo (không có luật lint/ranh giới import hoặc tách project; CI không chạy kiểm tra kiến trúc). Thêm tài liệu khắc phục + test | P1 | M | Claude | — | TODO |
 | E2 | **Mở rộng `ARCH-007`** (`PROFILE_EXPECTATIONS`) cho cả 4 profile, kể cả cấu trúc theo ngôn ngữ (.NET/Python/TS); thêm fixture test | P1 | M | Claude | — | TODO |
-| E3 | **Giảm báo thừa**: đưa `examples/`, thư mục fixture test và `*.min.*`, `*.map` vào danh sách bỏ qua kèm lý do (hiển thị ở Mục 7) | P1 | S | Claude | — | TODO |
+| E3 | **Giảm báo thừa**: đưa `examples/`, thư mục fixture test và `*.min.*`, `*.map` vào danh sách bỏ qua kèm lý do (hiển thị ở Mục 7) | P1 | S | Claude | — | DONE |
 | E4 | **Khai báo `kit.json` trong báo cáo**: ghi `kit_ref` đang dùng và cảnh báo khi cũ hơn bản kit mới nhất | P2 | S | Claude | B4 | BLOCKED |
 | E5 | **Bộ test hồi quy bằng dự án mẫu** (empty, bootstrapped, dở dang, có tín hiệu SAFE): kết quả kỳ vọng cố định để giữ cam kết "cùng đầu vào, cùng kết quả" | P2 | M | Claude | — | TODO |
 | E6 | **Mã thoát theo ngưỡng** (`--fail-under N`) và `--output <đường dẫn>` cho CI | P3 | S | Claude | — | HOÃN |

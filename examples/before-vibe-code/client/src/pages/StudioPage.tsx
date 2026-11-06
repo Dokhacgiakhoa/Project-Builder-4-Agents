@@ -6,8 +6,8 @@ import { Step3Features } from '../components/steps/Step3Features';
 import { Step4TechStack } from '../components/steps/Step4TechStack';
 import { Step5AIAnalysis } from '../components/steps/Step5AIAnalysis';
 import { Step6Export } from '../components/steps/Step6Export';
+import { StudioContextSummary } from '../components/studio/StudioContextSummary';
 import { api } from '../services/api';
-import { Sparkles, Edit3, Cpu, Users, Layers, Rocket, ShieldCheck } from 'lucide-react';
 import gsap from 'gsap';
 
 const STEP_TITLES = [
@@ -26,7 +26,6 @@ export const StudioPage: React.FC = () => {
   const [, setProjectId] = useState<number | null>(null);
   const stepContainerRef = useRef<HTMLDivElement>(null);
 
-  // Form State (Lưu bộ nhớ tạm thời)
   const [projectName, setProjectName] = useState(() => {
     try {
       const draft = sessionStorage.getItem(DRAFT_STORAGE_KEY);
@@ -103,7 +102,6 @@ export const StudioPage: React.FC = () => {
     'Code sạch đẹp, dễ mở rộng sau này'
   ]);
 
-  // Tự động lưu bộ nhớ tạm thời vào sessionStorage khi state thay đổi
   useEffect(() => {
     try {
       sessionStorage.setItem(
@@ -124,7 +122,6 @@ export const StudioPage: React.FC = () => {
     }
   }, [projectName, description, targetAudience, features, backendStack, databaseStack, frontendStack, nonFunctionalReqs]);
 
-  // GSAP animation on step change
   useEffect(() => {
     if (stepContainerRef.current) {
       gsap.fromTo(
@@ -135,24 +132,6 @@ export const StudioPage: React.FC = () => {
     }
   }, [currentStep]);
 
-  // Handlers for steps (Lưu tạm thời trong bộ nhớ, chuyển bước tức thì)
-  const handleStep1Next = () => {
-    setCurrentStep(2);
-  };
-
-  const handleStep2Next = () => {
-    setCurrentStep(3);
-  };
-
-  const handleStep3Next = () => {
-    setCurrentStep(4);
-  };
-
-  const handleStep4Next = () => {
-    setCurrentStep(5);
-  };
-
-  // Bước 5: Khi AI phân tích hoàn tất, tiến hành lưu chính thức 1 lần duy nhất vào Database
   const handleStep5Complete = async () => {
     try {
       const project = await api.createProject({
@@ -196,190 +175,54 @@ export const StudioPage: React.FC = () => {
 
   return (
     <div className="py-6 sm:py-8 space-y-6 relative z-10">
-      {/* Wizard Progress Breadcrumb */}
       <WizardHeader
         currentStep={currentStep}
         totalSteps={6}
         stepTitles={STEP_TITLES}
       />
 
-      {/* 1/4 and 3/4 Split Layout Container */}
       <div className="w-full max-w-[85%] mx-auto px-2 sm:px-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          {/* Left Column (1/4 - lg:col-span-3): Tóm Tắt Ngữ Cảnh Đã Chọn */}
-          <div className="lg:col-span-3 space-y-4 lg:sticky lg:top-24">
+          <StudioContextSummary
+            currentStep={currentStep}
+            onNavigateStep={(step) => setCurrentStep(step)}
+            projectName={projectName}
+            targetAudience={targetAudience}
+            features={features}
+            frontendStack={frontendStack}
+            backendStack={backendStack}
+            databaseStack={databaseStack}
+            nonFunctionalReqs={nonFunctionalReqs}
+          />
+
+          <div className="lg:col-span-9" ref={stepContainerRef}>
             <div className="floating-shadow">
-              <div className="octa-card bg-white p-5 sm:p-6 space-y-5">
-                <div className="flex items-center justify-between pb-2">
-                  <div className="flex items-center gap-2 text-slate-950 font-black text-sm">
-                    <Sparkles className="w-4 h-4 text-orange-500" />
-                    <span>Ngữ Cảnh Đã Chọn</span>
-                  </div>
-                  <span className="octa-card-sm text-[10px] uppercase font-black px-2.5 py-1 bg-blue-100 text-blue-950">
-                    {currentStep > 1 ? `Bước 1-${currentStep - 1} OK` : 'Khởi tạo'}
-                  </span>
-                </div>
-
-                {/* Step 1 Summary: Ý tưởng */}
-                <div className={`space-y-1.5 p-3.5 octa-card-sm transition-all ${
-                  currentStep > 1 ? 'bg-blue-100/70 text-slate-950' : 'bg-slate-100 text-slate-600'
-                }`}>
-                  <div className="flex items-center justify-between text-xs font-black">
-                    <span className="flex items-center gap-1.5 text-blue-950">
-                      <Rocket className="w-3.5 h-3.5 text-orange-600" /> 1. Ý Tưởng Dự Án
-                    </span>
-                    {currentStep > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => setCurrentStep(1)}
-                        title="Sửa bước 1"
-                        className="text-blue-700 hover:text-blue-900 p-0.5 cursor-pointer"
-                      >
-                        <Edit3 className="w-3.5 h-3.5" />
-                      </button>
-                    )}
-                  </div>
-                  <div className="text-xs font-black text-slate-950 truncate">
-                    {projectName ? projectName : <span className="text-slate-400 font-normal">Chưa nhập tên...</span>}
-                  </div>
-                  {description && (
-                    <p className="text-[11px] text-slate-700 line-clamp-2 leading-relaxed font-semibold">
-                      {description}
-                    </p>
-                  )}
-                </div>
-
-                {/* Step 2 Summary: Khách hàng */}
-                <div className={`space-y-1.5 p-3.5 octa-card-sm transition-all ${
-                  currentStep > 2 ? 'bg-blue-100/70 text-slate-950' : 'bg-slate-100 text-slate-600'
-                }`}>
-                  <div className="flex items-center justify-between text-xs font-black">
-                    <span className="flex items-center gap-1.5 text-blue-950">
-                      <Users className="w-3.5 h-3.5 text-orange-600" /> 2. Khách Hàng
-                    </span>
-                    {currentStep > 2 && (
-                      <button
-                        type="button"
-                        onClick={() => setCurrentStep(2)}
-                        title="Sửa bước 2"
-                        className="text-blue-700 hover:text-blue-900 p-0.5 cursor-pointer"
-                      >
-                        <Edit3 className="w-3.5 h-3.5" />
-                      </button>
-                    )}
-                  </div>
-                  <p className="text-[11px] text-slate-700 line-clamp-2 leading-relaxed font-semibold">
-                    {targetAudience ? targetAudience : <span className="text-slate-400 font-normal">{currentStep === 2 ? 'Đang chọn ở bước này...' : 'Chưa thiết lập'}</span>}
-                  </p>
-                </div>
-
-                {/* Step 3 Summary: Tính năng */}
-                <div className={`space-y-1.5 p-3.5 octa-card-sm transition-all ${
-                  currentStep > 3 ? 'bg-blue-100/70 text-slate-950' : 'bg-slate-100 text-slate-600'
-                }`}>
-                  <div className="flex items-center justify-between text-xs font-black">
-                    <span className="flex items-center gap-1.5 text-blue-950">
-                      <Layers className="w-3.5 h-3.5 text-orange-600" /> 3. Tính Năng
-                    </span>
-                    {currentStep > 3 && (
-                      <button
-                        type="button"
-                        onClick={() => setCurrentStep(3)}
-                        title="Sửa bước 3"
-                        className="text-blue-700 hover:text-blue-900 p-0.5 cursor-pointer"
-                      >
-                        <Edit3 className="w-3.5 h-3.5" />
-                      </button>
-                    )}
-                  </div>
-                  <div className="text-xs font-black text-slate-950">
-                    {features.length} tính năng đã chọn
-                  </div>
-                  <div className="space-y-1 max-h-20 overflow-hidden text-[11px] text-slate-700 font-medium">
-                    {features.slice(0, 2).map((f, i) => (
-                      <div key={i} className="truncate flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-700 shrink-0" />
-                        <span className="truncate">{f.title}</span>
-                      </div>
-                    ))}
-                    {features.length > 2 && (
-                      <div className="text-[10px] text-slate-500 font-bold pl-3">
-                        +{features.length - 2} tính năng khác...
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Step 4 Summary: Định hướng */}
-                <div className={`space-y-1.5 p-3.5 octa-card-sm transition-all ${
-                  currentStep > 4 ? 'bg-blue-100/70 text-slate-950' : 'bg-slate-100 text-slate-600'
-                }`}>
-                  <div className="flex items-center justify-between text-xs font-black">
-                    <span className="flex items-center gap-1.5 text-blue-950">
-                      <Cpu className="w-3.5 h-3.5 text-orange-600" /> 4. Định Hướng
-                    </span>
-                    {currentStep > 4 && (
-                      <button
-                        type="button"
-                        onClick={() => setCurrentStep(4)}
-                        title="Sửa bước 4"
-                        className="text-blue-700 hover:text-blue-900 p-0.5 cursor-pointer"
-                      >
-                        <Edit3 className="w-3.5 h-3.5" />
-                      </button>
-                    )}
-                  </div>
-                  <div className="text-[11px] text-slate-800 space-y-0.5 font-bold">
-                    <div className="truncate"><strong>Nền tảng:</strong> {frontendStack.split('(')[0].trim()}</div>
-                    <div className="truncate"><strong>Máy chủ:</strong> {backendStack.split('(')[0].trim()}</div>
-                    <div className="truncate"><strong>Lưu trữ:</strong> {databaseStack.split('(')[0].trim()}</div>
-                  </div>
-                </div>
-
-                {/* Architecture Badge */}
-                <div className="pt-2 flex items-center gap-1.5 text-[11px] font-black text-emerald-800 bg-emerald-50 p-2 octa-card-sm">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Dành Riêng Cho Người Non-Tech</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column (3/4 - lg:col-span-9): Nội Dung Bước Hiện Tại */}
-          <div className="lg:col-span-9">
-            <div 
-              ref={stepContainerRef}
-              className="floating-shadow-lg transition-all"
-            >
-              <div className="octa-card-lg bg-white/95 p-6 sm:p-8 md:p-10">
+              <div className="octa-card bg-white p-6 sm:p-8 lg:p-10 border-2 border-slate-900 shadow-xl">
                 {currentStep === 1 && (
                   <Step1ProjectInfo
                     projectName={projectName}
                     setProjectName={setProjectName}
                     description={description}
                     setDescription={setDescription}
-                    onNext={handleStep1Next}
+                    onNext={() => setCurrentStep(2)}
                   />
                 )}
-
                 {currentStep === 2 && (
                   <Step2Audience
                     targetAudience={targetAudience}
                     setTargetAudience={setTargetAudience}
-                    onNext={handleStep2Next}
+                    onNext={() => setCurrentStep(3)}
                     onBack={() => setCurrentStep(1)}
                   />
                 )}
-
                 {currentStep === 3 && (
                   <Step3Features
                     features={features}
                     setFeatures={setFeatures}
-                    onNext={handleStep3Next}
+                    onNext={() => setCurrentStep(4)}
                     onBack={() => setCurrentStep(2)}
                   />
                 )}
-
                 {currentStep === 4 && (
                   <Step4TechStack
                     frontendStack={frontendStack}
@@ -390,27 +233,33 @@ export const StudioPage: React.FC = () => {
                     setDatabaseStack={setDatabaseStack}
                     nonFunctionalReqs={nonFunctionalReqs}
                     setNonFunctionalReqs={setNonFunctionalReqs}
-                    onNext={handleStep4Next}
+                    onNext={() => setCurrentStep(5)}
                     onBack={() => setCurrentStep(3)}
                   />
                 )}
-
                 {currentStep === 5 && (
                   <Step5AIAnalysis
-                    projectName={projectName || 'Dự Án Phần Mềm'}
-                    onComplete={handleStep5Complete}
-                  />
-                )}
-
-                {currentStep === 6 && (
-                  <Step6Export
-                    projectName={projectName || 'Before Vibe Code Studio'}
+                    projectName={projectName}
                     description={description}
                     targetAudience={targetAudience}
                     features={features}
-                    frontendStack={frontendStack}
                     backendStack={backendStack}
                     databaseStack={databaseStack}
+                    frontendStack={frontendStack}
+                    nonFunctionalReqs={nonFunctionalReqs}
+                    onComplete={handleStep5Complete}
+                    onBack={() => setCurrentStep(4)}
+                  />
+                )}
+                {currentStep === 6 && (
+                  <Step6Export
+                    projectName={projectName}
+                    description={description}
+                    targetAudience={targetAudience}
+                    features={features}
+                    backendStack={backendStack}
+                    databaseStack={databaseStack}
+                    frontendStack={frontendStack}
                     nonFunctionalReqs={nonFunctionalReqs}
                     onRestart={handleRestart}
                   />

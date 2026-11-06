@@ -1,33 +1,46 @@
 ---
 id: K-002
 type: playbook
-when: "Cần **hỏi người dùng** để hiểu dự án, chốt luồng, stack"
+when: "When needing to **interview user** to clarify project, lock user journeys, and select stack"
 ---
-# DISCOVERY — KỊCH BẢN PHỎNG VẤN DỰ ÁN (BƯỚC 2)
 
-> Dành cho Agent. Mục tiêu: từ lời mô tả của người dùng, chốt được **bản tóm tắt dự án**, **stack** và **profile kiến trúc**, rồi ghi lại thành tài liệu. Người dùng có thể là fresher hoặc người vibe coding: dùng ngôn ngữ đời thường, giải thích thuật ngữ trong một câu, **đừng hỏi dồn**.
+# DISCOVERY — BRAINSTORMING, PLANNING & SCOPE LOCK PLAYBOOK
 
-## Nguyên tắc hội thoại
-* Hỏi **tối đa 3 câu mỗi lượt**, bắt đầu bằng câu về *người dùng và vấn đề*, không bắt đầu bằng công nghệ.
-* Với mỗi câu kỹ thuật, **đưa sẵn gợi ý mặc định kèm lý do** để người dùng chỉ cần gật đầu ("Mình đề xuất X vì ... — bạn đồng ý không?").
-* Người dùng nói "không biết": tự chọn mặc định an toàn, ghi rõ giả định vào `docs/project-brief.md` để xem lại sau.
-* Không bắt người dùng nhắc tên tệp hay lệnh git. Bạn tự làm.
-* Trả lời bằng **ngôn ngữ người dùng đang dùng**.
+> Exclusively for AI Agents. Objective: From a brief prompt by a Vibe Coder, the Agent acts as **Tech Lead & Product Architect** to brainstorm, shape system boundaries, finalize an **A-to-Z Execution Plan**, select **Tech Stack & Architecture Profile**, and **inject Curated Skills**.
 
-## Các nhóm thông tin cần thu thập (theo thứ tự)
-1. **Who/What**: ai dùng, nỗi đau chính, "xong" nghĩa là gì (một câu).
-2. **Luồng chính**: 3–5 việc người dùng làm trong sản phẩm, từ đầu đến cuối.
-3. **Dữ liệu và tài khoản**: cần đăng nhập? lưu gì? có dữ liệu nhạy cảm?
-4. **Loại ứng dụng**: web, API, di động, công cụ dòng lệnh, có LLM/Agent bên trong không?
-5. **Ràng buộc**: ngân sách (free tier?), hạn chót, ngôn ngữ/công nghệ đã biết hoặc bắt buộc, nơi triển khai.
-6. **Người làm**: một mình hay nhóm; mức quen thuộc với code (để chọn mức phức tạp phù hợp).
-7. **Quy mô dự kiến**: demo/đồ án, sản phẩm nhỏ, hay sản phẩm sẽ lớn dần.
+## 1. Dialogue Principles (Optimized for Vibe Coders)
+* **Ask few questions, suggest concrete defaults**: At most 3 questions per turn. Start with *user persona and core problem*, never with engineering jargon.
+* **Provide recommended defaults with one-line rationales**: ("I recommend Stack X because it runs smoothly, costs $0 to host, and deploys easily — sounds good?").
+* **Proactively assume safe defaults**: When user states "not sure" or "up to you", adopt the safest industry default and record it under Assumptions in `docs/project-brief.md`.
+* **Never ask the user to run terminal commands**: The Agent creates files, tests environments, and writes configs directly.
 
-## Từ câu trả lời đến quyết định
-Đọc [../profiles/README.md](../profiles/README.md): bảng tín hiệu → kiến trúc, mức rào chắn (M1–M3) và profile bổ sung. Suy ra từ câu trả lời, **không** hỏi người dùng tên kiến trúc. Nếu không có profile phù hợp: dùng Technology Selection Gate trong `core/templates/AGENTS.md` mục 6.
+## 2. Discovery Sequence: From Concept to A-Z Plan
+1. **Product Mindset (Who & What Problem)**:
+   * Persona and core pain point.
+   * Measurable Definition of Done in one sentence.
+2. **Core User Journeys**:
+   * 3–5 primary interaction steps from start to finish.
+3. **System Thinking Breakdown**:
+   * **Frontend**: Web, mobile, or dashboard? Responsive layout and light/dark theme requirements?
+   * **Backend & Logic**: Complex business rules? External AI APIs or third-party webhooks?
+   * **Persistence & Auth**: Authentication needed (JWT, OAuth)? Database required (PostgreSQL/SQLite) or local state?
+   * **Cloud & Go-Live**: Real-world deployment plan ($0 tier via Vercel, Railway, Supabase).
+4. **Sprint Roadmap Setup**:
+   * Scaffold `planning/roadmap.md` and `planning/backlog.md`: Sprint 1 (Working MVP), Sprint 2 (Business Logic & UI Polish), Sprint 3 (Hardening, Security, E2E & Go-Live).
 
-## Đầu ra bắt buộc của bước 2
-1. `docs/project-brief.md` điền đủ (kể cả **các giả định** đã tự chọn).
-2. `adrs/0001-*.md`: quyết định **stack**; `adrs/0002-*.md`: quyết định **kiểu kiến trúc** (từ `templates/adrs/0000-template.md`).
-3. `.builder/kit.json` cập nhật `profiles` đã chọn.
-4. Tóm tắt cho người dùng bằng ngôn ngữ đơn giản: sẽ dựng gì, vì sao, và bước tiếp theo. **Chờ họ đồng ý** trước khi dựng khung code ở bước 3.
+## 3. Architecture Selection & Skill Injection
+* **Architecture Selection**: Consult [../profiles/README.md](../profiles/README.md) to match project signals (Simple Layered, Clean Architecture, Vertical Slice, Modular Monolith) and guardrail level (M1–M3).
+* **Inject Curated Skills**: Consult [../profiles/skills-catalog/curated-agent-skills.md](../profiles/skills-catalog/curated-agent-skills.md). Copy relevant skills into `.agents/skills/` (and `.claude/skills/`):
+  * Database needed $\rightarrow$ inject `db-migration-guardian`.
+  * External network calls $\rightarrow$ inject `defensive-api-client`.
+  * Frontend UI $\rightarrow$ inject `error-boundary-guard`.
+  * Production ready $\rightarrow$ inject `docker-production-packager`, `cloud-free-tier-deployer`.
+  * *Zero tokens wasted on random internet searches.*
+
+## 4. Mandatory Deliverables of Phase 1
+1. `docs/project-brief.md`: Filled with core problem, user journeys, and explicit assumptions.
+2. `planning/roadmap.md` & `planning/backlog.md`: Phased sprints and prioritized backlog.
+3. `adrs/0001-stack-selection.md` & `adrs/0002-architecture-selection.md`: Pinned decisions.
+4. `.agents/skills/` (and `.claude/skills/`): Injected domain skills.
+5. `.builder/kit.json`: Pinned active profile.
+6. **User Confirmation Summary**: Concise proposal presented to the user for sign-off before entering code scaffolding in Phase 2.

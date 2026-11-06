@@ -1,75 +1,82 @@
-# INDEX — BẢNG ĐỊNH TUYẾN Ý ĐỊNH → TÀI LIỆU (DÀNH CHO AGENT)
+# INDEX — INTENT-TO-DOCUMENT ROUTING TABLE (FOR AI AGENTS)
 
-> Người dùng **không biết** repo có tài liệu nào. Hãy đọc cột **"Khi nào dùng"**, khớp với việc người dùng đang nói/làm, rồi mở đúng tài liệu. Đọc tối đa 2–3 tài liệu mỗi lần. Địa chỉ thô: `https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/<ref>/<đường dẫn>`.
-> Tầng: **C** = Core (bắt buộc mọi dự án) · **P** = Profile (chọn theo dự án) · **L** = Library (tham khảo/tùy chọn).
+> Users **do not know** which documents exist in this repository. Read the **"When to use"** column, match it with the user's intent or current task, and open the exact document. Read at most 2–3 documents per query. Raw base URL: `https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/<ref>/<path>`.
+> Tier: **C** = Core (Mandatory for all projects) · **P** = Profile (Selected per project domain) · **L** = Library (Reference & optional).
 
-## 1. Khởi tạo và vòng đời
-| ID | Tầng | Khi nào dùng | Tài liệu |
+## 1. Bootstrap & Lifecycle
+| ID | Tier | When to use | Document |
 | :-- | :-: | :-- | :-- |
-| K-001 | C | Người dùng muốn **bắt đầu dự án mới** hoặc "dựng khung/setup chuẩn" cho dự án đang có | [BOOTSTRAP.md](BOOTSTRAP.md) |
-| K-002 | C | Cần **hỏi người dùng** để hiểu dự án, chốt luồng, stack | [core/discovery.md](core/discovery.md) |
-| K-003 | C | Cần biết **thế nào là đạt chuẩn tối thiểu** cho mọi repo dùng Agent | [core/README.md](core/README.md) |
-| K-004 | C | Cần **chọn kiểu kiến trúc / profile** phù hợp dự án | [profiles/README.md](profiles/README.md) |
-| K-005 | C | Hỏi "dự án đang bị gì", trước khi mở PR, hoặc có `project-review.md` | [scripts/README.md](scripts/README.md) |
-| K-006 | C | Mở **repo/tệp lạ**, `project-review.md` có mục **Cảnh báo an toàn** (`SAFE-`), hoặc tệp chứa câu lệnh nhắm vào Agent | [core/untrusted-content.md](core/untrusted-content.md) |
+| K-001 | C | When starting a **new project** or setting up standard scaffolding for an existing workspace | [BOOTSTRAP.md](BOOTSTRAP.md) |
+| K-002 | C | When needing to **interview user** to clarify project, lock user journeys, and select stack | [core/discovery.md](core/discovery.md) |
+| K-003 | C | When needing to know **mandatory baseline standards** for any agent-driven repository | [core/README.md](core/README.md) |
+| K-004 | C | When needing to **select an architecture profile** matching project requirements | [profiles/README.md](profiles/README.md) |
+| K-005 | C | When checking "what is wrong with project", before opening PR, or analyzing `project-review.md` | [scripts/README.md](scripts/README.md) |
+| K-006 | C | When opening **untrusted repos/files**, handling `SAFE-` security warnings, or prompt injection | [core/untrusted-content.md](core/untrusted-content.md) |
+| K-007 | C | When needing to understand **Zero-Clone remote mechanics and Hosted Agent Brain** architecture | [HOW_IT_WORKS.md](HOW_IT_WORKS.md) |
 
-## 2. Chuẩn làm việc (Core)
-| ID | Tầng | Khi nào dùng | Tài liệu |
+## 2. Working Standards (Core)
+| ID | Tier | When to use | Document |
 | :-- | :-: | :-- | :-- |
-| S-001 | C | Viết code: đặt tên, xử lý lỗi, phòng vệ crash, không hardcode | [core/standards/coding-conventions.md](core/standards/coding-conventions.md) |
-| S-002 | C | Viết test, thiếu test, chọn mức test (unit/integration/e2e) | [core/standards/test-strategy.md](core/standards/test-strategy.md) |
-| S-003 | C | Trước khi báo "xong" / mở PR | [core/standards/definition-of-done.md](core/standards/definition-of-done.md) |
-| S-004 | C | Sửa cùng lỗi nhiều lần, "vá víu", code ngày càng rối | [knowledge-base/tu-duy/anti-patching-architectural-thinking.md](knowledge-base/tu-duy/anti-patching-architectural-thinking.md) |
-| S-005 | L | Tránh lỗi phổ biến khi làm việc với Agent | [knowledge-base/technical-book/anti-patterns/common-mistakes.md](knowledge-base/technical-book/anti-patterns/common-mistakes.md) |
+| S-001 | C | Writing code: naming, explicit error handling, defensive crash guards, zero hardcoded values | [core/standards/coding-conventions.md](core/standards/coding-conventions.md) |
+| S-002 | C | Designing automated tests, resolving test gaps, choosing test levels (unit/integration/e2e) | [core/standards/test-strategy.md](core/standards/test-strategy.md) |
+| S-003 | C | Verification criteria before reporting "Done" or opening PR | [core/standards/definition-of-done.md](core/standards/definition-of-done.md) |
+| S-004 | C | Repeated bug fixes, surface patching, or untangling spaghetti code | [knowledge-base/tu-duy/anti-patching-architectural-thinking.md](knowledge-base/tu-duy/anti-patching-architectural-thinking.md) |
+| S-005 | L | Avoiding common pitfalls and anti-patterns when collaborating with AI agents | [knowledge-base/technical-book/anti-patterns/common-mistakes.md](knowledge-base/technical-book/anti-patterns/common-mistakes.md) |
+| S-006 | P | When Agent is **caught in a debugging doom loop**, where fixes produce new errors and corrupt architecture | [profiles/playbooks/anti-doom-loop-guide.md](profiles/playbooks/anti-doom-loop-guide.md) |
 
-## 3. Kiến trúc (Profile)
-| ID | Tầng | Khi nào dùng | Tài liệu |
+## 3. Architecture Profiles
+| ID | Tier | When to use | Document |
 | :-- | :-: | :-- | :-- |
-| A-001 | P | Demo, đồ án, MVP nhỏ, CRUD đơn giản | [profiles/architecture/simple-layered.md](profiles/architecture/simple-layered.md) |
-| A-002 | P | Nghiệp vụ phức tạp, test độc lập framework, đổi hạ tầng | [profiles/architecture/clean-architecture.md](profiles/architecture/clean-architecture.md) |
-| A-003 | P | Cần sơ đồ thư mục Clean Architecture theo .NET/Python/TypeScript | [profiles/architecture/clean-architecture-layout.md](profiles/architecture/clean-architecture-layout.md) |
-| A-004 | P | Nhiều tính năng độc lập, làm song song | [profiles/architecture/vertical-slice.md](profiles/architecture/vertical-slice.md) |
-| A-005 | P | Hệ thống lớn dần, cần ranh giới module | [profiles/architecture/modular-monolith.md](profiles/architecture/modular-monolith.md) |
-| A-006 | P | Chọn/đối chiếu design pattern, refactor theo pattern | [profiles/patterns/design-patterns-catalog.md](profiles/patterns/design-patterns-catalog.md) |
-| A-007 | L | Thiết kế hệ thống tổng thể, sơ đồ C4 | [knowledge-base/technical-book/architecture/system-design.md](knowledge-base/technical-book/architecture/system-design.md) |
-| A-008 | P | Viết/cập nhật **tài liệu kiến trúc tổng thể** của dự án (thành phần, luồng chính) | [profiles/documentation/system-architecture.md](profiles/documentation/system-architecture.md) |
+| A-001 | P | Small MVPs, student projects, prototypes, simple CRUD | [profiles/architecture/simple-layered.md](profiles/architecture/simple-layered.md) |
+| A-002 | P | Complex business logic, framework-independent domain models, long-term evolvability | [profiles/architecture/clean-architecture.md](profiles/architecture/clean-architecture.md) |
+| A-003 | P | Target folder layout for Clean Architecture in .NET / Python / TypeScript | [profiles/architecture/clean-architecture-layout.md](profiles/architecture/clean-architecture-layout.md) |
+| A-004 | P | Systems with multiple independent, feature-sliced capabilities developed in parallel | [profiles/architecture/vertical-slice.md](profiles/architecture/vertical-slice.md) |
+| A-005 | P | Monolithic systems growing in scale requiring strict bounded contexts and module boundaries | [profiles/architecture/modular-monolith.md](profiles/architecture/modular-monolith.md) |
+| A-006 | P | Selecting and cross-referencing design patterns, refactoring code | [profiles/patterns/design-patterns-catalog.md](profiles/patterns/design-patterns-catalog.md) |
+| A-007 | L | Macro system design, C4 diagrams, distributed architectures | [knowledge-base/technical-book/architecture/system-design.md](knowledge-base/technical-book/architecture/system-design.md) |
+| A-008 | P | Writing or updating **system architecture documentation** (components, key flows) | [profiles/documentation/system-architecture.md](profiles/documentation/system-architecture.md) |
 
-## 4. Giao diện và design system (Profile)
-| ID | Tầng | Khi nào dùng | Tài liệu |
+## 4. UI & Design Systems (Profile)
+| ID | Tier | When to use | Document |
 | :-- | :-: | :-- | :-- |
-| D-001 | P | Làm giao diện web React theo cấu trúc tính năng | [profiles/frontend/bulletproof-react.md](profiles/frontend/bulletproof-react.md) |
-| D-002 | P | Cần mã khởi đầu frontend (Vite + React + TS + Tailwind) | [profiles/frontend/starter/README.md](profiles/frontend/starter/README.md) |
-| D-003 | P | Chọn phong cách giao diện, theme sáng/tối, design system | [profiles/design/ui-ux-archetypes-and-presets.md](profiles/design/ui-ux-archetypes-and-presets.md) |
-| D-004 | P | Xem danh mục phong cách UI (archetype) để chọn | [profiles/design/design-archetypes-catalog.md](profiles/design/design-archetypes-catalog.md) |
-| D-005 | P | Cần prompt mô tả phong cách để Agent dựng giao diện đúng gu | [profiles/design/visual-dna-prompts.md](profiles/design/visual-dna-prompts.md) |
+| D-001 | P | Building scalable React frontend with feature-based modular structure | [profiles/frontend/bulletproof-react.md](profiles/frontend/bulletproof-react.md) |
+| D-002 | P | Scaffolding frontend starter codebase (Vite + React + TS + Tailwind) | [profiles/frontend/starter/README.md](profiles/frontend/starter/README.md) |
+| D-003 | P | Selecting UI archetype presets, light/dark themes, and design tokens | [profiles/design/ui-ux-archetypes-and-presets.md](profiles/design/ui-ux-archetypes-and-presets.md) |
+| D-004 | P | Browsing UI aesthetic archetype catalog | [profiles/design/design-archetypes-catalog.md](profiles/design/design-archetypes-catalog.md) |
+| D-005 | P | Prompts for generating matching visual styles and design tokens | [profiles/design/visual-dna-prompts.md](profiles/design/visual-dna-prompts.md) |
+| D-006 | P | When translating screenshots or UI references into code without falling into visual doom loops | [profiles/design/screenshot-to-code-reverse-engineering.md](profiles/design/screenshot-to-code-reverse-engineering.md) |
 
-## 5. Ứng dụng có AI/LLM (Profile)
-| ID | Tầng | Khi nào dùng | Tài liệu |
+## 5. AI & LLM Applications (Profile)
+| ID | Tier | When to use | Document |
 | :-- | :-: | :-- | :-- |
-| I-001 | P | Sản phẩm có Agent, tool calling, RAG, MCP; cần đánh giá chất lượng (evals) | [profiles/ai-apps/agentic-patterns-and-evals.md](profiles/ai-apps/agentic-patterns-and-evals.md) |
-| I-002 | L | Mẫu RAG | [knowledge-base/technical-book/patterns/rag-pattern.md](knowledge-base/technical-book/patterns/rag-pattern.md) |
+| I-001 | P | Building apps with Agents, tool calling, RAG, MCP; evaluating quality (evals) | [profiles/ai-apps/agentic-patterns-and-evals.md](profiles/ai-apps/agentic-patterns-and-evals.md) |
+| I-002 | L | Reference RAG patterns and vector search templates | [knowledge-base/technical-book/patterns/rag-pattern.md](knowledge-base/technical-book/patterns/rag-pattern.md) |
 
-## 6. Cấu hình Agent: rule, skill, workflow
-| ID | Tầng | Khi nào dùng | Tài liệu |
+## 6. Agent Configuration: Rules, Skills, MCP
+| ID | Tier | When to use | Document |
 | :-- | :-: | :-- | :-- |
-| G-001 | C | Thêm rule/skill/workflow, cấu hình nhiều công cụ Agent (Claude Code, Codex, Antigravity...) | [knowledge-base/technical-book/agent-practices/multi-tool-config.md](knowledge-base/technical-book/agent-practices/multi-tool-config.md) |
-| G-002 | L | Quản lý context của Agent, khi hội thoại dài, Agent "lạc đề" | [knowledge-base/technical-book/agent-practices/context-management.md](knowledge-base/technical-book/agent-practices/context-management.md) |
-| G-003 | L | Guardrail, giới hạn quyền cho Agent | [knowledge-base/technical-book/agent-practices/guardrails.md](knowledge-base/technical-book/agent-practices/guardrails.md) |
-| G-004 | L | Viết prompt/chỉ dẫn hiệu quả, dùng Claude Code hiệu quả | [knowledge-base/claude-code.md](knowledge-base/claude-code.md) |
+| G-001 | C | Configuring multi-tool agent setups (Claude Code, Codex, Antigravity, Cursor) | [knowledge-base/technical-book/agent-practices/multi-tool-config.md](knowledge-base/technical-book/agent-practices/multi-tool-config.md) |
+| G-002 | L | Managing agent context window drift during long conversations | [knowledge-base/technical-book/agent-practices/context-management.md](knowledge-base/technical-book/agent-practices/context-management.md) |
+| G-003 | L | Applying security guardrails and execution limits for agents | [knowledge-base/technical-book/agent-practices/guardrails.md](knowledge-base/technical-book/agent-practices/guardrails.md) |
+| G-004 | L | Authoring effective instructions and prompts for Claude Code | [knowledge-base/claude-code.md](knowledge-base/claude-code.md) |
+| G-005 | P | When needing to **select and configure curated skills for Agent** by domain/stack without web searching | [profiles/skills-catalog/curated-agent-skills.md](profiles/skills-catalog/curated-agent-skills.md) |
+| G-006 | P | When needing to **select and configure MCP Servers (Model Context Protocol)** to connect production tools | [profiles/agent-configs/curated-mcp-matrix.md](profiles/agent-configs/curated-mcp-matrix.md) |
+| G-007 | P | When needing to **look up authoritative ecosystem tools, keywords, and precision search queries** | [profiles/knowledge-map/agent-ecosystem-taxonomy.md](profiles/knowledge-map/agent-ecosystem-taxonomy.md) |
 
-## 7. Hạ tầng, tài liệu, quản trị (Library)
-| ID | Tầng | Khi nào dùng | Tài liệu |
+## 7. Infrastructure, Documentation, Governance
+| ID | Tier | When to use | Document |
 | :-- | :-: | :-- | :-- |
-| T-001 | P | Stack miễn phí (free tier) cho dự án nhỏ | [profiles/stacks/cloud-free-tier-stack.md](profiles/stacks/cloud-free-tier-stack.md) |
-| T-002 | P | Cần Postgres/Redis chạy cục bộ | [profiles/stacks/postgres-redis.docker-compose.yml](profiles/stacks/postgres-redis.docker-compose.yml) |
-| T-003 | L | Docker, CI/CD | [knowledge-base/technical-book/devops/docker-cicd.md](knowledge-base/technical-book/devops/docker-cicd.md) |
-| T-004 | L | Hướng dẫn triển khai | [profiles/documentation/deployment-guide.md](profiles/documentation/deployment-guide.md) |
-| O-001 | P | Viết tài liệu người dùng/vận hành theo khung Diátaxis, runbook sự cố | [profiles/documentation/documentation-and-pitch-standards.md](profiles/documentation/documentation-and-pitch-standards.md) |
-| O-002 | L | Làm pitch deck / thuyết trình gọi vốn | [templates/pitch-deck/pitch-deck-template.md](templates/pitch-deck/pitch-deck-template.md) |
-| O-003 | L | Quản trị dự án, sprint, retrospective, báo cáo | [knowledge-base/quan-tri-du-an/README.md](knowledge-base/quan-tri-du-an/README.md) |
-| O-004 | C | Lập roadmap/backlog/sprint cho dự án | [core/templates/planning/roadmap.md](core/templates/planning/roadmap.md) |
-| O-005 | L | Gỡ lỗi môi trường, sự cố thường gặp | [knowledge-base/technical-book/troubleshooting.md](knowledge-base/technical-book/troubleshooting.md) |
-| O-006 | P | Phân loại/viết tài liệu theo **Diátaxis** (tutorial, how-to, reference, explanation) | [profiles/documentation/guides/diataxis-framework-guide.md](profiles/documentation/guides/diataxis-framework-guide.md) |
-| O-007 | P | Có **sự cố vận hành**, cần runbook xử lý | [profiles/documentation/guides/incident-runbook-template.md](profiles/documentation/guides/incident-runbook-template.md) |
-| O-008 | P | Viết **hướng dẫn sử dụng** cho người dùng cuối | [profiles/documentation/guides/user-guide-template.md](profiles/documentation/guides/user-guide-template.md) |
-| O-009 | P | Cần hướng dẫn **thành viên mới** tham gia dự án | [profiles/documentation/guides/developer-onboarding-guide.md](profiles/documentation/guides/developer-onboarding-guide.md) |
+| T-001 | P | Free-tier cloud infrastructure stack for small MVPs | [profiles/stacks/cloud-free-tier-stack.md](profiles/stacks/cloud-free-tier-stack.md) |
+| T-002 | P | Running local Postgres & Redis via Docker Compose | [profiles/stacks/postgres-redis.docker-compose.yml](profiles/stacks/postgres-redis.docker-compose.yml) |
+| T-003 | L | Docker packaging and CI/CD pipelines | [knowledge-base/technical-book/devops/docker-cicd.md](knowledge-base/technical-book/devops/docker-cicd.md) |
+| T-004 | L | Production deployment guide | [profiles/documentation/deployment-guide.md](profiles/documentation/deployment-guide.md) |
+| T-005 | P | When preparing to **deploy product to real production (Go-Live / Production Deploy)**, beyond localhost | [profiles/deployment/go-live-production-checklist.md](profiles/deployment/go-live-production-checklist.md) |
+| O-001 | P | Authoring user and operational documentation via Diátaxis framework and incident runbooks | [profiles/documentation/documentation-and-pitch-standards.md](profiles/documentation/documentation-and-pitch-standards.md) |
+| O-002 | L | Pitch deck and investor presentation templates | [templates/pitch-deck/pitch-deck-template.md](templates/pitch-deck/pitch-deck-template.md) |
+| O-003 | L | Project management, sprint workflows, and retrospectives | [knowledge-base/quan-tri-du-an/README.md](knowledge-base/quan-tri-du-an/README.md) |
+| O-004 | C | Establishing project roadmap, backlog, and sprint boards | [core/templates/planning/roadmap.md](core/templates/planning/roadmap.md) |
+| O-005 | L | Environment debugging and common runtime issue troubleshooting | [knowledge-base/technical-book/troubleshooting.md](knowledge-base/technical-book/troubleshooting.md) |
+| O-006 | P | Categorizing docs via **Diátaxis** (tutorial, how-to, reference, explanation) | [profiles/documentation/guides/diataxis-framework-guide.md](profiles/documentation/guides/diataxis-framework-guide.md) |
+| O-007 | P | Operational incident triage runbook template | [profiles/documentation/guides/incident-runbook-template.md](profiles/documentation/guides/incident-runbook-template.md) |
+| O-008 | P | End-user application guide template | [profiles/documentation/guides/user-guide-template.md](profiles/documentation/guides/user-guide-template.md) |
+| O-009 | P | Onboarding guide template for new team members | [profiles/documentation/guides/developer-onboarding-guide.md](profiles/documentation/guides/developer-onboarding-guide.md) |

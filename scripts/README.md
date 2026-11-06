@@ -1,28 +1,33 @@
-# PROJECT HEALTH CHECK — KIỂM TRA "DỰ ÁN ĐANG BỊ GÌ"
+---
+id: K-005
+type: reference
+when: "When checking \"what is wrong with project\", before opening PR, or analyzing `project-review.md`"
+---
+# PROJECT HEALTH CHECK — STATIC CODEBASE AUDITOR & GUARDRAIL
 
-> Công cụ thứ hai của repo (ADR-0012). Quét một thư mục dự án bất kỳ (mọi ngôn ngữ), **không gọi mạng, không tốn token**, và xuất **`project-review.md`** ở gốc dự án — cả người và Agent đều đọc được.
+> The second core product of this repository (ADR-0012). Scans any project workspace (any language), **100% offline, zero network, zero tokens consumed**, outputting a machine-readable **`project-review.md`** report at project root.
 
-## Cách chạy
-| Cách | Lệnh | Ai dùng |
+## Execution Options
+| Method | Command | Target Audience |
 | :-- | :-- | :-- |
-| Giao diện (Windows) | Bấm `Project-Health-Check.exe`, chọn thư mục dự án | Người dùng |
-| Engine đóng gói (không cần Python) | `engine\reviewer-engine.exe audit <thư_mục>` | Agent / CI trên Windows |
-| Python 3.12+ | `python scripts/project_auditor.py <thư_mục>` | Agent / CI / Linux / macOS |
-| Linux/macOS | `./Project-Health-Check.sh <thư_mục>` | Agent / CI |
+| GUI (Windows) | Launch `Project-Health-Check.exe`, choose workspace directory | Human Vibe Coder |
+| Bundled Engine (No Python required) | `engine\reviewer-engine.exe audit <target_dir>` | Agent / CI on Windows |
+| Python 3.12+ (CLI) | `python scripts/project_auditor.py <target_dir>` | Agent / CI / Linux / macOS |
+| Linux/macOS Shell | `./Project-Health-Check.sh <target_dir>` | Agent / CI |
 
-Mặc định (không truyền thư mục) quét chính repo kit.
+Default invocation (with no directory argument) audits this kit repository itself.
 
-## Agent đọc `project-review.md` thế nào
-1. Phần đầu: điểm, xếp hạng, **profile kiến trúc đã khai báo** trong `.builder/kit.json`.
-2. Mục **Phát hiện cần xử lý**: mỗi dòng có **mã**, **mức độ** (Cao/Trung bình/Thấp), **vị trí** (`tệp:dòng`) và **Tài liệu khắc phục** (đường dẫn trong kit + URL).
-3. Mở tài liệu khắc phục (hoặc dùng skill `kit-consult`), sửa theo thứ tự ưu tiên, chạy lại để xác nhận.
-4. **Mục 0 (Cảnh báo an toàn)**: đọc đầu tiên. Health Check quét tệp văn bản (md, json, html, txt, yaml...) tìm lệnh nhắm vào AI, ký tự ẩn, lệnh giấu trong chú thích HTML, hook/MCP có thể chạy lệnh (`SAFE-001`…`SAFE-005`). Báo cáo **không trích nguyên văn** nội dung bị gắn cờ. Xử lý: [core/untrusted-content.md](../core/untrusted-content.md). Không có tín hiệu **không có nghĩa là an toàn**; không quét mã nguồn và không tìm virus.
-5. **Mục 7 (Phạm vi quét)**: thư mục đã quét, thư mục bỏ qua kèm lý do (đừng mở lại), tệp nên đọc trước, và phần chưa được kiểm tra.
+## How AI Agents Parse `project-review.md`
+1. Header: Total health score, Letter Grade (A+, A, B...), and active **architecture profile** from `.builder/kit.json`.
+2. **Actionable Findings**: Each finding specifies **code**, **severity** (High / Medium / Low), **location** (`file:line`), and a **remediation doc** (kit path and raw URL).
+3. Open the referenced remediation document (or invoke `kit-consult` skill), resolve findings in order of severity, and re-run Health Check.
+4. **Section 0 (Safety & Security Alerts)**: Always review first. Health Check scans text files (md, json, html, txt, yaml...) for prompt injection, zero-width characters, hidden HTML comments, and unverified MCP shell hooks (`SAFE-001`…`SAFE-005`). Detailed remediation: [core/untrusted-content.md](../core/untrusted-content.md).
+5. **Section 7 (Audit Scope)**: Scanned folders, skipped directories with rationale, and unverified files.
 
-## Cấu trúc mã
-* `project_auditor.py`: CLI mỏng.
-* `auditor_engine/`: lõi logic (tree, profiler, các pillar, báo cáo, bảng ánh xạ phát hiện → tài liệu `remediation.py`). Thuần Python stdlib, chạy headless, có test trong `tests/`.
-* `reviewer_app.py` + `reviewer_shell/`: giao diện web cục bộ (chỉ lắng nghe `127.0.0.1`, chống CSRF/DNS rebinding).
-* `engine_main.py`: điểm vào của engine đóng gói (`serve` | `audit`).
-* `build_exe.py`: đóng gói engine (PyInstaller) và vỏ .NET (`tools/ProjectReviewer`).
-* `check_links.py`: kiểm tra link tài liệu (chạy trong CI để `INDEX.md` không dẫn Agent vào ngõ cụt).
+## Codebase Architecture
+* `project_auditor.py`: Thin CLI wrapper.
+* `auditor_engine/`: Pure business logic (tree scanner, profiler, pillars, markdown reporter, finding-to-doc mapping in `remediation.py`). Python stdlib only, fully headless, covered by `tests/`.
+* `reviewer_app.py` + `reviewer_shell/`: Local web UI (binds strictly to `127.0.0.1` with anti-CSRF/DNS rebinding defense).
+* `engine_main.py`: Entry point for packaged engine binary (`serve` | `audit`).
+* `build_exe.py`: Packaging script (PyInstaller + .NET host wrapper in `tools/ProjectReviewer`).
+* `check_links.py`: Documentation integrity and schema linter (enforces zero broken links in `INDEX.md`).

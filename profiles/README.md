@@ -1,58 +1,53 @@
 ---
 id: K-004
 type: router
-when: "Cần **chọn kiểu kiến trúc / profile** phù hợp dự án"
+when: "When needing to **select an architecture profile** matching project requirements"
 ---
-# CHỌN KIỂU DỰ ÁN → KIẾN TRÚC, PATTERN, MỨC RÀO CHẮN
+# SELECTING PROJECT PROFILES: ARCHITECTURE, PATTERNS & GUARDRAILS
 
-> Dành cho Agent. `core/` là phần bắt buộc cho mọi repo. Tệp này giúp bạn **chọn phần tùy biến** từ tín hiệu trong `docs/project-brief.md` hoặc cuộc trò chuyện. **Đừng hỏi người dùng thuật ngữ** ("bạn muốn Clean Architecture không?"); hãy suy ra từ tín hiệu, đề xuất một phương án kèm lý do một câu, rồi xin xác nhận.
+> For AI Agents. `core/` is universally mandatory. This document guides the selection of **custom profiles** from signals in `docs/project-brief.md` or conversation. **Never quiz users on academic terminology** (e.g., "Do you prefer Clean Architecture?"). Infer from project characteristics, suggest one path with a one-sentence rationale, and confirm.
 
-## 1. Chọn kiến trúc từ tín hiệu
-Đi từ trên xuống, dừng ở dòng đầu tiên khớp.
+## 1. Selecting Architecture from Project Signals
+Evaluate top-to-bottom; stop at the first matching row.
 
-| Tín hiệu trong yêu cầu | Chọn | Tài liệu | Tín hiệu ngược (đừng chọn) |
+| Signal in Requirements | Select Profile | Document | Counter-signal (Do NOT choose) |
 | :-- | :-- | :-- | :-- |
-| Demo, đồ án, MVP, một người làm, chủ yếu CRUD | **Layered đơn giản** | [architecture/simple-layered.md](architecture/simple-layered.md) | Nghiệp vụ có nhiều quy tắc, sống nhiều năm |
-| Nhiều tính năng độc lập, nhiều người/Agent làm song song | **Vertical Slice** | [architecture/vertical-slice.md](architecture/vertical-slice.md) | Các tính năng dùng chung nhiều quy tắc lõi |
-| Nhiều miền nghiệp vụ, sẽ lớn dần, cần ranh giới module | **Modular Monolith** | [architecture/modular-monolith.md](architecture/modular-monolith.md) | Dự án nhỏ; hoặc đã cần triển khai riêng từng phần |
-| Nghiệp vụ phức tạp, test độc lập framework, có thể đổi hạ tầng | **Clean Architecture** (+DDD khi nghiệp vụ phong phú) | [architecture/clean-architecture.md](architecture/clean-architecture.md) | Demo/CRUD nhỏ |
+| Demo, student project, quick MVP, solo developer, CRUD | **Simple Layered** | [architecture/simple-layered.md](architecture/simple-layered.md) | Complex domain logic, multi-year lifespan |
+| Multiple independent features developed concurrently | **Vertical Slice** | [architecture/vertical-slice.md](architecture/vertical-slice.md) | Features share heavily coupled core entities |
+| Multiple distinct sub-domains, scaling team, strict bounded contexts | **Modular Monolith** | [architecture/modular-monolith.md](architecture/modular-monolith.md) | Small single-purpose app; or microservices required |
+| Complex enterprise logic, framework-independent domain models | **Clean Architecture** | [architecture/clean-architecture.md](architecture/clean-architecture.md) | Simple CRUD or prototype |
 
-Không khớp dòng nào hoặc mơ hồ: **chọn phương án đơn giản hơn** (Layered cho dự án nhỏ, Clean cho dự án có nghiệp vụ thật), ghi giả định vào ADR. Nâng cấp sau bằng ADR mới tốt hơn là over-engineering ngay từ đầu.
+If ambiguous: **choose the simpler pattern** (Layered for small apps, Clean for real business domains). Upgrading via an ADR later is superior to premature over-engineering.
 
-## 2. Chọn mức rào chắn
-Rào chắn là thứ **Agent phải cài** để kiến trúc không bị phá khi dự án lớn dần (Agent hay "đi đường tắt"). Health Check kiểm tra sự có mặt của nó.
+## 2. Selecting Guardrail Levels
+Guardrails are automated constraints the Agent configures so architecture is not eroded as code expands.
 
-| Mức | Gồm | Dùng cho |
+| Level | Components | Target Use Case |
 | :-- | :-- | :-- |
-| **M1** | Lệnh lint + test + build chạy được, CI chạy đúng các lệnh đó | Layered đơn giản |
-| **M2** | M1 + luật ép ranh giới import (tách project/package, hoặc luật lint cấm import chéo) | Vertical Slice, Clean Architecture |
-| **M3** | M2 + ADR bắt buộc cho mọi thay đổi ranh giới, test kiến trúc trong CI | Modular Monolith, dự án nhiều người/Agent |
+| **M1** | Working lint + test + build commands; automated CI | Simple Layered |
+| **M2** | M1 + boundary enforcement (package split or lint rules prohibiting cross-boundary imports) | Vertical Slice, Clean Architecture |
+| **M3** | M2 + mandatory ADRs for contract changes, architectural tests in CI | Modular Monolith, multi-agent projects |
 
-## 3. Thêm profile bổ sung (chỉ khi dự án có)
-| Khi dự án có... | Thêm | Tài liệu |
+## 3. Supplementary Profiles
+| If project requires... | Add Profile | Document |
 | :-- | :-- | :-- |
-| Giao diện web React | Frontend | [frontend/bulletproof-react.md](frontend/bulletproof-react.md), mã khởi đầu [frontend/starter](frontend/starter/README.md) |
-| Cần diện mạo UI rõ ràng, theme sáng/tối | Design system | [design/ui-ux-archetypes-and-presets.md](design/ui-ux-archetypes-and-presets.md) |
-| LLM, Agent, RAG trong sản phẩm | Ứng dụng AI | [ai-apps/agentic-patterns-and-evals.md](ai-apps/agentic-patterns-and-evals.md) |
-| Ngân sách bằng 0 | Stack free tier | [stacks/cloud-free-tier-stack.md](stacks/cloud-free-tier-stack.md) |
-| Cần tài liệu người dùng, runbook, onboarding | Tài liệu | [documentation/documentation-and-pitch-standards.md](documentation/documentation-and-pitch-standards.md) |
+| React web application | Frontend | [frontend/bulletproof-react.md](frontend/bulletproof-react.md), starter [frontend/starter](frontend/starter/README.md) |
+| Distinct UI aesthetics & theme tokens | Design System | [design/ui-ux-archetypes-and-presets.md](design/ui-ux-archetypes-and-presets.md) |
+| LLMs, Agents, RAG, or MCP tools | AI Applications | [ai-apps/agentic-patterns-and-evals.md](ai-apps/agentic-patterns-and-evals.md) |
+| Zero operational cost | Free Tier Stack | [stacks/cloud-free-tier-stack.md](stacks/cloud-free-tier-stack.md) |
+| User guides, runbooks, onboarding | Documentation | [documentation/documentation-and-pitch-standards.md](documentation/documentation-and-pitch-standards.md) |
 
-**Design pattern**: không chọn trước. Chỉ tra [patterns/design-patterns-catalog.md](patterns/design-patterns-catalog.md) khi gặp vấn đề cụ thể (nhiều biến thể cần chọn lúc chạy, tạo đối tượng phức tạp...). Pattern thêm vào mà không có vấn đề thật là over-engineering.
+**Design Patterns**: Never pre-select patterns. Consult [patterns/design-patterns-catalog.md](patterns/design-patterns-catalog.md) only when solving concrete structural challenges.
 
-**Ngôn ngữ và framework**: kit không quy định. Dùng Technology Selection Gate trong `AGENTS.md` của dự án; Agent đã biết cú pháp và công cụ, kit chỉ cần quyết định và ràng buộc.
+## 4. Record Decision (Mandatory)
+1. Architecture ADR: Record signals observed, chosen profile, discarded alternatives, and guardrail level.
+2. Update `.builder/kit.json`: `profiles.architecture` (`simple-layered`, `clean-architecture`, `vertical-slice`, `modular-monolith`).
+3. Obtain user confirmation before code scaffolding.
 
-## 4. Ghi lại quyết định (bắt buộc)
-1. ADR kiến trúc: tín hiệu đã thấy, phương án chọn, phương án đã loại, mức rào chắn.
-2. `.builder/kit.json`: `profiles.architecture` (một trong `simple-layered`, `clean-architecture`, `vertical-slice`, `modular-monolith`), `stack`, `extras`. Health Check đối chiếu mục này với cấu trúc thư mục (`ARCH-007`).
-3. Người dùng xác nhận trước khi dựng khung.
-
-## 5. Dấu hiệu đã chọn sai (nâng/hạ cấp bằng ADR mới)
-| Dấu hiệu | Hướng |
+## 5. Architectural Drift Indicators (Upgrade/Downgrade via ADR)
+| Indicator | Transition Path |
 | :-- | :-- |
-| Test logic phải dựng DB mới viết được; service phình to | Layered → Clean |
-| Thêm một tính năng mà phải sửa nhiều chỗ ở nhiều tầng | Tầng → Vertical Slice |
-| Tính năng import chéo nhau, `shared/` phình to | Vertical Slice → Modular Monolith |
-| Toàn là lớp trung gian, mỗi thay đổi nhỏ phải sửa 5 tệp | Clean → hạ xuống Layered/Vertical Slice |
-
-## 6. Khuôn cho profile mới (dành cho người bảo trì kit)
-Profile kiến trúc thuộc loại `decision` và phải có đủ frontmatter (`id`, `type`, `when`, `not_when`) và các mục: *Khi nào chọn*, *Không chọn khi*, *Thư mục mục tiêu*, *Ràng buộc*, *Thêm một tính năng*, *Lỗi thường gặp*. Mỗi tài liệu có dòng trong `../INDEX.md`. `python scripts/check_links.py` kiểm tra tự động.
+| Domain tests require running databases; service layer bloats | Layered $\rightarrow$ Clean Architecture |
+| Adding one feature requires modifying multiple disparate layers | Layered $\rightarrow$ Vertical Slice |
+| Slices cross-import each other; `shared/` directory explodes | Vertical Slice $\rightarrow$ Modular Monolith |
+| Excessive boilerplate: small changes require 5 files across abstraction layers | Clean $\rightarrow$ Simple Layered or Vertical Slice |

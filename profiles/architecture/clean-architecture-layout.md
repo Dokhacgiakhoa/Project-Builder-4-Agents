@@ -1,34 +1,34 @@
 ---
 id: A-003
 type: reference
-when: "Cần sơ đồ thư mục Clean Architecture theo .NET/Python/TypeScript"
+when: "Target folder layout for Clean Architecture in .NET / Python / TypeScript"
 ---
-# CẤU TRÚC PHÂN TẦNG CLEAN ARCHITECTURE (LAYERED BLUEPRINT)
+# CLEAN ARCHITECTURE DIRECTORY LAYOUT (LAYERED BLUEPRINT)
 
-Thư mục `src/` được tổ chức theo chuẩn **Clean Architecture & Domain-Driven Design (DDD)**. Bất kể bạn sử dụng tech stack nào (.NET, Python, TypeScript/Node, Go), mã nguồn nên được ánh xạ theo 4 tầng đồng tâm dưới đây:
+The `src/` directory is organized according to **Clean Architecture & Domain-Driven Design (DDD)** principles. Regardless of tech stack (.NET, Python, TypeScript, Go), map source code across these four concentric layers:
 
 ---
 
-## 🏛️ 1. CÁC TẦNG KIẾN TRÚC
+## 🏛️ 1. Concentric Architectural Layers
 
 ```text
 src/
-├── Domain/                 # 1. Enterprise Core & Entities (Độc lập 100%)
-│   ├── Entities/           # Thực thể chứa định danh và nghiệp vụ (Rich Models)
-│   ├── ValueObjects/       # Đối tượng giá trị bất biến (Email, Money, Address)
+├── Domain/                 # 1. Enterprise Core & Entities (100% Framework Independent)
+│   ├── Entities/           # Rich models with identity and business invariants
+│   ├── ValueObjects/       # Immutable value objects (Email, Money, Address)
 │   ├── Events/             # Domain Events (UserRegisteredEvent)
-│   └── Repositories/       # Giao diện (Interfaces) lưu trữ (IUserRepository)
+│   └── Repositories/       # Storage interfaces (IUserRepository)
 │
 ├── Application/            # 2. Use Cases & Orchestration Logic
 │   ├── Commands/           # CQRS Commands (CreateUserCommand + Handler)
 │   ├── Queries/            # CQRS Queries (GetUserByIdQuery + Handler)
 │   ├── DTOs/               # Data Transfer Objects
-│   └── Interfaces/         # Giao diện dịch vụ (IEmailService, ICacheService)
+│   └── Interfaces/         # Service interfaces (IEmailService, ICacheService)
 │
-├── Infrastructure/         # 3. External Implementations & Data Access
-│   ├── Persistence/        # DB Context, Migration, Repository Implementations
-│   ├── ExternalServices/   # Tích hợp third-party (Stripe, OpenAI, Supabase)
-│   └── Caching/            # Redis Cache implementation
+├── Infrastructure/         # 3. External Implementations & Persistence
+│   ├── Persistence/        # DB Context, Migrations, Repository Implementations
+│   ├── ExternalServices/   # Third-party integrations (Stripe, OpenAI, Supabase)
+│   └── Caching/            # Redis cache adapters
 │
 └── Presentation/           # 4. Entry Points & User Interface
     ├── Controllers/        # REST API Controllers / Route Handlers
@@ -38,11 +38,11 @@ src/
 
 ---
 
-## 🗺️ 2. BẢNG ÁNH XẠ TECH STACK (STACK MAPPING)
+## 🗺️ 2. Stack Mapping Reference
 
-| Tầng Kiến Trúc | .NET / C# | Python (FastAPI) | TypeScript / Node (NestJS) |
+| Architectural Layer | .NET / C# | Python (FastAPI) | TypeScript / Node (NestJS/Express) |
 | :--- | :--- | :--- | :--- |
-| **Domain** | Class Entities, Record ValueObjects, `IRepository` | Pydantic / Dataclasses, Protocol Interfaces | Domain Entities, Type Interfaces |
+| **Domain** | Class Entities, Record ValueObjects, `IRepository` | Pydantic / Dataclasses, Protocol Interfaces | Domain Entities, TypeScript Interfaces |
 | **Application** | MediatR Handlers, AutoMapper, FluentValidation | Use Case Services, Pydantic Schemas | Use Case Services, CQRS Handlers |
-| **Infrastructure** | Entity Framework Core, Dapper, HttpClient | SQLAlchemy, Tortoise ORM, HTTPX | Prisma, TypeORM, Axios |
+| **Infrastructure** | Entity Framework Core, Dapper, HttpClient | SQLAlchemy, Tortoise ORM, HTTPX | Prisma, Drizzle, TypeORM, Axios |
 | **Presentation** | ASP.NET Core Controllers, Minimal APIs | FastAPI Routers, Dependency Injection | NestJS Controllers, Express Routes |
