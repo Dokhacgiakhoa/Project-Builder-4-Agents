@@ -30,6 +30,7 @@
 8. Small, atomic commits per logical feature; format PRs according to `.github/PULL_REQUEST_TEMPLATE.md`.
 9. Preserve unrelated comments, docstrings, and existing code formatting.
 10. **Empirical Verification**: Never guess or speculate about libraries or APIs without verification. When converting screenshots or mockups to code, strictly follow the Visual Reverse Engineering Protocol (`screenshot-to-code-reverse-engineering.md`) and avoid blind-patching styles.
+11. **Living Documentation**: Automatically keep README.md, environment variables, and architecture documentation synchronized with code changes. Run `python scripts/sync_docs.py` before declaring tasks complete.
 
 ## 4. User Communication
 The user may be a vibe coder or fresher. Explain concepts in concise, plain language. Clearly report: what was done, verification results, and recommended next steps. **Always respond in the user's preferred language** (e.g., Vietnamese, English, etc.).

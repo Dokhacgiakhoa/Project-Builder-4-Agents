@@ -17,3 +17,4 @@ A Task or Pull Request is considered **DONE** if and only if all of the followin
 5. [x] **Lint & Static Check**: Zero lint errors, zero critical security warnings.
 6. [x] **Atomic PR**: Pull Request contains < 400 lines of changes and follows PR template format.
 7. [x] **Health Check Clean**: No High or Medium severity findings in `project-review.md`.
+8. [x] **Living Documentation**: Run `python scripts/sync_docs.py` to ensure `README.md` and documentation reflect all feature changes.

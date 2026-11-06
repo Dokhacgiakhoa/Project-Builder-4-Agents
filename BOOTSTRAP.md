@@ -32,6 +32,7 @@ This step is **mandatory across all stacks and architectures** (specified in [co
    * `.editorconfig`, `.env.example`
    * `gitignore.tpl` $\rightarrow$ rename to `.gitignore` (if `.gitignore` exists: **append missing lines only**, do not replace)
    * `.builder/kit.json`
+   * `.githooks/` and `scripts/sync_docs.py` (run `git config core.hooksPath .githooks` for automated living documentation sync)
 2. Copy `core/standards/*` $\rightarrow$ `docs/standards/`.
 3. **Agent Runtime Compatibility Layer**:
    * `Codex` & `Antigravity`: Read `AGENTS.md` directly.

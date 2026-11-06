@@ -9,8 +9,8 @@
     "how_it_works": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/HOW_IT_WORKS.md",
     "llms_txt": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/llms.txt"
   },
-  "generated_at": "2026-11-06T00:11:57.398132+00:00",
-  "total_files": 334,
+  "generated_at": "2026-11-06T00:19:50.162698+00:00",
+  "total_files": 337,
   "files": {
     ".editorconfig": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.editorconfig",
@@ -40,12 +40,12 @@
     "AGENTS.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/AGENTS.md",
       "category": "root",
-      "size_bytes": 4122
+      "size_bytes": 4386
     },
     "BOOTSTRAP.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/BOOTSTRAP.md",
       "category": "root",
-      "size_bytes": 6729
+      "size_bytes": 6858
     },
     "CLAUDE.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/CLAUDE.md",
@@ -70,7 +70,7 @@
     "INDEX.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/INDEX.md",
       "category": "root",
-      "size_bytes": 10318
+      "size_bytes": 10560
     },
     "LICENSE": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/LICENSE",
@@ -100,12 +100,12 @@
     "project-review.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/project-review.md",
       "category": "other",
-      "size_bytes": 7586
+      "size_bytes": 7598
     },
     "README.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/README.md",
       "category": "root",
-      "size_bytes": 4664
+      "size_bytes": 5186
     },
     "TASKS.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/TASKS.md",
@@ -235,7 +235,7 @@
     "core/standards/definition-of-done.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/standards/definition-of-done.md",
       "category": "core",
-      "size_bytes": 969
+      "size_bytes": 1105
     },
     "core/standards/test-strategy.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/standards/test-strategy.md",
@@ -255,7 +255,7 @@
     "core/templates/AGENTS.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/AGENTS.md",
       "category": "core",
-      "size_bytes": 5928
+      "size_bytes": 6141
     },
     "core/templates/CLAUDE.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/CLAUDE.md",
@@ -317,6 +317,11 @@
       "category": "core",
       "size_bytes": 968
     },
+    "core/templates/scripts/sync_docs.py": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/scripts/sync_docs.py",
+      "category": "core",
+      "size_bytes": 2068
+    },
     "core/templates/specs/domains.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/templates/specs/domains.md",
       "category": "core",
@@ -360,7 +365,7 @@
     "docs/standards/definition-of-done.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/docs/standards/definition-of-done.md",
       "category": "other",
-      "size_bytes": 969
+      "size_bytes": 1105
     },
     "docs/standards/test-strategy.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/docs/standards/test-strategy.md",
@@ -1447,6 +1452,11 @@
       "category": "profiles",
       "size_bytes": 3277
     },
+    "profiles/playbooks/living-documentation-sync.md": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/playbooks/living-documentation-sync.md",
+      "category": "profiles",
+      "size_bytes": 2376
+    },
     "profiles/skills-catalog/curated-agent-skills.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/skills-catalog/curated-agent-skills.md",
       "category": "profiles",
@@ -1506,6 +1516,11 @@
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/reviewer_app.py",
       "category": "scripts",
       "size_bytes": 3547
+    },
+    "scripts/sync_docs.py": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/sync_docs.py",
+      "category": "scripts",
+      "size_bytes": 5890
     },
     "scripts/auditor_engine/auditor.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/auditor_engine/auditor.py",

@@ -23,6 +23,7 @@
 | S-004 | C | Repeated bug fixes, surface patching, or untangling spaghetti code | [knowledge-base/tu-duy/anti-patching-architectural-thinking.md](knowledge-base/tu-duy/anti-patching-architectural-thinking.md) |
 | S-005 | L | Avoiding common pitfalls and anti-patterns when collaborating with AI agents | [knowledge-base/technical-book/anti-patterns/common-mistakes.md](knowledge-base/technical-book/anti-patterns/common-mistakes.md) |
 | S-006 | P | When Agent is **caught in a debugging doom loop**, where fixes produce new errors and corrupt architecture | [profiles/playbooks/anti-doom-loop-guide.md](profiles/playbooks/anti-doom-loop-guide.md) |
+| S-007 | P | When setting up auto-syncing living documentation, git pre-commit hooks, and CI quality gates to eliminate documentation rot | [profiles/playbooks/living-documentation-sync.md](profiles/playbooks/living-documentation-sync.md) |
 
 ## 3. Architecture Profiles
 | ID | Tier | When to use | Document |

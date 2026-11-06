@@ -41,6 +41,9 @@ jobs:
       - name: Check documentation links (INDEX.md must not lead agents astray)
         run: python scripts/check_links.py
 
+      - name: Verify Documentation & Manifest Synchronization
+        run: python scripts/sync_docs.py --check
+
       - name: Compile Python sources (syntax check)
         run: python -m compileall -q scripts
 

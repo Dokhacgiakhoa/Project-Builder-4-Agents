@@ -1,0 +1,11 @@
+#!/bin/sh
+# Git pre-commit hook: Auto-sync documentation and manifest before committing
+echo "🔄 [pre-commit] Synchronizing documentation, badges & manifest..."
+python scripts/sync_docs.py
+if [ $? -ne 0 ]; then
+    echo "❌ [pre-commit] Documentation synchronization failed!"
+    exit 1
+fi
+
+# Automatically stage updated docs into the current commit
+git add README.md MANIFEST.json llms.txt 2>/dev/null || true
