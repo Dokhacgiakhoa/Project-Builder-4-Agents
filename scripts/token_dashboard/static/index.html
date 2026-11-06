@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Theo dõi token</title>
+<style>
+  :root {
+    color-scheme: light;
+    --page: #f9f9f7; --surface-1: #fcfcfb;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --text-muted: #898781;
+    --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,.10);
+    --series-1: #2a78d6; --series-2: #eb6834;
+    --track: #cde2fb; --good: #0ca30c; --warning: #fab219; --critical: #d03b3b;
+    --good-text: #006300; --on-fill: #0b0b0b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --page: #0d0d0d; --surface-1: #1a1a19;
+      --text-primary: #f0efec; --text-secondary: #c3c2b7; --text-muted: #898781;
+      --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,.10);
+      --series-1: #3987e5; --series-2: #d95926; --track: #184f95; --good-text: #0ca30c;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface-1: #1a1a19;
+    --text-primary: #f0efec; --text-secondary: #c3c2b7; --text-muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,.10);
+    --series-1: #3987e5; --series-2: #d95926; --track: #184f95; --good-text: #0ca30c;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--text-primary);
+         font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 20px 16px 40px; }
+  header { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; justify-content: space-between; margin-bottom: 14px; }
+  h1 { font-size: 18px; margin: 0; font-weight: 600; }
+  .status { display: inline-flex; align-items: center; gap: 6px; color: var(--text-secondary); font-size: 12px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted); }
+  .dot.live { background: var(--good); }
+  .dot.err { background: var(--critical); }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px; }
+  select, input[type=number], button {
+    font: inherit; color: var(--text-primary); background: var(--surface-1);
+    border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; min-height: 32px; }
+  input[type=number] { width: 110px; }
+  .filters label.f { max-width: 100%; min-width: 0; }
+  .filters select { min-width: 0; max-width: calc(100vw - 110px); text-overflow: ellipsis; }
+  button { cursor: pointer; }
+  button:hover, select:hover { background: color-mix(in srgb, var(--text-primary) 6%, var(--surface-1)); }
+  button:focus-visible, select:focus-visible, input:focus-visible, .col:focus-visible { outline: 2px solid var(--series-1); outline-offset: 2px; }
+  label.f { color: var(--text-secondary); font-size: 12px; display: inline-flex; align-items: center; gap: 6px; }
+  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+  .grid { display: grid; gap: 12px; }
+  .kpis { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+  .charts { grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); margin-top: 12px; }
+  .tables { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); margin-top: 12px; }
+  @media (max-width: 480px) { .charts { grid-template-columns: 1fr; } .tables { grid-template-columns: 1fr; } }
+  .label { color: var(--text-secondary); font-size: 12px; }
+  .hero { display: grid; grid-template-columns: minmax(220px, 1fr) minmax(240px, 2fr); gap: 20px; align-items: center; margin-bottom: 12px; }
+  @media (max-width: 640px) { .hero { grid-template-columns: 1fr; } }
+  .hero-value { font-size: 56px; font-weight: 600; line-height: 1.05; letter-spacing: -.01em; }
+  .hero-sub { color: var(--text-secondary); font-size: 13px; margin-top: 4px; }
+  .meter { height: 12px; border-radius: 6px; background: var(--track); overflow: hidden; }
+  .meter > i { display: block; height: 100%; border-radius: 6px; background: var(--series-1); width: 0; transition: width .3s; }
+  .meter.warn > i { background: var(--warning); }
+  .meter.crit > i { background: var(--critical); }
+  .meter-row { display: flex; justify-content: space-between; margin-top: 6px; font-size: 12px; color: var(--text-secondary); }
+  .badge { display: inline-flex; gap: 6px; align-items: center; margin-top: 8px; font-size: 13px; color: var(--text-primary); }
+  .tile-value { font-size: 26px; font-weight: 600; margin-top: 2px; }
+  .tile-note { color: var(--text-muted); font-size: 12px; margin-top: 2px; }
+  .card h2 { font-size: 14px; font-weight: 600; margin: 0 0 2px; }
+  .sub { color: var(--text-secondary); font-size: 12px; margin-bottom: 8px; }
+  .chart { position: relative; transition: opacity .15s; }
+  .loading .chart { opacity: .6; }
+  svg { display: block; width: 100%; overflow: visible; }
+  svg text { fill: var(--text-muted); font-size: 11px; font-family: inherit; }
+  svg .val { fill: var(--text-primary); font-weight: 600; font-size: 12px; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .axis-line { stroke: var(--axis); stroke-width: 1; }
+  .tip { position: absolute; pointer-events: none; z-index: 5; background: var(--surface-1); border: 1px solid var(--border);
+         border-radius: 8px; padding: 8px 10px; font-size: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.18); min-width: 150px; display: none; }
+  .tip .head { color: var(--text-secondary); margin-bottom: 4px; }
+  .tip .row { display: flex; align-items: center; gap: 8px; justify-content: space-between; }
+  .tip .row b { font-size: 13px; }
+  .key { display: inline-block; width: 12px; height: 3px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+  .legend { display: flex; gap: 14px; font-size: 12px; color: var(--text-secondary); margin: 2px 0 6px; flex-wrap: wrap; }
+  .sw { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 6px 4px; border-bottom: 1px solid var(--grid); }
+  th { color: var(--text-secondary); font-weight: 500; font-size: 12px; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  details { margin-top: 12px; }
+  summary { cursor: pointer; color: var(--text-secondary); padding: 6px 0; }
+  .note { color: var(--text-muted); font-size: 12px; margin-top: 14px; }
+  .empty { padding: 40px 16px; text-align: center; color: var(--text-secondary); }
+  .warnbox { border-left: 3px solid var(--warning); padding: 6px 10px; margin: 8px 0 0; font-size: 12px; color: var(--text-secondary); }
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <header>
+    <div>
+      <h1>Theo dõi token · Claude Code</h1>
+      <span class="status"><span class="dot" id="dot"></span><span id="statusText">đang kết nối…</span></span>
+    </div>
+    <div style="display:flex; gap:8px">
+      <button id="pauseBtn" type="button">Tạm dừng</button>
+      <button id="themeBtn" type="button" aria-label="Đổi giao diện sáng/tối">Giao diện: tự động</button>
+    </div>
+  </header>
+
+  <div class="filters" role="group" aria-label="Bộ lọc">
+    <label class="f">Dự án <select id="projectSel"></select></label>
+    <label class="f">Phiên <select id="sessionSel"></select></label>
+    <label class="f">Cảnh báo ngữ cảnh ≥ <input type="number" id="warnIn" min="1000" step="10000" value="200000"> token</label>
+  </div>
+
+  <div id="empty" class="card empty" hidden></div>
+
+  <div id="content" hidden>
+    <section class="card hero" aria-label="Ngữ cảnh hiện tại">
+      <div>
+        <div class="label">Ngữ cảnh hiện tại</div>
+        <div class="hero-value" id="heroValue">0</div>
+        <div class="hero-sub">token mà agent phải đọc lại ở mỗi lượt trả lời</div>
+      </div>
+      <div>
+        <div class="meter" id="meter" role="meter" aria-valuemin="0" aria-valuenow="0" aria-valuemax="100" aria-label="Ngữ cảnh so với ngưỡng cảnh báo"><i id="meterFill"></i></div>
+        <div class="meter-row"><span id="meterLeft"></span><span id="meterRight"></span></div>
+        <div class="badge" id="badge"></div>
+      </div>
+    </section>
+
+    <section class="grid kpis" aria-label="Chỉ số chính">
+      <div class="card"><div class="label">Số lượt trả lời</div><div class="tile-value" id="kTurns">0</div><div class="tile-note" id="kTurnsNote"></div></div>
+      <div class="card"><div class="label">Tốc độ token mới</div><div class="tile-value" id="kRate">0</div><div class="tile-note">token mới/phút (10 phút gần nhất)</div></div>
+      <div class="card"><div class="label">Token ra (agent viết)</div><div class="tile-value" id="kOut">0</div><div class="tile-note" id="kOutNote"></div></div>
+      <div class="card"><div class="label">Nội dung mới đưa vào ngữ cảnh</div><div class="tile-value" id="kIn">0</div><div class="tile-note">ghi cache + đầu vào mới, cộng dồn</div></div>
+    </section>
+
+    <section class="grid charts" id="charts">
+      <div class="card">
+        <h2>Ngữ cảnh theo từng lượt</h2>
+        <div class="sub" id="ctxSub"></div>
+        <div class="chart" id="chartCtx"><div class="tip" id="tipCtx"></div></div>
+      </div>
+      <div class="card">
+        <h2>Token mới mỗi lượt</h2>
+        <div class="sub">Phần đưa vào và phần agent viết ra, 60 lượt gần nhất</div>
+        <div class="legend" aria-label="Chú thích">
+          <span><i class="sw" style="background:var(--series-1)"></i>Đưa vào (ghi cache + đầu vào mới)</span>
+          <span><i class="sw" style="background:var(--series-2)"></i>Agent viết ra</span>
+        </div>
+        <div class="chart" id="chartNew"><div class="tip" id="tipNew"></div></div>
+      </div>
+    </section>
+
+    <section class="grid tables">
+      <div class="card"><h2>Những lượt nặng nhất</h2><div class="sub">Xếp theo token mới (đưa vào + ra)</div>
+        <table><thead><tr><th>Lúc</th><th class="n">Token mới</th><th class="n">Ghi cache</th><th class="n">Ra</th></tr></thead><tbody id="topBody"></tbody></table></div>
+      <div class="card"><h2>Theo model</h2><div class="sub">Số lượt và token ra</div>
+        <table><thead><tr><th>Model</th><th class="n">Lượt</th><th class="n">Token ra</th></tr></thead><tbody id="modelBody"></tbody></table></div>
+    </section>
+
+    <details class="card" style="margin-top:12px">
+      <summary>Xem dạng bảng (30 lượt gần nhất)</summary>
+      <table><thead><tr><th>#</th><th>Lúc</th><th class="n">Ngữ cảnh</th><th class="n">Đưa vào</th><th class="n">Ra</th><th>Model</th></tr></thead><tbody id="rawBody"></tbody></table>
+    </details>
+
+    <div class="warnbox" id="warnbox" hidden></div>
+  </div>
+
+  <p class="note">Số liệu đọc từ log cục bộ của Claude Code, đã loại bản ghi trùng; không phải hoá đơn chính thức. Chỉ hỗ trợ Claude Code. Dữ liệu không rời khỏi máy bạn.</p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var NS = "http://www.w3.org/2000/svg";
+  var state = { project: null, session: "latest", warn: 200000, paused: false, timer: null, data: null, busy: false };
+
+  function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+
+  // ---- formatting ----
+  function full(n) { return Math.round(n).toLocaleString("en-US"); }
+  function compact(n) {
+    if (n >= 1e6) return (n / 1e6).toFixed(n >= 1e7 ? 0 : 1).replace(/\.0$/, "") + "M";
+    if (n >= 1e4) return Math.round(n / 1e3) + "K";
+    return full(n);
+  }
+  function hhmm(iso) { var d = new Date(iso); return d.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit", second: "2-digit" }); }
+  function niceMax(v) {
+    if (v <= 0) return 1;
+    var p = Math.pow(10, Math.floor(Math.log10(v))), f = v / p;
+    var nf = f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10;
+    return nf * p;
+  }
+  function niceStep(raw) {
+    var p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p;
+    return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p;
+  }
+  function ticks(max) {
+    var step = niceStep(Math.max(max, 1) / 4), top = Math.ceil(Math.max(max, 1) / step) * step, out = [];
+    for (var v = 0; v <= top + step / 2; v += step) out.push(v);
+    return { max: top, ticks: out };
+  }
+  function el(name, attrs, text) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text !== undefined) e.textContent = text;
+    return e;
+  }
+  function roundedTop(x, y, w, h, r) {
+    r = Math.max(0, Math.min(r, w / 2, h));
+    return "M" + x + "," + (y + h) + "V" + (y + r) + "Q" + x + "," + y + " " + (x + r) + "," + y +
+           "H" + (x + w - r) + "Q" + (x + w) + "," + y + " " + (x + w) + "," + (y + r) + "V" + (y + h) + "Z";
+  }
+  function setText(id, v) { $(id).textContent = v; }
+
+  // ---- tooltip ----
+  function showTip(tip, host, px, py, head, rows) {
+    while (tip.firstChild) tip.removeChild(tip.firstChild);
+    var h = document.createElement("div"); h.className = "head"; h.textContent = head; tip.appendChild(h);
+    rows.forEach(function (r) {
+      var row = document.createElement("div"); row.className = "row";
+      var l = document.createElement("span");
+      if (r.color) { var k = document.createElement("i"); k.className = "key"; k.style.background = r.color; l.appendChild(k); }
+      l.appendChild(document.createTextNode(r.label));
+      var v = document.createElement("b"); v.textContent = r.value;
+      row.appendChild(l); row.appendChild(v); tip.appendChild(row);
+    });
+    tip.style.display = "block";
+    var hw = host.clientWidth, tw = tip.offsetWidth, th = tip.offsetHeight;
+    var x = px + 14; if (x + tw > hw) x = px - tw - 14; if (x < 0) x = 0;
+    var y = Math.max(0, Math.min(py - th / 2, host.clientHeight - th));
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }
+  function hideTip(tip) { tip.style.display = "none"; }
+
+  // ---- chart: context per turn (single series line + area) ----
+  function drawCtx(series, warn) {
+    var host = $("chartCtx"), tip = $("tipCtx");
+    Array.prototype.slice.call(host.querySelectorAll("svg")).forEach(function (s) { host.removeChild(s); });
+    var W = Math.max(280, host.clientWidth), H = 240, m = { l: 50, r: 64, t: 12, b: 30 };
+    var n = series.length, pw = W - m.l - m.r, ph = H - m.t - m.b;
+    var maxCtx = Math.max.apply(null, series.map(function (s) { return s.ctx; }).concat([1]));
+    var showWarn = maxCtx >= warn * 0.5;
+    var T = ticks(showWarn ? Math.max(maxCtx, warn) : maxCtx);
+    var sx = function (i) { return m.l + (n <= 1 ? pw / 2 : pw * i / (n - 1)); };
+    var sy = function (v) { return m.t + ph * (1 - v / T.max); };
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img",
+      "aria-label": "Ngữ cảnh theo " + n + " lượt, hiện tại " + full(series[n - 1].ctx) + " token" });
+    T.ticks.forEach(function (t) {
+      svg.appendChild(el("line", { x1: m.l, x2: W - m.r, y1: sy(t), y2: sy(t), "class": t === 0 ? "axis-line" : "grid-line" }));
+      svg.appendChild(el("text", { x: m.l - 8, y: sy(t) + 4, "text-anchor": "end" }, T.max >= 1e4 ? compact(t) : full(t)));
+    });
+    if (showWarn && warn <= T.max) {
+      svg.appendChild(el("line", { x1: m.l, x2: W - m.r, y1: sy(warn), y2: sy(warn), stroke: "var(--warning)", "stroke-width": 1.5, "stroke-dasharray": "5 4" }));
+      svg.appendChild(el("text", { x: W - m.r + 6, y: sy(warn) + 4 }, "ngưỡng " + compact(warn)));
+    }
+    var pts = series.map(function (s, i) { return sx(i) + "," + sy(s.ctx); });
+    if (n > 1) {
+      svg.appendChild(el("path", { d: "M" + sx(0) + "," + sy(0) + "L" + pts.join("L") + "L" + sx(n - 1) + "," + sy(0) + "Z",
+        fill: "var(--series-1)", "fill-opacity": 0.10 }));
+      svg.appendChild(el("polyline", { points: pts.join(" "), fill: "none", stroke: "var(--series-1)", "stroke-width": 2,
+        "stroke-linejoin": "round", "stroke-linecap": "round" }));
+    }
+    var lx = sx(n - 1), ly = sy(series[n - 1].ctx);
+    svg.appendChild(el("circle", { cx: lx, cy: ly, r: 6, fill: "var(--surface-1)" }));
+    svg.appendChild(el("circle", { cx: lx, cy: ly, r: 4, fill: "var(--series-1)" }));
+    var endLabel = el("text", { x: Math.min(lx + 8, W - 4), y: ly - 8, "class": "val", "text-anchor": lx + 8 > W - m.r ? "end" : "start" }, compact(series[n - 1].ctx));
+    svg.appendChild(endLabel);
+    svg.appendChild(el("text", { x: m.l, y: H - 8 }, "lượt 1 · " + hhmm(series[0].t)));
+    svg.appendChild(el("text", { x: W - m.r, y: H - 8, "text-anchor": "end" }, "lượt " + n + " · " + hhmm(series[n - 1].t)));
+    var cross = el("line", { y1: m.t, y2: m.t + ph, stroke: "var(--text-muted)", "stroke-width": 1, visibility: "hidden" });
+    var cdot = el("circle", { r: 4, fill: "var(--series-1)", stroke: "var(--surface-1)", "stroke-width": 2, visibility: "hidden" });
+    svg.appendChild(cross); svg.appendChild(cdot);
+    var hit = el("rect", { x: m.l, y: m.t, width: pw, height: ph, fill: "transparent", tabindex: 0,
+      "aria-label": "Rê chuột hoặc dùng phím mũi tên để xem từng lượt" });
+    var cur = n - 1;
+    function at(i) {
+      i = Math.max(0, Math.min(n - 1, i)); cur = i; var s = series[i];
+      cross.setAttribute("x1", sx(i)); cross.setAttribute("x2", sx(i)); cross.setAttribute("visibility", "visible");
+      cdot.setAttribute("cx", sx(i)); cdot.setAttribute("cy", sy(s.ctx)); cdot.setAttribute("visibility", "visible");
+      showTip(tip, host, sx(i), sy(s.ctx), "Lượt " + (i + 1) + " · " + hhmm(s.t), [
+        { label: "Ngữ cảnh", value: full(s.ctx), color: "var(--series-1)" },
+        { label: "Đưa vào mới", value: full(s.in) },
+        { label: "Agent viết ra", value: full(s.out) }]);
+    }
+    hit.addEventListener("pointermove", function (ev) {
+      var r = hit.getBoundingClientRect(); var x = (ev.clientX - r.left) / r.width * pw;
+      at(n <= 1 ? 0 : Math.round(x / pw * (n - 1)));
+    });
+    hit.addEventListener("pointerleave", function () { cross.setAttribute("visibility", "hidden"); cdot.setAttribute("visibility", "hidden"); hideTip(tip); });
+    hit.addEventListener("focus", function () { at(cur); });
+    hit.addEventListener("blur", function () { cross.setAttribute("visibility", "hidden"); cdot.setAttribute("visibility", "hidden"); hideTip(tip); });
+    hit.addEventListener("keydown", function (ev) {
+      if (ev.key === "ArrowLeft") { at(cur - 1); ev.preventDefault(); }
+      if (ev.key === "ArrowRight") { at(cur + 1); ev.preventDefault(); }
+    });
+    svg.appendChild(hit);
+    host.insertBefore(svg, tip);
+  }
+
+  // ---- chart: new tokens per turn (stacked columns, 2 series) ----
+  function drawNew(series) {
+    var host = $("chartNew"), tip = $("tipNew");
+    Array.prototype.slice.call(host.querySelectorAll("svg")).forEach(function (s) { host.removeChild(s); });
+    var data = series.slice(-60), n = data.length;
+    var W = Math.max(280, host.clientWidth), H = 220, m = { l: 50, r: 12, t: 12, b: 30 };
+    var pw = W - m.l - m.r, ph = H - m.t - m.b;
+    var maxV = Math.max.apply(null, data.map(function (d) { return d.in + d.out; }).concat([1]));
+    var T = ticks(maxV), slot = pw / Math.max(n, 1), bw = Math.min(24, Math.max(3, slot * 0.7));
+    var sy = function (v) { return m.t + ph * (1 - v / T.max); };
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": "Token mới mỗi lượt cho " + n + " lượt gần nhất" });
+    T.ticks.forEach(function (t) {
+      svg.appendChild(el("line", { x1: m.l, x2: W - m.r, y1: sy(t), y2: sy(t), "class": t === 0 ? "axis-line" : "grid-line" }));
+      svg.appendChild(el("text", { x: m.l - 8, y: sy(t) + 4, "text-anchor": "end" }, T.max >= 1e4 ? compact(t) : full(t)));
+    });
+    var GAP = 2;
+    data.forEach(function (d, i) {
+      var x = m.l + slot * i + (slot - bw) / 2;
+      var g = el("g", { "class": "col", tabindex: 0, role: "img",
+        "aria-label": "Lượt " + (series.length - n + i + 1) + ": đưa vào " + full(d.in) + ", ra " + full(d.out) });
+      var yBase = sy(0), hIn = yBase - sy(d.in), hOut = yBase - sy(d.out);
+      var hasOut = d.out > 0, hasIn = d.in > 0;
+      if (hasIn) {
+        var h1 = Math.max(1, hasOut ? hIn - GAP : hIn);
+        g.appendChild(hasOut ? el("rect", { x: x, y: yBase - h1, width: bw, height: h1, fill: "var(--series-1)" })
+                             : el("path", { d: roundedTop(x, yBase - h1, bw, h1, 4), fill: "var(--series-1)" }));
+      }
+      if (hasOut) {
+        var h2 = Math.max(1, hOut), y2 = yBase - (hasIn ? hIn : 0) - h2;
+        g.appendChild(el("path", { d: roundedTop(x, y2, bw, h2, 4), fill: "var(--series-2)" }));
+      }
+      var top = sy(d.in + d.out);
+      g.appendChild(el("rect", { x: m.l + slot * i, y: m.t, width: slot, height: ph, fill: "transparent" }));
+      var show = function () { showTip(tip, host, m.l + slot * i + slot / 2, top, "Lượt " + (series.length - n + i + 1) + " · " + hhmm(d.t), [
+        { label: "Đưa vào", value: full(d.in), color: "var(--series-1)" },
+        { label: "Agent viết ra", value: full(d.out), color: "var(--series-2)" }]); };
+      g.addEventListener("pointermove", show); g.addEventListener("focus", show);
+      g.addEventListener("pointerleave", function () { hideTip(tip); }); g.addEventListener("blur", function () { hideTip(tip); });
+      svg.appendChild(g);
+    });
+    var biggest = data.reduce(function (a, d, i) { return d.in + d.out > a.v ? { v: d.in + d.out, i: i } : a; }, { v: -1, i: 0 });
+    if (n > 0) {
+      var bx = m.l + slot * biggest.i + slot / 2;
+      svg.appendChild(el("text", { x: Math.min(Math.max(bx, m.l + 20), W - m.r - 20), y: sy(biggest.v) - 6, "text-anchor": "middle", "class": "val" }, compact(biggest.v)));
+    }
+    svg.appendChild(el("text", { x: m.l, y: H - 8 }, "cũ hơn"));
+    svg.appendChild(el("text", { x: W - m.r, y: H - 8, "text-anchor": "end" }, "mới nhất"));
+    host.insertBefore(svg, tip);
+  }
+
+  // ---- render ----
+  function fill(tbodyId, rows) {
+    var tb = $(tbodyId); while (tb.firstChild) tb.removeChild(tb.firstChild);
+    rows.forEach(function (r) {
+      var tr = document.createElement("tr");
+      r.forEach(function (c, i) { var td = document.createElement("td"); if (c.n) td.className = "n"; td.textContent = c.v; tr.appendChild(td); });
+      tb.appendChild(tr);
+    });
+  }
+  function cell(v, n) { return { v: String(v), n: !!n }; }
+
+  function render(d) {
+    var series = d.series || [];
+    if (!series.length) { $("content").hidden = true; $("empty").hidden = false; $("empty").textContent = "Chưa có dữ liệu cho phiên này. Hãy chat với Claude Code trong dự án này rồi quay lại."; return; }
+    $("empty").hidden = true; $("content").hidden = false;
+    var warn = d.warn_context, ctx = d.context_now, pct = ctx / warn * 100;
+    setText("heroValue", full(ctx));
+    var meter = $("meter"), mf = $("meterFill");
+    mf.style.width = Math.min(100, pct) + "%";
+    meter.className = "meter" + (pct >= 100 ? " crit" : pct >= 70 ? " warn" : "");
+    meter.setAttribute("aria-valuenow", Math.round(Math.min(100, pct)));
+    setText("meterLeft", Math.round(pct) + "% ngưỡng cảnh báo (" + full(warn) + ")");
+    setText("meterRight", "đỉnh " + full(d.context_peak));
+    setText("badge", pct >= 100 ? "⚠ Vượt ngưỡng: mỗi lượt đang đọc lại rất nhiều. Hãy tóm tắt (/compact) hoặc mở phiên mới."
+                    : pct >= 70 ? "⚠ Sắp tới ngưỡng cảnh báo."
+                    : "✓ Trong ngưỡng an toàn bạn đặt.");
+    setText("kTurns", full(d.turns));
+    setText("kTurnsNote", d.sessions.length + " phiên trong dự án" + (d.session === "all" ? " (đang cộng tất cả)" : ""));
+    setText("kRate", full(d.new_tokens_per_min));
+    setText("kOut", full(d.totals.output));
+    setText("kOutNote", "≈ " + full(d.output_tokens_per_min) + " token/phút gần đây");
+    setText("kIn", full(d.totals.cache_write + d.totals.fresh_input));
+    setText("ctxSub", "Mỗi điểm là một lượt; đường nét đứt là ngưỡng cảnh báo bạn đặt" + (d.truncated ? " · chỉ vẽ " + series.length + " lượt gần nhất" : ""));
+    drawCtx(series, warn); drawNew(series);
+    fill("topBody", d.top_turns.map(function (t) { return [cell(hhmm(t.t)), cell(full(t.new), 1), cell(full(t.cache_write), 1), cell(full(t.out), 1)]; }));
+    fill("modelBody", d.by_model.map(function (m) { return [cell(m.model), cell(full(m.turns), 1), cell(full(m.output), 1)]; }));
+    var base = series.length;
+    fill("rawBody", series.slice(-30).reverse().map(function (s, i) {
+      return [cell(base - i), cell(hhmm(s.t)), cell(full(s.ctx), 1), cell(full(s.in), 1), cell(full(s.out), 1), cell(s.m)]; }));
+    var wb = $("warnbox"); wb.hidden = !d.warnings.length; wb.textContent = d.warnings.join("; ");
+  }
+
+  // ---- data flow ----
+  function setStatus(kind, text) { $("dot").className = "dot " + kind; setText("statusText", text); }
+
+  function fetchJSON(url) { return fetch(url, { cache: "no-store" }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }); }
+
+  function loadProjects() {
+    return fetchJSON("/api/projects").then(function (p) {
+      var sel = $("projectSel"); while (sel.firstChild) sel.removeChild(sel.firstChild);
+      p.projects.forEach(function (x) { var o = document.createElement("option"); o.value = x.id; o.textContent = x.id; sel.appendChild(o); });
+      state.project = store("tm.project") && p.projects.some(function (x) { return x.id === store("tm.project"); }) ? store("tm.project") : p.default;
+      if (state.project) sel.value = state.project;
+      if (!p.projects.length) { $("empty").hidden = false; $("empty").textContent = "Không tìm thấy log của Claude Code (~/.claude/projects)."; }
+    });
+  }
+  function fillSessions(list) {
+    var sel = $("sessionSel"), keep = state.session;
+    while (sel.firstChild) sel.removeChild(sel.firstChild);
+    [["latest", "Phiên mới nhất"], ["all", "Tất cả phiên"]].concat(list.map(function (s) { return [s.id, s.id.slice(0, 8) + " · " + new Date(s.modified).toLocaleString("vi-VN")]; }))
+      .forEach(function (o) { var e = document.createElement("option"); e.value = o[0]; e.textContent = o[1]; sel.appendChild(e); });
+    sel.value = keep;
+  }
+  function tick() {
+    if (state.paused || !state.project || state.busy) return;
+    state.busy = true;
+    var slow = setTimeout(function () { $("app").classList.add("loading"); }, 400);
+    var url = "/api/tokens?project=" + encodeURIComponent(state.project) + "&session=" + encodeURIComponent(state.session) + "&warn=" + state.warn;
+    fetchJSON(url).then(function (d) {
+      if (d.error) { setStatus("err", "lỗi: " + d.error); return; }
+      state.data = d; fillSessions(d.sessions); render(d);
+      setStatus("live", "trực tiếp · cập nhật " + new Date().toLocaleTimeString("vi-VN"));
+    }).catch(function () { setStatus("err", "mất kết nối với máy chủ cục bộ"); })
+      .then(function () { clearTimeout(slow); $("app").classList.remove("loading"); state.busy = false; });
+  }
+  function start() { if (state.timer) clearInterval(state.timer); state.timer = setInterval(tick, 2000); tick(); }
+
+  // ---- controls ----
+  $("projectSel").addEventListener("change", function (e) { state.project = e.target.value; state.session = "latest"; store("tm.project", state.project); tick(); });
+  $("sessionSel").addEventListener("change", function (e) { state.session = e.target.value; tick(); });
+  $("warnIn").addEventListener("change", function (e) { var v = parseInt(e.target.value, 10); if (v >= 1000) { state.warn = v; store("tm.warn", String(v)); tick(); } });
+  $("pauseBtn").addEventListener("click", function () {
+    state.paused = !state.paused; setText("pauseBtn", state.paused ? "Tiếp tục" : "Tạm dừng");
+    if (state.paused) setStatus("", "đã tạm dừng"); else tick();
+  });
+  var themes = ["auto", "light", "dark"], themeNames = { auto: "tự động", light: "sáng", dark: "tối" };
+  function applyTheme(t) {
+    if (t === "auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.setAttribute("data-theme", t);
+    setText("themeBtn", "Giao diện: " + themeNames[t]); store("tm.theme", t);
+    if (state.data) render(state.data);
+  }
+  $("themeBtn").addEventListener("click", function () {
+    var cur = store("tm.theme") || "auto"; applyTheme(themes[(themes.indexOf(cur) + 1) % 3]);
+  });
+  var rz; window.addEventListener("resize", function () { clearTimeout(rz); rz = setTimeout(function () { if (state.data && state.data.series.length) { drawCtx(state.data.series, state.data.warn_context); drawNew(state.data.series); } }, 150); });
+
+  var w = parseInt(store("tm.warn"), 10); if (w >= 1000) { state.warn = w; $("warnIn").value = w; }
+  var t0 = store("tm.theme"); if (t0 && themeNames[t0]) applyTheme(t0);
+  loadProjects().then(start).catch(function () { setStatus("err", "không đọc được danh sách dự án"); });
+})();
+</script>
+</body>
+</html>

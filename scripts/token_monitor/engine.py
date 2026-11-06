@@ -157,6 +157,11 @@ class Aggregator:
     def __len__(self) -> int:
         return len(self._events)
 
+    def events(self, include_sidechain: bool = True) -> list[UsageEvent]:
+        """De-duplicated events in chronological order."""
+        evs = sorted(self._events.values(), key=lambda e: e.ts)
+        return evs if include_sidechain else [e for e in evs if not e.sidechain]
+
     def snapshot(self, now: datetime | None = None, window_min: float = 10.0,
                  include_sidechain: bool = True, top_n: int = 3) -> Snapshot:
         evs = sorted(self._events.values(), key=lambda e: e.ts)
