@@ -9,8 +9,8 @@
     "how_it_works": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/HOW_IT_WORKS.md",
     "llms_txt": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/llms.txt"
   },
-  "generated_at": "2026-11-06T20:29:19.917030+00:00",
-  "total_files": 344,
+  "generated_at": "2026-11-06T20:42:40.765671+00:00",
+  "total_files": 348,
   "files": {
     ".agents/skills/health-check/SKILL.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/.agents/skills/health-check/SKILL.md",
@@ -130,12 +130,12 @@
     "README.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/README.md",
       "category": "root",
-      "size_bytes": 7251
+      "size_bytes": 7477
     },
     "TASKS.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/TASKS.md",
       "category": "other",
-      "size_bytes": 19725
+      "size_bytes": 21843
     },
     "adrs/0011-desktop-and-tooling-architecture.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/adrs/0011-desktop-and-tooling-architecture.md",
@@ -1510,7 +1510,7 @@
     "scripts/README.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/README.md",
       "category": "scripts",
-      "size_bytes": 3914
+      "size_bytes": 5333
     },
     "scripts/auditor_engine/__init__.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/auditor_engine/__init__.py",
@@ -1652,6 +1652,21 @@
       "category": "scripts",
       "size_bytes": 6041
     },
+    "scripts/token_monitor/__init__.py": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/token_monitor/__init__.py",
+      "category": "scripts",
+      "size_bytes": 230
+    },
+    "scripts/token_monitor/engine.py": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/token_monitor/engine.py",
+      "category": "scripts",
+      "size_bytes": 8723
+    },
+    "scripts/token_monitor_cli.py": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/token_monitor_cli.py",
+      "category": "scripts",
+      "size_bytes": 7537
+    },
     "templates/pitch-deck/ai-pitch-generator-prompts.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/templates/pitch-deck/ai-pitch-generator-prompts.md",
       "category": "other",
@@ -1711,6 +1726,11 @@
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/tests/test_safety_scan.py",
       "category": "other",
       "size_bytes": 4923
+    },
+    "tests/test_token_monitor.py": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/tests/test_token_monitor.py",
+      "category": "other",
+      "size_bytes": 5619
     },
     "tools/ProjectReviewer/MainForm.cs": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/tools/ProjectReviewer/MainForm.cs",

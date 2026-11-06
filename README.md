@@ -2,8 +2,8 @@
 
 <!-- AUTO-GEN:STATS -->
 [![Health Score](https://img.shields.io/badge/Health_Score-100%2F100_A%2B-brightgreen)](project-review.md)
-[![Automated Tests](https://img.shields.io/badge/Tests-52_passed-blue)](tests/)
-[![Indexed Files](https://img.shields.io/badge/Indexed_Files-344_files-purple)](MANIFEST.json)
+[![Automated Tests](https://img.shields.io/badge/Tests-67_passed-blue)](tests/)
+[![Indexed Files](https://img.shields.io/badge/Indexed_Files-348_files-purple)](MANIFEST.json)
 [![Architecture](https://img.shields.io/badge/Architecture-Remote_Knowledge_Hub-emerald)](HOW_IT_WORKS.md)
 <!-- /AUTO-GEN:STATS -->
 
@@ -66,6 +66,7 @@ This project is new and has no external users or independent benchmarks. Treat i
 | Health Score badge above | Self-measured by this kit's own tool; it checks structure and static signals, not output quality |
 | Raw GitHub URLs in `MANIFEST.json` resolve for remote reading | **Verified 2026-11-07**: every pushed file returned HTTP 200 (333/340; the other 7 were local, unpushed files) |
 | External tool and MCP package names in the catalogs exist and are maintained | **Verified 2026-11-07** via npm, PyPI and GitHub API; 3 wrong or deprecated entries were found and fixed (see `profiles/agent-configs/curated-mcp-matrix.md`). Re-check periodically |
+| Token Monitor totals are correct for Claude Code | **Verified 2026-11-07**: engine output equals an independent computation on a real 114-turn session; other agents (Codex, Cursor, Antigravity) **not supported/verified** |
 | Static checks are covered by automated tests | **Verified** (pytest suite) |
 
 Roadmap and status of each check: [TASKS.md](TASKS.md).

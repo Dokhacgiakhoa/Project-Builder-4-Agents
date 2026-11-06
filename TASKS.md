@@ -114,6 +114,21 @@ Thứ tự đề xuất: **C2 → B3 → B1 → B8 (push) → C1 → B2 → A1 �
 
 ---
 
+## Nhóm H — Token Monitor (theo dõi token khi vibe coder chat với agent)
+
+| ID | Việc | Ưu tiên | Công sức | Người | Phụ thuộc | Trạng thái |
+| :-- | :-- | :-: | :-: | :-- | :-- | :-: |
+| H1 | **Engine + CLI** đọc log Claude Code, loại trùng, tính ngữ cảnh/tốc độ/lượt nặng (`scripts/token_monitor/`, `token_monitor_cli.py`, 15 test) | P1 | M | Claude | — | DONE |
+| H2 | **Tab Token Monitor trong giao diện Web** (`reviewer_shell`): gọi engine qua API cục bộ, làm mới thời gian thực | P1 | M | Claude | H1 | TODO |
+| H3 | **Đưa vào `.exe`**: build lại vỏ .NET để có tab/cửa sổ monitor; thử trên máy sạch | P1 | M | Cậu cài .NET 10, Claude sửa | H2, A1 | TODO |
+| H4 | **Adapter Codex** (`~/.codex/sessions/**/rollout-*.jsonl`, sự kiện `token_count` là bộ đếm lũy kế nên phải trừ lượt trước). Chưa có dữ liệu Codex để kiểm chứng trên máy này | P2 | M | Claude + Cậu (cần log Codex thật) | H1 | TODO |
+| H5 | **Khảo sát Cursor/Antigravity/Windsurf**: có lưu token cục bộ không? Nếu không thì ghi rõ giới hạn, không đoán | P2 | S | Claude (tìm kiếm) | — | TODO |
+| H6 | **Cảnh báo chủ động** (ví dụ ngữ cảnh vượt ngưỡng): thông báo desktop hoặc dòng trạng thái cho Claude Code (`statusLine`) | P3 | S | Claude | H1 | HOÃN |
+
+**Nghiệm thu H1**: tổng khớp phép tính độc lập trên log thật (đã đạt ngày 2026-11-07: 114 lượt khớp từng con số). **Giới hạn đã chấp nhận**: chỉ token, không quy ra tiền (giá đổi và chưa được kiểm chứng); số liệu từ log cục bộ, không phải hoá đơn.
+
+---
+
 ## Nhóm D — Nội dung kit · MỐC M2
 
 | ID | Việc | Ưu tiên | Công sức | Người | Phụ thuộc | Trạng thái |
@@ -143,6 +158,7 @@ Thứ tự đề xuất: **C2 → B3 → B1 → B8 (push) → C1 → B2 → A1 �
 ## Nhật ký thay đổi kế hoạch
 | Ngày | Thay đổi |
 | :-- | :-- |
+| 2026-11-07 | Thêm Token Monitor (nhóm H): engine thuần + CLI `--watch`, 15 test. Phát hiện log Claude Code ghi mỗi phản hồi nhiều lần nên cộng thô đếm dư khoảng 2,3 lần; engine loại trùng theo (message.id, requestId) và khớp phép tính độc lập trên phiên thật 114 lượt. Chưa có tab Web/exe, chưa hỗ trợ agent khác. |
 | 2026-11-07 | Đo token bằng tokenizer Claude thật (sau `claude auth login`, sửa `measure_docs.py`: tìm `claude` bằng `shutil.which`, tắt skills/MCP để overhead 180 token thay vì 57.543): 9 cặp tài liệu gần song song, tiếng Anh dùng ít hơn khoảng 10% token (2–21%/tệp). Tuyên bố 40–60% bị bác bỏ cho tài liệu của kit. |
 | 2026-11-07 | Thêm công cụ đo `evals/measure_docs.py`, `evals/bench_health_check.py`, `evals/benchmark-plan.md` và kết quả `evals/results/2026-11-07-measurements.md`. Kết quả: tuyên bố "mọi tài liệu < 120 dòng" SAI (5/34 vượt); tiết kiệm 40-60% token CHƯA được chứng minh (proxy cho thấy 0.92x byte, 0.85x từ); Health Check 5.000 tệp tổng hợp trung vị 1,8 s (đạt ngưỡng A2 < 30 s, chỉ trên Python/máy này). |
 | 2026-11-07 | Kiểm chứng thực nghiệm: (1) 333/340 URL raw trong MANIFEST trả 200, 7 còn lại là tệp chưa push, không có lỗi trên tệp đã push; (2) rà toạ độ công cụ/MCP bằng npm/PyPI/GitHub API: phát hiện `@modelcontextprotocol/server-playwright` không tồn tại, `server-github` và `server-postgres` đã bị đánh dấu deprecated (archived, "no security guarantees"), `steipete/agent-rules` đã archived; đã thay bằng `@playwright/mcp`, `github/github-mcp-server`, `crystaldba/postgres-mcp`. Việc chưa làm: C1/C3, thử exe trên máy sạch, đo token thực. |

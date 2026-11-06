@@ -32,3 +32,18 @@ Default invocation (with no directory argument) audits this kit repository itsel
 * `engine_main.py`: Entry point for packaged PyInstaller engine binary (`serve` | `audit`).
 * `build_exe.py`: Packaging script building `engine/reviewer-engine.exe` + `.NET 10` WinForms/WebView2 host (`tools/ProjectReviewer`) into `Project-Health-Check.exe`.
 * `sync_docs.py` & `check_links.py`: Living documentation auto-sync pipeline (`S-007`) and `INDEX.md` schema/link verifier.
+
+## Token Monitor (live token usage while chatting with the agent)
+
+Shows, in real time, how many tokens a Claude Code session uses, so a vibe coder can see when the conversation gets expensive. Read-only: it only reads Claude Code's local transcript files (`~/.claude/projects/<project>/*.jsonl`); no network, no model calls.
+
+```bash
+python scripts/token_monitor_cli.py --watch        # live view for the current folder
+python scripts/token_monitor_cli.py --all --json   # all sessions of this project as JSON
+```
+
+It reports: current context size (what each turn re-reads), totals split into fresh input / cache write / cache read / output, recent burn rate, per-model turn counts, and the heaviest turns. Logic is in `scripts/token_monitor/engine.py` (pure, tested in `tests/test_token_monitor.py`); the CLI is only presentation.
+
+* **Verified** (2026-11-07): totals equal an independent computation on a real 114-turn session. Transcripts write each API response several times, so naive summing overcounts about 2.3x; the engine de-duplicates by message id + request id.
+* **Not supported / not verified**: Codex, Cursor, Antigravity, Windsurf (their local log formats were not checked). No price or cost calculation (prices change and were not verified). Figures come from local logs, not from the provider's bill.
+* **Not built yet**: a tab in the Web/Desktop UI and the `.exe` (tracked in `TASKS.md`, group H).
