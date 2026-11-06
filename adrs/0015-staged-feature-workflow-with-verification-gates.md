@@ -10,16 +10,16 @@
 
 * The kit's `spec-first-task` skill was a flat 7-step list. It had no clarification gate, no cross-artifact consistency check, and no defined loop until acceptance criteria pass.
 * GitHub Spec Kit (open source, MIT) offers a staged flow: constitution, specify, clarify, plan, tasks, analyze, implement, converge. Published reviews praise its structure and criticize its overhead (thousands of markdown lines for small changes), non-deterministic output, spec/code drift, and lack of verification.
-* This kit's strengths are different: decision rails, token-lean docs (<120 lines), real verification commands, a 2-attempt circuit breaker, and a zero-token Health Check.
+* This kit's strengths are different: decision rails, token-lean docs (<120 lines), real verification commands, a 2-attempt circuit breaker, and a Health Check that makes no model calls. These strengths are design goals, not validated results.
 
 ## 2. Decision
 
 Adopt Spec Kit's strongest ideas as a **lean, scale-aware, verification-gated** workflow, without adding the CLI or any runtime dependency:
 
-1. **Scale Gate**: Tiny / Standard / Large paths so spec length never exceeds change size (answers the overhead critique).
+1. **Scale Gate**: Tiny / Standard / Large paths so spec length never exceeds change size (intended to address the overhead critique; untested).
 2. **Clarify gate**: unknowns are written as `[NEEDS CLARIFICATION: ...]` markers; zero markers allowed before planning; max 3 questions per turn.
 3. **Analyze**: read-only consistency pass (every acceptance scenario has a task and test, no orphan tasks, no conflict with `AGENTS.md`/ADRs) that fixes artifacts, not code.
-4. **Implement-and-converge loop**, bounded by the existing 2-attempt circuit breaker, ending with an Evidence table (scenario -> test) (answers the "no verification" critique).
+4. **Implement-and-converge loop**, bounded by the existing 2-attempt circuit breaker, ending with an Evidence table (scenario -> test) (intended to address the "no verification" critique; untested).
 5. **Spec Change Protocol**: spec is edited before code to limit drift.
 6. Delivered as `core/standards/feature-workflow.md` (S-008, Core), templates `feature-spec.md` and `feature-plan.md`, and an upgraded `spec-first-task` skill. `AGENTS.md` itself remains the constitution; no separate constitution artifact.
 

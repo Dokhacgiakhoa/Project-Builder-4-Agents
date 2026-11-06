@@ -68,7 +68,7 @@ when: "Viết **hướng dẫn sử dụng** cho người dùng cuối"
 * **A**: Có. Toàn bộ dữ liệu của bạn được mã hóa theo tiêu chuẩn ngân hàng (AES-256) khi lưu trữ và truyền tải. Chúng tôi không bao giờ chia sẻ thông tin của bạn cho bên thứ ba.
 
 #### Q2: Tôi có thể sử dụng ứng dụng trên điện thoại di động không?
-* **A**: Có. Ứng dụng được thiết kế tương thích hoàn hảo trên mọi thiết bị: Máy tính để bàn, Máy tính bảng (iPad), và Điện thoại thông minh (iOS/Android).
+* **A**: Có. Ứng dụng được thiết kế tương thích trên các thiết bị: Máy tính để bàn, Máy tính bảng (iPad), và Điện thoại thông minh (iOS/Android).
 
 #### Q3: Khi gặp sự cố hoặc cần hỗ trợ khẩn cấp, tôi liên hệ ai?
 * **A**: Bạn có thể gửi email trực tiếp tới bộ phận hỗ trợ khách hàng: `support@example.com` hoặc nhấn vào biểu tượng Trợ giúp (❓) ở góc dưới màn hình để chat trực tiếp với đội ngũ hỗ trợ kỹ thuật 24/7.

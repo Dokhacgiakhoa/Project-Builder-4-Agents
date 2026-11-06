@@ -5,7 +5,7 @@ when: "When checking \"what is wrong with project\", before opening PR, or analy
 ---
 # PROJECT HEALTH CHECK — STATIC CODEBASE AUDITOR & GUARDRAIL
 
-> The second core product of this repository (ADR-0012). Scans any project workspace (any language), **100% offline, zero network, zero tokens consumed**, outputting a machine-readable **`project-review.md`** report at project root and providing a modern Desktop/Web dashboard.
+> The second core product of this repository (ADR-0012). Scans a project workspace with language-agnostic file-level heuristics (file tree and regex; no AST parsing), **offline, no network, no model calls**, outputting a machine-readable **`project-review.md`** report at project root and providing a modern Desktop/Web dashboard.
 
 ## Execution Options
 | Method | Command | Target Audience |

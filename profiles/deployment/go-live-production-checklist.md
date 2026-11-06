@@ -6,7 +6,7 @@ when: "When preparing to **deploy product to real production (Go-Live / Producti
 
 # PLAYBOOK: PRODUCTION GO-LIVE CHECKLIST
 
-> **For AI Agents**: Guide the Vibe Coder from `localhost` to live internet production (Go-Live). The objective is a stable, secure, zero-to-low cost deployment (prioritizing Cloud Free-Tiers) passing 100% of Project Health Check criteria with an A+ score.
+> **For AI Agents**: Guide the Vibe Coder from `localhost` to live internet production (Go-Live). The objective is a stable, secure, low-cost deployment (prioritizing Cloud Free-Tiers) with no unresolved High/Medium Project Health Check findings. The score reflects static signals only and does not prove runtime quality.
 
 ---
 
@@ -35,7 +35,7 @@ when: "When preparing to **deploy product to real production (Go-Live / Producti
 * [ ] Enable Connection Pooling (e.g., Supabase Pooling port 6543 or PgBouncer) to prevent connection exhaustion.
 * [ ] Verify automated database backups on the persistence platform.
 
-### Gate 4: Zero-Cost Cloud Hosting Gate
+### Gate 4: Free-Tier Cloud Hosting Gate
 * [ ] **Frontend**: Deploy to **Vercel** or **Cloudflare Pages** (connected to GitHub main branch).
 * [ ] **Backend**: Deploy to **Railway** or **Render / Fly.io / Koyeb**.
 * [ ] **Database**: Provision **Supabase** (PostgreSQL 500MB free tier) or **Turso / Neon**.
@@ -46,8 +46,8 @@ when: "When preparing to **deploy product to real production (Go-Live / Producti
   ```bash
   python scripts/project_auditor.py <target_project_dir>
   ```
-* [ ] Achieve **Grade A or A+** (≥ 90/100 points).
-* [ ] Resolve 100% of High and Medium severity findings before final announcement.
+* [ ] Reach a Health Check score of at least 90/100 (a static-signal threshold, not a quality guarantee).
+* [ ] Resolve all High and Medium severity findings, or record each accepted one with a reason, before final announcement.
 
 ---
 

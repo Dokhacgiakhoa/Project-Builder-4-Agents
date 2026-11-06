@@ -68,7 +68,7 @@ Follow [core/discovery.md](core/discovery.md): Ask concise questions, suggest se
    * Multi-stage, non-root Docker packaging.
    * Free-tier / low-cost cloud deployment via `profiles/stacks/cloud-free-tier-stack.md` (Vercel, Railway, Supabase...).
    * Follow the 5 Go-Live Gates in `profiles/deployment/go-live-production-checklist.md`.
-3. **Periodic Health Audits**: Re-run Health Check after major milestones and before PR merges to maintain an A+ (100/100) score.
+3. **Periodic Health Audits**: Re-run Health Check after major milestones and before PR merges to track the static-audit score and resolve High/Medium findings.
 
 ---
 

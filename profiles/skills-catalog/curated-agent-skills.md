@@ -6,7 +6,7 @@ when: "When needing to **select and configure curated skills for Agent** by doma
 
 # CURATED AGENT SKILLS MATRIX (ZERO-WEB TOKEN OPTIMIZED)
 
-> **Exclusively for AI Coding Agents**: The internet contains millions of scattered, untested skills and prompts. Searching online wastes tens of thousands of tokens, exposes workspaces to malicious code, and risks severe hallucination. This document provides a battle-tested, curated catalog of pure-text skills (in standard `SKILL.md` format) categorized by domain and lifecycle.
+> **Exclusively for AI Coding Agents**: The internet contains millions of scattered, untested skills and prompts. Searching online costs tokens and can expose workspaces to untrusted code. This document provides a curated catalog (not yet validated in real projects) of pure-text skills (in standard `SKILL.md` format) categorized by domain and lifecycle.
 > The Agent inspects user requirements, selects relevant skills, and writes `.agents/skills/<skill-name>/SKILL.md` (or `.claude/skills/`) directly into the target project workspace.
 
 ---
@@ -20,7 +20,7 @@ when: "When needing to **select and configure curated skills for Agent** by doma
 | **External API / Third-Party Calls** | `defensive-api-client` | Centralized client: timeouts, exponential retries, rate limits, error normalization |
 | **Frontend / Web UI Reliability** | `error-boundary-guard`<br>`state-management-architect` | White-screen crash prevention, render optimization, unidirectional state |
 | **Authentication & Authorization** | `auth-rbac-guardian` | HttpOnly cookies, session security, role-based access control (RBAC) |
-| **Packaging & Production Deployment** | `docker-production-packager`<br>`cloud-free-tier-deployer` | Multi-stage non-root containers, zero-cost cloud deployment (Vercel/Railway/Supabase) |
+| **Packaging & Production Deployment** | `docker-production-packager`<br>`cloud-free-tier-deployer` | Multi-stage non-root containers, free-tier cloud deployment (Vercel/Railway/Supabase) |
 | **Repeated Bugs / Spaghetti Code** | `anti-patching-debugger` | Root-cause analysis, anti-patching architectural discipline |
 | **Automated Verification** | `e2e-scenario-tester` | User journey end-to-end testing scenarios |
 | **AI / LLM / RAG Integration** | `rag-agentic-builder` | Safe chunking, vector embeddings, prompt templates, structured tool calls |
@@ -84,7 +84,7 @@ description: Use when altering database schemas, writing ORM migrations, or opti
 ```markdown
 ---
 name: error-boundary-guard
-description: Use when building frontend interfaces to eliminate white-screen crashes and guarantee graceful degradation.
+description: Use when building frontend interfaces to reduce white-screen crashes and degrade gracefully.
 ---
 # Error Boundary Guard
 1. Wrap top-level route layouts and async UI components in structured React Error Boundaries.
@@ -142,7 +142,7 @@ description: Use when containerizing applications for production deployment. Gen
 ```markdown
 ---
 name: cloud-free-tier-deployer
-description: Use when deploying applications to zero-cost cloud platforms (Vercel, Railway, Supabase, Cloudflare Pages).
+description: Use when deploying applications to free-tier cloud platforms (Vercel, Railway, Supabase, Cloudflare Pages).
 ---
 # Cloud Free-Tier Deployer
 1. Review resource constraints: Keep RAM < 512MB and prevent long-running background CPU processes.
@@ -217,7 +217,7 @@ description: Use when optimizing web applications for search engine indexing and
 # SEO Metadata Optimizer
 1. Provide unique `<title>` (50-60 chars) and `<meta name="description">` (150-160 chars) per route.
 2. Implement OpenGraph tags (`og:title`, `og:description`, `og:image`, `og:url`) and Twitter Cards.
-3. Set canonical URL tags (`<link rel="canonical" href="..." />`) to eliminate duplicate content penalties.
+3. Set canonical URL tags (`<link rel="canonical" href="..." />`) to avoid duplicate content penalties.
 4. Provide automated `sitemap.xml` and standard `robots.txt` endpoints at domain root.
 ```
 
@@ -230,7 +230,7 @@ description: Use when optimizing frontend loading speed and responsiveness to ac
 ---
 # Core Web Vitals Booster
 1. Optimize Largest Contentful Paint (LCP < 2.5s): Preload priority hero images with `<link rel="preload" as="image">`.
-2. Eliminate Cumulative Layout Shift (CLS < 0.1): Always define explicit `width` and `height` on images and media frames.
+2. Avoid Cumulative Layout Shift (CLS < 0.1): Always define explicit `width` and `height` on images and media frames.
 3. Modern Image Formats: Serve images in next-gen WebP or AVIF formats with responsive `srcset`.
 4. Defer non-critical JavaScript scripts (`defer` or `async`) and self-host web fonts with `font-display: swap`.
 ```

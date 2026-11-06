@@ -12,8 +12,8 @@
   <img src="assets/banner.svg" alt="Project-Builder-4-Agents" width="100%" />
 
   <h3>Project-Builder-4-Agents</h3>
-  <p><b>Hosted Agent Brain & Living Knowledge Hub — Enables AI Coding Agents to self-configure, select production stacks, and bootstrap vibe coding projects remotely (Zero-Clone).</b></p>
-  <p>Seamlessly compatible with <b>Claude Code · Antigravity · Cursor (.cursor/rules/*.mdc) · Windsurf · Codex</b></p>
+  <p><b>A remote knowledge library and bootstrap procedure for AI coding agents, read from GitHub without cloning the repo (Zero-Clone), plus a local static Health Check tool.</b></p>
+  <p>Intended for <b>Claude Code · Antigravity · Cursor · Windsurf · Codex</b>. Tested so far: none end-to-end (see <a href="#validation-status">Validation Status</a>).</p>
 
 </div>
 
@@ -24,7 +24,7 @@
 > 1. **DO NOT ask the user to clone the whole repository**: Read remotely via [BOOTSTRAP.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/BOOTSTRAP.md) or inspect the tree at [MANIFEST.json](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/MANIFEST.json) / [llms.txt](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/llms.txt).
 > 2. **Never download until Stack is finalized**: Ingest `core/discovery.md` to interview the user, then consult `profiles/README.md` to match an architecture pattern.
 > 3. **Selective pull**: Fetch only the Core Baseline (B1–B9) and the chosen Architecture Profile into the target workspace (via direct raw HTTP fetch or shallow temp clone).
-> 4. **Continuous Companion & Go-Live**: Consult [INDEX.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/INDEX.md) during sprints; run [Project Health Check](scripts/README.md) to maintain an A+ production score.
+> 4. **Continuous Companion & Go-Live**: Consult [INDEX.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/INDEX.md) during sprints; run [Project Health Check](scripts/README.md) to track the project's static-audit score.
 > Full operational specifications: [HOW_IT_WORKS.md](HOW_IT_WORKS.md).
 
 ---
@@ -50,9 +50,27 @@ Three distinct tiers, so you never drown your Agent in irrelevant context:
 
 Deep architectural profiles, rules, and skills are **never dumped together**: Your Agent picks only the relevant subset after the Phase 1 interview. Only Core is universally applied.
 
+## Validation Status
+
+This project is new and has no external users or independent benchmarks. Treat its design goals as **hypotheses**, not results.
+
+| Claim | Status |
+| :-- | :-- |
+| Agents read `BOOTSTRAP.md`, interview the user, and pick a suitable profile | **Untested** (eval protocol in `evals/c1-bootstrap-protocol.md`, not yet run) |
+| English-only docs under 120 lines reduce token use | **Estimate** from tokenizer properties; not measured on real sessions |
+| Works with Claude Code / Antigravity / Cursor / Windsurf | **Untested end-to-end**; Cursor/Windsurf adapters are generated file stubs |
+| Works with Codex | **Unverified** |
+| Health Check runs on a clean Windows machine | **Untested** (exe not yet tried on a machine without Python) |
+| Health Score badge above | Self-measured by this kit's own tool; it checks structure and static signals, not output quality |
+| Static checks are covered by automated tests | **Verified** (pytest suite) |
+
+Roadmap and status of each check: [TASKS.md](TASKS.md).
+
+---
+
 ## Configuration & Environment Variables (.ENV)
 
-Project-Builder-4-Agents and its companion Project Health Check engine operate offline with zero tokens and zero external secrets required. For local environment overrides or port customizations, copy `.env.example` to `.env`:
+Project-Builder-4-Agents and its companion Project Health Check engine operate offline, make no model calls (so they consume no LLM tokens), and need no external secrets. For local environment overrides or port customizations, copy `.env.example` to `.env`:
 
 ```bash
 cp .env.example .env
@@ -60,7 +78,7 @@ cp .env.example .env
 
 ## Project Health Check
 
-Scans **any project workspace** (any language), offline, with zero token consumption, generating **`project-review.md`** for both humans and agents. Each finding includes a **unique code, severity, file:line location, and a direct remediation doc** in the kit.
+Scans a project workspace with language-agnostic file-level heuristics (file tree and regex; no AST parsing), offline, making no model calls, generating **`project-review.md`** for both humans and agents. Each finding includes a **unique code, severity, file:line location, and a direct remediation doc** in the kit.
 
 | Execution Method | Notes |
 | :-- | :-- |

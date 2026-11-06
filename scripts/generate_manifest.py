@@ -109,7 +109,7 @@ def generate():
 
     manifest = {
         "kit": "Project-Builder-4-Agents",
-        "description": "Hosted Agent Brain & Remote Knowledge Hub for AI Coding Agents",
+        "description": "Remote knowledge library and bootstrap procedure for AI Coding Agents",
         "repo": REPO_URL,
         "raw_base": RAW_BASE,
         "entry_points": {

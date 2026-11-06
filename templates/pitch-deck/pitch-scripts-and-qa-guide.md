@@ -1,5 +1,7 @@
 # 🎙️ PITCH SCRIPTS & 20 CÂU HỎI PHẢN BIỆN "SÁT THỦ" (DEFENSE GUIDE)
 
+> ⚠️ **MẪU MINH HOẠ**: Mọi con số, thống kê, so sánh đối thủ và cam kết trong tệp này là dữ liệu giả định để minh hoạ cấu trúc. Chưa có số liệu nào được đo hay có nguồn. Thay bằng dữ liệu thật có nguồn trước khi sử dụng; không dùng nguyên văn cho Project-Builder-4-Agents.
+
 > **Mục đích**: Trang bị kịch bản thuyết trình từng giây và chiến lược trả lời các câu hỏi vặn vẹo khó nhất từ Ban giám khảo, Quỹ đầu tư mạo hiểm (VCs) hoặc Hội đồng thẩm định doanh nghiệp.
 
 ---
@@ -9,10 +11,10 @@
 ### 1. Kịch bản 3 phút (Elevator Pitch / Vòng Phỏng Vấn Nhanh)
 
 * **Giây 0 - 30 (Mở đầu & Nỗi đau)**:
-  > *"Kính thưa quý vị, hiện nay hơn 85% lập trình viên trên toàn cầu đã sử dụng AI như Cursor, Claude hay ChatGPT để viết code. Tốc độ sinh code tăng gấp 10 lần, nhưng các doanh nghiệp đang phải trả một cái giá đắt: code sinh ra nhanh nhưng rời rạc, không có bức tranh tổng thể, dẫn đến việc đập đi xây lại hệ thống tốn trung bình \$45,000 cho mỗi dự án. AI đang giúp chúng ta tạo ra lỗi kỹ thuật nhanh gấp 10 lần nếu thiếu quy trình chuẩn mực."*
+  > *"Kính thưa quý vị, hiện nay hơn [X]% lập trình viên (cần nguồn) trên toàn cầu đã sử dụng AI như Cursor, Claude hay ChatGPT để viết code. Tốc độ sinh code tăng gấp 10 lần, nhưng các doanh nghiệp đang phải trả một cái giá đắt: code sinh ra nhanh nhưng rời rạc, không có bức tranh tổng thể, dẫn đến việc đập đi xây lại hệ thống tốn trung bình \$[X] cho mỗi dự án (cần nguồn). AI đang giúp chúng ta tạo ra lỗi kỹ thuật nhanh gấp 10 lần nếu thiếu quy trình chuẩn mực."*
 
 * **Giây 30 - 90 (Giải pháp & Điểm khác biệt)**:
-  > *"Để giải quyết vấn đề này, chúng tôi xây dựng [Tên Sản Phẩm] — Khung khởi tạo và điều phối dự án chuẩn hóa đầu tiên kết hợp hoàn hảo giữa thẩm quyền con người và năng lực thực thi của AI Multi-Agent. Chúng tôi biến Git repository thành Một Nguồn Sự Thật Duy Nhất. Thay vì để AI code tự do, hệ thống của chúng tôi bắt buộc mọi dòng code phải tuân thủ nghiêm ngặt Feature Specs, API Contracts và Tiêu chuẩn Anti-Crash. Kết quả là các đội ngũ giảm 65% thời gian đưa sản phẩm ra thị trường nhưng bảo đảm 0% lỗi màn hình trắng."*
+  > *"Để giải quyết vấn đề này, chúng tôi xây dựng [Tên Sản Phẩm] — Khung khởi tạo và điều phối dự án chuẩn hóa kết hợp giữa thẩm quyền con người và năng lực thực thi của AI Multi-Agent. Chúng tôi biến Git repository thành Một Nguồn Sự Thật Duy Nhất. Thay vì để AI code tự do, hệ thống của chúng tôi bắt buộc mọi dòng code phải tuân thủ nghiêm ngặt Feature Specs, API Contracts và Tiêu chuẩn Anti-Crash. Kết quả là các đội ngũ giảm 65% thời gian đưa sản phẩm ra thị trường nhưng bảo đảm 0% lỗi màn hình trắng."*
 
 * **Giây 90 - 150 (Mô hình kinh doanh & Tiềm năng)**:
   > *"Chúng tôi tiếp cận thị trường công cụ lập trình trị giá 28 tỷ USD theo mô hình Product-Led Growth: bản Open Source miễn phí giúp chúng tôi tiếp cận hàng chục ngàn lập trình viên, và chúng tôi thu phí gói Team Pro \$49/tháng cho các tính năng kiểm thử tự động trên Cloud. Với chi phí có 1 khách hàng là \$450 và giá trị trọn đời đạt \$2,400, tỷ lệ LTV/CAC của chúng tôi đạt mức ấn tượng 5.3 lần."*
@@ -57,7 +59,7 @@
 
 #### 3. "Tại sao các công ty lớn không tự xây dựng bộ starter kit nội bộ của họ?"
 * **Chiến lược trả lời**:
-  > *"Nhiều công ty đã thử, nhưng chi phí nuôi một team nội bộ để nghiên cứu, bảo trì và cập nhật liên tục các thay đổi chóng mặt của AI SDK và thư viện giao diện tốn ít nhất 200,000 USD mỗi năm. Họ sẵn sàng chi trả một khoản phí SaaS nhỏ \$49-\$299/tháng để dùng một chuẩn mực chung đã được hàng ngàn kỹ sư kiểm chứng ngoài thị trường."*
+  > *"Nhiều công ty đã thử, nhưng chi phí nuôi một team nội bộ để nghiên cứu, bảo trì và cập nhật liên tục các thay đổi chóng mặt của AI SDK và thư viện giao diện tốn ít nhất 200,000 USD mỗi năm. Họ sẵn sàng chi trả một khoản phí SaaS nhỏ \$49-\$299/tháng để dùng một chuẩn mực chung đã được [số lượng, có nguồn] kỹ sư kiểm chứng (chỉ nêu khi có dữ liệu thật)."*
 
 ---
 
@@ -65,7 +67,7 @@
 
 #### 4. "Chi phí token API cho các Agent tự động hóa rất đắt, biên lợi nhuận của bạn có bị âm không?"
 * **Chiến lược trả lời**:
-  > *"Chúng tôi thiết kế kiến trúc phân tầng Context (Context Pruning & Spec-Driven). Thay vì ném cả triệu dòng code vào prompt gây tốn kém và hallucination, Agent chỉ đọc file Spec ngắn gọn (dưới 2,000 tokens) và thực thi đúng phạm vi module đó. Việc này giúp giảm hơn 70% chi phí token so với cách vibe coding thông thường, đảm bảo biên lợi nhuận gộp của sản phẩm luôn trên 75%."*
+  > *"Chúng tôi thiết kế kiến trúc phân tầng Context (Context Pruning & Spec-Driven). Thay vì ném cả triệu dòng code vào prompt gây tốn kém và hallucination, Agent chỉ đọc file Spec ngắn gọn (dưới 2,000 tokens) và thực thi đúng phạm vi module đó. Việc này nhằm giảm chi phí token so với cách vibe coding thông thường (mức giảm [X%] phải đo bằng benchmark), với mục tiêu biên lợi nhuận gộp [X%] (cần mô hình tài chính thật)."*
 
 #### 5. "Điều gì ngăn chặn việc AI sinh mã ảo (Hallucination) hoặc tạo ra lỗ hổng bảo mật nghiêm trọng?"
 * **Chiến lược trả lời**:
@@ -73,7 +75,7 @@
 
 #### 6. "Tại sao các bạn chọn Clean Architecture và Bulletproof React thay vì kiến trúc Microservices phức tạp?"
 * **Chiến lược trả lời**:
-  > *"Với 95% dự án khởi nghiệp trong giai đoạn 0-1, Microservices là 'cái bẫy quá tải' khiến team chết vì chi phí hạ tầng và độ trễ giao tiếp mạng. Chúng tôi chọn Modular Monolith với Clean Architecture và Feature-Driven React vì nó cung cấp ranh giới module rõ ràng tuyệt đối, giúp AI dễ hiểu bối cảnh, dễ debug, và khi quy mô chạm ngưỡng hàng triệu người dùng, việc tách một feature module thành microservice độc lập chỉ mất vài giờ."*
+  > *"Với [X%] dự án khởi nghiệp (cần nguồn) trong giai đoạn 0-1, Microservices là 'cái bẫy quá tải' khiến team chết vì chi phí hạ tầng và độ trễ giao tiếp mạng. Chúng tôi chọn Modular Monolith với Clean Architecture và Feature-Driven React vì nó cung cấp ranh giới module rõ ràng tuyệt đối, giúp AI dễ hiểu bối cảnh, dễ debug, và khi quy mô chạm ngưỡng hàng triệu người dùng, việc tách một feature module thành microservice độc lập mất [ước tính thời gian, cần đo]."*
 
 ---
 

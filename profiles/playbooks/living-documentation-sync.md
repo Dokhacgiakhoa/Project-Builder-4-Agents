@@ -1,12 +1,12 @@
 ---
 id: S-007
 type: playbook
-when: When setting up auto-syncing living documentation, git pre-commit hooks, and CI quality gates to eliminate documentation rot
+when: When setting up auto-syncing living documentation, git pre-commit hooks, and CI quality gates to reduce documentation rot
 ---
 
 # Living Documentation & Auto-Sync Pipeline
 
-> **Intent**: Eliminate documentation rot in vibe-coded projects. Keep `README.md`, architecture summaries, and verification commands continuously synchronized with the live codebase without manual human nagging.
+> **Intent**: Reduce documentation rot in vibe-coded projects. Keep `README.md`, architecture summaries, and verification commands synchronized with the live codebase with less manual nagging (hooks and CI can be bypassed, so this lowers drift but does not remove it).
 
 ---
 

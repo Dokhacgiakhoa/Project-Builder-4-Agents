@@ -39,7 +39,7 @@ flowchart TD
     end
 
     subgraph Core ["Domain & Core Engine"]
-        Engine["Offline Diagnostic Engine (Pure Python/CLI, 0-token)"]
+        Engine["Offline Diagnostic Engine (Pure Python/CLI, no model calls)"]
         ReportGen["Markdown / JSON Report Generator"]
     end
 
@@ -53,10 +53,10 @@ flowchart TD
 ```
 > [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNp9U01r4zAQ_SuDDyWBpGkKeynLQuqENiVf1CE9xHtQ7bEtqoyMLCeU0v--o1jJxqXUJ8-bN6OZ96SPINEpBncQZEofkkIYC-txTMBfVb_mRpQFrAxWSFZYqQm2rSgqUCnow5y7GIIXfP3bFLuPo1DQXlTbOHhcz2e_YHAihlHEwUaQVErAUwQNMQ4uytcF7nAuSORouMMxhAnlkvAOxsK8QWdEVvKMe2nfIVLCYheuYCbzwrY6RWitpLziw4XiVqfYkWdzGK2mEGrKZF6b41rnYqQ0pi9qPOrKwnbBxD3Ci6RUH47Y5eKbWz5lLhOjK51ZmKQ5OjU2Eg-34Eufax6eN-rc11LZviTfrILhzWA47P44xKgslUy8I3FwGV65XazRSqFpqXBvJM_B7Mme_fMhuzBdhdBZvduCiwdwvZisu606lmiUitIeXXB6rYzeS7YRPAydB9xJkj0IlahT7MGyRBpNf14h1Abd7GO9E7IZ25z8bZ3fQMxcZpniPxhLkRMrLhOf4_Frrm12GISzaQ9u-la_IbU3ecZSG_uA5NzhC8Rqu5WfouXC54CTyJdAm-9mP19o-N3v_3E2N_jlTfWpE7MhtC7gtwzu1eCNLQ3oLXKw1-UrfN6onbnm1H_bgh4EOzQsc-pe-ofjxoF1Q8cMxEGKmagVv5mYPh1Z1FZH75Rw0pqa_QzqMuXX5YQ3Yufhz3_1hFkq)
 
-### 2.1. Tách Rời 100% Core Engine & Presentation Shell
+### 2.1. Tách Rời Core Engine & Presentation Shell
 * **Core Engine**: Bắt buộc là Pure Logic, chạy độc lập dưới dạng CLI hoặc xuất JSON. Không phụ thuộc vào bất kỳ thư viện UI nào. Phải có unit tests độc lập.
 * **Presentation Shell**: Sử dụng HTML5/Tailwind/CSS Variables và WebView2 native của Windows. 
-  - Đảm bảo 100% độ sắc nét typography (Vector Font, ClearType/DirectWrite).
+  - Hướng tới độ sắc nét typography (Vector Font, ClearType/DirectWrite).
   - Phẳng hoàn toàn, loại bỏ các đường viền đóng khung xơ cứng.
   - Tích hợp sẵn CSS Variables cho Theme Sáng / Tối.
 
@@ -74,4 +74,4 @@ Mọi công cụ desktop phải có:
   - Zero-Crash về mặt hiển thị: Web CSS xử lý mượt mà mọi độ phân giải màn hình và DPI.
   - Dễ dàng nâng cấp tính năng mới (Settings, AI Chat, Themes) mà không phải đập đi xây lại GUI.
 * **Tiêu cực**:
-  - Cần máy tính có cài sẵn WebView2 Runtime (đã tích hợp mặc định trên 100% Windows 11 và Windows 10 hiện đại).
+  - Cần máy tính có cài sẵn WebView2 Runtime (có sẵn trên Windows 11 và các bản Windows 10 hiện đại; chưa kiểm thử trên máy sạch, xem TASKS.md A2).

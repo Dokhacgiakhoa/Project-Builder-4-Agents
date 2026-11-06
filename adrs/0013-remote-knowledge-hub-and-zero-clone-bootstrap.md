@@ -17,8 +17,8 @@
 
 ## 2. QUYẾT ĐỊNH (DECISION)
 
-### 2.1. Định vị Remote Knowledge Hub (Hosted Agent Brain)
-* Repo `Project-Builder-4-Agents` đóng vai trò là một **Bộ não tập trung trên GitHub**, không phải là template boilerplate để người dùng clone về.
+### 2.1. Định vị Remote Knowledge Hub (thư viện tri thức từ xa; chỉ là tệp trên GitHub, không có dịch vụ nào chạy)
+* Repo `Project-Builder-4-Agents` đóng vai trò là một **kho tri thức tập trung trên GitHub**, không phải là template boilerplate để người dùng clone về.
 * Cung cấp các giao diện máy đọc chuẩn hóa:
   * `llms.txt` và `llms-full.txt`: Chuẩn mở cho LLM/Agent đọc nhanh toàn bộ cấu trúc và ý đồ repo chỉ trong 1 request.
   * `MANIFEST.json`: Cây thư mục máy đọc kèm link tải thô `raw.githubusercontent.com/...` để Agent nhìn thấy từng file trong repo mà không cần cào giao diện HTML của GitHub.
@@ -28,15 +28,15 @@
 1. **Phase 1: Discovery & Tech Selection Gate**: Agent đóng vai trò Tech Lead phỏng vấn người dùng, đề xuất stack và kiến trúc phù hợp. **Tuyệt đối chưa tải bất kỳ file nào về máy khi người dùng chưa chốt.**
 2. **Phase 2: Dựng khung Core Baseline & Áp Profile**: Chỉ kéo đúng Core (B1–B9) và Profile kiến trúc của ngôn ngữ đã chọn qua HTTP raw fetch hoặc shallow clone vào thư mục tạm của hệ điều hành (`%TEMP%` hoặc `/tmp`) rồi xóa ngay sau đó.
 3. **Phase 3: Đồng hành theo từng Sprint**: Dự án mang theo `AGENTS.md` chứa Knowledge Router tự động tra cứu `INDEX.md` trên GitHub khi cần giải quyết bài toán kiến trúc, design system, AI app hay phòng vệ lỗi.
-4. **Phase 4: Production-Readiness & Go-Live**: Hướng dẫn đóng gói Docker, CI/CD, cấu hình Cloud Free-Tier và quét Project Health Check đạt điểm A+ trước khi release.
+4. **Phase 4: Production-Readiness & Go-Live**: Hướng dẫn đóng gói Docker, CI/CD, cấu hình Cloud Free-Tier và chạy Project Health Check và xử lý các phát hiện mức Cao/Trung bình trước khi release (điểm số chỉ phản ánh tín hiệu tĩnh).
 
 ---
 
 ## 3. HỆ QUẢ (CONSEQUENCES)
 * **Tích cực**:
-  - Máy vibe coder hoàn toàn sạch sẽ, chỉ chứa mã nguồn và cấu hình của stack họ chọn.
-  - Agent đọc và tải file từ xa một cách chính xác, không bị phụ thuộc vào việc cào HTML của GitHub.
-  - Dự án được định hướng kiến trúc bài bản và có khả năng triển khai thực tế thay vì chỉ là bài tập đồ chơi.
+  - Kỳ vọng máy vibe coder ít tệp thừa hơn (Method B vẫn dùng thư mục tạm; chưa kiểm chứng).
+  - Agent tải file từ xa theo URL thô thay vì cào HTML của GitHub (độ chính xác của việc định tuyến chưa được đo).
+  - Mục tiêu: dự án có định hướng kiến trúc rõ và hướng tới triển khai thực tế. Đây là giả thuyết chưa được kiểm chứng.
 * **Đánh đổi / Ràng buộc**:
   - Cần duy trì tính thông suốt của `MANIFEST.json` và `llms.txt` bằng script tự động kiểm tra trong CI.
   - Agent cần có kết nối internet để tải tài liệu từ GitHub khi thực hiện quy trình.

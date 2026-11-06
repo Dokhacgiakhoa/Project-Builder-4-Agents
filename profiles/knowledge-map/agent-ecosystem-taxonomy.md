@@ -6,7 +6,7 @@ when: "When needing to **look up authoritative ecosystem tools, keywords, and pr
 
 # AGENT ECOSYSTEM TAXONOMY & SEARCH COMPASS
 
-> **For AI Agents**: When facing unfamiliar technical domains, naive agents guess vague search queries (`"how to make UI pretty"`), wasting thousands of tokens crawling low-quality blog spam. This document provides a pre-computed mental map of proven open-source tools, exact repository coordinates, related search vectors, and one-hit precision queries.
+> **For AI Agents**: When facing unfamiliar technical domains, naive agents guess vague search queries (`"how to make UI pretty"`), wasting tokens crawling low-quality pages. This document provides a pre-computed map of commonly referenced open-source tools (coordinates not re-verified; confirm a tool exists and is maintained before adopting it), exact repository coordinates, related search vectors, and one-hit precision queries.
 > **Role in the Triad Model**: Acts as the Translator's technical dictionary, providing the AI Agent (Company) with exact industry terminology to fulfill the Vibe Coder's (Client's) intent without hallucination.
 
 ---
@@ -42,7 +42,7 @@ when: "When needing to **look up authoritative ecosystem tools, keywords, and pr
 
 | Subdomain | Authoritative Tools & Coordinates | Related Concept Vectors | Precision Search Query |
 | :-- | :-- | :-- | :-- |
-| **Static Codebase Auditor** | `scripts/project_auditor.py`<br>(Project Health Check) | 0-token offline AST scan, architectural boundary lint, secret detection, Grade A+ | Local kit tool (`K-005`) |
+| **Static Codebase Auditor** | `scripts/project_auditor.py`<br>(Project Health Check) | offline static scan (no model calls): file-tree and regex heuristics, partial architecture-boundary and hardcoded-secret checks, 0-100 score | Local kit tool (`K-005`) |
 | **Clean Architecture & DDD** | `profiles/architecture/clean-architecture.md` | Concentric layers, inward dependency rule, rich domain models, composition root | Local kit doc (`A-002`) |
 | **Feature-First Architecture** | `profiles/architecture/vertical-slice.md` | Vertical slice, Jimmy Bogard, zero cross-slice imports, rule of three | Local kit doc (`A-004`) |
 | **Root-Cause Debugging** | `knowledge-base/tu-duy/anti-patching-architectural-thinking.md` | Anti-patching mindset, surface fix vs architectural fix, regression test first | Local kit doc (`S-004`) |
@@ -69,12 +69,12 @@ when: "When needing to **look up authoritative ecosystem tools, keywords, and pr
 | **Defensive API Clients** | `profiles/skills-catalog/curated-agent-skills.md` | Explicit 8000ms timeout, Zod/Pydantic validation, exponential backoff, error normalization | Local kit doc (`G-005`) |
 | **Secure Authentication** | `HttpOnly Cookie Auth` | Zero JWT in localStorage, SameSite=Strict, CSRF tokens, session invalidation | `site:owasp.org "JSON Web Token Cheat Sheet"` |
 | **Production Packaging** | Docker Multi-Stage Builds | Non-root `appuser`, Alpine/Distroless runner image, layer caching, zero-secret images | Local kit doc (`T-005`) |
-| **Zero-Cost Cloud Hosting** | Vercel, Cloudflare Pages, Railway, Render | Free-tier RAM limits (<512MB), edge routing, GitHub continuous deployment | Local kit doc (`T-001`) |
+| **Free-Tier Cloud Hosting** | Vercel, Cloudflare Pages, Railway, Render | Free-tier RAM limits (<512MB), edge routing, GitHub continuous deployment | Local kit doc (`T-001`) |
 
 ---
 
 ## 6. Two-Tier Precision Search Protocol (Token Guard)
 
 When an Agent needs to verify or retrieve an external technical dependency:
-1. **Tier 1 (Instant 0-Token Check)**: Consult this taxonomy table first. If the tool coordinates and architectural constraints are already listed, proceed immediately without searching.
+1. **Tier 1 (Lookup Without Web Search)**: Consult this taxonomy table first. If the tool coordinates and architectural constraints are already listed, proceed immediately without searching.
 2. **Tier 2 (Targeted Single-Hit Query)**: If documentation details or updated installation commands are required, execute **exactly one query** using the Precision Search Query pattern above. Never crawl more than 2 pages.

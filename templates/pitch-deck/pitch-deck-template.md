@@ -1,4 +1,4 @@
-# 📊 THE ULTIMATE PITCH DECK TEMPLATE (YC & SEQUOIA STANDARD)
+# 📊 PITCH DECK TEMPLATE (YC-STYLE STRUCTURE)
 
 > **Mục đích**: Bản khung thuyết trình chuẩn hóa dành cho Startup gọi vốn (Pre-Seed/Seed/Series A), Nhóm dự án bảo vệ đồ án/Hackathon, hoặc Tech Lead thuyết phục Ban lãnh đạo phê duyệt ngân sách.  
 > **Cấu trúc**: 11 Slide kinh điển tuân thủ định dạng vàng của **Y Combinator** và **Sequoia Capital**.

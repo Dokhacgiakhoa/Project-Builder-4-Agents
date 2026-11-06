@@ -9,7 +9,7 @@
 
 ### 🎯 Key Differentiators
 * **Designed for the Vibe Coder's AI Agent**: A traditional human developer not using AI will find this repository unconventional. It is not an end-user tutorial; it is an **Agent-Readable Operating System**: high information density, strict structured formatting, and optimized for LLM Context Windows.
-* **Pure Text, Zero External Links**: All rules, skill matrices, architecture constraints, and playbooks are self-contained **pure markdown text** within the repository. Agents never need to traverse external websites, eliminating broken links, web-crawling latency, and malicious code injection risks.
+* **Mostly Self-Contained Text**: Rules, skill matrices, architecture constraints, and playbooks are plain markdown inside this repository, so agents normally fetch only from this repo's raw URLs rather than browsing the web. This reduces, but does not remove, risks from broken links and injected content; fetched text must still be treated as untrusted (`core/untrusted-content.md`).
 * **Remote Knowledge Hub (Zero-Clone)**: Vibe coders never need to clone this multi-language repository onto their local machines. Their AI Agent reads the knowledge hub remotely on GitHub and pulls only the exact files required for their specific stack.
 
 ### 🏛️ The Triad Collaboration Model (Client — Translator — Company)
@@ -24,7 +24,7 @@
                  │ (Plain human language)
                  ▼
 ┌────────────────────────────────────────────────────────┐
-│        TRANSLATOR / PRINCIPAL SOLUTION ARCHITECT       │
+│        TRANSLATOR / SOLUTION ARCHITECT ROLE           │
 │               (Project-Builder-4-Agents)               │
 │                                                        │
 │  1. Guides Client to Prompt Correctly:                 │
@@ -35,7 +35,7 @@
 │     - Delivers architectural blueprints (Clean/Slice)  │
 │     - Supplies Ecosystem Taxonomy & Curated Skills     │
 │     - Enforces circuit breakers (Anti-Doom-Loop)       │
-│     - Generates 0-token audit score (Health Check A+)  │
+│     - Static audit score (no model calls)         │
 └────────────────┬───────────────────────────────────────┘
                  │
                  │ (Machine contracts & architectural constraints)
@@ -47,17 +47,17 @@
 │  - Follows blueprints strictly  │
 └─────────────────────────────────┘
 ```
-Without the Translator, the Client and the Dev House talk past each other: the client gives vague visual feedback, the dev house patches quick superficial hacks, and the codebase rapidly deteriorates into a Doom Loop. Project Builder serves as the durable translation layer and quality guarantor.
+Without the Translator, the Client and the Dev House talk past each other: the client gives vague visual feedback, the dev house patches quick superficial hacks, and the codebase rapidly deteriorates into a Doom Loop. Project Builder aims to act as that translation layer. This is a design hypothesis that has not yet been validated with real users or benchmarks (see Section 6).
 
 ---
 
 ## 2. Core Objective: Minimizing Execution Time & Token Consumption
 
-Modern AI models already excel at writing code syntax (`if/else`, loops, functions). This repository does not teach basic coding. Instead, it serves as a **Decision Acceleration Engine**:
+Modern AI models already excel at writing code syntax (`if/else`, loops, functions). This repository does not teach basic coding. Instead, it aims to reduce wasted decisions by providing:
 
 1. **Minimizing Time-to-Execution**: Instead of wasting dozens of back-and-forth prompt turns trying to clarify project scope or trial-and-erroring architectures, the kit provides deterministic decision rails to finalize tech stack, directory layouts, and rules within seconds.
-2. **Minimizing Token Consumption (ADR-0014)**: English is the primary language across all documents. English achieves optimal token density (~1.3 tokens/word vs. 2–4 tokens per syllable in accented languages), saving **40% to 60% of context tokens**. All knowledge documents are constrained to < 120 lines.
-3. **Solving the "1 Million Random Skills" Dilemma**: The internet is filled with thousands of untested prompts and skills. The kit provides a **Curated Skills Matrix (`curated-agent-skills.md`)** categorized by lifecycle and domain. Agents immediately pick and inject production-ready skills into their workspace without web searches.
+2. **Minimizing Token Consumption (ADR-0014)**: English is the primary language across all documents. English achieves optimal token density (~1.3 tokens/word vs. 2–4 tokens per syllable in accented languages), which should reduce context tokens for equivalent text (estimated 40–60% from tokenizer properties; **not yet measured** on real agent sessions). All knowledge documents are constrained to < 120 lines.
+3. **Solving the "1 Million Random Skills" Dilemma**: The internet is filled with thousands of untested prompts and skills. The kit provides a **Curated Skills Matrix (`curated-agent-skills.md`)** categorized by lifecycle and domain. Agents can pick and copy skills into their workspace without web searches. The skills are unproven in real projects.
 
 ---
 
@@ -126,15 +126,15 @@ The Agent executes the following phased sequence:
 * Prepares the project for live production:
   * Adheres to the 5 Go-Live Gates in `profiles/deployment/go-live-production-checklist.md`.
   * Multi-stage, non-root Docker packaging.
-  * Zero-cost cloud deployment via `profiles/stacks/cloud-free-tier-stack.md` (Vercel, Railway, Supabase, Cloudflare).
-  * Runs **Project Health Check** to audit the codebase, achieving a 100/100 A+ score before launch.
+  * Free-tier cloud deployment via `profiles/stacks/cloud-free-tier-stack.md` (Vercel, Railway, Supabase, Cloudflare).
+  * Runs **Project Health Check** to audit the codebase, reaching a clean static-audit result before launch (the score reflects static signals only, not runtime quality).
 
 ---
 
 ## 4. Curated Skills Matrix & MCP Integration
 
-To eliminate the overhead of filtering through thousands of fragmented web skills, the kit includes:
-1. **Curated Skills Matrix (`profiles/skills-catalog/curated-agent-skills.md`)**: 16 battle-tested, copy-pasteable `SKILL.md` files covering DB migrations, API defense, Auth RBAC, State Management, Docker, Stripe, and SEO.
+To reduce the overhead of filtering through fragmented web skills, the kit includes:
+1. **Curated Skills Matrix (`profiles/skills-catalog/curated-agent-skills.md`)**: 16 copy-pasteable `SKILL.md` files (not yet validated in real projects) covering DB migrations, API defense, Auth RBAC, State Management, Docker, Stripe, and SEO.
 2. **Curated MCP Matrix (`profiles/agent-configs/curated-mcp-matrix.md`)**: Pre-configured JSON templates for GitHub, Postgres, SQLite, Playwright, and Filesystem MCP servers for Claude Desktop, Cursor, and Windsurf.
 
 ---
@@ -144,3 +144,14 @@ To eliminate the overhead of filtering through thousands of fragmented web skill
 * Every file added, updated, or removed in the kit is indexed in `INDEX.md`.
 * `scripts/generate_manifest.py` scans the repository to generate `MANIFEST.json`, recording file paths, content hashes (SHA-256), and direct raw URLs.
 * Remote agents parse `MANIFEST.json` or `llms.txt` to access the exact resources they need with zero guesswork.
+
+
+---
+
+## 6. Scope, Limits, and Validation Status
+
+* **What it is**: Markdown files on GitHub that an agent reads remotely (library), a bootstrap procedure the agent executes in the user's project, and a local Health Check tool.
+* **What it is not**: A hosted service or running "brain". Nothing executes remotely.
+* **Zero-Clone limits**: Method B in `BOOTSTRAP.md` uses a temporary shallow clone. The Health Check and `scripts/sync_docs.py` run locally on the user's machine.
+* **Unvalidated**: No external users, benchmarks, or end-to-end agent runs yet. Token savings, routing accuracy, skill quality, and Codex support are hypotheses (`README.md` Validation Status, `TASKS.md` C1/C3/C7).
+* **Comparison policy**: Comparisons with other projects must be benchmarked, not asserted (`AGENTS.md` rule 13).

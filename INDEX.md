@@ -12,7 +12,7 @@
 | K-004 | C | When needing to **select an architecture profile** matching project requirements | [profiles/README.md](profiles/README.md) |
 | K-005 | C | When checking "what is wrong with project", before opening PR, or analyzing `project-review.md` | [scripts/README.md](scripts/README.md) |
 | K-006 | C | When opening **untrusted repos/files**, handling `SAFE-` security warnings, or prompt injection | [core/untrusted-content.md](core/untrusted-content.md) |
-| K-007 | C | When needing to understand **Zero-Clone remote mechanics and Hosted Agent Brain** architecture | [HOW_IT_WORKS.md](HOW_IT_WORKS.md) |
+| K-007 | C | When needing to understand **Zero-Clone remote mechanics and the remote knowledge library** architecture | [HOW_IT_WORKS.md](HOW_IT_WORKS.md) |
 
 ## 2. Working Standards (Core)
 | ID | Tier | When to use | Document |
@@ -23,7 +23,7 @@
 | S-004 | C | Repeated bug fixes, surface patching, or untangling spaghetti code | [knowledge-base/tu-duy/anti-patching-architectural-thinking.md](knowledge-base/tu-duy/anti-patching-architectural-thinking.md) |
 | S-005 | L | Avoiding common pitfalls and anti-patterns when collaborating with AI agents | [knowledge-base/technical-book/anti-patterns/common-mistakes.md](knowledge-base/technical-book/anti-patterns/common-mistakes.md) |
 | S-006 | P | When Agent is **caught in a debugging doom loop**, where fixes produce new errors and corrupt architecture | [profiles/playbooks/anti-doom-loop-guide.md](profiles/playbooks/anti-doom-loop-guide.md) |
-| S-007 | P | When setting up auto-syncing living documentation, git pre-commit hooks, and CI quality gates to eliminate documentation rot | [profiles/playbooks/living-documentation-sync.md](profiles/playbooks/living-documentation-sync.md) |
+| S-007 | P | When setting up auto-syncing living documentation, git pre-commit hooks, and CI quality gates to reduce documentation rot | [profiles/playbooks/living-documentation-sync.md](profiles/playbooks/living-documentation-sync.md) |
 | S-008 | C | Starting a non-trivial feature: staged spec -> clarify -> plan/tasks -> analyze -> implement-until-converged workflow with verification gates | [core/standards/feature-workflow.md](core/standards/feature-workflow.md) |
 
 ## 3. Architecture Profiles

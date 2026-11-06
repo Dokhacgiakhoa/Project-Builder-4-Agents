@@ -15,7 +15,7 @@
   * Sự sẵn sàng chi trả (Willingness to pay): [Họ sẵn sàng trả bằng tiền, thời gian hay công sức ra sao để giải quyết?]
 
 * **3. HOW (Bằng cách nào?)**:
-  * Giải pháp đột phá: [Sản phẩm / AI Agent giải quyết triệt để nỗi đau đó bằng cách nào?]
+  * Giải pháp: [Sản phẩm / AI Agent giải quyết triệt để nỗi đau đó bằng cách nào?]
   * Giá trị khác biệt (Unique Selling Point - USP): [Tại sao họ chọn giải pháp này thay vì các giải pháp thay thế?]
 
 ---

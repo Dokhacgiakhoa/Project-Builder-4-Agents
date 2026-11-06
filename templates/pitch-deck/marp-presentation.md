@@ -33,6 +33,8 @@ style: |
   }
 ---
 
+> ⚠️ **MẪU MINH HOẠ**: Mọi con số, thống kê, so sánh đối thủ và cam kết trong tệp này là dữ liệu giả định để minh hoạ cấu trúc. Chưa có số liệu nào được đo hay có nguồn. Thay bằng dữ liệu thật có nguồn trước khi sử dụng; không dùng nguyên văn cho Project-Builder-4-Agents.
+
 # 🚀 [PROJECT NAME]
 ### **Building the Next-Generation AI-Native Platform**
 
@@ -45,21 +47,21 @@ style: |
 
 * **Chi phí phát triển phần mềm ngày càng đắt đỏ**: Các đội ngũ mất 4-6 tháng chỉ để dựng scaffolding cơ bản và cấu hình CI/CD.
 * **Sự hỗn loạn khi lập trình cùng AI**: Code sinh ra nhanh gấp 10 lần nhưng thiếu context tổng thể, dẫn đến lỗi kỹ thuật tràn lan.
-* **Mất mát tài chính**: Các doanh nghiệp lãng phí trung bình **\$45,000** cho các đợt refactor mã nguồn chắp vá do AI sinh ra không kiểm soát.
+* **Mất mát tài chính**: Các doanh nghiệp lãng phí trung bình **\$[X]** (cần số liệu có nguồn) cho các đợt refactor mã nguồn chắp vá do AI sinh ra không kiểm soát.
 
-> *"Chúng tôi có công cụ AI mạnh mẽ, nhưng thiếu một bộ khung quản trị để AI không phá vỡ hệ thống."* — Khảo sát từ 120 Tech Leads.
+> *"Chúng tôi có công cụ AI mạnh mẽ, nhưng thiếu một bộ khung quản trị để AI không phá vỡ hệ thống."* — [Nguồn khảo sát cần ghi rõ].
 
 ---
 
-## 💡 2. The Solution (Giải Pháp Đột Phá)
+## 💡 2. The Solution (Giải Pháp)
 
 ### **Universal AI-Native Starter Kit & Delivery Framework**
 
 * **Context-Driven Architecture**: Cung cấp "Một Nguồn Sự Thật Duy Nhất" (Single Source of Truth) trong Git repo.
-* **The Anti-Crash Standard**: Quy chuẩn kỹ thuật phòng vệ triệt để giúp loại bỏ 100% lỗi màn hình trắng và null runtime exceptions.
+* **The Anti-Crash Standard**: Quy chuẩn kỹ thuật phòng vệ triệt để nhằm giảm lỗi màn hình trắng và null runtime exceptions (chưa đo).
 * **Decoupled Velocity**: Backend Clean Architecture kết hợp Frontend Bulletproof React hoạt động song song qua API Contracts độc lập.
 
-**Kết quả**: Giảm **65% thời gian go-to-market** và tiết kiệm **\$30,000** chi phí khởi tạo ban đầu.
+**Kết quả**: Mục tiêu: giảm **[X%] thời gian go-to-market** và tiết kiệm **\$[Y]** (cần đo thực tế).
 
 ---
 
@@ -94,13 +96,13 @@ graph LR
     A["Human PO / Architect"] -->|Specs & ADRs| B[Context Layer]
     B -->|Defensive Contracts| C[AI Coding Agents]
     C -->|TDD Implementation| D[CI Quality Gate]
-    D -->|Zero-Crash Guarantee| E[Production Release]
+    D -->|Anti-Crash Checks| E[Production Release]
 ```
 > [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNotkMtugzAQRX9l5EVXRd13EYngKkWK1JR0VcxiZE_AEraRH1VRyL_XULzznXvuPO5MOkXsFVjvcRrg3AgL-ZWtYO_JoIXLB7xA6eWgI8koWAdFcViuE8kAT1DyJixwbCtnI_1GOONMvvvPOG5OTjeyQf8QrB6PMmagass6_5W2PZQ92Rh2ptqYL86hNtNIJpcwamcX4G1Vw2fCUccZThhpJ_hGfJN3ReUxDHBK6DFPQwu8tRfvVJJrAjQ0Egbq2DMwQ96gVuve9zVGsDjkZiILgim6YRrzqsI-VjOm6K6zlbkYfaKspEnlAbjGfDSzy48_1MtsMQ==)
 
 * **Clean Architecture**: Tách rời hoàn toàn Core Domain khỏi Database và Frameworks.
 * **Feature-Driven UI**: 7 Vũ trụ thiết kế (UI/UX Archetypes) chuyển đổi linh hoạt.
-* **Automated Quality Gate**: 100% Type-checked, Lint-free, và Anti-Crash verified.
+* **Automated Quality Gate**: Type-check, lint và kiểm tra Anti-Crash chạy trong CI (kết quả phụ thuộc dự án).
 
 ---
 
@@ -137,9 +139,9 @@ graph LR
 | Tiêu Chí | Starter Kits Truyền Thống | No-Code / Vibe Coding | **Dự Án Của Chúng Tôi** |
 | :--- | :---: | :---: | :---: |
 | **Hỗ trợ Multi-Agent** | ❌ Không | ⚠️ Hộp đen kín | ✅ **Mở, Minh bạch, Git-first** |
-| **Tiêu chuẩn Anti-Crash**| ❌ Không | ❌ Dễ sập runtime | ✅ **Phòng thủ 100%** |
+| **Tiêu chuẩn Anti-Crash**| ❌ Không | ❌ Dễ sập runtime | ✅ **Có tiêu chuẩn phòng thủ (chưa đo)** |
 | **Clean Architecture** | ⚠️ Rời rạc | ❌ Code spaghetti | ✅ **DDD & Feature-Driven** |
-| **Tự do tùy biến** | ✅ Cao | ❌ Bị khóa vendor | ✅ **Zero Lock-in** |
+| **Tự do tùy biến** | ✅ Cao | ❌ Bị khóa vendor | ✅ **Ít phụ thuộc nhà cung cấp** |
 
 **Hào kinh tế phòng thủ (Moat)**: Chuẩn hóa toàn bộ quy trình phối hợp Human-Agent (RACI Matrix) vào Git Repo, tạo chi phí chuyển đổi cao và hiệu ứng cộng đồng mạng lưới.
 

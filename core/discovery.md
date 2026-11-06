@@ -35,7 +35,7 @@ when: "When needing to **interview user** to clarify project, lock user journeys
   * External network calls $\rightarrow$ inject `defensive-api-client`.
   * Frontend UI $\rightarrow$ inject `error-boundary-guard`.
   * Production ready $\rightarrow$ inject `docker-production-packager`, `cloud-free-tier-deployer`.
-  * *Zero tokens wasted on random internet searches.*
+  * *Avoids random internet searches for skills.*
 
 ## 4. Mandatory Deliverables of Phase 1
 1. `docs/project-brief.md`: Filled with core problem, user journeys, and explicit assumptions.

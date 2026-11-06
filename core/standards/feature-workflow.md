@@ -5,7 +5,7 @@ when: "Starting a non-trivial feature: staged spec -> clarify -> plan/tasks -> a
 ---
 # FEATURE WORKFLOW — STAGED SPEC-DRIVEN DELIVERY WITH GATES
 
-> For AI Agents. Adapts the strong parts of staged spec-driven toolchains (clarify, cross-artifact analysis, converge loop) without their overhead. Deliverable size must match change size: **never write more spec than the change needs**.
+> For AI Agents. Adapts the strong parts of staged spec-driven toolchains (clarify, cross-artifact analysis, converge loop) aiming to avoid their overhead (untested). Deliverable size must match change size: **never write more spec than the change needs**.
 
 ## 1. Scale Gate (decide first, tell the user in one line)
 | Size | Trigger | Path |

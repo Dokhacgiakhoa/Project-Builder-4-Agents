@@ -208,7 +208,7 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
         if self.details.get('agent_ecosystem', {}).get('found'):
             self.innovations.append("Chuẩn hóa hệ sinh thái AI AGENT (HIẾN PHÁP AGENTS.MD, SKILLS & WORKFLOWS) đón đầu kỷ nguyên Agentic AI.")
         if (self.root / 'scripts' / 'sync_docs.py').is_file() or (self.root / '.githooks' / 'pre-commit').is_file():
-            self.innovations.append("Tự động hóa đồng bộ TÀI LIỆU SỐNG (4-LAYER LIVING DOCUMENTATION & ZERO-DRIFT PIPELINE).")
+            self.innovations.append("Tự động hóa đồng bộ TÀI LIỆU SỐNG (4-LAYER LIVING DOCUMENTATION & DRIFT-CONTROL PIPELINE).")
 
         # 2. Nhận diện Thừa / Rác / Rủi ro (Bloat & Redundancies)
 

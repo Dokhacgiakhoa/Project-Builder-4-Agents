@@ -43,6 +43,6 @@
 * Engine được đóng gói để người dùng **không cần cài Python**; Python chỉ là đường chạy cho CI/Linux/macOS và cho người phát triển kit.
 
 ## 3. HỆ QUẢ (CONSEQUENCES)
-* **Tích cực**: người mới chỉ cần trò chuyện; mỗi dự án nhận cấu hình đúng cỡ; tài liệu tra cứu được bằng ý định; báo cáo đóng vòng "phát hiện → tra cứu → sửa → kiểm lại".
+* **Tích cực (kỳ vọng, chưa kiểm chứng với người dùng thật)**: người mới chỉ cần trò chuyện; mỗi dự án nhận cấu hình đúng cỡ; tài liệu tra cứu được bằng ý định; báo cáo đóng vòng "phát hiện → tra cứu → sửa → kiểm lại".
 * **Hạn chế**: Agent phải có khả năng tải tệp từ GitHub; chất lượng phụ thuộc vào việc `INDEX.md` luôn đúng (đã có `scripts/check_links.py` chạy trong CI); các định dạng Agent cần theo dõi định kỳ.
 * **Việc kế tiếp**: gói stack cụ thể (Profiles), kiểm tra Health Check theo profile, quy trình phát hành (GitHub Releases: exe + engine + checksum).

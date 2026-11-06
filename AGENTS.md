@@ -3,10 +3,10 @@
 > This document applies strictly when you are **maintaining or modifying this kit repository**. If a user wants to **bootstrap their own project** using this kit, follow [BOOTSTRAP.md](BOOTSTRAP.md). The instructions that target projects receive are located in [core/templates/AGENTS.md](core/templates/AGENTS.md).
 
 ## What is this Kit (See HOW_IT_WORKS.md, ADR-0012, ADR-0013, ADR-0014)
-A centralized **Hosted Agent Brain & Remote Knowledge Hub** on GitHub engineered for AI Coding Agents and Vibe Coders via **Zero-Clone** mechanics (users never clone the entire multi-stack repo; Agents inspect remotely, advise on tech stack, and fetch only what is required).
+A **remote knowledge library and bootstrap procedure** hosted as files on GitHub (no running service), engineered for AI Coding Agents and Vibe Coders via **Zero-Clone** reading (users never clone the entire multi-stack repo; Agents inspect remotely, advise on tech stack, and fetch only what is required).
 Two Core Products:
 1. **Builder**: Knowledge + protocols + system thinking framework for Agents (`BOOTSTRAP.md`, `INDEX.md`, `MANIFEST.json`, `llms.txt`, `core/`, `profiles/`, `knowledge-base/`, `templates/`).
-2. **Project Health Check**: Zero-token static workspace auditor and guardrail engine (`scripts/`, `tools/`).
+2. **Project Health Check**: Local static workspace auditor (no model calls) and guardrail engine; it runs on the user's machine, so it is not part of Zero-Clone (`scripts/`, `tools/`).
 All documentation is **Agent-Readable first**. Operational specifications: [HOW_IT_WORKS.md](HOW_IT_WORKS.md).
 
 Kit task roadmap and progress tracker: [TASKS.md](TASKS.md). Update it when completing or pivoting a milestone.
@@ -18,9 +18,10 @@ Kit task roadmap and progress tracker: [TASKS.md](TASKS.md). Update it when comp
 4. **Health Check Modifications**: Engine logic in `scripts/auditor_engine/` must be pure business logic with zero UI coupling. Every new finding must define **code + severity + remediation doc** in `remediation.py` (verified by automated tests).
 5. **Python 3.12+**. Zero runtime dependencies for the engine (standard library only).
 6. Any architectural or positioning pivot $\rightarrow$ record an ADR in `adrs/`.
-7. **Primary Language is English (ADR-0014)**: All knowledge files, skills (`SKILL.md`), rules, playbooks, catalogs, and templates must be authored in concise, technical English to minimize token consumption (~50% token reduction) and maximize LLM reasoning fidelity. When conversing with the human vibe coder, Agents dynamically respond in the user's preferred language.
+7. **Primary Language is English (ADR-0014)**: All knowledge files, skills (`SKILL.md`), rules, playbooks, catalogs, and templates must be authored in concise, technical English to reduce token consumption (estimated, not yet measured) and support LLM reasoning fidelity. When conversing with the human vibe coder, Agents dynamically respond in the user's preferred language.
 8. Run `make test` and `make check-links` before declaring completion. Never ignore a failing test.
 9. 2-Attempt Circuit Breaker: Stop and ask before breaking backwards compatibility, deleting knowledge files, or introducing heavy runtime dependencies.
 10. **Empirical Verification Before Assertion**: Never dismiss, speculate, or make factual claims about external tools, libraries, community skills, or competitor repositories without first performing an explicit tool search (`search_web`, GitHub lookup). Ground all assessments in verifiable facts, not probability-based memory recall.
 11. **Continuous Self-Improvement & Knowledge Feedback Loop**: When a user corrects an agent's assumption, identifies a knowledge gap, or clarifies a recurring pain point, the agent must NOT merely apologize in conversation. The agent is strictly obligated to codify that learning into the repository (updating rules, writing new playbooks, or refining guardrails) so that no future agent repeats the mistake.
-12. **Living Documentation & Zero-Drift**: Whenever code, tests, dependencies, or structures change, Agent MUST run `python scripts/sync_docs.py` to ensure `README.md`, `MANIFEST.json`, and related docs are kept 100% synchronized before declaring task completion.
+12. **Living Documentation (Drift Control)**: Whenever code, tests, dependencies, or structures change, Agent MUST run `python scripts/sync_docs.py` to ensure `README.md`, `MANIFEST.json`, and related docs are kept synchronized before declaring task completion.
+13. **Adversarial Self-Review (No Motivated Reasoning)**: This kit has no external validation (no stars, no measured evals). When comparing it with other projects, first explain why the other design may be rational, label each claim about this kit as verified or untested (see `TASKS.md`), apply every criticism of the other project to this kit too, never assert novelty without a search, and state what evidence would disprove this kit's value. Popularity is not proof of quality, but absence of validation is not proof of superiority.

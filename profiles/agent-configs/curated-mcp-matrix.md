@@ -6,7 +6,7 @@ when: "When needing to **select and configure MCP Servers (Model Context Protoco
 
 # CURATED MCP SERVERS MATRIX FOR AI AGENTS
 
-> **For AI Agents**: The Model Context Protocol (MCP) connects AI Agents directly to infrastructure (Databases, GitHub, Cloud, Headless Browsers) without manual developer intervention. This matrix catalogs battle-tested, secure MCP servers and standardized JSON templates for Claude Code, Cursor, Windsurf, and Antigravity.
+> **For AI Agents**: The Model Context Protocol (MCP) connects AI Agents directly to infrastructure (Databases, GitHub, Cloud, Headless Browsers) without manual developer intervention. This matrix catalogs commonly used MCP servers (not independently security-audited; review each before installing) and standardized JSON templates for Claude Code, Cursor, Windsurf, and Antigravity.
 
 ---
 
