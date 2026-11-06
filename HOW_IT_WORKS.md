@@ -135,7 +135,7 @@ The Agent executes the following phased sequence:
 
 To reduce the overhead of filtering through fragmented web skills, the kit includes:
 1. **Curated Skills Matrix (`profiles/skills-catalog/curated-agent-skills.md`)**: 16 copy-pasteable `SKILL.md` files (not yet validated in real projects) covering DB migrations, API defense, Auth RBAC, State Management, Docker, Stripe, and SEO.
-2. **Curated MCP Matrix (`profiles/agent-configs/curated-mcp-matrix.md`)**: Pre-configured JSON templates for GitHub, Postgres, SQLite, Playwright, and Filesystem MCP servers for Claude Desktop, Cursor, and Windsurf.
+2. **Curated MCP Matrix (`profiles/agent-configs/curated-mcp-matrix.md`)**: JSON templates for Filesystem, Playwright and Postgres MCP servers (package names verified 2026-11-07; re-check before use) for Claude Desktop, Cursor, and Windsurf.
 
 ---
 

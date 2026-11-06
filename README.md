@@ -62,6 +62,8 @@ This project is new and has no external users or independent benchmarks. Treat i
 | Works with Codex | **Unverified** |
 | Health Check runs on a clean Windows machine | **Untested** (exe not yet tried on a machine without Python) |
 | Health Score badge above | Self-measured by this kit's own tool; it checks structure and static signals, not output quality |
+| Raw GitHub URLs in `MANIFEST.json` resolve for remote reading | **Verified 2026-11-07**: every pushed file returned HTTP 200 (333/340; the other 7 were local, unpushed files) |
+| External tool and MCP package names in the catalogs exist and are maintained | **Verified 2026-11-07** via npm, PyPI and GitHub API; 3 wrong or deprecated entries were found and fixed (see `profiles/agent-configs/curated-mcp-matrix.md`). Re-check periodically |
 | Static checks are covered by automated tests | **Verified** (pytest suite) |
 
 Roadmap and status of each check: [TASKS.md](TASKS.md).

@@ -6,6 +6,8 @@ when: "When needing to **look up authoritative ecosystem tools, keywords, and pr
 
 # AGENT ECOSYSTEM TAXONOMY & SEARCH COMPASS
 
+> **Verification log (2026-11-07)**: coordinates for shadcn-ui/ui, Leonxlnx/taste-skill, nextlevelbuilder/ui-ux-pro-max-skill, jdan/98.css, botoxparty/XP.css, nostalgic-css/NES.css, magicuidesign/magicui, microsoft/playwright-mcp, ChromeDevTools/chrome-devtools-mcp, github/github-mcp-server, crystaldba/postgres-mcp were confirmed via the GitHub API and are active; steipete/agent-rules is archived; RPGUI and aceternity repos were not found and are unverified. Existence and activity are not endorsements of quality.
+>
 > **For AI Agents**: When facing unfamiliar technical domains, naive agents guess vague search queries (`"how to make UI pretty"`), wasting tokens crawling low-quality pages. This document provides a pre-computed map of commonly referenced open-source tools (coordinates not re-verified; confirm a tool exists and is maintained before adopting it), exact repository coordinates, related search vectors, and one-hit precision queries.
 > **Role in the Triad Model**: Acts as the Translator's technical dictionary, providing the AI Agent (Company) with exact industry terminology to fulfill the Vibe Coder's (Client's) intent without hallucination.
 
@@ -17,8 +19,8 @@ when: "When needing to **look up authoritative ecosystem tools, keywords, and pr
 | :-- | :-- | :-- | :-- |
 | **Generative Art Direction** | `Leonxlnx/taste-skill`<br>(tasteskill.dev) | `design-taste-frontend`, `DESIGN_VARIANCE`, `MOTION_INTENSITY`, `VISUAL_DENSITY` | `site:github.com "Leonxlnx/taste-skill"` |
 | **Comprehensive UI/UX Intelligence** | `nextlevelbuilder/ui-ux-pro-max-skill` | Bento Grid, Glassmorphism, Neumorphism, Google Font pairings, UX guidelines | `site:github.com "nextlevelbuilder/ui-ux-pro-max-skill"` |
-| **Modern Component Primitives** | `shadcn/ui`, `magicui`, `aceternity` | Radix primitives, Tailwind CSS v4, accessible ARIA, unstyled headless | `site:github.com/shadcn-ui/ui` |
-| **Retro & Niche Archetypes** | `98.css`, `XP.css`, `NES.css`, `RPGUI` | Nostalgic UI, pixel-art styling, brutalist paper CSS | `site:github.com "98.css" OR "XP.css"` |
+| **Modern Component Primitives** | `shadcn/ui`, `magicui` (aceternity repo not verified) | Radix primitives, Tailwind CSS v4, accessible ARIA, unstyled headless | `site:github.com/shadcn-ui/ui` |
+| **Retro & Niche Archetypes** | `98.css`, `XP.css`, `NES.css` (`RPGUI` repo not verified) | Nostalgic UI, pixel-art styling, brutalist paper CSS | `site:github.com "98.css" OR "XP.css"` |
 | **Screenshot Replication** | `profiles/design/screenshot-to-code-reverse-engineering.md` | Replicative mode, Design Tokens first, 1px subtle borders (`border-white/10`), Mirror test | Local kit doc (`D-006`) |
 
 *Search Traps to Avoid*: Do not search generic terms like `"clean modern UI"`. Query exact package names and token standards.
@@ -29,7 +31,7 @@ when: "When needing to **look up authoritative ecosystem tools, keywords, and pr
 
 | Subdomain | Authoritative Tools & Coordinates | Related Concept Vectors | Precision Search Query |
 | :-- | :-- | :-- | :-- |
-| **Multi-Agent Coding Rules** | `steipete/agent-rules`<br>(Peter Steinberger) | `agentic engineering`, parallel coding agents, non-destructive git, standing brief | `site:github.com/steipete/agent-rules` |
+| **Multi-Agent Coding Rules** | `steipete/agent-rules`<br>(Peter Steinberger; repo archived, last push 2026-05-03) | `agentic engineering`, parallel coding agents, non-destructive git, standing brief | `site:github.com/steipete/agent-rules` |
 | **Native Context Ingestion** | Anthropic Claude Code `CLAUDE.md`<br>Cursor `.cursor/rules/*.mdc` | Progressive disclosure, 100-token discovery frontmatter, single source of truth | `site:anthropic.com "CLAUDE.md" standing brief` |
 | **Anti-Doom-Loop Enforcement** | `profiles/playbooks/anti-doom-loop-guide.md` | Spec-First Loop, CI Green Loop, Git Micro-Checkpoint Loop, 2-attempt circuit breaker | Local kit doc (`S-006`) |
 | **Prompt Injection Defense** | `core/untrusted-content.md` | `SAFE-001`…`SAFE-005`, zero-width characters, hidden HTML comments, unverified MCP hooks | Local kit doc (`K-006`) |
@@ -53,9 +55,9 @@ when: "When needing to **look up authoritative ecosystem tools, keywords, and pr
 
 | Subdomain | Authoritative Tools & Coordinates | Related Concept Vectors | Precision Search Query |
 | :-- | :-- | :-- | :-- |
-| **Browser Visual Inspection** | `@modelcontextprotocol/server-playwright`<br>`chrome-devtools-mcp` | Headless browser, DOM snapshot, visual diff, screenshot comparison, page audit | `site:github.com "modelcontextprotocol" "playwright"` |
-| **Database Direct Query MCP** | `@modelcontextprotocol/server-postgres`<br>`mcp-server-sqlite` | Schema introspection, foreign key verification, index analysis, read-only mode | `site:github.com "mcp-server-postgres" OR "mcp-server-sqlite"` |
-| **GitHub Automation MCP** | `@modelcontextprotocol/server-github` | Issue triage, PR generation, tree inspection, branch protection | `site:github.com "server-github" modelcontextprotocol` |
+| **Browser Visual Inspection** | `@playwright/mcp`<br>`chrome-devtools-mcp` | Headless browser, DOM snapshot, visual diff, screenshot comparison, page audit | `site:github.com "microsoft/playwright-mcp"` |
+| **Database Direct Query MCP** | `crystaldba/postgres-mcp` (use `--access-mode=restricted`) | Schema introspection, foreign key verification, index analysis, read-only mode | `site:github.com "crystaldba/postgres-mcp"` |
+| **GitHub Automation MCP** | `github/github-mcp-server` | Issue triage, PR generation, tree inspection, branch protection | `site:github.com "github/github-mcp-server"` |
 
 *Search Traps to Avoid*: Never download untrusted MCP servers executing arbitrary binary shell commands without verifying the publisher.
 
