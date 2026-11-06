@@ -216,7 +216,7 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
 
         for ef in env_files:
 
-            self.bloat.append(f"Tệp cấu hình nhạy cảm (.ENV) đang bị Git theo dõi: `{ef.relative_to(self.root)}` (Nguy cơ rò rỉ thông tin bảo mật).")
+            self.bloat.append(f"Có tệp cấu hình nhạy cảm `{ef.relative_to(self.root)}` trong dự án: cần xác nhận tệp này nằm trong .gitignore và không bị Git theo dõi (kiểm tra bằng `git ls-files`) (Nguy cơ rò rỉ thông tin bảo mật).")
 
         if not (self.root / '.gitignore').exists():
 

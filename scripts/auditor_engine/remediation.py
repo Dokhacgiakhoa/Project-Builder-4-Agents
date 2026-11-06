@@ -90,6 +90,18 @@ TEXT_RULES: list[tuple[str, str, str, list[str]]] = [
 
 GENERIC = ("GEN-001", "Trung bình", ["K-003"])
 
+# Mã phát ra trực tiếp từ engine (không qua VIOLATION_RULES/TEXT_RULES): mã -> (mức, [doc ids]).
+# Mọi mã phát hiện phải có mặt ở đây hoặc trong các bảng trên (có test kiểm tra).
+CODE_RULES: dict[str, tuple[str, list[str]]] = {
+    "SAFE-001": ("Cao", ["K-006"]),
+    "SAFE-002": ("Cao", ["K-006"]),
+    "SAFE-003": ("Cao", ["K-006"]),
+    "SAFE-004": ("Trung bình", ["K-006"]),
+    "SAFE-005": ("Trung bình", ["K-006"]),
+    "ARCH-007": ("Trung bình", ["K-004"]),
+    "ARCH-008": ("Trung bình", ["K-004"]),
+}
+
 # Các gap chỉ là tổng kết (đã liệt kê chi tiết ở nơi khác) -> bỏ để khỏi trùng.
 SUMMARY_GAP = re.compile(r"vị trí vi phạm tiêu chuẩn ANTI-CRASH", re.IGNORECASE)
 

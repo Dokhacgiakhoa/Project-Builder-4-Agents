@@ -13,7 +13,8 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from auditor_engine import ProjectAuditor  # noqa: E402
 from auditor_engine.baseline import check_baseline, check_declared_profile, declared_architecture  # noqa: E402
-from auditor_engine.remediation import DOCS, VIOLATION_RULES, from_text, from_violation  # noqa: E402
+from auditor_engine.remediation import CODE_RULES, DOCS, VIOLATION_RULES, from_text, from_violation  # noqa: E402
+from auditor_engine.safety import KINDS as SAFETY_KINDS  # noqa: E402
 
 
 def simulate_bootstrap_step1(dest: Path):
@@ -53,6 +54,19 @@ def test_all_rules_reference_known_docs():
         assert all(d in DOCS for d in docs), docs
     for _code, _sev, docs in VIOLATION_RULES.values():
         assert all(d in DOCS for d in docs), docs
+    for _sev, docs in CODE_RULES.values():
+        assert all(d in DOCS for d in docs), docs
+
+
+def test_every_safety_code_has_remediation_with_same_severity():
+    for code, (sev, _title) in SAFETY_KINDS.items():
+        assert code in CODE_RULES, f"{code} thiếu trong CODE_RULES"
+        assert CODE_RULES[code][0] == sev, code
+
+
+def test_arch_profile_and_guardrail_codes_have_remediation():
+    for code in ("ARCH-007", "ARCH-008"):
+        assert code in CODE_RULES, code
 
 
 # ---- Phân loại phát hiện ----
