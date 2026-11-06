@@ -9,7 +9,7 @@
     "how_it_works": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/HOW_IT_WORKS.md",
     "llms_txt": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/llms.txt"
   },
-  "generated_at": "2026-11-06T20:48:48.290129+00:00",
+  "generated_at": "2026-11-06T20:57:28.752735+00:00",
   "total_files": 353,
   "files": {
     ".agents/skills/health-check/SKILL.md": {
@@ -1510,7 +1510,7 @@
     "scripts/README.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/README.md",
       "category": "scripts",
-      "size_bytes": 5861
+      "size_bytes": 5938
     },
     "scripts/auditor_engine/__init__.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/auditor_engine/__init__.py",
@@ -1655,17 +1655,17 @@
     "scripts/token_dashboard/server.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/token_dashboard/server.py",
       "category": "scripts",
-      "size_bytes": 3347
+      "size_bytes": 3381
     },
     "scripts/token_dashboard/service.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/token_dashboard/service.py",
       "category": "scripts",
-      "size_bytes": 5693
+      "size_bytes": 5687
     },
     "scripts/token_dashboard/static/index.html": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/token_dashboard/static/index.html",
       "category": "scripts",
-      "size_bytes": 29433
+      "size_bytes": 29778
     },
     "scripts/token_dashboard_cli.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/token_dashboard_cli.py",
@@ -1685,7 +1685,7 @@
     "scripts/token_monitor_cli.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/token_monitor_cli.py",
       "category": "scripts",
-      "size_bytes": 7537
+      "size_bytes": 7611
     },
     "templates/pitch-deck/ai-pitch-generator-prompts.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/templates/pitch-deck/ai-pitch-generator-prompts.md",
@@ -1750,7 +1750,7 @@
     "tests/test_token_dashboard.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/tests/test_token_dashboard.py",
       "category": "other",
-      "size_bytes": 5055
+      "size_bytes": 5170
     },
     "tests/test_token_monitor.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/tests/test_token_monitor.py",

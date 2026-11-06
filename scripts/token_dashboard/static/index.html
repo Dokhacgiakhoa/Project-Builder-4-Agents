@@ -114,7 +114,7 @@
   <div class="filters" role="group" aria-label="Bộ lọc">
     <label class="f">Dự án <select id="projectSel"></select></label>
     <label class="f">Phiên <select id="sessionSel"></select></label>
-    <label class="f">Cảnh báo ngữ cảnh ≥ <input type="number" id="warnIn" min="1000" step="10000" value="200000"> token</label>
+    <label class="f">Ngưỡng cảnh báo (tuỳ chọn, tự đặt) <input type="number" id="warnIn" min="0" step="10000" placeholder="tắt"> token</label>
   </div>
 
   <div id="empty" class="card empty" hidden></div>
@@ -180,7 +180,7 @@
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
   var NS = "http://www.w3.org/2000/svg";
-  var state = { project: null, session: "latest", warn: 200000, paused: false, timer: null, data: null, busy: false };
+  var state = { project: null, session: "latest", warn: 0, paused: false, timer: null, data: null, busy: false };
 
   function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
 
@@ -247,7 +247,7 @@
     var W = Math.max(280, host.clientWidth), H = 240, m = { l: 50, r: 64, t: 12, b: 30 };
     var n = series.length, pw = W - m.l - m.r, ph = H - m.t - m.b;
     var maxCtx = Math.max.apply(null, series.map(function (s) { return s.ctx; }).concat([1]));
-    var showWarn = maxCtx >= warn * 0.5;
+    var showWarn = warn > 0 && maxCtx >= warn * 0.5;
     var T = ticks(showWarn ? Math.max(maxCtx, warn) : maxCtx);
     var sx = function (i) { return m.l + (n <= 1 ? pw / 2 : pw * i / (n - 1)); };
     var sy = function (v) { return m.t + ph * (1 - v / T.max); };
@@ -370,24 +370,26 @@
     var series = d.series || [];
     if (!series.length) { $("content").hidden = true; $("empty").hidden = false; $("empty").textContent = "Chưa có dữ liệu cho phiên này. Hãy chat với Claude Code trong dự án này rồi quay lại."; return; }
     $("empty").hidden = true; $("content").hidden = false;
-    var warn = d.warn_context, ctx = d.context_now, pct = ctx / warn * 100;
+    var warn = d.warn_context, ctx = d.context_now, pct = warn > 0 ? ctx / warn * 100 : 0;
     setText("heroValue", full(ctx));
     var meter = $("meter"), mf = $("meterFill");
+    meter.hidden = warn <= 0;
     mf.style.width = Math.min(100, pct) + "%";
     meter.className = "meter" + (pct >= 100 ? " crit" : pct >= 70 ? " warn" : "");
     meter.setAttribute("aria-valuenow", Math.round(Math.min(100, pct)));
-    setText("meterLeft", Math.round(pct) + "% ngưỡng cảnh báo (" + full(warn) + ")");
+    setText("meterLeft", warn > 0 ? Math.round(pct) + "% ngưỡng bạn đặt (" + full(warn) + ")" : "Chưa đặt ngưỡng cảnh báo");
     setText("meterRight", "đỉnh " + full(d.context_peak));
-    setText("badge", pct >= 100 ? "⚠ Vượt ngưỡng: mỗi lượt đang đọc lại rất nhiều. Hãy tóm tắt (/compact) hoặc mở phiên mới."
-                    : pct >= 70 ? "⚠ Sắp tới ngưỡng cảnh báo."
-                    : "✓ Trong ngưỡng an toàn bạn đặt.");
+    setText("badge", warn <= 0 ? "Không có ngưỡng mặc định: tự đặt một con số nếu muốn được cảnh báo."
+                    : pct >= 100 ? "⚠ Vượt ngưỡng bạn đặt. Nếu thấy chậm hoặc tốn, cân nhắc tóm tắt (/compact) hoặc mở phiên mới."
+                    : pct >= 70 ? "⚠ Sắp tới ngưỡng bạn đặt."
+                    : "✓ Dưới ngưỡng bạn đặt.");
     setText("kTurns", full(d.turns));
     setText("kTurnsNote", d.sessions.length + " phiên trong dự án" + (d.session === "all" ? " (đang cộng tất cả)" : ""));
     setText("kRate", full(d.new_tokens_per_min));
     setText("kOut", full(d.totals.output));
     setText("kOutNote", "≈ " + full(d.output_tokens_per_min) + " token/phút gần đây");
     setText("kIn", full(d.totals.cache_write + d.totals.fresh_input));
-    setText("ctxSub", "Mỗi điểm là một lượt; đường nét đứt là ngưỡng cảnh báo bạn đặt" + (d.truncated ? " · chỉ vẽ " + series.length + " lượt gần nhất" : ""));
+    setText("ctxSub", "Mỗi điểm là một lượt; đường nét đứt là ngưỡng bạn tự đặt (nếu có)" + (d.truncated ? " · chỉ vẽ " + series.length + " lượt gần nhất" : ""));
     drawCtx(series, warn); drawNew(series);
     fill("topBody", d.top_turns.map(function (t) { return [cell(hhmm(t.t)), cell(full(t.new), 1), cell(full(t.cache_write), 1), cell(full(t.out), 1)]; }));
     fill("modelBody", d.by_model.map(function (m) { return [cell(m.model), cell(full(m.turns), 1), cell(full(m.output), 1)]; }));
@@ -435,7 +437,7 @@
   // ---- controls ----
   $("projectSel").addEventListener("change", function (e) { state.project = e.target.value; state.session = "latest"; store("tm.project", state.project); tick(); });
   $("sessionSel").addEventListener("change", function (e) { state.session = e.target.value; tick(); });
-  $("warnIn").addEventListener("change", function (e) { var v = parseInt(e.target.value, 10); if (v >= 1000) { state.warn = v; store("tm.warn", String(v)); tick(); } });
+  $("warnIn").addEventListener("change", function (e) { var v = parseInt(e.target.value, 10); if (isNaN(v) || v <= 0) { state.warn = 0; store("tm.warn", "0"); tick(); } else if (v >= 1000) { state.warn = v; store("tm.warn", String(v)); tick(); } });
   $("pauseBtn").addEventListener("click", function () {
     state.paused = !state.paused; setText("pauseBtn", state.paused ? "Tiếp tục" : "Tạm dừng");
     if (state.paused) setStatus("", "đã tạm dừng"); else tick();

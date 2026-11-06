@@ -121,6 +121,7 @@ def test_server_api_and_loopback_guard(tmp_path):
         st, body = get(port, "/api/tokens?project=proj-a&warn=5")  # warn clamps to minimum
         d = json.loads(body)
         assert st == 200 and d["turns"] == 2 and d["warn_context"] == 1000
+        assert json.loads(get(port, "/api/tokens?project=proj-a")[1])["warn_context"] == 0  # no default threshold
         assert get(port, "/api/tokens?project=..")[0] == 404
         assert get(port, "/api/projects", host="evil.example.com")[0] == 403  # DNS-rebinding guard
         assert get(port, "/api/projects", method="POST")[0] == 405            # read-only

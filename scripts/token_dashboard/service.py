@@ -69,7 +69,7 @@ class TokenService:
                  "size": f.stat().st_size} for f in files]
 
     # ---- payload -----------------------------------------------------
-    def payload(self, project_id: str, session: str = "latest", warn_context: int = 200_000,
+    def payload(self, project_id: str, session: str = "latest", warn_context: int = 0,
                 window_min: float = 10.0, max_points: int = 300, top_n: int = 5) -> dict:
         d = self._project_dir(project_id)
         if not d:

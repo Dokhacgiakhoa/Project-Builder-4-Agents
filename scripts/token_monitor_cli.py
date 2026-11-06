@@ -72,7 +72,7 @@ def render(s: Snapshot, a, files: list[Path]) -> str:
     for e in s.top_turns:
         lines.append(f"  {e.ts.astimezone():%H:%M:%S}  {n(e.new_tokens):>9} {t['per_min'].split('/')[0]}  "
                      f"({t['cache_w']} {n(e.cache_creation)}, {t['out']} {n(e.output_tokens)})")
-    if s.context_now >= a.warn_context:
+    if a.warn_context and s.context_now >= a.warn_context:
         lines += ["", "! " + t["warn"]]
     lines += ["", t["note"]]
     return "\n".join(lines)
@@ -108,7 +108,7 @@ def main() -> int:
     ap.add_argument("--json", action="store_true", help="print JSON once and exit")
     ap.add_argument("--lang", choices=sorted(L), default="vi")
     ap.add_argument("--context-limit", type=int, default=0, help="show context as %% of this limit")
-    ap.add_argument("--warn-context", type=int, default=200_000, help="warn above this context size")
+    ap.add_argument("--warn-context", type=int, default=0, help="warn above this context size (0 = off; no default threshold is recommended by any source)")
     a = ap.parse_args()
     sys.stdout.reconfigure(encoding="utf-8")
 

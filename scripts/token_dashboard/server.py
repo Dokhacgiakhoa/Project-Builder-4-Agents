@@ -58,7 +58,7 @@ def make_handler(service: TokenService):
                 pid = (q.get("project") or [service.pick_default_project() or ""])[0]
                 data = service.payload(
                     pid, (q.get("session") or ["latest"])[0],
-                    warn_context=_int(q, "warn", 200_000, 1_000, 10_000_000),
+                    warn_context=(lambda w: 0 if w <= 0 else max(1_000, w))(_int(q, "warn", 0, 0, 10_000_000)),
                     window_min=_int(q, "window", 10, 1, 120),
                     max_points=_int(q, "points", 300, 10, 2000),
                 )
