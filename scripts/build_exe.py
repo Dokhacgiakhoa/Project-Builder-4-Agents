@@ -5,7 +5,9 @@
   1. engine/reviewer-engine.exe : Core Engine Python đóng gói bằng PyInstaller (serve | audit)
   2. Project-Health-Check.exe         : Native Host Shell .NET 10 + WebView2 (ADR-0011), gọi engine ở trên
 
-Chạy: python scripts/build_exe.py [--engine-only | --shell-only]   (hoặc: make build-exe)
+Chạy: python scripts/build_exe.py [--engine-only | --shell-only] [--self-contained]   (hoặc: make build-exe)
+Mặc định shell là framework-dependent (nhỏ, cần .NET 10 Desktop Runtime trên máy người dùng);
+--self-contained đóng kèm runtime để chạy trên máy chưa cài .NET (đã thử khi bỏ DOTNET_ROOT, PATH tối thiểu).
 Yêu cầu khi BUILD (người dùng cuối không cần): Windows, Python 3.12+, PyInstaller, .NET 10 SDK.
 """
 
@@ -65,7 +67,7 @@ def build_engine() -> int:
     return 0
 
 
-def build_shell() -> int:
+def build_shell(self_contained: bool = False) -> int:
     if shutil.which("dotnet") is None:
         print("[ERROR] Không tìm thấy .NET SDK. Cài .NET 10 SDK: https://dotnet.microsoft.com/download",
               file=sys.stderr)
@@ -75,12 +77,13 @@ def build_shell() -> int:
         print("[INFO] Đang tạo icon assets/app-icon.ico ...")
         subprocess.run([sys.executable, str(SCRIPTS / "generate_icon.py")], check=True)
 
-    print("[INFO] Đang biên dịch Project-Health-Check.exe (.NET 10 + WebView2) ...")
-    result = subprocess.run(
-        ["dotnet", "publish", str(PROJECT), "-c", "Release", "-r", "win-x64",
-         "--self-contained", "false", "-o", str(DIST)],
-        check=False,
-    )
+    mode = "self-contained (~50 MB, không cần cài .NET)" if self_contained else "framework-dependent (cần .NET 10 Desktop Runtime)"
+    print(f"[INFO] Đang biên dịch Project-Health-Check.exe (.NET 10 + WebView2), {mode} ...")
+    cmd = ["dotnet", "publish", str(PROJECT), "-c", "Release", "-r", "win-x64",
+           "--self-contained", "true" if self_contained else "false", "-o", str(DIST)]
+    if self_contained:
+        cmd.append("-p:EnableCompressionInSingleFile=true")
+    result = subprocess.run(cmd, check=False)
     if result.returncode != 0:
         print("[ERROR] Biên dịch thất bại, xem log ở trên.", file=sys.stderr)
         return result.returncode
@@ -101,6 +104,9 @@ def main() -> int:
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--engine-only", action="store_true", help="Chỉ đóng gói engine Python.")
     group.add_argument("--shell-only", action="store_true", help="Chỉ biên dịch shell .NET.")
+    parser.add_argument("--self-contained", action="store_true",
+                        help="Đóng kèm .NET runtime vào exe (~50 MB) để chạy trên máy chưa cài .NET. "
+                             "Không nên commit bản này vào git: phát hành qua GitHub Releases.")
     args = parser.parse_args()
 
     if sys.platform != "win32":
@@ -113,7 +119,7 @@ def main() -> int:
         if code:
             return code
     if not args.engine_only:
-        code = build_shell()
+        code = build_shell(args.self_contained)
         if code:
             return code
     return 0

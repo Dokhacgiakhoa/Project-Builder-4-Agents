@@ -17,6 +17,8 @@ when: "When checking \"what is wrong with project\", before opening PR, or analy
 
 Default invocation (with no directory argument) audits this kit repository itself.
 
+**Packaging note**: `reviewer-engine.exe` is self-contained (PyInstaller, no Python needed). `Project-Health-Check.exe` is by default framework-dependent and needs the .NET 10 Desktop Runtime on the user's machine; build it with `python scripts/build_exe.py --self-contained` (about 50 MB) to run on a machine without .NET. The `engine\` folder must sit next to the exe. Verified on a machine that has Python and .NET installed, with a minimal `PATH` and `DOTNET_ROOT` pointed at an empty folder; not yet verified on a truly clean Windows install (`TASKS.md`, A2).
+
 ## How AI Agents & Humans Parse `project-review.md`
 1. **Frontmatter & Header**: Total health score (`0–100`), Letter Grade (`A+`, `A`, `B+`...), `kit_ref`, active `declared_architecture`, and `guardrail_level` (`M1–M3`) from `.builder/kit.json`.
 2. **Section 0 (Safety & Prompt Injection Scan)**: Always review first. Scans text files (`.md`, `.json`, `.html`, `.txt`, `.yaml`, `.mdc`...) for prompt injection directives (`SAFE-001`), hidden zero-width/bidi characters (`SAFE-002`), hidden HTML comments/elements (`SAFE-003`), obfuscated base64 blobs (`SAFE-004`), and unverified MCP/hook shell commands (`SAFE-005`). Remediation: [core/untrusted-content.md](../core/untrusted-content.md).
