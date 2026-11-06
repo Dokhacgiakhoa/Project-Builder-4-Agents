@@ -24,6 +24,7 @@
 | S-005 | L | Avoiding common pitfalls and anti-patterns when collaborating with AI agents | [knowledge-base/technical-book/anti-patterns/common-mistakes.md](knowledge-base/technical-book/anti-patterns/common-mistakes.md) |
 | S-006 | P | When Agent is **caught in a debugging doom loop**, where fixes produce new errors and corrupt architecture | [profiles/playbooks/anti-doom-loop-guide.md](profiles/playbooks/anti-doom-loop-guide.md) |
 | S-007 | P | When setting up auto-syncing living documentation, git pre-commit hooks, and CI quality gates to eliminate documentation rot | [profiles/playbooks/living-documentation-sync.md](profiles/playbooks/living-documentation-sync.md) |
+| S-008 | C | Starting a non-trivial feature: staged spec -> clarify -> plan/tasks -> analyze -> implement-until-converged workflow with verification gates | [core/standards/feature-workflow.md](core/standards/feature-workflow.md) |
 
 ## 3. Architecture Profiles
 | ID | Tier | When to use | Document |

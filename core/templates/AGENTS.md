@@ -21,7 +21,7 @@
 
 ## 3. Working Rules (Mandatory across all projects)
 1. **Read before edit.** Read relevant files thoroughly; never guess. Review `docs/project-brief.md` and related ADRs before developing new features.
-2. **Spec before code** for non-trivial changes: summarize objective, acceptance criteria, affected files (template: `tasks/task-spec.md`). Never modify architectural **contracts** (APIs, DB schema, routes, shared types) without an ADR and explicit user approval.
+2. **Spec before code** for non-trivial changes: summarize objective, acceptance criteria, affected files (template: `tasks/task-spec.md`). For features beyond a tiny change, follow the staged workflow in `docs/standards/feature-workflow.md` (spec -> clarify -> plan -> analyze -> implement until converged). Never modify architectural **contracts** (APIs, DB schema, routes, shared types) without an ADR and explicit user approval.
 3. **Defensive boundaries**: Validate all external inputs (user inputs, network responses, files, DB queries, JSON parsing), handle errors explicitly with structured logs, **never swallow errors silently**, and provide safe fallback defaults. See `docs/standards/coding-conventions.md`.
 4. **Tests accompany code**: At least 1 happy path test + 2 edge/failure cases. Run commands in Section 2; report "Done" only when all checks pass green. Verify against `docs/standards/definition-of-done.md`.
 5. **2-Attempt Circuit Breaker**: If fixing the same issue (bug, UI glitch, network error) fails on the second attempt $\rightarrow$ **STOP immediately**. Do NOT attempt a 3rd blind patch. Analyze architectural root causes and propose options for user decision.
