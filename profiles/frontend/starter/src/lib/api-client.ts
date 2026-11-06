@@ -1,7 +1,7 @@
 /**
  * Centralized API Client with interceptors and error normalization.
  */
-const baseURL = (import.meta as any).env?.VITE_API_URL || '/api';
+const baseURL = import.meta.env.VITE_API_URL || '/api';
 
 export async function apiClient<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const response = await fetch(`${baseURL}${endpoint}`, {
