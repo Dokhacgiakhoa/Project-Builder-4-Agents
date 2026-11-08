@@ -17,7 +17,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
       <div className="flex items-center gap-2 mb-3 px-1">
         <Sparkles className="h-4 w-4 text-sky-600" />
         <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
-          Chọn Phong Cách Thẩm Mỹ (UI/UX Archetypes)
+          Choose an Aesthetic Style (UI/UX Archetypes)
         </span>
       </div>
 

@@ -1,4 +1,4 @@
-"""Điều phối thẩm định, chấm điểm và xuất báo cáo."""
+"""Orchestrates the audit, scoring and report output."""
 
 import os
 import sys
@@ -41,7 +41,7 @@ from .pillars_infra import InfraPillarsMixin
 
 
 class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
-    """Hệ thống thẩm định kiến trúc mã nguồn thích ứng (Dynamic Context-Aware Auditor)."""
+    """Adaptive, context-aware source architecture auditor (Dynamic Context-Aware Auditor)."""
 
     def __init__(self, root_dir='.'):
 
@@ -75,7 +75,7 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
 
         self.scan_logs = []
 
-        # Kế hoạch quét (biết sau khi nhận diện dự án) và hạng mục đang chạy, để UI hiển thị tiến độ thật
+        # Scan plan (known after the project is identified) and the item in progress, so the UI shows real progress
         self.scan_plan = []
         self.scan_current = None
 
@@ -87,7 +87,7 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
         self.quality_gate = "PASSED"
         self.raw_score = 0
         self.final_score = 0
-        self.insights = {}   # nhận định đối chiếu Knowledge Pack (insights.py)
+        self.insights = {}   # conclusions compared with the Knowledge Pack (insights.py)
 
     def add_log(self, text, stage='general', log_type='info'):
         import datetime
@@ -202,7 +202,7 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
 
     def benchmark_starter_kit(self):
 
-        # 1. Nhận diện Ưu điểm vượt trội (Strengths / Innovations)
+        # 1. Detect standout strengths (Strengths / Innovations)
 
         if 'VECTOR DATABASE (AI RAG)' in self.profile.get('databases', []):
 
@@ -236,7 +236,7 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
         if (self.root / 'scripts' / 'sync_docs.py').is_file() or (self.root / '.githooks' / 'pre-commit').is_file():
             self.innovations.append('Automated LIVING DOCUMENTATION (4-Layer Drift-Control Pipeline).')
 
-        # 2. Nhận diện Thừa / Rác / Rủi ro (Bloat & Redundancies)
+        # 2. Detect bloat / junk / risks (Bloat & Redundancies)
 
         env_files = self.tree.find_by_name('.env')
 
@@ -260,7 +260,7 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
         self.active_pillars = []
         self.all_pillars = []
 
-        # Thu thập toàn bộ phát hiện để đánh giá Quality Gate & Báo Động Đỏ
+        # Collect every finding to evaluate the Quality Gate & Red Alarm
         findings = self.collect_findings()
         high_findings = [f for f in findings if f.severity == 'High']
         critical_count = len(high_findings)
@@ -268,7 +268,7 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
         self.critical_count = critical_count
         self.quality_gate = "FAILED" if critical_count > 0 else "PASSED"
 
-        # 12 Hạng mục tiêu chuẩn toàn diện theo chuẩn Architecture
+        # 12 comprehensive standard categories following the Architecture standard
         candidate_pillars = [
             ('readme', 'Readme & Onboarding', 15),
             ('backend', 'Backend & Core Flow', 20),
@@ -293,7 +293,7 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
                 detail['points_earned'] = earned
                 detail['max_points'] = max_pts
 
-                # Xác định xem pillar này có chứa lỗi nguy hiểm (Mức Cao) không
+                # Determine whether this pillar contains a high-severity issue (High level)
                 pillar_missing = detail.get('missing', [])
                 has_critical = bool(detail.get('has_critical', False)) or any(
                     (getattr(item, 'is_critical', False) or (isinstance(item, dict) and item.get('severity') == 'High'))
@@ -302,7 +302,7 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
 
                 ratio = (raw_score / 100.0) if max_pts > 0 else 0
                 if has_critical:
-                    # Pillar chứa lỗi nguy hiểm: Báo động đỏ, hạ tỷ lệ và khóa điểm pillar ở mức cảnh báo (< 0.5)
+                    # Pillar with a high-severity issue: red alarm, lower the ratio and cap the pillar score at the warning level (< 0.5)
                     ratio = min(ratio, 0.4)
                     earned = min(earned, round(max_pts * 0.4))
                     detail['points_earned'] = earned
@@ -350,9 +350,9 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
         raw_final_score = min(100, normalized_score + bonus)
         self.raw_score = raw_final_score
 
-        # NGUYÊN TẮC BÁO ĐỘNG ĐỎ KHI CÓ LỖI NGUY HIỂM:
-        # Dù chỉ có 1 lỗi nguy hiểm (Mức Cao), hệ thống KHÔNG ĐƯỢC hiển thị điểm cao (Green / Grade A/B+).
-        # Điểm an toàn hiệu dụng (Effective Safety Score) bị khóa trần an toàn (Safety Cap <= 49, Vùng Nguy Cơ / Đỏ).
+        # RED ALARM RULE WHEN A HIGH-SEVERITY ISSUE EXISTS:
+        # Even a single high-severity (High) issue must NOT let the system show a high score (Green / Grade A/B+).
+        # The effective safety score is capped (Safety Cap <= 49, Risk / Red zone).
         if critical_count > 0:
             final_score = min(raw_final_score, max(20, 49 - (critical_count - 1) * 3))
         else:
@@ -374,13 +374,13 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
         return 'F (NEEDS ARCHITECTURAL REFACTORING)'
 
     # ------------------------------------------------------------------
-    # BÁO CÁO project-review.md (cho cả người và Agent)
+    # REPORT project-review.md (for both humans and Agents)
     # ------------------------------------------------------------------
     def kit_config(self):
         return read_kit_config(self.root)
 
     def collect_findings(self):
-        """Gộp mọi phát hiện thành danh sách Finding có mã, mức độ và tài liệu khắc phục."""
+        """Merge every finding into a list of Finding objects with code, level and remediation documents."""
         findings = [from_violation(v) for v in self.violations]
 
         texts = list(self.gaps) + list(self.bloat)
@@ -425,7 +425,7 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
         return unique
 
     def get_scope_data(self) -> dict:
-        """Trả về dữ liệu Phạm vi quét (Mục 7) dạng dict để dùng chung cho Markdown và Web UI."""
+        """Return the scan scope data (Section 7) as a dict shared by Markdown and the Web UI."""
         top_dirs = {}
         for f in self.tree.code_files:
             try:
@@ -465,7 +465,7 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
         }
 
     def serialize_report_data(self) -> dict:
-        """Chuẩn hóa toàn bộ dữ liệu báo cáo (Findings, Baseline, Safety, Scope, Kit Config) cho API / Web UI."""
+        """Normalize all report data (Findings, Baseline, Safety, Scope, Kit Config) for the API / Web UI."""
         kit_cfg = self.kit_config()
         ref = str(kit_cfg.get("kit_ref") or DEFAULT_REF)
         declared_arch = declared_architecture(kit_cfg)
@@ -519,7 +519,7 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
         }
 
     def _safety_section(self, ref):
-        """Mục 0: tín hiệu prompt injection. Không bao giờ chép nội dung gốc của tệp vào báo cáo."""
+        """Section 0: prompt-injection signals. Never copy a file's original content into the report."""
         findings = self.safety.findings
         lines = [
             '## 0. Safety warning (untrusted content)',
@@ -540,7 +540,7 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
         return lines
 
     def _run_analysis(self):
-        """Dựng Project Model + nhận định; lỗi ở đây không được làm hỏng lượt quét."""
+        """Build the Project Model + conclusions; an error here must not break the scan."""
         try:
             def _on_import_progress(n: int, total: int):
                 self.add_log(f"  -> Analyzing imports: {n}/{total} Python files...", "profiling", "muted")
@@ -607,7 +607,7 @@ class ProjectAuditor(DocsPillarsMixin, AppPillarsMixin, InfraPillarsMixin):
         return lines
 
     def _scope_section(self):
-        """Mục 7: Agent biết đã quét gì, bỏ qua gì, nên đọc gì trước, và gì chưa được kiểm tra."""
+        """Section 7: the Agent knows what was scanned, what was skipped, what to read first, and what was not checked."""
         scope = self.get_scope_data()
         lines = ["", '## 7. Scan scope (so the Agent spends fewer tokens)', "",
                  f"- **Scanned**: {scope['scanned_total']} files, of which {scope['scanned_code']} are source files; " f"{scope['scanned_safety']} text files were safety-scanned."]

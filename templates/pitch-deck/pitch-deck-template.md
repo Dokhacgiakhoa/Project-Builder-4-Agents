@@ -1,124 +1,124 @@
 # 📊 PITCH DECK TEMPLATE (YC-STYLE STRUCTURE)
 
-> **Mục đích**: Bản khung thuyết trình chuẩn hóa dành cho Startup gọi vốn (Pre-Seed/Seed/Series A), Nhóm dự án bảo vệ đồ án/Hackathon, hoặc Tech Lead thuyết phục Ban lãnh đạo phê duyệt ngân sách.  
-> **Cấu trúc**: 11 Slide kinh điển tuân thủ định dạng vàng của **Y Combinator** và **Sequoia Capital**.
+> **Purpose**: A standardized presentation skeleton for a fundraising Startup (Pre-Seed/Seed/Series A), a project team defending a thesis/Hackathon entry, or a Tech Lead persuading the leadership to approve a budget.  
+> **Structure**: The classic 11 slides that follow the golden format of **Y Combinator** and **Sequoia Capital**.
 
 ---
 
-## 🎯 QUY TẮC VÀNG KHI LÀM PITCH DECK (THE 10/20/30 RULE)
-1. **10 - 12 Slides**: Không bao giờ vượt quá 12 slide trong một buổi thuyết trình sơ tuyển.
-2. **Tối đa 20 phút**: Dành 5 - 7 phút thuyết trình chính và 13 - 15 phút cho phần Hỏi & Đáp (Q&A).
-3. **Cỡ chữ tối thiểu 30pt**: Không nhồi nhét văn bản. Mỗi slide chỉ truyền tải **MỘT thông điệp duy nhất (One Slide, One Idea)**.
-4. **Data Over Adjectives**: Không nói "sản phẩm chúng tôi cực kỳ nhanh và tuyệt vời", hãy nói "giảm 68% thời gian xử lý và tiết kiệm $45,000/tháng".
+## 🎯 GOLDEN RULES WHEN MAKING A PITCH DECK (THE 10/20/30 RULE)
+1. **10 - 12 Slides**: Never go beyond 12 slides in a screening presentation.
+2. **At most 20 minutes**: Spend 5 - 7 minutes on the main presentation and 13 - 15 minutes on Q&A.
+3. **Minimum font size 30pt**: Do not cram text. Each slide conveys **ONE single message (One Slide, One Idea)**.
+4. **Data Over Adjectives**: Do not say "our product is extremely fast and great"; say "it cuts processing time by 68% and saves $45,000/month".
 
 ---
 
-## 📑 CẤU TRÚC 11 SLIDE CHI TIẾT
+## 📑 THE 11-SLIDE STRUCTURE IN DETAIL
 
-### SLIDE 1: TIÊU ĐỀ & ĐỊNH VỊ (TITLE & ONE-LINER)
-* **Tiêu đề lớn**: [Tên Sản Phẩm / Dự Án]
-* **One-liner (Câu định vị)**: Chúng tôi làm [X] cho [Đối tượng Y] bằng cách [Z].  
-  *(Ví dụ: "Hệ thống AI Multi-Agent giúp các team kỹ sư tăng tốc độ bàn giao phần mềm lên gấp 3 lần mà không làm tăng lỗi kỹ thuật.")*
-* **Thông tin liên hệ**: Tên Founder/Tech Lead • Email • Link GitHub / Website.
-* **Gợi ý hình ảnh**: Logo sắc nét, ảnh mockup sản phẩm ấn tượng trên nền tối giản.
-
----
-
-### SLIDE 2: NỖI ĐAU THỊ TRƯỜNG (THE PROBLEM)
-* **Vấn đề cốt lõi**: Khách hàng đang gặp khó khăn gì nhức nhối nhất mỗi ngày?
-* **Hiện trạng & Chi phí mất mát (The Cost of Inaction)**:
-  - Hiện tại họ đang giải quyết bằng cách nào? (Dùng bảng tính Excel thủ công, thuê ngoài đắt đỏ, quy trình rời rạc...)
-  - Hậu quả: Lãng phí bao nhiêu tiền/giờ? Tỷ lệ rủi ro/lỗi là bao nhiêu %?
-* **Bằng chứng thực tế**: Trích dẫn lời nói trực tiếp từ 3-5 khách hàng phỏng vấn sâu.
+### SLIDE 1: TITLE & POSITIONING (TITLE & ONE-LINER)
+* **Large title**: [Product / Project Name]
+* **One-liner (positioning sentence)**: We make [X] for [Audience Y] by [Z].  
+  *(Example: "A multi-agent AI system that helps engineering teams deliver software 3 times faster without increasing technical defects.")*
+* **Contact information**: Founder/Tech Lead name • Email • GitHub / Website link.
+* **Image suggestion**: A sharp logo, an impressive product mockup on a minimal background.
 
 ---
 
-### SLIDE 3: GIẢI PHÁP ĐỘT PHÁ (THE SOLUTION)
-* **Giải pháp của bạn là gì?**: Mô tả rõ ràng, không dùng thuật ngữ hoa mỹ khó hiểu.
-* **3 Lợi ích định lượng (Quantifiable Value Props)**:
-  1. *Nhanh hơn*: Rút ngắn thời gian từ [X ngày] xuống [Y giờ].
-  2. *Rẻ hơn*: Tiết kiệm [Z%] chi phí vận hành hàng tháng.
-  3. *An toàn hơn*: Giảm [N%] lỗi sai sót nhờ quy chuẩn tự động hóa.
-* **Khoảnh khắc "Aha! Moment"**: Điều gì khiến người dùng cảm thấy kinh ngạc ngay lần đầu trải nghiệm?
+### SLIDE 2: THE MARKET PAIN (THE PROBLEM)
+* **Core problem**: What is the most painful difficulty customers face every day?
+* **Current state & Cost of loss (The Cost of Inaction)**:
+  - How are they solving it now? (Manual Excel spreadsheets, expensive outsourcing, scattered processes...)
+  - Consequence: How much money/time is wasted? What is the risk/error rate in %?
+* **Real evidence**: Direct quotes from 3-5 customers in depth interviews.
 
 ---
 
-### SLIDE 4: TẠI SAO BÂY GIỜ? (WHY NOW?)
-* **Cửa sổ cơ hội (Market Timing Window)**: Tại sao giải pháp này không thể ra đời 3 năm trước, và sẽ quá muộn nếu đợi 3 năm nữa?
-* **Các yếu tố thúc đẩy vĩ mô (Tailwinds)**:
-  - *Đột phá công nghệ*: Sự phổ cập của AI LLMs, Cloud Serverless, hạ tầng API giá rẻ...
-  - *Thay đổi hành vi xã hội*: Làm việc từ xa (Remote work), mua sắm trực tuyến, tự động hóa...
-  - *Thay đổi về pháp lý/chính sách*: Quy định bảo mật dữ liệu mới, tiêu chuẩn xanh...
+### SLIDE 3: THE BREAKTHROUGH SOLUTION (THE SOLUTION)
+* **What is your solution?**: A clear description, without flowery jargon that is hard to understand.
+* **3 Quantifiable Value Props**:
+  1. *Faster*: Cut the time from [X days] down to [Y hours].
+  2. *Cheaper*: Save [Z%] of monthly operating costs.
+  3. *Safer*: Reduce errors by [N%] thanks to automated standards.
+* **The "Aha! Moment"**: What amazes users the very first time they try it?
 
 ---
 
-### SLIDE 5: DUNG LƯỢNG THỊ TRƯỜNG (MARKET SIZE - TAM / SAM / SOM)
-* **TAM (Total Addressable Market - Thị trường tổng thể)**: 
-  - Quy mô toàn cầu nếu chiếm được 100% thị phần: `\$[X] Tỷ`.
-* **SAM (Serviceable Addressable Market - Thị trường mục tiêu phục vụ)**:
-  - Phân khúc cụ thể phù hợp với tính năng và địa lý hiện tại: `\$[Y] Triệu`.
-* **SOM (Serviceable Obtainable Market - Thị trường khả thi trong 18 tháng)**:
-  - Thị phần thực tế mà nhóm có thể giành được trong 1-2 năm tới: `\$[Z] Triệu` (ví dụ: 2% của SAM).
-* **Phương pháp tính**: Ưu tiên tính từ dưới lên (Bottom-Up: `Số lượng khách hàng khả thi × Mức phí trung bình/năm`) thay vì phỏng đoán từ trên xuống (Top-Down).
+### SLIDE 4: WHY NOW? (WHY NOW?)
+* **Market Timing Window**: Why could this solution not have appeared 3 years ago, and why will it be too late if we wait another 3 years?
+* **Macro driving factors (Tailwinds)**:
+  - *Technology breakthroughs*: The spread of AI LLMs, Cloud Serverless, low-cost API infrastructure...
+  - *Changes in social behavior*: Remote work, online shopping, automation...
+  - *Legal/policy changes*: New data security regulations, green standards...
 
 ---
 
-### SLIDE 6: SẢN PHẨM & CÔNG NGHỆ (PRODUCT DEMO & ARCHITECTURE)
-* **Hình ảnh Demo**: 2-3 ảnh chụp màn hình UI sắc nét thể hiện luồng hoạt động chính (User Flow).
-* **Kiến trúc cốt lõi (Tech Stack & Architecture)**:
-  - Kiến trúc hệ thống tinh gọn, bảo mật và sẵn sàng mở rộng (Clean Architecture, Multi-Agent Orchestration, API-First).
-* **Bí quyết công nghệ độc quyền (Secret Sauce / IP)**: Thuật toán đặc biệt, pipeline dữ liệu độc quyền hoặc quy chuẩn vận hành mà đối thủ khó sao chép ngay.
+### SLIDE 5: MARKET SIZE (MARKET SIZE - TAM / SAM / SOM)
+* **TAM (Total Addressable Market)**: 
+  - The global size if 100% of the market share is captured: `\$[X] Billion`.
+* **SAM (Serviceable Addressable Market)**:
+  - The specific segment that fits the current features and geography: `\$[Y] Million`.
+* **SOM (Serviceable Obtainable Market - feasible within 18 months)**:
+  - The real market share the team can win in the next 1-2 years: `\$[Z] Million` (for example: 2% of the SAM).
+* **Calculation method**: Prefer bottom-up (Bottom-Up: `number of feasible customers × average fee/year`) over top-down guessing (Top-Down).
 
 ---
 
-### SLIDE 7: MÔ HÌNH KINH DOANH (BUSINESS MODEL & UNIT ECONOMICS)
-* **Cách thức thu tiền**:
-  - B2B SaaS Subscription (Gói Starter \$49/tháng, Pro \$199/tháng, Enterprise custom).
-  - Usage-based Pricing (Tính phí theo số lượng API calls hoặc token tiêu thụ).
-* **Các chỉ số kinh tế đơn vị (Unit Economics)**:
-  - **CAC (Customer Acquisition Cost)**: Chi phí để có 1 khách hàng mới: `\$[A]`.
-  - **LTV (Customer Lifetime Value)**: Giá trị trọn đời của khách hàng: `\$[B]`.
-  - **Tỷ lệ LTV / CAC**: Mục tiêu tối thiểu `> 3x`.
-  - **Payback Period**: Thời gian thu hồi chi phí CAC (dưới 12 tháng).
+### SLIDE 6: PRODUCT & TECHNOLOGY (PRODUCT DEMO & ARCHITECTURE)
+* **Demo images**: 2-3 sharp UI screenshots showing the main flow of operation (User Flow).
+* **Core architecture (Tech Stack & Architecture)**:
+  - A lean, secure and scalable system architecture (Clean Architecture, Multi-Agent Orchestration, API-First).
+* **Proprietary technology know-how (Secret Sauce / IP)**: A special algorithm, a proprietary data pipeline or an operating standard that competitors cannot copy right away.
 
 ---
 
-### SLIDE 8: CHIẾN LƯỢC TIẾP CẬN THỊ TRƯỜNG (GO-TO-MARKET - GTM)
-* **Chiến lược chiếm lĩnh tệp khách hàng đầu tiên (0 to 100 Customers)**:
-  - *Product-Led Growth (PLG)*: Bản Free Tier / Open Source Starter Kit để cộng đồng tự dùng thử và lan tỏa.
-  - *Direct Sales / Outbound*: Tiếp cận trực tiếp 50 doanh nghiệp đầu ngành thông qua mạng lưới quan hệ.
-  - *Content & Community*: Viết bài phân tích kỹ thuật sâu (Technical blog posts), tổ chức workshop trên GitHub/Discord.
-* **Chiến lược mở rộng quy mô (Scale from 100 to 1,000+)**: Hợp tác đối tác tích hợp (Channel Partners), quảng cáo số nhắm mục tiêu chuẩn xác.
+### SLIDE 7: BUSINESS MODEL (BUSINESS MODEL & UNIT ECONOMICS)
+* **How you collect money**:
+  - B2B SaaS Subscription (Starter plan \$49/month, Pro \$199/month, custom Enterprise).
+  - Usage-based Pricing (charged by the number of API calls or tokens consumed).
+* **Unit economics (Unit Economics)**:
+  - **CAC (Customer Acquisition Cost)**: The cost to get 1 new customer: `\$[A]`.
+  - **LTV (Customer Lifetime Value)**: The lifetime value of a customer: `\$[B]`.
+  - **LTV / CAC ratio**: Target at least `> 3x`.
+  - **Payback Period**: The time to recover the CAC (under 12 months).
 
 ---
 
-### SLIDE 9: BẢN ĐỒ ĐỐI THỦ CẠNH TRANH & LỢI THẾ CẠNH TRANH (COMPETITION & MOAT)
-* **Ma trận định vị 2 trục (2x2 Matrix)**:
-  - Trục X: Mức độ tự động hóa thông minh (Thủ công ⟷ AI Native).
-  - Trục Y: Tính linh hoạt & Tự do kiểm soát (Hộp đen đóng kín ⟷ Mã nguồn mở/Dễ tích hợp).
-  - *Sản phẩm của bạn nằm ở góc phần tư trên cùng bên phải (Top-Right).*
-* **Hào kinh tế phòng thủ (Defensive Moat)**:
-  - Hiệu ứng mạng lưới (Network Effects).
-  - Chi phí chuyển đổi cao (High Switching Cost).
-  - Dữ liệu độc quyền và tiêu chuẩn kỹ thuật (Proprietary Data & Open Standard).
+### SLIDE 8: GO-TO-MARKET STRATEGY (GO-TO-MARKET - GTM)
+* **Strategy to win the first customer base (0 to 100 Customers)**:
+  - *Product-Led Growth (PLG)*: A Free Tier / Open Source Starter Kit so the community tries it and spreads it.
+  - *Direct Sales / Outbound*: Reach 50 leading enterprises directly through the relationship network.
+  - *Content & Community*: Write in-depth technical analysis (Technical blog posts), host workshops on GitHub/Discord.
+* **Scaling strategy (Scale from 100 to 1,000+)**: Integration partnerships (Channel Partners), precisely targeted digital advertising.
 
 ---
 
-### SLIDE 10: ĐỘI NGŨ SÁNG LẬP & LỢI THẾ BẤT BÌNH ĐẲNG (TEAM)
-* **Thành viên chủ chốt**:
-  - Founder 1 / CEO / Product Lead: Kinh nghiệm chuyên môn, thành tựu quá khứ ("Cựu kỹ sư tại X", "Đã từng xây dựng sản phẩm Y có 100k users").
-  - Founder 2 / CTO / Tech Lead: Chuyên gia công nghệ, giải thưởng, bằng sáng chế hoặc đóng góp mã nguồn mở lớn.
-* **Lợi thế bất bình đẳng (Unfair Advantage)**: Tại sao CHÍNH ĐỘI NÀY là người duy nhất trên thế giới có khả năng giải quyết bài toán này tốt nhất?
+### SLIDE 9: COMPETITOR MAP & COMPETITIVE ADVANTAGE (COMPETITION & MOAT)
+* **A 2-axis positioning matrix (2x2 Matrix)**:
+  - X axis: Level of intelligent automation (Manual ⟷ AI Native).
+  - Y axis: Flexibility & freedom of control (Closed black box ⟷ Open source / Easy to integrate).
+  - *Your product sits in the top-right quadrant (Top-Right).*
+* **Defensive Moat**:
+  - Network Effects.
+  - High Switching Cost.
+  - Proprietary Data & Open Standard.
 
 ---
 
-### SLIDE 11: KẾ HOẠCH TÀI CHÍNH & MỤC TIÊU KÊU GỌI (THE ASK & MILESTONES)
-* **Số tiền kêu gọi / Đề xuất ngân sách**: `\$[X,000,000]` cho `[18] tháng đường băng (Runway)`.
-* **Phân bổ ngân sách (Allocation of Funds)**:
-  - 60%: Nghiên cứu & Phát triển sản phẩm (Engineering & Product).
-  - 25%: Tiếp thị & Bán hàng (Growth & Go-To-Market).
-  - 15%: Chi phí hạ tầng Cloud & Pháp lý vận hành.
-* **Các cột mốc đạt được với số tiền này (Milestones in 18 Months)**:
-  - Tháng 3: Hoàn thành bản Beta, đạt 50 khách hàng trả phí đầu tiên.
-  - Tháng 9: Đạt \$10,000 MRR (Monthly Recurring Revenue).
-  - Tháng 18: Đạt \$50,000 MRR và sẵn sàng cho vòng gọi vốn Series A.
+### SLIDE 10: THE FOUNDING TEAM & UNFAIR ADVANTAGE (TEAM)
+* **Key members**:
+  - Founder 1 / CEO / Product Lead: professional experience, past achievements ("Former engineer at X", "Built product Y with 100k users").
+  - Founder 2 / CTO / Tech Lead: a technology expert, awards, patents or major open-source contributions.
+* **Unfair Advantage**: Why is THIS TEAM the only one in the world able to solve this problem best?
+
+---
+
+### SLIDE 11: FINANCIAL PLAN & THE ASK (THE ASK & MILESTONES)
+* **Amount raised / Budget request**: `\$[X,000,000]` for `[18] months of runway (Runway)`.
+* **Allocation of Funds**:
+  - 60%: Research & product development (Engineering & Product).
+  - 25%: Marketing & sales (Growth & Go-To-Market).
+  - 15%: Cloud infrastructure & legal operating costs.
+* **Milestones achieved with this money (Milestones in 18 Months)**:
+  - Month 3: Finish the Beta version, reach the first 50 paying customers.
+  - Month 9: Reach \$10,000 MRR (Monthly Recurring Revenue).
+  - Month 18: Reach \$50,000 MRR and be ready for a Series A round.

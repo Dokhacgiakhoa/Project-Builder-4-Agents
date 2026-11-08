@@ -7,7 +7,7 @@ Universal Desktop Launcher (Decoupled Core Engine + Edge WebView2 App Mode)
 import sys
 
 if sys.version_info < (3, 12):
-    print("[ERROR] Cần Python 3.12 trở lên (đang chạy %d.%d). Khuyến nghị 3.14." % sys.version_info[:2], file=sys.stderr)
+    print("[ERROR] Python 3.12 or newer is required (running %d.%d). 3.14 is recommended." % sys.version_info[:2], file=sys.stderr)
     sys.exit(1)
 
 import os
@@ -17,7 +17,7 @@ import subprocess
 import webbrowser
 from pathlib import Path
 
-# Thêm đường dẫn scripts vào sys.path
+# Add the scripts path to sys.path
 BASE_DIR = Path(__file__).resolve().parent
 if str(BASE_DIR) not in sys.path:
     sys.path.insert(0, str(BASE_DIR))
@@ -84,7 +84,7 @@ def main():
     edge_exe = find_edge_path()
     
     if edge_exe:
-        # Khởi chạy ở chế độ App Mode không thanh địa chỉ, không tab, chuẩn Desktop Studio
+        # Launch in App Mode without address bar or tabs, desktop-studio style
         profile_dir = Path.home() / ".starter-kit" / "edge_profile"
         profile_dir.mkdir(parents=True, exist_ok=True)
         
@@ -102,11 +102,11 @@ def main():
         ]
         subprocess.Popen(cmd)
     else:
-        # Fallback mở trình duyệt mặc định
+        # Fallback: open the default browser
         webbrowser.open(app_url)
 
     try:
-        # Giữ backend server chạy suốt phiên làm việc của giao diện
+        # Keep the backend server running for the whole UI session
         while not shutdown_event.is_set():
             time.sleep(0.5)
     except KeyboardInterrupt:

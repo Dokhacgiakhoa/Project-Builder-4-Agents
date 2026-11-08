@@ -25,7 +25,7 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
             </span>
             {isAuthenticated ? (
               <Button variant="outline" size="sm" onClick={logout} className="flex items-center gap-1">
-                <LogOut className="h-4 w-4" /> Đăng xuất
+                <LogOut className="h-4 w-4" /> Sign out
               </Button>
             ) : null}
           </nav>

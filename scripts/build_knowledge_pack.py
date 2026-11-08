@@ -1,7 +1,7 @@
-"""Sinh scripts/auditor_engine/knowledge_pack.json từ INDEX.md và các tài liệu quyết định của kit (ADR-0018).
+"""Generate scripts/auditor_engine/knowledge_pack.json from INDEX.md and the kit's decision documents (ADR-0018).
 
-Pack là bản chụp có phiên bản để Health Check đối chiếu offline. Chạy lại mỗi khi tài liệu kit đổi
-(`sync_docs.py` gọi tự động); `--check` trả mã lỗi nếu pack lệch tài liệu.
+The pack is a versioned snapshot the engine compares against offline. Rerun whenever the kit documents change
+(`sync_docs.py` calls it automatically); `--check` returns an error code if the pack is out of date.
 """
 
 from __future__ import annotations
@@ -79,16 +79,16 @@ def main() -> int:
     same = {k: v for k, v in old.items() if k != "generated"} == pack
     if "--check" in sys.argv:
         if not same:
-            print("knowledge_pack.json lệch tài liệu kit: chạy python scripts/build_knowledge_pack.py")
+            print("knowledge_pack.json is out of date with the kit documents: run python scripts/build_knowledge_pack.py")
             return 1
-        print("knowledge_pack.json khớp tài liệu kit.")
+        print("knowledge_pack.json matches the kit documents.")
         return 0
     if not same:
         pack["generated"] = datetime.date.today().isoformat()
         OUT.write_text(json.dumps(pack, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-        print(f"Đã sinh knowledge_pack.json: {len(pack['docs'])} tài liệu.")
+        print(f"Generated knowledge_pack.json: {len(pack['docs'])} documents.")
     else:
-        print("knowledge_pack.json không đổi.")
+        print("knowledge_pack.json unchanged.")
     return 0
 
 

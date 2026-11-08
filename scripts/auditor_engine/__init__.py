@@ -1,4 +1,4 @@
-"""Auditor Engine: lõi thanh tra kiến trúc (thuần logic, không phụ thuộc UI)."""
+"""Auditor Engine: core architecture auditor (pure logic, no UI dependency)."""
 
 from .tree import ProjectTree
 from .profiler import ProjectProfiler

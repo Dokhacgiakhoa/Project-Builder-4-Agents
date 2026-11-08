@@ -1,10 +1,10 @@
 # 🎨 UNIVERSAL FRONTEND STARTER KIT (BULLETPROOF REACT)
 
-Bộ khung giao diện Frontend chuẩn hóa theo kiến trúc **Feature-Driven (Bulletproof React)**, tối ưu cho sự phối hợp nhịp nhàng giữa Kỹ sư công nghệ và AI Coding Agents.
+Frontend skeleton standardized on the **Feature-Driven (Bulletproof React)** architecture, optimized for smooth collaboration between technology engineers and AI Coding Agents.
 
 ---
 
-## 🏛️ 1. CẤU TRÚC THƯ MỤC CHUẨN
+## 🏛️ 1. STANDARD FOLDER STRUCTURE
 
 ```text
 frontend/src/
@@ -12,47 +12,47 @@ frontend/src/
 ├── assets/               # Global static assets (Images, SVG, Icons)
 ├── components/           # Shared UI Components (Button, Card, Layouts)
 │   ├── layouts/          # MainLayout, Sidebar, Navbar
-│   └── ui/               # Nguyên tử UI dùng chung (Buttons, Cards, Inputs)
-├── config/               # Biến môi trường & cấu hình validate qua Zod
-├── features/             # CÁC MODULE NGHIỆP VỤ ĐỘC LẬP (Feature-Driven)
-│   ├── auth/             # Xác thực người dùng (Login, Register, Session)
-│   ├── dashboard/        # Bảng điều khiển & thống kê
-│   └── ai-chat/          # Module tương tác AI Agent
-│       ├── api/          # Lời gọi API & React Query hooks của feature
-│       ├── components/   # UI components nội bộ của feature
-│       ├── types/        # TypeScript types của feature
-│       └── index.ts      # Public API Export (Cổng giao tiếp duy nhất)
-├── hooks/                # Custom React Hooks dùng chung
-├── lib/                  # Cấu hình thư viện (Axios api-client, TanStack Query)
-├── stores/               # Quản lý Global Client State qua Zustand
+│   └── ui/               # Shared UI atoms (Buttons, Cards, Inputs)
+├── config/               # Environment variables & configuration validated through Zod
+├── features/             # INDEPENDENT BUSINESS MODULES (Feature-Driven)
+│   ├── auth/             # User authentication (Login, Register, Session)
+│   ├── dashboard/        # Dashboard & statistics
+│   └── ai-chat/          # AI Agent interaction module
+│       ├── api/          # The feature's API calls & React Query hooks
+│       ├── components/   # The feature's internal UI components
+│       ├── types/        # The feature's TypeScript types
+│       └── index.ts      # Public API Export (the single point of contact)
+├── hooks/                # Shared custom React Hooks
+├── lib/                  # Library configuration (Axios api-client, TanStack Query)
+├── stores/               # Global Client State management through Zustand
 └── types/                # Generic API response & common types
 ```
 
 ---
 
-## ⚡ 2. CÁC NGUYÊN TẮC BẤT BIẾN
+## ⚡ 2. THE INVARIANT PRINCIPLES
 
-1. **Feature Isolation**: Mọi component, hook hay type chỉ phục vụ cho một tính năng cụ thể thì PHẢI nằm trong thư mục của feature đó.
-2. **Public API Pattern (`index.ts`)**: Mỗi feature chỉ xuất khẩu những gì bên ngoài cần dùng thông qua `index.ts`. Không import trực tiếp vào các file nội bộ của feature khác.
+1. **Feature Isolation**: Every component, hook or type that serves only one specific feature MUST live in that feature's folder.
+2. **Public API Pattern (`index.ts`)**: Each feature exports only what the outside needs through `index.ts`. Never import directly into another feature's internal files.
 3. **The Anti-Crash Standard**:
-   - Dữ liệu từ API luôn được kiểm tra bằng Optional Chaining (`?.`) và Safe Fallbacks (`?? []`).
-   - Mọi form submission và async fetch đều bọc trong `try...catch` hoặc React Query Error Boundaries.
+   - Data from the API is always checked with Optional Chaining (`?.`) and Safe Fallbacks (`?? []`).
+   - Every form submission and async fetch is wrapped in `try...catch` or React Query Error Boundaries.
 
 ---
 
-## 🚀 3. HƯỚNG DẪN BẮT ĐẦU
+## 🚀 3. GETTING STARTED
 
-1. Cài đặt dependencies:
+1. Install dependencies:
    ```bash
    cd frontend
    npm install
    ```
-2. Cấu hình file môi trường:
+2. Configure the environment file:
    ```bash
    cp .env.example .env
    ```
-3. Khởi chạy dev server:
+3. Start the dev server:
    ```bash
    npm run dev
    ```
-   Ứng dụng sẽ khả dụng tại: `http://localhost:3000`.
+   The app will be available at: `http://localhost:3000`.

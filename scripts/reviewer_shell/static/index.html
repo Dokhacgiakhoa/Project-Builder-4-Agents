@@ -92,7 +92,7 @@
 
     <aside class="sidebar">
 
-      <!-- TOP: BÁO CÁO TỔNG QUAN -->
+      <!-- TOP: OVERVIEW REPORT -->
 
       <div class="sidebar-top">
 
@@ -112,13 +112,13 @@
 
 
 
-      <!-- SECTION TITLE: HẠNG MỤC KIỂM TRA (ĐẶT DƯỚI BÁO CÁO TỔNG QUAN) -->
+      <!-- SECTION TITLE: AUDIT CATEGORIES (PLACED BELOW THE OVERVIEW REPORT) -->
 
       <div class="sidebar-title" id="sidebarPillarsTitle">Audit pillars (12)</div>
 
 
 
-      <!-- 12 HẠNG MỤC KIỂM TRA TOÀN DIỆN -->
+      <!-- 12 COMPREHENSIVE AUDIT CATEGORIES -->
 
       <ul class="pillar-list" id="pillarList">
 
@@ -294,7 +294,7 @@
 
 
 
-      <!-- BOTTOM: BÁO CÁO & PROMPT AI + LỊCH SỬ QUÉT -->
+      <!-- BOTTOM: REPORT & AI PROMPT + SCAN HISTORY -->
 
       <div class="sidebar-footer">
 
@@ -342,7 +342,7 @@
 
       <!-- ========================================================
 
-           INSTALLATION-STYLE PROGRESS CONTAINER (CÓ CHIA VẠCH & LOG)
+           INSTALLATION-STYLE PROGRESS CONTAINER (SEGMENTED & LOG)
 
            ======================================================== -->
 
@@ -370,7 +370,7 @@
 
 
 
-        <!-- THANH CHIA CÁC CHẶNG ĐO KIỂM TIÊU CHUẨN ĐỘNG (SEGMENTED PROGRESS BAR) -->
+        <!-- SEGMENTED PROGRESS BAR FOR THE DYNAMIC STANDARD AUDIT STAGES -->
 
         <div class="segmented-bar-wrapper">
 
@@ -378,7 +378,7 @@
 
           <div class="segmented-bar" id="installerSegmentsContainer">
 
-            <!-- Render động theo active_pillars thực tế của dự án -->
+            <!-- Rendered dynamically from the project's real active_pillars -->
 
           </div>
 
@@ -386,7 +386,7 @@
 
 
 
-        <!-- THANH TIẾN ĐỘ TỔNG THỂ -->
+        <!-- OVERALL PROGRESS BAR -->
 
         <div class="overall-progress-wrapper">
 
@@ -408,7 +408,7 @@
 
 
 
-        <!-- KHUNG NHẬT KÝ KIỂM TRA (INSTALLER ACTIVITY LOG) -->
+        <!-- AUDIT LOG FRAME (INSTALLER ACTIVITY LOG) -->
 
         <div class="installer-terminal">
 
@@ -438,7 +438,7 @@
 
 
 
-        <!-- KHUNG HOÀN TẤT THẨM ĐỊNH -->
+        <!-- AUDIT COMPLETION FRAME -->
 
         <div class="installer-finish-box" id="installerFinishBox" style="display: none;">
 
@@ -460,13 +460,13 @@
 
       <!-- ========================================================
 
-           AUDIT RESULT VIEW (KẾT QUẢ ĐO KIỂM)
+           AUDIT RESULT VIEW
 
            ======================================================== -->
 
       <div class="audit-result-view" id="auditResultView">
 
-        <!-- TOP METRICS BANNER (DÀNH CHO TỔNG QUAN) -->
+        <!-- TOP METRICS BANNER (FOR THE OVERVIEW) -->
 
         <div class="metrics-banner" id="overviewMetricsBanner">
 
@@ -514,7 +514,7 @@
 
 
 
-        <!-- TABS TỔNG QUAN (ĐẦY ĐỦ MỤC 0, 1, 2, 4, 7 CỦA PROJECT-REVIEW.MD) -->
+        <!-- OVERVIEW TABS (FULL SECTIONS 0, 1, 2, 4, 7 OF PROJECT-REVIEW.MD) -->
 
                         <nav class="content-tabs" id="overviewTabsNav">
           <button class="tab-btn active" data-tab="tab-overview">
@@ -572,13 +572,13 @@
 
         <div class="tab-content">
 
-          <!-- PANEL: OVERVIEW (DASHBOARD GRID 2 CỘT CÂN XỨNG) -->
+          <!-- PANEL: OVERVIEW (DASHBOARD GRID, 2 BALANCED COLUMNS) -->
 
           <div class="tab-panel active" id="tab-overview">
 
             <div class="dashboard-grid-2col">
 
-              <!-- CỘT 1: HỒ SƠ CÔNG NGHỆ -->
+              <!-- COLUMN 1: TECH PROFILE -->
 
               <div class="dashboard-card">
 
@@ -600,7 +600,7 @@
 
 
 
-              <!-- CỘT 2: ĐIỂM MẠNH KIẾN TRÚC -->
+              <!-- COLUMN 2: ARCHITECTURE STRENGTHS -->
 
               <div class="dashboard-card">
 
@@ -626,7 +626,7 @@
 
 
 
-          <!-- PANEL: ACTIONABLE FINDINGS & REMEDIATION DOCS (MỤC 2) -->
+          <!-- PANEL: ACTIONABLE FINDINGS & REMEDIATION DOCS (SECTION 2) -->
 
           <div class="tab-panel" id="tab-findings">
 
@@ -652,7 +652,7 @@
 
 
 
-          <!-- PANEL: CORE BASELINE B1-B9 (MỤC 4) -->
+          <!-- PANEL: CORE BASELINE B1-B9 (SECTION 4) -->
 
           <div class="tab-panel" id="tab-baseline">
 
@@ -678,13 +678,13 @@
 
 
 
-          <!-- PANEL: SAFETY & AUDIT SCOPE (MỤC 0 & MỤC 7) -->
+          <!-- PANEL: SAFETY & AUDIT SCOPE (SECTION 0 & SECTION 7) -->
 
           <div class="tab-panel" id="tab-safety-scope">
 
             <div class="dashboard-grid-2col">
 
-              <!-- MỤC 0: CẢNH BÁO AN TOÀN -->
+              <!-- SECTION 0: SAFETY WARNING -->
 
               <div class="dashboard-card">
 
@@ -706,7 +706,7 @@
 
 
 
-              <!-- MỤC 7: PHẠM VI QUÉT -->
+              <!-- SECTION 7: SCAN SCOPE -->
 
               <div class="dashboard-card">
 
@@ -800,7 +800,7 @@
 
 
 
-        <!-- PANEL: GAPS & BLOAT (DASHBOARD GRID 2 CỘT CÂN XỨNG) -->
+        <!-- PANEL: GAPS & BLOAT (DASHBOARD GRID, 2 BALANCED COLUMNS) -->
 
         <div class="tab-panel" id="tab-gaps">
 
@@ -838,7 +838,7 @@
 
 
 
-        <!-- PANEL: PHÂN TÍCH DỰ ÁN (Project Model + đối chiếu Knowledge Pack, chạy offline) -->
+        <!-- PANEL: PROJECT ANALYSIS (Project Model + comparison with the Knowledge Pack, runs offline) -->
 
         <div class="tab-panel" id="tab-analysis">
 
@@ -856,7 +856,7 @@
 
 
 
-        <!-- PANEL: VIOLATIONS (PHÂN LOẠI & GOM NHÓM THEO TẦN SUẤT) -->
+        <!-- PANEL: VIOLATIONS (CLASSIFIED & GROUPED BY FREQUENCY) -->
 
         <div class="tab-panel" id="tab-violations">
 
@@ -878,7 +878,7 @@
 
 
 
-        <!-- PANEL: HỒ SƠ BÁO CÁO & PROMPT AI (CHUYÊN BIỆT) -->
+        <!-- PANEL: REPORT & AI PROMPT (DEDICATED) -->
 
         <div class="tab-panel" id="tab-report-prompt">
 
@@ -896,7 +896,7 @@
 
             <div class="report-prompt-grid">
 
-              <!-- CARD 1: XUẤT BẢN BÁO CÁO MARKDOWN -->
+              <!-- CARD 1: PUBLISH THE MARKDOWN REPORT -->
 
               <div class="dashboard-card report-file-card">
 
@@ -956,7 +956,7 @@
 
 
 
-              <!-- CARD 2: PROMPT TÁI CẤU TRÚC CHO AI AGENT -->
+              <!-- CARD 2: RESTRUCTURING PROMPT FOR THE AI AGENT -->
 
               <div class="dashboard-card prompt-agent-card">
 
@@ -994,7 +994,7 @@
 
 
 
-        <!-- PANEL: AI DEEP REVIEW (KÍCH HOẠT TỪ NÚT HEADER) -->
+        <!-- PANEL: AI DEEP REVIEW (TRIGGERED FROM THE HEADER BUTTON) -->
 
         <div class="tab-panel" id="tab-ai-deep">
 

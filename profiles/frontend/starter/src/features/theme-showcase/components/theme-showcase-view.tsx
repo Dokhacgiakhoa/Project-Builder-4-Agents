@@ -40,8 +40,8 @@ export const ThemeShowcaseView: React.FC = () => {
               </h1>
             </div>
             <p className="text-sm text-slate-600 mt-1 max-w-2xl">
-              Chọn và xem trước trực quan các vũ trụ phong cách thẩm mỹ. Cung cấp Prompt tiêm trực tiếp vào
-              Claude Code, Cursor, Antigravity để AI sinh giao diện nhất quán 100%.
+              Choose and visually preview aesthetic style universes. Provide a Prompt to inject straight into
+              Claude Code, Cursor, Antigravity so the AI generates a 100% consistent interface.
             </p>
           </div>
 
@@ -52,11 +52,11 @@ export const ThemeShowcaseView: React.FC = () => {
             >
               {copied ? (
                 <>
-                  <Check className="h-4 w-4 text-emerald-400" /> Đã sao chép Prompt!
+                  <Check className="h-4 w-4 text-emerald-400" /> Prompt copied!
                 </>
               ) : (
                 <>
-                  <Copy className="h-4 w-4" /> Sao chép Prompt cho AI
+                  <Copy className="h-4 w-4" /> Copy the Prompt for AI
                 </>
               )}
             </button>
@@ -73,17 +73,17 @@ export const ThemeShowcaseView: React.FC = () => {
         <div className="lg:col-span-7 space-y-4">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
-              <Code2 className="h-4 w-4 text-sky-600" /> Trải Nghiệm Thực Tế (Live Preview)
+              <Code2 className="h-4 w-4 text-sky-600" /> Real Experience (Live Preview)
             </span>
             <span className="text-xs text-slate-500">
-              Vũ trụ: <strong className="text-slate-800">{activePreset.universe}</strong>
+              Universe: <strong className="text-slate-800">{activePreset.universe}</strong>
             </span>
           </div>
 
           <PreviewCard preset={activePreset} />
 
           <p className="text-xs text-slate-500 italic">
-            * Thử tương tác: Bấm nút "Chạy thử nghiệm" hoặc nhập dữ liệu vào ô input để cảm nhận phản hồi thị giác của từng style.
+            * Try interacting: click the "Run trial" button or type into the input to feel the visual response of each style.
           </p>
         </div>
 
@@ -100,7 +100,7 @@ export const ThemeShowcaseView: React.FC = () => {
                 className="text-xs text-sky-600 hover:text-sky-700 font-medium flex items-center gap-1"
               >
                 {copied ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
-                {copied ? 'Đã copy' : 'Copy'}
+                {copied ? 'Copied' : 'Copy'}
               </button>
             </div>
 
@@ -111,7 +111,7 @@ export const ThemeShowcaseView: React.FC = () => {
             {/* Open Source References */}
             {Array.isArray(activePreset.openSourceRefs) && activePreset.openSourceRefs.length > 0 ? (
               <div className="pt-2 border-t border-slate-100">
-                <span className="text-[11px] text-slate-500 block mb-1">Nguồn cảm hứng & Benchmark:</span>
+                <span className="text-[11px] text-slate-500 block mb-1">Inspiration & Benchmark:</span>
                 <div className="flex flex-wrap gap-1.5">
                   {activePreset.openSourceRefs.map((ref, idx) => (
                     <span
@@ -130,7 +130,7 @@ export const ThemeShowcaseView: React.FC = () => {
           {/* Tokens Inspector Box */}
           <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-2 text-xs">
             <span className="font-bold uppercase tracking-wider text-slate-700 block text-[11px]">
-              Design Tokens Trích Xuất (Tailwind Classes)
+              Extracted Design Tokens (Tailwind Classes)
             </span>
             <div className="space-y-1.5 text-[11px] font-mono text-slate-600">
               <div className="p-1.5 bg-slate-50 rounded border border-slate-100">

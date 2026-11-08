@@ -141,7 +141,7 @@ def run_sync(check_only: bool = False) -> int:
     # 3. Check INDEX.md coverage
     unindexed = check_index_coverage()
     if unindexed:
-        print(f"⚠️  Cảnh báo: Có {len(unindexed)} tệp tài liệu chưa được lập chỉ mục trong INDEX.md:")
+        print(f"⚠️  Warning: {len(unindexed)} documentation files are not indexed in INDEX.md:")
         for f in unindexed:
             print(f"   - {f}")
         if check_only:
@@ -152,7 +152,7 @@ def run_sync(check_only: bool = False) -> int:
     if drift and check_only:
         return 1
         
-    print(f"✨ Đồng bộ tài liệu hoàn tất: Score {score}/100 [{grade}], {test_count} tests, {total_files} indexed files.")
+    print(f"✨ Documentation sync complete: Score {score}/100 [{grade}], {test_count} tests, {total_files} indexed files.")
     return 0
 
 if __name__ == "__main__":

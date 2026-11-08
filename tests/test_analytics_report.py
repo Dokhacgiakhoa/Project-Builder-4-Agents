@@ -1,4 +1,4 @@
-"""Kiểm thử Project Builder Analytics: mã phát hiện, tài liệu khắc phục, Core Baseline, profile khai báo."""
+"""Tests for Project Builder Analytics: finding codes, remediation documents, Core Baseline, declared profile."""
 
 import json
 import re
@@ -18,7 +18,7 @@ from auditor_engine.safety import KINDS as SAFETY_KINDS  # noqa: E402
 
 
 def simulate_bootstrap_step1(dest: Path):
-    """Làm đúng Bước 1 của BOOTSTRAP.md: chép core/templates + core/standards."""
+    """Do Step 1 of BOOTSTRAP.md exactly: copy core/templates + core/standards."""
     templates = ROOT / "core" / "templates"
     shutil.copytree(templates, dest, dirs_exist_ok=True)
     (dest / ".gitignore").write_text((dest / "gitignore.tpl").read_text(encoding="utf-8"), encoding="utf-8")
@@ -26,7 +26,7 @@ def simulate_bootstrap_step1(dest: Path):
     shutil.copytree(ROOT / "core" / "standards", dest / "docs" / "standards", dirs_exist_ok=True)
 
 
-# ---- Tài liệu khắc phục phải có thật và nằm trong INDEX ----
+# ---- Remediation documents must exist and be in INDEX ----
 def test_every_remediation_doc_exists_in_kit():
     for doc_id, (path, _title) in DOCS.items():
         assert (ROOT / path).is_file(), f"{doc_id} -> {path}"
@@ -36,8 +36,8 @@ def test_every_remediation_doc_is_listed_in_index_with_same_id():
     index = (ROOT / "INDEX.md").read_text(encoding="utf-8")
     for doc_id, (path, _title) in DOCS.items():
         row = next((ln for ln in index.splitlines() if f"| {doc_id} |" in ln), None)
-        assert row is not None, f"{doc_id} thiếu trong INDEX.md"
-        assert f"({path})" in row, f"{doc_id}: đường dẫn trong INDEX khác DOCS"
+        assert row is not None, f"{doc_id} missing from INDEX.md"
+        assert f"({path})" in row, f"{doc_id}: the path in INDEX differs from DOCS"
 
 
 def test_every_index_link_target_exists():
@@ -60,7 +60,7 @@ def test_all_rules_reference_known_docs():
 
 def test_every_safety_code_has_remediation_with_same_severity():
     for code, (sev, _title) in SAFETY_KINDS.items():
-        assert code in CODE_RULES, f"{code} thiếu trong CODE_RULES"
+        assert code in CODE_RULES, f"{code} missing from CODE_RULES"
         assert CODE_RULES[code][0] == sev, code
 
 
@@ -69,14 +69,14 @@ def test_arch_profile_and_guardrail_codes_have_remediation():
         assert code in CODE_RULES, code
 
 
-# ---- Phân loại phát hiện ----
+# ---- Finding classification ----
 def test_violation_maps_to_code_severity_and_location():
     f = from_violation({"file": "src/a.ts", "line": 7, "type": "HARDCODED SECRET IN CODE", "desc": "x"})
     assert (f.code, f.severity, f.location) == ("SEC-001", "High", "src/a.ts:7")
 
 
 def test_unknown_text_falls_back_to_generic_and_summary_is_dropped():
-    assert from_text("điều gì đó lạ").code == "GEN-001"
+    assert from_text("something strange").code == "GEN-001"
     assert from_text("Detected 3 locations violating ANTI-CRASH standards in the source code.") is None
 
 
@@ -90,8 +90,8 @@ def test_bootstrap_payload_satisfies_core_baseline_except_filled_items(tmp_path)
     simulate_bootstrap_step1(tmp_path)
     ok = {i["id"]: i["ok"] for i in check_baseline(tmp_path)}
     for must in ("B1", "B2", "B3", "B5", "B7", "B8", "B9"):
-        assert ok[must], f"{must} phải đạt ngay sau Bước 1"
-    # Chưa phỏng vấn/dựng CI nên các mục sau phải còn đỏ để Agent biết cần làm
+        assert ok[must], f"{must} must pass right after Step 1"
+    # No interview/CI yet, so the following items must stay red so the Agent knows what to do
     assert not ok["B4"] and not ok["B6"]
 
 
@@ -104,7 +104,7 @@ def test_baseline_b6_requires_ci_and_no_placeholders(tmp_path):
     assert {i["id"]: i["ok"] for i in check_baseline(tmp_path)}["B6"]
 
 
-# ---- Profile khai báo ----
+# ---- Declared profile ----
 def test_declared_architecture_parsing(tmp_path):
     assert declared_architecture({"profiles": {"architecture": "Clean-Architecture"}}) == "clean-architecture"
     assert declared_architecture({"profiles": {"architecture": "{{ARCHITECTURE_PROFILE}}"}}) is None
@@ -116,7 +116,7 @@ def test_declared_profile_mismatch_is_reported():
     assert not ok and "clean-architecture" in msg and doc == "A-002"
     ok, _msg, _doc = check_declared_profile(Path("."), {"domain", "application"}, "clean-architecture")
     assert ok
-    assert check_declared_profile(Path("."), set(), "custom-thing")[0]  # profile tùy biến: không phạt
+    assert check_declared_profile(Path("."), set(), "custom-thing")[0]  # custom profile: no penalty
 
 
 def test_broken_kit_json_does_not_crash_audit(tmp_path):
@@ -127,7 +127,7 @@ def test_broken_kit_json_does_not_crash_audit(tmp_path):
     assert auditor.generate_markdown_report(0).exists()
 
 
-# ---- Báo cáo end-to-end ----
+# ---- End-to-end report ----
 def test_report_contains_findings_with_docs_and_declared_profile(tmp_path):
     (tmp_path / ".builder").mkdir()
     (tmp_path / ".builder" / "kit.json").write_text(
@@ -137,8 +137,8 @@ def test_report_contains_findings_with_docs_and_declared_profile(tmp_path):
     report = auditor.generate_markdown_report(auditor.run()).read_text(encoding="utf-8")
     assert "declared_architecture: clean-architecture" in report
     assert "`AC-003`" in report and "app.py:4" in report
-    assert "/blob/v1.2.3/core/standards/coding-conventions.md" in report   # ghim đúng phiên bản kit
-    assert "ARCH-007" in report                                             # khai báo clean nhưng không có domain/application
+    assert "/blob/v1.2.3/core/standards/coding-conventions.md" in report   # pinned to the right kit version
+    assert "ARCH-007" in report                                             # declares clean but has no domain/application
 
 
 def test_bootstrapped_project_scores_better_than_bare_project(tmp_path):
@@ -155,19 +155,19 @@ def test_bootstrapped_project_scores_better_than_bare_project(tmp_path):
 def test_guardrails_arch008_detected_when_missing_boundary_or_ci(tmp_path):
     from auditor_engine.baseline import check_guardrails
 
-    # 1. Khai báo M2 nhưng chưa có CI workflow -> báo ARCH-008
+    # 1. Declares M2 but has no CI workflow yet -> reports ARCH-008
     cfg = {"guardrail_level": "M2", "profiles": {"architecture": "vertical-slice"}}
     ok, msg, docs = check_guardrails(tmp_path, cfg)
     assert not ok and "M2" in msg and "K-004" in docs
 
-    # 2. Đã có CI workflow nhưng chưa có boundary lint/test -> vẫn báo ARCH-008
+    # 2. Has a CI workflow but no boundary lint/test -> still reports ARCH-008
     wf = tmp_path / ".github" / "workflows"
     wf.mkdir(parents=True)
     (wf / "ci.yml").write_text("name: ci\n", encoding="utf-8")
     ok, msg, docs = check_guardrails(tmp_path, cfg)
     assert not ok and "boundary" in msg
 
-    # 3. Khi có luật chặn import chéo (eslint-plugin-boundaries) -> đạt
+    # 3. With a cross-import blocking rule (eslint-plugin-boundaries) -> passes
     (tmp_path / "package.json").write_text('{"devDependencies": {"eslint-plugin-boundaries": "^4.0.0"}}', encoding="utf-8")
     ok, _msg, _docs = check_guardrails(tmp_path, cfg)
     assert ok

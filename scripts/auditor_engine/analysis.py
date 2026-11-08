@@ -1,7 +1,7 @@
-"""Mô hình phân tích dự án (Project Model): ngôn ngữ, stack, đồ thị phụ thuộc, kiến trúc suy ra từ import.
+"""Project analysis model (Project Model): languages, stack, dependency graph, architecture inferred from imports.
 
-Logic thuần, chỉ dùng thư viện chuẩn, không gọi mạng/model (ADR-0018). Mọi nhận định kèm bằng chứng.
-Giới hạn đã biết: phân tích tĩnh nên không thấy import động/reflection; độ tin cậy được báo kèm.
+Pure logic, standard library only, no network/model calls (ADR-0018). Every conclusion comes with evidence.
+Known limit: static analysis cannot see dynamic imports/reflection; confidence is reported alongside.
 """
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ DOC_EXT = {'.md', '.mdx', '.rst', '.txt'}
 MAX_FILE_BYTES = 1_500_000
 MAX_FILES = 6000
 
-# Thư mục chỉ là "vỏ chứa": thành phần thật nằm một cấp sâu hơn.
+# A folder that is only a "container": the real components sit one level deeper.
 CONTAINER_DIRS = {'src', 'source', 'app', 'apps', 'lib', 'libs', 'packages', 'services', 'internal', 'pkg', 'cmd',
                   'scripts', 'tools', 'features', 'modules', 'slices', 'domains', 'contexts'}
 
@@ -37,7 +37,7 @@ LAYER_NAMES = {
                      'views', 'components'},
 }
 
-# tên import gốc (chữ thường) -> (tên hiển thị, nhóm)
+# root import name (lower case) -> (display name, group)
 KNOWN_PACKAGES = {
     'fastapi': ('FastAPI', 'web-backend'), 'flask': ('Flask', 'web-backend'), 'django': ('Django', 'web-backend'),
     'starlette': ('Starlette', 'web-backend'), 'aiohttp': ('aiohttp', 'web-backend'), 'uvicorn': ('Uvicorn', 'web-backend'),
@@ -112,7 +112,7 @@ def _layer_of(component: str) -> str | None:
 
 
 class ProjectAnalyzer:
-    """Quét một ProjectTree đã lọc vùng mẫu/vendor và dựng Project Model."""
+    """Scan a ProjectTree already filtered of sample/vendor zones and build the Project Model."""
 
     def __init__(self, root: Path, tree, progress_callback=None):
         self.root = Path(root)
@@ -123,17 +123,17 @@ class ProjectAnalyzer:
         self.doc_loc = 0
         self.test_loc = 0
         self.code_loc = 0
-        self.edges = Counter()               # (comp_from, comp_to) -> số import
-        self.externals = Counter()           # tên gói ngoài -> số lần
-        self.ext_lang: dict[str, set[str]] = defaultdict(set)   # tên gói -> ngôn ngữ import nó
+        self.edges = Counter()               # (comp_from, comp_to) -> import count
+        self.externals = Counter()           # external package name -> occurrences
+        self.ext_lang: dict[str, set[str]] = defaultdict(set)   # package name -> languages importing it
         self.entrypoints: list[str] = []
-        self.declared: dict[str, set[str]] = defaultdict(set)   # ecosystem -> deps khai báo
+        self.declared: dict[str, set[str]] = defaultdict(set)   # ecosystem -> declared deps
         self._py_pkg: dict[str, str] = {}
         self._ns_comp: dict[str, str] = {}
         self._truncated = False
         self.progress_callback = progress_callback
 
-    # ------------------------------------------------------------------ bước 1: kiểm kê
+    # ------------------------------------------------------------------ step 1: inventory
     def _inventory(self):
         stdlib = getattr(sys, 'stdlib_module_names', set())
         self._stdlib = set(stdlib)
@@ -167,7 +167,7 @@ class ProjectAnalyzer:
             if is_test:
                 self.test_loc += loc
 
-    # ------------------------------------------------------------------ bước 2: chỉ mục tên
+    # ------------------------------------------------------------------ step 2: name index
     def _build_indexes(self):
         for f in self.files:
             comp, rel, ext = f['comp'], f['rel'], f['ext']
@@ -180,7 +180,7 @@ class ProjectAnalyzer:
                 if m:
                     self._ns_comp.setdefault(m.group(1), comp)
 
-    # ------------------------------------------------------------------ bước 3: import
+    # ------------------------------------------------------------------ step 3: imports
     def _add_edge(self, src: str, dst: str):
         if dst and dst != src:
             self.edges[(src, dst)] += 1
@@ -316,7 +316,7 @@ class ProjectAnalyzer:
             elif ext == '.go':
                 self._go_imports(f)
 
-    # ------------------------------------------------------------------ bước 4: khai báo phụ thuộc
+    # ------------------------------------------------------------------ step 4: declared dependencies
     def _manifests(self):
         for p in self.tree.find_by_name('package.json'):
             try:
@@ -343,7 +343,7 @@ class ProjectAnalyzer:
                 for tfm in re.findall(r'<Use(WindowsForms|WPF)>\s*true', text):
                     self.externals['system.windows.forms' if tfm == 'WindowsForms' else 'system.windows'] += 1
 
-    # ------------------------------------------------------------------ bước 5: tổng hợp
+    # ------------------------------------------------------------------ step 5: aggregation
     def _stack(self) -> list[dict]:
         found: dict[str, dict] = {}
         names = Counter(self.externals)
@@ -434,7 +434,7 @@ class ProjectAnalyzer:
         names = {c['name'].split('/')[-1].lower() for c in code}
         layers = {c['layer'] for c in code if c['layer']}
         evidence, violations = [], []
-        # vi phạm hướng phụ thuộc theo tầng
+        # dependency-direction violations between layers
         layer_of = {c['name']: c['layer'] for c in code if c['layer']}
         forbidden = {('domain', 'infrastructure'), ('domain', 'presentation'), ('domain', 'application'),
                      ('application', 'presentation')}
@@ -476,7 +476,7 @@ class ProjectAnalyzer:
     def _kind(self, stack, comps) -> dict:
         total = sum(self.lang_loc.values()) or 1
         significant = {n for n, l in self.lang_loc.items() if l / total >= 0.2}
-        # Một nhóm stack chỉ quyết định loại hình khi đến từ ngôn ngữ chiếm đáng kể (hoặc khai báo tường minh)
+        # A stack group decides the project type only when it comes from a significant language (or is declared explicitly)
         cats = {s['category'] for s in stack if s['declared'] and not s['languages']
                 or set(s['languages']) & significant}
         all_cats = {s['category'] for s in stack}

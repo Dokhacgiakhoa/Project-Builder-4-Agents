@@ -1,6 +1,6 @@
-"""Nhận định: đối chiếu Project Model với Knowledge Pack, sinh điểm mạnh / điểm nghẽn / đề xuất kèm bằng chứng.
+"""Conclusions: compare the Project Model with the Knowledge Pack, producing strengths / bottlenecks / recommendations with evidence.
 
-Logic thuần, sinh theo mẫu (không gọi model). Mỗi nhận định trỏ tới dữ liệu đo và mã tài liệu kit liên quan.
+Pure logic, template-based (no model calls). Every conclusion points to measured data and the related kit document ids.
 """
 
 from __future__ import annotations
@@ -12,7 +12,7 @@ SLUG_LABEL = {
     'vertical-slice': 'Vertical Slice', 'modular-monolith': 'Modular Monolith',
 }
 SEVERITY_ORDER = {'High': 0, 'Medium': 1, 'Low': 2}
-# điểm nghẽn -> tài liệu kit nên đọc
+# bottleneck -> kit documents to read
 DOCS_FOR = {
     'cycle': ['S-004', 'K-004'], 'layer': ['K-004'], 'tests': ['S-002', 'S-003'], 'large': ['S-001', 'S-004'],
     'manifest': ['K-003'], 'profile': ['K-004'],
@@ -40,7 +40,7 @@ def _layer_violations(model: dict) -> list[str]:
 
 
 def recommend_profile(model: dict, pack: dict) -> dict:
-    """Chọn profile kiến trúc phù hợp nhất theo cấu trúc, quy mô, và `when` / `not_when` của kit."""
+    """Pick the best-fitting architecture profile by structure, size, and the kit's `when` / `not_when`."""
     profiles = profile_docs(pack)
     code_comps = [c for c in model['components'] if c['role'] == 'code']
     loc = model['code_loc'] - model['test_loc']

@@ -23,7 +23,7 @@
     </Content>
   </ItemGroup>
 
-  <!-- Nhúng Core Engine trực tiếp vào Shell để tạo ra duy nhất 1 file EXE độc lập -->
+  <!-- Embed the Core Engine directly into the Shell to produce a single standalone EXE -->
   <ItemGroup Condition="Exists('..\..\engine\reviewer-engine.exe')">
     <EmbeddedResource Include="..\..\engine\reviewer-engine.exe" LogicalName="reviewer-engine.exe" />
   </ItemGroup>

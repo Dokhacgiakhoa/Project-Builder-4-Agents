@@ -1,4 +1,4 @@
-"""Kiểm thử Core Engine (auditor_engine) ở chế độ headless, không phụ thuộc UI."""
+"""Tests for the Core Engine (auditor_engine) in headless mode, independent of the UI."""
 
 import sys
 from pathlib import Path

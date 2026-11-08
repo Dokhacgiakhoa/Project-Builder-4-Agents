@@ -1,134 +1,134 @@
 ---
 id: O-007
 type: reference
-when: "Có **sự cố vận hành**, cần runbook xử lý"
+when: "Operational incident triage runbook template"
 ---
-# 🚨 PRODUCTION INCIDENT RESPONSE RUNBOOK (SỔ TAY XỬ LÝ SỰ CỐ PRODUCTION)
+# 🚨 PRODUCTION INCIDENT RESPONSE RUNBOOK
 
-> **Mục đích**: Hướng dẫn khẩn cấp dành cho Kỹ sư trực ca (On-Call Engineer) và Tech Lead khi hệ thống gặp sự cố nghiêm trọng trên môi trường Production (Đặc biệt vào các khung giờ nhạy cảm như 2h sáng).
+> **Purpose**: Emergency guidance for the On-Call Engineer and the Tech Lead when the system has a serious incident in the Production environment (especially at sensitive hours such as 2 a.m.).
 
 ---
 
-## 🚦 1. MA TRẬN MỨC ĐỘ SỰ CỐ & THỜI GIAN PHẢN HỒI (SEVERITY MATRIX & SLA)
+## 🚦 1. SEVERITY MATRIX & RESPONSE SLA
 
-| Mức Độ | Định Nghĩa Sự Cố | SLA Phản Hồi | SLA Khắc Phục Tạm Thời | Kênh Điều Phối |
+| Level | Incident definition | Response SLA | Temporary-fix SLA | Coordination channel |
 | :---: | :--- | :---: | :---: | :--- |
-| **P1 - Critical** | Toàn bộ hệ thống sập, mất mát dữ liệu, người dùng không thể thanh toán/đăng nhập. | **< 15 phút** | **< 1 giờ** | Tạo War Room khẩn cấp (Slack / Google Meet) + Báo cáo CTO/CEO ngay lập tức. |
-| **P2 - Major** | Một tính năng cốt lõi bị lỗi (ví dụ: AI Agent không phản hồi), nhưng hệ thống chính vẫn hoạt động. | **< 30 phút** | **< 4 giờ** | Kênh Slack `#incident-response` + Cập nhật trang Status Page. |
-| **P3 - Minor** | Lỗi hiển thị giao diện, suy giảm nhẹ hiệu năng, có giải pháp thay thế tạm thời. | **< 2 giờ** | **< 24 giờ** | Tạo Issue ưu tiên cao trên GitHub / Jira. |
-| **P4 - Low** | Lỗi chính tả, lỗi giao diện nhỏ không ảnh hưởng trải nghiệm chính. | **< 24 giờ** | Sprint tiếp theo | Xử lý theo quy trình phát triển thông thường. |
+| **P1 - Critical** | The whole system is down, data is lost, users cannot pay/log in. | **< 15 minutes** | **< 1 hour** | Create an emergency War Room (Slack / Google Meet) + report to the CTO/CEO immediately. |
+| **P2 - Major** | A core feature fails (for example: the AI Agent does not respond), but the main system still works. | **< 30 minutes** | **< 4 hours** | The Slack channel `#incident-response` + update the Status Page. |
+| **P3 - Minor** | A UI display bug, slight performance degradation, a temporary workaround exists. | **< 2 hours** | **< 24 hours** | Create a high-priority Issue on GitHub / Jira. |
+| **P4 - Low** | A typo or minor UI bug that does not affect the main experience. | **< 24 hours** | Next sprint | Handle through the normal development process. |
 
 ---
 
-## 🧭 2. QUY TRÌNH PHẢN ỨNG 5 BƯỚC KHI CÓ BÁO ĐỘNG P1/P2
+## 🧭 2. THE 5-STEP RESPONSE PROCESS FOR A P1/P2 ALERT
 
 ```mermaid
 flowchart TD
-    A["1. Tiếp Nhận Báo Động<br/>(PagerDuty / Sentry / Slack Alert)"] --> B["2. Xác Lập Chỉ Huy (Incident Commander)<br/>Gán 1 người duy nhất điều phối"]
-    B --> C["3. Ngăn Chặn Thiệt Hại (Triage & Mitigate)<br/>Ưu tiên HỒI PHỤC trước, tìm nguyên nhân sau"]
-    C --> D["4. Khắc Phục Triệt Để (Root Cause Fix)<br/>Deploy bản vá hoặc Rollback an toàn"]
-    D --> E["5. Báo Cáo Không Đổ Lỗi (Blameless Post-Mortem)<br/>Rút kinh nghiệm & Cải tiến hệ thống"]
+    A["1. Receive the Alert<br/>(PagerDuty / Sentry / Slack Alert)"] --> B["2. Establish Command (Incident Commander)<br/>Assign one single coordinator"]
+    B --> C["3. Contain the Damage (Triage & Mitigate)<br/>RESTORE first, find the cause later"]
+    C --> D["4. Fix the Root Cause (Root Cause Fix)<br/>Deploy a patch or a safe Rollback"]
+    D --> E["5. Blameless Post-Mortem Report<br/>Learn lessons & improve the system"]
 ```
-> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNpNkl9P2zAUxb_KkR-mIkFp-kcV04REk20gBqpKHyYtfXBsp7FI7Mq1t1WI786N3QJ5ydW1z_Xv3HtfmLBSsa9gdWv_iYY7j3VRGtB386dk2RBrXYZMVfUOj00fcWmwKMNopDIL-mfZqE_LK7P9VrnL68GSb5Urgj_gEk_KeBeDlotn3LTK-bOSbXBxcY0FPTAe4ncqJvArld8hjw-JK9yGAwZ3RmhJdZDbruNGKncWH_qZdAYZzLYHqRKI1JCkM4l25hNkFm2ILGAXDyQl2CY5XUScnHAmQzzGWqOJOWJUc4N1k9Rzj9tYNdMYrJ0mp_iCB-31lnuVsHo1rwO8jnzcJIkc32EZIzXN4d0n4Eqcw8fLoiMr4XAS9hYoGhvseXinzSNtQbTTIe6Ty1pgGSM1EyCwE-3HfMQEg5W11EUe9go_9P-EW6hdaw-oYhky_Td1FY1N5gVWtm2rfnpE5G08Hpl3miLSfCea2fBjL_JTcB8t1FOz_bwrszRrOac2LlreqVbt91javb94sM6rLrGtopZ7PGvTUGdOU-io6XkC1rHP_X4apK2Zwx8HTFvBNuwcrFOu41r2a_7SU5fMN6pTJSVKJlXNQ-tLVprX_jIP3j4djKBD74KiTNhJmm5B03a8O6Zf3wDFrwMS)
+> [📊 Open the diagram on Mermaid Live / an AI editor](https://mermaid.live/edit#pako:eNpNkl9P2zAUxb_KkR-mIkFp-kcV04REk20gBqpKHyYtfXBsp7FI7Mq1t1WI786N3QJ5ydW1z_Xv3HtfmLBSsa9gdWv_iYY7j3VRGtB386dk2RBrXYZMVfUOj00fcWmwKMNopDIL-mfZqE_LK7P9VrnL68GSb5Urgj_gEk_KeBeDlotn3LTK-bOSbXBxcY0FPTAe4ncqJvArld8hjw-JK9yGAwZ3RmhJdZDbruNGKncWH_qZdAYZzLYHqRKI1JCkM4l25hNkFm2ILGAXDyQl2CY5XUScnHAmQzzGWqOJOWJUc4N1k9Rzj9tYNdMYrJ0mp_iCB-31lnuVsHo1rwO8jnzcJIkc32EZIzXN4d0n4Eqcw8fLoiMr4XAS9hYoGhvseXinzSNtQbTTIe6Ty1pgGSM1EyCwE-3HfMQEg5W11EUe9go_9P-EW6hdaw-oYhky_Td1FY1N5gVWtm2rfnpE5G08Hpl3miLSfCea2fBjL_JTcB8t1FOz_bwrszRrOac2LlreqVbt91javb94sM6rLrGtopZ7PGvTUGdOU-io6XkC1rHP_X4apK2Zwx8HTFvBNuwcrFOu41r2a_7SU5fMN6pTJSVKJlXNQ-tLVprX_jIP3j4djKBD74KiTNhJmm5B03a8O6Zf3wDFrwMS)
 
 ---
 
-## 🛠️ 3. CHECKLIST HỒI PHỤC KHẨN CẤP (EMERGENCY MITIGATION CHECKLIST)
+## 🛠️ 3. EMERGENCY MITIGATION CHECKLIST
 
-### Lựa chọn 1: Rollback phiên bản phát hành gần nhất (Khuyến nghị số 1)
-Nếu sự cố xảy ra ngay sau một đợt Deploy, **ĐỪNG CỐ SỬA TRÊN PRODUCTION**, hãy rollback ngay:
+### Option 1: Roll back the latest release (Recommendation #1)
+If the incident happens right after a Deploy, **DO NOT TRY TO FIX ON PRODUCTION**; roll back immediately:
 ```bash
-# Xem lịch sử 3 commit gần nhất trên main:
+# View the history of the last 3 commits on main:
 git log -n 3 --oneline
 
-# Revert commit gây lỗi và push khẩn cấp:
-git revert <COMMIT_HASH_LỖI> -m 1
+# Revert the faulty commit and push urgently:
+git revert <FAULTY_COMMIT_HASH> -m 1
 git push origin main
 ```
 
-### Lựa chọn 2: Khởi động lại dịch vụ bị treo (Graceful Restart)
+### Option 2: Restart a hung service (Graceful Restart)
 ```bash
-# Khởi động lại containers an toàn:
+# Restart containers safely:
 docker compose restart <service-name>
 
-# Xem logs thời gian thực để kiểm tra lỗi:
+# Watch real-time logs to check for errors:
 docker compose logs -f --tail=100 <service-name>
 ```
 
-### Lựa chọn 3: Bật Chế Độ Bảo Trì (Maintenance Mode)
-Nếu xảy ra rò rỉ dữ liệu hoặc lỗi CSDL chưa xác định, hãy bật ngay trang bảo trì để bảo vệ dữ liệu người dùng:
-- Chuyển hướng traffic tại Cloudflare / Nginx sang trang `maintenance.html`.
-- Thông báo cho khách hàng qua Twitter/Email trạng thái hệ thống: *"Hệ thống đang được nâng cấp kỹ thuật khẩn cấp, dự kiến hoàn tất trong 30 phút."*
+### Option 3: Turn on Maintenance Mode
+If there is a data leak or an unidentified database error, turn on the maintenance page right away to protect user data:
+- Redirect traffic at Cloudflare / Nginx to the `maintenance.html` page.
+- Tell customers the system status through Twitter/Email: *"The system is undergoing emergency technical maintenance, expected to finish in 30 minutes."*
 
 ---
 
-## 🔍 4. SỔ TAY CHẨN ĐOÁN CÁC BỆNH THƯỜNG GẶP (DIAGNOSTICS CHEATSHEET)
+## 🔍 4. DIAGNOSTICS CHEATSHEET FOR COMMON PROBLEMS
 
-### Tình huống 1: Tràn Connection Pool CSDL (Postgres Error: "Too many connections")
-* **Dấu hiệu**: Ứng dụng trả về lỗi HTTP 500 đồng loạt, CPU máy chủ CSDL tăng vọt 100%.
-* **Xử lý nhanh**:
-  1. Kiểm tra số lượng connection đang mở:
+### Case 1: Database Connection Pool exhausted (Postgres Error: "Too many connections")
+* **Signs**: The app returns HTTP 500 errors across the board, the database server CPU spikes to 100%.
+* **Quick fix**:
+  1. Check the number of open connections:
      ```sql
      SELECT count(*) FROM pg_stat_activity;
      ```
-  2. Hủy các query bị treo chạy quá 60 giây:
+  2. Terminate hung queries running longer than 60 seconds:
      ```sql
      SELECT pg_terminate_backend(pid) 
      FROM pg_stat_activity 
      WHERE state = 'active' AND now() - query_start > interval '60 seconds';
      ```
-  3. Khởi động lại connection pooler (PgBouncer).
+  3. Restart the connection pooler (PgBouncer).
 
-### Tình huống 2: Tràn bộ nhớ RAM Redis (OOM - Out of Memory)
-* **Dấu hiệu**: Cache không lưu được, hàng đợi Task Queue ngừng xử lý.
-* **Xử lý nhanh**:
-  1. Kiểm tra mức sử dụng RAM:
+### Case 2: Redis out of RAM (OOM - Out of Memory)
+* **Signs**: The cache cannot store, the Task Queue stops processing.
+* **Quick fix**:
+  1. Check RAM usage:
      ```bash
      redis-cli info memory
      ```
-  2. Xóa các key tạm thời hoặc chuyển chính sách eviction sang `allkeys-lru`:
+  2. Delete temporary keys or switch the eviction policy to `allkeys-lru`:
      ```bash
      redis-cli config set maxmemory-policy allkeys-lru
      ```
 
-### Tình huống 3: AI Provider API quá tải hoặc Rate Limit (HTTP 429 Too Many Requests)
-* **Dấu hiệu**: Toàn bộ tính năng AI Agent bị đơ hoặc báo timeout.
-* **Xử lý nhanh**:
-  1. Kích hoạt cờ chuyển mạch dự phòng (Fallback Provider Flag) trong cấu hình để chuyển từ OpenAI sang Anthropic Claude hoặc Gemini.
-  2. Bật cơ chế Exponential Backoff có jitter để giảm áp lực gọi lại liên tục.
+### Case 3: AI Provider API overloaded or Rate Limited (HTTP 429 Too Many Requests)
+* **Signs**: All AI Agent features hang or report a timeout.
+* **Quick fix**:
+  1. Turn on the Fallback Provider Flag in the configuration to switch from OpenAI to Anthropic Claude or Gemini.
+  2. Enable Exponential Backoff with jitter to reduce the pressure of constant retries.
 
 ---
 
-## 📝 5. MẪU BÁO CÁO HẬU SỰ CỐ KHÔNG ĐỔ LỖI (BLAMELESS POST-MORTEM TEMPLATE)
+## 📝 5. BLAMELESS POST-MORTEM TEMPLATE
 
-> **Triết lý**: Chúng ta không tìm người để phạt; chúng ta tìm kiếm lỗ hổng trong quy trình và kiến trúc để hệ thống không bao giờ lặp lại lỗi tương tự.
+> **Philosophy**: We do not look for someone to punish; we look for the gaps in the process and architecture so the system never repeats a similar failure.
 
 ```markdown
-# [POST-MORTEM]: Sự cố [Mã Sự Cố - Tên Ngắn Gọn]
-* **Ngày xảy ra**: YYYY-MM-DD
-* **Mức độ**: P1 / P2
-* **Thời gian gián đoạn (Downtime)**: XX phút
-* **Chỉ huy sự cố (Incident Commander)**: [Họ Tên]
-* **Ảnh hưởng người dùng**: Khoảng XX% người dùng gặp lỗi trong thời gian từ [HH:MM] đến [HH:MM].
+# [POST-MORTEM]: Incident [Incident Code - Short Name]
+* **Date**: YYYY-MM-DD
+* **Severity**: P1 / P2
+* **Downtime**: XX minutes
+* **Incident Commander**: [Full Name]
+* **User impact**: About XX% of users hit errors between [HH:MM] and [HH:MM].
 
-## 1. Dòng thời gian chi tiết (Timeline - Giờ UTC+7)
-- 02:15: Hệ thống giám sát Sentry bắn alert lỗi HTTP 500 tăng đột biến.
-- 02:20: Kỹ sư trực ca nhận thông báo và xác nhận sự cố P1.
-- 02:35: Xác định nguyên nhân do commit #abc làm tràn bộ nhớ Redis.
-- 02:45: Tiến hành rollback về bản phát hành an toàn trước đó.
-- 02:50: Hệ thống phục hồi hoàn toàn, tỷ lệ lỗi trở về 0%.
+## 1. Detailed timeline (Timeline - UTC+7)
+- 02:15: The Sentry monitoring system fires an alert for a spike in HTTP 500 errors.
+- 02:20: The on-call engineer receives the alert and confirms a P1 incident.
+- 02:35: The cause is identified: commit #abc overflowed Redis memory.
+- 02:45: Roll back to the previous safe release.
+- 02:50: The system recovers fully; the error rate returns to 0%.
 
-## 2. Phân tích Nguyên nhân Gốc rễ (The 5 Whys)
-1. Tại sao hệ thống sập? ➔ Do Redis bị tràn bộ nhớ (OOM).
-2. Tại sao Redis bị tràn bộ nhớ? ➔ Do một background worker lưu trữ toàn bộ payload ảnh lớn vào cache.
-3. Tại sao worker lại lưu ảnh lớn vào cache? ➔ Do tính năng mới không có giới hạn kích thước file tải lên.
-4. Tại sao không có giới hạn kích thước file? ➔ Do Spec nghiệp vụ thiếu định nghĩa ràng buộc validation.
-5. Tại sao thiếu ràng buộc mà vẫn merge vào main? ➔ Do quy trình review PR thiếu bước kiểm tra checklist Anti-Crash.
+## 2. Root Cause Analysis (The 5 Whys)
+1. Why did the system go down? ➔ Redis ran out of memory (OOM).
+2. Why did Redis run out of memory? ➔ A background worker stored whole large image payloads in the cache.
+3. Why did the worker store large images in the cache? ➔ The new feature has no limit on the uploaded file size.
+4. Why is there no file size limit? ➔ The business spec lacked a validation constraint definition.
+5. Why was it merged into main without the constraint? ➔ The PR review process lacked an Anti-Crash checklist step.
 
-## 3. Hành động Cải tiến Ngăn ngừa Tương lai (Action Items)
-| STT | Hành Động Cụ Thể | Người Phụ Trách | Hạn Chót (DoD) |
+## 3. Improvement actions to prevent recurrence (Action Items)
+| No. | Concrete action | Owner | Deadline (DoD) |
 | :---: | :--- | :--- | :--- |
-| 1 | Thêm middleware giới hạn kích thước upload tối đa 5MB | [Kỹ sư A] | Trước ngày 10/11 |
-| 2 | Cấu hình cảnh báo Prometheus khi RAM Redis vượt ngưỡng 80% | [Kỹ sư B] | Trước ngày 12/11 |
-| 3 | Bổ sung bài test tự động cho trường hợp file quá tải | [Kỹ sư C] | Trước ngày 15/11 |
+| 1 | Add middleware limiting uploads to a maximum of 5MB | [Engineer A] | Before 10/11 |
+| 2 | Configure a Prometheus alert when Redis RAM exceeds 80% | [Engineer B] | Before 12/11 |
+| 3 | Add an automated test for the oversized-file case | [Engineer C] | Before 15/11 |
 ```

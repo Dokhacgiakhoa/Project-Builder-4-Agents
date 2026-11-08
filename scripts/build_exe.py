@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
-Đóng gói công cụ Project Health Check để NGƯỜI DÙNG KHÔNG CẦN CÀI PYTHON:
+Package Project Builder Analytics so USERS DO NOT NEED TO INSTALL PYTHON:
 
-  1. engine/reviewer-engine.exe : Core Engine Python đóng gói bằng PyInstaller (serve | audit), chỉ là bước trung gian
-  2. Project-Builder-Analytics.exe   : Native Host Shell .NET 10 + WebView2 (ADR-0011) NHÚNG engine ở trên (ADR-0022)
+  1. engine/reviewer-engine.exe : Core Engine Python packaged with PyInstaller (serve | audit), only an intermediate step
+  2. Project-Builder-Analytics.exe   : Native Host Shell .NET 10 + WebView2 (ADR-0011) EMBEDDING the engine above (ADR-0022)
 
-Sản phẩm giao cho người dùng là DUY NHẤT file Project-Builder-Analytics.exe; không phát hành thư mục engine/.
+The deliverable for users is ONLY Project-Builder-Analytics.exe; the engine/ folder is not released.
 
-Chạy: python scripts/build_exe.py [--engine-only | --shell-only] [--self-contained]   (hoặc: make build-exe)
-Mặc định shell là framework-dependent (nhỏ, cần .NET 10 Desktop Runtime trên máy người dùng);
---self-contained đóng kèm runtime để chạy trên máy chưa cài .NET (đã thử khi bỏ DOTNET_ROOT, PATH tối thiểu).
-Yêu cầu khi BUILD (người dùng cuối không cần): Windows, Python 3.12+, PyInstaller, .NET 10 SDK.
+Run: python scripts/build_exe.py [--engine-only | --shell-only] [--self-contained]   (or: make build-exe)
+By default the shell is framework-dependent (small, needs the .NET 10 Desktop Runtime on the user's machine);
+--self-contained bundles the runtime to run on machines without .NET (tried with DOTNET_ROOT unset and a minimal PATH).
+Requirements at BUILD time (end users do not need them): Windows, Python 3.12+, PyInstaller, .NET 10 SDK.
 """
 
 import argparse
@@ -21,7 +21,7 @@ import sys
 from pathlib import Path
 
 if sys.version_info < (3, 12):
-    print("[ERROR] Cần Python 3.12 trở lên (đang chạy %d.%d)." % sys.version_info[:2], file=sys.stderr)
+    print("[ERROR] Python 3.12 or newer is required (running %d.%d)." % sys.version_info[:2], file=sys.stderr)
     sys.exit(1)
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -44,11 +44,11 @@ def build_engine() -> int:
     try:
         import PyInstaller  # noqa: F401
     except ImportError:
-        print("[ERROR] Chưa cài PyInstaller (chỉ cần khi build): python -m pip install pyinstaller",
+        print("[ERROR] PyInstaller is not installed (needed only for building): python -m pip install pyinstaller",
               file=sys.stderr)
         return 1
 
-    print("[INFO] Đang đóng gói Core Engine (PyInstaller) ...")
+    print("[INFO] Packaging the Core Engine (PyInstaller) ...")
 
     sep = os.pathsep
     cmd = [
@@ -64,62 +64,62 @@ def build_engine() -> int:
     ]
     result = subprocess.run(cmd, check=False)
     if result.returncode != 0:
-        print("[ERROR] Đóng gói engine thất bại.", file=sys.stderr)
+        print("[ERROR] Engine packaging failed.", file=sys.stderr)
         return result.returncode
-    print(f"[THÀNH CÔNG] {ENGINE_DIR / 'reviewer-engine.exe'}")
+    print(f"[SUCCESS] {ENGINE_DIR / 'reviewer-engine.exe'}")
     return 0
 
 
 def build_shell(self_contained: bool = False) -> int:
     if shutil.which("dotnet") is None:
-        print("[ERROR] Không tìm thấy .NET SDK. Cài .NET 10 SDK: https://dotnet.microsoft.com/download",
+        print("[ERROR] .NET SDK not found. Install the .NET 10 SDK: https://dotnet.microsoft.com/download",
               file=sys.stderr)
         return 1
 
     engine = ENGINE_DIR / "reviewer-engine.exe"
     if not engine.exists():
-        print("[ERROR] Thiếu %s: shell sẽ không có engine nhúng (ADR-0022). "
-              "Chạy không kèm --shell-only hoặc build --engine-only trước." % engine, file=sys.stderr)
+        print("[ERROR] Missing %s: the shell would have no embedded engine (ADR-0022). "
+              "Run without --shell-only, or build --engine-only first." % engine, file=sys.stderr)
         return 1
 
     if not ICON.exists():
-        print("[INFO] Đang tạo icon assets/app-icon.ico ...")
+        print("[INFO] Generating icon assets/app-icon.ico ...")
         subprocess.run([sys.executable, str(SCRIPTS / "generate_icon.py")], check=True)
 
-    mode = "self-contained (~50 MB, không cần cài .NET)" if self_contained else "framework-dependent (cần .NET 10 Desktop Runtime)"
-    print(f"[INFO] Đang biên dịch Project-Builder-Analytics.exe (.NET 10 + WebView2), {mode} ...")
+    mode = "self-contained (~50 MB, no .NET install needed)" if self_contained else "framework-dependent (needs the .NET 10 Desktop Runtime)"
+    print(f"[INFO] Compiling Project-Builder-Analytics.exe (.NET 10 + WebView2), {mode} ...")
     cmd = ["dotnet", "publish", str(PROJECT), "-c", "Release", "-r", "win-x64",
            "--self-contained", "true" if self_contained else "false", "-o", str(DIST)]
     if self_contained:
         cmd.append("-p:EnableCompressionInSingleFile=true")
     result = subprocess.run(cmd, check=False)
     if result.returncode != 0:
-        print("[ERROR] Biên dịch thất bại, xem log ở trên.", file=sys.stderr)
+        print("[ERROR] Build failed, see the log above.", file=sys.stderr)
         return result.returncode
 
     built = DIST / "Project-Builder-Analytics.exe"
     if not built.exists():
-        print("[ERROR] Không thấy %s sau khi biên dịch." % built, file=sys.stderr)
+        print("[ERROR] %s not found after the build." % built, file=sys.stderr)
         return 1
 
     shutil.copy2(built, OUTPUT_EXE)
     shutil.rmtree(DIST, ignore_errors=True)
-    print(f"[THÀNH CÔNG] {OUTPUT_EXE}")
+    print(f"[SUCCESS] {OUTPUT_EXE}")
     return 0
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Đóng gói Project Review (engine + shell).")
+    parser = argparse.ArgumentParser(description="Package Project Builder Analytics (engine + shell).")
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("--engine-only", action="store_true", help="Chỉ đóng gói engine Python.")
-    group.add_argument("--shell-only", action="store_true", help="Chỉ biên dịch shell .NET.")
+    group.add_argument("--engine-only", action="store_true", help="Package only the Python engine.")
+    group.add_argument("--shell-only", action="store_true", help="Compile only the .NET shell.")
     parser.add_argument("--self-contained", action="store_true",
-                        help="Đóng kèm .NET runtime vào exe (~50 MB) để chạy trên máy chưa cài .NET. "
-                             "Không nên commit bản này vào git: phát hành qua GitHub Releases.")
+                        help="Bundle the .NET runtime into the exe (~50 MB) to run on machines without .NET. "
+                             "Do not commit this build to git: release it through GitHub Releases.")
     args = parser.parse_args()
 
     if sys.platform != "win32":
-        print("[ERROR] Build exe chỉ hỗ trợ Windows.", file=sys.stderr)
+        print("[ERROR] The exe build supports Windows only.", file=sys.stderr)
         return 1
 
     kill_running_instance()

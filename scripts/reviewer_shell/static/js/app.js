@@ -75,7 +75,7 @@ async function checkActiveAuditOnLoad() {
 
   } catch (e) {
 
-    // không chặn load trang nếu lỗi kết nối
+    // do not block the page load if the connection fails
 
   }
 
@@ -181,7 +181,7 @@ function initEventListeners() {
 
       if (targetPanel) targetPanel.classList.add("active");
 
-      // Đồng bộ trạng thái sidebar khi chuyển tab
+      // Sync the sidebar state when switching tabs
 
       if (btn.dataset.tab === "tab-overview") {
 
@@ -233,7 +233,7 @@ async function loadSettings() {
 
     appSettings = await res.json();
 
-    // Áp dụng theme
+    // Apply the theme
 
     const theme = appSettings.theme || "dark";
 
@@ -249,7 +249,7 @@ async function loadSettings() {
 
     loadAboutVersion();
 
-    // Cập nhật thư mục gần nhất
+    // Update the most recent folder
 
     if (appSettings.last_target_directory) {
 
@@ -257,7 +257,7 @@ async function loadSettings() {
 
     }
 
-    // Cập nhật LLM config
+    // Update the LLM config
 
     document.getElementById("settingsLLMProvider").value = appSettings.llm_provider || "gemini";
 
@@ -267,7 +267,7 @@ async function loadSettings() {
 
     document.getElementById("settingsModelInput").value = appSettings.selected_model || "gemini-2.0-flash";
 
-    // Cập nhật trạng thái sáng/tối của nút AI Deep Review trên Toolbar
+    // Update the light/dark state of the AI Deep Review button on the Toolbar
 
     updateAIButtonState();
 
@@ -459,7 +459,7 @@ function closeModal(modalId) {
 
 function updateApiKeyInputForProvider(provider) {
 
-  // Server không bao giờ trả API key về UI; chỉ hiển thị trạng thái đã lưu.
+  // The server never returns the API key to the UI; it only shows the saved status.
 
   const input = document.getElementById("settingsApiKeyInput");
 
@@ -585,7 +585,7 @@ function hasConfiguredApiKey() {
 
   if (appSettings[`has_${currentProvider}_api_key`]) return true;
 
-  // Fallback: kiểm tra bất kỳ provider nào có key
+  // Fallback: check whether any provider has a key
 
   return !!(appSettings.has_gemini_api_key || appSettings.has_openai_api_key || appSettings.has_claude_api_key);
 
@@ -637,7 +637,7 @@ async function handleTopAIDeepReview() {
 
   }
 
-  // Nếu chưa có dữ liệu đo kiểm tiêu chuẩn, tự động chạy Health Check trước
+  // If there is no standard audit data yet, automatically run Analytics first
 
   if (!currentAuditData) {
 
@@ -649,7 +649,7 @@ async function handleTopAIDeepReview() {
 
   }
 
-  // Chuyển sang panel AI Deep Review chuyên biệt
+  // Switch to the dedicated AI Deep Review panel
 
   const progressView = document.getElementById("installerProgressView");
 
@@ -675,7 +675,7 @@ async function handleTopAIDeepReview() {
 
   if (aiDeepPanel) aiDeepPanel.classList.add("active");
 
-  // Kích hoạt phân tích chuyên sâu bằng AI
+  // Trigger the deep AI analysis
 
   await triggerLLMReview();
 
@@ -779,7 +779,7 @@ function renderDynamicSegments(activePillars, planned = false) {
 
 }
 
-// Trạng thái thanh bên theo từng giai đoạn: chưa đo (N/A) -> đang đo (chờ / đang đo / đã đo) -> điểm thật.
+// Sidebar state per stage: not measured (N/A) -> measuring (waiting / measuring / measured) -> real score.
 
 const SIDEBAR_NON_PILLAR = new Set(["overview", "report_prompt", "history"]);
 
@@ -859,7 +859,7 @@ function applyScanProgress(plan, current) {
 
   const curIdx = keys.indexOf(current);
 
-  // current ngoài kế hoạch (gap analysis, quét an toàn) nghĩa là mọi hạng mục đã đo xong
+  // a current outside the plan (gap analysis, safety scan) means every category has been measured
 
   const doneUpTo = current == null ? 0 : (curIdx === -1 ? keys.length : curIdx);
 
@@ -967,13 +967,13 @@ function showInstallerProgressView(targetDir) {
 
   if (logFeed) logFeed.innerHTML = "";
 
-  // Đặt lại spinner về trạng thái xoay
+  // Reset the spinner to its spinning state
 
   if (spinnerEl) spinnerEl.className = "installer-spinner";
 
   if (mainTitleEl) mainTitleEl.textContent = t("Auditing source architecture...");
 
-  // Đồng bộ sidebar: chọn mục "history" (Lịch sử quét)
+  // Sync the sidebar: select the "history" item (Scan history)
 
   document.querySelectorAll(".pillar-item").forEach(i => {
 
@@ -999,7 +999,7 @@ function showInstallerProgressView(targetDir) {
 
   }
 
-  // Reset container các chặng kiểm tra: chưa biết sẽ đo hạng mục nào cho tới khi nhận diện xong dự án
+  // Reset the container of audit stages: which categories will be measured is unknown until the project is identified
 
   const segContainer = document.getElementById("installerSegmentsContainer");
 
@@ -1013,7 +1013,7 @@ function showInstallerProgressView(targetDir) {
 
   if (segLabel) segLabel.textContent = t("Audit stages");
 
-  // Xoá điểm của lần quét trước: hệ thống chưa biết điểm nào cho tới khi đo xong
+  // Clear the previous scan's score: the system does not know any score until measurement ends
 
   currentAuditData = null;
 
@@ -1041,7 +1041,7 @@ function hideInstallerProgressView() {
 
   if (resultView) resultView.style.display = "flex";
 
-  // Đồng bộ trạng thái sidebar sang TỔNG QUAN
+  // Sync the sidebar state to OVERVIEW
 
   document.querySelectorAll(".pillar-item").forEach(i => {
 
@@ -1135,7 +1135,7 @@ async function runBenchmark() {
 
   setStatus(t("Measuring source architecture..."));
 
-  // 1. Mở màn hình tiến trình thẩm định kiểu cài đặt app
+  // 1. Open the audit progress screen in an app-installer style
 
   showInstallerProgressView(folder);
 
@@ -1145,7 +1145,7 @@ async function runBenchmark() {
 
   try {
 
-    // Chạy nền ở backend và hỏi tiến độ thật: log hiện ngay khi engine ghi, kèm đồng hồ giây.
+    // Run in the background on the backend and ask for real progress: the log appears as soon as the engine writes it, with a seconds clock.
 
     const startRes = await fetch("/api/run-audit", {
 
@@ -1389,7 +1389,7 @@ async function pollAuditProgress(jobId, initialSince = 0) {
 
 // -------------------------------------------------------------
 
-// VIOLATION GROUPING CONTROLLER (GOM NHÓM & TẦN SUẤT LỖI)
+// VIOLATION GROUPING CONTROLLER (GROUPING & FREQUENCY OF VIOLATIONS)
 
 // -------------------------------------------------------------
 
@@ -1575,7 +1575,7 @@ function renderGroupedViolations(violations, containerEl) {
 
 // -------------------------------------------------------------
 
-// RENDER MỤC 2 (ACTIONABLE FINDINGS), MỤC 4 (BASELINE), MỤC 0 & 7 (SAFETY & SCOPE)
+// RENDER SECTION 2 (ACTIONABLE FINDINGS), SECTION 4 (BASELINE), SECTIONS 0 & 7 (SAFETY & SCOPE)
 
 // -------------------------------------------------------------
 
@@ -1973,7 +1973,7 @@ function renderSafetyAndScope(safety, scope) {
 
 function renderAuditResults(data) {
 
-  // 1. Total Score & Màu điểm (Báo Động Đỏ khi có lỗi nguy hiểm)
+  // 1. Total Score & score color (Red Alarm when a high-severity issue exists)
 
   const totalScoreEl = document.getElementById("totalScore");
   const alertContainer = document.getElementById("qualityGateAlertContainer");
@@ -2010,7 +2010,7 @@ function renderAuditResults(data) {
     }
   }
 
-  // 2. Metadata (Kèm thông tin Profile & Guardrail từ .builder/kit.json)
+  // 2. Metadata (with Profile & Guardrail info from .builder/kit.json)
 
   const archTypeEl = document.getElementById("metaArchetype");
 
@@ -2052,7 +2052,7 @@ function renderAuditResults(data) {
 
   }
 
-  // 3. Render Dynamic Sidebar Pillars (Luôn hiển thị đủ 12 hạng mục tiêu chuẩn)
+  // 3. Render the dynamic sidebar pillars (always show all 12 standard categories)
 
   const pillarList = document.getElementById("pillarList");
 
@@ -2315,7 +2315,7 @@ function renderAuditResults(data) {
 
   }
 
-  // 7. Grouped Violations (Tab Vi phạm mã nguồn toàn dự án)
+  // 7. Grouped Violations (project-wide source violations tab)
 
   const violationBadge = document.getElementById("violationCountBadge");
   if (violationBadge) {
@@ -2326,7 +2326,7 @@ function renderAuditResults(data) {
 
   renderGroupedViolations(data.violations || [], document.getElementById("violationGroupedContainer"));
 
-  // 8. Render Mục 2 (Findings), Mục 4 (Core Baseline B1-B9), Mục 0 & 7 (Safety & Scope)
+  // 8. Render Section 2 (Findings), Section 4 (Core Baseline B1-B9), Sections 0 & 7 (Safety & Scope)
 
   renderFindingsTable(data.findings ?? []);
 
@@ -2336,7 +2336,7 @@ function renderAuditResults(data) {
 
   renderAnalysis(data.analysis, data.insights);
 
-  // 9. Cập nhật Panel Báo cáo & Prompt AI
+  // 9. Update the Report & AI Prompt panel
 
   updateReportPromptPanel();
 
@@ -3170,11 +3170,11 @@ setInterval(() => {
 
 }, 2000);
 
-// NOTE (Handoff 004 Item C): Đã gỡ beforeunload -> sendBeacon("/api/shutdown") để reload (F5) không tắt server.
+// NOTE (Handoff 004 Item C): removed beforeunload -> sendBeacon("/api/shutdown") so a reload (F5) does not stop the server.
 
 // -------------------------------------------------------------
 
-// PHÂN TÍCH DỰ ÁN (Project Model + nhận định đối chiếu Knowledge Pack)
+// PROJECT ANALYSIS (Project Model + conclusions compared with the Knowledge Pack)
 
 // -------------------------------------------------------------
 

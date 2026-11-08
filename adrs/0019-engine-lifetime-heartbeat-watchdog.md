@@ -21,7 +21,7 @@ We replace the fragile `beforeunload` shutdown beacon with an active client-driv
 3. **Rationale for 180 seconds**: Accommodates aggressive Chromium/WebView2 timer throttling on hidden windows while guaranteeing orphan cleanup. As measured in clean-machine tests (`evals/results/raw/007-watchdog-timing.json`), orphaned engines exit cleanly at ~180.72s after parent shell termination.
 
 ## Consequences
-- UI reloads (F5, `Page.reload`) no longer terminate the engine process; the same engine PID handles re-connection cleanly (verified in `evals/results/raw/012-shell-reload.json`).
+- UI reloads (F5, `Page.reload`) no longer terminate the engine process; the same engine PID handles re-connection cleanly (verified in maintainer lab record 012-shell-reload, not published).
 - If the shell is killed abruptly without sending a shutdown command, the engine cleanly exits within 180s.
 - Clean application exit via `WM_CLOSE` posts an explicit `/api/shutdown` call, terminating all processes in < 0.5s.
 

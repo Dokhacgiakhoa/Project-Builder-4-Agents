@@ -30,7 +30,7 @@ export const App: React.FC = () => {
                 }`}
               >
                 <LayoutDashboard className="h-3.5 w-3.5" />
-                Tổng Quan (Dashboard)
+                Overview (Dashboard)
               </button>
               <button
                 onClick={() => setActiveTab('chat')}
@@ -57,7 +57,7 @@ export const App: React.FC = () => {
             </div>
 
             {/* Tab Views with Suspense */}
-            <Suspense fallback={<div className="p-8 text-center text-slate-500">Đang tải nội dung...</div>}>
+            <Suspense fallback={<div className="p-8 text-center text-slate-500">Loading content...</div>}>
               {activeTab === 'dashboard' && <DashboardView />}
               {activeTab === 'chat' && <ChatInterface />}
               {activeTab === 'theme-showcase' && <ThemeShowcaseView />}

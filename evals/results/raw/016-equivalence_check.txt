@@ -1,6 +1,0 @@
-=== Unicode Equivalence Check for Directive Pre-gate ===
-Total distinct alphabetic characters in directive patterns: 54
-Characters: abcdefghiklmnopqrstuvwxyàáâêóôùăđưạảấầẩẫậắếểệỉọỏớờởợừử
-Swept 1,114,112 Unicode code points in 0.12s. Found 112 matching characters.
-Discrepancies found: 0
-Saved equivalence check results to D:\Github\_sandbox\016-run\raw\009-equivalence.json

@@ -1,4 +1,4 @@
-"""Pillar Backend, Frontend, Database và Anti-Crash."""
+"""Backend, Frontend, Database and Anti-Crash pillars."""
 
 import os
 import sys
@@ -38,7 +38,7 @@ _ENV_WHITELIST_PATTERN = re.compile(r'(process\.env|os\.environ|config\(|\.get\(
 
 
 class AppPillarsMixin:
-    """Pillar Backend, Frontend, Database và Anti-Crash."""
+    """Backend, Frontend, Database and Anti-Crash pillars."""
 
     def audit_backend_waterflow(self):
         score = 0
@@ -47,7 +47,7 @@ class AppPillarsMixin:
         layer_leaks = []
         all_dirs = self.tree.all_dirs
 
-        # Phân tầng kiến trúc
+        # Layered architecture
         has_domain = any(d in all_dirs for d in ['domain', 'entities', 'core', 'models'])
         has_app = any(d in all_dirs for d in ['application', 'usecases', 'services', 'interactors'])
         has_infra = any(d in all_dirs for d in ['infrastructure', 'adapters', 'repositories', 'dal'])
@@ -88,7 +88,7 @@ class AppPillarsMixin:
                 remediation='Reorganize folders by architectural layers (domain/core, services, controllers/routes).'
             ))
 
-        # Quét Dependency Injection (DI) & DTO Input Validation
+        # Scan Dependency Injection (DI) & DTO Input Validation
         has_di = False
         has_dto_validation = False
         di_found_file = None
@@ -278,7 +278,7 @@ class AppPillarsMixin:
                 remediation='Create a custom tailwind.config.js or define a :root color/spacing variable table in CSS.'
             ))
 
-        # 2. API Client bọc tập trung
+        # 2. Centralized API Client wrapper
         has_api_client = False
         client_candidates = [p for p in self.tree.code_files if 'api-client' in p.name.lower() or 'client' in p.name.lower()]
         api_client_path = None
@@ -309,7 +309,7 @@ class AppPillarsMixin:
                 remediation='Create `api/client.ts` wrapping Axios/Fetch with baseURL, auth header and an error-code normalizer.'
             ))
 
-        # 3. Quét Error Boundary & Code Splitting (Lazy Loading)
+        # 3. Scan Error Boundary & Code Splitting (Lazy Loading)
         has_error_boundary = False
         error_boundary_file = None
         has_lazy_loading = False
@@ -451,7 +451,7 @@ class AppPillarsMixin:
                     has_transaction = True
                     tx_file = rel_str
 
-                # Quét SQL Injection & N+1 Query (Single-pass)
+                # Scan SQL Injection & N+1 Query (Single-pass)
                 lines_text = text.splitlines()
                 in_loop = False
                 loop_start = 0
@@ -631,7 +631,7 @@ class AppPillarsMixin:
                                 bare_except_sample = item
 
                     # 4. Hardcoded Secret Detection (fast pre-filter)
-                    # Bỏ qua tệp test / mock fixtures để tránh synthetic payload kiểm thử gây báo động giả
+                    # Skip test files / mock fixtures so synthetic test payloads do not raise false alarms
                     if is_test_file:
                         continue
 
@@ -680,7 +680,7 @@ class AppPillarsMixin:
         else:
             score = 100
 
-        # Phân loại Criteria Met & Criteria Not Met
+        # Classify Criteria Met & Criteria Not Met
         if naked_json_count == 0:
             found.append(CriterionItem(
                 'JSON handling safety: 0 naked JSON.parse risks of runtime crash',

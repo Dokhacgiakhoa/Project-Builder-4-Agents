@@ -1,4 +1,4 @@
-"""Kiểm thử kiểm tra work log (WLOG-001/002, core/standards/worklog.md)."""
+"""Tests for the work log check (WLOG-001/002, core/standards/worklog.md)."""
 
 import sys
 from pathlib import Path

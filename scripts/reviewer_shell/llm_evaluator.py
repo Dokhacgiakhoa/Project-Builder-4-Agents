@@ -1,8 +1,8 @@
-"""AI Deep Review: lớp phân tích sâu tùy chọn, cần mạng (ADR-0018).
+"""AI Deep Review: an optional deep-analysis layer, needs network (ADR-0018).
 
-Khác bản cũ: AI nhận Project Model + nhận định (cấu trúc, đồ thị phụ thuộc, bằng chứng), không chỉ điểm số.
-Mã nguồn chỉ được gửi khi người dùng đồng ý tường minh (include_code) và luôn được che bí mật trước khi gửi.
-Hỗ trợ: Google Gemini, OpenAI, Anthropic Claude (thư viện chuẩn, không phụ thuộc ngoài).
+Unlike the old version: the AI receives the Project Model + conclusions (structure, dependency graph, evidence), not just the score.
+Source code is sent only when the user explicitly agrees (include_code) and secrets are always masked before sending.
+Supports: Google Gemini, OpenAI, Anthropic Claude (standard library, no external dependency).
 """
 
 import json
@@ -31,7 +31,7 @@ def mask_secrets(text: str) -> str:
 
 
 def _code_excerpts(audit_data: dict) -> list[dict]:
-    """Trích đầu các tệp lớn nhất (điểm nóng), đã che bí mật. Chỉ gọi khi người dùng cho phép."""
+    """Take the head of the largest files (hotspots), secrets masked. Called only when the user allows it."""
     root = Path(audit_data.get("target_dir", ""))
     out = []
     for hot in (audit_data.get("analysis", {}).get("hotspots", {}).get("large_files") or [])[:MAX_CODE_FILES]:
@@ -129,14 +129,14 @@ class LLMEvaluator:
 
     @staticmethod
     def test_connection(provider: str, api_key: str, model: str) -> dict:
-        """Gọi thử rất nhỏ để xác thực key + model trước khi người dùng chờ một bản review dài."""
+        """A very small test call to validate the key + model before the user waits for a long review."""
         if not api_key or not api_key.strip():
             return {"success": False, "error": "No API Key entered."}
         try:
             _call(provider, api_key.strip(), model or DEFAULT_MODELS.get(provider, ""), "Reply with the single word: ok", 32)
             return {"success": True, "message": "Connection OK: the API Key and model are valid."}
         except (KeyError, IndexError):
-            # HTTP 200 nhưng không có văn bản (vd. model suy luận dùng hết token): key và model vẫn hợp lệ
+            # HTTP 200 but no text (e.g. a reasoning model used up its tokens): the key and model are still valid
             return {"success": True, "message": "Connection OK: the API Key and model are valid."}
         except Exception as e:
             return {"success": False, "error": str(e)}

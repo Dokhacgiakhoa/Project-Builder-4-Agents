@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="vi">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Theo dõi token</title>
+<title>Token monitor</title>
 <style>
   :root {
     color-scheme: light;
@@ -93,52 +93,52 @@
 <div class="wrap" id="app">
   <header>
     <div>
-      <h1>Theo dõi token vào / ra · Claude Code</h1>
-      <span class="status"><span class="dot" id="dot"></span><span id="statusText">đang kết nối…</span></span>
+      <h1>Token usage in / out · Claude Code</h1>
+      <span class="status"><span class="dot" id="dot"></span><span id="statusText">connecting…</span></span>
     </div>
     <div style="display:flex; gap:8px">
-      <button id="pauseBtn" type="button">Tạm dừng</button>
-      <button id="themeBtn" type="button" aria-label="Đổi giao diện sáng/tối">Giao diện: tự động</button>
+      <button id="pauseBtn" type="button">Pause</button>
+      <button id="themeBtn" type="button" aria-label="Switch light/dark theme">Theme: auto</button>
     </div>
   </header>
 
-  <div class="filters" role="group" aria-label="Bộ lọc">
-    <label class="f">Dự án <select id="projectSel"></select></label>
-    <label class="f">Phiên <select id="sessionSel"></select></label>
+  <div class="filters" role="group" aria-label="Filters">
+    <label class="f">Project <select id="projectSel"></select></label>
+    <label class="f">Session <select id="sessionSel"></select></label>
   </div>
 
   <div id="empty" class="card empty" hidden></div>
 
   <div id="content" hidden>
-    <section class="grid big" aria-label="Tổng token">
-      <div class="card"><div class="label">Token vào mới</div><div class="big-value" id="bIn">0</div><div class="tile-note" id="bInNote"></div></div>
-      <div class="card"><div class="label">Token vào đọc lại từ cache</div><div class="big-value" id="bCr">0</div><div class="tile-note" id="bCrNote"></div></div>
-      <div class="card"><div class="label">Token ra (model viết)</div><div class="big-value" id="bOut">0</div><div class="tile-note" id="bOutNote"></div></div>
+    <section class="grid big" aria-label="Token totals">
+      <div class="card"><div class="label">Fresh input tokens</div><div class="big-value" id="bIn">0</div><div class="tile-note" id="bInNote"></div></div>
+      <div class="card"><div class="label">Input tokens re-read from cache</div><div class="big-value" id="bCr">0</div><div class="tile-note" id="bCrNote"></div></div>
+      <div class="card"><div class="label">Output tokens (written by the model)</div><div class="big-value" id="bOut">0</div><div class="tile-note" id="bOutNote"></div></div>
     </section>
-    <p class="defs"><b>Vào mới</b> = đầu vào chưa có trong cache + phần ghi vào cache. <b>Đọc lại từ cache</b> = ngữ cảnh cũ được dùng lại ở mỗi lần gọi model (thường chiếm phần lớn tổng vào). <b>Ra</b> = token model tạo ra. Cách tính tiền của từng loại chưa được kiểm chứng ở đây.</p>
+    <p class="defs"><b>Fresh in</b> = input not yet in the cache + the part written to the cache. <b>Re-read from cache</b> = old context reused on every model call (usually most of the input total). <b>Out</b> = tokens the model generated. How each kind is billed has not been verified here.</p>
 
-    <section class="grid kpis" aria-label="Chỉ số phụ">
-      <div class="card"><div class="label">Tin nhắn của bạn</div><div class="tile-value" id="kPrompts">0</div><div class="tile-note" id="kPromptsNote"></div></div>
-      <div class="card"><div class="label">Lần gọi model</div><div class="tile-value" id="kCalls">0</div><div class="tile-note">mỗi tin nhắn có thể gọi nhiều lần (đọc file, chạy lệnh…)</div></div>
-      <div class="card"><div class="label">Tốc độ gần đây</div><div class="tile-value" id="kRate">0</div><div class="tile-note" id="kRateNote"></div></div>
-      <div class="card"><div class="label">Ngữ cảnh hiện tại</div><div class="tile-value" id="kCtx">0</div><div class="tile-note">chi tiết từng phần xem ở bảng "Ngữ cảnh" của ứng dụng</div></div>
+    <section class="grid kpis" aria-label="Secondary metrics">
+      <div class="card"><div class="label">Your messages</div><div class="tile-value" id="kPrompts">0</div><div class="tile-note" id="kPromptsNote"></div></div>
+      <div class="card"><div class="label">Model calls</div><div class="tile-value" id="kCalls">0</div><div class="tile-note">one message can trigger many calls (reading files, running commands…)</div></div>
+      <div class="card"><div class="label">Recent rate</div><div class="tile-value" id="kRate">0</div><div class="tile-note" id="kRateNote"></div></div>
+      <div class="card"><div class="label">Current context</div><div class="tile-value" id="kCtx">0</div><div class="tile-note">see the app's "Context" table for the breakdown</div></div>
     </section>
 
     <section class="grid charts" id="charts">
       <div class="card">
-        <h2>Mỗi tin nhắn của bạn tốn bao nhiêu</h2>
+        <h2>What each of your messages costs</h2>
         <div class="sub" id="exSub"></div>
-        <div class="legend" aria-label="Chú thích">
-          <span><i class="sw" style="background:var(--series-1)"></i>Vào mới</span>
+        <div class="legend" aria-label="Legend">
+          <span><i class="sw" style="background:var(--series-1)"></i>Fresh in</span>
           <span><i class="sw" style="background:var(--series-2)"></i>Ra</span>
         </div>
         <div class="chart" id="chartEx"><div class="tip" id="tipEx"></div></div>
       </div>
       <div class="card">
-        <h2>Tích luỹ theo thời gian</h2>
+        <h2>Cumulative over time</h2>
         <div class="sub" id="cumSub"></div>
-        <div class="legend" aria-label="Chú thích">
-          <span><i class="sw" style="background:var(--series-1)"></i>Vào mới</span>
+        <div class="legend" aria-label="Legend">
+          <span><i class="sw" style="background:var(--series-1)"></i>Fresh in</span>
           <span><i class="sw" style="background:var(--series-2)"></i>Ra</span>
         </div>
         <div class="chart" id="chartCum"><div class="tip" id="tipCum"></div></div>
@@ -146,21 +146,21 @@
     </section>
 
     <section class="grid tables">
-      <div class="card"><h2>Các tin nhắn gần đây</h2><div class="sub">Xếp mới nhất trước. "Vào mới" và "Ra" là phần bạn quan tâm; "Đọc cache" là ngữ cảnh cũ dùng lại.</div>
-        <div class="tablewrap"><table><thead><tr><th>Lúc</th><th>Tin nhắn</th><th class="n">Lần gọi</th><th class="n">Vào mới</th><th class="n">Đọc cache</th><th class="n">Ra</th><th class="n">Thời gian</th></tr></thead><tbody id="exBody"></tbody></table></div></div>
-      <div class="card"><h2>Theo model</h2><div class="sub">Số lần gọi và token ra</div>
-        <div class="tablewrap"><table><thead><tr><th>Model</th><th class="n">Lần gọi</th><th class="n">Token ra</th></tr></thead><tbody id="modelBody"></tbody></table></div></div>
+      <div class="card"><h2>Recent messages</h2><div class="sub">Newest first. "Fresh in" and "Out" are what you care about; "Cache read" is old context reused.</div>
+        <div class="tablewrap"><table><thead><tr><th>Time</th><th>Message</th><th class="n">Calls</th><th class="n">Fresh in</th><th class="n">Cache read</th><th class="n">Out</th><th class="n">Duration</th></tr></thead><tbody id="exBody"></tbody></table></div></div>
+      <div class="card"><h2>By model</h2><div class="sub">Calls and output tokens</div>
+        <div class="tablewrap"><table><thead><tr><th>Model</th><th class="n">Calls</th><th class="n">Output tokens</th></tr></thead><tbody id="modelBody"></tbody></table></div></div>
     </section>
 
     <details class="card">
-      <summary>Xem dạng bảng từng lần gọi (30 gần nhất)</summary>
-      <div class="tablewrap"><table><thead><tr><th>#</th><th>Lúc</th><th class="n">Vào mới</th><th class="n">Đọc cache</th><th class="n">Ra</th><th>Model</th></tr></thead><tbody id="rawBody"></tbody></table></div>
+      <summary>Show each call as a table (latest 30)</summary>
+      <div class="tablewrap"><table><thead><tr><th>#</th><th>Time</th><th class="n">Fresh in</th><th class="n">Cache read</th><th class="n">Out</th><th>Model</th></tr></thead><tbody id="rawBody"></tbody></table></div>
     </details>
 
     <div class="warnbox" id="warnbox" hidden></div>
   </div>
 
-  <p class="note">Số liệu đọc từ log cục bộ của Claude Code, đã loại bản ghi trùng; không phải hoá đơn chính thức. Chỉ hỗ trợ Claude Code. Phần xem trước tin nhắn chỉ hiển thị trên máy bạn. Dữ liệu không rời khỏi máy.</p>
+  <p class="note">Figures are read from Claude Code's local logs with duplicate records removed; they are not an official bill. Claude Code only. Message previews are shown only on your machine. Data never leaves your machine.</p>
 </div>
 
 <script>
@@ -225,7 +225,7 @@
   function hideTip(tip) { tip.style.display = "none"; }
   function clearSvg(host) { Array.prototype.slice.call(host.querySelectorAll("svg")).forEach(function (s) { host.removeChild(s); }); }
 
-  // ---- chart A: per user message, stacked columns (vào mới + ra) ----
+  // ---- chart A: per user message, stacked columns (fresh in + out) ----
   function drawEx(ex) {
     var host = $("chartEx"), tip = $("tipEx"); clearSvg(host);
     var data = ex.slice(-30), n = data.length;
@@ -234,7 +234,7 @@
     var maxV = Math.max.apply(null, data.map(function (d) { return d.in_new + d.out; }).concat([1]));
     var T = ticks(maxV), slot = pw / Math.max(n, 1), bw = Math.min(24, Math.max(3, slot * 0.7));
     var sy = function (v) { return m.t + ph * (1 - v / T.max); };
-    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": "Token vào mới và ra cho " + n + " tin nhắn gần nhất" });
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": "Fresh input and output tokens for the last " + n + " messages" });
     T.ticks.forEach(function (t) {
       svg.appendChild(el("line", { x1: m.l, x2: W - m.r, y1: sy(t), y2: sy(t), "class": t === 0 ? "axis-line" : "grid-line" }));
       svg.appendChild(el("text", { x: m.l - 8, y: sy(t) + 4, "text-anchor": "end" }, axisLabel(t, T.max)));
@@ -243,7 +243,7 @@
     data.forEach(function (d, i) {
       var x = m.l + slot * i + (slot - bw) / 2;
       var g = el("g", { "class": "col", tabindex: 0, role: "img",
-        "aria-label": "Tin nhắn " + (i + 1) + ": vào mới " + full(d.in_new) + ", ra " + full(d.out) });
+        "aria-label": "Message " + (i + 1) + ": fresh in " + full(d.in_new) + ", out " + full(d.out) });
       var hIn = yBase - sy(d.in_new), hOut = yBase - sy(d.out), hasOut = d.out > 0, hasIn = d.in_new > 0;
       if (hasIn) {
         var h1 = Math.max(1, hasOut ? hIn - GAP : hIn);
@@ -256,24 +256,24 @@
       }
       g.appendChild(el("rect", { x: m.l + slot * i, y: m.t, width: slot, height: ph, fill: "transparent" }));
       var top = sy(d.in_new + d.out);
-      var show = function () { showTip(tip, host, m.l + slot * i + slot / 2, top, hhmm(d.t) + " · " + (d.preview || "(không có nội dung)"), [
-        { label: "Vào mới", value: full(d.in_new), color: "var(--series-1)" },
+      var show = function () { showTip(tip, host, m.l + slot * i + slot / 2, top, hhmm(d.t) + " · " + (d.preview || "(no content)"), [
+        { label: "Fresh in", value: full(d.in_new), color: "var(--series-1)" },
         { label: "Ra", value: full(d.out), color: "var(--series-2)" },
-        { label: "Đọc cache", value: full(d.cache_read) },
-        { label: "Lần gọi model", value: full(d.calls) },
-        { label: "Thời gian", value: dur(d.secs) }]); };
+        { label: "Cache read", value: full(d.cache_read) },
+        { label: "Model calls", value: full(d.calls) },
+        { label: "Duration", value: dur(d.secs) }]); };
       g.addEventListener("pointermove", show); g.addEventListener("focus", show);
       g.addEventListener("pointerleave", function () { hideTip(tip); }); g.addEventListener("blur", function () { hideTip(tip); });
       svg.appendChild(g);
     });
     var big = data.reduce(function (a, d, i) { return d.in_new + d.out > a.v ? { v: d.in_new + d.out, i: i } : a; }, { v: -1, i: 0 });
     if (n > 0) svg.appendChild(el("text", { x: Math.min(Math.max(m.l + slot * big.i + slot / 2, m.l + 20), W - m.r - 20), y: sy(big.v) - 6, "text-anchor": "middle", "class": "val" }, compact(big.v)));
-    svg.appendChild(el("text", { x: m.l, y: H - 8 }, "cũ hơn"));
-    svg.appendChild(el("text", { x: W - m.r, y: H - 8, "text-anchor": "end" }, "mới nhất"));
+    svg.appendChild(el("text", { x: m.l, y: H - 8 }, "older"));
+    svg.appendChild(el("text", { x: W - m.r, y: H - 8, "text-anchor": "end" }, "latest"));
     host.insertBefore(svg, tip);
   }
 
-  // ---- chart B: cumulative lines (vào mới, ra) ----
+  // ---- chart B: cumulative lines (fresh in, out) ----
   function drawCum(series, totals) {
     var host = $("chartCum"), tip = $("tipCum"); clearSvg(host);
     var n = series.length;
@@ -285,12 +285,12 @@
     var T = ticks(Math.max(cIn[n - 1], cOut[n - 1], 1));
     var sx = function (i) { return m.l + (n <= 1 ? pw / 2 : pw * i / (n - 1)); };
     var sy = function (v) { return m.t + ph * (1 - v / T.max); };
-    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": "Tổng token vào mới " + full(cIn[n - 1]) + " và ra " + full(cOut[n - 1]) + " tích luỹ" });
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": "Cumulative fresh input " + full(cIn[n - 1]) + " and output " + full(cOut[n - 1]) + " tokens" });
     T.ticks.forEach(function (t) {
       svg.appendChild(el("line", { x1: m.l, x2: W - m.r, y1: sy(t), y2: sy(t), "class": t === 0 ? "axis-line" : "grid-line" }));
       svg.appendChild(el("text", { x: m.l - 8, y: sy(t) + 4, "text-anchor": "end" }, axisLabel(t, T.max)));
     });
-    [[cIn, "var(--series-1)", "vào"], [cOut, "var(--series-2)", "ra"]].forEach(function (L) {
+    [[cIn, "var(--series-1)", "in"], [cOut, "var(--series-2)", "out"]].forEach(function (L) {
       if (n > 1) svg.appendChild(el("polyline", { points: L[0].map(function (v, i) { return sx(i) + "," + sy(v); }).join(" "), fill: "none",
         stroke: L[1], "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }));
       var lx = sx(n - 1), ly = sy(L[0][n - 1]);
@@ -302,14 +302,14 @@
     svg.appendChild(el("text", { x: W - m.r, y: H - 8, "text-anchor": "end" }, hhmm(series[n - 1].t)));
     var cross = el("line", { y1: m.t, y2: m.t + ph, stroke: "var(--text-muted)", "stroke-width": 1, visibility: "hidden" });
     svg.appendChild(cross);
-    var hit = el("rect", { x: m.l, y: m.t, width: pw, height: ph, fill: "transparent", tabindex: 0, "aria-label": "Rê chuột hoặc dùng phím mũi tên để xem từng thời điểm" });
+    var hit = el("rect", { x: m.l, y: m.t, width: pw, height: ph, fill: "transparent", tabindex: 0, "aria-label": "Hover or use the arrow keys to inspect each point in time" });
     var cur = n - 1;
     function at(i) {
       i = Math.max(0, Math.min(n - 1, i)); cur = i;
       cross.setAttribute("x1", sx(i)); cross.setAttribute("x2", sx(i)); cross.setAttribute("visibility", "visible");
       showTip(tip, host, sx(i), sy(Math.max(cIn[i], cOut[i])), hhmm(series[i].t), [
-        { label: "Vào mới (tích luỹ)", value: full(cIn[i]), color: "var(--series-1)" },
-        { label: "Ra (tích luỹ)", value: full(cOut[i]), color: "var(--series-2)" }]);
+        { label: "Fresh in (cumulative)", value: full(cIn[i]), color: "var(--series-1)" },
+        { label: "Out (cumulative)", value: full(cOut[i]), color: "var(--series-2)" }]);
     }
     hit.addEventListener("pointermove", function (ev) {
       var r = hit.getBoundingClientRect(); var x = (ev.clientX - r.left) / r.width * pw;
@@ -339,27 +339,27 @@
   // ---- render ----
   function render(d) {
     var series = d.series || [];
-    if (!series.length) { $("content").hidden = true; $("empty").hidden = false; $("empty").textContent = "Chưa có dữ liệu cho phiên này. Hãy chat với Claude Code trong dự án này rồi quay lại."; return; }
+    if (!series.length) { $("content").hidden = true; $("empty").hidden = false; $("empty").textContent = "No data for this session yet. Chat with Claude Code in this project, then come back."; return; }
     $("empty").hidden = true; $("content").hidden = false;
     var t = d.totals, inNew = t.fresh_input + t.cache_write, td = d.today;
     setText("bIn", full(inNew));
-    setText("bInNote", "hôm nay: " + full(td.in_new));
+    setText("bInNote", "today: " + full(td.in_new));
     setText("bCr", full(t.cache_read));
-    setText("bCrNote", "hôm nay: " + full(td.cache_read));
+    setText("bCrNote", "today: " + full(td.cache_read));
     setText("bOut", full(t.output));
-    setText("bOutNote", "hôm nay: " + full(td.out));
+    setText("bOutNote", "today: " + full(td.out));
     setText("kPrompts", full(d.prompts));
-    setText("kPromptsNote", d.sessions.length + " phiên trong dự án" + (d.session === "all" ? " (đang cộng tất cả)" : ""));
+    setText("kPromptsNote", d.sessions.length + " sessions in the project" + (d.session === "all" ? " (all summed)" : ""));
     setText("kCalls", full(d.turns));
     setText("kRate", full(d.new_tokens_per_min));
-    setText("kRateNote", "vào mới + ra mỗi phút · ra ≈ " + full(d.output_tokens_per_min) + "/phút (10 phút gần nhất)");
+    setText("kRateNote", "fresh in + out per minute · out ≈ " + full(d.output_tokens_per_min) + "/min (last 10 minutes)");
     setText("kCtx", full(d.context_now));
-    setText("exSub", d.exchanges.length ? "Mỗi cột là một tin nhắn bạn gửi (30 gần nhất). Rê chuột để xem nội dung và chi tiết." : "Chưa nhận diện được tin nhắn của bạn trong log này.");
-    setText("cumSub", "Cộng dồn theo từng lần gọi model" + (d.truncated ? " (đã bù " + full(d.truncated) + " lần gọi cũ hơn không vẽ)" : ""));
+    setText("exSub", d.exchanges.length ? "Each column is one message you sent (latest 30). Hover to see the content and details." : "Your messages could not be identified in this log.");
+    setText("cumSub", "Running total per model call" + (d.truncated ? " (" + full(d.truncated) + " older calls not drawn are included)" : ""));
     if (d.exchanges.length) drawEx(d.exchanges); else clearSvg($("chartEx"));
     drawCum(series, t);
     fill("exBody", d.exchanges.slice(-15).reverse().map(function (x) {
-      return [cell(hhmm(x.t)), { v: x.preview || "(không có nội dung)", msg: true }, cell(full(x.calls), 1), cell(full(x.in_new), 1), cell(full(x.cache_read), 1), cell(full(x.out), 1), cell(dur(x.secs), 1)]; }));
+      return [cell(hhmm(x.t)), { v: x.preview || "(no content)", msg: true }, cell(full(x.calls), 1), cell(full(x.in_new), 1), cell(full(x.cache_read), 1), cell(full(x.out), 1), cell(dur(x.secs), 1)]; }));
     fill("modelBody", d.by_model.map(function (m) { return [cell(m.model), cell(full(m.turns), 1), cell(full(m.output), 1)]; }));
     var base = series.length;
     fill("rawBody", series.slice(-30).reverse().map(function (s, i) {
@@ -378,13 +378,13 @@
       var saved = store("tm.project");
       state.project = saved && p.projects.some(function (x) { return x.id === saved; }) ? saved : p.default;
       if (state.project) sel.value = state.project;
-      if (!p.projects.length) { $("empty").hidden = false; $("empty").textContent = "Không tìm thấy log của Claude Code (~/.claude/projects)."; }
+      if (!p.projects.length) { $("empty").hidden = false; $("empty").textContent = "No Claude Code logs found (~/.claude/projects)."; }
     });
   }
   function fillSessions(list) {
     var sel = $("sessionSel"), keep = state.session;
     while (sel.firstChild) sel.removeChild(sel.firstChild);
-    [["latest", "Phiên mới nhất"], ["all", "Tất cả phiên"]].concat(list.map(function (s) { return [s.id, s.id.slice(0, 8) + " · " + new Date(s.modified).toLocaleString("vi-VN")]; }))
+    [["latest", "Latest session"], ["all", "All sessions"]].concat(list.map(function (s) { return [s.id, s.id.slice(0, 8) + " · " + new Date(s.modified).toLocaleString()]; }))
       .forEach(function (o) { var e = document.createElement("option"); e.value = o[0]; e.textContent = o[1]; sel.appendChild(e); });
     sel.value = keep;
   }
@@ -393,10 +393,10 @@
     state.busy = true;
     var slow = setTimeout(function () { $("app").classList.add("loading"); }, 400);
     fetchJSON("/api/tokens?project=" + encodeURIComponent(state.project) + "&session=" + encodeURIComponent(state.session)).then(function (d) {
-      if (d.error) { setStatus("err", "lỗi: " + d.error); return; }
+      if (d.error) { setStatus("err", "error: " + d.error); return; }
       state.data = d; fillSessions(d.sessions); render(d);
-      setStatus("live", "trực tiếp · cập nhật " + new Date().toLocaleTimeString("vi-VN"));
-    }).catch(function () { setStatus("err", "mất kết nối với máy chủ cục bộ"); })
+      setStatus("live", "live · updated " + new Date().toLocaleTimeString());
+    }).catch(function () { setStatus("err", "lost connection to the local server"); })
       .then(function () { clearTimeout(slow); $("app").classList.remove("loading"); state.busy = false; });
   }
   function start() { if (state.timer) clearInterval(state.timer); state.timer = setInterval(tick, 2000); tick(); }
@@ -405,13 +405,13 @@
   $("projectSel").addEventListener("change", function (e) { state.project = e.target.value; state.session = "latest"; store("tm.project", state.project); tick(); });
   $("sessionSel").addEventListener("change", function (e) { state.session = e.target.value; tick(); });
   $("pauseBtn").addEventListener("click", function () {
-    state.paused = !state.paused; setText("pauseBtn", state.paused ? "Tiếp tục" : "Tạm dừng");
-    if (state.paused) setStatus("", "đã tạm dừng"); else tick();
+    state.paused = !state.paused; setText("pauseBtn", state.paused ? "Resume" : "Pause");
+    if (state.paused) setStatus("", "paused"); else tick();
   });
-  var themes = ["auto", "light", "dark"], themeNames = { auto: "tự động", light: "sáng", dark: "tối" };
+  var themes = ["auto", "light", "dark"], themeNames = { auto: "auto", light: "light", dark: "dark" };
   function applyTheme(t) {
     if (t === "auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.setAttribute("data-theme", t);
-    setText("themeBtn", "Giao diện: " + themeNames[t]); store("tm.theme", t);
+    setText("themeBtn", "Theme: " + themeNames[t]); store("tm.theme", t);
   }
   $("themeBtn").addEventListener("click", function () { applyTheme(themes[(themes.indexOf(store("tm.theme") || "auto") + 1) % 3]); });
   var rz; window.addEventListener("resize", function () { clearTimeout(rz); rz = setTimeout(function () { if (state.data && state.data.series.length) render(state.data); }, 150); });
@@ -419,10 +419,10 @@
   var t0 = store("tm.theme"); if (t0 && themeNames[t0]) applyTheme(t0);
   if (location.protocol === "file:") {
     $("empty").hidden = false;
-    $("empty").textContent = "Trang này cần máy chủ cục bộ, không mở trực tiếp từ tệp được. Chạy: python scripts/token_dashboard_cli.py rồi mở http://127.0.0.1:8999/";
-    setStatus("err", "chưa kết nối máy chủ");
+    $("empty").textContent = "This page needs the local server and cannot be opened directly from a file. Run: python scripts/token_dashboard_cli.py then open http://127.0.0.1:8999/";
+    setStatus("err", "not connected to the server");
   } else {
-    loadProjects().then(start).catch(function () { setStatus("err", "không đọc được danh sách dự án"); });
+    loadProjects().then(start).catch(function () { setStatus("err", "could not read the project list"); });
   }
 })();
 </script>

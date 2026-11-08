@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-Điểm vào duy nhất của Engine đóng gói (reviewer-engine.exe) cho Project Health Check, để người dùng KHÔNG cần cài Python.
+Single entry point of the packaged Engine (reviewer-engine.exe) for Project Builder Analytics, so users do NOT need to install Python.
 
-  reviewer-engine serve [--server-only] [--port=N]   # giao diện/web server (Project-Health-Check.exe gọi lệnh này)
-  reviewer-engine audit <thư_mục>                    # thanh tra dự án bất kỳ, xuất project-review.md
+  reviewer-engine serve [--server-only] [--port=N]   # UI/web server (Project-Builder-Analytics.exe calls this command)
+  reviewer-engine audit <folder>                     # audit any project, writes project-review.md
 
-Khi chạy từ mã nguồn, cũng dùng được: python scripts/engine_main.py audit <thư_mục>
+When run from source it also works: python scripts/engine_main.py audit <folder>
 """
 
 import sys
@@ -14,7 +14,7 @@ if sys.version_info < (3, 12):
     print("[ERROR] Python 3.12 or newer is required (running %d.%d)." % sys.version_info[:2], file=sys.stderr)
     sys.exit(1)
 
-# Console Windows mặc định không in được tiếng Việt (cp1252): ép UTF-8, thay ký tự lỗi thay vì sập.
+# The default Windows console (cp1252) cannot print many Unicode characters: force UTF-8, replace bad characters instead of crashing.
 for _stream in (sys.stdout, sys.stderr):
     try:
         _stream.reconfigure(encoding="utf-8", errors="replace")

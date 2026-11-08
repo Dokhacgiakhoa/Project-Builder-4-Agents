@@ -290,7 +290,7 @@
    "when": "Selecting and cross-referencing design patterns, refactoring code",
    "path": "profiles/patterns/design-patterns-catalog.md",
    "type": "reference",
-   "title": "CẨM NANG TRA CỨU DESIGN PATTERNS TRONG PHẦN MỀM & AI"
+   "title": "REFERENCE HANDBOOK OF DESIGN PATTERNS IN SOFTWARE & AI"
   },
   {
    "id": "A-007",
@@ -305,7 +305,7 @@
    "when": "Writing or updating system architecture documentation (components, key flows)",
    "path": "profiles/documentation/system-architecture.md",
    "type": "reference",
-   "title": "KIẾN TRÚC TỔNG THỂ HỆ THỐNG (SYSTEM ARCHITECTURE)"
+   "title": "SYSTEM ARCHITECTURE"
   },
   {
    "id": "D-001",
@@ -336,7 +336,7 @@
    "when": "Browsing UI aesthetic archetype catalog",
    "path": "profiles/design/design-archetypes-catalog.md",
    "type": "reference",
-   "title": "Bảng Tổng Hợp UI/UX Design Archetypes & Thư Viện Mã Nguồn Mở"
+   "title": "UI/UX Design Archetypes & Open-Source Libraries Catalog"
   },
   {
    "id": "D-005",
@@ -344,7 +344,7 @@
    "when": "Prompts for generating matching visual styles and design tokens",
    "path": "profiles/design/visual-dna-prompts.md",
    "type": "reference",
-   "title": "AI Visual DNA Prompt Cookbook (Sổ Tay Prompt Giao Diện Cho Agent)"
+   "title": "AI Visual DNA Prompt Cookbook (UI Style Prompts for Agents)"
   },
   {
    "id": "D-006",
@@ -448,7 +448,7 @@
    "when": "Production deployment guide",
    "path": "profiles/documentation/deployment-guide.md",
    "type": "reference",
-   "title": "HƯỚNG DẪN TRIỂN KHAI HỆ THỐNG (DEPLOYMENT GUIDE)"
+   "title": "SYSTEM DEPLOYMENT GUIDE"
   },
   {
    "id": "T-005",
@@ -508,7 +508,7 @@
    "when": "Operational incident triage runbook template",
    "path": "profiles/documentation/guides/incident-runbook-template.md",
    "type": "reference",
-   "title": "🚨 PRODUCTION INCIDENT RESPONSE RUNBOOK (SỔ TAY XỬ LÝ SỰ CỐ PRODUCTION)"
+   "title": "🚨 PRODUCTION INCIDENT RESPONSE RUNBOOK"
   },
   {
    "id": "O-008",
@@ -516,7 +516,7 @@
    "when": "End-user application guide template",
    "path": "profiles/documentation/guides/user-guide-template.md",
    "type": "reference",
-   "title": "📖 [TÊN SẢN PHẨM] - HƯỚNG DẪN DÀNH CHO NGƯỜI DÙNG CUỐI (USER GUIDE)"
+   "title": "📖 [PRODUCT NAME] - END-USER GUIDE (USER GUIDE)"
   },
   {
    "id": "O-009",
@@ -524,7 +524,7 @@
    "when": "Onboarding guide template for new team members",
    "path": "profiles/documentation/guides/developer-onboarding-guide.md",
    "type": "reference",
-   "title": "🚀 DEVELOPER ONBOARDING GUIDE (ZERO TO FIRST COMMIT TRONG 30 PHÚT)"
+   "title": "🚀 DEVELOPER ONBOARDING GUIDE (ZERO TO FIRST COMMIT IN 30 MINUTES)"
   }
  ],
  "generated": "2026-11-08"

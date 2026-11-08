@@ -13,7 +13,7 @@ PREFIX = "dpapi:"
 
 
 def _protect(value: str) -> str:
-    """Mã hóa API key bằng DPAPI của Windows (gắn với tài khoản người dùng). Nền tảng khác: giữ nguyên + chmod 600."""
+    """Encrypt the API key with Windows DPAPI (bound to the user account). Other platforms: keep as is + chmod 600."""
     if not value or value.startswith(PREFIX) or os.name != "nt":
         return value
     try:

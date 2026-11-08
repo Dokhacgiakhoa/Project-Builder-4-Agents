@@ -230,7 +230,7 @@
 
 /* -------------------------------------------------------------
  * SLEEK MODERN OVERLAY SCROLLBAR (ANTIGRAVITY / VS CODE STYLE)
- * Chỉ hiển thị khi scroll hoặc di chuột vào vùng scrollable
+ * Only shown when scrolling or hovering over the scrollable area
  * ------------------------------------------------------------- */
 * {
   scrollbar-width: thin;
@@ -242,14 +242,14 @@
   scrollbar-color: var(--scrollbar-thumb) transparent;
 }
 
-/* Kích thước thanh trượt siêu mảnh (5.5px) */
+/* Ultra-thin scrollbar size (5.5px) */
 ::-webkit-scrollbar {
   width: 5.5px;
   height: 5.5px;
   background-color: transparent;
 }
 
-/* Ẩn hoàn toàn track và các nút bấm mũi tên Windows */
+/* Fully hide the track and the Windows arrow buttons */
 ::-webkit-scrollbar-track,
 ::-webkit-scrollbar-track-piece {
   background-color: transparent !important;
@@ -262,20 +262,20 @@
   height: 0 !important;
 }
 
-/* Con trượt bo tròn hình viên thuốc (Pill), mặc định trong suốt */
+/* Rounded pill-shaped thumb, transparent by default */
 ::-webkit-scrollbar-thumb {
   background-color: transparent;
   border-radius: 9999px;
   transition: background-color 0.2s ease;
 }
 
-/* Chỉ hiển thị màu xám khi di chuột vào vùng chứa hoặc khi đang cuộn */
+/* Show gray only when hovering the container or while scrolling */
 *:hover::-webkit-scrollbar-thumb,
 *.is-scrolling::-webkit-scrollbar-thumb {
   background-color: var(--scrollbar-thumb);
 }
 
-/* Khi di chuột trực tiếp lên con trượt thì sáng hơn */
+/* Brighter when hovering directly over the thumb */
 ::-webkit-scrollbar-thumb:hover {
   background-color: var(--scrollbar-thumb-hover) !important;
 }
@@ -530,7 +530,7 @@ body {
   overflow-y: auto;
 }
 
-/* SIDEBAR FOOTER (LỊCH SỬ QUÉT Ở DƯỚI CÙNG) */
+/* SIDEBAR FOOTER (SCAN HISTORY AT THE BOTTOM) */
 .sidebar-footer {
   margin-top: auto;
   padding: 8px;
@@ -713,7 +713,7 @@ body {
 
 .metadata-column {
   flex: 1;
-  min-width: 0; /* Cho phép co giãn mà không tràn */
+  min-width: 0; /* Allow shrinking without overflow */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1422,7 +1422,7 @@ body {
 }
 
 /* -------------------------------------------------------------
- * INSTALLATION-STYLE PROGRESS CONTAINER (CHIA VẠCH & LOG FEED)
+ * INSTALLATION-STYLE PROGRESS CONTAINER (SEGMENTED & LOG FEED)
  * ------------------------------------------------------------- */
 @keyframes spin {
   from { transform: rotate(0deg); }

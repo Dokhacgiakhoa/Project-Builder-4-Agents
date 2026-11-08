@@ -1,10 +1,10 @@
 """
-Kiểm tra vệ sinh repo, chuỗi cung ứng offline, cấu hình MCP và marker spec (logic thuần, chỉ dùng thư viện chuẩn).
+Repo hygiene, offline supply-chain, MCP configuration and spec-marker checks (pure logic, standard library only).
 
-Nguyên tắc:
-- Chỉ phát hiện theo mẫu (heuristic). KHÔNG phát hiện ≠ an toàn; đây không phải antivirus và không tra cứu lỗ hổng.
-- Không bao giờ trả về nội dung tệp: chỉ mã, tên tệp (đã làm sạch) và số lượng.
-- Cần `git ls-files` để biết tệp nào đã bị commit; nếu không có git/không phải repo git thì bỏ qua các kiểm tra đó.
+Principles:
+- Pattern-based detection only (heuristic). NO signal != safe; this is not an antivirus and does not look up vulnerabilities.
+- Never returns file content: only codes, (sanitized) file names and counts.
+- Needs `git ls-files` to know which files were committed; without git / outside a git repo those checks are skipped.
 """
 
 from __future__ import annotations
@@ -22,8 +22,8 @@ MAX_JSON_BYTES = 1_000_000
 MAX_TEXT_BYTES = 200_000
 MAX_LISTED = 5
 
-# Gói MCP đã kiểm chứng bằng npm/GitHub API ngày 2026-11-07 (ghi lại trong TASKS.md, nhật ký 2026-11-07).
-# Nguồn sự thật cho người đọc: profiles/agent-configs/curated-mcp-matrix.md (G-006).
+# MCP packages verified with the npm/GitHub API on 2026-11-07 (recorded in TASKS.md, log of 2026-11-07).
+# Source of truth for readers: profiles/agent-configs/curated-mcp-matrix.md (G-006).
 KNOWN_BAD_MCP_PACKAGES = {
     "@modelcontextprotocol/server-playwright": 'does not exist on npm; use @playwright/mcp',
     "@modelcontextprotocol/server-github": 'deprecated and archived; use github/github-mcp-server',
@@ -55,7 +55,7 @@ class HygieneFinding:
 
 
 def git_tracked_files(root: Path) -> list[str] | None:
-    """Danh sách tệp đã được git theo dõi (đường dẫn tương đối, dấu /), hoặc None nếu không xác định được."""
+    """List of files tracked by git (relative paths, with /), or None if undeterminable."""
     root = Path(root)
     if not (root / ".git").exists():
         return None
@@ -126,21 +126,21 @@ def _has_secret_in_env_file(path: Path) -> bool:
             key, _, val = line.partition("=")
             key = key.strip().upper()
             val = val.strip()
-            # 1. URL chứa credentials
+            # 1. URL containing credentials
             url_match = URL_CREDENTIALS.search(val)
             if url_match and not _is_placeholder_secret(url_match.group(1)):
                 return True
-            # 2. Token prefix nhận diện rõ ràng
+            # 2. Clearly recognizable token prefix
             if any(val.startswith(p) for p in KNOWN_TOKEN_PREFIXES) and not _is_placeholder_secret(val):
                 return True
-            # 3. Tên key nhạy cảm và giá trị không phải placeholder
+            # 3. Sensitive key name and a value that is not a placeholder
             if any(w in key for w in SECRET_KEY_WORDS) and not _is_placeholder_secret(val):
                 return True
     return False
 
 
 def check_tracked_files(root: Path, tracked: list[str] | None) -> list[HygieneFinding]:
-    """SEC-005 (.env/khóa riêng bị commit), HYG-002 (log bị commit), SUP-004 (tệp thực thi/nhị phân bị commit)."""
+    """SEC-005 (.env/private key committed), HYG-002 (log committed), SUP-004 (executable/binary committed)."""
     if tracked is None:
         return []
     root = Path(root)
@@ -191,12 +191,12 @@ def _is_pinned_spec(spec: str) -> bool:
     if spec.lower() in UNPINNED_VERSIONS:
         return False
     if re.match(r"^(https?://|git\+|git://|github:)", spec, re.IGNORECASE):
-        return "#" in spec  # URL/git chỉ coi là ghim khi có commit/tag sau dấu #
+        return "#" in spec  # a URL/git spec counts as pinned only when a commit/tag follows the #
     return True
 
 
 def check_package_json(root: Path, package_files: list[Path]) -> list[HygieneFinding]:
-    """SUP-001 (script cài đặt tải/chạy nội dung từ xa), SUP-002 (phụ thuộc không ghim phiên bản)."""
+    """SUP-001 (install script downloads/runs remote content), SUP-002 (dependency without a pinned version)."""
     install_hits, unpinned = [], []
     for path in package_files:
         data = _load_json(path)
@@ -228,7 +228,7 @@ def check_package_json(root: Path, package_files: list[Path]) -> list[HygieneFin
 
 
 def check_requirements(root: Path, requirement_files: list[Path]) -> list[HygieneFinding]:
-    """SUP-003 (index gói ngoài PyPI hoặc http thường: nguy cơ dependency confusion), SUP-002 (git+ không ghim)."""
+    """SUP-003 (index other than PyPI or plain http: dependency confusion risk), SUP-002 (unpinned git+)."""
     index_hits, unpinned = [], []
     for path in requirement_files:
         try:
@@ -265,7 +265,7 @@ def _parse_npm_spec(arg: str) -> tuple[str, str]:
 
 
 def check_mcp_configs(root: Path) -> list[HygieneFinding]:
-    """AGT-004 (gói MCP không tồn tại/deprecated), AGT-005 (npx chạy gói không ghim phiên bản)."""
+    """AGT-004 (MCP package missing/deprecated), AGT-005 (npx runs an unpinned package)."""
     root = Path(root)
     bad, unpinned = [], []
     for rel in MCP_CONFIG_FILES:
@@ -301,7 +301,7 @@ def check_mcp_configs(root: Path) -> list[HygieneFinding]:
 
 
 def check_spec_markers(root: Path, markdown_files: list[Path]) -> list[HygieneFinding]:
-    """SPEC-001: marker [NEEDS CLARIFICATION] còn sót trong spec/task (core/standards/feature-workflow.md)."""
+    """SPEC-001: [NEEDS CLARIFICATION] markers left in spec/task files (core/standards/feature-workflow.md)."""
     hits, first = [], ""
     for path in markdown_files:
         rel_parts = [p.lower() for p in path.relative_to(root).parts]
@@ -326,7 +326,7 @@ def check_spec_markers(root: Path, markdown_files: list[Path]) -> list[HygieneFi
 
 
 def run_hygiene_checks(root: Path, tree_files: list[Path]) -> list[HygieneFinding]:
-    """Chạy toàn bộ kiểm tra; tree_files là danh sách tệp tuyệt đối từ ProjectTree (đã cắt thư mục rác)."""
+    """Run every check; tree_files is the list of absolute files from ProjectTree (junk folders already pruned)."""
     root = Path(root).resolve()
     findings = check_tracked_files(root, git_tracked_files(root))
     findings += check_package_json(root, [p for p in tree_files if p.name == "package.json"])

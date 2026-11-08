@@ -6,7 +6,7 @@ export const THEME_PRESETS: ThemePreset[] = [
     name: 'Linear Pro Max',
     universe: 'Silicon Valley "Pro Max"',
     tagline: 'Dark Minimalist, Ambient Glow & Micro-interactions',
-    description: 'Phong cách tối giản bóng bẩy của Linear.app, Raycast, Vercel và Supabase dành cho công cụ kỹ sư và SaaS cao cấp.',
+    description: 'The sleek minimalist style of Linear.app, Raycast, Vercel and Supabase for engineer tools and premium SaaS.',
     tokens: {
       containerClass: 'bg-[#09090b] text-zinc-100 p-6 rounded-2xl border border-white/10 shadow-2xl relative overflow-hidden',
       cardClass: 'bg-[#121316]/80 backdrop-blur-md border border-white/[0.08] rounded-xl p-5 shadow-lg relative',
@@ -19,11 +19,11 @@ export const THEME_PRESETS: ThemePreset[] = [
       inputClass: 'bg-zinc-900 border border-white/10 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-indigo-500/80 w-full',
       accentTextClass: 'text-indigo-400 font-mono text-xs',
     },
-    aiPromptSnippet: `Áp dụng phong cách Linear Pro Max:
-- Nền đen sâu (#09090b), thẻ con dùng #121316/80.
-- Viền mảnh siêu thực: border border-white/10.
+    aiPromptSnippet: `Apply the Linear Pro Max style:
+- Deep black background (#09090b), child cards use #121316/80.
+- Ultra-fine borders: border border-white/10.
 - Typography: tracking-tight, text-zinc-100/text-zinc-400.
-- Nút bấm: Nền trắng chữ đen bóng bẩy hoặc bg-zinc-800. Luôn có phím tắt <kbd>.`,
+- Buttons: sleek white background with black text, or bg-zinc-800. Always include a <kbd> shortcut.`,
     openSourceRefs: ['Linear.app', 'Raycast', 'shadcn/ui'],
   },
   {
@@ -31,7 +31,7 @@ export const THEME_PRESETS: ThemePreset[] = [
     name: 'Apple Cupertino iOS',
     universe: 'Mobile OS & Human Interface',
     tagline: 'Frosted Glassmorphism, Squircles & Smooth Elevation',
-    description: 'Thiết kế theo chuẩn mực Apple HIG: Kính mờ phủ sương, góc bo tròn mềm mại và đổ bóng phân tầng tinh tế.',
+    description: 'Designed to Apple HIG standards: frosted glass, soft rounded corners and subtly layered shadows.',
     tokens: {
       containerClass: 'bg-gradient-to-br from-slate-100 to-sky-50 text-slate-900 p-6 rounded-3xl border border-white/60 shadow-[0_20px_50px_rgba(0,0,0,0.06)] backdrop-blur-2xl',
       cardClass: 'bg-white/70 backdrop-blur-xl border border-white/80 rounded-2xl p-5 shadow-[0_8px_30px_rgba(0,0,0,0.04)]',
@@ -44,11 +44,11 @@ export const THEME_PRESETS: ThemePreset[] = [
       inputClass: 'bg-slate-100/80 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/30 w-full',
       accentTextClass: 'text-blue-600 font-medium text-xs',
     },
-    aiPromptSnippet: `Áp dụng phong cách Apple iOS Glassmorphism:
-- Nền kính mờ: bg-white/70 backdrop-blur-xl border border-white/80.
-- Bo góc Squircle: rounded-2xl / rounded-3xl cho card, rounded-full cho buttons.
-- Đổ bóng nhẹ phân tầng: shadow-[0_8px_30px_rgba(0,0,0,0.04)].
-- Màu nhấn: Apple Blue, font San Francisco sạch sẽ.`,
+    aiPromptSnippet: `Apply the Apple iOS Glassmorphism style:
+- Frosted glass background: bg-white/70 backdrop-blur-xl border border-white/80.
+- Squircle corners: rounded-2xl / rounded-3xl for cards, rounded-full for buttons.
+- Light layered shadow: shadow-[0_8px_30px_rgba(0,0,0,0.04)].
+- Accent color: Apple Blue, clean San Francisco font.`,
     openSourceRefs: ['Apple HIG', 'Framework7'],
   },
   {
@@ -56,7 +56,7 @@ export const THEME_PRESETS: ThemePreset[] = [
     name: 'Neubrutalism',
     universe: 'Anti-Design & Creator Economy',
     tagline: 'Hard Black Borders, Zero-Blur Shadows & Vibrant Pastels',
-    description: 'Phong cách táo bạo của Gumroad và FigJam: đường viền đen đậm, bóng cứng tuyệt đối không nhòe và sắc màu pastel bùng nổ.',
+    description: 'The bold style of Gumroad and FigJam: thick black borders, absolutely hard unblurred shadows and bursting pastel colors.',
     tokens: {
       containerClass: 'bg-[#fff5ea] text-black p-6 rounded-xl border-[3px] border-black shadow-[6px_6px_0px_#000]',
       cardClass: 'bg-[#fffa8a] border-[3px] border-black rounded-lg p-5 shadow-[4px_4px_0px_#000]',
@@ -69,11 +69,11 @@ export const THEME_PRESETS: ThemePreset[] = [
       inputClass: 'bg-white border-[2.5px] border-black rounded-md px-3 py-2 text-xs text-black placeholder-zinc-500 font-bold focus:outline-none focus:bg-[#f0fdf4] shadow-[2px_2px_0px_#000] w-full',
       accentTextClass: 'text-black font-black uppercase text-xs',
     },
-    aiPromptSnippet: `Áp dụng phong cách Neubrutalism:
-- Mọi thành phần đều có viền đen thô: border-[3px] border-black.
-- Bóng cứng 0 blur: shadow-[4px_4px_0px_#000].
-- Màu sắc pastel: #fffa8a (vàng), #ff90e8 (hồng), #a6f4c5 (mint).
-- Nút bấm khi click: active:translate-x-[3px] active:translate-y-[3px] active:shadow-none.`,
+    aiPromptSnippet: `Apply the Neubrutalism style:
+- Every element has a raw black border: border-[3px] border-black.
+- Hard shadow with 0 blur: shadow-[4px_4px_0px_#000].
+- Pastel colors: #fffa8a (yellow), #ff90e8 (pink), #a6f4c5 (mint).
+- Buttons on click: active:translate-x-[3px] active:translate-y-[3px] active:shadow-none.`,
     openSourceRefs: ['neobrutalism-components', 'Gumroad'],
   },
   {
@@ -81,7 +81,7 @@ export const THEME_PRESETS: ThemePreset[] = [
     name: 'Cyberpunk Sci-Fi HUD',
     universe: 'Futuristic & Sci-Fi',
     tagline: 'Neon Glow, 45° Chamfered Edges & CRT Scanlines',
-    description: 'Màn hình điều khiển tàu vũ trụ và trạm an ninh tương lai theo phong cách Arwes Framework với viền cắt vát và ánh sáng Neon rực rỡ.',
+    description: 'A spaceship control screen and futuristic security station in the Arwes Framework style, with beveled edges and bright Neon light.',
     tokens: {
       containerClass: 'bg-[#030712] text-cyan-100 p-6 rounded-none border border-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.25)] relative overflow-hidden font-mono',
       cardClass: 'bg-cyan-950/20 border border-cyan-400/40 p-5 relative shadow-[inset_0_0_12px_rgba(6,182,212,0.15)] [clip-path:polygon(0_0,calc(100%-12px)_0,100%_12px,100%_100%,12px_100%,0_calc(100%-12px))]',
@@ -94,11 +94,11 @@ export const THEME_PRESETS: ThemePreset[] = [
       inputClass: 'bg-black/80 border border-cyan-500/60 px-3 py-2 text-xs text-cyan-200 placeholder-cyan-800 font-mono focus:outline-none focus:border-cyan-300 focus:shadow-[0_0_10px_rgba(6,182,212,0.5)] w-full',
       accentTextClass: 'text-cyan-400 font-mono text-xs tracking-wider',
     },
-    aiPromptSnippet: `Áp dụng phong cách Cyberpunk Sci-Fi HUD:
-- Nền đen vũ trụ #030712, card vát góc 45 độ clip-path polygon.
-- Ánh sáng Neon: viền cyan shadow-[0_0_15px_rgba(6,182,212,0.4)].
-- Typography: 100% font-mono in hoa, hiển thị nhãn telemetry [ONLINE].
-- Nút bấm: vát góc, ánh sáng phát quang khi hover.`,
+    aiPromptSnippet: `Apply the Cyberpunk Sci-Fi HUD style:
+- Space-black background #030712, cards with 45-degree clipped corners via clip-path polygon.
+- Neon light: cyan border shadow-[0_0_15px_rgba(6,182,212,0.4)].
+- Typography: 100% uppercase font-mono, showing telemetry labels [ONLINE].
+- Buttons: clipped corners, glowing light on hover.`,
     openSourceRefs: ['Arwes', 'Cyberpunk 2077 HUD'],
   },
   {
@@ -106,7 +106,7 @@ export const THEME_PRESETS: ThemePreset[] = [
     name: 'Windows XP Retro',
     universe: 'Platform & OS Emulation',
     tagline: 'Luna Blue Gradient, 3D Bevel & Red [X] Button',
-    description: 'Tái hiện giao diện desktop huyền thoại Windows XP năm 2001 với hiệu ứng nổi khối Bevel và thanh tiêu đề gradient đặc trưng.',
+    description: 'Recreates the legendary 2001 Windows XP desktop with Bevel effects and the signature gradient title bar.',
     tokens: {
       containerClass: 'bg-[#ece9d8] text-black p-4 rounded-t-lg border-2 border-[#0055ea] shadow-xl font-sans',
       cardClass: 'bg-[#ece9d8] border-t-2 border-l-2 border-white border-b-2 border-r-2 border-[#808080] p-4',
@@ -119,11 +119,11 @@ export const THEME_PRESETS: ThemePreset[] = [
       inputClass: 'bg-white border-t-2 border-l-2 border-[#808080] border-b-2 border-r-2 border-white px-2 py-1 text-xs text-black focus:outline-none w-full',
       accentTextClass: 'text-[#0055ea] font-bold text-xs',
     },
-    aiPromptSnippet: `Áp dụng phong cách Windows XP Luna Blue:
-- Thanh tiêu đề: bg-gradient-to-r from-[#0058e6] via-[#3a95ff] to-[#0058e6] text-white.
-- Nút đóng: Đỏ rực #e81123 với chữ X trắng.
-- Hiệu ứng Bevel 3D: border-t-2 border-l-2 border-white border-b-2 border-r-2 border-[#808080].
-- Nền khung: Xám bạc #ece9d8, font Tahoma text-xs.`,
+    aiPromptSnippet: `Apply the Windows XP Luna Blue style:
+- Title bar: bg-gradient-to-r from-[#0058e6] via-[#3a95ff] to-[#0058e6] text-white.
+- Close button: bright red #e81123 with a white X.
+- 3D Bevel effect: border-t-2 border-l-2 border-white border-b-2 border-r-2 border-[#808080].
+- Window background: silver gray #ece9d8, Tahoma text-xs.`,
     openSourceRefs: ['XP.css', '98.css'],
   },
   {
@@ -131,7 +131,7 @@ export const THEME_PRESETS: ThemePreset[] = [
     name: 'Hacker Terminal (TUI)',
     universe: 'Retro Gaming & Geek Culture',
     tagline: 'Monochrome Phosphor Green, Blinking Cursor & ASCII Borders',
-    description: 'Giao diện dòng lệnh ma trận của hacker và sysadmin Linux: nền đen tuyền, chữ xanh phát quang và không một pixel thừa thãi.',
+    description: 'The matrix-like command-line interface of hackers and Linux sysadmins: pure black background, glowing green text and not a single wasted pixel.',
     tokens: {
       containerClass: 'bg-black text-[#00ff66] p-6 rounded-none border border-[#00ff66]/60 shadow-[0_0_15px_rgba(0,255,102,0.15)] font-mono',
       cardClass: 'bg-black/90 border border-[#00ff66]/40 p-4 relative',
@@ -144,11 +144,11 @@ export const THEME_PRESETS: ThemePreset[] = [
       inputClass: 'bg-black border border-[#00ff66]/60 px-3 py-1.5 text-xs text-[#00ff66] placeholder-[#00ff66]/40 font-mono focus:outline-none focus:border-[#00ff66] focus:ring-1 focus:ring-[#00ff66] w-full',
       accentTextClass: 'text-[#00ff66] font-mono text-xs',
     },
-    aiPromptSnippet: `Áp dụng phong cách Hacker Terminal:
-- Nền đen #000000, chữ xanh lân quang #00ff66.
+    aiPromptSnippet: `Apply the Hacker Terminal style:
+- Black background #000000, phosphor green text #00ff66.
 - Typography: 100% font-mono.
-- Dấu nhắc lệnh: Bắt đầu bằng 'user@starter-kit:~$ ' và con trỏ nhấp nháy.
-- Nút bấm dạng text [ EXECUTE ] hoặc nền xanh chữ đen.`,
+- Command prompt: start with 'user@starter-kit:~$ ' and a blinking cursor.
+- Text-style buttons [ EXECUTE ] or a green background with black text.`,
     openSourceRefs: ['Terminal.css'],
   },
   {
@@ -156,7 +156,7 @@ export const THEME_PRESETS: ThemePreset[] = [
     name: 'Hand-Drawn Paper',
     universe: 'Tactile & Handcrafted',
     tagline: 'Sketchy Irregular Borders, Kraft Paper & Notebook Feel',
-    description: 'Cảm giác phác thảo tự nhiên trên trang giấy nháp quán café với các nét viền vẽ tay lồi lõm và phong thái thân thiện, ấm áp.',
+    description: 'A natural sketched feel on a coffee-shop scratch-paper page, with wobbly hand-drawn borders and a friendly, warm manner.',
     tokens: {
       containerClass: 'bg-[#faf6ee] text-zinc-900 p-6 rounded-[255px_15px_225px_15px/15px_225px_15px_255px] border-2 border-zinc-800 shadow-md',
       cardClass: 'bg-white rounded-[15px_255px_15px_225px/225px_15px_255px_15px] border-2 border-zinc-800 p-5 shadow-sm',
@@ -169,11 +169,11 @@ export const THEME_PRESETS: ThemePreset[] = [
       inputClass: 'bg-white border-2 border-zinc-700 rounded-[255px_15px_225px_15px/15px_225px_15px_255px] px-3.5 py-2 text-xs text-zinc-800 placeholder-zinc-400 focus:outline-none w-full',
       accentTextClass: 'text-amber-800 font-bold text-xs',
     },
-    aiPromptSnippet: `Áp dụng phong cách Hand-Drawn Paper:
-- Nền giấy nháp: bg-[#faf6ee] hoặc giấy kraft.
-- Viền vẽ tay không đều: border-radius: 255px 15px 225px 15px/15px 225px 15px 255px.
-- Đường viền mực đen: border-2 border-zinc-800.
-- Nút bấm trông như mẩu giấy ghi chú dán lên, hơi nghiêng nhẹ khi hover.`,
+    aiPromptSnippet: `Apply the Hand-Drawn Paper style:
+- Scratch-paper background: bg-[#faf6ee] or kraft paper.
+- Uneven hand-drawn borders: border-radius: 255px 15px 225px 15px/15px 225px 15px 255px.
+- Black ink outline: border-2 border-zinc-800.
+- Buttons look like stuck-on sticky notes, tilting slightly on hover.`,
     openSourceRefs: ['PaperCSS', 'Wired Elements'],
   },
 ];

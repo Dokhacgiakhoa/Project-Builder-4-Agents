@@ -1,4 +1,4 @@
-"""Hồi quy: mã mẫu (examples/, starter/, fixtures/) không được làm sai hồ sơ dự án."""
+"""Regression: sample code (examples/, starter/, fixtures/) must not distort the project profile."""
 
 import json
 import shutil
@@ -21,7 +21,7 @@ def _write(root: Path, rel: str, content: str):
 
 
 REACT_PKG = json.dumps({"dependencies": {"react": "18.0.0"}})
-needs_git = pytest.mark.skipif(shutil.which("git") is None, reason="cần git")
+needs_git = pytest.mark.skipif(shutil.which("git") is None, reason="needs git")
 
 
 def test_sample_zones_are_skipped(tmp_path):

@@ -22,7 +22,7 @@ from .constants import (
     TEXT_EXTENSIONS, TEXT_FILENAMES,
 )
 
-# Tiêu đề cố định cho từng loại tín hiệu (không chứa nội dung từ tệp)
+# Fixed titles per signal type (contain no content from files)
 KINDS = {
     "SAFE-001": ("High", 'AI/Agent-directed commanding wording inside a data file'),
     "SAFE-002": ("High", 'Hidden characters (zero-width/bidi/tag) can conceal content'),
@@ -31,7 +31,7 @@ KINDS = {
     "SAFE-005": ("Medium", 'Agent configuration that can execute commands (hook/MCP)'),
 }
 
-# Lệnh nhắm vào AI: tiếng Anh và tiếng Việt. Khớp không phân biệt hoa thường.
+# Commands aimed at AI: English and Vietnamese. Case-insensitive match.
 _DIRECTIVE_PATTERNS = [
     r"ignore\s+(all\s+|any\s+|the\s+)?(previous|prior|above|earlier)\s+(instructions?|prompts?|rules?|messages?)",
     r"disregard\s+(all\s+|any\s+|the\s+)?(previous|prior|above|earlier|your)\s+(instructions?|prompts?|rules?)",
@@ -59,7 +59,7 @@ def _normalize_for_gate(text: str) -> str:
 
 
 def directive_pregate(folded: str) -> bool:
-    """Kiểm tra nhanh từ khóa thô trên chuỗi đã casefold() trước khi chạy regex nặng."""
+    """Quick raw keyword check on a casefold()-ed string before running the heavy regex."""
     # Pattern 0: ignore ... (previous|prior|above|earlier) ... (instruction|prompt|rule|message)
     if "ignore" in folded:
         if "previous" in folded or "prior" in folded or "above" in folded or "earlier" in folded:
@@ -114,23 +114,23 @@ def directive_pregate(folded: str) -> bool:
             return True
 
     # Vietnamese patterns
-    # Pattern 10: (bỏ qua|phớt lờ|quên) ... (hướng dẫn|chỉ dẫn|lệnh|quy tắc) ... (trước|trên)
+    # Pattern 10 (Vietnamese): "ignore/disregard/forget" ... "instructions/commands/rules" ... "previous/above"
     if "trước" in folded or "trên" in folded:
         if "bỏ" in folded or "phớt" in folded or "quên" in folded:
             if "hướng" in folded or "chỉ" in folded or "lệnh" in folded or "quy" in folded:
                 return True
 
-    # Pattern 11: (đừng|không) ... (nói|báo|cho) ... (người|user)
+    # Pattern 11 (Vietnamese): "do not/must not" ... "say/tell/inform" ... "the user"
     if "người" in folded or "user" in folded:
         if "đừng" in folded or "không" in folded:
             if "nói" in folded or "báo" in folded or "cho" in folded:
                 return True
 
-    # Pattern 12: (từ bây giờ|bây giờ) bạn là
+    # Pattern 12 (Vietnamese): "from now on" you are
     if "bây" in folded and "giờ" in folded and "bạn" in folded and "là" in folded:
         return True
 
-    # Pattern 13: (gửi|chuyển|đăng) ... (api|mật khẩu|token|biến|env) ... (đến|tới|cho|lên)
+    # Pattern 13 (Vietnamese): "send/transfer/post" ... (api|password|token|variable|env) ... "to"
     if "gửi" in folded or "chuyển" in folded or "đăng" in folded:
         if "đến" in folded or "tới" in folded or "cho" in folded or "lên" in folded:
             if ("api" in folded or "mật" in folded or "token" in folded
@@ -140,9 +140,9 @@ def directive_pregate(folded: str) -> bool:
     return False
 
 
-# Directive bổ sung chỉ áp dụng cho chú thích HTML / phần tử ẩn (SAFE-003):
-# Trong phần tử ẩn, việc ra lệnh mà không có danh từ (ví dụ "forget everything previous")
-# là dấu hiệu tiêm nhiễm rõ rệt vì văn bản đã bị cố tình giấu khỏi mắt người dùng.
+# Extra directives that apply only to HTML comments / hidden elements (SAFE-003):
+# In a hidden element, a command without a noun (for example "forget everything previous")
+# is a clear sign of injection because the text was deliberately hidden from the user's eyes.
 _HIDDEN_DIRECTIVE = re.compile(
     r"forget\s+(all\s+|everything\s+)?(previous|prior|above|earlier)\b",
     re.IGNORECASE,
@@ -163,10 +163,10 @@ def _directive_matches(text: str, in_hidden: bool = False) -> bool:
                 return True
     return False
 
-# Ký tự ẩn: zero-width, bidi override/isolate, BOM giữa tệp, tag characters
+# Hidden characters: zero-width, bidi override/isolate, mid-file BOM, tag characters
 _HIDDEN_CHARS = re.compile(r"[\u200b-\u200f\u202a-\u202e\u2060-\u2064\u2066-\u2069\ufeff\U000e0000-\U000e007f]")
 
-# Tập hợp tất cả ký tự ẩn (để kiểm tra độ cô lập và chuỗi liên tiếp)
+# Set of all hidden characters (to check isolation and consecutive runs)
 _ALL_INVISIBLE_CHARS = set(
     [chr(c) for c in range(0x200B, 0x2010)]
     + [chr(c) for c in range(0x202A, 0x202F)]
@@ -176,10 +176,10 @@ _ALL_INVISIBLE_CHARS = set(
     + [chr(c) for c in range(0xE0000, 0xE0080)]
 )
 
-# Ký tự có thể được xem xét miễn trừ trong ngữ cảnh hợp lệ (ZWNJ, ZWJ, LRM, RLM)
+# Characters that may be exempt in a legitimate context (ZWNJ, ZWJ, LRM, RLM)
 _EXEMPTION_CANDIDATES = {"\u200c", "\u200d", "\u200e", "\u200f"}
 
-# Mẫu ký tự lân cận hợp lệ: Emoji, Indic, Arabic/Persian, CJK (Item 5 / ADR-0016)
+# Legitimate neighbouring character patterns: Emoji, Indic, Arabic/Persian, CJK (Item 5 / ADR-0016)
 _EMOJI_PATTERN = r"[\U0001F300-\U0001FAFF\u2600-\u27BF\u2300-\u23FF\u2B50\u2B55\u25A0-\u25FF\uFE0E\uFE0F\U0001F1E6-\U0001F1FF]"
 _INDIC_PATTERN = r"[\u0900-\u0DFF\u1CD0-\u1CFF\uA8E0-\uA8FF]"
 _ARABIC_PATTERN = r"[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFE]"
@@ -188,7 +188,7 @@ _VALID_NEIGHBOR = re.compile(
     f"^(?:{_EMOJI_PATTERN}|{_INDIC_PATTERN}|{_ARABIC_PATTERN}|{_CJK_PATTERN})$"
 )
 
-# Ngưỡng mật độ tối đa ký tự ẩn được miễn trừ trong 1 tệp văn bản (chống steganography phân tán)
+# Maximum density of exempt hidden characters in one text file (against distributed steganography)
 _MAX_EXEMPTED_CHARS = 20
 
 _HTML_COMMENT = re.compile(r"<!--(.*?)-->", re.DOTALL)
@@ -221,7 +221,7 @@ class SafetyResult:
 
 
 def clean_path(text: str, limit: int = 160) -> str:
-    """Làm sạch đường dẫn để in an toàn: tên tệp cũng có thể bị cài lệnh."""
+    """Sanitize a path for safe printing: a file name can also carry planted commands."""
     text = re.sub(r"[\x00-\x1f\x7f`|<>\[\]]", "?", text)
     text = _HIDDEN_CHARS.sub("?", text)
     return text if len(text) <= limit else text[:limit] + "…"
@@ -252,7 +252,7 @@ def _scan_text(rel: str, name: str, text: str, out: list[SafetyFinding]) -> None
         severity, title = KINDS[code]
         out.append(SafetyFinding(code, rel, line, severity, title))
 
-    # SAFE-003: lệnh giấu trong chú thích/phần tử ẩn
+    # SAFE-003: commands hidden in comments/hidden elements
     if markup:
         for m in _HTML_COMMENT.finditer(text):
             if _directive_matches(m.group(1), in_hidden=True):
@@ -265,7 +265,7 @@ def _scan_text(rel: str, name: str, text: str, out: list[SafetyFinding]) -> None
                 hidden_lines.add(line)
                 add("SAFE-003", line)
 
-    # SAFE-002: ký tự ẩn (ngữ cảnh: miễn trừ ZWJ/ZWNJ/LRM/RLM đơn lẻ giữa emoji/Indic/Arabic/CJK)
+    # SAFE-002: hidden characters (context: single ZWJ/ZWNJ/LRM/RLM between emoji/Indic/Arabic/CJK are exempt)
     seen_hidden: set[int] = set()
     exempted_positions: list[int] = []
     textlen = len(text)
@@ -274,11 +274,11 @@ def _scan_text(rel: str, name: str, text: str, out: list[SafetyFinding]) -> None
         idx = m.start()
         ch = m.group()
 
-        # U+FEFF (BOM) ở đầu tệp là hợp lệ
+        # U+FEFF (BOM) at the start of a file is legitimate
         if ch == "\ufeff" and idx == 0:
             continue
 
-        # Kiểm tra chuỗi liền kề 3+ ký tự ẩn
+        # Check runs of 3+ adjacent hidden characters
         b_count = 0
         p = idx - 1
         while p >= 0 and text[p] in _ALL_INVISIBLE_CHARS:
@@ -299,7 +299,7 @@ def _scan_text(rel: str, name: str, text: str, out: list[SafetyFinding]) -> None
                 break
             continue
 
-        # Nếu là ứng viên miễn trừ (ZWJ, ZWNJ, LRM, RLM)
+        # If it is an exemption candidate (ZWJ, ZWNJ, LRM, RLM)
         if ch in _EXEMPTION_CANDIDATES:
             is_isolated = (idx == 0 or text[idx - 1] not in _ALL_INVISIBLE_CHARS) and (
                 idx == textlen - 1 or text[idx + 1] not in _ALL_INVISIBLE_CHARS
@@ -311,7 +311,7 @@ def _scan_text(rel: str, name: str, text: str, out: list[SafetyFinding]) -> None
                     exempted_positions.append(idx)
                     continue
 
-        # Không thỏa điều kiện miễn trừ -> gắn cờ
+        # Does not meet the exemption conditions -> flag
         line = _line_of(text, idx)
         if line not in seen_hidden:
             seen_hidden.add(line)
@@ -319,21 +319,21 @@ def _scan_text(rel: str, name: str, text: str, out: list[SafetyFinding]) -> None
         if len(seen_hidden) >= 20:
             break
 
-    # Quy tắc mật độ: tệp có hơn 20 ký tự ẩn được miễn trừ -> kích hoạt cảnh báo SAFE-002
+    # Density rule: a file with more than 20 exempt hidden characters -> trigger the SAFE-002 warning
     if len(exempted_positions) > _MAX_EXEMPTED_CHARS and len(seen_hidden) < 20:
         line_21 = _line_of(text, exempted_positions[_MAX_EXEMPTED_CHARS])
         if line_21 not in seen_hidden:
             seen_hidden.add(line_21)
             add("SAFE-002", line_21)
 
-    # SAFE-001: lệnh nhắm vào AI, mỗi dòng một lần, bỏ dòng đã tính là SAFE-003
+    # SAFE-001: commands aimed at AI, once per line, skipping lines already counted as SAFE-003
     for lineno, content in enumerate(text.splitlines(), 1):
         if lineno in hidden_lines:
             continue
         if _directive_matches(content):
             add("SAFE-001", lineno)
 
-    # SAFE-004: base64 dài trong tài liệu (không áp cho json/yaml vì thường chứa dữ liệu hợp lệ)
+    # SAFE-004: long base64 in documents (not applied to json/yaml because they often hold legitimate data)
     if suffix in {".md", ".mdx", ".mdc", ".txt", ".html", ".htm"}:
         for m in _BASE64_BLOB.finditer(text):
             add("SAFE-004", _line_of(text, m.start()))
@@ -341,7 +341,7 @@ def _scan_text(rel: str, name: str, text: str, out: list[SafetyFinding]) -> None
 
 
 def _scan_agent_json(rel: str, text: str, out: list[SafetyFinding]) -> None:
-    """Hook và máy chủ MCP có lệnh sẽ chạy trên máy người dùng khi Agent mở dự án."""
+    """Hooks and MCP servers with commands will run on the user's machine when an Agent opens the project."""
     try:
         data = json.loads(text)
     except (ValueError, TypeError):
@@ -366,7 +366,7 @@ def scan_safety(root: Path, on_progress=None) -> SafetyResult:
     root_str = str(root)
     root_len = len(root_str)
     for dirpath, dirnames, filenames in os.walk(root):
-        # Giữ thư mục ẩn (.claude, .github, .cursor...) vì đó là nơi chỉ dẫn Agent; bỏ thư mục rác
+        # Keep hidden folders (.claude, .github, .cursor...) because that is where Agent instructions live; skip junk folders
         dirnames[:] = [d for d in dirnames if d not in SAFETY_IGNORE_DIRS]
         rel_dir = dirpath[root_len:].lstrip('\\/').replace('\\', '/')
         for name in filenames:

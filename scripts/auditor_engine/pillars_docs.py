@@ -1,4 +1,4 @@
-"""Pillar tài liệu, onboarding và hệ sinh thái AI Agent."""
+"""Pillars for documentation, onboarding and the AI Agent ecosystem."""
 
 import os
 import sys
@@ -12,7 +12,7 @@ from .models import CriterionItem
 
 
 class DocsPillarsMixin:
-    """Pillar tài liệu, onboarding và hệ sinh thái AI Agent."""
+    """Pillars for documentation, onboarding and the AI Agent ecosystem."""
 
     def audit_readme_and_onboarding(self):
         score = 0
@@ -41,7 +41,7 @@ class DocsPillarsMixin:
                     badge=f"{lines_count} lines"
                 ))
 
-                # Tiêu đề & Bài toán (Product Vision)
+                # Title & Problem (Product Vision)
                 title_match = re.search(r'^#\s+(.+)', content, re.MULTILINE)
                 if title_match and lines_count >= 15:
                     score += 20
@@ -61,7 +61,7 @@ class DocsPillarsMixin:
                         remediation='Add an introduction: # Project name, the problem solved, target users and core value.'
                     ))
 
-                # Hướng dẫn khởi chạy (Quick Start)
+                # Run instructions (Quick Start)
                 in_block = False
                 current_block = []
                 current_lang = ''
@@ -106,7 +106,7 @@ class DocsPillarsMixin:
                         remediation='Add a sample Quick Start command block (e.g. npm install && npm run dev or pip install -r requirements.txt).'
                     ))
 
-                # Biến môi trường (.ENV)
+                # Environment variables (.ENV)
                 env_match = re.search(r'(\.env|environment variable|biến môi trường)', content, re.IGNORECASE)
                 env_example = self.tree.find_by_name('.env.example') or self.tree.find_by_name('.env.sample') or self.tree.find_by_name('.env.template')
                 if env_match or env_example:
@@ -127,7 +127,7 @@ class DocsPillarsMixin:
                         remediation='Create a `.env.example` file listing the required configuration variables and note it in README.md.'
                     ))
 
-                # Cấu trúc kiến trúc / Thư mục
+                # Architecture structure / Folders
                 if re.search(r'(architecture|cấu trúc|project structure|folder structure|kiến trúc|what\'s inside|tiers)', content, re.IGNORECASE):
                     score += 15
                     has_mermaid = 'mermaid' in content.lower()
@@ -287,7 +287,7 @@ class DocsPillarsMixin:
         found = []
         missing = []
 
-        # 1. Quét Agent Rules & Hiến pháp (AGENTS.md, .cursorrules, .cursor/rules/*.mdc, CLAUDE.md, .windsurfrules)
+        # 1. Scan Agent Rules & Constitution (AGENTS.md, .cursorrules, .cursor/rules/*.mdc, CLAUDE.md, .windsurfrules)
         rule_files = []
         rule_candidates = [
             'AGENTS.md', '.cursorrules', 'CLAUDE.md', '.windsurfrules',
@@ -298,7 +298,7 @@ class DocsPillarsMixin:
             for m in matches:
                 rule_files.append(m)
 
-        # Thêm các file .mdc (Cursor Rules)
+        # Add .mdc files (Cursor Rules)
         rule_files.extend([p for p in self.tree.all_files if p.suffix.lower() == '.mdc'])
 
         has_negative_constraints = False
@@ -382,7 +382,7 @@ class DocsPillarsMixin:
                 remediation='Create an AGENTS.md from the Project-Builder-4-Agents template.'
             ))
 
-        # 2. Quét Agent Skills Catalog (.agents/skills/*/SKILL.md, .claude/skills/*/SKILL.md, skills/*/SKILL.md)
+        # 2. Scan the Agent Skills Catalog (.agents/skills/*/SKILL.md, .claude/skills/*/SKILL.md, skills/*/SKILL.md)
         skill_files = [p for p in self.tree.all_files if 'skills' in p.parts and p.name.lower() in {'skill.md', 'skill.json'}]
         valid_skills_count = 0
         has_yaml_frontmatter = False
@@ -431,7 +431,7 @@ class DocsPillarsMixin:
                 remediation='Create `.agents/skills/<skill-name>/SKILL.md` packaging testing, review or deploy skills.'
             ))
 
-        # 3. Quét Agent Workflows, Playbooks & Automation Pipelines (.agent/workflows/, workflows/, playbooks/, prompts/)
+        # 3. Scan Agent Workflows, Playbooks & Automation Pipelines (.agent/workflows/, workflows/, playbooks/, prompts/)
         workflow_files = [
             p for p in self.tree.all_files
             if ('workflows' in p.parts or 'playbooks' in p.parts or 'prompts' in p.parts or 'agent-practices' in p.parts) and p.suffix.lower() in {'.md', '.yaml', '.yml'}
@@ -480,7 +480,7 @@ class DocsPillarsMixin:
                 remediation='Create an `.agents/workflows/` folder containing scripts for running tests, refactoring or releasing versions.'
             ))
 
-        # Ghi nhận thêm nếu repo có MANIFEST.json / llms.txt (Zero-Clone Remote Hub)
+        # Also note if the repo has MANIFEST.json / llms.txt (Zero-Clone Remote Hub)
         if (self.root / 'MANIFEST.json').is_file() or (self.root / 'llms.txt').is_file():
             found.append(CriterionItem(
                 'Zero-Clone machine-readable index infrastructure (MANIFEST.json / llms.txt)',

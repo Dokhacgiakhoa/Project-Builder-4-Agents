@@ -1,73 +1,73 @@
 # 🤖 AI PITCH GENERATOR PROMPT COOKBOOK
 
-Tài liệu này cung cấp các đoạn **System Prompt & Workflows** giúp bạn yêu cầu các mô hình AI (**Claude Code, Cursor, Antigravity, ChatGPT, v0**) tự động quét toàn bộ codebase dự án của bạn và sinh ra một bản **Pitch Deck hoàn chỉnh** chuẩn Y Combinator & Sequoia Capital.
+This document provides **System Prompt & Workflow** snippets that let you ask AI models (**Claude Code, Cursor, Antigravity, ChatGPT, v0**) to scan your whole project codebase automatically and produce a **complete Pitch Deck** in the Y Combinator & Sequoia Capital standard.
 
 ---
 
-## 🚀 PROMPT 1: QUÉT CODEBASE & TỰ ĐỘNG ĐIỀN PITCH DECK
+## 🚀 PROMPT 1: SCAN THE CODEBASE & FILL IN THE PITCH DECK AUTOMATICALLY
 
-Copy đoạn prompt dưới đây và dán vào cửa sổ chat với AI:
+Copy the prompt below and paste it into a chat window with the AI:
 
 ```markdown
-[ROLE]: Bạn là một Chuyên gia Gọi vốn Khởi nghiệp (Startup Fundraising Advisor) và Cố vấn Trưởng của Y Combinator.
-[TASK]: Hãy thực hiện quét toàn bộ repository dự án hiện tại (đọc các file: README.md, specs/product-vision.md, adrs/, và cấu trúc source code). Sau đó, hãy tổng hợp và điền nội dung hoàn chỉnh vào khung Pitch Deck 11 Slide dưới đây.
+[ROLE]: You are a Startup Fundraising Advisor and a Chief Advisor at Y Combinator.
+[TASK]: Scan the whole current project repository (read the files: README.md, specs/product-vision.md, adrs/, and the source code structure). Then compile and fill complete content into the 11-slide Pitch Deck skeleton below.
 
-[YÊU CẦU NGHIÊM NGẶT]:
-1. KHÔNG viết chung chung, hãy dùng dữ liệu thực tế và các công nghệ cụ thể trong codebase.
-2. Với mỗi slide, hãy viết đúng định dạng:
-   - TIÊU ĐỀ SLIDE
-   - MỤC TIÊU CỐT LÕI (One Key Takeaway)
-   - NỘI DUNG CHI TIẾT (Bullets có số liệu định lượng)
-   - HƯỚNG DẪN HÌNH ẢNH MINH HỌA (Visual Cue)
-3. Tính toán dung lượng thị trường TAM, SAM, SOM theo phương pháp Bottom-Up hợp lý dựa trên đối tượng khách hàng của dự án.
-4. Lập ma trận đối thủ cạnh tranh 2x2 định vị rõ sản phẩm nằm ở góc trên cùng bên phải.
+[STRICT REQUIREMENTS]:
+1. Do NOT write generically; use real data and the specific technologies in the codebase.
+2. For each slide, write in exactly this format:
+   - SLIDE TITLE
+   - CORE GOAL (One Key Takeaway)
+   - DETAILED CONTENT (Bullets with quantified figures)
+   - ILLUSTRATION GUIDE (Visual Cue)
+3. Compute the market size TAM, SAM, SOM with a reasonable Bottom-Up method based on the project's customer audience.
+4. Build a 2x2 competitor matrix clearly positioning the product in the top-right corner.
 
-[KHUNG 11 SLIDE ĐẦU RA]:
-- Slide 1: Tiêu đề & Câu One-liner sắc bén
-- Slide 2: Nỗi đau thị trường & Chi phí lãng phí của khách hàng
-- Slide 3: Giải pháp đột phá & 3 giá trị định lượng
-- Slide 4: Tại sao bây giờ? (Cửa sổ cơ hội 2024 - 2026)
-- Slide 5: Dung lượng thị trường (TAM, SAM, SOM kèm công thức)
-- Slide 6: Kiến trúc kỹ thuật & Demo sản phẩm
-- Slide 7: Mô hình kinh doanh & Kinh tế đơn vị (CAC, LTV)
-- Slide 8: Chiến lược Go-To-Market (0 to 100 khách hàng)
-- Slide 9: Ma trận cạnh tranh & Hào kinh tế phòng thủ (Moat)
-- Slide 10: Đội ngũ sáng lập & Lợi thế bất bình đẳng
-- Slide 11: Kêu gọi đầu tư / Ngân sách & Cột mốc 18 tháng
+[OUTPUT 11-SLIDE SKELETON]:
+- Slide 1: Title & a sharp One-liner
+- Slide 2: The market pain & the customer's wasted cost
+- Slide 3: The breakthrough solution & 3 quantified values
+- Slide 4: Why now? (The 2024 - 2026 window of opportunity)
+- Slide 5: Market size (TAM, SAM, SOM with formulas)
+- Slide 6: Technical architecture & product demo
+- Slide 7: Business model & unit economics (CAC, LTV)
+- Slide 8: Go-To-Market strategy (0 to 100 customers)
+- Slide 9: Competitive matrix & Defensive Moat
+- Slide 10: The founding team & Unfair Advantage
+- Slide 11: The investment ask / Budget & 18-month milestones
 ```
 
 ---
 
-## 🎯 PROMPT 2: LUYỆN TẬP PHẢN BIỆN "SHARK TANK" (MOCK VC Q&A SIMULATION)
+## 🎯 PROMPT 2: "SHARK TANK" CHALLENGE PRACTICE (MOCK VC Q&A SIMULATION)
 
-Sử dụng prompt này để AI đóng vai một Nhà đầu tư khó tính (Tough VC) chất vấn bạn:
+Use this prompt to make the AI play a Tough VC who grills you:
 
 ```markdown
-[ROLE]: Bạn là một Đối tác Quản lý (Managing Partner) cực kỳ sắc sảo, thực tế và khó tính tại quỹ Sequoia Capital.
-[TASK]: Bạn vừa nghe tôi trình bày về dự án phần mềm này. Hãy đưa ra lần lượt 5 câu hỏi phản biện hiểm hóc nhất nhằm bóc trần các lỗ hổng về:
-1. Hào kinh tế phòng thủ (Moat) trước các ông lớn công nghệ (Big Tech / OpenAI).
-2. Chi phí token / hạ tầng và khả năng mở rộng biên lợi nhuận.
-3. Rủi ro pháp lý và bảo mật dữ liệu khách hàng.
-4. Chiến lược tiếp cận thị trường (GTM) thực tế trong 90 ngày đầu tiên.
-5. Sự gắn kết và tính khả thi của đội ngũ sáng lập.
+[ROLE]: You are an extremely sharp, practical and demanding Managing Partner at Sequoia Capital.
+[TASK]: You have just heard me present this software project. Ask, one after another, the 5 toughest probing questions meant to expose the gaps in:
+1. The defensive moat (Moat) against the tech giants (Big Tech / OpenAI).
+2. Token / infrastructure costs and the ability to scale profit margins.
+3. Legal risk and customer data security.
+4. The real Go-To-Market strategy (GTM) in the first 90 days.
+5. The cohesion and feasibility of the founding team.
 
-[QUY TẮC PHẢN BIỆN]:
-- Đặt từng câu hỏi một. Đợi tôi trả lời xong mới đánh giá câu trả lời của tôi (Chấm điểm từ 1-10).
-- Chỉ ra điểm yếu trong lập luận của tôi và gợi ý cách trả lời thuyết phục hơn.
-- Hãy bắt đầu bằng câu hỏi đầu tiên ngay bây giờ!
+[CHALLENGE RULES]:
+- Ask one question at a time. Wait for me to finish answering before you evaluate my answer (score it from 1-10).
+- Point out the weaknesses in my reasoning and suggest a more convincing way to answer.
+- Start with the first question right now!
 ```
 
 ---
 
-## 🎨 PROMPT 3: CHUYỂN ĐỔI PITCH DECK SANG MARP SLIDES-AS-CODE
+## 🎨 PROMPT 3: CONVERT THE PITCH DECK TO MARP SLIDES-AS-CODE
 
-Sử dụng prompt này để chuyển đổi ý tưởng thành bản thuyết trình Marp trình chiếu:
+Use this prompt to turn the ideas into a Marp presentation you can present:
 
 ```markdown
-[ROLE]: Bạn là Technical Presentation Designer thành thạo Marp Markdown.
-[TASK]: Hãy lấy nội dung Pitch Deck đã hoàn thiện ở trên và chuyển đổi thành file `marp-presentation.md` với cú pháp chuẩn Marp:
+[ROLE]: You are a Technical Presentation Designer fluent in Marp Markdown.
+[TASK]: Take the completed Pitch Deck content above and convert it into a `marp-presentation.md` file with standard Marp syntax:
 - Header front-matter: marp: true, theme: gaia, paginate: true, backgroundColor: #0d1117, color: #f0f6fc.
-- Phân cách mỗi slide bằng ký hiệu `---`.
-- Sử dụng sơ đồ Mermaid cho slide kiến trúc sản phẩm.
-- Bố cục gọn gàng, tương phản cao, cỡ chữ lớn dễ đọc từ khoảng cách xa.
+- Separate each slide with the `---` marker.
+- Use a Mermaid diagram for the product architecture slide.
+- A tidy layout, high contrast, large font size that is easy to read from a distance.
 ```

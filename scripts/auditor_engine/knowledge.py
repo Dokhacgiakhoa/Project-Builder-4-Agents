@@ -1,7 +1,7 @@
-"""Knowledge Pack: bản chụp có phiên bản của tri thức kit để đối chiếu offline (ADR-0018).
+"""Knowledge Pack: a versioned snapshot of kit knowledge for offline comparison (ADR-0018).
 
-Thứ tự nạp: bản cập nhật trong cache người dùng nếu mới hơn, không thì bản đóng gói sẵn cùng engine.
-Cập nhật online chỉ chạy khi gọi tường minh `update_pack()`; không bao giờ làm hỏng lượt quét offline.
+Load order: the user's cache update if newer, otherwise the pack bundled with the engine.
+The online update only runs when `update_pack()` is called explicitly; it never breaks an offline scan.
 """
 
 from __future__ import annotations
@@ -40,7 +40,7 @@ def _read(path: Path):
 
 
 def load_pack(cache_file: Path | None = None) -> dict:
-    """Trả về pack kèm `source` ('bundled' | 'cache' | 'empty'). Không bao giờ ném lỗi."""
+    """Return the pack with `source` ('bundled' | 'cache' | 'empty'). Never raises."""
     candidates = []
     for p in _bundled_paths():
         data = _read(p)
@@ -57,7 +57,7 @@ def load_pack(cache_file: Path | None = None) -> dict:
 
 
 def update_pack(ref: str = "main", timeout: int = 8, cache_file: Path | None = None) -> dict:
-    """Tải pack mới từ GitHub (cần mạng). Trả {'ok', 'message', 'generated'}; lỗi mạng chỉ báo, không ném."""
+    """Download a new pack from GitHub (needs network). Returns {'ok', 'message', 'generated'}; network errors are reported, not raised."""
     url = RAW_URL.format(ref=ref)
     if not url.startswith("https://raw.githubusercontent.com/"):
         return {"ok": False, "message": 'Invalid URL.', "generated": ""}
@@ -65,7 +65,7 @@ def update_pack(ref: str = "main", timeout: int = 8, cache_file: Path | None = N
         req = urllib.request.Request(url, headers={"User-Agent": "Project-Health-Check"})
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             data = json.loads(resp.read(2_000_000).decode("utf-8"))
-    except Exception as e:  # mạng/JSON hỏng: giữ nguyên pack hiện có
+    except Exception as e:  # network/broken JSON: keep the existing pack
         return {"ok": False, "message": f"Could not update kit knowledge ({e}). Using the existing copy.", "generated": ""}
     if not _valid(data):
         return {"ok": False, "message": 'The downloaded pack is invalid; keeping the current one.', "generated": ""}
@@ -84,5 +84,5 @@ def doc_by_id(pack: dict, doc_id: str) -> dict | None:
 
 
 def profile_docs(pack: dict) -> dict[str, dict]:
-    """slug -> tài liệu profile kiến trúc (type: decision)."""
+    """slug -> architecture profile document (type: decision)."""
     return {d["slug"]: d for d in pack.get("docs", []) if d.get("slug")}

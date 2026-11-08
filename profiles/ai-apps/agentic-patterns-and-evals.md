@@ -1,35 +1,32 @@
 ---
 id: I-001
 type: reference
-when: "Sản phẩm có Agent, tool calling, RAG, MCP; cần đánh giá chất lượng (evals)"
+when: "Building apps with Agents, tool calling, RAG, MCP; evaluating quality (evals)"
 ---
 # ADR 0007: AI AGENTIC ARCHITECTURAL PATTERNS & EVALUATION PIPELINES
 
-* **Trạng thái**: Đã phê duyệt (Accepted)
-* **Ngày quyết định**: 2026-11-04
-* **Người quyết định**: AI Architect & Tech Lead
+* **Status**: Approved (Accepted)
+* **Decision date**: 2026-11-04
+* **Decided by**: AI Architect & Tech Lead
 
 ---
 
-## 1. BỐI CẢNH (CONTEXT)
-Các ứng dụng hiện đại tích hợp LLM không chỉ dừng lại ở các prompt đơn giản mà đã chuyển dịch sang hệ thống tác tử tự chủ (**Agentic Systems**): tự suy luận, gọi công cụ (Tool Calling), quản lý bộ nhớ (Memory), và phối hợp đa tác tử (Multi-Agent Swarm). Chúng ta cần chuẩn hóa kiến trúc và phương pháp đánh giá định lượng (Evaluation) cho các module AI.
+## 1. CONTEXT
+Modern applications that integrate LLMs no longer stop at simple prompts; they have moved to autonomous agent systems (**Agentic Systems**): they reason on their own, call tools (Tool Calling), manage memory (Memory), and coordinate multiple agents (Multi-Agent Swarm). We need to standardize the architecture and the quantitative evaluation method (Evaluation) for AI modules.
 
 ---
 
-## 2. QUYẾT ĐỊNH (DECISION)
+## 2. DECISION
 
-### 2.1. Các Mẫu Kiến Trúc Tác Tử Chuẩn (Agentic Patterns)
+### 2.1. Standard Agentic Architecture Patterns
 1. **ReAct Pattern (Reasoning + Acting)**:
-   - Vòng lặp: $	ext{Thought} 
-ightarrow 	ext{Action (Tool Call)} 
-ightarrow 	ext{Observation} 
-ightarrow 	ext{Final Answer}$.
+   - Loop: $\text{Thought} \rightarrow \text{Action (Tool Call)} \rightarrow \text{Observation} \rightarrow \text{Final Answer}$.
 2. **Supervisor & Subagent Hierarchy**:
-   - Sử dụng một Supervisor Agent để phân loại intent và điều phối tác vụ tới các Subagents chuyên biệt (DB Agent, Search Agent, Coding Agent).
+   - Use a Supervisor Agent to classify intent and dispatch tasks to specialized Subagents (DB Agent, Search Agent, Coding Agent).
 3. **Model Context Protocol (MCP)**:
-   - Chuẩn hóa việc tích hợp công cụ (Tools) và nguồn tài nguyên (Resources) thông qua giao thức MCP, giúp tách rời logic Agent khỏi logic thực thi của Tool.
+   - Standardize the integration of tools (Tools) and resources (Resources) through the MCP protocol, decoupling the Agent logic from the Tool execution logic.
 4. **Human-in-the-Loop (HITL) Guardrails**:
-   - Mọi hành động có tính rủi ro cao (thanh toán, xóa dữ liệu, gửi email hàng loạt) phải qua bước chờ phê duyệt từ con người trước khi thực thi.
+   - Every high-risk action (payment, data deletion, mass email) must wait for human approval before executing.
 
 ```mermaid
 flowchart TD
@@ -44,17 +41,17 @@ flowchart TD
     HITL -->|Approved| ToolExec
     HITL -->|Rejected| Fallback["Cancel & Inform User"]
 ```
-> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNplkstOwzAQRX9l5AUCQcSeBai0QJEKgqYgoaSLqTNtDYkdHLtQNf137Ngtryz8GN97PLnyhnFVEDsDNi_VB1-iNjAZ5BLc99SQPsz8CGN6t9SY6REkyTmMlTWkNylVKI3gcQ-nkNqa9Eo0Sm8DIp44U_toSa9hgAZn2FALg8vegqTJdhXotnAMd_0HSB9HMFGqnP7D3Mq50hUaoSSkhJovWxj3bgLLLfaYZ-JG6aj5z7n6JG47So_7qY1zAIV1YEVvGH-IuihuLOpCoyg3fS1cFlhGyUVMYC_obn2hpoXh7WSUDa0LLxEyMUtKRkrV0KtrrVa4--ffxnvVdoH4trPQO3UFWAn0kUWXZ3eGQKPi2_ZHMKZXl5AXXGNZzpC_ZTnro-RUwgGEmLsnkLMpOwFWkYtdFP6pbDwqZ67zinJXyFlBc7SlyVkut16M1qh0Lbk7NNqSq9i6QEMDgQuNVSxvvwByLtXk)
+> [📊 Open the diagram on Mermaid Live / an AI editor](https://mermaid.live/edit#pako:eNplkstOwzAQRX9l5AUCQcSeBai0QJEKgqYgoaSLqTNtDYkdHLtQNf137Ngtryz8GN97PLnyhnFVEDsDNi_VB1-iNjAZ5BLc99SQPsz8CGN6t9SY6REkyTmMlTWkNylVKI3gcQ-nkNqa9Eo0Sm8DIp44U_toSa9hgAZn2FALg8vegqTJdhXotnAMd_0HSB9HMFGqnP7D3Mq50hUaoSSkhJovWxj3bgLLLfaYZ-JG6aj5z7n6JG47So_7qY1zAIV1YEVvGH-IuihuLOpCoyg3fS1cFlhGyUVMYC_obn2hpoXh7WSUDa0LLxEyMUtKRkrV0KtrrVa4--ffxnvVdoH4trPQO3UFWAn0kUWXZ3eGQKPi2_ZHMKZXl5AXXGNZzpC_ZTnro-RUwgGEmLsnkLMpOwFWkYtdFP6pbDwqZ67zinJXyFlBc7SlyVkut16M1qh0Lbk7NNqSq9i6QEMDgQuNVSxvvwByLtXk)
 
-### 2.2. Pipeline Đánh Giá Định Lượng (AI Evaluation Pipeline)
-Đo lường chất lượng hệ thống RAG và Agent thông qua **RAG Triad Metrics**:
-* **Faithfulness (Độ trung thực)**: Phản hồi của AI có hoàn toàn dựa trên ngữ cảnh được truy xuất (Context) không? (Chống ảo giác).
-* **Answer Relevance (Độ liên quan câu trả lời)**: Câu trả lời có giải quyết đúng trọng tâm câu hỏi của người dùng không?
-* **Context Precision (Độ chính xác ngữ cảnh)**: Các tài liệu được vector store trả về có chứa đúng thông tin cần thiết không?
+### 2.2. Quantitative Evaluation Pipeline (AI Evaluation Pipeline)
+Measure the quality of RAG systems and Agents through the **RAG Triad Metrics**:
+* **Faithfulness**: Is the AI's response based entirely on the retrieved context (Context)? (Against hallucination).
+* **Answer Relevance**: Does the answer address the core of the user's question?
+* **Context Precision**: Do the documents returned by the vector store contain exactly the needed information?
 
-Toàn bộ vết thực thi (Execution Traces) được ghi nhận tự động vào công cụ Observability (**Langfuse**).
+All execution traces (Execution Traces) are recorded automatically into an Observability tool (**Langfuse**).
 
 ---
 
-## 3. HỆ QUẢ (CONSEQUENCES)
-* Hệ thống AI có thể kiểm soát được (Deterministic & Observable), giảm thiểu tối đa ảo giác (Hallucination) và rủi ro bảo mật (Prompt Injection).
+## 3. CONSEQUENCES
+* The AI system becomes controllable (Deterministic & Observable), minimizing hallucination (Hallucination) and security risk (Prompt Injection).

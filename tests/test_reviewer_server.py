@@ -1,4 +1,4 @@
-"""Kiểm thử bảo mật cho Reviewer Shell local server (ADR-0011)."""
+"""Security tests for the Reviewer Shell local server (ADR-0011)."""
 
 import http.client
 import json
@@ -15,7 +15,7 @@ from reviewer_shell.settings_manager import SettingsManager  # noqa: E402
 
 @pytest.fixture()
 def live_server(tmp_path, monkeypatch):
-    """Khởi chạy server thật trên cổng ngẫu nhiên với settings tách biệt."""
+    """Start a real server on a random port with isolated settings."""
     import reviewer_shell.settings_manager as sm
 
     monkeypatch.setattr(sm, "SETTINGS_DIR", tmp_path)
@@ -142,19 +142,19 @@ def test_async_audit_reports_live_progress_then_result(live_server, tmp_path):
         _, raw = call(live_server, "GET", f"/api/audit-status?job={job['job_id']}&since={since}")
         st = json.loads(raw)
         assert st["success"] is True
-        assert st["pct"] >= last_pct  # tiến độ không lùi
+        assert st["pct"] >= last_pct  # progress never goes backwards
         last_pct, seen_logs, since = st["pct"], seen_logs + len(st["logs"]), st["next"]
         if st["state"] == "done":
             break
         time.sleep(0.1)
     else:
-        pytest.fail("Phiên quét nền không kết thúc trong 60 giây")
+        pytest.fail("The background scan session did not finish within 60 seconds")
 
     assert st["result"]["success"] is True
     plan_keys = [p["key"] for p in st["plan"]]
-    assert "readme" in plan_keys and "starter_kit" not in plan_keys  # kế hoạch quét lộ ra cho UI
+    assert "readme" in plan_keys and "starter_kit" not in plan_keys  # the scan plan is exposed to the UI
     assert len(st["result"]["categories"]) == 12
-    assert seen_logs > 0  # log được trả dần, không chỉ ở cuối
+    assert seen_logs > 0  # logs are returned gradually, not only at the end
 
 
 def test_audit_status_unknown_job_is_error(live_server):

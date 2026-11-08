@@ -2,11 +2,11 @@
 
 
 class CriterionItem(dict):
-    """Mỗi tiêu chuẩn kiểm tra có chứng cứ thực tế từ mã nguồn (file, dòng, snippet, chi tiết cụ thể).
+    """Each check criterion carries real evidence from the source (file, line, snippet, concrete detail).
 
-    Thừa kế dict để tương thích hoàn toàn với json.dumps() và API serialization.
-    Đồng thời hỗ trợ kiểm tra chuỗi (substring check qua __contains__) và str() để
-    hoàn toàn tương thích ngược với logic cũ.
+    Inherits dict for full compatibility with json.dumps() and API serialization.
+    Also supports string checks (substring check via __contains__) and str() to be
+    fully backward compatible with the old logic.
     """
 
     def __init__(

@@ -26,8 +26,8 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         this.props.fallback || (
           <div className="p-6 m-4 bg-red-50 border border-red-200 rounded-xl text-red-700">
-            <h2 className="text-lg font-bold">Giao diện gặp sự cố tạm thời</h2>
-            <p className="text-sm mt-1">{this.state.error?.message || 'Vui lòng tải lại trang hoặc liên hệ hỗ trợ.'}</p>
+            <h2 className="text-lg font-bold">The interface hit a temporary problem</h2>
+            <p className="text-sm mt-1">{this.state.error?.message || 'Please reload the page or contact support.'}</p>
           </div>
         )
       );

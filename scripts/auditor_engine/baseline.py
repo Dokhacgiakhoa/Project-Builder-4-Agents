@@ -1,6 +1,6 @@
 """
-Kiểm tra Core Baseline (core/README.md): những thứ mọi repo làm việc với Agent phải có,
-không phụ thuộc ngôn ngữ hay kiểu kiến trúc. Chạy trên hệ thống tệp, không cần đọc code.
+Core Baseline checks (core/README.md): what every repo working with Agents must have,
+regardless of language or architecture style. Runs on the file system, no need to read code.
 """
 
 from __future__ import annotations
@@ -9,7 +9,7 @@ import json
 import re
 from pathlib import Path
 
-# Profile kiến trúc khai báo -> dấu hiệu thư mục kỳ vọng (một trong các nhóm) trên đa ngôn ngữ (.NET/Python/TS).
+# Declared architecture profile -> expected folder signs (one of the groups) across languages (.NET/Python/TS).
 PROFILE_EXPECTATIONS: dict[str, tuple[list[set[str]], str]] = {
     "clean-architecture": (
         [{"domain", "entities", "core"}, {"application", "usecases", "interactors", "infrastructure", "adapters"}],
@@ -29,7 +29,7 @@ PROFILE_EXPECTATIONS: dict[str, tuple[list[set[str]], str]] = {
     ),
 }
 
-# Mức rào chắn mặc định theo profile nếu chưa khai báo tường minh trong .builder/kit.json
+# Default guardrail level per profile when not declared explicitly in .builder/kit.json
 DEFAULT_PROFILE_GUARDRAIL = {
     "simple-layered": "M1",
     "vertical-slice": "M2",
@@ -46,7 +46,7 @@ def _read(path: Path) -> str:
 
 
 def read_kit_config(root: Path) -> dict:
-    """Đọc `.builder/kit.json`; trả {} nếu thiếu/hỏng (không bao giờ ném lỗi)."""
+    """Read `.builder/kit.json`; return {} if missing/broken (never raises)."""
     cfg = root / ".builder" / "kit.json"
     if not cfg.is_file():
         return {}
@@ -65,7 +65,7 @@ def declared_architecture(kit_cfg: dict) -> str | None:
 
 
 def declared_guardrail_level(kit_cfg: dict) -> str | None:
-    """Lấy mức rào chắn M1/M2/M3 khai báo trong kit.json (hoặc suy ra từ profile tiêu chuẩn)."""
+    """Get the M1/M2/M3 guardrail level declared in kit.json (or inferred from the standard profile)."""
     raw = kit_cfg.get("guardrail_level") or (
         (kit_cfg.get("profiles") or {}).get("guardrails") if isinstance(kit_cfg.get("profiles"), dict) else None
     )
@@ -76,7 +76,7 @@ def declared_guardrail_level(kit_cfg: dict) -> str | None:
 
 
 def check_baseline(root: Path) -> list[dict]:
-    """Trả về danh sách {id, name, ok, detail} cho B1..B9."""
+    """Return the list of {id, name, ok, detail} for B1..B9."""
     root = Path(root)
     agents = _read(root / "AGENTS.md")
     has_agents = (root / "AGENTS.md").is_file()
@@ -115,12 +115,12 @@ def check_baseline(root: Path) -> list[dict]:
 
 
 def check_declared_profile(root: Path, all_dirs: set[str], declared: str | None) -> tuple[bool, str, str | None]:
-    """So khớp profile khai báo với cấu trúc thư mục. Trả (ok, thông điệp, doc_id)."""
+    """Match the declared profile against the folder structure. Returns (ok, message, doc_id)."""
     if not declared:
         return True, "", None
     expectation = PROFILE_EXPECTATIONS.get(declared)
     if not expectation:
-        return True, "", None  # profile tùy biến: không đánh giá
+        return True, "", None  # custom profile: not evaluated
     groups, doc_id = expectation
     dirs = {d.lower() for d in all_dirs}
     missing = [sorted(g)[0] for g in groups if not (g & dirs)]
@@ -131,8 +131,8 @@ def check_declared_profile(root: Path, all_dirs: set[str], declared: str | None)
 
 def check_guardrails(root: Path, kit_cfg: dict) -> tuple[bool, str, list[str]]:
     """
-    Kiểm tra ARCH-008: dự án khai báo profile/mức rào chắn M1-M3 nhưng thiếu công cụ kiểm soát ranh giới hoặc CI.
-    Trả về (ok, message, doc_ids).
+    Check ARCH-008: the project declares a profile/guardrail level M1-M3 but lacks boundary-control tooling or CI.
+    Returns (ok, message, doc_ids).
     """
     root = Path(root)
     declared_arch = declared_architecture(kit_cfg)
@@ -143,7 +143,7 @@ def check_guardrails(root: Path, kit_cfg: dict) -> tuple[bool, str, list[str]]:
     if not level:
         return True, "", []
 
-    # Nếu chỉ khai báo profile (không khai báo guardrail_level tường minh) và chưa có mã nguồn/cấu trúc profile -> để ARCH-007 xử lý trước
+    # If only a profile is declared (no explicit guardrail_level) and there is no source/profile structure yet -> let ARCH-007 handle it first
     if not explicit_level and declared_arch in PROFILE_EXPECTATIONS:
         workflows_dir = root / ".github" / "workflows"
         if not workflows_dir.is_dir():
@@ -159,14 +159,14 @@ def check_guardrails(root: Path, kit_cfg: dict) -> tuple[bool, str, list[str]]:
         )
 
     if level in ("M2", "M3"):
-        # Kiểm tra dấu hiệu rào chắn ranh giới (boundary lint rules, import-linter, eslint boundary, nhiều .csproj, hoặc test kiến trúc)
+        # Check for boundary guardrail signs (boundary lint rules, import-linter, eslint boundary, several .csproj, or architecture tests)
         has_boundary_guard = False
         boundary_patterns = re.compile(
             r"(no-restricted-imports|boundaries|eslint-plugin-boundaries|import-linter|depcruiser|archunit|netarchtest|enforce-module-boundaries|check_links|test_doc_format|test_health_check)",
             re.IGNORECASE,
         )
 
-        # Kiểm tra các tệp cấu hình lint / test / csproj
+        # Check lint / test / csproj configuration files
         candidate_files = [
             root / "package.json",
             root / "pyproject.toml",
@@ -221,9 +221,9 @@ _DATED_ENTRY = re.compile(r"^(?:#{1,6}\s*|[-*]\s*|\|\s*)\[?\d{4}-\d{2}-\d{2}", r
 
 def check_worklog(root: Path) -> tuple[str | None, str]:
     """
-    Kiểm tra work log (core/standards/worklog.md). Trả về (mã, thông điệp); mã None nghĩa là đạt.
-    WLOG-001/002 chỉ kích hoạt khi dự án có marker Agent (AGENTS.md, CLAUDE.md, .cursorrules, .windsurfrules, .agents/, .claude/).
-    Không đánh giá độ mới (mtime đổi khi git clone nên không đáng tin khi chạy offline).
+    Check the work log (core/standards/worklog.md). Returns (code, message); code None means pass.
+    WLOG-001/002 only fire when the project has Agent markers (AGENTS.md, CLAUDE.md, .cursorrules, .windsurfrules, .agents/, .claude/).
+    Freshness is not evaluated (mtime changes on git clone, so it is unreliable offline).
     """
     root = Path(root)
     if not is_agent_driven(root):

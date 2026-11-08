@@ -1,13 +1,13 @@
 ---
 id: A-008
 type: reference
-when: "Viết/cập nhật **tài liệu kiến trúc tổng thể** của dự án (thành phần, luồng chính)"
+when: "Writing or updating **system architecture documentation** (components, key flows)"
 ---
-# KIẾN TRÚC TỔNG THỂ HỆ THỐNG (SYSTEM ARCHITECTURE)
+# SYSTEM ARCHITECTURE
 
 ---
 
-## 🏛️ 1. SƠ ĐỒ KIẾN TRÚC TỔNG QUAN (C4 CONTAINER DIAGRAM)
+## 🏛️ 1. SYSTEM ARCHITECTURE OVERVIEW (C4 CONTAINER DIAGRAM)
 
 ```mermaid
 graph TD
@@ -25,12 +25,12 @@ graph TD
     AI_Agent -->|Log Traces| Monitor
     API -->|Log Traces| Monitor
 ```
-> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNptUl1P4zAQ_CuWHxAn0ev7CSG1hI9K5SiXiD5ghDbJ1vGR2NXGoVcR_jtrpwpXiTw4zu7M7O5k32XhSpS_hNQE20pkibKCn8vaoPVPSq4xF1Nx53JT4yF6ntP04jf-8z__tpz7g1B4JZ8H4my1YNYcile0ZfgSN-BxB_vIuobWh1hQLLsaiN_W1cZXXwKLl5keas8WIl5NIa6sNhajxhKsvonNskpXezOJIJHugJpRJpk_nSq5ItMA7UUCHnJoB4GVa70mTB-WrJB225hR8seB-YiFdzTwh7tI-Ri4W_02hKbisiLXQDL_YvIshnPceYY1Nui58om4z1ukN2ADjd-PE2y6FkVGUBirY9P_-y4mk4v-NstWafD3Ks2CkX04RpMjZO3odVO7HQsZrZH60b1jXBj1oUMy2PbszLHRAwIbiEanCFRU_ejCN9il07HzIHYY-bjcNwB5JmSD1IApw7K9B4KSvmKXFAeULHED_DOVVPYjgKHzLt3bgpOeOuRIty15kxIDvKnNIfzxCat85Fg=)
+> [📊 Open the diagram on Mermaid Live / an AI editor](https://mermaid.live/edit#pako:eNptUl1P4zAQ_CuWHxAn0ev7CSG1hI9K5SiXiD5ghDbJ1vGR2NXGoVcR_jtrpwpXiTw4zu7M7O5k32XhSpS_hNQE20pkibKCn8vaoPVPSq4xF1Nx53JT4yF6ntP04jf-8z__tpz7g1B4JZ8H4my1YNYcile0ZfgSN-BxB_vIuobWh1hQLLsaiN_W1cZXXwKLl5keas8WIl5NIa6sNhajxhKsvonNskpXezOJIJHugJpRJpk_nSq5ItMA7UUCHnJoB4GVa70mTB-WrJB225hR8seB-YiFdzTwh7tI-Ri4W_02hKbisiLXQDL_YvIshnPceYY1Nui58om4z1ukN2ADjd-PE2y6FkVGUBirY9P_-y4mk4v-NstWafD3Ks2CkX04RpMjZO3odVO7HQsZrZH60b1jXBj1oUMy2PbszLHRAwIbiEanCFRU_ejCN9il07HzIHYY-bjcNwB5JmSD1IApw7K9B4KSvmKXFAeULHED_DOVVPYjgKHzLt3bgpOeOuRIty15kxIDvKnNIfzxCat85Fg=)
 
 ---
 
-## 🔄 2. LUỒNG DỮ LIỆU CHÍNH (KEY DATA FLOW)
-1. Người dùng gửi yêu cầu từ giao diện Client.
-2. Backend API xác thực quyền (`ROLE_USER`), kiểm tra Input Schema.
-3. Kích hoạt AI Agent để thực hiện suy luận hoặc tìm kiếm ngữ nghĩa trên Vector DB.
-4. Trả về kết quả phòng vệ (Defensive Payload) cho Client hiển thị.
+## 🔄 2. KEY DATA FLOW
+1. The user sends a request from the Client interface.
+2. The Backend API authenticates permissions (`ROLE_USER`) and checks the Input Schema.
+3. It triggers the AI Agent to reason or run a semantic search on the Vector DB.
+4. It returns a defensive result (Defensive Payload) for the Client to display.

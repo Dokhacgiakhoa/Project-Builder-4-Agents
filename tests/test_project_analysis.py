@@ -1,4 +1,4 @@
-"""Kiểm thử Project Model, Knowledge Pack, nhận định và lớp AI (ADR-0018)."""
+"""Tests for the Project Model, Knowledge Pack, conclusions and the AI layer (ADR-0018)."""
 
 import json
 import os
@@ -173,7 +173,7 @@ def test_prompt_uses_model_and_sends_code_only_with_consent(tmp_path):
             "findings": [], "total_score": 50, "grade": "C"}
     without = llm_evaluator.build_prompt(data, include_code=False)
     with_code = llm_evaluator.build_prompt(data, include_code=True)
-    assert "components" in without and "core/big.py" in without  # tên tệp nằm trong mô hình, nhưng không có mã
+    assert "components" in without and "core/big.py" in without  # file names are in the model, but no code
     assert "z = 1" not in without
     assert "z = 1" in with_code and "supersecretvalue123" not in with_code
 
@@ -189,21 +189,21 @@ def test_evaluate_calls_provider_with_key(monkeypatch):
 
     def fake_call(provider, key, model, prompt, max_tokens):
         seen.update(provider=provider, key=key, model=model, prompt=prompt)
-        return "kết quả"
+        return "result"
     monkeypatch.setattr(llm_evaluator, "_call", fake_call)
     r = llm_evaluator.LLMEvaluator.evaluate("claude", " k1 ", "", {"analysis": {"kind": {}}})
-    assert r["success"] and r["analysis"] == "kết quả"
+    assert r["success"] and r["analysis"] == "result"
     assert seen["key"] == "k1" and seen["model"] == llm_evaluator.DEFAULT_MODELS["claude"]
 
 
-@pytest.mark.skipif(os.name != "nt", reason="DPAPI chỉ có trên Windows")
+@pytest.mark.skipif(os.name != "nt", reason="DPAPI exists only on Windows")
 def test_api_key_is_encrypted_on_disk(tmp_path, monkeypatch):
     monkeypatch.setattr(sm, "SETTINGS_DIR", tmp_path)
     monkeypatch.setattr(sm, "SETTINGS_FILE", tmp_path / "s.json")
     sm.SettingsManager.save_settings({"claude_api_key": "sk-test-123456"})
     assert "sk-test-123456" not in (tmp_path / "s.json").read_text(encoding="utf-8")
     assert sm.SettingsManager.get_settings()["claude_api_key"] == "sk-test-123456"
-    sm.SettingsManager.save_settings({"theme": "light"})  # lưu lại không làm hỏng khóa
+    sm.SettingsManager.save_settings({"theme": "light"})  # saving again must not corrupt the key
     assert sm.SettingsManager.get_settings()["claude_api_key"] == "sk-test-123456"
 
 

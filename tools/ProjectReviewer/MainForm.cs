@@ -27,20 +27,20 @@ public class MainForm : Form
 
     public MainForm(string[] args)
     {
-        // 1. Cấu hình Form Windows chuẩn Native
+        // 1. Standard native Windows Form configuration
         Text = "Project Builder Analytics";
         Width = 1260;
         Height = 840;
         StartPosition = FormStartPosition.CenterScreen;
         BackColor = Color.FromArgb(14, 13, 19); // #0e0d13 (Dark Slate)
 
-        // 2. Nạp Icon từ app-icon.ico
+        // 2. Load the icon from app-icon.ico
         LoadCustomIcon();
 
-        // 3. Khóa Title Bar sang Dark Mode nguyên bản qua Windows DWM API
+        // 3. Lock the title bar to native Dark Mode through the Windows DWM API
         ApplyDwmDarkTitleBar();
 
-        // 4. Khởi tạo điều khiển WebView2
+        // 4. Initialize the WebView2 control
         _webView = new WebView2
         {
             Dock = DockStyle.Fill,
@@ -48,7 +48,7 @@ public class MainForm : Form
         };
         Controls.Add(_webView);
 
-        // 5. Vòng đời sự kiện
+        // 5. Event lifecycle
         Load += OnFormLoadAsync;
         FormClosing += OnFormClosing;
     }
@@ -82,15 +82,15 @@ public class MainForm : Form
     {
         try
         {
-            // Bật Immersive Dark Mode
+            // Enable Immersive Dark Mode
             int darkMode = 1;
             DwmSetWindowAttribute(Handle, DWMWA_USE_IMMERSIVE_DARK_MODE, ref darkMode, sizeof(int));
 
-            // Khóa màu Caption Bar thành Dark Slate (#0e0d13 -> BGR: 0x130D0E)
+            // Lock the caption bar color to Dark Slate (#0e0d13 -> BGR: 0x130D0E)
             int captionColor = 0x130D0E;
             DwmSetWindowAttribute(Handle, DWMWA_CAPTION_COLOR, ref captionColor, sizeof(int));
 
-            // Khóa màu Border Bar thành Slate Subtle (#1e1d27 -> BGR: 0x271D1E)
+            // Lock the border color to Slate Subtle (#1e1d27 -> BGR: 0x271D1E)
             int borderColor = 0x271D1E;
             DwmSetWindowAttribute(Handle, DWMWA_BORDER_COLOR, ref borderColor, sizeof(int));
         }
@@ -119,8 +119,8 @@ public class MainForm : Form
         {
             _serverPort = GetFreePort();
 
-            // Ưu tiên Engine đóng gói (không cần Python). Chỉ khi không có mới dùng Python >= 3.12
-            // (tự cài qua winget nếu thiếu, có hỏi người dùng). WebView2 Runtime cũng được kiểm tra tương tự.
+            // Prefer the packaged Engine (no Python needed). Only when it is missing use Python >= 3.12
+            // (installed through winget if missing, with a prompt to the user). The WebView2 Runtime is checked the same way.
             string? enginePath = FindBundledEngine();
             string? pythonExe = null;
             if (enginePath == null)
@@ -130,13 +130,13 @@ public class MainForm : Form
             }
             if (!await EnsureWebView2Async()) { Close(); return; }
 
-            // Khởi chạy Backend Server ở chế độ ngầm (Headless)
+            // Start the Backend Server in headless mode
             if (!StartBackend(_serverPort, enginePath, pythonExe)) { Close(); return; }
 
-            // Chờ server sẵn sàng (tối đa 3 giây)
+            // Wait for the server to be ready (up to 3 seconds)
             await WaitForServerReadyAsync(_serverPort);
 
-            // Khởi tạo WebView2 Environment
+            // Initialize the WebView2 Environment
             string profileDir = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
                 ".starter-kit",
@@ -147,13 +147,13 @@ public class MainForm : Form
             var env = await CoreWebView2Environment.CreateAsync(null, profileDir);
             await _webView.EnsureCoreWebView2Async(env);
 
-            // Tinh chỉnh WebView2 để loại bỏ hoàn toàn các thành phần của trình duyệt
+            // Tune WebView2 to remove the browser chrome entirely
             _webView.CoreWebView2.Settings.IsStatusBarEnabled = false;
             _webView.CoreWebView2.Settings.IsBuiltInErrorPageEnabled = false;
             _webView.CoreWebView2.Settings.AreDevToolsEnabled = false;
             _webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = true;
 
-            // Xử lý sự kiện giao tiếp Native (chọn thư mục chuẩn Windows 11 Modern Dialog)
+            // Handle native communication events (Windows 11 modern folder picker)
             _webView.CoreWebView2.WebMessageReceived += (s, args) =>
             {
                 try
@@ -180,7 +180,7 @@ public class MainForm : Form
                 catch { }
             };
 
-            // Điều hướng tới giao diện Antigravity 2.0 Web Canvas
+            // Navigate to the Antigravity 2.0 Web Canvas UI
             _webView.Source = new Uri($"http://127.0.0.1:{_serverPort}");
         }
         catch (Exception ex)
@@ -230,7 +230,7 @@ public class MainForm : Form
         }
         catch (Exception)
         {
-            // Chưa có WebView2 Runtime: thử cài đặt bên dưới.
+            // No WebView2 Runtime: try to install it below.
         }
 
         var answer = MessageBox.Show(
@@ -255,17 +255,17 @@ public class MainForm : Form
         return installed;
     }
 
-    /// <summary>Tìm engine đóng gói: ưu tiên engine\reviewer-engine.exe cạnh file exe, nếu không có thì tự giải nén từ EmbeddedResource ra thư mục tạm.</summary>
+    /// <summary>Finds the packaged engine: prefers engine\reviewer-engine.exe next to the exe, otherwise extracts it from the EmbeddedResource into a temp folder.</summary>
     public static string? FindBundledEngine()
     {
-        // 1. Kiểm tra engine nằm ngay cạnh exe (dành cho môi trường dev / unbundled)
+        // 1. Check for an engine right next to the exe (for dev / unbundled environments)
         string candidate = Path.Combine(AppContext.BaseDirectory, "engine", "reviewer-engine.exe");
         if (File.Exists(candidate))
         {
             return candidate;
         }
 
-        // 2. Giải nén có kiểm tra SHA-256 từ Embedded Resource vào thư mục đặt theo hash (ADR-0025)
+        // 2. Extract with SHA-256 verification from the Embedded Resource into a hash-named folder (ADR-0025)
         return EngineExtractor.Extract(typeof(MainForm).Assembly);
     }
 
@@ -291,7 +291,7 @@ public class MainForm : Form
         string baseDir = AppContext.BaseDirectory;
         string projectRoot = baseDir;
 
-        // Dò tìm thư mục gốc chứa scripts/reviewer_app.py
+        // Find the root folder containing scripts/reviewer_app.py
         for (int i = 0; i < 4; i++)
         {
             if (File.Exists(Path.Combine(projectRoot, "scripts", "reviewer_app.py")))

@@ -1,2 +1,0 @@
-Điểm: 78/100 — B+ (TỐT - CÒN MỘT SỐ TECHNICAL DEBT NHỎ)
-Báo cáo: D:\Github\Project-Builder-4-Agents\repo\project-review.md

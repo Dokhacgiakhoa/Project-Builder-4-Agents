@@ -7,7 +7,7 @@ interface PreviewCardProps {
 }
 
 export const PreviewCard: React.FC<PreviewCardProps> = ({ preset }) => {
-  const [taskInput, setTaskInput] = useState('Khởi tạo Microservice với AI Agent');
+  const [taskInput, setTaskInput] = useState('Initialize a Microservice with an AI Agent');
   const [clickCount, setClickCount] = useState(0);
 
   const { tokens } = preset;
@@ -67,7 +67,7 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({ preset }) => {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Shield className="h-4 w-4" />
-            <span className="text-xs font-semibold">Tác vụ Thực thi (Agent Task)</span>
+            <span className="text-xs font-semibold">Executing Task (Agent Task)</span>
           </div>
           <span className={tokens.accentTextClass}>
             {preset.id === 'terminal-tui' ? 'PORT: 8080 // OK' : 'v2.4.0-Production'}
@@ -77,29 +77,29 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({ preset }) => {
         <div className="space-y-4">
           <div>
             <label className="block text-[11px] mb-1 font-medium opacity-80">
-              {preset.id === 'terminal-tui' ? '$ INPUT_TASK_NAME:' : 'Tên nhiệm vụ:'}
+              {preset.id === 'terminal-tui' ? '$ INPUT_TASK_NAME:' : 'Task name:'}
             </label>
             <input
               type="text"
               value={taskInput}
               onChange={(e) => setTaskInput(e.target.value)}
               className={tokens.inputClass}
-              placeholder="Nhập tên nhiệm vụ..."
+              placeholder="Enter a task name..."
             />
           </div>
 
           {/* Metric Stats */}
           <div className="grid grid-cols-2 gap-3 pt-1">
             <div className="p-2.5 rounded-lg bg-black/5 dark:bg-white/5 border border-current/10">
-              <span className="text-[10px] opacity-70 block">Số lần tương tác</span>
+              <span className="text-[10px] opacity-70 block">Interaction count</span>
               <span className="text-base font-bold flex items-center gap-1">
-                <Zap className="h-3.5 w-3.5" /> {clickCount} lần
+                <Zap className="h-3.5 w-3.5" /> {clickCount} times
               </span>
             </div>
             <div className="p-2.5 rounded-lg bg-black/5 dark:bg-white/5 border border-current/10">
-              <span className="text-[10px] opacity-70 block">Trạng thái Agent</span>
+              <span className="text-[10px] opacity-70 block">Agent status</span>
               <span className="text-base font-bold flex items-center gap-1">
-                <Sparkles className="h-3.5 w-3.5" /> Sẵn sàng
+                <Sparkles className="h-3.5 w-3.5" /> Ready
               </span>
             </div>
           </div>
@@ -110,13 +110,13 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({ preset }) => {
               onClick={() => setClickCount((prev) => prev + 1)}
               className={tokens.primaryButtonClass}
             >
-              {preset.id === 'terminal-tui' ? '[ EXECUTE_TASK ]' : 'Chạy thử nghiệm'}
+              {preset.id === 'terminal-tui' ? '[ EXECUTE_TASK ]' : 'Run trial'}
             </button>
             <button
               onClick={() => setClickCount(0)}
               className={tokens.secondaryButtonClass}
             >
-              {preset.id === 'terminal-tui' ? '[ RESET ]' : 'Đặt lại'}
+              {preset.id === 'terminal-tui' ? '[ RESET ]' : 'Reset'}
             </button>
           </div>
         </div>

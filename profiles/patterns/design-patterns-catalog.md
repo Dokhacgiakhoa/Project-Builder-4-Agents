@@ -1,58 +1,58 @@
 ---
 id: A-006
 type: reference
-when: "Chọn/đối chiếu design pattern, refactor theo pattern"
+when: "Selecting and cross-referencing design patterns, refactoring code"
 ---
-# CẨM NANG TRA CỨU DESIGN PATTERNS TRONG PHẦN MỀM & AI
+# REFERENCE HANDBOOK OF DESIGN PATTERNS IN SOFTWARE & AI
 *(Software & AI Agentic Design Patterns Catalog)*
 
 ---
 
-## 🏛️ PHẦN 1: GOF CLASSIC DESIGN PATTERNS
+## 🏛️ PART 1: GOF CLASSIC DESIGN PATTERNS
 
-### 1. Creational Patterns (Mẫu Khởi Tạo)
-* **Factory Method**: Đóng gói việc khởi tạo đối tượng, cho phép lớp con quyết định loại đối tượng cần tạo.
-  - *Use Case*: Khởi tạo các LLM Provider (`get_llm(provider="mistral" | "gemini" | "groq")`).
-* **Builder**: Tách rời việc xây dựng một đối tượng phức tạp khỏi biểu diễn của nó.
-  - *Use Case*: Xây dựng Prompt Templates hoặc Agent State Configuration.
+### 1. Creational Patterns
+* **Factory Method**: Encapsulates object creation, letting subclasses decide which type of object to create.
+  - *Use Case*: Creating LLM Providers (`get_llm(provider="mistral" | "gemini" | "groq")`).
+* **Builder**: Separates the construction of a complex object from its representation.
+  - *Use Case*: Building Prompt Templates or Agent State Configuration.
 
-### 2. Structural Patterns (Mẫu Cấu Trúc)
-* **Adapter (Wrapper)**: Chuyển đổi giao diện của một lớp thành giao diện khác mà client mong đợi.
-  - *Use Case*: Bọc API của các bên thứ ba (Stripe, SendGrid) thành các Interface chuẩn của Domain.
-* **Decorator**: Gắn thêm trách nhiệm mới cho đối tượng một cách linh hoạt mà không cần kế thừa.
-  - *Use Case*: Gắn thêm Logging, Caching, hoặc Rate Limiting vào API Service.
-* **Facade**: Cung cấp một giao diện đơn giản cho một hệ thống con phức tạp.
+### 2. Structural Patterns
+* **Adapter (Wrapper)**: Converts the interface of a class into another interface the client expects.
+  - *Use Case*: Wrapping third-party APIs (Stripe, SendGrid) into the Domain's standard Interfaces.
+* **Decorator**: Attaches new responsibilities to an object flexibly without inheritance.
+  - *Use Case*: Adding Logging, Caching, or Rate Limiting to an API Service.
+* **Facade**: Provides a simple interface to a complex subsystem.
 
-### 3. Behavioral Patterns (Mẫu Hành Vi)
-* **Mediator**: Định nghĩa một đối tượng đóng gói cách thức một tập hợp các đối tượng tương tác với nhau.
-  - *Use Case*: Thư viện MediatR trong CQRS để gửi Command/Query đến Handler tương ứng.
-* **Strategy**: Định nghĩa một họ thuật toán, đóng gói từng thuật toán và làm cho chúng có thể hoán đổi cho nhau.
-  - *Use Case*: Chiến lược Chunking văn bản trong RAG (Fixed-size, Recursive, Semantic chunking).
-* **Observer / Domain Events**: Khi một đối tượng thay đổi trạng thái, tất cả các thành phần phụ thuộc sẽ được thông báo tự động.
+### 3. Behavioral Patterns
+* **Mediator**: Defines an object that encapsulates how a set of objects interact with each other.
+  - *Use Case*: The MediatR library in CQRS to send a Command/Query to the matching Handler.
+* **Strategy**: Defines a family of algorithms, encapsulates each one and makes them interchangeable.
+  - *Use Case*: Text chunking strategies in RAG (Fixed-size, Recursive, Semantic chunking).
+* **Observer / Domain Events**: When an object changes state, all dependent components are notified automatically.
 
 ---
 
-## 🏢 PHẦN 2: ENTERPRISE & ARCHITECTURAL PATTERNS
+## 🏢 PART 2: ENTERPRISE & ARCHITECTURAL PATTERNS
 
 ### 1. Repository & Unit of Work Pattern
-* **Repository**: Đóng vai trò như một bộ sưu tập các thực thể trong bộ nhớ, che giấu chi tiết của cơ sở dữ liệu.
-* **Unit of Work**: Duy trì danh sách các nghiệp vụ thay đổi trong một transaction và commit đồng thời.
+* **Repository**: Acts as an in-memory collection of entities, hiding the details of the database.
+* **Unit of Work**: Keeps the list of business changes in a transaction and commits them together.
 
 ### 2. Outbox Pattern
-* Đảm bảo tính nhất quán dữ liệu (Guaranteed Delivery) giữa việc lưu DB và gửi Event ra Message Broker (Kafka/RabbitMQ) mà không bị mất dữ liệu khi mất kết nối mạng.
+* Guarantees data consistency (Guaranteed Delivery) between saving to the DB and sending an Event to a Message Broker (Kafka/RabbitMQ) without losing data when the network connection drops.
 
 ### 3. Circuit Breaker Pattern
-* Tự động ngắt kết nối tạm thời tới một dịch vụ bên ngoài khi dịch vụ đó liên tục bị lỗi hoặc timeout, tránh làm cạn kiệt tài nguyên của hệ thống chính.
+* Automatically cuts the temporary connection to an external service when it keeps failing or timing out, avoiding exhaustion of the main system's resources.
 
 ---
 
-## 🤖 PHẦN 3: AI-NATIVE & AGENTIC DESIGN PATTERNS
+## 🤖 PART 3: AI-NATIVE & AGENTIC DESIGN PATTERNS
 
-| Mẫu Thiết Kế | Mô Tả & Bản Chất | Use Case Thực Tế |
+| Design Pattern | Description & Essence | Real Use Case |
 | :--- | :--- | :--- |
-| **ReAct Loop** | Kết hợp giữa Reasoning (Suy luận) và Action (Thực thi Tool) | Agent tra cứu dữ liệu web hoặc truy vấn SQL từng bước |
-| **Semantic Router** | Định tuyến yêu cầu dựa trên độ tương đồng vector embedding | Phân luồng câu hỏi của user về đúng domain chuyên môn |
-| **Supervisor Swarm** | Một tác tử chủ điều phối các tác tử con độc lập | Điều phối luồng làm việc giữa Coder Agent và Reviewer Agent |
-| **RAG Triad Eval** | Bộ 3 tiêu chí đo lường: Faithfulness, Relevance, Precision | Đánh giá chất lượng pipeline tìm kiếm ngữ nghĩa tự động |
-| **Model Context Protocol (MCP)** | Chuẩn giao tiếp mở kết nối LLM với Tools và Data Sources | Cho phép Agent truy xuất database, terminal, APIs đồng nhất |
-| **Human-in-the-Loop (HITL)** | Chốt chặn an toàn yêu cầu xác nhận từ con người | Phê duyệt giao dịch thanh toán hoặc deploy code production |
+| **ReAct Loop** | Combines Reasoning and Action (Tool execution) | An agent looks up web data or queries SQL step by step |
+| **Semantic Router** | Routes requests by vector embedding similarity | Routes a user's question to the right specialized domain |
+| **Supervisor Swarm** | A main agent coordinates independent sub-agents | Coordinates the workflow between a Coder Agent and a Reviewer Agent |
+| **RAG Triad Eval** | Three measurement criteria: Faithfulness, Relevance, Precision | Evaluates the quality of an automated semantic search pipeline |
+| **Model Context Protocol (MCP)** | An open standard connecting LLMs to Tools and Data Sources | Lets an Agent access databases, terminals and APIs uniformly |
+| **Human-in-the-Loop (HITL)** | A safety gate requiring human confirmation | Approves a payment transaction or a production code deploy |

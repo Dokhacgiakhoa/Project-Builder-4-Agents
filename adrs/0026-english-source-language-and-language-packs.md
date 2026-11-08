@@ -7,7 +7,7 @@
 The audit engine wrote its findings, report and summaries in Vietnamese. The UI was English by default, so it translated Vietnamese to English with a hand-maintained dictionary (`VI_TO_EN`) plus regular expressions. Every sentence missing from that dictionary leaked through as Vietnamese (the Analysis summary, finding descriptions), and the dictionary could never be complete because many sentences carry variable numbers and names. The direction was also wrong for the goal of supporting more languages (Chinese, Russian, Hindi, Japanese, Korean, ...): each new language would need a translation from Vietnamese.
 
 ## Decision
-1. **The engine emits English only**: findings, section headings of `project-review.md`, summaries, log lines, pillar names. Severity values are `High`, `Medium`, `Low` (they were `Cao`, `Trung bình`, `Thấp`); the report front matter uses `findings: {high, medium, low}`.
+1. **The engine emits English only**: findings, section headings of `project-review.md`, summaries, log lines, pillar names. Severity values are `High`, `Medium`, `Low` (they were the Vietnamese words for high, medium and low); the report front matter uses `findings: {high, medium, low}`.
 2. **Other languages are packs translated from English.** A pack is `scripts/reviewer_shell/static/js/lang/<code>.engine.js` registering `window.I18N_ENGINE_PACKS[<code>] = { exact: {english: translated}, templates: [{en, tr}] }`.
    * `exact` maps a whole English string to its translation.
    * `templates` cover sentences with variable parts, written `{p1}`, `{p2}`, ... so word order can differ per language. A captured value is itself translated (also item by item for `a; b` / `a, b` lists).

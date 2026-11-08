@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectReviewer;
 
 /// <summary>
-/// Dò tìm Python (>= 3.12) cho Core Engine và tự cài đặt qua winget khi thiếu (có hỏi người dùng trước).
+/// Detects Python (>= 3.12) for the Core Engine and installs it through winget when missing (asking the user first).
 /// </summary>
 internal static class PythonRuntime
 {
@@ -16,7 +16,7 @@ internal static class PythonRuntime
     public const string WingetWebView2Id = "Microsoft.EdgeWebView2Runtime";
     public const string PythonDownloadUrl = "https://www.python.org/downloads/";
 
-    /// <summary>Trả về đường dẫn python.exe phù hợp (>= 3.12), hoặc null nếu không có.</summary>
+    /// <summary>Returns the path of a suitable python.exe (>= 3.12), or null if none.</summary>
     public static string? Find()
     {
         string? best = null;
@@ -39,7 +39,7 @@ internal static class PythonRuntime
         string local = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         string programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
 
-        // Python Launcher (py.exe) giúp tìm bản mới nhất, kể cả khi PATH chưa được làm mới.
+        // The Python Launcher (py.exe) finds the newest version, even when PATH has not been refreshed.
         yield return ("py", "-3");
 
         foreach (string v in new[] { "314", "313", "312" })
@@ -54,7 +54,7 @@ internal static class PythonRuntime
         yield return ("python", "");
     }
 
-    /// <summary>Chạy thử interpreter, trả về (phiên bản dạng 312, đường dẫn thật) hoặc null nếu không chạy được.</summary>
+    /// <summary>Runs the interpreter as a trial; returns (version as 312, real path) or null if it cannot run.</summary>
     private static (int Version, string Executable)? Probe(string exe, string args)
     {
         try
@@ -74,7 +74,7 @@ internal static class PythonRuntime
 
             if (!proc.WaitForExit(5000))
             {
-                try { proc.Kill(true); } catch { /* bỏ qua */ }
+                try { proc.Kill(true); } catch { /* ignore */ }
                 return null;
             }
             if (proc.ExitCode != 0) return null;
@@ -89,12 +89,12 @@ internal static class PythonRuntime
         }
         catch (Exception)
         {
-            // Không có interpreter này (hoặc là stub của Microsoft Store): thử ứng viên kế tiếp.
+            // This interpreter is not available (or is a Microsoft Store stub): try the next candidate.
             return null;
         }
     }
 
-    /// <summary>Cài một gói bằng winget ở chế độ im lặng. Trả về true nếu winget kết thúc thành công.</summary>
+    /// <summary>Installs a package with winget in silent mode. Returns true if winget finished successfully.</summary>
     public static Task<bool> InstallWithWingetAsync(string packageId)
     {
         return Task.Run(() =>
@@ -115,7 +115,7 @@ internal static class PythonRuntime
             }
             catch (Exception)
             {
-                // winget không có trên máy này.
+                // winget is not available on this machine.
                 return false;
             }
         });

@@ -34,28 +34,28 @@ def test_watchdog_thread_with_injectable_clock():
 
     record_heartbeat(timestamp=1000.0)
 
-    # Khởi động watchdog với check_interval = 0.05s
+    # Start the watchdog with check_interval = 0.05s
     t = start_watchdog(shutdown_ev, timeout=30.0, check_interval=0.05, clock=mock_clock)
 
     time.sleep(0.1)
     assert not shutdown_ev.is_set()
 
-    # Thời gian trôi bình thường (mỗi tick tăng <= 2s < 10s) thêm 15s -> chưa trigger
+    # Time passes normally (each tick advances <= 2s < 10s), another 15s -> not triggered yet
     for _ in range(15):
         current_time[0] += 1.0
         time.sleep(0.01)
     assert not shutdown_ev.is_set()
 
-    # Nhận heartbeat mới
+    # Receive a new heartbeat
     record_heartbeat(timestamp=current_time[0])
 
-    # Trôi tiếp 20s (< 30s timeout) -> chưa trigger
+    # Another 20s pass (< 30s timeout) -> not triggered yet
     for _ in range(20):
         current_time[0] += 1.0
         time.sleep(0.01)
     assert not shutdown_ev.is_set()
 
-    # Trôi tiếp 15s (tổng 35s không có heartbeat) -> trigger!
+    # Another 15s pass (35s total with no heartbeat) -> trigger!
     for _ in range(15):
         current_time[0] += 1.0
         time.sleep(0.01)
@@ -82,14 +82,14 @@ def test_watchdog_thread_does_not_fire_while_audit_running_at_3x_timeout(monkeyp
     time.sleep(0.1)
     assert not shutdown_ev.is_set()
 
-    # Trôi thời gian tới hơn 3x timeout (105s) theo từng bước nhỏ (3s < 10s)
+    # Time passes beyond 3x the timeout (105s) in small steps (3s < 10s)
     for _ in range(35):
         current_time[0] += 3.0
         time.sleep(0.06)
     time.sleep(0.1)
     assert not shutdown_ev.is_set()
 
-    # Khi audit kết thúc (audit_running = False), watchdog lập tức trigger vì đã quá timeout
+    # When the audit ends (audit_running = False), the watchdog triggers immediately because the timeout has been exceeded
     monkeypatch.setattr(srv_mod, 'is_audit_running', lambda: False)
     current_time[0] += 1.0
     time.sleep(0.15)
@@ -112,19 +112,19 @@ def test_watchdog_survives_clock_jump_sleep_resume():
     time.sleep(0.1)
     assert not shutdown_ev.is_set()
 
-    # Giả lập máy tính Sleep/Hibernate trong 1 giờ: clock nhảy 3600s trong 1 tick
+    # Simulate the computer sleeping/hibernating for 1 hour: the clock jumps 3600s in one tick
     current_time[0] += 3600.0
     time.sleep(0.12)
-    # Watchdog phát hiện tick gap 3600s > suspension threshold (10s) -> re-arm và KHÔNG trigger
+    # The watchdog detects a tick gap of 3600s > suspension threshold (10s) -> re-arms and does NOT trigger
     assert not shutdown_ev.is_set()
 
-    # Sau khi thức dậy, silence bình thường 15s (< 30s timeout) -> chưa trigger
+    # After waking up, a normal 15s of silence (< 30s timeout) -> not triggered yet
     for _ in range(15):
         current_time[0] += 1.0
         time.sleep(0.01)
     assert not shutdown_ev.is_set()
 
-    # Silence tiếp tục thêm 20s (tổng 35s > 30s) mà không có heartbeat mới -> trigger!
+    # Silence continues for another 20s (35s total > 30s) with no new heartbeat -> trigger!
     for _ in range(20):
         current_time[0] += 1.0
         time.sleep(0.01)

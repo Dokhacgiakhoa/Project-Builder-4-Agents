@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Tự động sinh tệp MANIFEST.json ở gốc repo.
-Liệt kê toàn bộ cây tệp có giá trị trong repo kèm đường dẫn tải thô (raw.githubusercontent.com).
-Giúp AI Agent từ xa có thể đọc và tải chính xác từng tệp mà không cần git clone hay cào HTML.
+Automatically generates MANIFEST.json at the repo root.
+Lists the whole tree of valuable files in the repo with raw download paths (raw.githubusercontent.com).
+Lets a remote AI Agent read and fetch each file exactly, without git clone or HTML scraping.
 
-Sử dụng:
+Usage:
     python scripts/generate_manifest.py
 """
 
@@ -61,7 +61,7 @@ def categorize_file(rel_path: str) -> str:
 
 
 def list_repo_files():
-    """Danh sách tệp ổn định giữa máy dev và CI: ưu tiên `git ls-files`, nếu không thì duyệt thư mục."""
+    """File list that is stable between the dev machine and CI: prefer `git ls-files`, otherwise walk the folders."""
     try:
         out = subprocess.run(
             ["git", "-C", str(ROOT), "ls-files", "-z"],
@@ -94,7 +94,7 @@ def generate():
         if not full_path.is_file():
             continue
 
-        # Không đưa chính MANIFEST.json vào danh sách của nó
+        # Do not put MANIFEST.json itself in its own list
         if rel_path == "MANIFEST.json":
             continue
 
@@ -125,7 +125,7 @@ def generate():
 
     out_file = ROOT / "MANIFEST.json"
     out_file.write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
-    print(f"✅ Đã sinh {out_file.name}: {len(manifest_files)} tệp được lập chỉ mục.")
+    print(f"✅ Generated {out_file.name}: {len(manifest_files)} files indexed.")
 
 
 if __name__ == "__main__":

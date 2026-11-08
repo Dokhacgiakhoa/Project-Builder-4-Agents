@@ -1,8 +1,8 @@
 """
-Ánh xạ phát hiện của Health Check → mã ổn định, mức độ và tài liệu khắc phục trong Project-Builder-4-Agents.
+Mapping of Analytics findings -> stable codes, severity and remediation documents in Project-Builder-4-Agents.
 
-Agent đọc `project-review.md`, thấy mã + liên kết tài liệu, rồi tra đúng tài liệu để sửa.
-Danh sách DOCS phải khớp `INDEX.md` của kit (có test kiểm tra mỗi đường dẫn đều tồn tại).
+An Agent reads `project-review.md`, sees the code + document link, then looks up exactly that document to fix.
+The DOCS list must match the kit's `INDEX.md` (a test checks that every path exists).
 """
 
 from __future__ import annotations
@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 KIT_REPO = "https://github.com/Dokhacgiakhoa/Project-Builder-4-Agents"
 DEFAULT_REF = "main"
 
-# id -> (đường dẫn trong kit, tiêu đề). Trùng ID với INDEX.md.
+# id -> (path in the kit, title). Same ids as INDEX.md.
 DOCS: dict[str, tuple[str, str]] = {
     "K-001": ("BOOTSTRAP.md", 'Project bootstrap procedure for AI Agents'),
     "K-002": ("core/discovery.md", 'Discovery interview & locking the project scope'),
@@ -52,7 +52,7 @@ DOCS: dict[str, tuple[str, str]] = {
 
 SEVERITY_ORDER = {"High": 0, "Medium": 1, "Low": 2}
 
-# Phát hiện cấp mã nguồn (violations): type -> (mã, mức, [doc ids])
+# Source-code level findings (violations): type -> (code, level, [doc ids])
 VIOLATION_RULES: dict[str, tuple[str, str, list[str]]] = {
     "HARDCODED SECRET IN CODE": ("SEC-001", "High", ["S-001", "K-003"]),
     "LAYER LEAKAGE": ("ARCH-001", "High", ["A-002", "S-004"]),
@@ -63,7 +63,7 @@ VIOLATION_RULES: dict[str, tuple[str, str, list[str]]] = {
     "STRICT TYPING VIOLATION": ("AC-002", "Low", ["S-001"]),
 }
 
-# Phát hiện dạng văn bản (gap / bloat / tiêu chí thiếu): (regex, mã, mức, [doc ids]) — khớp đầu tiên thắng.
+# Text findings (gap / bloat / missing criterion): (regex, code, level, [doc ids]) — the first match wins.
 TEXT_RULES: list[tuple[str, str, str, list[str]]] = [
     ('\\.ENV.*(GIT|sensitive)|sensitive.*\\.ENV|SECRET', "SEC-003", "High", ["K-003", "S-001"]),
     (r"\.gitignore|cache BUILD", "HYG-001", "Medium", ["K-003"]),
@@ -91,8 +91,8 @@ TEXT_RULES: list[tuple[str, str, str, list[str]]] = [
 
 GENERIC = ("GEN-001", "Medium", ["K-003"])
 
-# Mã phát ra trực tiếp từ engine (không qua VIOLATION_RULES/TEXT_RULES): mã -> (mức, [doc ids]).
-# Mọi mã phát hiện phải có mặt ở đây hoặc trong các bảng trên (có test kiểm tra).
+# Codes emitted directly by the engine (not via VIOLATION_RULES/TEXT_RULES): code -> (level, [doc ids]).
+# Every finding code must appear here or in the tables above (a test checks it).
 CODE_RULES: dict[str, tuple[str, list[str]]] = {
     "SAFE-001": ("High", ["K-006"]),
     "SAFE-002": ("High", ["K-006"]),
@@ -114,7 +114,7 @@ CODE_RULES: dict[str, tuple[str, list[str]]] = {
     "SPEC-001": ("Medium", ["S-008"]),
 }
 
-# Các gap chỉ là tổng kết (đã liệt kê chi tiết ở nơi khác) -> bỏ để khỏi trùng.
+# Gaps that are only summaries (already listed in detail elsewhere) -> dropped to avoid duplicates.
 SUMMARY_GAP = re.compile('locations violating ANTI-CRASH standards', re.IGNORECASE)
 
 
@@ -150,7 +150,7 @@ def doc_markdown(doc_id: str, ref: str = DEFAULT_REF) -> str:
 
 
 def doc_info_list(doc_ids: list[str], ref: str = DEFAULT_REF) -> list[dict]:
-    """Trả về danh sách thông tin tài liệu khắc phục dạng dict cho UI/API."""
+    """Return the remediation document info as dicts for the UI/API."""
     out = []
     for doc_id in doc_ids:
         if doc_id in DOCS:

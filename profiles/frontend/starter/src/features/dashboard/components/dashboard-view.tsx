@@ -14,7 +14,7 @@ export const DashboardView: React.FC = () => {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-slate-900">Project Overview</h1>
-        <p className="text-sm text-slate-500">Feature-Driven Frontend Blueprint kết nối sẵn sàng cùng Clean Architecture Backend.</p>
+        <p className="text-sm text-slate-500">A Feature-Driven Frontend Blueprint ready to connect to a Clean Architecture Backend.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

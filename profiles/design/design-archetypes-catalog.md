@@ -1,253 +1,253 @@
 ---
 id: D-004
 type: reference
-when: "Xem danh mục phong cách UI (archetype) để chọn"
+when: "Browsing UI aesthetic archetype catalog"
 ---
-# Bảng Tổng Hợp UI/UX Design Archetypes & Thư Viện Mã Nguồn Mở
+# UI/UX Design Archetypes & Open-Source Libraries Catalog
 
-Tài liệu này định nghĩa chi tiết **7 Vũ trụ thẩm mỹ (Aesthetic Universes)** và **14 Phong cách thiết kế (Design Archetypes)** phổ biến nhất trong phát triển phần mềm và thiết kế số. Bộ tài liệu đóng vai trò là "Sổ tay bản thể thị giác" (Visual DNA Specification) giúp Product Manager, Designer, Human Developer và AI Agent (Claude Code, Cursor, Antigravity, v0) dễ dàng lựa chọn và hiện thực hóa giao diện đồng nhất.
+This document defines in detail the most common **7 Aesthetic Universes** and **14 Design Archetypes** in software development and digital design. It serves as a "Visual DNA Specification" that helps Product Managers, Designers, human developers and AI Agents (Claude Code, Cursor, Antigravity, v0) choose and implement a consistent interface with ease.
 
 ---
 
-## 📑 Mục lục 7 Vũ trụ Thẩm mỹ
+## 📑 Table of Contents: the 7 Aesthetic Universes
 
-1. [Vũ trụ 1: Nền tảng & Hệ điều hành (Platform & OS Emulation)](#1-vũ-trụ-nền-tảng--hệ-điều-hành-platform--os-emulation)
+1. [Universe 1: Platform & OS Emulation](#1-platform--os-emulation-universe)
    - 1.1. Windows XP / 98 / 7 Retro Desktop
    - 1.2. Apple Cupertino iOS Glassmorphism
    - 1.3. Google Material You (Material Design 3)
-2. [Vũ trụ 2: Siêu công nghệ & Viễn tưởng (Futuristic & Sci-Fi)](#2-vũ-trụ-siêu-công-nghệ--viễn-tưởng-futuristic--sci-fi)
+2. [Universe 2: Futuristic & Sci-Fi](#2-futuristic--sci-fi-universe)
    - 2.1. Cyberpunk / Sci-Fi HUD (Arwes Style)
    - 2.2. Frutiger Aero (Glossy Skeuomorphic Optimism)
    - 2.3. Synthwave / Outrun 80s Neon
-3. [Vũ trụ 3: Silicon Valley "Pro Max" & Modern SaaS](#3-vũ-trụ-silicon-valley-pro-max--modern-saas)
+3. [Universe 3: Silicon Valley "Pro Max" & Modern SaaS](#3-silicon-valley-pro-max--modern-saas-universe)
    - 3.1. Linear / Raycast Dark Minimalist
    - 3.2. Apple Bento Grid Layout
    - 3.3. High-Motion SaaS (Magic UI & Aceternity)
-4. [Vũ trụ 4: Nổi loạn & Phá cách (Anti-Design & Gen Z)](#4-vũ-trụ-nổi-loạn--phá-cách-anti-design--gen-z)
+4. [Universe 4: Rebellious & Rule-Breaking (Anti-Design & Gen Z)](#4-rebellious--rule-breaking-universe-anti-design--gen-z)
    - 4.1. Neubrutalism (Gumroad / Figma FigJam Style)
    - 4.2. Y2K Cyber Glitch & Hologram
-5. [Vũ trụ 5: Trò chơi Hoài niệm & Văn hóa Geek (Retro Gaming & Geek)](#5-vũ-trụ-trò-chơi-hoài-niệm--văn-hóa-geek-retro-gaming--geek)
+5. [Universe 5: Nostalgic Games & Geek Culture (Retro Gaming & Geek)](#5-nostalgic-games--geek-culture-universe-retro-gaming--geek)
    - 5.1. 8-bit Console Pixel Art (NES.css)
    - 5.2. 16-bit RPG Video Game (RPGUI)
    - 5.3. Hacker Terminal & TUI (Terminal.css)
-6. [Vũ trụ 6: Thủ công & Xúc giác Hữu cơ (Tactile & Handcrafted)](#6-vũ-trụ-thủ-công--xúc-giác-hữu-cơ-tactile--handcrafted)
+6. [Universe 6: Handcrafted & Organic Tactile](#6-handcrafted--organic-tactile-universe)
    - 6.1. Hand-Drawn Sketch (PaperCSS & Wired-Elements)
    - 6.2. Claymorphism (3D Soft Puffy Clay)
-   - 6.3. Skeuomorphism Cổ điển (Wood, Leather & Brass)
-7. [Vũ trụ 7: Hàn lâm, Báo chí & Tạp chí (Editorial & Bauhaus)](#7-vũ-trụ-hàn-lâm-báo-chí--tạp-chí-editorial--bauhaus)
+   - 6.3. Classic Skeuomorphism (Wood, Leather & Brass)
+7. [Universe 7: Academic, Press & Magazine (Editorial & Bauhaus)](#7-academic-press--magazine-universe-editorial--bauhaus)
    - 7.1. Swiss / Bauhaus International Style
    - 7.2. Luxury Editorial & Newspaper
 
 ---
 
-## 1. Vũ trụ Nền tảng & Hệ điều hành (Platform & OS Emulation)
+## 1. Platform & OS Emulation Universe
 
 ### 1.1. Windows XP / 98 / 7 Retro Desktop
 
-- **Cảm xúc & Ngữ cảnh**: Hoài niệm kỷ nguyên PC cá nhân thập niên 90-2000, tạo sự thích thú, độc lạ và phá vỡ sự rập khuôn của web hiện đại.
-- **Thư viện mã nguồn mở tiêu biểu**:
-  - [98.css](https://github.com/jdan/98.css) — CSS framework thuần không phụ thuộc JS tái hiện Windows 98.
-  - [XP.css](https://github.com/botoxparty/XP.css) — Tái hiện theme Luna đặc trưng của Windows XP.
-  - [7.css](https://github.com/khang-nd/7.css) — Tái hiện hiệu ứng kính mờ Aero của Windows 7.
+- **Emotion & Context**: Nostalgia for the personal-computer era of the 1990s-2000s; it delights, feels unusual and breaks the stereotype of the modern web.
+- **Representative open-source libraries**:
+  - [98.css](https://github.com/jdan/98.css) — a pure CSS framework with no JS dependency that recreates Windows 98.
+  - [XP.css](https://github.com/botoxparty/XP.css) — recreates the signature Luna theme of Windows XP.
+  - [7.css](https://github.com/khang-nd/7.css) — recreates the Aero frosted-glass effect of Windows 7.
 - **Visual DNA & Design Tokens**:
-  - *Color Palette*: Thanh tiêu đề xanh gradient `#0055ea` sang `#3a93ff`, nền xám bạc `#ece9d8`, nút đóng đỏ rực `#d93c2c`.
-  - *Borders & Shadows*: Hiệu ứng dập nổi 3D Bevel kinh điển: `border-top: 2px solid #ffffff`, `border-left: 2px solid #ffffff`, `border-right: 2px solid #808080`, `border-bottom: 2px solid #808080`.
-  - *Typography*: `Tahoma`, `MS Sans Serif`, `Segoe UI`, kích thước nhỏ gọn 11px - 12px.
-- **Trường hợp sử dụng tốt nhất**: Web3 portfolio, ứng dụng mô phỏng hệ điều hành trên web, Easter egg marketing campaigns.
+  - *Color Palette*: a blue gradient title bar from `#0055ea` to `#3a93ff`, silver-gray background `#ece9d8`, bright red close button `#d93c2c`.
+  - *Borders & Shadows*: the classic 3D Bevel emboss effect: `border-top: 2px solid #ffffff`, `border-left: 2px solid #ffffff`, `border-right: 2px solid #808080`, `border-bottom: 2px solid #808080`.
+  - *Typography*: `Tahoma`, `MS Sans Serif`, `Segoe UI`, compact 11px - 12px sizes.
+- **Best use cases**: Web3 portfolios, OS-simulation apps on the web, Easter egg marketing campaigns.
 
 ### 1.2. Apple Cupertino iOS Glassmorphism
 
-- **Cảm xúc & Ngữ cảnh**: Sang trọng, nhẹ nhàng, tập trung tối đa vào nội dung thị giác, chuẩn mực di động cao cấp.
-- **Tài liệu tham chiếu**: [Apple Human Interface Guidelines (HIG)](https://developer.apple.com/design/human-interface-guidelines/).
+- **Emotion & Context**: Luxurious and gentle, focused on visual content, a premium mobile standard.
+- **Reference**: [Apple Human Interface Guidelines (HIG)](https://developer.apple.com/design/human-interface-guidelines/).
 - **Visual DNA & Design Tokens**:
-  - *Color Palette*: Nền kính mờ `rgba(255, 255, 255, 0.7)` (light) hoặc `rgba(30, 30, 35, 0.75)` (dark), viền phát sáng nhẹ `rgba(255, 255, 255, 0.2)`.
+  - *Color Palette*: frosted-glass background `rgba(255, 255, 255, 0.7)` (light) or `rgba(30, 30, 35, 0.75)` (dark), a softly glowing border `rgba(255, 255, 255, 0.2)`.
   - *Blur & Filter*: `backdrop-blur-xl`, `backdrop-saturate-150`.
-  - *Border Radius*: Góc bo siêu tròn (Squircle) `rounded-3xl` (24px - 32px).
-  - *Shadows*: Đổ bóng phân tầng đa chiều, mềm mịn: `box-shadow: 0 20px 40px rgba(0,0,0,0.08)`.
+  - *Border Radius*: ultra-round corners (Squircle) `rounded-3xl` (24px - 32px).
+  - *Shadows*: smooth multi-directional layered shadows: `box-shadow: 0 20px 40px rgba(0,0,0,0.08)`.
   - *Typography*: `SF Pro Display`, `SF Pro Text`, `-apple-system`.
-- **Trường hợp sử dụng tốt nhất**: Ứng dụng Lifestyle, Mobile-first Web App, FinTech cá nhân, Dashboard chăm sóc sức khỏe.
+- **Best use cases**: Lifestyle apps, mobile-first web apps, personal FinTech, health-care dashboards.
 
 ### 1.3. Google Material You (Material Design 3)
 
-- **Cảm xúc & Ngữ cảnh**: Thân thiện, linh hoạt, cá nhân hóa sâu sắc, dễ sử dụng cho mọi lứa tuổi.
-- **Thư viện mã nguồn mở**: [Material Web (@material/web)](https://github.com/material-components/material-web).
+- **Emotion & Context**: Friendly, flexible, deeply personalized, easy to use for all ages.
+- **Open-source library**: [Material Web (@material/web)](https://github.com/material-components/material-web).
 - **Visual DNA & Design Tokens**:
-  - *Color Palette*: Tonal Palettes — màu chủ đạo tự động trích xuất các sắc độ (Primary, Secondary, Tertiary, Container, Surface Tint).
-  - *Shape & Elements*: Nút dạng viên thuốc (Pill-shaped `rounded-full`), nút nổi Floating Action Button (FAB).
-  - *State & Interaction*: Hiệu ứng gợn sóng xúc giác (Ink Ripple Effect) khi click chuột hoặc chạm.
+  - *Color Palette*: Tonal Palettes — the dominant color automatically yields its tones (Primary, Secondary, Tertiary, Container, Surface Tint).
+  - *Shape & Elements*: pill-shaped buttons (`rounded-full`), the Floating Action Button (FAB).
+  - *State & Interaction*: a tactile ripple effect (Ink Ripple Effect) on click or touch.
   - *Typography*: `Roboto`, `Google Sans`.
-- **Trường hợp sử dụng tốt nhất**: Enterprise SaaS, ứng dụng năng suất công việc (Docs, Spreadsheets, CRM), hệ sinh thái Android.
+- **Best use cases**: Enterprise SaaS, productivity apps (Docs, Spreadsheets, CRM), the Android ecosystem.
 
 ---
 
-## 2. Vũ trụ Siêu công nghệ & Viễn tưởng (Futuristic & Sci-Fi)
+## 2. Futuristic & Sci-Fi Universe
 
 ### 2.1. Cyberpunk / Sci-Fi HUD (Arwes Style)
 
-- **Cảm xúc & Ngữ cảnh**: Tương lai viễn tưởng, không gian tàu vũ trụ, phòng thí nghiệm trí tuệ nhân tạo, an ninh mạng quân sự.
-- **Thư viện mã nguồn mở**: [Arwes Framework](https://github.com/arwes/arwes) (Futuristic Sci-Fi UI Web Framework).
+- **Emotion & Context**: A sci-fi future, spaceship interiors, AI laboratories, military cyber security.
+- **Open-source library**: [Arwes Framework](https://github.com/arwes/arwes) (Futuristic Sci-Fi UI Web Framework).
 - **Visual DNA & Design Tokens**:
-  - *Color Palette*: Nền đen vũ trụ `#030712`, viền và ánh sáng Neon Cyan `#00f5ff`, Neon Magenta `#ff007f`, Amber Warning `#ffb703`.
-  - *Edges & Borders*: Góc cắt vát 45 độ (Chamfered Clip-path `polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)`).
-  - *Effects*: Viền phát sáng `box-shadow: 0 0 15px rgba(0, 245, 255, 0.5)`, lưới tọa độ Radar nền, đường kẻ quét màn hình (CRT Scanlines).
+  - *Color Palette*: space-black background `#030712`, borders and Neon light in Cyan `#00f5ff`, Magenta `#ff007f`, Amber Warning `#ffb703`.
+  - *Edges & Borders*: 45-degree chamfered corners (Chamfered Clip-path `polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)`).
+  - *Effects*: a glowing border `box-shadow: 0 0 15px rgba(0, 245, 255, 0.5)`, a Radar coordinate grid in the background, screen scan lines (CRT Scanlines).
   - *Typography*: `Orbitron`, `Share Tech Mono`, `Chakra Petch`.
-- **Trường hợp sử dụng tốt nhất**: Giám sát hệ thống máy chủ, SOC Dashboard, Web3 Crypto Exchange, Gaming telemetry.
+- **Best use cases**: Server monitoring, SOC dashboards, Web3 crypto exchanges, gaming telemetry.
 
-### 2.2. Frutiger Aero (Kỷ nguyên 2005 - 2012)
+### 2.2. Frutiger Aero (the 2005 - 2012 era)
 
-- **Cảm xúc & Ngữ cảnh**: Lạc quan công nghệ, trong lành, thân thiện với thiên nhiên (sinh thái kết hợp kỹ thuật số).
+- **Emotion & Context**: Technological optimism, freshness, friendliness with nature (ecology combined with digital).
 - **Visual DNA & Design Tokens**:
-  - *Color Palette*: Xanh da trời quang đãng, xanh lá mạ tươi mát, trắng ngọc trai, vàng chanh.
-  - *Textures & Glass*: Bong bóng nước bóng loáng, mặt nước lăn tăn, thấu kính lồi 3D phản quang ánh sáng mặt trời.
-  - *Lighting*: Highlight viền trên cực sáng, gradient bóng mượt từ nhạt sang đậm.
-- **Trường hợp sử dụng tốt nhất**: Ứng dụng môi trường, giáo dục, tái hiện thẩm mỹ hoài niệm Web 2.0.
+  - *Color Palette*: clear sky blue, fresh lime green, pearl white, lemon yellow.
+  - *Textures & Glass*: glossy water bubbles, rippling water surfaces, convex 3D lenses reflecting sunlight.
+  - *Lighting*: an extremely bright top-edge highlight, smooth gradient shading from light to dark.
+- **Best use cases**: Environmental and educational apps, recreating the nostalgic Web 2.0 aesthetic.
 
 ### 2.3. Synthwave / Outrun 80s Neon
 
-- **Cảm xúc & Ngữ cảnh**: Hoài niệm thập niên 80, tốc độ, màn đêm neon Miami.
+- **Emotion & Context**: 80s nostalgia, speed, Miami neon nights.
 - **Visual DNA & Design Tokens**:
-  - *Color Palette*: Tím than sâu thẳm `#12072b`, hồng dạ quang `#ff007f`, tím sen `#9d4edd`, vàng cam hoàng hôn `#ff9e00`.
-  - *Visual Elements*: Mặt trời bán nguyệt với các đường sọc ngang cắt lát, lưới phối cảnh 3D Perspective Grid chạy về vô cực.
-  - *Typography*: `Monoton`, `Press Start 2P`, chữ in nghiêng tốc độ (Italicized bold display fonts).
+  - *Color Palette*: deep navy-purple `#12072b`, glowing pink `#ff007f`, lotus purple `#9d4edd`, sunset orange-yellow `#ff9e00`.
+  - *Visual Elements*: a half sun cut by horizontal stripes, a 3D Perspective Grid running to infinity.
+  - *Typography*: `Monoton`, `Press Start 2P`, speed-italicized bold display fonts.
 
 ---
 
-## 3. Vũ trụ Silicon Valley "Pro Max" & Modern SaaS
+## 3. Silicon Valley "Pro Max" & Modern SaaS Universe
 
 ### 3.1. Linear / Raycast Dark Minimalist
 
-- **Cảm xúc & Ngữ cảnh**: Đẳng cấp kỹ thuật cao nhất, tốc độ xử lý tức thì, chính xác đến từng pixel, công cụ cho kỹ sư phần mềm hàng đầu.
-- **Điển hình thực tế**: [Linear.app](https://linear.app), [Raycast](https://raycast.com), [Supabase](https://supabase.com).
+- **Emotion & Context**: The highest technical class, instant response, pixel-perfect precision, tools for top software engineers.
+- **Real-world examples**: [Linear.app](https://linear.app), [Raycast](https://raycast.com), [Supabase](https://supabase.com).
 - **Visual DNA & Design Tokens**:
-  - *Color Palette*: Nền tối sâu thẳm `#08090a` / `#0f1011`, viền mảnh siêu thực `border border-white/10`, màu nhấn tím nhạt `#5e6ad2` hoặc xanh cobalt.
-  - *Ambient Glow*: Quầng sáng mờ ảo phía sau khối card: `background: radial-gradient(circle, rgba(94,106,210,0.15) 0%, transparent 70%)`.
-  - *Typography*: `Geist`, `Inter`, kích thước hiển thị nhỏ gọn, khoảng cách chữ (letter-spacing) `-0.02em`.
-  - *Interactions*: Phím tắt hiển thị khắp nơi (Keyboard first), tooltip tức thì, không có animation thừa thãi làm chậm thao tác.
+  - *Color Palette*: deep dark background `#08090a` / `#0f1011`, ultra-fine border `border border-white/10`, light purple accent `#5e6ad2` or cobalt blue.
+  - *Ambient Glow*: a soft halo behind the card: `background: radial-gradient(circle, rgba(94,106,210,0.15) 0%, transparent 70%)`.
+  - *Typography*: `Geist`, `Inter`, compact display sizes, letter-spacing `-0.02em`.
+  - *Interactions*: shortcuts shown everywhere (Keyboard first), instant tooltips, no superfluous animation that slows operations.
 
 ### 3.2. Apple Bento Grid Layout
 
-- **Cảm xúc & Ngữ cảnh**: Tổ chức thông tin gọn gàng, chia ngăn thông minh, thị giác cuốn hút, tôn vinh các tính năng sản phẩm.
-- **Điển hình thực tế**: Trang giới thiệu iPhone/MacBook của Apple, GitHub Copilot landing page.
+- **Emotion & Context**: Tidy information, smart compartments, a captivating visual that celebrates product features.
+- **Real-world examples**: Apple's iPhone/MacBook pages, the GitHub Copilot landing page.
 - **Visual DNA & Design Tokens**:
-  - *Grid Layout*: Lưới bất đối xứng `grid grid-cols-1 md:grid-cols-3 gap-4`, một số card chiếm 2 cột hoặc 2 hàng (`col-span-2`, `row-span-2`).
-  - *Card Styling*: Viền mờ bo tròn `rounded-2xl`, nền gradient tối, kết hợp hình minh họa hoặc biểu đồ trực tiếp bên trong từng ngăn Bento.
+  - *Grid Layout*: an asymmetric grid `grid grid-cols-1 md:grid-cols-3 gap-4`, some cards spanning 2 columns or 2 rows (`col-span-2`, `row-span-2`).
+  - *Card Styling*: soft rounded borders `rounded-2xl`, dark gradient background, with illustrations or charts placed directly inside each Bento compartment.
 
 ### 3.3. High-Motion SaaS (Magic UI & Aceternity)
 
-- **Cảm xúc & Ngữ cảnh**: Đột phá ấn tượng, thu hút ánh nhìn ngay giây đầu tiên, chuyển đổi cao cho landing page.
-- **Thư viện mã nguồn mở**:
-  - [Magic UI](https://github.com/magicuidesign/magicui) — 150+ animated components tích hợp trực tiếp với shadcn/ui.
-  - [Aceternity UI](https://github.com/aceternity/aceternity-ui) — Thẻ 3D parallax, Canvas reveal, Particle canvas.
+- **Emotion & Context**: An impressive breakthrough that catches the eye in the first second, high conversion for landing pages.
+- **Open-source libraries**:
+  - [Magic UI](https://github.com/magicuidesign/magicui) — 150+ animated components integrated directly with shadcn/ui.
+  - [Aceternity UI](https://github.com/aceternity/aceternity-ui) — 3D parallax cards, Canvas reveal, Particle canvas.
 - **Visual DNA & Design Tokens**:
-  - *Effects*: Border Beam (Tia sáng lướt quanh viền), Spotlight Card (Card phản chiếu đèn theo vị trí con trỏ chuột), Meteor effect (Mưa sao băng nền).
+  - *Effects*: Border Beam (a light beam gliding around the border), Spotlight Card (a card reflecting light by the mouse pointer position), Meteor effect (a meteor-shower background).
 
 ---
 
-## 4. Vũ trụ Nổi loạn & Phá cách (Anti-Design & Gen Z)
+## 4. Rebellious & Rule-Breaking Universe (Anti-Design & Gen Z)
 
 ### 4.1. Neubrutalism (Gumroad / Figma FigJam Style)
 
-- **Cảm xúc & Ngữ cảnh**: Táo bạo, nghịch ngợm, không sợ hãi, tràn đầy năng lượng của nhà sáng tạo độc lập (Indie Maker).
-- **Thư viện mã nguồn mở**: [neobrutalism-components](https://github.com/ekmas/neobrutalism-components).
+- **Emotion & Context**: Bold, playful, fearless, full of the energy of the independent maker (Indie Maker).
+- **Open-source library**: [neobrutalism-components](https://github.com/ekmas/neobrutalism-components).
 - **Visual DNA & Design Tokens**:
-  - *Color Palette*: Vàng chanh rực `#ffda59`, tím mộng mơ `#e0aaff`, hồng phấn `#ff90e8`, xanh mint `#bbf7d0`.
-  - *Borders*: Đường viền đen tuyền dầy đặc `border-3 border-black` (hoặc `border-[2.5px]`).
-  - *Box Shadow*: Đổ bóng cứng tuyệt đối không có độ mờ (0 blur): `box-shadow: 4px 4px 0px #000000`. Khi nhấn (active state): biến mất bóng `translate-x-[2px] translate-y-[2px] shadow-none`.
-  - *Typography*: `Lexend Mega`, `Space Grotesk`, `Public Sans` in hoa, đậm nét.
+  - *Color Palette*: vivid lemon yellow `#ffda59`, dreamy purple `#e0aaff`, pastel pink `#ff90e8`, mint green `#bbf7d0`.
+  - *Borders*: thick solid black borders `border-3 border-black` (or `border-[2.5px]`).
+  - *Box Shadow*: an absolutely hard shadow with no blur (0 blur): `box-shadow: 4px 4px 0px #000000`. On press (active state): the shadow disappears `translate-x-[2px] translate-y-[2px] shadow-none`.
+  - *Typography*: `Lexend Mega`, `Space Grotesk`, uppercase bold `Public Sans`.
 
 ### 4.2. Y2K Cyber Glitch & Hologram
 
-- **Cảm xúc & Ngữ cảnh**: Cuối thập niên 90 - đầu 2000, kỷ nguyên sợ lỗi Thiên niên kỷ (Y2K bug), văn hóa âm nhạc điện tử underground.
+- **Emotion & Context**: The late 90s - early 2000s, the Millennium bug (Y2K bug) era, underground electronic music culture.
 - **Visual DNA & Design Tokens**:
-  - *Color Palette*: Bạc ánh kim loại Chrome, hồng fuchsia, xanh lơ huỳnh quang.
-  - *Visual Elements*: Font chữ uốn lượn như bong bóng bơm căng, nhãn dán sticker ảo, dải màu cầu vồng đa hướng Hologram, hiệu ứng rung lắc văn bản (text glitch).
+  - *Color Palette*: metallic Chrome silver, fuchsia pink, fluorescent cyan.
+  - *Visual Elements*: curvy fonts like inflated bubbles, virtual stickers, multi-directional Hologram rainbow bands, a text shake effect (text glitch).
 
 ---
 
-## 5. Vũ trụ Trò chơi Hoài niệm & Văn hóa Geek (Retro Gaming & Geek)
+## 5. Nostalgic Games & Geek Culture Universe (Retro Gaming & Geek)
 
 ### 5.1. 8-bit Console Pixel Art (NES.css)
 
-- **Cảm xúc & Ngữ cảnh**: Máy chơi game 4 nút Nintendo (NES), Game Boy cổ điển, vui nhộn và gợi lại tuổi thơ.
-- **Thư viện mã nguồn mở**: [NES.css](https://github.com/nostalgic-css/NES.css) (Hơn 22.000 stars trên GitHub).
+- **Emotion & Context**: The 4-button Nintendo (NES) console, the classic Game Boy, fun and reminiscent of childhood.
+- **Open-source library**: [NES.css](https://github.com/nostalgic-css/NES.css) (over 22,000 stars on GitHub).
 - **Visual DNA & Design Tokens**:
-  - *Borders*: Viền tạo bằng shadow nhiều lớp để mô phỏng bậc thang pixel (không dùng border thông thường).
-  - *Elements*: Khung bong bóng lời thoại (Speech balloons), thanh năng lượng HP/MP phân đoạn, icon trái tim 8-bit.
-  - *Typography*: `Press Start 2P`, font chữ pixel tỷ lệ cố định.
+  - *Borders*: borders built from multi-layer shadows to simulate pixel stair steps (no ordinary border).
+  - *Elements*: speech balloons, segmented HP/MP bars, 8-bit heart icons.
+  - *Typography*: `Press Start 2P`, a fixed-ratio pixel font.
 
 ### 5.2. 16-bit RPG Video Game (RPGUI)
 
-- **Cảm xúc & Ngữ cảnh**: Các game nhập vai huyền thoại như Final Fantasy VI, Chrono Trigger, Diablo II.
-- **Thư viện mã nguồn mở**: [RPGUI](https://github.com/RounArts/RPGUI).
+- **Emotion & Context**: Legendary role-playing games such as Final Fantasy VI, Chrono Trigger, Diablo II.
+- **Open-source library**: [RPGUI](https://github.com/RounArts/RPGUI).
 - **Visual DNA & Design Tokens**:
-  - *Borders & Frames*: Khung chạm khắc bằng đá xám cổ hoặc gỗ sồi thế kỷ 16.
-  - *Elements*: Rương đồ lưới ô vuông (Inventory slots), thanh cuộn trang sách giả da cổ, con trỏ găng tay sắt hiệp sĩ.
+  - *Borders & Frames*: frames carved from ancient gray stone or 16th-century oak.
+  - *Elements*: grid-cell item chests (Inventory slots), a faux-leather book-page scrollbar, an iron knight gauntlet cursor.
 
 ### 5.3. Hacker Terminal & TUI (Terminal.css)
 
-- **Cảm xúc & Ngữ cảnh**: Màn hình xanh của hacker phim ma trận, console quản trị Linux, tối giản tuyệt đối, tiết kiệm tài nguyên.
-- **Thư viện mã nguồn mở**: [Terminal.css](https://github.com/panr/terminal-css).
+- **Emotion & Context**: The green screen of a movie-matrix hacker, a Linux admin console, absolute minimalism, resource-saving.
+- **Open-source library**: [Terminal.css](https://github.com/panr/terminal-css).
 - **Visual DNA & Design Tokens**:
-  - *Color Palette*: Nền đen tuyền `#000000`, chữ xanh huỳnh quang phosphor `#00ff66` hoặc màu hổ phách amber `#ffb000`.
-  - *Elements*: Con trỏ nhấp nháy liên tục `_` hoặc `█`, khung viền tạo từ ký tự ASCII/Unicode (`+---+`, `| |`).
+  - *Color Palette*: pure black background `#000000`, phosphor fluorescent green text `#00ff66` or amber `#ffb000`.
+  - *Elements*: a continuously blinking cursor `_` or `█`, frames built from ASCII/Unicode characters (`+---+`, `| |`).
   - *Typography*: `VT323`, `Fira Code`, `JetBrains Mono`.
 
 ---
 
-## 6. Vũ trụ Thủ công & Xúc giác Hữu cơ (Tactile & Handcrafted)
+## 6. Handcrafted & Organic Tactile Universe
 
 ### 6.1. Hand-Drawn Sketch (PaperCSS & Wired-Elements)
 
-- **Cảm xúc & Ngữ cảnh**: Phác thảo sơ đồ trên giấy napkin quán café, thân thiện, như do chính con người vẽ tay bằng bút máy.
-- **Thư viện mã nguồn mở**:
-  - [PaperCSS](https://github.com/papercss/papercss) — Khung sườn thô ráp như trang giấy vẽ.
-  - [Wired Elements](https://github.com/rough-stuff/wired-elements) — Web components sinh nét vẽ ngẫu nhiên theo thuật toán Rough.js.
+- **Emotion & Context**: A diagram sketched on a coffee-shop napkin, friendly, as if drawn by a human hand with a fountain pen.
+- **Open-source libraries**:
+  - [PaperCSS](https://github.com/papercss/papercss) — a rough frame like a drawing-paper page.
+  - [Wired Elements](https://github.com/rough-stuff/wired-elements) — web components that generate random strokes with the Rough.js algorithm.
 - **Visual DNA & Design Tokens**:
-  - *Borders*: Đường viền lồi lõm không đều: `border-radius: 255px 15px 225px 15px/15px 225px 15px 255px`.
+  - *Borders*: uneven wobbly borders: `border-radius: 255px 15px 225px 15px/15px 225px 15px 255px`.
   - *Typography*: `Patrick Hand`, `Architects Daughter`, `Kalam`.
 
 ### 6.2. Claymorphism (3D Soft Puffy Clay)
 
-- **Cảm xúc & Ngữ cảnh**: Đồ chơi đất nặn bằng đất sét dẻo Play-Doh, mềm mại, an toàn, kích thích chạm vuốt.
+- **Emotion & Context**: Play-Doh modeling-clay toys, soft, safe, inviting touch and swipe.
 - **Visual DNA & Design Tokens**:
-  - *Shape*: Góc bo cực đại dạng bóng hơi `rounded-3xl`.
-  - *Shadow*: Kết hợp 2 lớp shadow (đổ bóng ngoài mềm + đổ bóng trong phản chiếu sáng):
+  - *Shape*: maximum balloon-like corner radius `rounded-3xl`.
+  - *Shadow*: a combination of 2 shadow layers (a soft outer shadow + an inner shadow reflecting light):
     `box-shadow: 16px 16px 32px #c8d0e7, -16px -16px 32px #ffffff, inset 4px 4px 8px rgba(255,255,255,0.6)`.
 
-### 6.3. Skeuomorphism Cổ điển
+### 6.3. Classic Skeuomorphism
 
-- **Cảm xúc & Ngữ cảnh**: Mô phỏng vật lý đồ vật ngoài đời thực (bàn mixer phòng thu âm, đồng hồ cơ Thụy Sĩ).
-- **Visual DNA & Design Tokens**: Mặt kim loại đánh xước (brushed aluminum), các nút gạt công tắc mạ chrome, núm vặn rotary encoder có vạch chia độ chính xác.
+- **Emotion & Context**: Physically simulating real-world objects (a recording-studio mixing desk, a Swiss mechanical watch).
+- **Visual DNA & Design Tokens**: brushed aluminum surfaces, chrome-plated toggle switches, rotary encoder knobs with precise graduation marks.
 
 ---
 
-## 7. Vũ trụ Hàn lâm, Báo chí & Tạp chí (Editorial & Bauhaus)
+## 7. Academic, Press & Magazine Universe (Editorial & Bauhaus)
 
 ### 7.1. Swiss / Bauhaus International Style
 
-- **Cảm xúc & Ngữ cảnh**: Trật tự lý tính tuyệt đối, cấu trúc toán học chặt chẽ, nghệ thuật hiện đại châu Âu.
+- **Emotion & Context**: Absolute rational order, tight mathematical structure, modern European art.
 - **Visual DNA & Design Tokens**:
-  - *Color Palette*: Nền trắng kem `#f7f7f5`, đen tuyền `#111111`, điểm nhấn bằng 3 màu gốc cơ bản: Đỏ cờ `#e63946`, Vàng nghệ `#ffb703`, Xanh dương `#1d3557`.
-  - *Layout & Geometry*: Phân chia lưới bất đối xứng cứng nhắc, sử dụng các hình khối học cơ bản (tròn, vuông, tam giác) làm điểm nhấn kiến trúc.
-  - *Typography*: `Helvetica Neue`, `Arial`, tiêu đề cỡ lớn canh lề trái tuyệt đối.
+  - *Color Palette*: cream-white background `#f7f7f5`, pure black `#111111`, accents in the 3 basic primary colors: flag Red `#e63946`, turmeric Yellow `#ffb703`, Blue `#1d3557`.
+  - *Layout & Geometry*: a rigid asymmetric grid division, using basic geometric forms (circle, square, triangle) as architectural accents.
+  - *Typography*: `Helvetica Neue`, `Arial`, large headings aligned absolutely to the left.
 
 ### 7.2. Luxury Editorial & Newspaper
 
-- **Cảm xúc & Ngữ cảnh**: Đẳng cấp thương hiệu xa xỉ, tạp chí thời trang Vogue, trang báo The New York Times.
+- **Emotion & Context**: Luxury brand class, Vogue fashion magazine, The New York Times newspaper page.
 - **Visual DNA & Design Tokens**:
-  - *Typography*: Font Serif danh giá: `Playfair Display`, `Cinzel`, `Merriweather`, tiêu đề có gạch chân siêu mảnh 1px.
-  - *Layout*: Cột báo chia nhiều cột (Multi-column layout), chữ cái đầu tiên thụt lề to (Drop Cap), khoảng cách đệm (Padding) hào phóng tạo độ thoáng đãng.
+  - *Typography*: prestigious Serif fonts: `Playfair Display`, `Cinzel`, `Merriweather`, headings with an ultra-thin 1px underline.
+  - *Layout*: a multi-column newspaper layout (Multi-column layout), a large indented first letter (Drop Cap), generous padding for an airy feel.
 
 ---
 
-## 8. Bảng So Sánh Quyết Định Lựa Chọn Nhanh (Decision Matrix)
+## 8. Quick Selection Decision Matrix
 
-| Phong cách Archetype | Khuyến nghị dùng cho (Best For) | Không nên dùng cho (Avoid For) | Độ khó triển khai CSS |
+| Archetype style | Recommended for (Best For) | Avoid for (Avoid For) | CSS implementation difficulty |
 | :--- | :--- | :--- | :---: |
-| **Linear Pro Max** | SaaS B2B, Devtools, AI Product | Sản phẩm thiếu nhi, cửa hàng thời trang vintage | Trung bình |
-| **Cupertino iOS** | Ứng dụng di động, FinTech, Lifestyle | Web kỹ thuật phức tạp, ứng dụng gaming | Thấp |
-| **Neubrutalism** | Landing page sáng tạo, Gen Z, Web3 | Bệnh viện, bảo hiểm truyền thống, ngân hàng lớn | Rất thấp |
-| **Cyberpunk HUD** | SOC, Giám sát an ninh, Crypto, Game | Báo chí tin tức, ứng dụng y tế | Cao |
-| **Windows XP / 98** | Portfolio cá nhân, Easter egg, Meme tools | Bán hàng thương mại điện tử đại chúng | Trung bình |
-| **Hacker Terminal** | Developer tool, CLI docs, Blog cá nhân | Trang web công ty tài chính cho người lớn tuổi | Thấp |
-| **Hand-Drawn Paper** | Giáo dục trẻ em, Tool vẽ mindmap, Khảo sát | Hệ thống thanh toán ngân hàng, dashboard ERP | Trung bình |
+| **Linear Pro Max** | B2B SaaS, Devtools, AI products | Children's products, vintage fashion stores | Medium |
+| **Cupertino iOS** | Mobile apps, FinTech, Lifestyle | Complex technical websites, gaming apps | Low |
+| **Neubrutalism** | Creative landing pages, Gen Z, Web3 | Hospitals, traditional insurance, large banks | Very low |
+| **Cyberpunk HUD** | SOC, security monitoring, Crypto, Games | News press, medical apps | High |
+| **Windows XP / 98** | Personal portfolios, Easter eggs, Meme tools | Mass-market e-commerce | Medium |
+| **Hacker Terminal** | Developer tools, CLI docs, personal blogs | Financial company sites for older audiences | Low |
+| **Hand-Drawn Paper** | Children's education, mind-map tools, surveys | Bank payment systems, ERP dashboards | Medium |

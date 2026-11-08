@@ -4,8 +4,8 @@
 
 <!-- AUTO-GEN:STATS -->
 [![Health Score](https://img.shields.io/badge/Health_Score-88%2F100_A-yellow)](project-review.md)
-[![Automated Tests](https://img.shields.io/badge/Tests-173_passed-blue)](tests/)
-[![Indexed Files](https://img.shields.io/badge/Indexed_Files-489_files-purple)](MANIFEST.json)
+[![Automated Tests](https://img.shields.io/badge/Tests-176_passed-blue)](tests/)
+[![Indexed Files](https://img.shields.io/badge/Indexed_Files-431_files-purple)](MANIFEST.json)
 [![Architecture](https://img.shields.io/badge/Architecture-Remote_Knowledge_Hub-emerald)](HOW_IT_WORKS.md)
 <!-- /AUTO-GEN:STATS -->
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)

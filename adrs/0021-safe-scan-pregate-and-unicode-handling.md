@@ -15,7 +15,7 @@ We introduce a three-tiered optimization and hardening strategy for prompt injec
    - *Soundness Verification*: The pre-gate literals are strictly verified by `_DIRECTIVE_GATE_PATTERN_COUNT` and automated differential equivalence checks against baseline corpora (`evals/results/raw/009-equivalence.json`). Lines that do not contain core directive anchor words bypass full regex compilation entirely.
 2. **Unicode & Case Folding Normalization**:
    - Explicit handling for Turkish dotted capital `İ` (`\u0130` $\rightarrow$ `i`) and dotless `ı` before case folding.
-   - NFC normalization (`unicodedata.normalize('NFC', line)`) applied to all non-ASCII lines, preventing NFD decomposition evasion (e.g., Vietnamese "bỏ qua" composed vs decomposed).
+   - NFC normalization (`unicodedata.normalize('NFC', line)`) applied to all non-ASCII lines, preventing NFD decomposition evasion (e.g., the same Vietnamese phrase written composed vs decomposed).
 3. **Context-Aware Rules (`SAFE-002`, `SAFE-003`)**:
    - `SAFE-002` evaluates file context: directive phrases embedded inside markdown quotes, code blocks, or test assertion strings are evaluated contextually, reducing false alarms on security research documents.
    - `SAFE-003` specifically targets hidden directive payloads (zero-font, CSS `display:none`, HTML comments `<!-- ... -->`, or invisible elements). Plain text without a target noun that would otherwise be benign in visible prose is flagged as `SAFE-003` when concealed within hidden markup.

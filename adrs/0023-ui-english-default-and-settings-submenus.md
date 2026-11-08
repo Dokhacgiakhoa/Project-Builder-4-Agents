@@ -15,7 +15,7 @@ The desktop UI (`scripts/reviewer_shell/static`), the C# shell dialogs and the s
 
 ## Consequences
 - A new UI string needs an English key in code and a `vi` entry in `i18n.js`; a missing entry falls back to English.
-- Severity values stay as engine data (`Cao`/`Trung bình`/`Thấp`) and are mapped for display only.
+- Severity values are English engine data (`High`/`Medium`/`Low`, see ADR-0026) and are mapped for display only.
 
 ## Not covered (known gap)
 - **Text produced by the audit engine is still Vietnamese**: finding titles, remediation text, archetype and grade labels, pillar criteria and the scan log (about 800 lines across `scripts/auditor_engine/`, and the generated `project-review.md`). Translating it needs coordinated test and report-format changes; tracked in `TASKS.md`.

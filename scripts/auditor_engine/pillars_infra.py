@@ -1,4 +1,4 @@
-"""Pillar Security, Cloud, Microservices, Data và Observability."""
+"""Security, Cloud, Microservices, Data and Observability pillars."""
 
 import os
 import sys
@@ -12,7 +12,7 @@ from .models import CriterionItem
 
 
 class InfraPillarsMixin:
-    """Pillar Security, Cloud, Microservices, Data và Observability."""
+    """Security, Cloud, Microservices, Data and Observability pillars."""
 
     def audit_security_and_supply_chain(self):
         score = 0

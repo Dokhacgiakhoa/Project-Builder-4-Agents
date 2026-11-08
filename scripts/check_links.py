@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-Kiểm tra link tương đối trong các tệp Markdown của repo (Agent tra cứu tài liệu theo đường dẫn,
-nên link hỏng = Agent lạc đường).
+Check relative links in the repo's Markdown files (Agents look up documents by path,
+so a broken link means a lost Agent).
 
-  python scripts/check_links.py            # kiểm tra link + khuôn tài liệu, exit 1 nếu có lỗi
+  python scripts/check_links.py            # check links + document format, exit 1 on any error
 
-Khuôn tài liệu (chỉ áp cho core/ và profiles/, trừ core/templates và frontend/starter):
-  * frontmatter có id, type (decision|router|playbook|reference), when
-  * id và đường dẫn khớp một dòng trong INDEX.md
-  * type=decision: có thêm not_when, đủ các mục bắt buộc, tối đa DECISION_MAX_LINES dòng
+Document format (applies only to core/ and profiles/, except core/templates and frontend/starter):
+  * frontmatter has id, type (decision|router|playbook|reference), when
+  * id and path match a row in INDEX.md
+  * type=decision: also has not_when, all mandatory sections, at most DECISION_MAX_LINES lines
 """
 
 import re
@@ -25,12 +25,12 @@ GOVERNED_ROOTS = ("core/", "profiles/")
 GOVERNED_EXCLUDES = ("core/templates/", "profiles/frontend/starter/")
 DOC_TYPES = {"decision", "router", "playbook", "reference"}
 DECISION_SECTION_ALIASES = (
-    ("khi nào chọn", "when to choose"),
-    ("không chọn khi", "when not to choose", "not when"),
-    ("thư mục mục tiêu", "target directory", "target structure", "target folder"),
-    ("ràng buộc", "constraints"),
-    ("thêm một tính năng", "adding a feature", "how to add a feature"),
-    ("lỗi thường gặp", "common mistakes", "common errors"),
+    ("when to choose",),
+    ("when not to choose", "not when"),
+    ("target directory", "target structure", "target folder"),
+    ("constraints",),
+    ("adding a feature", "how to add a feature"),
+    ("common mistakes", "common errors"),
 )
 DECISION_MAX_LINES = 120
 INDEX_ROW = re.compile(r"^\| ([A-Z]-\d{3}) \| [CPL] \| .*? \| \[[^\]]*\]\(([^)]+)\) \|\s*$", re.M)
@@ -61,7 +61,7 @@ def parse_frontmatter(text: str) -> dict[str, str] | None:
 
 
 def index_entries(root: Path = ROOT) -> dict[str, str]:
-    """path -> id, đọc từ INDEX.md."""
+    """path -> id, read from INDEX.md."""
     text = (root / "INDEX.md").read_text(encoding="utf-8")
     return {m.group(2): m.group(1) for m in INDEX_ROW.finditer(text)}
 
@@ -76,7 +76,7 @@ def governed_docs(root: Path = ROOT) -> list[Path]:
 
 
 def check_doc_format(root: Path = ROOT, docs: list[Path] | None = None) -> list[str]:
-    """Trả về danh sách lỗi khuôn tài liệu (rỗng nếu ổn)."""
+    """Return the list of document format errors (empty if fine)."""
     errors = []
     entries = index_entries(root)
     for md in (docs if docs is not None else governed_docs(root)):
@@ -84,27 +84,27 @@ def check_doc_format(root: Path = ROOT, docs: list[Path] | None = None) -> list[
         text = md.read_text(encoding="utf-8")
         meta = parse_frontmatter(text)
         if meta is None:
-            errors.append(f"{rel}: thiếu frontmatter (id, type, when)")
+            errors.append(f"{rel}: missing frontmatter (id, type, when)")
             continue
         for key in ("id", "type", "when"):
             if not meta.get(key):
-                errors.append(f"{rel}: frontmatter thiếu '{key}'")
+                errors.append(f"{rel}: frontmatter missing '{key}'")
         if meta.get("type") and meta["type"] not in DOC_TYPES:
-            errors.append(f"{rel}: type '{meta['type']}' không hợp lệ ({'|'.join(sorted(DOC_TYPES))})")
+            errors.append(f"{rel}: invalid type '{meta['type']}' ({'|'.join(sorted(DOC_TYPES))})")
         indexed_id = entries.get(rel)
         if indexed_id is None:
-            errors.append(f"{rel}: chưa có dòng trong INDEX.md")
+            errors.append(f"{rel}: no row in INDEX.md yet")
         elif meta.get("id") and meta["id"] != indexed_id:
-            errors.append(f"{rel}: id '{meta['id']}' khác INDEX.md ('{indexed_id}')")
+            errors.append(f"{rel}: id '{meta['id']}' differs from INDEX.md ('{indexed_id}')")
         if meta.get("type") == "decision":
             if not meta.get("not_when"):
-                errors.append(f"{rel}: type=decision thiếu 'not_when'")
+                errors.append(f"{rel}: type=decision is missing 'not_when'")
             headings = [re.sub(r"^[#\s\d.]+", "", h).strip().lower() for h in re.findall(r"^##\s+(.+)$", text, re.M)]
             for aliases in DECISION_SECTION_ALIASES:
                 if not any(any(h.startswith(alias) for alias in aliases) for h in headings):
-                    errors.append(f"{rel}: thiếu mục '## {aliases[0]} / {aliases[1]}'")
+                    errors.append(f"{rel}: missing section '## {' / '.join(aliases[:2])}'")
             if len(text.splitlines()) > DECISION_MAX_LINES:
-                errors.append(f"{rel}: dài quá {DECISION_MAX_LINES} dòng (tài liệu quyết định phải ngắn)")
+                errors.append(f"{rel}: longer than {DECISION_MAX_LINES} lines (decision documents must be short)")
     return errors
 
 
@@ -133,11 +133,11 @@ def main() -> int:
                     broken.append(f"{md.relative_to(ROOT).as_posix()}:{lineno}: {target}")
     for item in broken:
         print("BROKEN", item)
-    print(f"{len(broken)} link hỏng.")
+    print(f"{len(broken)} broken links.")
     format_errors = check_doc_format()
     for item in format_errors:
         print("BADFORMAT", item)
-    print(f"{len(format_errors)} lỗi khuôn tài liệu.")
+    print(f"{len(format_errors)} document format errors.")
     return 1 if (broken or format_errors) else 0
 
 

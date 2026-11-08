@@ -17,13 +17,13 @@ interface AuthState {
 
 const TOKEN_KEY = 'auth_token';
 
-/** Truy cập localStorage an toàn (có thể ném lỗi ở private mode / bị chặn). */
+/** Safe localStorage access (it may throw in private mode / when blocked). */
 const storage = {
   get(): string | null {
     try {
       return typeof window !== 'undefined' ? window.localStorage.getItem(TOKEN_KEY) : null;
     } catch (error) {
-      console.warn('[auth-store] Không đọc được token:', error);
+      console.warn('[auth-store] Could not read the token:', error);
       return null;
     }
   },
@@ -31,14 +31,14 @@ const storage = {
     try {
       window.localStorage.setItem(TOKEN_KEY, token);
     } catch (error) {
-      console.warn('[auth-store] Không lưu được token:', error);
+      console.warn('[auth-store] Could not save the token:', error);
     }
   },
   remove(): void {
     try {
       window.localStorage.removeItem(TOKEN_KEY);
     } catch (error) {
-      console.warn('[auth-store] Không xóa được token:', error);
+      console.warn('[auth-store] Could not remove the token:', error);
     }
   },
 };

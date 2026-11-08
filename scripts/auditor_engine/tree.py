@@ -1,4 +1,4 @@
-"""Chỉ mục cây thư mục dự án (pruned indexing)."""
+"""Project folder tree index (pruned indexing)."""
 
 import fnmatch
 import os
@@ -13,7 +13,7 @@ from .constants import IGNORE_DIRS, CODE_EXTENSIONS, SKIP_REASONS, SKIP_REL_PATT
 
 class ProjectTree:
 
-    """Hệ thống lập chỉ mục và duyệt cây thư mục siêu tốc (Bỏ qua hoàn toàn node_modules, .git,...)."""
+    """Very fast folder tree indexing and traversal system (completely skips node_modules, .git, ...)."""
 
     def __init__(self, root: Path):
 
@@ -29,7 +29,7 @@ class ProjectTree:
 
         self.files_by_ext = {}
 
-        # (đường dẫn tương đối, lý do) của các thư mục bị bỏ qua, để báo cáo cho Agent
+        # (relative path, reason) of the skipped folders, to report to the Agent
 
         self.skipped = []
 
@@ -51,7 +51,7 @@ class ProjectTree:
         for dirpath, dirnames, filenames in os.walk(self.root):
             rel_dir = dirpath[root_len:].lstrip('\\/').replace('\\', '/')
 
-            # Cắt tỉa thư mục ngay tại chỗ để os.walk không đi sâu vào các thư mục rác
+            # Prune folders in place so os.walk does not descend into junk folders
             for d in dirnames:
                 if d in IGNORE_DIRS:
                     rel = f'{rel_dir}/{d}' if rel_dir else d

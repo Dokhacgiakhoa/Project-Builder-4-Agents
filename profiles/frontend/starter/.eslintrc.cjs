@@ -7,7 +7,7 @@ module.exports = {
   plugins: ['react-refresh'],
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-    // DoD: không dùng kiểu `any`
+    // DoD: do not use the `any` type
     '@typescript-eslint/no-explicit-any': 'error',
   },
 };

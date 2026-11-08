@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """
 UNIVERSAL PROJECT REVIEWER & ARCHITECTURE AUDITOR ENGINE v3.0
-Entrypoint CLI mỏng: logic nằm trong package `auditor_engine` (xem scripts/auditor_engine/).
+Thin CLI entry point: the logic lives in the `auditor_engine` package (see scripts/auditor_engine/).
 Pure Python Standard Library (100% Offline, Zero-Token, Zero-Dependency).
 """
 
 import sys
 
 if sys.version_info < (3, 12):
-    print("[ERROR] Cần Python 3.12 trở lên (đang chạy %d.%d). Khuyến nghị 3.14." % sys.version_info[:2], file=sys.stderr)
+    print("[ERROR] Python 3.12 or newer is required (running %d.%d). 3.14 is recommended." % sys.version_info[:2], file=sys.stderr)
     sys.exit(1)
 
-# Console Windows mặc định không in được tiếng Việt (cp1252): ép UTF-8, thay ký tự lỗi thay vì sập.
+# The default Windows console (cp1252) cannot print many Unicode characters: force UTF-8, replace bad characters instead of crashing.
 for _stream in (sys.stdout, sys.stderr):
     try:
         _stream.reconfigure(encoding="utf-8", errors="replace")

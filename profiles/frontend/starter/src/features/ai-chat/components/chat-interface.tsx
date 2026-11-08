@@ -9,7 +9,7 @@ export const ChatInterface: React.FC = () => {
     {
       id: '1',
       sender: 'agent',
-      content: 'Xin chào! Tớ là AI Agent Assistant. Frontend Starter Kit đã sẵn sàng kết nối API Contract để nhận tác vụ.',
+      content: 'Hello! I am the AI Agent Assistant. The Frontend Starter Kit is ready to connect to an API Contract to receive tasks.',
       timestamp: new Date().toLocaleTimeString(),
     },
   ]);
@@ -31,7 +31,7 @@ export const ChatInterface: React.FC = () => {
       const agentMsg: ChatMessage = {
         id: String(Date.now() + 1),
         sender: 'agent',
-        content: `Đã nhận tín hiệu: "${input}". Logic này được module hóa độc lập tại src/features/ai-chat/.`,
+        content: `Signal received: "${input}". This logic is modularized independently at src/features/ai-chat/.`,
         timestamp: new Date().toLocaleTimeString(),
       };
       setMessages((prev) => [...prev, agentMsg]);
@@ -39,7 +39,7 @@ export const ChatInterface: React.FC = () => {
   };
 
   return (
-    <Card title="Interactive AI Agent Sandbox" description="Mẫu giao tiếp phòng vệ (Defensive Chat Component)">
+    <Card title="Interactive AI Agent Sandbox" description="Defensive communication sample (Defensive Chat Component)">
       <div className="h-80 overflow-y-auto space-y-4 p-4 bg-slate-50 border border-slate-200 rounded-lg mb-4">
         {messages.map((msg) => (
           <div
@@ -73,11 +73,11 @@ export const ChatInterface: React.FC = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-          placeholder="Nhập câu lệnh để kiểm thử UI..."
+          placeholder="Type a command to test the UI..."
           className="flex-1 px-4 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
         />
         <Button onClick={handleSend} className="flex items-center gap-1.5">
-          <Send className="h-4 w-4" /> Gửi
+          <Send className="h-4 w-4" /> Send
         </Button>
       </div>
     </Card>

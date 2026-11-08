@@ -8,7 +8,7 @@ describe('useAuthStore', () => {
     useAuthStore.getState().logout();
   });
 
-  it('login lưu user và đánh dấu đã xác thực', () => {
+  it('login stores the user and marks them authenticated', () => {
     useAuthStore.getState().login(user, 'tok');
     const s = useAuthStore.getState();
     expect(s.isAuthenticated).toBe(true);
@@ -16,7 +16,7 @@ describe('useAuthStore', () => {
     expect(s.user?.email).toBe('a@b.c');
   });
 
-  it('logout xóa toàn bộ trạng thái', () => {
+  it('logout clears all state', () => {
     useAuthStore.getState().login(user, 'tok');
     useAuthStore.getState().logout();
     const s = useAuthStore.getState();
@@ -25,7 +25,7 @@ describe('useAuthStore', () => {
     expect(s.isAuthenticated).toBe(false);
   });
 
-  it('không crash khi localStorage ném lỗi', () => {
+  it('does not crash when localStorage throws', () => {
     const original = window.localStorage;
     Object.defineProperty(window, 'localStorage', {
       configurable: true,

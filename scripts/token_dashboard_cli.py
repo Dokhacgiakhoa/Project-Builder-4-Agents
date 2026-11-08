@@ -30,11 +30,11 @@ def main() -> int:
     a = ap.parse_args()
     svc = TokenService(Path(a.projects_root) if a.projects_root else None, a.project)
     if not svc.root.is_dir():
-        print(f"Không thấy thư mục log: {svc.root}", file=sys.stderr)
+        print(f"Log folder not found: {svc.root}", file=sys.stderr)
         return 2
     srv, port = start(svc, a.port)
     url = f"http://127.0.0.1:{port}/"
-    print(f"Token Dashboard: {url}  (Ctrl+C để dừng)")
+    print(f"Token Dashboard: {url}  (Ctrl+C to stop)")
     if not a.no_open:
         webbrowser.open(url)
     try:

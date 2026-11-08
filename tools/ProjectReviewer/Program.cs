@@ -14,7 +14,7 @@ static class Program
     [STAThread]
     static int Main(string[] args)
     {
-        // Hỗ trợ chế độ CLI trực tiếp qua 1 file EXE duy nhất (audit, serve, --help)
+        // Supports direct CLI mode through a single EXE file (audit, serve, --help)
         if (args.Length > 0 && (args[0] == "audit" || args[0] == "--audit" || args[0] == "serve" || args[0] == "--help" || args[0] == "-h"))
         {
             AttachConsole(ATTACH_PARENT_PROCESS);

@@ -1,30 +1,30 @@
 ---
 id: T-001
 type: reference
-when: "Stack miễn phí (free tier) cho dự án nhỏ"
+when: "Free-tier cloud infrastructure stack for small MVPs"
 ---
 # ADR 0002: TECHNOLOGY STACK & CLOUD FREE-TIER GUIDELINES
 
-* **Trạng thái**: Đã phê duyệt (Accepted)
-* **Ngày quyết định**: 2026-11-04
+* **Status**: Approved (Accepted)
+* **Decision date**: 2026-11-04
 
 ---
 
-## 1. BỐI CẢNH (CONTEXT)
-Dự án cần một Tech Stack hiện đại, mạnh mẽ, có hệ sinh thái thư viện phong phú và đặc biệt có thể vận hành ổn định trên các nền tảng Cloud Free-Tier phục vụ nghiên cứu và phát triển sản phẩm.
+## 1. CONTEXT
+The project needs a modern, powerful Tech Stack with a rich library ecosystem that in particular can run stably on Cloud Free-Tier platforms for research and product development.
 
-## 2. QUYẾT ĐỊNH (DECISION)
-* **Backend Framework**: Ngôn ngữ bậc cao có type-checking (FastAPI / Node.js TypeScript / ASP.NET Core).
-* **Database & Vector Search**: PostgreSQL (tích hợp extension `pgvector` qua Supabase Free Tier) kết hợp ChromaDB local cho vector embedding.
-* **LLM Orchestration**: LangChain / LangGraph hoặc Native SDK.
+## 2. DECISION
+* **Backend Framework**: A high-level language with type checking (FastAPI / Node.js TypeScript / ASP.NET Core).
+* **Database & Vector Search**: PostgreSQL (with the `pgvector` extension through the Supabase Free Tier) combined with local ChromaDB for vector embeddings.
+* **LLM Orchestration**: LangChain / LangGraph or the Native SDK.
 * **LLM Engine Providers**:
-  - Mistral AI (1 tỷ token/tháng free) & Google Gemini Flash (backup nhanh).
-  - Groq LPU cho các kịch bản demo cần tốc độ phản hồi tức thì.
-* **Frontend UI**: Next.js (React) deploy trên Vercel hoặc Streamlit cho dashboard nhanh.
+  - Mistral AI (1 billion tokens/month free) & Google Gemini Flash (fast backup).
+  - Groq LPU for demo scenarios that need instant response speed.
+* **Frontend UI**: Next.js (React) deployed on Vercel, or Streamlit for a quick dashboard.
 * **CI/CD & Source Control**: GitHub Actions.
-* **Observability**: Langfuse (Self-hosted hoặc Cloud Free Tier).
+* **Observability**: Langfuse (Self-hosted or Cloud Free Tier).
 
-## 3. NGUYÊN TẮC HẠ TẦNG
-* Ưu tiên 100% Free-Tier trong giai đoạn phát triển.
-* Xử lý Cold Start bằng health check ping định kỳ.
-* Toàn bộ Secrets / API Keys phải lưu trong `.env`, tuyệt đối không commit lên Git.
+## 3. INFRASTRUCTURE PRINCIPLES
+* Prioritize 100% Free-Tier during the development phase.
+* Handle Cold Start with periodic health check pings.
+* All Secrets / API Keys must be stored in `.env` and must never be committed to Git.

@@ -1,60 +1,60 @@
-# C1 — KỊCH BẢN KIỂM CHỨNG BOOTSTRAP VỚI AGENT THẬT
+# C1 — BOOTSTRAP VERIFICATION SCENARIOS WITH REAL AGENTS
 
-> Dành cho người bảo trì kit. Mục tiêu: xem Agent **tự** đọc `BOOTSTRAP.md`, phỏng vấn, chọn profile và dựng dự án đúng không. Chạy bằng **Claude Code** và **Antigravity** (Codex chưa kiểm chứng). Ghi kết quả vào mục 5 và cập nhật `TASKS.md` (C1, C4).
+> For the kit maintainer. Goal: see whether the Agent **by itself** reads `BOOTSTRAP.md`, interviews the user, chooses a profile and builds the project correctly. Run with **Claude Code** and **Antigravity** (Codex not verified). Record the results in section 5 and update `TASKS.md` (C1, C4).
 
-## 1. Điều kiện để phép thử có giá trị
-* **Phiên mới, không ngữ cảnh**: không dán nội dung kit, không nhắc tên tệp. Agent chỉ có câu prompt ở mục 2.
-* **Thư mục thử nằm ngoài repo kit**, không có sẵn `AGENTS.md`/`.agents/` (kịch bản S1) hoặc chỉ có dự án dở (S2).
-* Kit phải lấy được: sau khi **B1 (đổi tên repo) + push** thì dùng URL; trước đó dùng biến thể đường dẫn cục bộ (mục 2b). Ghi rõ biến thể đã dùng.
-* Người thử trả lời **đúng theo vai (mục 3)**, không gợi ý thêm.
+## 1. Conditions for the test to be valid
+* **A fresh session with no context**: do not paste the kit content and do not name files. The Agent has only the prompt sentence in section 2.
+* **The trial folder is outside the kit repo** and has no existing `AGENTS.md`/`.agents/` (scenario S1) or only a half-finished project (S2).
+* The kit must be reachable: after **B1 (rename the repo) + push**, use the URL; before that, use the local-path variant (section 2b). State which variant was used.
+* The tester answers **exactly in the role (section 3)** and gives no extra hints.
 
-## 2. Prompt (đúng một câu)
-a. Có URL: `Hãy dùng https://github.com/Dokhacgiakhoa/Project-Builder-4-Agents để dựng dự án giúp mình. Mình muốn làm: <mô tả ở mục 3>`
-b. Chưa có URL (thử sớm): `Hãy dùng bộ tài liệu ở <đường dẫn thư mục kit trên máy> để dựng dự án giúp mình, bắt đầu từ BOOTSTRAP.md. Mình muốn làm: <mô tả ở mục 3>`
+## 2. Prompt (exactly one sentence)
+a. With a URL: `Please use https://github.com/Dokhacgiakhoa/Project-Builder-4-Agents to build a project for me. I want to make: <description from section 3>`
+b. Without a URL (early trial): `Please use the document set at <kit folder path on this machine> to build a project for me, starting from BOOTSTRAP.md. I want to make: <description from section 3>`
 
-## 3. Kịch bản và vai người dùng
-| Mã | Thư mục thử | Mô tả đưa cho Agent | Kỳ vọng kiến trúc | Mức rào chắn |
+## 3. Scenarios and user role
+| Code | Trial folder | Description given to the Agent | Expected architecture | Guardrail level |
 | :-- | :-- | :-- | :-- | :-: |
-| S1 | Rỗng | "một web nhỏ để mình ghi chi tiêu hằng ngày, làm đồ án môn học" | Layered đơn giản | M1 |
-| S2 | Có dự án dở (ví dụ app Node/React nhỏ, đã có `package.json`, `src/`, chưa có `AGENTS.md`) | "dự án này đang làm dở, hãy thiết lập cho chuẩn" | Giữ nguyên cấu trúc hiện có; chế độ MERGE, không ghi đè | M1 |
-| S3 | Rỗng | "hệ thống đặt lịch cho nhiều chi nhánh phòng khám, có quy tắc giá, sẽ phát triển nhiều năm" | Clean Architecture hoặc Modular Monolith, có lý do | M2 trở lên |
+| S1 | Empty | "a small web app to record my daily spending, for a course project" | Simple layered | M1 |
+| S2 | A half-finished project (for example a small Node/React app with a `package.json`, `src/`, no `AGENTS.md` yet) | "this project is half-done, please set it up properly" | Keep the existing structure; MERGE mode, no overwriting | M1 |
+| S3 | Empty | "a booking system for several clinic branches, with pricing rules, to be developed for many years" | Clean Architecture or Modular Monolith, with reasons | M2 or higher |
 
-**Vai người dùng**: fresher, biết chút ít về git, không biết thuật ngữ kiến trúc. Khi Agent hỏi:
-* về công nghệ: "mình không rành, bạn chọn giúp";
-* về ngân sách: "miễn phí";
-* về người làm: "một mình" (S1, S2), "nhóm 3 người" (S3);
-* thuật ngữ lạ: nhờ giải thích, rồi đồng ý với đề xuất.
+**User role**: a fresher who knows a little git and does not know architecture terms. When the Agent asks:
+* about technology: "I am not familiar with it, you choose for me";
+* about budget: "free";
+* about who will work on it: "alone" (S1, S2), "a team of 3" (S3);
+* an unfamiliar term: ask for an explanation, then agree with the proposal.
 
-## 4. Checklist chấm (mỗi mục Đạt/Không đạt + ghi chú)
-**Chủ động và định tuyến**
-1. Agent tự mở `BOOTSTRAP.md` (không cần nhắc tên tệp).
-2. Agent tra `INDEX.md`/`profiles/README.md`, không hỏi người dùng tên kiến trúc.
-3. Số tài liệu kit đã mở hợp lý (không đọc cả thư mục `knowledge-base/`).
-4. Chọn đúng profile kỳ vọng, nêu **lý do một câu** và phương án đã loại.
+## 4. Scoring checklist (each item Pass/Fail + a note)
+**Initiative and routing**
+1. The Agent opens `BOOTSTRAP.md` by itself (no need to name the file).
+2. The Agent looks up `INDEX.md`/`profiles/README.md` and does not ask the user for the architecture name.
+3. A reasonable number of kit documents opened (it does not read the whole `knowledge-base/` folder).
+4. It chooses the expected profile, states a **one-sentence reason** and the options it rejected.
 
-**Phỏng vấn**
-5. ≤ 3 câu mỗi lượt; bắt đầu bằng người dùng/vấn đề, không bằng công nghệ.
-6. Có bước tóm tắt và **chờ xác nhận** trước khi dựng khung.
+**Interview**
+5. ≤ 3 questions per turn; it starts from the user/problem, not from technology.
+6. It has a summary step and **waits for confirmation** before building the skeleton.
 
-**Dựng khung Core**
-7. Có `AGENTS.md`, `CLAUDE.md` (import `AGENTS.md`), skills đúng chỗ công cụ đọc được, `docs/project-brief.md`, ADR stack + kiến trúc, `.builder/kit.json`.
-8. Không còn `{{PLACEHOLDER}}` sau khi hoàn tất.
-9. S2: không ghi đè hay xóa tệp của người dùng; tệp trùng có bản `.kit-suggested`.
-10. Không tự `commit`/`push` khi chưa được đồng ý.
+**Core skeleton**
+7. There are `AGENTS.md`, `CLAUDE.md` (importing `AGENTS.md`), skills where the tool can read them, `docs/project-brief.md`, the stack + architecture ADRs, `.builder/kit.json`.
+8. No `{{PLACEHOLDER}}` remains when finished.
+9. S2: it does not overwrite or delete the user's files; conflicting files get a `.kit-suggested` copy.
+10. It does not `commit`/`push` by itself without agreement.
 
-**Rào chắn và kiểm chứng**
-11. Lệnh test/lint/build trong `AGENTS.md` là lệnh **thật** và đã chạy.
-12. CI chạy đúng các lệnh đó (không `echo` giả lập).
-13. Cài rào chắn đúng mức đã chọn (M2+: có luật ép ranh giới import).
-14. Chạy Health Check; điểm ≥ 80; Core Baseline B1–B9 đạt.
-15. Báo cáo cuối cho người dùng bằng lời đơn giản.
+**Guardrails and verification**
+11. The test/lint/build commands in `AGENTS.md` are **real** commands and were run.
+12. CI runs exactly those commands (no mock `echo`).
+13. It installs the guardrails at the chosen level (M2+: a rule that enforces import boundaries).
+14. It runs Analytics; score ≥ 80; Core Baseline B1–B9 pass.
+15. The final report to the user is in simple words.
 
-**An toàn**
-16. Không đặt secret vào tệp; có `.env.example`.
+**Safety**
+16. No secret is placed in files; there is a `.env.example`.
 
-## 5. Mẫu ghi kết quả
-| Ngày | Agent + phiên bản | Kịch bản | Biến thể prompt | Đạt/16 | Điểm Health Check | Chỗ sai/lệch (mục checklist, mô tả) | Sửa gì trong kit |
+## 5. Result recording template
+| Date | Agent + version | Scenario | Prompt variant | Pass/16 | Analytics score | Where it went wrong/off (checklist item, description) | What to fix in the kit |
 | :-- | :-- | :-- | :-: | :-: | :-: | :-- | :-- |
 | | | | | | | | |
 
-Đính kèm: bản ghi hội thoại (hoặc ảnh chụp), cây thư mục kết quả, `project-review.md`.
+Attach: the conversation record (or screenshots), the resulting folder tree, `project-review.md`.

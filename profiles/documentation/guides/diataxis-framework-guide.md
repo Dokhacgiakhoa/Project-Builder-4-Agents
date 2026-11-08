@@ -1,110 +1,110 @@
 ---
 id: O-006
 type: reference
-when: "Phân loại/viết tài liệu theo **Diátaxis** (tutorial, how-to, reference, explanation)"
+when: "Categorizing docs via **Diátaxis** (tutorial, how-to, reference, explanation)"
 ---
 # 📚 THE DIÁTAXIS DOCUMENTATION FRAMEWORK
 
-> **Tiêu chuẩn Quốc tế về Cấu trúc Tài liệu Kỹ thuật**  
-> Diátaxis (tiếng Hy Lạp: *sự sắp xếp, tổ chức*) là bộ khung kiến trúc tài liệu được áp dụng chính thức bởi các tổ chức công nghệ hàng đầu thế giới như **Python Official Docs, Canonical (Ubuntu), Cloudflare, NumPy, Django, và Gatsby**.
+> **The international standard for structuring technical documentation**  
+> Diátaxis (Greek for *arrangement, organization*) is the documentation architecture framework officially adopted by leading technology organizations such as the **Python Official Docs, Canonical (Ubuntu), Cloudflare, NumPy, Django, and Gatsby**.
 
 ---
 
-## 🧭 1. TẠI SAO PHẢI DÙNG DIÁTAXIS?
+## 🧭 1. WHY USE DIÁTAXIS?
 
-Vấn đề lớn nhất của tài liệu dự án phần mềm là **"nội dung bị trộn lẫn"**: Trong một bài hướng dẫn cài đặt lại giải thích triết lý kiến trúc, trong một bảng tra cứu API lại có các bước thực hành dài dòng. Điều này khiến cả lập trình viên lẫn người dùng bị quá tải và không tìm được thông tin mình cần.
+The biggest problem of software project documentation is **"mixed-up content"**: an installation guide that also explains the architecture philosophy, an API lookup table full of long hands-on steps. This overloads both developers and users, and they cannot find the information they need.
 
-Diátaxis giải quyết triệt để vấn đề này bằng cách chia tài liệu thành **4 Góc Phần Tư (4 Quadrants)** dựa trên 2 trục tọa độ:
-* **Trục Ngang**: Phục vụ cho việc **Học tập (Learning-oriented)** ⟷ Phục vụ cho **Công việc thực tế (Work-oriented)**.
-* **Trục Dọc**: Tập trung vào **Lý thuyết / Nguyên lý (Theoretical)** ⟷ Tập trung vào **Hành động thực tế (Practical)**.
+Diátaxis solves this problem thoroughly by splitting documentation into **4 Quadrants** based on 2 axes:
+* **Horizontal axis**: serves **Learning (Learning-oriented)** ⟷ serves **Real work (Work-oriented)**.
+* **Vertical axis**: focuses on **Theory / Principles (Theoretical)** ⟷ focuses on **Practical action (Practical)**.
 
 ```
-                   THỰC HÀNH (Practical)
-                           ▲
-                           │
-       TUTORIALS           │         HOW-TO GUIDES
-     (Học việc/Nhập môn)   │    (Giải quyết bài toán cụ thể)
-                           │
-HỌC TẬP ───────────────────┼─────────────────── LÀM VIỆC
-(Learning-oriented)        │              (Work-oriented)
-                           │
-       EXPLANATION         │          REFERENCE
-  (Lý giải nguyên lý/Tại sao) │    (Tra cứu thông số kỹ thuật)
-                           │
-                           ▼
-                   LÝ THUYẾT (Theoretical)
+                   PRACTICAL
+                       ▲
+                       │
+       TUTORIALS       │         HOW-TO GUIDES
+   (Learning / Intro)  │    (Solving a specific problem)
+                       │
+LEARNING ──────────────┼────────────────── WORKING
+(Learning-oriented)    │              (Work-oriented)
+                       │
+       EXPLANATION     │          REFERENCE
+ (Explaining principles / Why) │  (Looking up technical specs)
+                       │
+                       ▼
+                   THEORETICAL
 ```
 
 ---
 
-## 🧩 2. CHI TIẾT 4 GÓC PHẦN TƯ TÀI LIỆU
+## 🧩 2. THE 4 DOCUMENTATION QUADRANTS IN DETAIL
 
-### Góc 1: TUTORIALS (Hướng dẫn Nhập môn / Học việc)
-* **Mục tiêu**: Giúp người mới bắt đầu đạt được thành công đầu tiên (First Win) ngay lập tức và xây dựng sự tự tin.
-* **Đặc điểm**:
-  - Giống như **dạy một đứa trẻ tập nấu ăn**: Từng bước cầm tay chỉ việc từ A đến Z.
-  - Không giải thích lan man về lý thuyết; không đưa ra quá nhiều lựa chọn (không nói "bạn có thể chọn Option A hoặc Option B"). Chỉ đưa ra DUY NHẤT 1 con đường chạy được ngay.
-  - Kết quả cuối cùng là một sản phẩm chạy được thực tế.
-* **Ví dụ trong dự án**:
-  - *"Xây dựng tính năng Todo List đầu tiên trong 10 phút với AI Agent"*.
-  - *"Chạy thử nghiệm hệ thống Fullstack cục bộ lần đầu tiên"*.
-
----
-
-### Góc 2: HOW-TO GUIDES (Hướng dẫn Giải quyết Tình huống Cụ thể)
-* **Mục tiêu**: Giúp người đã có kinh nghiệm giải quyết một vấn đề hoặc ca sử dụng cụ thể trong công việc thực tế.
-* **Đặc điểm**:
-  - Giống như **sổ tay công thức nấu ăn (Recipe Book)**: "Làm thế nào để làm món bánh pizza?".
-  - Bắt đầu bằng một mục tiêu rõ ràng của người dùng: *"Làm thế nào để..."*.
-  - Giả định người đọc đã nắm được các khái niệm cơ bản (không cần giải thích lại biến môi trường là gì hay Git là gì).
-  - Tập trung vào chuỗi các bước hành động cụ thể để đạt kết quả.
-* **Ví dụ trong dự án**:
-  - *"Làm thế nào để tích hợp một mô hình LLM mới vào hệ thống Multi-Agent?"*.
-  - *"Làm thế nào để đổi phong cách giao diện sang Cyberpunk HUD?"*.
-  - *"Làm thế nào để rollback một phiên bản release bị lỗi trên production?"*.
+### Quadrant 1: TUTORIALS (Introductory / Learning guides)
+* **Goal**: Help a beginner reach a first success (First Win) right away and build confidence.
+* **Characteristics**:
+  - Like **teaching a child to cook**: hand-holding, step by step from A to Z.
+  - No rambling theory; not too many options (do not say "you can choose Option A or Option B"). Give ONLY ONE path that works immediately.
+  - The end result is a real working product.
+* **Examples in the project**:
+  - *"Build your first Todo List feature in 10 minutes with an AI Agent"*.
+  - *"Run the full-stack system locally for the first time"*.
 
 ---
 
-### Góc 3: REFERENCE (Tài liệu Tra cứu Kỹ thuật)
-* **Mục tiêu**: Cung cấp thông tin mô tả kỹ thuật chính xác, ngắn gọn và khách quan để người dùng tra cứu khi đang làm việc.
-* **Đặc điểm**:
-  - Giống như **cuốn từ điển bách khoa hoặc bản đồ chỉ dẫn kỹ thuật**.
-  - Không chứa lời khuyên, không có các bước làm việc, không có câu chuyện dẫn dắt.
-  - Chỉ thuần túy là sự thật kỹ thuật: Tên hàm, tham số đầu vào (arguments), kiểu dữ liệu (types), mã lỗi trả về (HTTP status codes), biến cấu hình.
-  - Cấu trúc phải nhất quán và có thể tự động sinh ra từ mã nguồn (như Swagger/OpenAPI, TypeDoc).
-* **Ví dụ trong dự án**:
-  - `specs/contracts/api-contract-template.yaml` (Đặc tả API endpoints).
-  - Bảng danh mục biến môi trường `.env.example`.
-  - Danh mục lệnh của `Makefile`.
+### Quadrant 2: HOW-TO GUIDES (Solving a specific situation)
+* **Goal**: Help an experienced person solve a specific problem or use case in real work.
+* **Characteristics**:
+  - Like a **recipe book (Recipe Book)**: "How do I make a pizza?".
+  - Starts with a clear user goal: *"How to..."*.
+  - Assumes the reader already knows the basic concepts (no need to explain again what an environment variable or Git is).
+  - Focuses on the sequence of concrete action steps to reach the result.
+* **Examples in the project**:
+  - *"How to integrate a new LLM into the Multi-Agent system?"*.
+  - *"How to switch the interface style to Cyberpunk HUD?"*.
+  - *"How to roll back a faulty release on production?"*.
 
 ---
 
-### Góc 4: EXPLANATION (Tài liệu Lý giải & Phân tích Chuyên sâu)
-* **Mục tiêu**: Giúp người đọc hiểu sâu sắc bức tranh tổng thể, lý do đằng sau các quyết định thiết kế và triết lý kiến trúc.
-* **Đặc điểm**:
-  - Giống như **một bài giảng hay một bài tiểu luận phân tích lịch sử/khoa học**.
-  - Trả lời cho câu hỏi: *"Tại sao lại làm như vậy?" (Why)*, *"Bối cảnh lịch sử ra sao?"*, *"Các giải pháp thay thế đã bị loại bỏ vì lý do gì?"*.
-  - Không chứa các bước thực hành từng dòng lệnh.
-* **Ví dụ trong dự án**:
-  - Toàn bộ thư mục `adrs/` (Architecture Decision Records).
-  - `profiles/documentation/system-architecture.md` (Giải thích vì sao chọn Modular Monolith thay vì Microservices).
-  - Triết lý The Anti-Crash Standard trong `README.md`.
+### Quadrant 3: REFERENCE (Technical lookup documents)
+* **Goal**: Provide accurate, concise and objective technical description for users to look up while working.
+* **Characteristics**:
+  - Like an **encyclopedia or a technical map**.
+  - Contains no advice, no work steps, no lead-in story.
+  - Pure technical facts: function names, input parameters (arguments), data types (types), returned error codes (HTTP status codes), configuration variables.
+  - The structure must be consistent and can be generated automatically from source code (like Swagger/OpenAPI, TypeDoc).
+* **Examples in the project**:
+  - `specs/contracts/api-contract-template.yaml` (API endpoint specification).
+  - The environment variable catalog `.env.example`.
+  - The command catalog of the `Makefile`.
 
 ---
 
-## 📋 3. MA TRẬN PHÂN LOẠI & QUY TẮC VIẾT TÀI LIỆU NHANH
+### Quadrant 4: EXPLANATION (Explanatory & in-depth analysis documents)
+* **Goal**: Help the reader deeply understand the overall picture, the reasons behind design decisions and the architecture philosophy.
+* **Characteristics**:
+  - Like **a lecture or a historical/scientific analytical essay**.
+  - Answers the questions: *"Why was it done this way?" (Why)*, *"What is the historical background?"*, *"For what reasons were the alternative solutions rejected?"*.
+  - Contains no line-by-line hands-on commands.
+* **Examples in the project**:
+  - The whole `adrs/` folder (Architecture Decision Records).
+  - `profiles/documentation/system-architecture.md` (explains why a Modular Monolith was chosen over Microservices).
+  - The philosophy of the Anti-Crash Standard in `README.md`.
 
-| Câu Hỏi Cốt Lõi | Loại Tài Liệu | Phong Cách Hành Văn | Đối Tượng Đọc |
+---
+
+## 📋 3. CLASSIFICATION MATRIX & QUICK WRITING RULES
+
+| Core question | Document type | Writing style | Audience |
 | :--- | :---: | :--- | :--- |
-| **"Hãy chỉ cho tôi cách bắt đầu"** | **Tutorial** | Cầm tay chỉ việc, từng bước tuần tự, không giải thích dài | Người mới bắt đầu (Beginner) |
-| **"Làm thế nào để giải quyết vấn đề X?"** | **How-To Guide** | Hướng đến mục tiêu, tập trung vào hành động thực tế | Kỹ sư đang làm việc (Practitioner) |
-| **"Cái này gồm những thuộc tính gì?"** | **Reference** | Khách quan, súc tích, chính xác từng thông số kỹ thuật | Kỹ sư cần tra cứu nhanh (Lookup) |
-| **"Tại sao hệ thống lại thiết kế thế này?"** | **Explanation** | Tư duy phản biện, phân tích bối cảnh và sự đánh đổi | Tech Lead, Architect, Reviewer |
+| **"Show me how to get started"** | **Tutorial** | Hand-holding, sequential steps, no long explanations | Beginner |
+| **"How do I solve problem X?"** | **How-To Guide** | Goal-oriented, focused on practical action | Working engineer (Practitioner) |
+| **"What attributes does this have?"** | **Reference** | Objective, concise, accurate on every technical parameter | Engineer who needs a quick lookup (Lookup) |
+| **"Why is the system designed this way?"** | **Explanation** | Critical thinking, analysis of context and trade-offs | Tech Lead, Architect, Reviewer |
 
 ---
 
-## 🚫 4 CẠM BẪY CẦN TRÁNH TUYỆT ĐỐI (DOCUMENTATION ANTI-PATTERNS)
-1. **Trộn lẫn Tutorial vào How-To Guide**: Đưa quá nhiều lựa chọn phức tạp vào bài học cho người mới khiến họ bối rối và bỏ cuộc.
-2. **Trộn lẫn Explanation vào Reference**: Chèn những đoạn triết lý dông dài vào bảng tra cứu thông số API khiến lập trình viên mất thời gian tìm kiếm.
-3. **Tài liệu không được phiên bản hóa (Out-of-date Docs)**: Docs nằm ở trang wiki rời rạc bên ngoài thay vì nằm trực tiếp trong Git repo bên cạnh mã nguồn.
-4. **Viết docs mà không có code mẫu chạy được**: Mọi hướng dẫn phải kèm theo snippet có thể copy-paste và kiểm thử tự động trong CI.
+## 🚫 4 TRAPS TO AVOID ABSOLUTELY (DOCUMENTATION ANTI-PATTERNS)
+1. **Mixing a Tutorial into a How-To Guide**: putting too many complicated options in a lesson for beginners confuses them and makes them give up.
+2. **Mixing Explanation into Reference**: inserting rambling philosophy into an API parameter table makes developers lose time searching.
+3. **Unversioned documents (Out-of-date Docs)**: docs sit on a scattered external wiki page instead of directly in the Git repo next to the source code.
+4. **Writing docs without runnable sample code**: every guide must come with a snippet that can be copy-pasted and tested automatically in CI.

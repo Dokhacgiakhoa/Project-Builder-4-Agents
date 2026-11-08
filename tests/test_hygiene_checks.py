@@ -1,4 +1,4 @@
-"""Kiểm thử vệ sinh repo / chuỗi cung ứng offline / MCP / marker spec (hygiene.py)."""
+"""Tests for repo hygiene / offline supply chain / MCP / spec markers (hygiene.py)."""
 
 import json
 import shutil
@@ -17,7 +17,7 @@ from auditor_engine.hygiene import (  # noqa: E402
 )
 from auditor_engine.remediation import CODE_RULES  # noqa: E402
 
-needs_git = pytest.mark.skipif(shutil.which("git") is None, reason="cần git")
+needs_git = pytest.mark.skipif(shutil.which("git") is None, reason="needs git")
 
 
 def codes(findings):
@@ -33,7 +33,7 @@ def make_git_repo(root: Path, files: dict[str, str]):
     subprocess.run(["git", "-C", str(root), "add", "-A", "-f"], check=True)
 
 
-# ---- tệp đã bị commit ----
+# ---- committed files ----
 def test_untracked_repo_skips_git_checks(tmp_path):
     assert git_tracked_files(tmp_path) is None
     assert check_tracked_files(tmp_path, None) == []
@@ -139,7 +139,7 @@ def test_synthetic_20_env_cases_precision_and_recall(tmp_path):
     assert recall == 1.0
 
 
-# ---- chuỗi cung ứng ----
+# ---- supply chain ----
 def pkg(tmp_path, data):
     p = tmp_path / "package.json"
     p.write_text(json.dumps(data), encoding="utf-8")
@@ -220,7 +220,7 @@ def test_no_marker_no_finding(tmp_path):
     assert check_spec_markers(tmp_path, list(tmp_path.rglob("*.md"))) == []
 
 
-# ---- tích hợp ----
+# ---- integration ----
 def test_every_hygiene_code_has_remediation():
     for code in ("SEC-005", "HYG-002", "SUP-001", "SUP-002", "SUP-003", "SUP-004", "AGT-004", "AGT-005", "SPEC-001"):
         assert code in CODE_RULES and CODE_RULES[code][1], code

@@ -16,7 +16,7 @@
   - Invariance verification (`verify_nonsafe_identity.py`): 100% identical scores and non-SAFE findings across 23 repositories (`evals/results/raw/011-nonsafe-identity.txt`).
   - Speedup benchmark: P-062 mean 28.9s -> 5.9s (4.88x); litellm mean 69.0s -> 35.4s (~2.0x) (`evals/results/raw/010-ab-benchmark.json`).
   - Cold vs warm probe: 4,000 files HDD pure read 30.32s cold vs 0.28s warm (109x); pre-warmed audit 8.86s vs warm audit 8.80s (`evals/results/raw/011-cold-warm.json`).
-  - Real shell CDP reload on LiteLLM: engine PIDs preserved, scan resumed and completed with 80/100 (`evals/results/raw/012-shell-reload.json`).
+  - Real shell CDP reload on LiteLLM: engine PIDs preserved, scan resumed and completed with 80/100 (maintainer lab record 012-shell-reload, not published).
 * Left / next:
   - Agent harness plan (maintainer handoff 002 (private), Phase 0 pending execution).
   - Archetype model gap: dedicated "Library/Framework" archetype for repos lacking app entrypoints.
@@ -25,14 +25,14 @@
 
 ## 2026-11-07 — Corrections after review: 003-corrections-after-review (Step 0..Task 6)
 * Done: executed corrections per maintainer handoff 003 (private):
-  - Step 0: disclosed unreviewed engine edits to `constants.py` and `tree.py`; saved `evals/results/raw/engine-edit-original.diff` and `engine-edit-final.diff`; applied fix direction separating `SAFETY_IGNORE_DIRS` in `constants.py` to prevent prompt injection skips in `examples/`, `fixtures/`, `samples/`, `core/templates/`; added `tests/test_safety_ignore_scope.py` (133 pytest passed).
+  - Step 0: disclosed unreviewed engine edits to `constants.py` and `tree.py`; saved the original and final engine-edit diffs (maintainer lab records, not published); applied fix direction separating `SAFETY_IGNORE_DIRS` in `constants.py` to prevent prompt injection skips in `examples/`, `fixtures/`, `samples/`, `core/templates/`; added `tests/test_safety_ignore_scope.py` (133 pytest passed).
   - Task 1: measured effect of edits on two sandboxes `with-edit` vs `without-edit` (321 text files newly skipped, 2 SAFE-001 findings suppressed in litellm/cline, semantic drift on flask dropping database/cache pillars, kit self-scan dropped from 100 [A+] to 90 [A]).
   - Task 2: fixed harness in `safety_eval.py` (private) (`.mcp.json` leading dot and `.claude/settings.json` at root), achieving 42/45 (93.3%) detection, 0/21 benign FP, 0 harness artifacts; isolated 3 engine regex misses (`atk_18`, `atk_27`, `atk_38`); classified all 164 flags in corpus (1 TP in cline `.claude/settings.json`, 163 FP, 0 unclear).
   - Task 3: redid what-if score penalizing ONLY new hygiene codes (`SEC-005`, `HYG-002`, `SUP-001..004`, `AGT-004..005`, `SPEC-001`, `WLOG-001..002`); only 1 of 23 repos changes grade (`garak`: 50 [C] -> 49 [F]); explained kit row (SUP-004 is Low=0 points, kit retains 100/100 [A+]).
   - Task 4: classified `SEC-005` (4 FP, 0 TP; proposed exclusion rules for test paths and dev envs), `SUP-004` (conventional gradle wrapper, model weights .bin, compiled tools), `WLOG-001` (only 5/21 repos have agent instructions).
   - Task 5: CDP UI evidence in Edge: 1s progress series (strictly monotonic 0% to 100%), immediate sidebar score reset to 'N/A' (<100ms) verified; Check 8 marked FAIL with reload experiment (beacon `/api/shutdown` terminates server on F5) and `MainForm.cs` desktop shell analysis.
   - Task 6: verified `scripts/sync_docs.py` not run.
-  Report saved to `evals/results/2026-11-07-ag-report-003.md`.
+  Report saved to maintainer lab report 003 (not published).
 * Why: eliminate unreviewed engine drift, fix synthetic safety harness, provide 100% honest corpus classification, and measure real impact of new hygiene codes and UI reload behavior.
 * Verified: 133 pytest passed, all raw JSON data files, diffs, and screenshots recorded under `evals/results/`.
 * Left / next: Claude review of Report 003; formalize exclusion rules for test fixtures in `SEC-005` and resolve desktop shell reload shutdown in `MainForm.cs`/`app.js`.

@@ -1,4 +1,4 @@
-"""Nhận diện tech stack, kiến trúc và năng lực kỹ thuật của dự án."""
+"""Detect the project's tech stack, architecture and technical capabilities."""
 
 import os
 import sys
@@ -13,10 +13,10 @@ from .tree import ProjectTree
 
 class ProjectProfiler:
 
-    """Tự động nhận diện TECH STACK, kiểu ARCHITECTURE và các năng lực kỹ thuật của dự án."""
+    """Automatically detect the TECH STACK, ARCHITECTURE type and technical capabilities of the project."""
 
     def __init__(self, root: Path, tree: ProjectTree = None):
-        self.read_errors = []  # lỗi đọc tệp không nghiêm trọng (được ghi lại thay vì nuốt im lặng)
+        self.read_errors = []  # non-fatal file-read errors (recorded instead of being silently swallowed)
 
         self.root = root.resolve()
 
@@ -34,7 +34,7 @@ class ProjectProfiler:
 
         self.arch_style = 'Free-form / Undetermined Architecture (CUSTOM ARCHITECTURE)'
 
-        # Cờ nhận diện năng lực kích hoạt động
+        # Capability detection flags activated dynamically
 
         self.has_frontend = False
 
@@ -46,7 +46,7 @@ class ProjectProfiler:
 
         self.has_cloud = False
 
-        # Bằng chứng thô cho pillar Cloud/DevOps; has_cloud được chốt ở cuối profile() (ADR-0024)
+        # Raw evidence for the Cloud/DevOps pillar; has_cloud is finalized at the end of profile() (ADR-0024)
         self._container_intent = False
         self._has_ci = False
 
@@ -60,7 +60,7 @@ class ProjectProfiler:
 
     def profile(self):
 
-        # 1. Nhận diện MANIFEST & Ngôn ngữ lập trình
+        # 1. Detect MANIFEST & programming languages
 
         has_pkg_json = bool(self.tree.find_by_name('package.json'))
 
@@ -92,7 +92,7 @@ class ProjectProfiler:
 
             self._inspect_dotnet()
 
-            # Chỉ coi là backend khi csproj thật sự là dự án web (không phải app desktop/console/thư viện)
+            # Count as backend only when the csproj is really a web project (not a desktop/console app/library)
             if any(re.search(r'Microsoft\.NET\.Sdk\.Web|Microsoft\.AspNetCore', self._read_text(c))
                    for c in self.tree.find_by_ext('.csproj')):
 
@@ -116,7 +116,7 @@ class ProjectProfiler:
 
             self.languages.add('RUST')
 
-        # 2. Nhận diện INFRASTRUCTURE & DATABASE từ Docker Compose
+        # 2. Detect INFRASTRUCTURE & DATABASE from Docker Compose
 
         docker_compose = None
 
@@ -160,7 +160,7 @@ class ProjectProfiler:
 
                 pass
 
-        # 3. Nhận diện Cloud & Container
+        # 3. Detect Cloud & Container
 
         has_dockerfile = self.tree.any_name_starts_with('dockerfile')
 
@@ -182,13 +182,13 @@ class ProjectProfiler:
 
             self._has_ci = True
 
-        # 4. Nhận diện Security & Supply Chain
+        # 4. Detect Security & Supply Chain
 
         if has_pkg_json or has_pyproject or has_csproj or has_go_mod or has_pom or has_cargo or self.has_backend:
 
             self.has_security = True
 
-        # 5. Nhận diện Microservices & Gateway
+        # 5. Detect Microservices & Gateway
 
         has_proto = bool(self.tree.find_by_ext('.proto'))
 
@@ -198,7 +198,7 @@ class ProjectProfiler:
 
             self.has_microservices = True
 
-        # 6. Nhận diện AI Agent Ecosystem (Rules, Skills, Workflows)
+        # 6. Detect AI Agent Ecosystem (Rules, Skills, Workflows)
 
         has_agent_rules = bool(
 
@@ -230,7 +230,7 @@ class ProjectProfiler:
 
             self.has_agent_ecosystem = True
 
-        # 6. Nhận diện Phân loại loại hình dự án
+        # 6. Detect the project type classification
 
         if self.has_frontend and self.has_backend:
 
@@ -248,13 +248,13 @@ class ProjectProfiler:
 
             self.archetype = 'Command-line Tool / System Utility (CLI TOOL / SYSTEM UTILITY)'
 
-        # 7. Nhận diện phong cách kiến trúc
+        # 7. Detect the architecture style
 
         self._detect_architecture_style()
 
-        # ADR-0024: pillar Cloud/DevOps chỉ áp dụng khi dự án có ý định đóng gói/triển khai
-        # (Dockerfile, compose, k8s/helm) hoặc có CI kèm một dịch vụ triển khai được.
-        # CI đơn thuần trên kho tri thức/thư viện/CLI không kích hoạt tiêu chí Docker.
+        # ADR-0024: the Cloud/DevOps pillar applies only when the project intends to be packaged/deployed
+        # (Dockerfile, compose, k8s/helm) or has CI plus a deployable service.
+        # Plain CI on a knowledge base/library/CLI does not trigger the Docker criteria.
         deployable = self.has_backend or self.has_frontend or self.has_microservices
         self.has_cloud = self._container_intent or (self._has_ci and deployable)
 
