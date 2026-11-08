@@ -10,24 +10,24 @@ interface Step2Props {
 
 const AUDIENCE_PRESETS = [
   {
-    title: "Học sinh / Sinh viên",
-    desc: "Cần giao diện trực quan, vui nhộn, dễ tiếp cận, tương thích tối đa trên Mobile.",
-    value: "Học sinh, sinh viên độ tuổi từ 15-24, ưu tiên trải nghiệm mobile-first, giao diện trực quan, thao tác nhanh."
+    title: "Students & Academic",
+    desc: "Requires engaging, intuitive mobile-first experience with lightweight workflows.",
+    value: "Students aged 15-24 prioritizing fast mobile-first UI, accessible onboarding, and quick interactions."
   },
   {
-    title: "Nhân viên Văn phòng / Doanh nghiệp",
-    desc: "Cần tính năng quản trị dữ liệu chặt chẽ, bảo mật cao, xuất file Excel/PDF báo cáo.",
-    value: "Nhân viên văn phòng, quản lý doanh nghiệp, cần tính chính xác, phân quyền bảo mật, dashboard báo cáo."
+    title: "Enterprise & Office Teams",
+    desc: "Demands strict RBAC, audit trails, secure data handling, and tabular reporting.",
+    value: "Enterprise managers and knowledge workers requiring role-based security, accurate reporting, and audit logs."
   },
   {
-    title: "Khách hàng Đại chúng (B2C)",
-    desc: "Cần quy trình mua sắm / sử dụng dịch vụ đơn giản nhất, thanh toán 1-chạm.",
-    value: "Người tiêu dùng đại chúng mọi độ tuổi, cần thao tác đơn giản, không rườm rà, hỗ trợ thanh toán online."
+    title: "General Consumers (B2C)",
+    desc: "Frictionless checkout, one-tap flows, and minimal cognitive load across demographics.",
+    value: "Broad consumer base requiring simple frictionless workflows, responsive UI, and secure payment checkout."
   },
   {
-    title: "Lập trình viên & Tech Team (B2B)",
-    desc: "Cần hệ thống có API mở, CLI, cấu hình thông qua file Json/Yaml.",
-    value: "Lập trình viên và các nhóm kỹ thuật, yêu cầu tài liệu API đầy đủ, khả năng tự động hóa và tích hợp CI/CD."
+    title: "Developers & Tech Teams (B2B)",
+    desc: "Requires OpenAPI contracts, developer CLI, declarative configuration, and CI/CD hooks.",
+    value: "Developers and DevOps teams requiring thorough API documentation, automation capabilities, and CI/CD integration."
   }
 ];
 
@@ -51,15 +51,15 @@ export const Step2Audience: React.FC<Step2Props> = ({
     <div className="space-y-6">
       <div>
         <div className="octa-card-sm inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-950 text-sm font-black mb-3">
-          <Users className="w-4 h-4 text-orange-600" /> Bước 2 / 6: Chân dung Người Dùng
+          <Users className="w-4 h-4 text-orange-600" /> Step 2 / 6: Target Audience
         </div>
-        <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight">Ai sẽ là người sử dụng chính sản phẩm này?</h2>
+        <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight">Who is the primary audience?</h2>
         <p className="text-slate-700 text-base mt-1 font-semibold">
-          Xác định đối tượng giúp AI tối ưu hóa ngôn ngữ thiết kế, UX và luồng trải nghiệm người dùng phù hợp nhất.
+          Identifying your audience helps AI generate fitting UX patterns, security models, and workflows.
         </p>
       </div>
 
-      {/* Preset Audience Cards (Không Viền) */}
+      {/* Preset Audience Cards (Border-free) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {AUDIENCE_PRESETS.map((item, idx) => {
           const isSelected = targetAudience === item.value;
@@ -92,13 +92,13 @@ export const Step2Audience: React.FC<Step2Props> = ({
       <form onSubmit={handleSubmit} className="space-y-5">
         <div className="space-y-2">
           <label className="block text-base font-black text-slate-950">
-            Hoặc tự điều chỉnh chi tiết chân dung khách hàng:
+            Or customize the target persona description:
           </label>
           <textarea
             rows={3}
             value={targetAudience}
             onChange={(e) => setTargetAudience(e.target.value)}
-            placeholder="Ví dụ: Bác sĩ và bệnh nhân tại các phòng khám tư, cần đặt lịch khám online và tra cứu bệnh án..."
+            placeholder="e.g. Doctors and clinic patients scheduling visits online with secure record lookups..."
             required
             className="w-full px-5 py-3.5 bg-slate-100 text-base text-slate-950 placeholder:text-slate-400 resize-none font-bold rounded-lg focus:bg-white focus:shadow-md transition-all leading-relaxed"
           />
@@ -110,14 +110,14 @@ export const Step2Audience: React.FC<Step2Props> = ({
             onClick={onBack}
             className="octa-btn inline-flex items-center gap-2 px-6 py-3 bg-blue-100 hover:bg-blue-200 text-blue-950 font-black text-base shadow-xs transition-all cursor-pointer"
           >
-            <ArrowLeft className="w-4.5 h-4.5" /> Quay lại
+            <ArrowLeft className="w-4.5 h-4.5" /> Back
           </button>
           <button
             type="submit"
             disabled={!targetAudience.trim()}
             className="octa-btn floating-shadow-blue inline-flex items-center gap-2 px-8 py-4 bg-blue-700 hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed text-white font-black text-base transition-all cursor-pointer hover:-translate-y-0.5"
           >
-            Tiếp tục: Yêu Cầu Tính Năng
+            Continue: Feature Requirements
             <ArrowRight className="w-5 h-5" />
           </button>
         </div>

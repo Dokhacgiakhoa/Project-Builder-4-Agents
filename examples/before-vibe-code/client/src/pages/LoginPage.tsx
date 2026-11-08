@@ -36,9 +36,9 @@ export const LoginPage: React.FC = () => {
     login(email, fullName || (isRegister ? fullName : email.split('@')[0]));
 
     if (isRegister) {
-      setSuccessMsg('Đăng ký tài khoản thành công! Đang chuyển hướng đến Setup Prompt...');
+      setSuccessMsg('Registration successful! Redirecting to Setup Prompt...');
     } else {
-      setSuccessMsg('Đăng nhập thành công! Đang chuyển hướng đến Setup Prompt...');
+      setSuccessMsg('Signed in successfully! Redirecting to Setup Prompt...');
     }
 
     setTimeout(() => {
@@ -57,12 +57,12 @@ export const LoginPage: React.FC = () => {
               </div>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight">
-              {isRegister ? 'Tạo Tài Khoản Mới' : 'Đăng Nhập Hệ Thống'}
+              {isRegister ? 'Create New Account' : 'Sign In'}
             </h2>
             <p className="text-sm sm:text-base text-slate-700 font-bold">
               {isRegister
-                ? 'Lưu trữ lịch sử các dự án và Master Prompts trên Before Vibe Code'
-                : 'Truy cập vào không gian thiết kế kiến trúc Setup Prompt'}
+                ? 'Persist project history and Master Prompts in Before Vibe Code'
+                : 'Access the Setup Prompt architectural studio'}
             </p>
           </div>
 
@@ -83,7 +83,7 @@ export const LoginPage: React.FC = () => {
           <form onSubmit={handleSubmit} className="space-y-5">
             {isRegister && (
               <div className="space-y-2">
-                <label className="block text-base font-black text-slate-900">Họ và Tên</label>
+                <label className="block text-base font-black text-slate-900">Full Name</label>
                 <div className="relative">
                   <User className="w-5 h-5 text-slate-400 absolute left-4 top-3.5" />
                   <input
@@ -91,7 +91,7 @@ export const LoginPage: React.FC = () => {
                     required
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    placeholder="Nguyễn Văn A"
+                    placeholder="Alex Smith"
                     className="w-full pl-12 pr-5 py-3.5 bg-slate-100/90 text-slate-950 text-base placeholder:text-slate-400 font-bold rounded-lg border border-slate-200/80 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all"
                   />
                 </div>
@@ -115,10 +115,10 @@ export const LoginPage: React.FC = () => {
 
             <div className="space-y-2">
               <div className="flex justify-between items-center">
-                <label className="block text-base font-black text-slate-900">Mật Khẩu</label>
+                <label className="block text-base font-black text-slate-900">Password</label>
                 {!isRegister && (
                   <a href="#forgot" className="text-xs sm:text-sm text-blue-700 font-black hover:underline">
-                    Quên mật khẩu?
+                    Forgot password?
                   </a>
                 )}
               </div>
@@ -140,7 +140,7 @@ export const LoginPage: React.FC = () => {
                 type="submit"
                 className="octa-btn w-full inline-flex items-center justify-center gap-2 py-4 bg-blue-700 hover:bg-blue-800 text-white font-black text-base transition-transform duration-200 cursor-pointer hover:-translate-y-0.5"
               >
-                {isRegister ? 'Đăng Ký & Vào Setup Prompt' : 'Đăng Nhập & Bắt Đầu'}
+                {isRegister ? 'Sign Up & Continue' : 'Sign In & Continue'}
                 <ArrowRight className="w-5 h-5" />
               </button>
             </div>
@@ -149,24 +149,24 @@ export const LoginPage: React.FC = () => {
           <div className="text-center pt-3 border-t border-slate-100 text-sm text-slate-700 font-medium">
             {isRegister ? (
               <p>
-                Đã có tài khoản?{' '}
+                Already have an account?{' '}
                 <button
                   type="button"
                   onClick={() => { setIsRegister(false); setSuccessMsg(''); }}
                   className="text-blue-700 font-black hover:underline ml-1 cursor-pointer"
                 >
-                  Đăng nhập ngay
+                  Sign in now
                 </button>
               </p>
             ) : (
               <p>
-                Chưa có tài khoản?{' '}
+                Don't have an account?{' '}
                 <button
                   type="button"
                   onClick={() => { setIsRegister(true); setSuccessMsg(''); }}
                   className="text-orange-600 font-black hover:underline ml-1 cursor-pointer"
                 >
-                  Đăng ký miễn phí
+                  Sign up for free
                 </button>
               </p>
             )}

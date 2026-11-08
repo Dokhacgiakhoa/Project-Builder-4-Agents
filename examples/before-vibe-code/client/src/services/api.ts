@@ -63,7 +63,7 @@ export interface ProjectDetail {
   prompts: PromptArtifactItem[];
 }
 
-// Wrapper Helper để lấy data từ AutoWrapper
+// Wrapper helper to extract data from AutoWrapper
 const unwrap = <T>(res: any): T => {
   if (res.data && res.data.result !== undefined) {
     return res.data.result as T;
@@ -72,14 +72,14 @@ const unwrap = <T>(res: any): T => {
 };
 
 export const api = {
-  // 1. Tạo dự án
+  // 1. Create project
   createProject: async (data: CreateProjectPayload): Promise<ProjectDetail> => {
     try {
       const res = await apiClient.post<any>('/project', data);
       return unwrap<ProjectDetail>(res);
     } catch (error) {
       console.warn('Backend API connection fallback (Local Mode):', error);
-      // Fallback local mock để đảm bảo UI không crash nếu Backend chưa bật
+      // Fallback local mock to keep UI stable if Backend is offline
       return {
         id: Date.now(),
         name: data.name,
@@ -93,7 +93,7 @@ export const api = {
     }
   },
 
-  // 2. Cập nhật đối tượng người dùng
+  // 2. Update target audience
   updateAudience: async (projectId: number, data: UpdateAudiencePayload): Promise<boolean> => {
     try {
       await apiClient.put(`/project/${projectId}/audience`, data);
@@ -104,7 +104,7 @@ export const api = {
     }
   },
 
-  // 3. Thêm tính năng / yêu cầu
+  // 3. Add feature / requirement
   addRequirement: async (projectId: number, data: AddRequirementPayload): Promise<RequirementItem> => {
     try {
       const res = await apiClient.post<any>(`/project/${projectId}/requirements`, data);
@@ -121,7 +121,7 @@ export const api = {
     }
   },
 
-  // 4. Lấy chi tiết dự án
+  // 4. Get project details
   getProject: async (projectId: number): Promise<ProjectDetail | null> => {
     try {
       const res = await apiClient.get<any>(`/project/${projectId}`);

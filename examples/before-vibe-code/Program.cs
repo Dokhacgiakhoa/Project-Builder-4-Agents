@@ -42,15 +42,15 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-// 7. Swagger Documentation tại /swagger
+// 7. Swagger Documentation at /swagger
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Before Vibe Coding API v1");
-    c.RoutePrefix = "swagger"; // Swagger UI tại http://localhost:port/swagger
+    c.RoutePrefix = "swagger"; // Swagger UI at http://localhost:port/swagger
 });
 
-// 8. AutoWrapper - Chuẩn hóa Response và Exception cho các API (/api/...)
+// 8. AutoWrapper - Standardize Response and Exception for APIs (/api/...)
 app.UseApiResponseAndExceptionWrapper(new AutoWrapperOptions
 {
     ShowStatusCode = true,
@@ -62,7 +62,7 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
 
-// 9. Host Giao Diện Web Frontend (React UI)
+// 9. Host Web Frontend UI (React UI)
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
@@ -72,7 +72,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// 10. SPA Fallback (Điều hướng mọi route không phải API về trang web React)
+// 10. SPA Fallback (Route non-API requests to React SPA)
 app.MapFallbackToFile("index.html");
 
 // 11. Graceful Shutdown & Resource Cleanup

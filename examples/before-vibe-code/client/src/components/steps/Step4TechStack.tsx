@@ -52,20 +52,20 @@ export const Step4TechStack: React.FC<Step4Props> = ({
       {/* Header */}
       <div>
         <div className="octa-card-sm inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-950 text-sm font-black mb-3">
-          <Sparkles className="w-4 h-4 text-orange-600" /> Bước 4 / 6: Định Hướng & Nhu Cầu Hệ Thống
+          <Sparkles className="w-4 h-4 text-orange-600" /> Step 4 / 6: Architecture & Stack Selection
         </div>
         <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight">
-          Bạn muốn xây dựng hệ thống theo định hướng nào?
+          Which architectural path fits your project?
         </h2>
         <p className="text-slate-700 text-base mt-1 font-semibold">
-          Không cần hiểu sâu về kỹ thuật, bạn chỉ cần chọn gói giải pháp phù hợp với mục tiêu dự án của mình!
+          Select the package that best fits your product requirements and team capabilities.
         </p>
       </div>
 
-      {/* 4 Solution Packs (Dành cho Non-Tech) */}
+      {/* 4 Solution Packs */}
       <div className="space-y-3">
         <label className="block text-sm font-black uppercase tracking-wider text-slate-900">
-          Chọn 1 gói định hướng công nghệ phù hợp với bạn:
+          Select 1 architecture package for your solution:
         </label>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -142,19 +142,19 @@ export const Step4TechStack: React.FC<Step4Props> = ({
           className="octa-btn inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs sm:text-sm font-black transition-colors cursor-pointer"
         >
           <SlidersHorizontal className="w-4 h-4 text-blue-600" />
-          <span>{showAdvanced ? 'Ẩn cài đặt kỹ thuật chi tiết ▲' : 'Bạn là Dân Tech? Bấm vào đây để tự chọn chi tiết từng ngôn ngữ & database ▼'}</span>
+          <span>{showAdvanced ? 'Hide advanced settings ▲' : 'Advanced developer? Click to customize language & database ▼'}</span>
         </button>
 
         {/* Detailed Tech Selectors */}
         {showAdvanced && (
           <div className="mt-4 p-5 octa-card bg-slate-50 space-y-4">
             <div className="text-xs font-black uppercase text-slate-800">
-              Tùy Chỉnh Kỹ Thuật Nâng Cao:
+              Advanced Technical Customization:
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                  <Server className="w-3.5 h-3.5 text-blue-600" /> Ngôn ngữ Backend
+                  <Server className="w-3.5 h-3.5 text-blue-600" /> Backend Stack
                 </label>
                 <select
                   value={backendStack}
@@ -174,7 +174,7 @@ export const Step4TechStack: React.FC<Step4Props> = ({
 
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                  <Database className="w-3.5 h-3.5 text-orange-600" /> Cơ Sở Dữ Liệu
+                  <Database className="w-3.5 h-3.5 text-orange-600" /> Database Stack
                 </label>
                 <select
                   value={databaseStack}
@@ -182,16 +182,16 @@ export const Step4TechStack: React.FC<Step4Props> = ({
                   className="w-full px-4 py-2.5 bg-white text-xs sm:text-sm text-slate-950 font-bold rounded-lg focus:outline-none cursor-pointer shadow-xs"
                 >
                   <option value="SQL Server + Entity Framework Core 10">SQL Server (Microsoft)</option>
-                  <option value="PostgreSQL + Prisma / Dapper / Hibernate">PostgreSQL (Mã nguồn mở mạnh mẽ)</option>
+                  <option value="PostgreSQL + Prisma / Dapper / Hibernate">PostgreSQL (High Performance RDBMS)</option>
                   <option value="MySQL / MariaDB + TypeORM / JPA">MySQL / MariaDB</option>
                   <option value="MongoDB + Mongoose (NoSQL Document Store)">MongoDB (NoSQL Document)</option>
-                  <option value="SQLite (Lightweight Embedded Database)">SQLite (Nhẹ nhàng)</option>
+                  <option value="SQLite (Lightweight Embedded Database)">SQLite (Lightweight Embedded)</option>
                 </select>
               </div>
 
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                  <Globe className="w-3.5 h-3.5 text-blue-600" /> Giao Diện Frontend
+                  <Globe className="w-3.5 h-3.5 text-blue-600" /> Frontend Framework
                 </label>
                 <select
                   value={frontendStack}
@@ -213,7 +213,7 @@ export const Step4TechStack: React.FC<Step4Props> = ({
       {/* Quality Standards Checklist */}
       <div className="space-y-3">
         <label className="block text-sm font-black uppercase tracking-wider text-slate-900">
-          Các tiêu chuẩn chất lượng bạn muốn AI đảm bảo khi sinh code:
+          Quality standards and non-functional constraints for AI code generation:
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {QUALITY_STANDARDS.map((item) => {
@@ -265,14 +265,14 @@ export const Step4TechStack: React.FC<Step4Props> = ({
           onClick={onBack}
           className="octa-btn inline-flex items-center gap-2 px-6 py-3 bg-blue-100 hover:bg-blue-200 text-blue-950 font-black text-base shadow-xs transition-all cursor-pointer"
         >
-          <ArrowLeft className="w-4.5 h-4.5" /> Quay lại
+          <ArrowLeft className="w-4.5 h-4.5" /> Back
         </button>
         <button
           type="button"
           onClick={onNext}
           className="octa-btn floating-shadow-blue inline-flex items-center gap-2 px-8 py-4 bg-blue-700 hover:bg-blue-800 text-white font-black text-base transition-all cursor-pointer hover:-translate-y-0.5"
         >
-          Tiếp tục: Phân Tích & Sinh Prompt AI
+          Continue: Analyze & Generate Prompt
           <ArrowRight className="w-5 h-5" />
         </button>
       </div>

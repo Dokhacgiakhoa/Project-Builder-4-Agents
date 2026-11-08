@@ -10,7 +10,7 @@ interface WizardHeaderProps {
 export const WizardHeader: React.FC<WizardHeaderProps> = ({ currentStep, stepTitles }) => {
   return (
     <div className="w-full max-w-[85%] mx-auto px-2 sm:px-4">
-      {/* Step Indicator Card (Hoàn Toàn Không Viền) */}
+      {/* Step Indicator Card (Border-free) */}
       <div className="floating-shadow">
         <div className="octa-card p-3.5 sm:p-4.5 bg-white/95 backdrop-blur-md">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 sm:gap-3.5 w-full">

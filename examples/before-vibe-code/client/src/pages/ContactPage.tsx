@@ -3,16 +3,16 @@ import { Mail, MessageSquare, Send, HelpCircle, CheckCircle2, MapPin, Github } f
 
 const FAQS = [
   {
-    q: "Vibe Code là gì?",
-    a: "Vibe Code là thuật ngữ chỉ việc bạn chỉ cần tập trung vào ý tưởng, kiến trúc và điều hướng để AI (như Cursor, GitHub Copilot, Claude) viết 90-95% mã nguồn thực tế."
+    q: "What is Vibe Coding?",
+    a: "Vibe coding describes steering AI coding agents with high-level architecture, clear constraints, and rapid feedback iterations."
   },
   {
-    q: "Tại sao người non-tech lại cần 'Before Vibe Code'?",
-    a: "Nếu bạn không chuẩn bị kỹ yêu cầu (SRS) và kiến trúc hệ thống trước, AI sẽ tự đoán mò logic, dẫn đến code bị lỗi xung đột, không thể chạy hoặc khó mở rộng sau này."
+    q: "Why do builders need 'Before Vibe Code'?",
+    a: "Without explicit requirements (SRS) and architecture boundaries, AI agents guess schema and contracts, causing hallucinations and fragile spaghetti code."
   },
   {
-    q: "Sau khi xuất Master Prompt thì làm gì tiếp theo?",
-    a: "Bạn chỉ cần copy chuỗi Master Prompt, dán vào khung chat của Cursor hoặc Visual Studio và bảo AI: 'Hãy tạo dự án theo đúng bản thiết kế này!'."
+    q: "What should I do after generating the Master Prompt?",
+    a: "Copy the Master System Prompt, paste it into Cursor, Claude Code, or Copilot, and instruct the agent to scaffold and build your application."
   }
 ];
 
@@ -37,11 +37,11 @@ export const ContactPage: React.FC = () => {
       {/* Header */}
       <div className="text-center space-y-3">
         <div className="octa-card-sm inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-950 text-sm font-black">
-          <Mail className="w-4 h-4 text-orange-600" /> Hỗ Trợ & Góp Ý
+          <Mail className="w-4 h-4 text-orange-600" /> Support & Feedback
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black text-slate-950">Liên Hệ Với Đội Ngũ Phát Triển</h1>
+        <h1 className="text-3xl sm:text-5xl font-black text-slate-950">Contact the Development Team</h1>
         <p className="text-base sm:text-lg text-slate-700 max-w-xl mx-auto font-semibold">
-          Bạn có thắc mắc về quy trình Vibe Code hoặc muốn đóng góp ý tưởng phát triển tính năng mới? Hãy để lại tin nhắn!
+          Questions about vibe coding workflows or feature feedback? Leave us a message!
         </p>
       </div>
 
@@ -52,31 +52,31 @@ export const ContactPage: React.FC = () => {
           <div className="octa-card-lg bg-white/95 p-8 sm:p-10 space-y-6 border border-slate-200/80 shadow-md">
             <div className="flex items-center gap-2.5 text-slate-950 font-black text-xl">
               <MessageSquare className="w-6 h-6 text-orange-600" />
-              <span>Gửi Tin Nhắn Cho Chúng Tôi</span>
+              <span>Send Us a Message</span>
             </div>
 
             {isSent && (
               <div className="octa-card-sm p-4.5 bg-blue-100 text-blue-950 text-sm flex items-center gap-3 font-bold">
                 <CheckCircle2 className="w-5 h-5 text-orange-600 shrink-0" />
-                Cảm ơn bạn! Tin nhắn đã được gửi thành công. Chúng tôi sẽ phản hồi sớm nhất.
+                Thank you! Your message has been sent successfully. We will get back to you shortly.
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-2">
-                <label className="block text-base font-black text-slate-900">Họ và Tên</label>
+                <label className="block text-base font-black text-slate-900">Full Name</label>
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Nguyễn Văn A..."
+                  placeholder="Alex Smith..."
                   className="w-full px-5 py-3.5 bg-slate-100 text-base text-slate-950 placeholder:text-slate-400 font-bold rounded-lg border border-slate-200/80 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="block text-base font-black text-slate-900">Email Liên Hệ</label>
+                <label className="block text-base font-black text-slate-900">Contact Email</label>
                 <input
                   type="email"
                   required
@@ -88,13 +88,13 @@ export const ContactPage: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="block text-base font-black text-slate-900">Nội Dung Tin Nhắn</label>
+                <label className="block text-base font-black text-slate-900">Message Content</label>
                 <textarea
                   rows={4}
                   required
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Chia sẻ câu hỏi hoặc ý kiến đóng góp của bạn..."
+                  placeholder="Share your questions or feedback..."
                   className="w-full px-5 py-3.5 bg-slate-100 text-base text-slate-950 placeholder:text-slate-400 resize-none font-bold rounded-lg border border-slate-200/80 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all leading-relaxed"
                 />
               </div>
@@ -104,7 +104,7 @@ export const ContactPage: React.FC = () => {
                   type="submit"
                   className="octa-btn inline-flex items-center gap-2 px-8 py-4 bg-orange-600 hover:bg-orange-700 text-white font-black text-base transition-transform cursor-pointer hover:-translate-y-0.5"
                 >
-                  <Send className="w-5 h-5" /> Gửi Tin Nhắn Ngay
+                  <Send className="w-5 h-5" /> Send Message Now
                 </button>
               </div>
             </form>
@@ -115,14 +115,14 @@ export const ContactPage: React.FC = () => {
         <div className="md:col-span-5 space-y-7">
           <div className="floating-shadow">
             <div className="octa-card bg-white/95 p-7 sm:p-8 space-y-5 text-sm sm:text-base text-slate-700 border border-slate-200/80 shadow-md">
-              <h3 className="font-black text-slate-950 text-lg">Kênh Hỗ Trực Tiếp</h3>
+              <h3 className="font-black text-slate-950 text-lg">Direct Support Channels</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-3.5">
                   <div className="octa-card-sm w-11 h-11 bg-blue-100 flex items-center justify-center text-blue-800 shrink-0">
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="text-slate-500 text-xs font-bold">Email Hỗ Trợ</div>
+                    <div className="text-slate-500 text-xs font-bold">Support Email</div>
                     <div className="font-black text-slate-950 text-sm sm:text-base">support@beforevibecode.dev</div>
                   </div>
                 </div>
@@ -132,7 +132,7 @@ export const ContactPage: React.FC = () => {
                     <Github className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="text-slate-500 text-xs font-bold">Mã Nguồn Mở</div>
+                    <div className="text-slate-500 text-xs font-bold">Open Source Repository</div>
                     <div className="font-black text-slate-950 text-sm sm:text-base">github.com/Before-Vibe-Code</div>
                   </div>
                 </div>
@@ -142,8 +142,8 @@ export const ContactPage: React.FC = () => {
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="text-slate-500 text-xs font-bold">Trụ Sở</div>
-                    <div className="font-black text-slate-950 text-sm sm:text-base">Hà Nội & TP. Hồ Chí Minh, Việt Nam</div>
+                    <div className="text-slate-500 text-xs font-bold">Headquarters</div>
+                    <div className="font-black text-slate-950 text-sm sm:text-base">Hanoi & Ho Chi Minh City, Vietnam</div>
                   </div>
                 </div>
               </div>
@@ -154,7 +154,7 @@ export const ContactPage: React.FC = () => {
           <div className="floating-shadow">
             <div className="octa-card bg-white/95 p-7 sm:p-8 space-y-4 border border-slate-200/80 shadow-md">
               <h3 className="font-black text-slate-950 text-lg flex items-center gap-2">
-                <HelpCircle className="w-5 h-5 text-orange-600" /> Câu Hỏi Thường Gặp (FAQ)
+                <HelpCircle className="w-5 h-5 text-orange-600" /> Frequently Asked Questions (FAQ)
               </h3>
               <div className="space-y-4">
                 {FAQS.map((faq, i) => (

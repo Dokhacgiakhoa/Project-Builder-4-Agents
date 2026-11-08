@@ -4,11 +4,11 @@ namespace Before_Vibe_Coding.Dtos.Projects
 {
     public class CreateProjectDto
     {
-        [Required(ErrorMessage = "Tên dự án không được để trống")]
-        [MaxLength(150, ErrorMessage = "Tên dự án tối đa 150 ký tự")]
+        [Required(ErrorMessage = "Project name is required")]
+        [MaxLength(150, ErrorMessage = "Project name cannot exceed 150 characters")]
         public string Name { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Mô tả dự án không được để trống")]
+        [Required(ErrorMessage = "Project description is required")]
         public string Description { get; set; } = string.Empty;
     }
 }

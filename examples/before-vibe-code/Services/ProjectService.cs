@@ -65,7 +65,7 @@ namespace Before_Vibe_Coding.Services
             var project = await _projectRepository.GetProjectByIdAsync(projectId);
             if (project == null)
             {
-                throw new KeyNotFoundException($"Dự án với ID {projectId} không tồn tại.");
+                throw new KeyNotFoundException($"Project with ID {projectId} does not exist.");
             }
 
             var requirement = new Requirement

@@ -7,7 +7,7 @@ namespace Before_Vibe_Coding.Dtos.Requirements
     {
         public RequirementType Type { get; set; } = RequirementType.Functional;
 
-        [Required(ErrorMessage = "Tiêu đề yêu cầu không được để trống")]
+        [Required(ErrorMessage = "Requirement title is required")]
         public string Title { get; set; } = string.Empty;
 
         public string Description { get; set; } = string.Empty;

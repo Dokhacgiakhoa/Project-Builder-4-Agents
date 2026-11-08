@@ -20,61 +20,61 @@ export const SOLUTION_PACKS: SolutionPack[] = [
   {
     id: 'startup',
     icon: Rocket,
-    tag: 'Phổ biến nhất cho Startup',
-    title: 'Gói 1: Web Khởi Nghiệp & MVP Nhanh',
-    desc: 'Phù hợp làm nhanh sản phẩm để thử nghiệm thị trường, giao diện đẹp mắt, dễ vận hành.',
+    tag: 'Popular for Startups',
+    title: 'Package 1: Startup Web & Rapid MVP',
+    desc: 'Ideal for market validation, responsive web UI, and rapid feature turnaround.',
     backend: 'Node.js / Express.js (Lightweight REST API)',
     database: 'PostgreSQL + Prisma / Dapper / Hibernate',
     frontend: 'React 19 + TypeScript + Tailwind CSS (SPA Client)',
     nfrs: [
-      'Tốc độ phản hồi tức thì (< 250ms)',
-      'Giao diện tương thích mượt mà trên cả Điện thoại & Máy tính',
-      'Có tài liệu hướng dẫn chạy code từ A-Z'
+      'Instant response time (< 250ms)',
+      'Seamless cross-platform mobile and desktop layout',
+      'End-to-end setup and execution instructions'
     ]
   },
   {
     id: 'enterprise',
     icon: Building2,
-    tag: 'Chuẩn Doanh Nghiệp',
-    title: 'Gói 2: Hệ Thống Doanh Nghiệp Ổn Định',
-    desc: 'Phù hợp quản lý nội bộ, bán hàng, phòng khám, trường học cần bảo mật cao và bền bỉ.',
+    tag: 'Enterprise Standard',
+    title: 'Package 2: Resilient Enterprise System',
+    desc: 'Built for corporate portals, clinical records, and robust multi-tiered architectures.',
     backend: 'ASP.NET Core 10 Web API (Clean Architecture / Repository)',
     database: 'SQL Server + Entity Framework Core 10',
     frontend: 'React 19 + TypeScript + Tailwind CSS (SPA Client)',
     nfrs: [
-      'Bảo mật đăng nhập đa lớp & Mã hóa dữ liệu an toàn',
-      'Kiến trúc phân tầng chuẩn doanh nghiệp (Dễ bảo trì)',
-      'Tối ưu hóa cơ sở dữ liệu & Không lo mất mát thông tin'
+      'Multi-factor auth & secure data encryption at rest',
+      'Enterprise layered architecture (Maintainable & Clean)',
+      'Optimized transactions and resilient data backups'
     ]
   },
   {
     id: 'ai_data',
     icon: BrainCircuit,
-    tag: 'Công Nghệ AI & Dữ Liệu',
-    title: 'Gói 3: Nền Tảng AI & Tự Động Hóa',
-    desc: 'Phù hợp ứng dụng tích hợp Chatbot AI, phân tích số liệu, xử lý hình ảnh và tài liệu thông minh.',
+    tag: 'AI & Data Platforms',
+    title: 'Package 3: AI Automation Platform',
+    desc: 'Designed for AI chatbots, document processing pipelines, and data analytics.',
     backend: 'Python FastAPI (High Performance Async + Pydantic)',
     database: 'PostgreSQL + Prisma / Dapper / Hibernate',
     frontend: 'Next.js 15 (Fullstack SSR / App Router / RSC)',
     nfrs: [
-      'Tốc độ xử lý tính toán cực nhanh',
-      'Tích hợp sẵn cổng kết nối API trí tuệ nhân tạo',
-      'Có tài liệu hướng dẫn chạy code từ A-Z'
+      'Optimized high-throughput compute pipeline',
+      'Preconfigured integrations for major AI model APIs',
+      'End-to-end setup and execution instructions'
     ]
   },
   {
     id: 'mobile_first',
     icon: Smartphone,
-    tag: 'Đa Nền Tảng Di Động',
-    title: 'Gói 4: Ứng Dụng App Di Động & Web',
-    desc: 'Phù hợp ứng dụng muốn người dùng cài đặt lên cả điện thoại iOS, Android và dùng trên Web.',
+    tag: 'Cross-Platform Mobile',
+    title: 'Package 4: Cross-Platform Mobile & Web',
+    desc: 'Targeted for unified web and mobile deployment across iOS and Android.',
     backend: 'Node.js / NestJS (TypeScript + Enterprise Modular)',
     database: 'MongoDB + Mongoose (NoSQL Document Store)',
     frontend: 'Flutter (Dart Cross-Platform Mobile / Web)',
     nfrs: [
-      'Trải nghiệm mượt mà 60 FPS trên cả iPhone & Android',
-      'Bảo mật đăng nhập an toàn',
-      'Giao diện tương thích mượt mà trên cả Điện thoại & Máy tính'
+      'Smooth 60 FPS UX across iOS & Android devices',
+      'Secure token-based authentication',
+      'Seamless cross-platform mobile and desktop layout'
     ]
   }
 ];
@@ -83,37 +83,37 @@ export const QUALITY_STANDARDS = [
   {
     id: "std_sec",
     icon: ShieldCheck,
-    title: "Bảo mật tài khoản & Chống hack",
-    desc: "Mã hóa mật khẩu an toàn, chống người lạ xâm nhập trái phép vào hệ thống."
+    title: "Account Security & Hardening",
+    desc: "Secure hashing algorithms and protection against unauthorized account access."
   },
   {
     id: "std_speed",
     icon: Zap,
-    title: "Tốc độ tải trang cực nhanh",
-    desc: "Bấm là mở ngay tức thì, không bị đơ lag kể cả khi có nhiều người cùng truy cập."
+    title: "Sub-second Page Load Speed",
+    desc: "Instant rendering and asset caching even under concurrent user traffic."
   },
   {
     id: "std_mobile",
     icon: Globe,
-    title: "Hiển thị đẹp trên Điện thoại & PC",
-    desc: "Giao diện tự động co giãn vừa vặn trên mọi kích thước màn hình từ điện thoại đến laptop."
+    title: "Adaptive Responsive Layout",
+    desc: "Clean viewport adaptation from mobile phones to high-resolution widescreen monitors."
   },
   {
     id: "std_clean",
     icon: Sparkles,
-    title: "Code sạch đẹp, dễ mở rộng sau này",
-    desc: "Cấu trúc mã nguồn chuẩn mực, giúp bạn dễ dàng thuê dev hoặc bảo AI code thêm tính năng mới."
+    title: "Clean & Extensible Codebase",
+    desc: "Modular architecture allowing developers and AI agents to add features friction-free."
   },
   {
     id: "std_db",
     icon: Database,
-    title: "Tự động lưu & Bảo vệ dữ liệu",
-    desc: "Dữ liệu được lưu trữ an toàn, không bị mất mát khi người dùng vô tình tắt trình duyệt."
+    title: "Automated Persistence & Safety",
+    desc: "Guaranteed state persistence protecting work in progress against accidental loss."
   },
   {
     id: "std_readme",
     icon: FileText,
-    title: "Có sẵn hướng dẫn chạy code A-Z",
-    desc: "AI sẽ viết sẵn 1 file hướng dẫn chi tiết cách mở và chạy dự án lên màn hình."
+    title: "Complete Onboarding Guide",
+    desc: "Auto-generated step-by-step documentation for launching and testing the system."
   }
 ];

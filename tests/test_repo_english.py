@@ -36,7 +36,6 @@ ALLOWED_FILES = {
 # Translation still in progress (TASKS.md I3). This list must only ever shrink.
 PENDING_PREFIXES = (
     "knowledge-base/",
-    "examples/before-vibe-code/",
 )
 
 TEXT_SUFFIXES = {

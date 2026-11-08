@@ -15,16 +15,16 @@ interface Step3Props {
   onBack: () => void;
 }
 
-// Danh sách tính năng diễn đạt bằng ngôn ngữ đời thường cho người Non-Tech
+// List of common feature presets described in clear terms
 const COMMON_FEATURES = [
-  "Đăng nhập & Đăng ký (Hỗ trợ Google & Email)",
-  "Phân quyền Người Dùng & Trang Quản Trị (Admin)",
-  "Quản lý Thông Tin Cá Nhân & Hồ Sơ",
-  "Tìm Kiếm & Bộ Lọc Dữ Liệu Thông Minh",
-  "Thanh Toán Online (VNPay, MoMo, Thẻ Ngân Hàng)",
-  "Thông Báo Tức Thì (Chuông thông báo thời gian thực)",
-  "Tải Lên Hình Ảnh & Quản Lý Tệp Tin",
-  "Xuất Báo Cáo Dữ Liệu Ra File (Excel / PDF)"
+  "User Authentication (Google & Email Sign-in)",
+  "Role-Based Access Control & Admin Dashboard",
+  "User Profile & Account Settings",
+  "Smart Search & Multi-criteria Filtering",
+  "Payment Gateway Integration (Stripe, PayPal, Card)",
+  "Real-time Notifications & Alerts",
+  "File Upload & Asset Storage Management",
+  "Data Export & Reporting (Excel / PDF)"
 ];
 
 export const Step3Features: React.FC<Step3Props> = ({
@@ -71,18 +71,18 @@ export const Step3Features: React.FC<Step3Props> = ({
     <div className="space-y-6">
       <div>
         <div className="octa-card-sm inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-950 text-sm font-black mb-3">
-          <Layers className="w-4 h-4 text-orange-600" /> Bước 3 / 6: Tính Năng Cốt Lõi Dự Án
+          <Layers className="w-4 h-4 text-orange-600" /> Step 3 / 6: Core Features
         </div>
-        <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight">Hệ thống của bạn có những tính năng gì?</h2>
+        <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight">What features does your system need?</h2>
         <p className="text-slate-700 text-base mt-1 font-semibold">
-          Liệt kê những việc mà người dùng hoặc người quản lý có thể làm trên trang web/ứng dụng của bạn.
+          Specify the primary actions users and administrators can execute in the application.
         </p>
       </div>
 
-      {/* Quick Add Presets (Dễ hiểu cho Non-Tech) */}
+      {/* Quick Add Presets */}
       <div className="octa-card p-5 sm:p-6 bg-slate-50 space-y-3">
         <div className="flex items-center gap-2 text-sm font-black text-slate-900">
-          <Sparkles className="w-4.5 h-4.5 text-orange-600" /> Bấm để thêm nhanh các tính năng phổ biến:
+          <Sparkles className="w-4.5 h-4.5 text-orange-600" /> Click to add common feature presets:
         </div>
         <div className="flex flex-wrap gap-2.5">
           {COMMON_FEATURES.map((feat, i) => {
@@ -112,7 +112,7 @@ export const Step3Features: React.FC<Step3Props> = ({
           type="text"
           value={newTitle}
           onChange={(e) => setNewTitle(e.target.value)}
-          placeholder="Nhập tính năng bạn muốn (Ví dụ: Đặt bàn tiệc, Xem bản đồ phòng khám)..."
+          placeholder="Enter a feature name (e.g., Table reservation, Interactive clinic map)..."
           className="flex-1 px-5 py-3.5 bg-slate-100 text-base text-slate-950 placeholder:text-slate-400 font-bold rounded-lg focus:bg-white focus:shadow-md transition-all"
         />
         <select
@@ -120,27 +120,27 @@ export const Step3Features: React.FC<Step3Props> = ({
           onChange={(e) => setNewPriority(e.target.value)}
           className="octa-btn px-4 py-3.5 bg-slate-100 text-slate-950 text-sm font-black focus:outline-none cursor-pointer"
         >
-          <option value="High">Ưu tiên Cao (Cần trước)</option>
-          <option value="Medium">Trung bình</option>
-          <option value="Low">Làm sau</option>
+          <option value="High">High Priority (MVP)</option>
+          <option value="Medium">Medium Priority</option>
+          <option value="Low">Low Priority (Post-MVP)</option>
         </select>
         <button
           type="submit"
           disabled={!newTitle.trim()}
           className="octa-btn floating-shadow-orange px-7 py-3.5 bg-orange-600 hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-black text-sm sm:text-base flex items-center gap-2 transition-colors cursor-pointer"
         >
-          <Plus className="w-4.5 h-4.5" /> Thêm
+          <Plus className="w-4.5 h-4.5" /> Add
         </button>
       </form>
 
       {/* Feature List */}
       <div className="space-y-2.5">
         <label className="block text-sm font-black uppercase tracking-wider text-slate-700">
-          Danh sách tính năng đã chọn ({features.length}):
+          Selected Features ({features.length}):
         </label>
         {features.length === 0 ? (
           <div className="octa-card p-8 text-center text-slate-600 font-bold text-base bg-blue-50">
-            Chưa có tính năng nào. Hãy bấm vào các nút gợi ý phía trên hoặc tự nhập tính năng mong muốn!
+            No features selected yet. Click suggestions above or enter a custom requirement!
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-3 max-h-72 overflow-y-auto pr-1">
@@ -161,7 +161,7 @@ export const Step3Features: React.FC<Step3Props> = ({
                         ? 'bg-blue-100 text-blue-950'
                         : 'bg-orange-100 text-orange-950'
                     }`}>
-                      {feat.priority === 'High' ? 'Ưu Tiên Cao' : feat.priority === 'Low' ? 'Làm Sau' : 'Quan Trọng'}
+                      {feat.priority === 'High' ? 'High Priority' : feat.priority === 'Low' ? 'Low Priority' : 'Medium Priority'}
                     </span>
                     <button
                       type="button"
@@ -184,7 +184,7 @@ export const Step3Features: React.FC<Step3Props> = ({
           onClick={onBack}
           className="octa-btn inline-flex items-center gap-2 px-6 py-3 bg-blue-100 hover:bg-blue-200 text-blue-950 font-black text-base shadow-xs transition-all cursor-pointer"
         >
-          <ArrowLeft className="w-4.5 h-4.5" /> Quay lại
+          <ArrowLeft className="w-4.5 h-4.5" /> Back
         </button>
         <button
           type="button"
@@ -192,7 +192,7 @@ export const Step3Features: React.FC<Step3Props> = ({
           disabled={features.length === 0}
           className="octa-btn floating-shadow-blue inline-flex items-center gap-2 px-8 py-4 bg-blue-700 hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed text-white font-black text-base transition-all cursor-pointer hover:-translate-y-0.5"
         >
-          Tiếp tục: Chọn Nhu Cầu & Định Hướng
+          Continue: Architecture & Stack
           <ArrowRight className="w-5 h-5" />
         </button>
       </div>

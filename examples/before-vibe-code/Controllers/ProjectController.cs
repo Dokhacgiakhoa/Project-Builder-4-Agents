@@ -34,12 +34,12 @@ namespace Before_Vibe_Coding.Controllers
             var project = await _projectService.GetProjectByIdAsync(id);
             if (project == null)
             {
-                return NotFound(new { message = $"Không tìm thấy dự án với ID {id}" });
+                return NotFound(new { message = $"Project not found with ID {id}" });
             }
             return Ok(project);
         }
 
-        // POST: api/project (Bước 1: Khởi tạo ý tưởng)
+        // POST: api/project (Step 1: Initialize concept)
         [HttpPost]
         public async Task<ActionResult<ProjectDetailDto>> Create([FromBody] CreateProjectDto dto)
         {
@@ -52,7 +52,7 @@ namespace Before_Vibe_Coding.Controllers
             return CreatedAtAction(nameof(GetById), new { id = createdProject.Id }, createdProject);
         }
 
-        // PUT: api/project/{id}/audience (Bước 2: Chân dung đối tượng)
+        // PUT: api/project/{id}/audience (Step 2: Target audience)
         [HttpPut("{id}/audience")]
         public async Task<IActionResult> UpdateAudience(int id, [FromBody] UpdateAudienceDto dto)
         {
@@ -64,13 +64,13 @@ namespace Before_Vibe_Coding.Controllers
             var result = await _projectService.UpdateAudienceAsync(id, dto);
             if (!result)
             {
-                return NotFound(new { message = $"Không tìm thấy dự án với ID {id}" });
+                return NotFound(new { message = $"Project not found with ID {id}" });
             }
 
-            return Ok(new { message = "Cập nhật đối tượng người dùng thành công." });
+            return Ok(new { message = "Updated target audience successfully." });
         }
 
-        // POST: api/project/{id}/requirements (Bước 3 & 4: Thêm tính năng / yêu cầu)
+        // POST: api/project/{id}/requirements (Step 3 & 4: Add feature / requirement)
         [HttpPost("{id}/requirements")]
         public async Task<ActionResult<RequirementDto>> AddRequirement(int id, [FromBody] AddRequirementDto dto)
         {
@@ -97,10 +97,10 @@ namespace Before_Vibe_Coding.Controllers
             var result = await _projectService.DeleteProjectAsync(id);
             if (!result)
             {
-                return NotFound(new { message = $"Không tìm thấy dự án với ID {id}" });
+                return NotFound(new { message = $"Project not found with ID {id}" });
             }
 
-            return Ok(new { message = "Xóa dự án thành công." });
+            return Ok(new { message = "Project deleted successfully." });
         }
     }
 }

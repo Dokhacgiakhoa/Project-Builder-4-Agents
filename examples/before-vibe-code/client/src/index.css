@@ -20,7 +20,7 @@
   }
 }
 
-/* Elegant Chamfered / Octagonal Cards (Chỉ vát góc tinh tế trên các khối Card) */
+/* Elegant Chamfered / Octagonal Cards (Subtle corner chamfer) */
 .octa-card {
   clip-path: polygon(
     12px 0%,
@@ -60,7 +60,7 @@
   );
 }
 
-/* Modern Flat Chamfered Buttons (Không chém cụt chữ, sắc sảo) */
+/* Modern Flat Chamfered Buttons */
 .octa-btn {
   clip-path: polygon(
     6px 0%,
@@ -74,7 +74,7 @@
   );
 }
 
-/* Crisp 3D Floating Drop Shadows (Thay thế hoàn toàn cho Border) */
+/* Crisp 3D Floating Drop Shadows */
 .floating-shadow {
   filter: drop-shadow(0 14px 28px rgba(15, 23, 42, 0.14)) drop-shadow(0 4px 10px rgba(15, 23, 42, 0.08));
 }

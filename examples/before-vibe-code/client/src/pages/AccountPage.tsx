@@ -40,9 +40,9 @@ export const AccountPage: React.FC = () => {
   };
 
   const recentProjects = [
-    { name: 'ASP.NET Core 10 Clean Architecture', tech: 'C# / SQL Server / MediatR', date: 'Vừa xong', status: 'Hoàn Thành' },
-    { name: 'SaaS Multi-tenant Starter', tech: 'React 19 / Tailwind / EF Core', date: '2 giờ trước', status: 'Đang Chạy' },
-    { name: 'E-Commerce High Load Microservices', tech: 'Docker / Redis / PostgreSQL', date: 'Hôm qua', status: 'Hoàn Thành' },
+    { name: 'ASP.NET Core 10 Clean Architecture', tech: 'C# / SQL Server / MediatR', date: 'Just now', status: 'Completed' },
+    { name: 'SaaS Multi-tenant Starter', tech: 'React 19 / Tailwind / EF Core', date: '2 hours ago', status: 'Running' },
+    { name: 'E-Commerce High Load Microservices', tech: 'Docker / Redis / PostgreSQL', date: 'Yesterday', status: 'Completed' },
   ];
 
   return (
@@ -51,10 +51,10 @@ export const AccountPage: React.FC = () => {
       <div>
         <h1 className="text-3xl font-black text-slate-950 tracking-tight flex items-center gap-3">
           <Shield className="w-8 h-8 text-blue-600" />
-          <span>Hồ Sơ & Quản Trị Tài Khoản</span>
+          <span>Profile & Account Settings</span>
         </h1>
         <p className="text-slate-600 text-sm mt-1 font-semibold">
-          Quản lý thông tin định danh, tùy chọn giao diện và thiết lập bảo mật chuẩn mực .NET Identity.
+          Manage credentials, preferences, and enterprise .NET Identity security settings.
         </p>
       </div>
 
@@ -71,7 +71,7 @@ export const AccountPage: React.FC = () => {
                 />
                 <button
                   type="button"
-                  title="Đổi ảnh đại diện"
+                  title="Change avatar"
                   className="octa-card-sm absolute bottom-0 right-0 p-2 bg-blue-600 text-white shadow-md hover:bg-blue-700 transition-colors"
                 >
                   <Camera className="w-4 h-4" />
@@ -90,7 +90,7 @@ export const AccountPage: React.FC = () => {
               {/* Avatar Selector */}
               <div className="pt-2 border-t border-slate-100">
                 <label className="block text-xs font-black uppercase tracking-wider text-slate-700 mb-2">
-                  Chọn ảnh đại diện mẫu:
+                  Choose a preset avatar:
                 </label>
                 <div className="flex justify-center gap-2 flex-wrap">
                   {PRESET_AVATARS.map((avUrl, i) => (
@@ -112,7 +112,7 @@ export const AccountPage: React.FC = () => {
               <div className="grid grid-cols-2 gap-3 pt-2 text-left">
                 <div className="octa-card-sm p-3.5 bg-slate-50">
                   <div className="flex items-center gap-1.5 text-xs text-slate-500 font-bold">
-                    <Calendar className="w-3.5 h-3.5 text-blue-600" /> Ngày tham gia
+                    <Calendar className="w-3.5 h-3.5 text-blue-600" /> Joined Date
                   </div>
                   <div className="text-xs font-black text-slate-950 mt-1">05/11/2026</div>
                 </div>
@@ -120,7 +120,7 @@ export const AccountPage: React.FC = () => {
                   <div className="flex items-center gap-1.5 text-xs text-slate-500 font-bold">
                     <Sparkles className="w-3.5 h-3.5 text-orange-500" /> Master Prompts
                   </div>
-                  <div className="text-xs font-black text-slate-950 mt-1">12 Đã Tạo</div>
+                  <div className="text-xs font-black text-slate-950 mt-1">12 Created</div>
                 </div>
               </div>
 
@@ -129,7 +129,7 @@ export const AccountPage: React.FC = () => {
                 onClick={handleLogout}
                 className="octa-btn w-full py-3 bg-rose-50 hover:bg-rose-100 text-rose-700 font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-colors cursor-pointer"
               >
-                <LogOut className="w-4 h-4" /> Đăng Xuất Khỏi Thiết Bị
+                <LogOut className="w-4 h-4" /> Sign Out on This Device
               </button>
             </div>
           </div>
@@ -143,11 +143,11 @@ export const AccountPage: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 font-black text-slate-950 text-lg">
                   <Award className="w-5 h-5 text-blue-600" />
-                  <span>Cập Nhật Thông Tin Cá Nhân</span>
+                  <span>Edit Profile Information</span>
                 </div>
                 {isSaved && (
                   <div className="octa-card-sm px-3 py-1 bg-emerald-100 text-emerald-900 text-xs font-black flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4" /> Đã lưu thông tin!
+                    <CheckCircle2 className="w-4 h-4" /> Profile saved!
                   </div>
                 )}
               </div>
@@ -155,7 +155,7 @@ export const AccountPage: React.FC = () => {
               <form onSubmit={handleSaveProfile} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="block text-xs font-black text-slate-800">Họ và Tên</label>
+                    <label className="block text-xs font-black text-slate-800">Full Name</label>
                     <input
                       type="text"
                       required
@@ -166,7 +166,7 @@ export const AccountPage: React.FC = () => {
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="block text-xs font-black text-slate-800">Email (Định danh)</label>
+                    <label className="block text-xs font-black text-slate-800">Email Address</label>
                     <input
                       type="email"
                       disabled
@@ -177,7 +177,7 @@ export const AccountPage: React.FC = () => {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-black text-slate-800">Vai Trò / Định Hướng Kỹ Thuật</label>
+                  <label className="block text-xs font-black text-slate-800">Role / Technical Focus</label>
                   <select
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
@@ -195,7 +195,7 @@ export const AccountPage: React.FC = () => {
                     type="submit"
                     className="octa-btn inline-flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-sm transition-all cursor-pointer"
                   >
-                    <Save className="w-4 h-4" /> Lưu Thay Đổi
+                    <Save className="w-4 h-4" /> Save Changes
                   </button>
                 </div>
               </form>
@@ -215,10 +215,10 @@ export const AccountPage: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 font-black text-slate-950 text-lg">
                   <FileCode2 className="w-5 h-5 text-orange-500" />
-                  <span>Dự Án & Master Prompt Đã Tạo Gần Đây</span>
+                  <span>Recent Projects & Master Prompts</span>
                 </div>
                 <Link to="/studio" className="text-xs font-bold text-blue-600 hover:underline">
-                  + Tạo Mới
+                  + Create New
                 </Link>
               </div>
 

@@ -10,9 +10,9 @@ export const Navbar: React.FC = () => {
   const { user, isAuthenticated, logout } = useAuth();
 
   const navLinks = [
-    { path: '/', label: 'Trang Chủ', icon: Home },
+    { path: '/', label: 'Home', icon: Home },
     { path: '/studio', label: 'Setup Prompt', icon: Terminal },
-    { path: '/contact', label: 'Liên Hệ & FAQ', icon: MessageSquare },
+    { path: '/contact', label: 'Contact & FAQ', icon: MessageSquare },
   ];
 
   // Sliding Indicator State for smooth tab transition
@@ -48,7 +48,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <nav className="w-full bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-sm">
-      {/* 100% Full Width Container (Hoàn Toàn Không Viền) */}
+      {/* 100% Full Width Container (Border-free) */}
       <div className="w-full px-6 sm:px-10 lg:px-14">
         <div className="flex items-center justify-between h-20">
           {/* Brand Logo & Subtitle */}
@@ -61,7 +61,7 @@ export const Navbar: React.FC = () => {
                 <span className="font-black text-xl sm:text-2xl text-slate-900 tracking-tight whitespace-nowrap">Before Vibe Code</span>
                 <span className="octa-card-sm text-[11px] uppercase font-black tracking-wider px-2 py-0.5 bg-blue-50 text-blue-700 whitespace-nowrap">.NET 10 Core</span>
               </div>
-              <p className="text-xs text-slate-500 font-semibold whitespace-nowrap">Studio Kiến trúc & Master Prompt .NET</p>
+              <p className="text-xs text-slate-500 font-semibold whitespace-nowrap">.NET Architecture & Master Prompt Studio</p>
             </div>
           </Link>
 
@@ -104,10 +104,10 @@ export const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center gap-3 shrink-0">
             {isAuthenticated ? (
               <div className="flex items-center gap-2.5">
-                {/* Nút Username & Avatar dẫn đến Trang Tài Khoản */}
+                {/* Username & Avatar button linking to Account page */}
                 <Link
                   to="/account"
-                  title="Xem thông tin tài khoản"
+                  title="View account details"
                   className={`octa-card-sm flex items-center gap-2.5 px-3.5 py-1.5 text-sm font-bold transition-all cursor-pointer group ${
                     location.pathname === '/account'
                       ? 'bg-blue-600 text-white shadow-sm'
@@ -124,10 +124,10 @@ export const Navbar: React.FC = () => {
 
                 <button
                   onClick={handleLogout}
-                  title="Đăng xuất"
+                  title="Sign out"
                   className="octa-btn inline-flex items-center gap-1.5 px-4 py-2 bg-slate-100 hover:bg-rose-50 hover:text-rose-700 text-slate-700 text-sm font-bold transition-colors cursor-pointer"
                 >
-                  <LogOut className="w-4 h-4" /> Đăng Xuất
+                  <LogOut className="w-4 h-4" /> Sign Out
                 </button>
               </div>
             ) : (
@@ -135,7 +135,7 @@ export const Navbar: React.FC = () => {
                 to="/login"
                 className="octa-btn inline-flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold shadow-md shadow-blue-600/20 transition-all duration-200 hover:-translate-y-0.5"
               >
-                <LogIn className="w-4 h-4" /> Đăng Nhập
+                <LogIn className="w-4 h-4" /> Sign In
               </Link>
             )}
           </div>
@@ -188,7 +188,7 @@ export const Navbar: React.FC = () => {
                   onClick={() => { handleLogout(); setIsOpen(false); }}
                   className="octa-btn px-3 py-1.5 bg-rose-600 text-white text-xs font-bold inline-flex items-center gap-1"
                 >
-                  <LogOut className="w-3.5 h-3.5" /> Thoát
+                  <LogOut className="w-3.5 h-3.5" /> Sign Out
                 </button>
               </div>
             ) : (
@@ -197,7 +197,7 @@ export const Navbar: React.FC = () => {
                 onClick={() => setIsOpen(false)}
                 className="octa-btn flex items-center justify-center gap-2 w-full py-3 bg-blue-600 text-white text-sm font-bold shadow-md"
               >
-                <LogIn className="w-4 h-4" /> Đăng Nhập
+                <LogIn className="w-4 h-4" /> Sign In
               </Link>
             )}
           </div>

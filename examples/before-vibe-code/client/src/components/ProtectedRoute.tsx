@@ -11,13 +11,13 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const location = useLocation();
 
   if (!isAuthenticated) {
-    // Chuyển hướng người dùng về trang đăng nhập kèm trạng thái để sau khi đăng nhập có thể quay lại
+    // Redirect user to login with return state
     return (
       <Navigate
         to="/login"
         state={{
           from: location.pathname,
-          notice: 'Vui lòng đăng nhập để sử dụng tính năng Setup Prompt!'
+          notice: 'Please sign in to access Setup Prompt!'
         }}
         replace
       />

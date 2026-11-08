@@ -3,16 +3,24 @@ import { Sparkles, Terminal, CheckCircle2, Loader2 } from 'lucide-react';
 
 interface Step5Props {
   projectName: string;
+  description?: string;
+  targetAudience?: string;
+  features?: any[];
+  backendStack?: string;
+  databaseStack?: string;
+  frontendStack?: string;
+  nonFunctionalReqs?: string[];
   onComplete: () => void;
+  onBack?: () => void;
 }
 
 const ANALYSIS_LOGS = [
-  "Đang tải ngữ cảnh dự án và trích xuất Functional Requirements...",
-  "Khởi tạo cấu trúc Database Schema (Relational / NoSQL Entities)...",
-  "Thiết lập mối quan hệ giữa các Models, Foreign Keys và Transactions...",
-  "Xây dựng biểu đồ kiến trúc hệ thống bằng cú pháp Mermaid.js...",
-  "Tổng hợp Master System Prompt tối ưu cho AI Coding Agents (Cursor / Copilot / Claude)...",
-  "Hoàn tất đóng gói toàn bộ tài liệu (REQUIREMENTS.md, ARCHITECTURE.md, MASTER_PROMPT.md)!"
+  "Extracting functional requirements and scoping project domain...",
+  "Synthesizing relational schema and entity relationship graph...",
+  "Structuring foreign key constraints, indexes, and transactions...",
+  "Rendering system architecture diagram in Mermaid.js specification...",
+  "Assembling optimized Master System Prompt for AI Coding Agents...",
+  "Packaged all deliverables (REQUIREMENTS.md, ARCHITECTURE.md, MASTER_PROMPT.md)!"
 ];
 
 export const Step5AIAnalysis: React.FC<Step5Props> = ({ projectName, onComplete }) => {
@@ -53,10 +61,10 @@ export const Step5AIAnalysis: React.FC<Step5Props> = ({ projectName, onComplete 
 
       <div className="space-y-2">
         <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight">
-          AI đang phân tích kiến trúc cho <span className="text-blue-700">"{projectName}"</span>
+          AI is synthesizing architecture for <span className="text-blue-700">"{projectName}"</span>
         </h2>
         <p className="text-base text-slate-700 font-semibold">
-          Hệ thống đang chuẩn bị tài liệu kỹ thuật và Master Prompt hoàn chỉnh theo đúng bộ Tech Stack bạn đã chọn.
+          Assembling technical specifications and calibrated Master Prompt tailored to your chosen stack.
         </p>
       </div>
 
@@ -69,7 +77,7 @@ export const Step5AIAnalysis: React.FC<Step5Props> = ({ projectName, onComplete 
           />
         </div>
         <div className="flex justify-between text-sm font-black text-slate-700">
-          <span>Tiến trình hoàn tất</span>
+          <span>Analysis complete</span>
           <span className="text-blue-700 font-black">{Math.min(progress, 100)}%</span>
         </div>
       </div>

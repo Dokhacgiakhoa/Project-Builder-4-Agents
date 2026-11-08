@@ -51,7 +51,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
     } catch (e) {
-      console.error('Không thể lưu session vào localStorage:', e);
+      console.error('Failed to save session to localStorage:', e);
     }
   };
 
@@ -62,7 +62,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
       } catch (e) {
-        console.error('Lỗi khi lưu updated profile:', e);
+        console.error('Error saving updated profile:', e);
       }
       return updated;
     });
@@ -73,7 +73,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       localStorage.removeItem(STORAGE_KEY);
     } catch (e) {
-      console.error('Lỗi khi xóa session:', e);
+      console.error('Error removing session:', e);
     }
   };
 

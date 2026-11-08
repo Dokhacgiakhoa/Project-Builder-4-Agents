@@ -5,7 +5,7 @@ import { Sparkles, Heart, ChevronRight, Server, FileCode, CheckCircle2, Github, 
 export const Footer: React.FC = () => {
   return (
     <footer className="w-full bg-slate-900 text-slate-300 mt-auto relative z-10 shadow-2xl">
-      {/* 100% Full Width Container (Hoàn Toàn Không Viền) */}
+      {/* 100% Full Width Container (Border-free) */}
       <div className="w-full px-6 sm:px-10 lg:px-14 py-12 sm:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Col 1: Brand Info & Status (5 cols) */}
@@ -21,7 +21,7 @@ export const Footer: React.FC = () => {
             </div>
 
             <p className="text-sm text-slate-400 leading-relaxed font-normal max-w-md">
-              Nền tảng kiến trúc hỗ trợ chuẩn hóa yêu cầu (SRS), mô hình hóa Database EF Core và sinh Master System Prompt cho cộng đồng lập trình viên cùng AI.
+              Architectural platform standardizing requirements (SRS), modeling EF Core databases, and generating Master System Prompts for AI-assisted engineering.
             </p>
 
             {/* System Status Pill */}
@@ -34,13 +34,13 @@ export const Footer: React.FC = () => {
           {/* Col 2: Navigation Links (2 cols) */}
           <div className="lg:col-span-2 space-y-3.5">
             <h4 className="text-xs font-black uppercase tracking-wider text-slate-100">
-              Trang Chính
+              Navigation
             </h4>
             <ul className="space-y-2.5 text-sm text-slate-400 font-medium">
               <li>
                 <Link to="/" className="hover:text-blue-400 transition-colors flex items-center gap-1.5 group">
                   <ChevronRight className="w-3.5 h-3.5 text-slate-600 group-hover:text-blue-400 transition-colors" />
-                  <span>Trang Chủ</span>
+                  <span>Home</span>
                 </Link>
               </li>
               <li>
@@ -52,13 +52,13 @@ export const Footer: React.FC = () => {
               <li>
                 <Link to="/contact" className="hover:text-blue-400 transition-colors flex items-center gap-1.5 group">
                   <ChevronRight className="w-3.5 h-3.5 text-slate-600 group-hover:text-blue-400 transition-colors" />
-                  <span>Liên Hệ & FAQ</span>
+                  <span>Contact & FAQ</span>
                 </Link>
               </li>
               <li>
                 <Link to="/login" className="hover:text-blue-400 transition-colors flex items-center gap-1.5 group">
                   <ChevronRight className="w-3.5 h-3.5 text-slate-600 group-hover:text-blue-400 transition-colors" />
-                  <span>Đăng Nhập</span>
+                  <span>Sign In</span>
                 </Link>
               </li>
             </ul>
@@ -67,7 +67,7 @@ export const Footer: React.FC = () => {
           {/* Col 3: Tech & Support (2 cols) */}
           <div className="lg:col-span-2 space-y-3.5">
             <h4 className="text-xs font-black uppercase tracking-wider text-slate-100">
-              Tài Liệu .NET
+              .NET Documentation
             </h4>
             <ul className="space-y-2.5 text-sm text-slate-400 font-medium">
               <li>
@@ -79,13 +79,13 @@ export const Footer: React.FC = () => {
               <li>
                 <Link to="/contact" className="hover:text-blue-400 transition-colors flex items-center gap-1.5 group">
                   <FileCode className="w-3.5 h-3.5 text-orange-400" />
-                  <span>Hướng dẫn Vibe Code</span>
+                  <span>Vibe Coding Guide</span>
                 </Link>
               </li>
               <li>
                 <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors flex items-center gap-1.5 group">
                   <Github className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Mã Nguồn GitHub</span>
+                  <span>GitHub Source</span>
                 </a>
               </li>
             </ul>
@@ -96,7 +96,7 @@ export const Footer: React.FC = () => {
             <div className="octa-card p-5 bg-slate-800 space-y-2.5">
               <div className="flex items-center gap-2 text-white font-black text-sm">
                 <Cpu className="w-4 h-4 text-orange-400" />
-                <span>Kiến Trúc Đồ Án</span>
+                <span>Architecture Design</span>
               </div>
               <p className="text-xs text-slate-400 leading-relaxed font-normal">
                 ASP.NET Core (.NET 10) Web API + Entity Framework Core & SQL Server (Single Page Application React Client).

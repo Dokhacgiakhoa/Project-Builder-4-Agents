@@ -9,7 +9,7 @@
     "how_it_works": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/HOW_IT_WORKS.md",
     "llms_txt": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/llms.txt"
   },
-  "generated_at": "2026-11-08T11:18:24.468785+00:00",
+  "generated_at": "2026-11-08T14:36:50.651986+00:00",
   "total_files": 431,
   "files": {
     ".agents/skills/health-check/SKILL.md": {
@@ -755,7 +755,7 @@
     "examples/before-vibe-code/Controllers/ProjectController.cs": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Controllers/ProjectController.cs",
       "category": "other",
-      "size_bytes": 3648
+      "size_bytes": 3566
     },
     "examples/before-vibe-code/Data/ApplicationDbContext.cs": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Data/ApplicationDbContext.cs",
@@ -765,7 +765,7 @@
     "examples/before-vibe-code/Dtos/Projects/CreateProjectDto.cs": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Dtos/Projects/CreateProjectDto.cs",
       "category": "other",
-      "size_bytes": 521
+      "size_bytes": 491
     },
     "examples/before-vibe-code/Dtos/Projects/ProjectDetailDto.cs": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Dtos/Projects/ProjectDetailDto.cs",
@@ -775,12 +775,12 @@
     "examples/before-vibe-code/Dtos/Projects/UpdateAudienceDto.cs": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Dtos/Projects/UpdateAudienceDto.cs",
       "category": "other",
-      "size_bytes": 315
+      "size_bytes": 282
     },
     "examples/before-vibe-code/Dtos/Requirements/AddRequirementDto.cs": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Dtos/Requirements/AddRequirementDto.cs",
       "category": "other",
-      "size_bytes": 553
+      "size_bytes": 530
     },
     "examples/before-vibe-code/Migrations/20261106000000_InitialCreate.cs": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Migrations/20261106000000_InitialCreate.cs",
@@ -810,7 +810,7 @@
     "examples/before-vibe-code/Program.cs": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Program.cs",
       "category": "other",
-      "size_bytes": 2481
+      "size_bytes": 2429
     },
     "examples/before-vibe-code/Properties/launchSettings.json": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Properties/launchSettings.json",
@@ -840,7 +840,7 @@
     "examples/before-vibe-code/Services/ProjectService.cs": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/Services/ProjectService.cs",
       "category": "other",
-      "size_bytes": 5101
+      "size_bytes": 5095
     },
     "examples/before-vibe-code/appsettings.Development.json": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/appsettings.Development.json",
@@ -885,72 +885,72 @@
     "examples/before-vibe-code/client/src/components/Footer.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/components/Footer.tsx",
       "category": "other",
-      "size_bytes": 6627
+      "size_bytes": 6555
     },
     "examples/before-vibe-code/client/src/components/Navbar.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/components/Navbar.tsx",
       "category": "other",
-      "size_bytes": 9336
+      "size_bytes": 9279
     },
     "examples/before-vibe-code/client/src/components/ProtectedRoute.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/components/ProtectedRoute.tsx",
       "category": "other",
-      "size_bytes": 810
+      "size_bytes": 696
     },
     "examples/before-vibe-code/client/src/components/WizardHeader.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/components/WizardHeader.tsx",
       "category": "other",
-      "size_bytes": 2252
+      "size_bytes": 2238
     },
     "examples/before-vibe-code/client/src/components/steps/Step1ProjectInfo.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/components/steps/Step1ProjectInfo.tsx",
       "category": "other",
-      "size_bytes": 5358
+      "size_bytes": 5004
     },
     "examples/before-vibe-code/client/src/components/steps/Step2Audience.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/components/steps/Step2Audience.tsx",
       "category": "other",
-      "size_bytes": 5859
+      "size_bytes": 5513
     },
     "examples/before-vibe-code/client/src/components/steps/Step3Features.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/components/steps/Step3Features.tsx",
       "category": "other",
-      "size_bytes": 8577
+      "size_bytes": 8226
     },
     "examples/before-vibe-code/client/src/components/steps/Step4TechStack.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/components/steps/Step4TechStack.tsx",
       "category": "other",
-      "size_bytes": 13880
+      "size_bytes": 13659
     },
     "examples/before-vibe-code/client/src/components/steps/Step5AIAnalysis.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/components/steps/Step5AIAnalysis.tsx",
       "category": "other",
-      "size_bytes": 4042
+      "size_bytes": 4098
     },
     "examples/before-vibe-code/client/src/components/steps/Step6Export.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/components/steps/Step6Export.tsx",
       "category": "other",
-      "size_bytes": 11011
+      "size_bytes": 10381
     },
     "examples/before-vibe-code/client/src/components/steps/tech-stack-presets.ts": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/components/steps/tech-stack-presets.ts",
       "category": "other",
-      "size_bytes": 4666
+      "size_bytes": 4017
     },
     "examples/before-vibe-code/client/src/components/studio/StudioContextSummary.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/components/studio/StudioContextSummary.tsx",
       "category": "other",
-      "size_bytes": 7083
+      "size_bytes": 7008
     },
     "examples/before-vibe-code/client/src/context/AuthContext.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/context/AuthContext.tsx",
       "category": "other",
-      "size_bytes": 2782
+      "size_bytes": 2775
     },
     "examples/before-vibe-code/client/src/index.css": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/index.css",
       "category": "other",
-      "size_bytes": 2079
+      "size_bytes": 1976
     },
     "examples/before-vibe-code/client/src/main.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/main.tsx",
@@ -960,37 +960,37 @@
     "examples/before-vibe-code/client/src/pages/AccountPage.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/pages/AccountPage.tsx",
       "category": "other",
-      "size_bytes": 12306
+      "size_bytes": 12137
     },
     "examples/before-vibe-code/client/src/pages/ContactPage.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/pages/ContactPage.tsx",
       "category": "other",
-      "size_bytes": 9041
+      "size_bytes": 8660
     },
     "examples/before-vibe-code/client/src/pages/HomePage.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/pages/HomePage.tsx",
       "category": "other",
-      "size_bytes": 11081
+      "size_bytes": 10628
     },
     "examples/before-vibe-code/client/src/pages/LoginPage.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/pages/LoginPage.tsx",
       "category": "other",
-      "size_bytes": 8111
+      "size_bytes": 7949
     },
     "examples/before-vibe-code/client/src/pages/StudioPage.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/pages/StudioPage.tsx",
       "category": "other",
-      "size_bytes": 9952
+      "size_bytes": 9856
     },
     "examples/before-vibe-code/client/src/pages/account/SecuritySection.tsx": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/pages/account/SecuritySection.tsx",
       "category": "other",
-      "size_bytes": 15728
+      "size_bytes": 15465
     },
     "examples/before-vibe-code/client/src/services/api.ts": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/src/services/api.ts",
       "category": "other",
-      "size_bytes": 3632
+      "size_bytes": 3578
     },
     "examples/before-vibe-code/client/tailwind.config.js": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/tailwind.config.js",
@@ -1010,7 +1010,7 @@
     "examples/before-vibe-code/client/tsconfig.tsbuildinfo": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/tsconfig.tsbuildinfo",
       "category": "other",
-      "size_bytes": 657
+      "size_bytes": 797
     },
     "examples/before-vibe-code/client/vite.config.ts": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/client/vite.config.ts",
@@ -1027,15 +1027,15 @@
       "category": "other",
       "size_bytes": 242
     },
-    "examples/before-vibe-code/wwwroot/assets/index-DBkpOnLZ.css": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/wwwroot/assets/index-DBkpOnLZ.css",
+    "examples/before-vibe-code/wwwroot/assets/index-DMujvnee.js": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/wwwroot/assets/index-DMujvnee.js",
       "category": "other",
-      "size_bytes": 33472
+      "size_bytes": 485889
     },
-    "examples/before-vibe-code/wwwroot/assets/index-DamMNCcJ.js": {
-      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/wwwroot/assets/index-DamMNCcJ.js",
+    "examples/before-vibe-code/wwwroot/assets/index-DzU_gzSZ.css": {
+      "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/wwwroot/assets/index-DzU_gzSZ.css",
       "category": "other",
-      "size_bytes": 493304
+      "size_bytes": 33293
     },
     "examples/before-vibe-code/wwwroot/bg-blue-orange.jpg": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/wwwroot/bg-blue-orange.jpg",
@@ -1050,7 +1050,7 @@
     "examples/before-vibe-code/wwwroot/index.html": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/examples/before-vibe-code/wwwroot/index.html",
       "category": "other",
-      "size_bytes": 1172
+      "size_bytes": 1171
     },
     "knowledge-base/README_boilerplate.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/README_boilerplate.md",
@@ -2090,7 +2090,7 @@
     "tests/test_repo_english.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/tests/test_repo_english.py",
       "category": "other",
-      "size_bytes": 4931
+      "size_bytes": 4896
     },
     "tests/test_reviewer_server.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/tests/test_reviewer_server.py",

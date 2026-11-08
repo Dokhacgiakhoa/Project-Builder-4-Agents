@@ -31,10 +31,10 @@ export const StudioContextSummary: React.FC<StudioContextSummaryProps> = ({
           <div className="flex items-center justify-between pb-2">
             <div className="flex items-center gap-2 text-slate-950 font-black text-sm">
               <Sparkles className="w-4 h-4 text-orange-500" />
-              <span>Ngữ Cảnh Đã Chọn</span>
+              <span>Selected Context</span>
             </div>
             <span className="octa-card-sm text-[10px] uppercase font-black px-2.5 py-1 bg-blue-100 text-blue-950">
-              {currentStep > 1 ? `Bước 1-${currentStep - 1} OK` : 'Khởi tạo'}
+              {currentStep > 1 ? `Steps 1-${currentStep - 1} OK` : 'Initialize'}
             </span>
           </div>
 
@@ -44,13 +44,13 @@ export const StudioContextSummary: React.FC<StudioContextSummaryProps> = ({
           }`}>
             <div className="flex items-center justify-between text-xs font-black">
               <span className="flex items-center gap-1.5 text-blue-950">
-                <Rocket className="w-3.5 h-3.5 text-orange-600" /> 1. Ý Tưởng Dự Án
+                <Rocket className="w-3.5 h-3.5 text-orange-600" /> 1. Project Idea
               </span>
               {currentStep > 1 && (
                 <button
                   type="button"
                   onClick={() => onNavigateStep(1)}
-                  title="Sửa bước 1"
+                  title="Edit step 1"
                   className="text-blue-700 hover:text-blue-900 p-0.5 cursor-pointer"
                 >
                   <Edit3 className="w-3.5 h-3.5" />
@@ -58,7 +58,7 @@ export const StudioContextSummary: React.FC<StudioContextSummaryProps> = ({
               )}
             </div>
             <p className="text-xs font-bold truncate">
-              {projectName || (currentStep === 1 ? 'Đang nhập...' : 'Chưa đặt tên')}
+              {projectName || (currentStep === 1 ? 'Typing...' : 'Untitled')}
             </p>
           </div>
 
@@ -68,13 +68,13 @@ export const StudioContextSummary: React.FC<StudioContextSummaryProps> = ({
           }`}>
             <div className="flex items-center justify-between text-xs font-black">
               <span className="flex items-center gap-1.5 text-blue-950">
-                <Users className="w-3.5 h-3.5 text-blue-600" /> 2. Khách Hàng
+                <Users className="w-3.5 h-3.5 text-blue-600" /> 2. Audience
               </span>
               {currentStep > 2 && (
                 <button
                   type="button"
                   onClick={() => onNavigateStep(2)}
-                  title="Sửa bước 2"
+                  title="Edit step 2"
                   className="text-blue-700 hover:text-blue-900 p-0.5 cursor-pointer"
                 >
                   <Edit3 className="w-3.5 h-3.5" />
@@ -82,7 +82,7 @@ export const StudioContextSummary: React.FC<StudioContextSummaryProps> = ({
               )}
             </div>
             <p className="text-xs font-bold line-clamp-2">
-              {targetAudience || (currentStep === 2 ? 'Đang nhập...' : 'Chưa mô tả')}
+              {targetAudience || (currentStep === 2 ? 'Typing...' : 'Not specified')}
             </p>
           </div>
 
@@ -92,13 +92,13 @@ export const StudioContextSummary: React.FC<StudioContextSummaryProps> = ({
           }`}>
             <div className="flex items-center justify-between text-xs font-black">
               <span className="flex items-center gap-1.5 text-blue-950">
-                <Layers className="w-3.5 h-3.5 text-orange-600" /> 3. Tính Năng ({features.length})
+                <Layers className="w-3.5 h-3.5 text-orange-600" /> 3. Features ({features.length})
               </span>
               {currentStep > 3 && (
                 <button
                   type="button"
                   onClick={() => onNavigateStep(3)}
-                  title="Sửa bước 3"
+                  title="Edit step 3"
                   className="text-blue-700 hover:text-blue-900 p-0.5 cursor-pointer"
                 >
                   <Edit3 className="w-3.5 h-3.5" />
@@ -113,7 +113,7 @@ export const StudioContextSummary: React.FC<StudioContextSummaryProps> = ({
               ))}
               {features.length > 2 && (
                 <div className="text-[10px] text-blue-800 font-black">
-                  +{features.length - 2} tính năng khác...
+                  +{features.length - 2} more features...
                 </div>
               )}
             </div>
@@ -125,13 +125,13 @@ export const StudioContextSummary: React.FC<StudioContextSummaryProps> = ({
           }`}>
             <div className="flex items-center justify-between text-xs font-black">
               <span className="flex items-center gap-1.5 text-blue-950">
-                <Cpu className="w-3.5 h-3.5 text-blue-700" /> 4. Công Nghệ
+                <Cpu className="w-3.5 h-3.5 text-blue-700" /> 4. Tech Stack
               </span>
               {currentStep > 4 && (
                 <button
                   type="button"
                   onClick={() => onNavigateStep(4)}
-                  title="Sửa bước 4"
+                  title="Edit step 4"
                   className="text-blue-700 hover:text-blue-900 p-0.5 cursor-pointer"
                 >
                   <Edit3 className="w-3.5 h-3.5" />
@@ -149,7 +149,7 @@ export const StudioContextSummary: React.FC<StudioContextSummaryProps> = ({
           {nonFunctionalReqs.length > 0 && currentStep > 4 && (
             <div className="space-y-1.5 p-3.5 octa-card-sm bg-blue-100/70 text-slate-950">
               <div className="flex items-center gap-1.5 text-xs font-black text-blue-950">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> Tiêu Chuẩn ({nonFunctionalReqs.length})
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> Standards ({nonFunctionalReqs.length})
               </div>
               <div className="text-[11px] font-bold space-y-0.5 text-slate-800">
                 {nonFunctionalReqs.slice(0, 2).map((req, idx) => (

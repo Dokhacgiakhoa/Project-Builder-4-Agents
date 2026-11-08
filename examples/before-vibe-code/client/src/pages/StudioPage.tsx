@@ -11,12 +11,12 @@ import { api } from '../services/api';
 import gsap from 'gsap';
 
 const STEP_TITLES = [
-  'Ý tưởng',
-  'Khách hàng',
-  'Tính năng',
-  'Định hướng',
-  'AI Xử lý',
-  'Xuất Prompt'
+  'Idea',
+  'Audience',
+  'Features',
+  'Architecture',
+  'AI Analysis',
+  'Export Prompt'
 ];
 
 const DRAFT_STORAGE_KEY = 'bvc_studio_draft_session';
@@ -63,8 +63,8 @@ export const StudioPage: React.FC = () => {
       // ignore
     }
     return [
-      { title: 'Đăng nhập & Đăng ký tài khoản (Google & Email)', description: '', priority: 'High' },
-      { title: 'Quản lý thông tin & Hồ sơ cá nhân', description: '', priority: 'Medium' }
+      { title: 'User Authentication (Google & Email Sign-in)', description: '', priority: 'High' },
+      { title: 'User Profile & Account Management', description: '', priority: 'Medium' }
     ];
   });
 
@@ -96,10 +96,10 @@ export const StudioPage: React.FC = () => {
   });
 
   const [nonFunctionalReqs, setNonFunctionalReqs] = useState<string[]>([
-    'Bảo mật tài khoản & Chống hack',
-    'Tốc độ tải trang cực nhanh (< 250ms)',
-    'Hiển thị đẹp trên Điện thoại & PC',
-    'Code sạch đẹp, dễ mở rộng sau này'
+    'Account Security & Hardening',
+    'Sub-second Page Load Speed (< 250ms)',
+    'Adaptive Responsive Layout (Mobile & PC)',
+    'Clean & Extensible Codebase'
   ]);
 
   useEffect(() => {
@@ -135,8 +135,8 @@ export const StudioPage: React.FC = () => {
   const handleStep5Complete = async () => {
     try {
       const project = await api.createProject({
-        name: projectName || 'Dự Án Mới',
-        description: description || 'Mô tả dự án'
+        name: projectName || 'New Project',
+        description: description || 'Project Description'
       });
       if (project?.id) {
         setProjectId(project.id);
@@ -151,7 +151,7 @@ export const StudioPage: React.FC = () => {
         }
       }
     } catch (e) {
-      console.warn('Lưu database nền hoàn tất:', e);
+      console.warn('Background database persistence complete:', e);
     }
     setCurrentStep(6);
   };
@@ -167,8 +167,8 @@ export const StudioPage: React.FC = () => {
     setTargetAudience('');
     setProjectId(null);
     setFeatures([
-      { title: 'Đăng nhập & Đăng ký tài khoản (Google & Email)', description: '', priority: 'High' },
-      { title: 'Quản lý thông tin & Hồ sơ cá nhân', description: '', priority: 'Medium' }
+      { title: 'User Authentication (Google & Email Sign-in)', description: '', priority: 'High' },
+      { title: 'User Profile & Account Management', description: '', priority: 'Medium' }
     ]);
     setCurrentStep(1);
   };

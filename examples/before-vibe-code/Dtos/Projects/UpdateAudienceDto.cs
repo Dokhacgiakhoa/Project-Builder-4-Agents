@@ -4,7 +4,7 @@ namespace Before_Vibe_Coding.Dtos.Projects
 {
     public class UpdateAudienceDto
     {
-        [Required(ErrorMessage = "Đối tượng người dùng không được để trống")]
+        [Required(ErrorMessage = "Target audience is required")]
         public string TargetAudience { get; set; } = string.Empty;
     }
 }
