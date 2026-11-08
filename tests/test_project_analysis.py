@@ -79,7 +79,7 @@ def test_layer_violation_is_reported_as_high(tmp_path):
     m = model_of(tmp_path)
     ins = build_insights(m, pack())
     layer = [b for b in ins["bottlenecks"] if b["key"] == "layer"]
-    assert layer and layer[0]["severity"] == "Cao"
+    assert layer and layer[0]["severity"] == "High"
     assert any("domain" in e for e in layer[0]["evidence"])
 
 
@@ -88,7 +88,7 @@ def test_missing_tests_on_real_code_is_high(tmp_path):
         write(tmp_path, f"core/m{i}.py", "v = 1\n" * 100)
     ins = build_insights(model_of(tmp_path), pack())
     t = [b for b in ins["bottlenecks"] if b["key"] == "tests"]
-    assert t and t[0]["severity"] == "Cao"
+    assert t and t[0]["severity"] == "High"
 
 
 def test_docs_only_repo_has_no_architecture_profile(tmp_path):
@@ -111,7 +111,7 @@ def test_report_contains_analysis_section(tmp_path):
     a = ProjectAuditor(tmp_path)
     a.run()
     text = a.report_path.read_text(encoding="utf-8")
-    assert "## 1.1 Phân tích dự án" in text and "Python" in text
+    assert "## 1.1 Project analysis" in text and "Python" in text
     data = a.serialize_report_data()
     assert data["analysis"]["languages"] and data["insights"]["summary"]
 
@@ -154,7 +154,7 @@ def test_update_pack_offline_does_not_raise(tmp_path, monkeypatch):
         raise OSError("no network")
     monkeypatch.setattr(knowledge.urllib.request, "urlopen", boom)
     r = knowledge.update_pack(cache_file=tmp_path / "pack.json")
-    assert r["ok"] is False and "hiện có" in r["message"]
+    assert r["ok"] is False and "existing" in r["message"]
     assert not (tmp_path / "pack.json").exists()
 
 

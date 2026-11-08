@@ -3,39 +3,39 @@
 # Thư mục không bao giờ nên đọc: sinh ra tự động hoặc là bản sao thư viện (tốn token, không có giá trị review).
 # Giá trị là lý do ngắn, được in vào mục "Phạm vi quét" của project-review.md.
 SKIP_REASONS = {
-    'node_modules': 'thư viện cài tự động (npm/yarn/pnpm)',
-    '.git': 'dữ liệu nội bộ của git',
-    'dist': 'kết quả build',
-    'build': 'kết quả build',
-    'bin': 'kết quả build/nhị phân',
-    'obj': 'kết quả build (.NET)',
-    '.vscode': 'cấu hình trình soạn thảo',
-    '.idea': 'cấu hình trình soạn thảo',
+    'node_modules': 'auto-installed libraries (npm/yarn/pnpm)',
+    '.git': 'git internal data',
+    'dist': 'build output',
+    'build': 'build output',
+    'bin': 'build output/binaries',
+    'obj': 'build output (.NET)',
+    '.vscode': 'editor configuration',
+    '.idea': 'editor configuration',
     '__pycache__': 'bytecode Python',
     '.next': 'cache build Next.js',
-    'coverage': 'báo cáo độ phủ test',
-    'vendor': 'thư viện bên thứ ba chép vào repo',
-    'target': 'kết quả build (Rust/Java)',
+    'coverage': 'test coverage reports',
+    'vendor': 'third-party libraries copied into the repo',
+    'target': 'build output (Rust/Java)',
     '.turbo': 'cache build',
     '.cache': 'cache',
-    '.venv': 'môi trường ảo Python',
-    'venv': 'môi trường ảo Python',
-    '.tox': 'môi trường test Python',
-    '.mypy_cache': 'cache kiểm tra kiểu',
+    '.venv': 'Python virtual environment',
+    'venv': 'Python virtual environment',
+    '.tox': 'Python test environment',
+    '.mypy_cache': 'type-check cache',
     '.pytest_cache': 'cache test',
     '.gradle': 'cache build Gradle',
-    'site-packages': 'thư viện Python cài tự động',
+    'site-packages': 'auto-installed Python libraries',
     # Vùng mã mẫu: không phải mã của chính dự án, nếu quét sẽ làm sai hồ sơ (vd. bật nhầm Frontend)
-    'examples': 'mã ví dụ minh họa, không phải mã của dự án',
-    'example': 'mã ví dụ minh họa, không phải mã của dự án',
-    'fixtures': 'dữ liệu/mã mẫu cho test',
-    'samples': 'mã mẫu, không phải mã của dự án',
+    'examples': "illustrative example code, not the project's code",
+    'example': "illustrative example code, not the project's code",
+    'fixtures': 'sample data/code for tests',
+    'samples': "sample code, not the project's code",
 }
 
 # Thư mục mẫu theo đường dẫn tương đối (posix, so khớp từng đoạn bằng fnmatch).
 SKIP_REL_PATTERNS = {
-    'profiles/*/starter': 'mã khởi tạo mẫu của profile',
-    'core/templates': 'mẫu tài liệu cấp cho dự án khác',
+    'profiles/*/starter': 'profile starter code',
+    'core/templates': 'documentation templates issued for other projects',
 }
 
 # SAFETY_IGNORE_DIRS: Thư mục thực sự bị bỏ qua khi quét an toàn prompt injection (tách riêng khỏi indexer).

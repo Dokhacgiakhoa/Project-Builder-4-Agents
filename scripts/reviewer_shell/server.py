@@ -32,7 +32,7 @@ if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     STATIC_DIR = Path(sys._MEIPASS) / "reviewer_shell" / "static"
 else:
     STATIC_DIR = Path(__file__).resolve().parent / "static"
-CURRENT_VERSION = "0.1.0"  # must equal the GitHub release tag (v0.1.0); bump together
+CURRENT_VERSION = "0.2.0"  # must equal the GitHub release tag (v0.1.0); bump together
 
 SHUTDOWN_EVENT = threading.Event()
 _LAST_HEARTBEAT = time.time()
@@ -335,14 +335,14 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
         try:
             length = int(self.headers.get("Content-Length", 0))
             if length > MAX_BODY_BYTES:
-                logger.warning("Request body quá lớn: %s bytes", length)
+                logger.warning("Request body too large: %s bytes", length)
                 return {}
             if length > 0:
                 raw = self.rfile.read(length).decode("utf-8")
                 data = json.loads(raw)
                 return data if isinstance(data, dict) else {}
         except Exception as e:
-            logger.warning("Không đọc được JSON body: %s", e)
+            logger.warning("Could not read the JSON body: %s", e)
         return {}
 
     def _send_json(self, data: dict, status: int = 200):
@@ -406,13 +406,13 @@ class ReviewerAPIHandler(SimpleHTTPRequestHandler):
                 "03_frontend": _cat("frontend", "Frontend & UI/UX", 20),
                 "04_database": _cat("database", "Database & Query Safety", 15),
                 "05_anticrash": _cat("anticrash", "Runtime Anti-Crash", 20),
-                "06_contracts": _cat("contracts", "Hồ Sơ Kiến Trúc & Hợp Đồng API", 10),
-                "07_agent_ecosystem": _cat("agent_ecosystem", "Hệ Sinh Thái AI Agent", 15),
-                "08_security": _cat("security", "Bảo Mật & Chuỗi Cung Ứng", 15),
-                "09_cloud": _cat("cloud", "Hạ Tầng Cloud & DevOps", 15),
-                "10_microservices": _cat("microservices", "Hệ Thống Phân Tán & Gateway", 15),
-                "11_data_caching": _cat("data_caching", "Kỹ Thuật Dữ Liệu & Cache", 15),
-                "12_observability": _cat("observability", "Giám Sát & Vận Hành", 15),
+                "06_contracts": _cat("contracts", "Architecture Records & API Contracts", 10),
+                "07_agent_ecosystem": _cat("agent_ecosystem", "AI Agent Ecosystem", 15),
+                "08_security": _cat("security", "Security & Supply Chain", 15),
+                "09_cloud": _cat("cloud", "Cloud Infrastructure & DevOps", 15),
+                "10_microservices": _cat("microservices", "Distributed Systems & Gateway", 15),
+                "11_data_caching": _cat("data_caching", "Data Engineering & Cache", 15),
+                "12_observability": _cat("observability", "Monitoring & Operations", 15),
             }
 
             result = {

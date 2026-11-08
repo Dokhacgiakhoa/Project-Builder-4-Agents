@@ -59,33 +59,33 @@ class AppPillarsMixin:
         if has_domain and (has_app or has_infra):
             score += 30
             found.append(CriterionItem(
-                f"Cấu trúc phân tầng chuẩn mực theo {self.profile.get('arch_style')}",
+                f"Standard layered structure following {self.profile.get('arch_style')}",
                 evidence=", ".join(matched_dirs[:4]),
-                details=f"Đã xác minh cấu trúc phân tầng với các tầng chức năng rõ rệt: {', '.join(matched_dirs[:4])}.",
+                details=f"Verified a layered structure with distinct functional layers: {', '.join(matched_dirs[:4])}.",
                 badge="Layered Arch"
             ))
         elif has_features:
             score += 30
             found.append(CriterionItem(
-                "Cấu trúc module độc lập theo FEATURE-DRIVEN ARCHITECTURE",
+                'Independent module structure following FEATURE-DRIVEN ARCHITECTURE',
                 evidence=", ".join(matched_dirs[:4]),
-                details="Đã xác minh tổ chức mã nguồn theo từng Feature/Module độc lập cô lập.",
+                details='Verified independent isolated Feature/Module code organization.',
                 badge="Feature-Driven"
             ))
         elif has_pres or has_app:
             score += 20
             found.append(CriterionItem(
-                "Phân tách cơ bản giữa tầng PRESENTATION và BUSINESS LOGIC",
+                'Basic separation between PRESENTATION and BUSINESS LOGIC layers',
                 evidence=", ".join(matched_dirs[:4]),
-                details="Đã xác minh phân định giữa tầng hiển thị/API và tầng xử lý nghiệp vụ.",
+                details='Verified separation between presentation/API and business logic layers.',
                 badge="Separated Logic"
             ))
         else:
             missing.append(CriterionItem(
-                "Phân định ranh giới rõ ràng giữa DOMAIN, APPLICATION và INFRASTRUCTURE",
-                evidence="Cấu trúc thư mục",
-                details="Toàn bộ mã nguồn nằm lẫn lộn trong cùng thư mục hoặc thiếu phân tầng rõ rệt giữa nghiệp vụ cốt lõi và hạ tầng.",
-                remediation="Tổ chức lại thư mục theo chuẩn phân tầng (domain/core, services, controllers/routes)."
+                'Clear separation of DOMAIN, APPLICATION and INFRASTRUCTURE boundaries',
+                evidence='Directory Structure',
+                details='Source files mixed in same directories or lacking clear layering between core business and infrastructure.',
+                remediation='Reorganize folders by architectural layers (domain/core, services, controllers/routes).'
             ))
 
         # Quét Dependency Injection (DI) & DTO Input Validation
@@ -132,21 +132,21 @@ class AppPillarsMixin:
                 if is_controller:
                     for pat in _SQL_CONTROLLER_PATTERNS:
                         if pat.search(text):
-                            layer_leaks.append(f"Rò rỉ kiến trúc: CONTROLLER `{rel}` truy vấn SQL trực tiếp thay vì qua REPOSITORY.")
+                            layer_leaks.append(f"Architecture leak: CONTROLLER `{rel}` queries SQL directly instead of going through a REPOSITORY.")
                             break
 
                 if is_domain:
                     if _DOMAIN_LEAK_PATTERN.search(text):
-                        layer_leaks.append(f"DOMAIN LEAK: Tệp `{rel}` trong DOMAIN bị phụ thuộc vào FRAMEWORK hạ tầng.")
+                        layer_leaks.append(f"DOMAIN LEAK: File `{rel}` in the DOMAIN depends on an infrastructure FRAMEWORK.")
             except Exception:
                 pass
 
         if not layer_leaks:
             score += 25
             found.append(CriterionItem(
-                "Độ thuần khiết của DOMAIN và ranh giới CONTROLLER được bảo vệ hoàn hảo (0 LAYER LEAKS)",
-                evidence=f"Đã quét {len(self.tree.code_files)} tệp mã nguồn",
-                details="Không phát hiện bất kỳ controller nào gọi truy vấn SQL trực tiếp hoặc domain bị dính framework.",
+                'DOMAIN purity and CONTROLLER boundaries protected (0 Layer Leaks)',
+                evidence=f"Scanned {len(self.tree.code_files)} source files",
+                details='No controllers execute direct SQL queries or bind domain to frameworks.',
                 badge="0 Leaks"
             ))
         else:
@@ -154,44 +154,44 @@ class AppPillarsMixin:
                 self.violations.append({'file': 'ARCHITECTURE BOUNDARY', 'line': 0, 'type': 'LAYER LEAKAGE', 'desc': leak, 'snippet': ''})
             score = max(10, score - 15)
             missing.append(CriterionItem(
-                f"Cảnh báo LAYER LEAK: Phát hiện {len(layer_leaks)} điểm vi phạm ranh giới phân tầng",
+                f"LAYER LEAK warning: Detected {len(layer_leaks)} layer boundary violations",
                 evidence=layer_leaks[0],
-                details="Controller truy vấn SQL trực tiếp hoặc Domain model import framework bên ngoài thay vì qua Repository.",
-                remediation="Trích xuất các truy vấn DB vào tầng Repository/DAL và inject vào Controller thông qua Interface/Service."
+                details='Controllers query SQL directly or Domain models import external frameworks instead of going through a Repository.',
+                remediation='Extract DB queries into the Repository/DAL layer and inject them into Controllers through an Interface/Service.'
             ))
 
         if has_di:
             score += 15
             found.append(CriterionItem(
-                "Áp dụng DEPENDENCY INJECTION (DI) tiêm phụ thuộc tường minh",
-                evidence=di_found_file or "Mã nguồn backend",
+                'Explicit DEPENDENCY INJECTION (DI) applied',
+                evidence=di_found_file or 'Backend source code',
                 snippet=di_found_snippet or "Dependency Injection",
-                details="Đã phát hiện áp dụng kỹ thuật tiêm phụ thuộc (DI / IoC) giúp mã nguồn module hóa và dễ viết Unit Test.",
+                details='Detected Dependency Injection (DI/IoC) usage for modularity and testability.',
                 badge="DI Pattern"
             ))
         else:
             missing.append(CriterionItem(
-                "Mô hình tiêm phụ thuộc DEPENDENCY INJECTION (DI) để hỗ trợ Unit Testing",
+                'Dependency Injection (DI) pattern supporting Unit Testing',
                 evidence="Controllers / Services",
-                details="Chưa thấy sử dụng Dependency Injection (constructor injection, Depends, @Injectable), các service khởi tạo phụ thuộc cứng bằng `new`.",
-                remediation="Áp dụng Inversion of Control / DI thông qua constructor injection hoặc container của framework."
+                details='No Dependency Injection found (constructor injection, Depends, @Injectable); services create their dependencies directly with `new`.',
+                remediation='Apply Inversion of Control / DI through constructor injection or the framework container.'
             ))
 
         if has_dto_validation:
             score += 15
             found.append(CriterionItem(
-                "Xác thực dữ liệu đầu vào DTO tự động (ZOD / PYDANTIC / CLASS-VALIDATOR)",
+                'Automated DTO input validation (Zod / Pydantic / Class-Validator)',
                 evidence=dto_found_file or "Schemas / DTOs",
                 snippet=dto_found_snippet or "DTO Schema Validation",
-                details="Đã phát hiện thư viện xác thực DTO tự động bảo vệ dữ liệu đầu vào trước khi vào tầng xử lý.",
+                details='Detected an automatic DTO validation library protecting input data before it reaches the processing layer.',
                 badge="DTO Validation"
             ))
         else:
             missing.append(CriterionItem(
-                "Xác thực tự động cho dữ liệu DTO đầu vào (Zod, Pydantic hoặc Schema Validator)",
+                'Automated input DTO validation (Zod, Pydantic, or Schema Validator)',
                 evidence="Request Handlers",
-                details="Thiếu thư viện xác thực schema dữ liệu đầu vào tự động (Zod, Pydantic, class-validator) tại các endpoint.",
-                remediation="Định nghĩa DTO schema (vd. Pydantic BaseModel hoặc Zod object) và validate tại tầng Controller/Handler."
+                details='Missing an automatic input-schema validation library (Zod, Pydantic, class-validator) at the endpoints.',
+                remediation='Define DTO schemas (e.g. a Pydantic BaseModel or a Zod object) and validate in the Controller/Handler layer.'
             ))
 
         # Graceful Shutdown
@@ -208,18 +208,18 @@ class AppPillarsMixin:
                     if 'SIGTERM' in text or 'SIGINT' in text or 'graceful' in text.lower():
                         score += 15
                         found.append(CriterionItem(
-                            "Cơ chế giải phóng tài nguyên an toàn khi tắt SERVER (GRACEFUL SHUTDOWN)",
+                            'Safe resource cleanup on shutdown (Graceful Shutdown)',
                             evidence=f"{rel_ef}",
                             snippet="process.on('SIGTERM') / signal handler",
-                            details="Đã phát hiện bộ lắng nghe tín hiệu SIGTERM / SIGINT để đóng kết nối database và HTTP server an toàn.",
+                            details='Detected SIGTERM / SIGINT signal listeners that close database connections and the HTTP server safely.',
                             badge="Graceful Exit"
                         ))
                     else:
                         missing.append(CriterionItem(
-                            "Cơ chế giải phóng kết nối và tài nguyên khi tắt SERVER (GRACEFUL SHUTDOWN)",
+                            'Graceful resource release and cleanup on SERVER shutdown (GRACEFUL SHUTDOWN)',
                             evidence=f"{rel_ef}",
-                            details="Chưa có cơ chế xử lý tín hiệu SIGTERM/SIGINT để giải phóng kết nối DB và dừng server mà không làm rớt request đang dở dang.",
-                            remediation="Bổ sung hàm lắng nghe SIGTERM/SIGINT đóng gracefully các pool kết nối cơ sở dữ liệu và server."
+                            details='Lacks SIGTERM/SIGINT signal handling to release DB connections and stop server without dropping in-flight requests.',
+                            remediation='Add SIGTERM/SIGINT signal listeners to gracefully close database connection pools and server instances.'
                         ))
                 except Exception:
                     pass
@@ -228,7 +228,7 @@ class AppPillarsMixin:
                 break
 
         score = min(100, score)
-        self.scores['Kiến Trúc BACKEND & Luồng Dữ Liệu CORE'] = score
+        self.scores['BACKEND Architecture & CORE Data Flow'] = score
         self.add_log(f"  -> Layered architecture: Domain={has_domain}, App={has_app}, Infra={has_infra}, Pres={has_pres}.", "backend", "muted")
         self.details['backend'] = {
             'name': 'Backend & Core Flow',
@@ -265,17 +265,17 @@ class AppPillarsMixin:
             score += 30
             token_ev = "tailwind.config.js" if tailwind_cfg else (css_path_found or "theme.ts / tokens")
             found.append(CriterionItem(
-                "Hệ thống DESIGN TOKENS độc quyền (CUSTOM TAILWIND CONFIG / CSS VARIABLES / THEME TOKENS)",
+                'Design tokens system (Custom Tailwind config / CSS variables / Theme tokens)',
                 evidence=token_ev,
-                details=f"Đã phát hiện hệ thống quản lý giao diện tập trung qua {token_ev}.",
+                details=f"Detected a centralized UI management system via {token_ev}.",
                 badge="Design Tokens"
             ))
         else:
             missing.append(CriterionItem(
-                "Hệ thống quản lý biến thiết kế giao diện tập trung (DESIGN TOKENS / THEME VARIABLES)",
+                'Centralized design tokens and theme variables system',
                 evidence="CSS / Styling",
-                details="Chưa phát hiện tệp cấu hình design tokens tập trung (như Tailwind colors/spacing hoặc CSS Variables :root).",
-                remediation="Tạo tệp tailwind.config.js tùy biến hoặc định nghĩa bảng biến màu sắc/khoảng cách :root trong CSS."
+                details='No centralized design-token configuration found (such as Tailwind colors/spacing or CSS :root variables).',
+                remediation='Create a custom tailwind.config.js or define a :root color/spacing variable table in CSS.'
             ))
 
         # 2. API Client bọc tập trung
@@ -296,17 +296,17 @@ class AppPillarsMixin:
         if has_api_client:
             score += 25
             found.append(CriterionItem(
-                "API CLIENT phòng thủ tập trung (INTERCEPTORS, BASEURL, ERROR NORMALIZATION)",
+                'Centralized defensive API client (Interceptors, baseURL, error normalization)',
                 evidence=api_client_path or "api-client",
-                details=f"Đã phát hiện module API Client tập trung tại `{api_client_path}` giúp chuẩn hóa baseURL và xử lý lỗi đồng nhất.",
+                details=f"Detected a centralized API Client module at `{api_client_path}` that standardizes baseURL and uniform error handling.",
                 badge="API Client"
             ))
         else:
             missing.append(CriterionItem(
-                "Tệp bọc API CLIENT tập trung (tránh gọi FETCH / AXIOS rải rác trong COMPONENT)",
-                evidence="Tầng Frontend",
-                details="Thiếu tệp bao bọc API Client dùng chung, có nguy cơ gọi fetch/axios rải rác trong component UI.",
-                remediation="Tạo tệp `api/client.ts` bọc Axios/Fetch với baseURL, auth header và bộ chuẩn hóa mã lỗi."
+                'Centralized API client wrapper (avoids scattered fetch/axios calls in components)',
+                evidence='Frontend layer',
+                details='Missing a shared API Client wrapper; fetch/axios calls risk being scattered across UI components.',
+                remediation='Create `api/client.ts` wrapping Axios/Fetch with baseURL, auth header and an error-code normalizer.'
             ))
 
         # 3. Quét Error Boundary & Code Splitting (Lazy Loading)
@@ -325,7 +325,7 @@ class AppPillarsMixin:
                 rel_fe = str(self.tree.rel_path(p)) if hasattr(self.tree, 'rel_path') else p.name
 
                 if len(lines) > 350:
-                    god_components.append(f"{p.name} ({len(lines)} dòng)")
+                    god_components.append(f"{p.name} ({len(lines)} lines)")
 
                 if not error_boundary_file and ('ErrorBoundary' in text or 'componentDidCatch' in text or 'error.tsx' in p.name):
                     has_error_boundary = True
@@ -340,55 +340,55 @@ class AppPillarsMixin:
         if has_error_boundary:
             score += 15
             found.append(CriterionItem(
-                "Trang bị ERROR BOUNDARY bắt lỗi runtime chống crash trắng toàn bộ màn hình",
+                'Error Boundary catching runtime errors preventing white-screen crash',
                 evidence=error_boundary_file or "ErrorBoundary component",
-                details="Đã phát hiện component Error Boundary bắt các ngoại lệ React rendering, bảo vệ trải nghiệm người dùng.",
+                details='Detected Error Boundary component catching React rendering exceptions, protecting user experience.',
                 badge="Error Boundary"
             ))
         else:
             missing.append(CriterionItem(
-                "Thành phần ERROR BOUNDARY bao bọc route để xử lý lỗi sập giao diện an toàn",
+                'Error Boundary component wrapping routes for safe UI crash recovery',
                 evidence="Root Layout / App",
-                details="Chưa có component Error Boundary bao bọc các tuyến đường (routes), rủi ro lỗi render làm trắng toàn trang.",
-                remediation="Tạo component ErrorBoundary (hoặc Next.js error.tsx) hiển thị fallback UI khi xảy ra lỗi runtime."
+                details='No Error Boundary component wraps the routes; a render error risks blanking the whole page.',
+                remediation='Create an ErrorBoundary component (or Next.js error.tsx) that shows a fallback UI on runtime errors.'
             ))
 
         if has_lazy_loading:
             score += 15
             found.append(CriterionItem(
-                "Kỹ thuật CODE-SPLITTING / LAZY LOADING tối ưu tốc độ tải trang ban đầu",
+                'Code-splitting / lazy loading optimizing initial page load speed',
                 evidence=lazy_loading_file or "React.lazy / Async Component",
-                details="Đã áp dụng kỹ thuật nạp động (lazy loading) cho các trang hoặc module nặng.",
+                details='Lazy loading was applied to heavy pages or modules.',
                 badge="Code Splitting"
             ))
         else:
             missing.append(CriterionItem(
-                "Kỹ thuật LAZY LOADING (React.lazy) cho các phân vùng trang kích thước lớn",
+                'LAZY LOADING technique (React.lazy) for large page sections',
                 evidence="Routing / Pages",
-                details="Chưa áp dụng React.lazy() hoặc dynamic import cho các trang và modal lớn, làm tăng kích thước bundle ban đầu.",
-                remediation="Dùng `React.lazy()` hoặc Next.js `dynamic()` cho các màn hình quản trị và dialog lớn."
+                details='React.lazy() or dynamic import is not applied to large pages and modals, increasing the initial bundle size.',
+                remediation='Use `React.lazy()` or Next.js `dynamic()` for admin screens and large dialogs.'
             ))
 
         if not god_components:
             score += 15
             found.append(CriterionItem(
-                "Cấu trúc COMPONENT tinh gọn, phân tách trách nhiệm rõ ràng (0 GOD COMPONENTS)",
-                evidence=f"Đã quét {len(fe_code_files)} tệp UI",
-                details="Tất cả các component giao diện đều có kích thước dưới 350 dòng, đảm bảo tính đơn nhiệm và dễ bảo trì.",
+                'Lean COMPONENT structure with clear separation of responsibilities (0 GOD COMPONENTS)',
+                evidence=f"Scanned {len(fe_code_files)} UI files",
+                details='All UI components are under 350 lines, ensuring single responsibility and easy maintenance.',
                 badge="Clean Components"
             ))
         else:
             score += 5
-            self.gaps.append(f"Cảnh báo GOD COMPONENT phình to quá mức (> 350 dòng): {', '.join(god_components[:2])}")
+            self.gaps.append(f"GOD COMPONENT warning, excessive size (> 350 lines): {', '.join(god_components[:2])}")
             missing.append(CriterionItem(
-                f"Cảnh báo GOD COMPONENT: Phát hiện {len(god_components)} component quá lớn (> 350 dòng)",
+                f"GOD COMPONENT warning: Detected {len(god_components)} oversized components (> 350 lines)",
                 evidence=", ".join(god_components[:3]),
-                details=f"Phát hiện component phình to vượt chuẩn: {', '.join(god_components[:3])}.",
-                remediation="Tách các component lớn thành các sub-components nhỏ hơn hoặc trích xuất custom hooks."
+                details=f"Detected components exceeding the size standard: {', '.join(god_components[:3])}.",
+                remediation='Split large components into smaller sub-components or extract custom hooks.'
             ))
 
         score = min(100, score)
-        self.scores['Kiến Trúc FRONTEND & DESIGN SYSTEM (UI/UX)'] = score
+        self.scores['FRONTEND Architecture & DESIGN SYSTEM (UI/UX)'] = score
         ui_count = len(self.tree.find_by_ext('.tsx') + self.tree.find_by_ext('.jsx') + self.tree.find_by_ext('.vue') + self.tree.find_by_ext('.html'))
         self.add_log(f'  -> UI audit: found {ui_count} UI components & styling files.', 'frontend', 'muted')
         self.details['frontend'] = {
@@ -414,19 +414,19 @@ class AppPillarsMixin:
             score += 35
             mig_ev = "prisma/schema.prisma" if self.tree.find_by_name("schema.prisma") else ("alembic.ini" if self.tree.find_by_name("alembic.ini") else "migrations/")
             found.append(CriterionItem(
-                "Quản lý DATABASE MIGRATION có kiểm soát phiên bản theo thời gian",
+                'Version-controlled database migration management',
                 evidence=mig_ev,
-                details=f"Đã xác minh hệ thống quản lý lược đồ CSDL có phiên bản qua `{mig_ev}`.",
+                details=f"Verified a versioned database schema management system via `{mig_ev}`.",
                 badge="Migrations OK"
             ))
         else:
             missing.append(CriterionItem(
-                "Thư mục DATABASE MIGRATION (nguy cơ trôi lệch SCHEMA trên PRODUCTION)",
-                evidence="Thư mục CSDL",
-                details="Chưa tìm thấy thư mục migration hoặc công cụ quản lý schema (Prisma, Alembic, Flyway, EF Core).",
-                remediation="Thiết lập công cụ migration (vd. Prisma Migrate hoặc Alembic) để đồng bộ cấu trúc DB theo phiên bản Git."
+                'DATABASE MIGRATION folder (risk of SCHEMA drift on PRODUCTION)',
+                evidence='Database folder',
+                details='No migration folder or schema management tool found (Prisma, Alembic, Flyway, EF Core).',
+                remediation='Set up a migration tool (e.g. Prisma Migrate or Alembic) to keep the DB structure in sync with Git versions.'
             ))
-            self.gaps.append("Thiếu hệ thống DATABASE MIGRATION có kiểm soát phiên bản.")
+            self.gaps.append('Missing a version-controlled DATABASE MIGRATION system.')
 
         # 2. Connection Pooling & Transactions
         has_pool_config = False
@@ -464,7 +464,7 @@ class AppPillarsMixin:
                                     'file': rel_str,
                                     'line': idx,
                                     'type': 'SQL INJECTION RISK',
-                                    'desc': 'Nối chuỗi trực tiếp vào câu lệnh RAW SQL (Thiếu PARAMETERIZED QUERIES).',
+                                    'desc': 'Strings concatenated directly into RAW SQL statements (missing PARAMETERIZED QUERIES).',
                                     'snippet': line.strip()[:80]
                                 })
                                 break
@@ -484,60 +484,60 @@ class AppPillarsMixin:
         if has_pool_config:
             score += 25
             found.append(CriterionItem(
-                "Cấu hình CONNECTION POOL & TIMEOUT bảo vệ giới hạn kết nối DATABASE",
+                'Connection pool & timeout configuration protecting database connection limits',
                 evidence=pool_file or "DB Config",
-                details="Đã xác minh cấu hình giới hạn kết nối (pool size, idle timeout) bảo vệ DB không bị cạn kiệt kết nối.",
+                details='Verified connection limit configuration (pool size, idle timeout) protecting the DB from connection exhaustion.',
                 badge="Connection Pool"
             ))
         else:
             missing.append(CriterionItem(
-                "Cấu hình tường minh cho CONNECTION POOL (POOL_SIZE, IDLE_TIMEOUT)",
+                'Explicit CONNECTION POOL configuration (POOL_SIZE, IDLE_TIMEOUT)',
                 evidence="Database Connection",
-                details="Chưa thiết lập tường minh pool_size hoặc timeout cho kết nối cơ sở dữ liệu.",
-                remediation="Khai báo pool_size (vd: 10-20) và idle_timeout trong cấu hình kết nối DB."
+                details='pool_size or timeout for database connections is not set explicitly.',
+                remediation='Declare pool_size (e.g. 10-20) and idle_timeout in the DB connection configuration.'
             ))
 
         if has_transaction:
             score += 20
             found.append(CriterionItem(
-                "Cơ chế DATABASE TRANSACTION đảm bảo tính nguyên tử (ACID) khi ghi nhiều bảng",
+                'DATABASE TRANSACTION mechanism ensuring atomicity (ACID) when writing multiple tables',
                 evidence=tx_file or "DB Repositories",
-                details="Đã xác minh sử dụng transaction cho các tác vụ ghi dữ liệu phức tạp đảm bảo tính toàn vẹn ACID.",
+                details='Verified use of transactions for complex write operations ensuring ACID integrity.',
                 badge="ACID Transaction"
             ))
         else:
             missing.append(CriterionItem(
-                "Cơ chế bọc TRANSACTION tường minh cho các tác vụ thay đổi nhiều thực thể",
-                evidence="Tầng Data Access",
-                details="Chưa tìm thấy khối bọc Transaction cho các nghiệp vụ cập nhật nhiều bảng cùng lúc.",
-                remediation="Sử dụng `$transaction`, `session.begin()` hoặc `BeginTransaction()` cho các luồng ghi liên bảng."
+                'Explicit transaction wrapping for multi-entity mutation operations',
+                evidence='Data Access layer',
+                details='No transaction block found for multi-table update operations.',
+                remediation='Use `$transaction`, `session.begin()` or `BeginTransaction()` for cross-table write flows.'
             ))
 
         if not sql_injection_risks:
             score += 20
             found.append(CriterionItem(
-                "An toàn câu lệnh QUERY: Sử dụng PARAMETERIZED QUERIES hoặc TYPE-SAFE ORM",
-                evidence=f"Đã quét {len(self.tree.code_files)} tệp mã nguồn",
-                details="100% câu lệnh truy vấn dữ liệu sử dụng ORM an toàn hoặc tham số hóa (parameterized queries).",
+                'Query safety: Parameterized queries or type-safe ORM usage',
+                evidence=f"Scanned {len(self.tree.code_files)} source files",
+                details='100% of database queries use safe ORMs or parameterized queries.',
                 badge="Query Safety"
             ))
         else:
             self.violations.extend(sql_injection_risks)
-            self.gaps.append(f"Cảnh báo bảo mật: Phát hiện {len(sql_injection_risks)} vị trí nối chuỗi RAW SQL.")
+            self.gaps.append(f"Security warning: Detected {len(sql_injection_risks)} RAW SQL string concatenation locations.")
             score = max(10, score - 20)
             missing.append(CriterionItem(
-                f"Cảnh báo SQL INJECTION: Phát hiện {len(sql_injection_risks)} vị trí nối chuỗi trực tiếp",
+                f"SQL INJECTION warning: Detected {len(sql_injection_risks)} direct string concatenation locations",
                 evidence=sql_injection_risks[0]['file'],
                 snippet=sql_injection_risks[0]['snippet'],
-                details=f"Phát hiện {len(sql_injection_risks)} vị trí nối chuỗi trực tiếp vào câu lệnh SQL thay vì dùng placeholder tham số.",
-                remediation="Chuyển đổi các câu lệnh nối chuỗi sang sử dụng query parameter (ví dụ: $1, :val hoặc ?)."
+                details=f"Detected {len(sql_injection_risks)} places that concatenate strings directly into SQL statements instead of using parameter placeholders.",
+                remediation='Convert string concatenation queries to parameterized placeholders (e.g. $1, :val, or ?).'
             ))
 
         if n_plus_one_risks:
-            self.gaps.append(f"Cảnh báo N+1 QUERY: Phát hiện truy vấn CSDL trong vòng lặp tại: {', '.join(n_plus_one_risks[:2])}")
+            self.gaps.append(f"N+1 QUERY warning: Detected database queries inside loops at: {', '.join(n_plus_one_risks[:2])}")
 
         score = min(100, score)
-        self.scores['Hạ Tầng DATABASE & An Toàn QUERY'] = score
+        self.scores['DATABASE Infrastructure & QUERY Safety'] = score
         self.add_log(f"  -> Database: {', '.join(self.databases) or 'SQL'}. Audited migrations and query safety.", "database", "muted")
         self.details['database'] = {
             'name': 'Database & Query Safety',
@@ -589,7 +589,7 @@ class AppPillarsMixin:
                                 'file': rel_file,
                                 'line': idx,
                                 'type': 'NAKED JSON.PARSE',
-                                'desc': 'Gọi JSON.PARSE không bọc trong khối TRY-CATCH an toàn (Nguy cơ sập RUNTIME khi dữ liệu JSON hỏng).',
+                                'desc': 'JSON.parse called outside try-catch block (runtime crash risk on malformed JSON).',
                                 'snippet': stripped[:80]
                             }
                             self.violations.append(item)
@@ -605,7 +605,7 @@ class AppPillarsMixin:
                                 'file': rel_file,
                                 'line': idx,
                                 'type': 'STRICT TYPING VIOLATION',
-                                'desc': 'Sử dụng kiểu dữ liệu ": any" vi phạm quy chuẩn STRICT TYPING của TYPESCRIPT.',
+                                'desc': 'Using ": any" type violates TypeScript strict typing standards.',
                                 'snippet': stripped[:80]
                             }
                             self.violations.append(item)
@@ -621,7 +621,7 @@ class AppPillarsMixin:
                                 'file': rel_file,
                                 'line': idx,
                                 'type': 'PYTHON SILENT EXCEPTION EATER',
-                                'desc': 'Bắt lỗi im lặng (BARE EXCEPT hoặc EXCEPT EXCEPTION: PASS) làm nuốt chửng lỗi hệ thống.',
+                                'desc': 'Silent exception handling (bare except or except Exception: pass) swallows system errors.',
                                 'snippet': stripped[:80]
                             }
                             self.violations.append(item)
@@ -644,7 +644,7 @@ class AppPillarsMixin:
                                     'file': rel_file,
                                     'line': idx,
                                     'type': 'HARDCODED SECRET IN CODE',
-                                    'desc': 'Phát hiện CHUỖI KHÓA BẢO MẬT (SECRET/API KEY) được gán tĩnh trực tiếp vào mã nguồn.',
+                                    'desc': 'Hardcoded secret / API key statically assigned directly in source code.',
                                     'snippet': stripped[:40] + '...[REDACTED]'
                                 }
                                 self.violations.append(item)
@@ -662,7 +662,7 @@ class AppPillarsMixin:
                                     'file': rel_file,
                                     'line': idx,
                                     'type': 'REACT MEMORY LEAK RISK',
-                                    'desc': 'Khởi tạo TIMER / EVENT LISTENER nhưng thiếu hàm CLEANUP giải phóng (Nguy cơ MEMORY LEAK).',
+                                    'desc': 'TIMER / EVENT LISTENER created without a CLEANUP function to release it (MEMORY LEAK risk).',
                                     'snippet': stripped[:80]
                                 }
                                 self.violations.append(item)
@@ -676,76 +676,76 @@ class AppPillarsMixin:
         if violations_count > 0:
             deduction = min(75, violations_count * 5)
             score = max(20, score - deduction)
-            self.gaps.append(f"Phát hiện {violations_count} vị trí vi phạm tiêu chuẩn ANTI-CRASH trong mã nguồn.")
+            self.gaps.append(f"Detected {violations_count} locations violating ANTI-CRASH standards in the source code.")
         else:
             score = 100
 
         # Phân loại Criteria Met & Criteria Not Met
         if naked_json_count == 0:
             found.append(CriterionItem(
-                "An toàn xử lý JSON: 0 Naked JSON.parse rủi ro sập runtime",
-                evidence=f"{scanned_files} tệp mã nguồn",
-                details="100% các lời gọi parse JSON đều được bọc trong try-catch hoặc schema validation an toàn.",
+                'JSON handling safety: 0 naked JSON.parse risks of runtime crash',
+                evidence=f"{scanned_files} source files",
+                details='100% of JSON parsing calls wrapped in try-catch or safe schema validation.',
                 badge="JSON Safe"
             ))
         else:
             missing.append(CriterionItem(
-                f"Phát hiện {naked_json_count} vị trí NAKED JSON.PARSE không bọc try-catch",
+                f"Detected {naked_json_count} NAKED JSON.PARSE locations without try-catch",
                 evidence=f"{naked_json_sample['file']}:{naked_json_sample['line']}",
                 snippet=naked_json_sample['snippet'],
-                details="Gọi JSON.parse trực tiếp mà không có try-catch sẽ làm sập server hoặc ứng dụng nếu chuỗi JSON không hợp lệ.",
-                remediation="Bọc toàn bộ JSON.parse trong khối `try { ... } catch (e) { ... }` hoặc dùng hàm parse an toàn."
+                details='Directly calling JSON.parse without try-catch crashes the application if JSON is malformed.',
+                remediation='Wrap all JSON.parse in `try { ... } catch (e) { ... }` blocks or use safe parse utilities.'
             ))
 
         if bare_except_count == 0:
             found.append(CriterionItem(
-                "Kiểm soát ngoại lệ: Không có Silent Exception Eater (Bare Except / Pass)",
-                evidence=f"{scanned_files} tệp mã nguồn",
-                details="Không nuốt chửng ngoại lệ hệ thống bằng except: pass, toàn bộ lỗi được ghi log tường minh.",
+                'Exception control: No Silent Exception Eaters (Bare Except / Pass)',
+                evidence=f"{scanned_files} source files",
+                details='No silent swallowing of exceptions with except: pass; all errors logged explicitly.',
                 badge="Exception Safe"
             ))
         else:
             missing.append(CriterionItem(
-                f"Phát hiện {bare_except_count} vị trí BARE EXCEPT nuốt chửng lỗi hệ thống",
+                f"Detected {bare_except_count} BARE EXCEPT locations silently swallowing system errors",
                 evidence=f"{bare_except_sample['file']}:{bare_except_sample['line']}",
                 snippet=bare_except_sample['snippet'],
-                details="Bắt lỗi dạng `except:` hoặc `except Exception: pass` làm ẩn đi các lỗi nghiêm trọng không thể debug.",
-                remediation="Chỉ định chính xác ngoại lệ cần bắt (vd: except ValueError) và ghi log lỗi đầy đủ."
+                details='Catching errors with `except:` or `except Exception: pass` obscures critical errors from debugging.',
+                remediation='Specify exact exceptions (e.g. except ValueError) and log errors comprehensively.'
             ))
 
         if hardcoded_secrets_count == 0:
             found.append(CriterionItem(
-                "An toàn bí mật mã nguồn: Không phát hiện Hardcoded Secret / API Key",
-                evidence="Quét Regex nhạy cảm",
-                details="Không phát hiện chuỗi khóa bí mật, API key hoặc password nào bị gán cứng vào mã nguồn.",
+                'Secret safety: No Hardcoded Secrets / API Keys detected',
+                evidence='Sensitive Regex Scan',
+                details='No secret keys, API keys or passwords statically hardcoded in source.',
                 badge="No Secrets"
             ))
         else:
             missing.append(CriterionItem(
-                f"CẢNH BÁO: Phát hiện {hardcoded_secrets_count} chuỗi HARDCODED SECRET trong mã",
+                f"WARNING: Detected {hardcoded_secrets_count} HARDCODED SECRET strings in code",
                 evidence=f"{hardcoded_secrets_sample['file']}:{hardcoded_secrets_sample['line']}",
                 snippet=hardcoded_secrets_sample['snippet'],
-                details="Chuỗi bí mật hoặc API key được gán tĩnh trực tiếp vào mã nguồn, có nguy cơ lộ khi commit lên Git.",
-                remediation="Di chuyển toàn bộ khóa bảo mật vào biến môi trường (.env) và đọc qua process.env hoặc os.environ."
+                details='Secret keys or API keys hardcoded in source code; risk of leaking upon git commit.',
+                remediation='Move all secrets into environment variables (.env) and read via process.env or os.environ.'
             ))
 
         if react_leak_count == 0:
             found.append(CriterionItem(
-                "An toàn tài nguyên: Không phát hiện Timer / Event Listener rò rỉ bộ nhớ",
-                evidence="Quét Lifecycle Hooks",
-                details="Toàn bộ các tác vụ định thời và đăng ký sự kiện đều có hàm hủy cleanup giải phóng tài nguyên.",
+                'Resource safety: No Timer / Event Listener memory leak risks detected',
+                evidence='Lifecycle Hooks Scan',
+                details='All timers and event subscriptions provide cleanup cancellation handlers.',
                 badge="Lifecycle Safe"
             ))
         else:
             missing.append(CriterionItem(
-                f"Cảnh báo MEMORY LEAK: Phát hiện {react_leak_count} Timer/Listener thiếu hàm cleanup",
+                f"MEMORY LEAK warning: Detected {react_leak_count} Timers/Listeners lacking a cleanup function",
                 evidence=f"{react_leak_sample['file']}:{react_leak_sample['line']}",
                 snippet=react_leak_sample['snippet'],
-                details="Khởi tạo setInterval hoặc addEventListener trong useEffect nhưng thiếu hàm cleanup giải phóng khi unmount.",
-                remediation="Trả về hàm dọn dẹp trong useEffect: `return () => clearInterval(id);`."
+                details='setInterval or addEventListener initiated in useEffect lacking cleanup on unmount.',
+                remediation='Return cleanup handler in useEffect: `return () => clearInterval(id);`.'
             ))
 
-        self.scores['Tiêu Chuẩn An Toàn RUNTIME (ANTI-CRASH)'] = score
+        self.scores['RUNTIME Safety Standards (ANTI-CRASH)'] = score
         anti_violations = [v for v in self.violations if v.get('type') in ['NAKED JSON.PARSE', 'STRICT TYPING VIOLATION', 'PYTHON SILENT EXCEPTION EATER', 'HARDCODED SECRET IN CODE', 'REACT MEMORY LEAK RISK']]
         self.add_log(f"  -> AST scan completed on {len(self.tree.code_files)} source files: checked Null safety, try-catch I/O.", "anticrash", "muted")
         self.details['anticrash'] = {

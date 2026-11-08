@@ -60,22 +60,22 @@ def update_pack(ref: str = "main", timeout: int = 8, cache_file: Path | None = N
     """Tải pack mới từ GitHub (cần mạng). Trả {'ok', 'message', 'generated'}; lỗi mạng chỉ báo, không ném."""
     url = RAW_URL.format(ref=ref)
     if not url.startswith("https://raw.githubusercontent.com/"):
-        return {"ok": False, "message": "URL không hợp lệ.", "generated": ""}
+        return {"ok": False, "message": 'Invalid URL.', "generated": ""}
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "Project-Health-Check"})
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             data = json.loads(resp.read(2_000_000).decode("utf-8"))
     except Exception as e:  # mạng/JSON hỏng: giữ nguyên pack hiện có
-        return {"ok": False, "message": f"Không cập nhật được tri thức kit ({e}). Đang dùng bản hiện có.", "generated": ""}
+        return {"ok": False, "message": f"Could not update kit knowledge ({e}). Using the existing copy.", "generated": ""}
     if not _valid(data):
-        return {"ok": False, "message": "Pack tải về không hợp lệ; giữ bản hiện có.", "generated": ""}
+        return {"ok": False, "message": 'The downloaded pack is invalid; keeping the current one.', "generated": ""}
     target = cache_file or CACHE_FILE
     try:
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
     except OSError as e:
-        return {"ok": False, "message": f"Không lưu được cache ({e}).", "generated": data.get("generated", "")}
-    return {"ok": True, "message": f"Đã cập nhật tri thức kit ({len(data['docs'])} tài liệu).",
+        return {"ok": False, "message": f"Could not save the cache ({e}).", "generated": data.get("generated", "")}
+    return {"ok": True, "message": f"Kit knowledge updated ({len(data['docs'])} documents).",
             "generated": data.get("generated", "")}
 
 

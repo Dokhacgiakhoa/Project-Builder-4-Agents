@@ -26,19 +26,19 @@ class InfraPillarsMixin:
         if matched_lfs:
             score += 35
             found.append(CriterionItem(
-                "Khóa chính xác phiên bản phụ thuộc qua DEPENDENCY LOCKFILE (chống Supply Chain Attack)",
+                'Pin exact dependency versions via DEPENDENCY LOCKFILE (against Supply Chain Attacks)',
                 evidence=", ".join(matched_lfs),
-                details=f"Đã phát hiện lockfile xác thực mã băm và phiên bản phụ thuộc: {', '.join(matched_lfs)}.",
+                details=f"Detected a lockfile verifying hashes and dependency versions: {', '.join(matched_lfs)}.",
                 badge="Lockfile OK"
             ))
         else:
             missing.append(CriterionItem(
-                "Tệp DEPENDENCY LOCKFILE (package-lock.json, poetry.lock, go.sum)",
-                evidence="Thư mục gốc",
-                details="Chưa có lockfile cố định phiên bản gói phụ thuộc, có nguy cơ bị tấn công chuỗi cung ứng hoặc lệch môi trường.",
-                remediation="Chạy npm install / poetry lock / cargo generate-lockfile và commit tệp lockfile vào Git."
+                'Dependency lockfile (package-lock.json, poetry.lock, go.sum)',
+                evidence='Root folder',
+                details='No lockfile pinning dependency package versions; risk of a supply chain attack or environment drift.',
+                remediation='Run npm install / poetry lock / cargo generate-lockfile and commit the lockfile to Git.'
             ))
-            self.gaps.append("Thiếu lockfile quản lý phụ thuộc, tiềm ẩn rủi ro trôi lệch phiên bản hoặc dính mã độc.")
+            self.gaps.append('Missing a dependency lockfile, risking version drift or malicious code.')
 
         # 2. HTTP Security Headers (Helmet, CORS)
         has_headers = 'HELMET (HTTP HEADERS)' in self.tools or 'CORS MIDDLEWARE' in self.tools
@@ -60,17 +60,17 @@ class InfraPillarsMixin:
         if has_headers:
             score += 25
             found.append(CriterionItem(
-                "Cấu hình HTTP SECURITY HEADERS (CORS strict, HELMET, Content-Security-Policy)",
+                'HTTP security headers configuration (Strict CORS, Helmet, Content-Security-Policy)',
                 evidence=headers_file or "HTTP Middleware",
-                details="Đã phát hiện cấu hình bảo vệ HTTP Headers (CORS, Helmet hoặc CSP) chống XSS và Clickjacking.",
+                details='Detected HTTP header protection configuration (CORS, Helmet or CSP) against XSS and Clickjacking.',
                 badge="Security Headers"
             ))
         else:
             missing.append(CriterionItem(
-                "Thiết lập HTTP SECURITY HEADERS bảo vệ giao thức (CORS, Helmet, CSP)",
+                'Configured HTTP security headers protocol protection (CORS, Helmet, CSP)',
                 evidence="Server Config",
-                details="Chưa cấu hình các header an ninh chuẩn (Content-Security-Policy, X-Frame-Options, Helmet) bảo vệ ứng dụng.",
-                remediation="Tích hợp middleware Helmet hoặc CORS strict bảo vệ giao thức HTTP."
+                details='Standard security headers (Content-Security-Policy, X-Frame-Options, Helmet) are not configured to protect the application.',
+                remediation='Integrate Helmet middleware or strict CORS to protect the HTTP protocol.'
             ))
 
         # 3. Rate Limiting protection
@@ -93,17 +93,17 @@ class InfraPillarsMixin:
         if has_ratelimit:
             score += 20
             found.append(CriterionItem(
-                "Cơ chế RATE LIMITING giới hạn tần suất yêu cầu chống Brute-force & DDoS",
+                'Rate limiting mechanism protecting against brute-force and DDoS',
                 evidence=ratelimit_file or "Rate Limiter",
-                details="Đã xác minh bộ giới hạn tần suất yêu cầu chống tấn công dò quét vét cạn và quá tải tài nguyên.",
+                details='Verified rate limiter protecting against brute-force attacks and resource exhaustion.',
                 badge="Rate Limiting"
             ))
         else:
             missing.append(CriterionItem(
-                "Cơ chế RATE LIMITING bảo vệ API trước các đợt tấn công vét cạn (Brute-force)",
+                'Rate limiting protecting APIs from brute-force scanning attacks',
                 evidence="API Middleware",
-                details="Chưa có middleware giới hạn tần suất gọi API (Rate Limiting / Throttle) cho các endpoint nhạy cảm.",
-                remediation="Bổ sung express-rate-limit, slowapi hoặc redis-based rate limiter cho các API xác thực/công khai."
+                details='No API rate-limiting middleware (Rate Limiting / Throttle) for sensitive endpoints.',
+                remediation='Add express-rate-limit, slowapi or a redis-based rate limiter for authentication/public APIs.'
             ))
 
         # 4. Secret Isolation & .gitignore
@@ -121,24 +121,24 @@ class InfraPillarsMixin:
         if has_git_secret_protect:
             score += 20
             found.append(CriterionItem(
-                "Cô lập biến môi trường nhạy cảm: .ENV được loại trừ 100% khỏi kho Git",
+                'Sensitive environment isolation: .env 100% excluded from Git repository',
                 evidence=".gitignore",
-                details="Tệp .env chứa biến nhạy cảm đã được loại trừ an toàn trong .gitignore và không bị theo dõi bởi Git.",
+                details='.env file containing secrets is safely excluded in .gitignore and not tracked by Git.',
                 badge="Secrets Isolated"
             ))
         else:
             missing.append(CriterionItem(
-                "Chính sách cô lập SECRET nghiêm ngặt (đưa .ENV vào .gitignore và dùng KMS/Vault)",
+                'Strict secret isolation policy (.env in .gitignore and KMS/Vault usage)',
                 evidence=".gitignore / .env",
-                details="Chưa cấu hình loại trừ tệp .env trong .gitignore hoặc có nguy cơ lộ thông tin bí mật cấu hình.",
-                remediation="Thêm `.env` và `*.pem` vào tệp `.gitignore` ngay lập tức."
+                details='The .env file is not excluded in .gitignore, or there is a risk of leaking configuration secrets.',
+                remediation='Add `.env` and `*.pem` to the `.gitignore` file immediately.'
             ))
 
         score = min(100, score)
-        self.scores['Bảo Mật & Chuỗi Cung Ứng (SECURITY)'] = score
+        self.scores['SECURITY & Supply Chain'] = score
         self.add_log("  -> Checked supply chain lockfiles, .env isolation and scanned for hardcoded secrets.", "security", "muted")
         self.details['security'] = {
-            'name': 'Bảo Mật & Chuỗi Cung Ứng',
+            'name': 'Security & Supply Chain',
             'found': found,
             'missing': missing,
             'score': score,
@@ -174,34 +174,34 @@ class InfraPillarsMixin:
         if has_multistage:
             score += 35
             found.append(CriterionItem(
-                "Dockerfile chuẩn mực MULTI-STAGE BUILD tối ưu dung lượng và tính bảo mật",
+                'Standard multi-stage build Dockerfile optimizing size and security',
                 evidence=df_target_name,
-                details="Đã xác minh Dockerfile sử dụng multi-stage build tách biệt giai đoạn biên dịch và môi trường chạy tối giản.",
+                details='Verified Dockerfile utilizes multi-stage build separating compilation from minimal runtime.',
                 badge="Multi-Stage"
             ))
         else:
             missing.append(CriterionItem(
-                "Dockerfile tối ưu MULTI-STAGE BUILD (tách biệt môi trường build và runtime)",
+                'Optimized multi-stage Dockerfile (separating build from minimal runtime)',
                 evidence=df_target_name,
-                details="Dockerfile chưa áp dụng Multi-stage build (AS builder -> FROM minimal), làm phình to kích thước image.",
-                remediation="Tách Dockerfile thành giai đoạn Build (chứa SDK/compiler) và Runtime (chỉ chứa dist và runtime tối giản)."
+                details='The Dockerfile does not use a Multi-stage build (AS builder -> FROM minimal), bloating the image size.',
+                remediation='Split the Dockerfile into a Build stage (containing the SDK/compiler) and a Runtime stage (containing only dist and a minimal runtime).'
             ))
 
         if has_nonroot:
             score += 25
             found.append(CriterionItem(
-                "Chạy CONTAINER với quyền hạn tối thiểu (USER NON-ROOT)",
+                'Container running with minimal privileges (non-root user)',
                 evidence=df_target_name,
                 snippet="USER node / appuser / non-root",
-                details="Đã khai báo user không có đặc quyền root trong Dockerfile nhằm chống leo thang đặc quyền container escape.",
+                details='A non-root user is declared in the Dockerfile to prevent container-escape privilege escalation.',
                 badge="Non-Root"
             ))
         else:
             missing.append(CriterionItem(
-                "Khai báo USER NON-ROOT trong Dockerfile để ngăn chặn Container Escape",
+                'Non-root user declaration in Dockerfile preventing container escapes',
                 evidence=df_target_name,
-                details="Dockerfile chạy mặc định bằng quyền root, tiềm ẩn rủi ro thoát container (container escape) khi ứng dụng có lỗ hổng.",
-                remediation="Thêm `USER node` hoặc tạo user appuser: `USER appuser` trước lệnh ENTRYPOINT/CMD."
+                details='The Dockerfile runs as root by default, risking container escape if the application has a vulnerability.',
+                remediation='Add `USER node` or create an appuser: `USER appuser` before the ENTRYPOINT/CMD instruction.'
             ))
 
         # 2. Health Checks (Liveness & Readiness Probes)
@@ -222,17 +222,17 @@ class InfraPillarsMixin:
         if has_healthcheck:
             score += 20
             found.append(CriterionItem(
-                "Endpoint thăm dò trạng thái sức khỏe: LIVENESS & READINESS PROBES (/healthz, /readyz)",
+                'Health check probe endpoints: Liveness & Readiness probes (/healthz, /readyz)',
                 evidence=probe_file or "/healthz",
-                details="Đã xác minh endpoint kiểm tra sức khỏe (/healthz, /readyz) hỗ trợ bộ điều phối Kubernetes/Cloud nạp traffic an toàn.",
+                details='Verified health-check endpoints (/healthz, /readyz) that let Kubernetes/Cloud orchestrators route traffic safely.',
                 badge="Health Probes"
             ))
         else:
             missing.append(CriterionItem(
-                "Cung cấp endpoint LIVENESS & READINESS PROBES (/healthz, /readyz) cho bộ điều phối Cloud",
+                'Liveness & Readiness probe endpoints (/healthz, /readyz) for cloud orchestrator',
                 evidence="Routing / Endpoints",
-                details="Thiếu endpoint kiểm tra sức khỏe ứng dụng (/health hoặc /healthz) phục vụ load balancer và Kubernetes probes.",
-                remediation="Tạo endpoint GET `/health` hoặc `/healthz` trả về trạng thái hoạt động của server và database."
+                details='Missing an application health-check endpoint (/health or /healthz) for load balancers and Kubernetes probes.',
+                remediation='Create a GET `/health` or `/healthz` endpoint returning the status of the server and database.'
             ))
 
         # 3. Infrastructure as Code (Docker Compose, K8s manifests, Helm)
@@ -242,24 +242,24 @@ class InfraPillarsMixin:
         if has_iac:
             score += 20
             found.append(CriterionItem(
-                "Khai báo hạ tầng dưới dạng mã INFRASTRUCTURE AS CODE (DOCKER COMPOSE / KUBERNETES MANIFESTS)",
+                'Infrastructure as Code declaration (Docker Compose / Kubernetes manifests)',
                 evidence=iac_ev,
-                details=f"Đã phát hiện khai báo hạ tầng triển khai cục bộ và cloud dạng mã qua `{iac_ev}`.",
+                details=f"Detected local and cloud deployment infrastructure declared as code via `{iac_ev}`.",
                 badge="IaC Ready"
             ))
         else:
             missing.append(CriterionItem(
-                "Tệp quản lý hạ tầng INFRASTRUCTURE AS CODE (docker-compose.yml hoặc K8s Helm)",
-                evidence="Thư mục gốc",
-                details="Chưa có tệp docker-compose.yml hoặc Kubernetes manifests để tự động hóa khởi tạo môi trường đồng nhất.",
-                remediation="Tạo tệp `docker-compose.yml` định nghĩa các dịch vụ app, database và cache cho môi trường dev."
+                'Infrastructure as Code management file (docker-compose.yml or K8s Helm)',
+                evidence='Root folder',
+                details='No docker-compose.yml or Kubernetes manifests to automate a uniform environment setup.',
+                remediation='Create a `docker-compose.yml` defining the app, database and cache services for the dev environment.'
             ))
 
         score = min(100, score)
-        self.scores['Hạ Tầng CLOUD & CONTAINER (DEVOPS)'] = score
+        self.scores['CLOUD & CONTAINER Infrastructure (DEVOPS)'] = score
         self.add_log("  -> Audited Dockerfile config, container specs and CI/CD workflows.", "cloud", "muted")
         self.details['cloud'] = {
-            'name': 'Hạ Tầng Cloud & DevOps',
+            'name': 'Cloud Infrastructure & DevOps',
             'found': found,
             'missing': missing,
             'score': score,
@@ -291,17 +291,17 @@ class InfraPillarsMixin:
         if has_gateway:
             score += 30
             found.append(CriterionItem(
-                "API GATEWAY / REVERSE PROXY làm cổng điều phối lưu lượng tập trung",
+                'API Gateway / Reverse Proxy as centralized ingress traffic router',
                 evidence=gw_file or "API Gateway",
-                details="Đã xác minh cấu hình Gateway/Reverse Proxy điều phối và định tuyến lưu lượng vào hệ thống.",
+                details='Verified Gateway/Reverse Proxy routing and ingress configuration.',
                 badge="API Gateway"
             ))
         else:
             missing.append(CriterionItem(
-                "Cấu hình API GATEWAY tập trung (Kong, Traefik, Ocelot hoặc Nginx)",
-                evidence="Hạ tầng mạng",
-                details="Chưa có cổng Reverse Proxy hoặc API Gateway để quản lý routing, auth và SSL termination tập trung.",
-                remediation="Thiết lập Nginx, Traefik hoặc Kong làm reverse proxy trung tâm."
+                'Centralized API Gateway configuration (Kong, Traefik, Ocelot, or Nginx)',
+                evidence='Network infrastructure',
+                details='No Reverse Proxy or API Gateway to manage routing, auth and SSL termination centrally.',
+                remediation='Set up Nginx, Traefik or Kong as the central reverse proxy.'
             ))
 
         # 2. Circuit Breaker & Resiliency (Polly, Resilience4j, Tenacity)
@@ -321,17 +321,17 @@ class InfraPillarsMixin:
         if has_circuit_breaker:
             score += 30
             found.append(CriterionItem(
-                "Cơ chế ngắt mạch CIRCUIT BREAKER & RETRY WITH JITTER chống sập dây chuyền (Cascading Failure)",
+                'Circuit Breaker & retry with jitter preventing cascading failures',
                 evidence=cb_file or "Resilience Module",
-                details="Đã phát hiện cơ chế Circuit Breaker / Retry bảo vệ các lời gọi liên dịch vụ trước sự cố sập domino.",
+                details='Detected a Circuit Breaker / Retry mechanism protecting inter-service calls from cascading failures.',
                 badge="Circuit Breaker"
             ))
         else:
             missing.append(CriterionItem(
-                "Cơ chế CIRCUIT BREAKER bảo vệ các lời gọi liên dịch vụ phân tán",
+                'Circuit breaker mechanism protecting distributed inter-service calls',
                 evidence="Inter-service Calls",
-                details="Thiếu cơ chế ngắt mạch (Circuit Breaker) và retry có jitter khi gọi các dịch vụ bên ngoài.",
-                remediation="Sử dụng Resilience4j, Tenacity, Polly hoặc axios-retry với exponential backoff."
+                details='Missing a circuit breaker and retry with jitter when calling external services.',
+                remediation='Use Resilience4j, Tenacity, Polly or axios-retry with exponential backoff.'
             ))
 
         # 3. Inter-service contracts (gRPC / Event-Driven)
@@ -341,17 +341,17 @@ class InfraPillarsMixin:
         if has_contracts:
             score += 25
             found.append(CriterionItem(
-                "Hợp đồng liên dịch vụ chặt chẽ qua gRPC PROTOBUF hoặc EVENT-DRIVEN MESSAGING (KAFKA/RABBITMQ)",
+                'Inter-service contract enforcement via gRPC Protobuf or Event-driven messaging',
                 evidence=contract_ev,
-                details="Đã xác minh hợp đồng giao tiếp giữa các dịch vụ có cấu trúc chặt chẽ qua Protobuf hoặc Event Broker.",
+                details='Verified that inter-service communication contracts are strictly structured via Protobuf or an Event Broker.',
                 badge="Inter-service"
             ))
         else:
             missing.append(CriterionItem(
-                "Đặc tả hợp đồng giao tiếp liên dịch vụ (gRPC Protobuf hoặc Event Broker)",
-                evidence="Dịch vụ phân tán",
-                details="Chưa có đặc tả hợp đồng gRPC Protobuf hoặc message schema cho bus sự kiện phân tán.",
-                remediation="Định nghĩa tệp `.proto` hoặc AsyncAPI schema cho luồng giao tiếp giữa các microservices."
+                'Inter-service communication contract specification (gRPC Protobuf or Event Broker)',
+                evidence='Distributed services',
+                details='No gRPC Protobuf contract specification or message schema for the distributed event bus.',
+                remediation='Define a `.proto` file or an AsyncAPI schema for communication between microservices.'
             ))
 
         # 4. Correlation ID Tracking
@@ -371,24 +371,24 @@ class InfraPillarsMixin:
         if has_correlation_id:
             score += 15
             found.append(CriterionItem(
-                "Đính kèm CORRELATION ID (x-request-id) xuyên suốt hành trình của request",
+                'Correlation ID (x-request-id) propagation throughout request lifecycle',
                 evidence=corr_file or "x-request-id",
-                details="Đã xác minh middleware gắn x-request-id / traceparent hỗ trợ truy vết phân tán xuyên suốt các dịch vụ.",
+                details='Verified middleware attaching x-request-id / traceparent to support distributed tracing across services.',
                 badge="Correlation ID"
             ))
         else:
             missing.append(CriterionItem(
-                "Middleware gán CORRELATION ID (x-request-id) phục vụ truy vết phân tán",
+                'Middleware attaching Correlation ID (x-request-id) for distributed tracing',
                 evidence="HTTP Middleware",
-                details="Chưa có middleware gắn mã Correlation ID (x-request-id) để theo dõi luồng request xuyên qua nhiều service.",
-                remediation="Thêm middleware trích xuất hoặc tự sinh `x-request-id` và truyền tiếp trong header outgoing requests."
+                details='No middleware attaching a Correlation ID (x-request-id) to follow request flows across multiple services.',
+                remediation='Add middleware that extracts or generates `x-request-id` and propagates it in outgoing request headers.'
             ))
 
         score = min(100, score)
-        self.scores['Hệ Thống PHÂN TÁN & GATEWAY (MICROSERVICES)'] = score
+        self.scores['DISTRIBUTED Systems & GATEWAY (MICROSERVICES)'] = score
         self.add_log("  -> Audited API Gateway, Proto/gRPC schemas and microservice boundaries.", "microservices", "muted")
         self.details['microservices'] = {
-            'name': 'Hệ Thống Phân Tán & Gateway',
+            'name': 'Distributed Systems & Gateway',
             'found': found,
             'missing': missing,
             'score': score,
@@ -420,25 +420,25 @@ class InfraPillarsMixin:
             if has_ttl:
                 score += 40
                 found.append(CriterionItem(
-                    "Chiến lược CACHING chuẩn mực: Bắt buộc cài đặt thời gian sống (TTL) cho mọi Redis Key",
+                    'Standard caching strategy: Mandatory TTL for all cache keys',
                     evidence=redis_file or "Redis Cache",
-                    details="Đã xác minh toàn bộ key cache đều có cài đặt TTL (expire/setex) chống tràn bộ nhớ RAM.",
+                    details='Verified that all cache keys have a TTL (expire/setex) preventing RAM overflow.',
                     badge="TTL Configured"
                 ))
             else:
                 score += 15
                 missing.append(CriterionItem(
-                    "Thiết lập TTL (Time-To-Live) bắt buộc cho Cache Key để chống cạn kiệt RAM Redis",
+                    'Mandatory TTL configuration for cache keys preventing RAM exhaustion',
                     evidence="Redis Caching",
-                    details="Phát hiện sử dụng Redis nhưng có lệnh lưu cache không cài đặt thời gian hết hạn (TTL), rủi ro tràn RAM.",
-                    remediation="Bắt buộc truyền TTL khi ghi cache: `SETEX key seconds value` hoặc `expire(key, time)`."
+                    details='Redis usage detected but some cache-write commands set no expiry (TTL), risking RAM overflow.',
+                    remediation='Always pass a TTL when writing the cache: `SETEX key seconds value` or `expire(key, time)`.'
                 ))
         else:
             score += 35
             found.append(CriterionItem(
-                "Dự án áp dụng bộ nhớ đệm cục bộ (In-Memory Cache) đơn giản",
+                'Project applies basic local in-memory caching',
                 evidence="In-Memory Cache",
-                details="Dự án sử dụng cơ chế cache trong bộ nhớ tiến trình (In-Memory Cache) phù hợp với quy mô hiện tại.",
+                details='The project uses in-process memory caching (In-Memory Cache), which fits the current scale.',
                 badge="In-Memory"
             ))
 
@@ -459,17 +459,17 @@ class InfraPillarsMixin:
         if has_pool_limits:
             score += 30
             found.append(CriterionItem(
-                "Giới hạn CONNECTION POOLING rõ ràng bảo vệ hạ tầng cơ sở dữ liệu",
+                'Explicit connection pooling limit protecting database infrastructure',
                 evidence=pool_file or "Pool Config",
-                details="Đã xác minh tham số giới hạn connection pooling tối đa chống cạn kiệt tài nguyên kết nối.",
+                details='Verified maximum connection pooling limits preventing connection exhaustion.',
                 badge="Pool Limits OK"
             ))
         else:
             missing.append(CriterionItem(
-                "Giới hạn CONNECTION POOLING tối đa để chống nghẽn đường truyền (Connection Exhaustion)",
+                'Maximum connection pooling limit preventing connection exhaustion',
                 evidence="Database Driver",
-                details="Chưa cấu hình giới hạn kết nối đồng thời tối đa tới CSDL, có nguy cơ gây tắc nghẽn connection pool.",
-                remediation="Thiết lập `max_connections` hoặc `pool_size` giới hạn số lượng kết nối đồng thời."
+                details='No maximum concurrent database connection limit configured, risking connection pool congestion.',
+                remediation='Set `max_connections` or `pool_size` to limit the number of concurrent connections.'
             ))
 
         # 3. Data Schema Validation / Data Contracts
@@ -478,24 +478,24 @@ class InfraPillarsMixin:
         if has_data_contract:
             score += 30
             found.append(CriterionItem(
-                "Kiểm soát chặt chẽ hợp đồng dữ liệu qua DATA CONTRACTS / SCHEMA VALIDATION",
+                'Strict data contract control via Data Contracts / Schema Validation',
                 evidence="Schemas / Models",
-                details="Đã xác minh đối tượng truyền tải dữ liệu có schema validation chặt chẽ bảo vệ tính toàn vẹn dữ liệu.",
+                details='Verified data transfer objects have strict schema validation protecting integrity.',
                 badge="Data Contracts"
             ))
         else:
             missing.append(CriterionItem(
-                "Đặc tả SCHEMA tường minh cho các đối tượng luồng dữ liệu (Data Contracts)",
+                'Explicit schema specification for data transfer objects (Data Contracts)',
                 evidence="Data Pipelines",
-                details="Chưa có schema định nghĩa cấu trúc dữ liệu tường minh (Pydantic / Zod / Avro) cho các đối tượng trao đổi.",
-                remediation="Tạo các lớp schema kiểm chứng kiểu dữ liệu trước khi nạp vào pipeline xử lý."
+                details='No schema defining an explicit data structure (Pydantic / Zod / Avro) for exchanged objects.',
+                remediation='Create schema classes that validate data types before they enter the processing pipeline.'
             ))
 
         score = min(100, score)
-        self.scores['Kỹ Thuật DỮ LIỆU & CACHE (DATA RESILIENCY)'] = score
+        self.scores['DATA Engineering & CACHE (DATA RESILIENCY)'] = score
         self.add_log("  -> Reviewed Caching strategy (Redis/In-memory) and data resiliency.", "data_caching", "muted")
         self.details['data_caching'] = {
-            'name': 'Kỹ Thuật Dữ Liệu & Cache',
+            'name': 'Data Engineering & Cache',
             'found': found,
             'missing': missing,
             'score': score,
@@ -515,17 +515,17 @@ class InfraPillarsMixin:
             matched_logger = [l for l in ['WINSTON', 'PINO', 'SERILOG', 'LOGURU / STRUCTLOG'] if l in self.tools]
             score += 40
             found.append(CriterionItem(
-                "Ghi nhật ký có cấu trúc chuẩn mực (STRUCTURED JSON LOGGING) sẵn sàng cho ELK / Loki",
+                'Standardized structured JSON logging ready for ELK / Loki',
                 evidence=", ".join(matched_logger),
-                details=f"Đã phát hiện thư viện ghi log có cấu trúc ({', '.join(matched_logger)}) hỗ trợ phân tích log tập trung.",
+                details=f"Detected a structured logging library ({', '.join(matched_logger)}) supporting centralized log analysis.",
                 badge="JSON Logging"
             ))
         else:
             missing.append(CriterionItem(
-                "Thư viện ghi nhật ký có cấu trúc STRUCTURED LOGGING (thay thế console.log / print thô)",
+                'Structured logging library (replacing raw console.log / print)',
                 evidence="Logging",
-                details="Mã nguồn sử dụng console.log hoặc print thô rải rác thay vì thư viện logging có cấu trúc JSON (Winston, Pino, Loguru).",
-                remediation="Chuyển đổi sang thư viện Structured Logger (Winston/Pino cho Node.js, Loguru cho Python)."
+                details='The source code scatters raw console.log or print instead of a JSON structured logging library (Winston, Pino, Loguru).',
+                remediation='Switch to a Structured Logger library (Winston/Pino for Node.js, Loguru for Python).'
             ))
 
         # 2. Distributed Tracing (OpenTelemetry)
@@ -534,17 +534,17 @@ class InfraPillarsMixin:
         if has_otel:
             score += 30
             found.append(CriterionItem(
-                "Tích hợp OPENTELEMETRY phục vụ thu thập dấu vết và phân tích độ trễ xuyên suốt",
+                'OpenTelemetry integration for end-to-end tracing and latency analysis',
                 evidence="OpenTelemetry SDK",
-                details="Đã xác minh tích hợp SDK OpenTelemetry hỗ trợ APM và đo lường độ trễ chi tiết từng span.",
+                details='Verified OpenTelemetry SDK integration supporting APM and span latency measurement.',
                 badge="OpenTelemetry"
             ))
         else:
             missing.append(CriterionItem(
-                "Công cụ truy vết OPENTELEMETRY để theo dõi độ trễ hệ thống",
+                'OpenTelemetry tracing instrumentation for latency observation',
                 evidence="APM / Tracing",
-                details="Chưa trang bị công cụ APM Tracing phân tán để quan sát độ trễ của các lệnh gọi CSDL và API bên ngoài.",
-                remediation="Cài đặt `@opentelemetry/sdk-node` hoặc `opentelemetry-sdk` Python để theo dõi hiệu năng hệ thống."
+                details='Missing distributed APM tracing tool to monitor database and external API call latencies.',
+                remediation='Install `@opentelemetry/sdk-node` or `opentelemetry-sdk` Python to track performance.'
             ))
 
         # 3. Prometheus / Metrics Endpoint
@@ -564,24 +564,24 @@ class InfraPillarsMixin:
         if has_metrics:
             score += 30
             found.append(CriterionItem(
-                "Cung cấp endpoint chỉ số PROMETHEUS METRICS (/metrics) phục vụ giám sát",
+                'Prometheus metrics endpoint (/metrics) for operational monitoring',
                 evidence=metrics_file or "/metrics",
-                details="Đã xác minh endpoint xuất chỉ số hiệu năng chuẩn Prometheus hỗ trợ Grafana dashboards.",
+                details='Verified a Prometheus-standard performance metrics export endpoint supporting Grafana dashboards.',
                 badge="Prometheus OK"
             ))
         else:
             missing.append(CriterionItem(
-                "Endpoint xuất chỉ số hiệu năng PROMETHEUS METRICS (/metrics) phục vụ giám sát",
+                'Prometheus metrics export endpoint (/metrics) for monitoring',
                 evidence="Monitoring Endpoints",
-                details="Chưa có endpoint `/metrics` định dạng Prometheus để thu thập dữ liệu tải CPU, RAM và request rate.",
-                remediation="Tích hợp thư viện `prom-client` hoặc `prometheus_client` mở endpoint `/metrics`."
+                details='No Prometheus-format `/metrics` endpoint to collect CPU, RAM load and request rate data.',
+                remediation='Integrate `prom-client` or `prometheus_client` to expose a `/metrics` endpoint.'
             ))
 
         score = min(100, score)
-        self.scores['GIÁM SÁT & VẬN HÀNH (OBSERVABILITY & OPS)'] = score
+        self.scores['MONITORING & OPERATIONS (OBSERVABILITY & OPS)'] = score
         self.add_log("  -> Audited Structured Logging, Prometheus metrics and OpenTelemetry traces.", "observability", "muted")
         self.details['observability'] = {
-            'name': 'Giám Sát & Vận Hành',
+            'name': 'Monitoring & Operations',
             'found': found,
             'missing': missing,
             'score': score,

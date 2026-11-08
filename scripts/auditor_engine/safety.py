@@ -24,11 +24,11 @@ from .constants import (
 
 # Tiêu đề cố định cho từng loại tín hiệu (không chứa nội dung từ tệp)
 KINDS = {
-    "SAFE-001": ("Cao", "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"),
-    "SAFE-002": ("Cao", "Ký tự ẩn (zero-width/bidi/tag) có thể giấu nội dung"),
-    "SAFE-003": ("Cao", "Lệnh cho AI giấu trong chú thích HTML hoặc phần tử bị ẩn"),
-    "SAFE-004": ("Trung bình", "Khối base64 dài trong tài liệu (có thể giấu nội dung mã hóa)"),
-    "SAFE-005": ("Trung bình", "Cấu hình Agent có thể thực thi lệnh (hook/MCP)"),
+    "SAFE-001": ("High", 'AI/Agent-directed commanding wording inside a data file'),
+    "SAFE-002": ("High", 'Hidden characters (zero-width/bidi/tag) can conceal content'),
+    "SAFE-003": ("High", 'AI directive hidden in an HTML comment or hidden element'),
+    "SAFE-004": ("Medium", 'Long base64 block in a document (may hide encoded content)'),
+    "SAFE-005": ("Medium", 'Agent configuration that can execute commands (hook/MCP)'),
 }
 
 # Lệnh nhắm vào AI: tiếng Anh và tiếng Việt. Khớp không phân biệt hoa thường.
@@ -394,6 +394,6 @@ def scan_safety(root: Path, on_progress=None) -> SafetyResult:
             if name.lower().endswith(".json") and _is_agent_file(rel_raw, name):
                 _scan_agent_json(rel, text, findings)
 
-    findings.sort(key=lambda f: ({"Cao": 0, "Trung bình": 1, "Thấp": 2}.get(f.severity, 9), f.file, f.line))
+    findings.sort(key=lambda f: ({"High": 0, "Medium": 1, "Low": 2}.get(f.severity, 9), f.file, f.line))
     result.agent_files.sort()
     return result

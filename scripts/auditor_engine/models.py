@@ -18,7 +18,7 @@ class CriterionItem(dict):
         badge: str = "",
         remediation: str = "",
         location: str = "",
-        severity: str = "Trung bình",
+        severity: str = "Medium",
     ):
         super().__init__(
             title=title,
@@ -28,18 +28,17 @@ class CriterionItem(dict):
             badge=str(badge or ""),
             remediation=str(remediation or ""),
             location=str(location or ""),
-            severity=str(severity or "Trung bình"),
+            severity=str(severity or "Medium"),
         )
 
     def __contains__(self, item):
-        # Hỗ trợ cả tra cứu key ('title' in item) và tra cứu chuỗi con ('DESIGN TOKENS' in item)
+        # Supports both key lookups ('title' in item) and substring lookups ('DESIGN TOKENS' in item)
         if super().__contains__(item):
             return True
         if isinstance(item, str):
-            t = self.get("title", "")
-            d = self.get("details", "")
-            s = self.get("snippet", "")
-            return item in t or item in d or item in s
+            # Case-insensitive on purpose: engine text is English and its casing must not change results.
+            needle = item.casefold()
+            return any(needle in str(self.get(k, "")).casefold() for k in ("title", "details", "snippet"))
         return False
 
     def __str__(self):
@@ -71,8 +70,8 @@ class CriterionItem(dict):
 
     @property
     def severity(self):
-        return self.get("severity", "Trung bình")
+        return self.get("severity", "Medium")
 
     @property
     def is_critical(self):
-        return self.get("severity") == "Cao"
+        return self.get("severity") == "High"

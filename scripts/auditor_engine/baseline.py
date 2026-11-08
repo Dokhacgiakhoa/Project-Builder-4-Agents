@@ -91,25 +91,25 @@ def check_baseline(root: Path) -> list[dict]:
     unresolved = "{{" in agents
 
     items = [
-        ("B1", "AGENTS.md (chỉ dẫn Agent)", has_agents, "Thiếu AGENTS.md" if not has_agents else ""),
-        ("B2", "Lớp tương thích Agent (CLAUDE.md + skills)",
+        ("B1", 'AGENTS.md (Agent instructions)', has_agents, 'Missing AGENTS.md' if not has_agents else ""),
+        ("B2", 'Agent compatibility layer (CLAUDE.md + skills)',
          bool(claude) and has_skills,
-         "Thiếu CLAUDE.md" if not claude else ("Thiếu skills (.agents/skills hoặc .claude/skills có */SKILL.md)" if not has_skills else "")),
-        ("B3", "docs/project-brief.md", (root / "docs" / "project-brief.md").is_file(), "Thiếu docs/project-brief.md"),
-        ("B4", "Nhật ký quyết định (adrs/ có ADR thật)", bool(adr_files), "Chưa có ADR nào ngoài mẫu"),
-        ("B5", "Chuẩn làm việc (docs/standards/)",
+         'Missing CLAUDE.md' if not claude else ('Missing skills (.agents/skills or .claude/skills with */SKILL.md)' if not has_skills else "")),
+        ("B3", "docs/project-brief.md", (root / "docs" / "project-brief.md").is_file(), 'Missing docs/project-brief.md'),
+        ("B4", 'Decision records (adrs/ with real ADRs)', bool(adr_files), 'No real ADRs beyond templates'),
+        ("B5", 'Working standards (docs/standards/)',
          (root / "docs" / "standards" / "coding-conventions.md").is_file()
          and (root / "docs" / "standards" / "definition-of-done.md").is_file(),
-         "Thiếu docs/standards/coding-conventions.md hoặc definition-of-done.md"),
-        ("B6", "Lệnh kiểm chứng đã điền + CI chạy được",
+         'Missing docs/standards/coding-conventions.md or definition-of-done.md'),
+        ("B6", 'Verification commands filled + CI operational',
          has_agents and not unresolved and bool(workflows),
-         "AGENTS.md còn {{PLACEHOLDER}}" if unresolved else ("Thiếu workflow CI trong .github/workflows/" if not workflows else "")),
-        ("B7", "Vệ sinh repo (.gitignore, .env.example)",
+         'AGENTS.md still contains {{PLACEHOLDER}}' if unresolved else ('Missing CI workflow in .github/workflows/' if not workflows else "")),
+        ("B7", 'Repo hygiene (.gitignore, .env.example)',
          (root / ".gitignore").is_file() and (root / ".env.example").is_file(),
-         "Thiếu .gitignore hoặc .env.example"),
-        ("B8", "Hồ sơ kit (.builder/kit.json)", (root / ".builder" / "kit.json").is_file(), "Thiếu .builder/kit.json"),
-        ("B9", "Quy trình PR (PULL_REQUEST_TEMPLATE)",
-         (root / ".github" / "PULL_REQUEST_TEMPLATE.md").is_file(), "Thiếu .github/PULL_REQUEST_TEMPLATE.md"),
+         'Missing .gitignore or .env.example'),
+        ("B8", 'Kit profile (.builder/kit.json)', (root / ".builder" / "kit.json").is_file(), 'Missing .builder/kit.json'),
+        ("B9", 'PR workflow (PULL_REQUEST_TEMPLATE)',
+         (root / ".github" / "PULL_REQUEST_TEMPLATE.md").is_file(), 'Missing .github/PULL_REQUEST_TEMPLATE.md'),
     ]
     return [{"id": i, "name": n, "ok": bool(ok), "detail": "" if ok else d} for i, n, ok, d in items]
 
@@ -125,8 +125,7 @@ def check_declared_profile(root: Path, all_dirs: set[str], declared: str | None)
     dirs = {d.lower() for d in all_dirs}
     missing = [sorted(g)[0] for g in groups if not (g & dirs)]
     if missing:
-        return False, (f"Dự án khai báo profile `{declared}` nhưng cấu trúc thư mục chưa thấy dấu hiệu tương ứng "
-                       f"(chưa có thư mục kiểu: {', '.join(missing)})."), doc_id
+        return False, (f"The project declares profile `{declared}` but the folder structure shows no matching signs " f"(no folders of this kind yet: {', '.join(missing)})."), doc_id
     return True, "", doc_id
 
 
@@ -155,7 +154,7 @@ def check_guardrails(root: Path, kit_cfg: dict) -> tuple[bool, str, list[str]]:
     if not workflows:
         return (
             False,
-            f"Dự án yêu cầu mức rào chắn `{level}` nhưng chưa có workflow CI tự động trong `.github/workflows/`.",
+            f"The project requires guardrail level `{level}` but has no automated CI workflow in `.github/workflows/`.",
             ["K-004", "S-002"],
         )
 
@@ -196,7 +195,7 @@ def check_guardrails(root: Path, kit_cfg: dict) -> tuple[bool, str, list[str]]:
             doc_id = PROFILE_EXPECTATIONS.get(declared_arch or "", ([], "K-004"))[1]
             return (
                 False,
-                f"Dự án khai báo mức rào chắn `{level}` ({declared_arch or 'custom'}) nhưng thiếu rào chắn kiểm soát ranh giới kiến trúc (luật chặn import chéo, tách project, hoặc test kiến trúc trong CI).",
+                f"The project declares guardrail level `{level}` ({declared_arch or 'custom'}) but lacks architecture boundary guardrails (cross-import blocking rules, project split, or architecture tests in CI).",
                 ["K-004", doc_id] if doc_id != "K-004" else ["K-004", "S-002"],
             )
 
@@ -235,11 +234,11 @@ def check_worklog(root: Path) -> tuple[str | None, str]:
         candidates.extend(sorted(folder.glob("*.md")))
     files = [p for p in candidates if p.is_file()]
     if not files:
-        return "WLOG-001", "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở."
+        return "WLOG-001", 'No work log (docs/worklog.md): the next Agent session will not know what was done or what is unfinished.'
     for p in files:
         try:
             if _DATED_ENTRY.search(p.read_text(encoding="utf-8-sig", errors="replace")):
                 return None, ""
         except OSError:
             continue
-    return "WLOG-002", "Work log đã có nhưng chưa có mục nào bắt đầu bằng ngày (YYYY-MM-DD)."
+    return "WLOG-002", 'The work log exists but has no entry starting with a date (YYYY-MM-DD).'

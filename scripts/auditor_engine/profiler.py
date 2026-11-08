@@ -30,9 +30,9 @@ class ProjectProfiler:
 
         self.tools = set()
 
-        self.archetype = "Ứng dụng Phần Mềm Tiêu Chuẩn (GENERAL APPLICATION)"
+        self.archetype = 'Standard Software Application (GENERAL APPLICATION)'
 
-        self.arch_style = "Kiến trúc Tự Do / Chưa Xác Định (CUSTOM ARCHITECTURE)"
+        self.arch_style = 'Free-form / Undetermined Architecture (CUSTOM ARCHITECTURE)'
 
         # Cờ nhận diện năng lực kích hoạt động
 
@@ -234,19 +234,19 @@ class ProjectProfiler:
 
         if self.has_frontend and self.has_backend:
 
-            self.archetype = "Hệ thống FULL-STACK (FRONTEND + BACKEND)"
+            self.archetype = 'FULL-STACK System (FRONTEND + BACKEND)'
 
         elif self.has_frontend and not self.has_backend:
 
-            self.archetype = "Ứng dụng Giao Diện Độc Lập (FRONTEND SPA / MOBILE)"
+            self.archetype = 'Standalone Frontend Application (FRONTEND SPA / MOBILE)'
 
         elif self.has_backend and not self.has_frontend:
 
-            self.archetype = "Nền tảng Dịch vụ Phía Sau (BACKEND API / MICROSERVICES)"
+            self.archetype = 'Backend Service Platform (BACKEND API / MICROSERVICES)'
 
         elif any((self.root / f).exists() for f in ['main.py', 'cli.py', 'cmd', 'bin']):
 
-            self.archetype = "Công cụ Dòng Lệnh / Hệ Thống (CLI TOOL / SYSTEM UTILITY)"
+            self.archetype = 'Command-line Tool / System Utility (CLI TOOL / SYSTEM UTILITY)'
 
         # 7. Nhận diện phong cách kiến trúc
 

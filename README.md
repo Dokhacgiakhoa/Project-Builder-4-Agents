@@ -4,8 +4,8 @@
 
 <!-- AUTO-GEN:STATS -->
 [![Health Score](https://img.shields.io/badge/Health_Score-88%2F100_A-yellow)](project-review.md)
-[![Automated Tests](https://img.shields.io/badge/Tests-170_passed-blue)](tests/)
-[![Indexed Files](https://img.shields.io/badge/Indexed_Files-481_files-purple)](MANIFEST.json)
+[![Automated Tests](https://img.shields.io/badge/Tests-173_passed-blue)](tests/)
+[![Indexed Files](https://img.shields.io/badge/Indexed_Files-489_files-purple)](MANIFEST.json)
 [![Architecture](https://img.shields.io/badge/Architecture-Remote_Knowledge_Hub-emerald)](HOW_IT_WORKS.md)
 <!-- /AUTO-GEN:STATS -->
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
@@ -163,7 +163,7 @@ In accordance with [ADR-0012](adrs/0012-agent-first-builder-and-health-check.md)
 | **Prompt-Injection Detection (`SAFE-*`)** | 🔬 Measured | 49/49 synthetic attacks detected (100%), 23 benign look-alikes 0 false positives. Public repo audit raised benign quotation flags, hardened with context-aware gating (ADR-0021). |
 | **Watchdog & Reload Survivability** | ✅ Verified | Shell UI reloads preserve engine PID; orphaned engine processes terminate automatically after 180s without heartbeat (ADR-0019). |
 | **Zero-Clone HTTP Resolution** | ✅ Verified | 100% of raw GitHub URLs in `MANIFEST.json` resolve with HTTP 200 (tested across 333+ pushed assets). |
-| **Single-EXE Windows Delivery** | ✅ Verified | `Project-Builder-Analytics.exe` v0.1.0 (SHA-256 `1ab9508199f0861daed1f854dfd885aba3cde74b20adbe629f41621ba75fd799`): UI tested manually by the maintainer; tests, exe-vs-source identity on 23 targets and README numbers checked in `evals/results/2026-11-08-release-v0.1.0-verification-016.md`. Not re-run for this build: clean-machine test (no Python/.NET), watchdog and reload behaviour. |
+| **Single-EXE Windows Delivery** | ✅ Verified | `Project-Builder-Analytics.exe` v0.2.0 (SHA-256 `ed6d0d7325cd20cfc16f9a779ec2847a98b80ca795828de314956f70ef2e0168`): UI tested manually by the maintainer; 175 tests; exe vs source identical on 23 targets; engine output identical to the previous engine on the same 23 targets apart from language (`evals/results/2026-11-08-english-engine-verification-017.md`). Not re-run for this build: clean-machine test (no Python/.NET), watchdog and reload behaviour. |
 | **English Token Efficiency** | 🔬 Measured | Claude tokenizer comparison across 9 parallel technical documents showed English consumes **~10% fewer tokens** (2–21% variance per file) compared to Vietnamese. |
 | **End-to-End Agent Bootstrap** | ⏳ Planned | Eval protocol specified in `evals/c1-bootstrap-protocol.md`, awaiting automated multi-agent run. |
 

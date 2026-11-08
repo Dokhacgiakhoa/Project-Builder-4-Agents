@@ -25,9 +25,9 @@ MAX_LISTED = 5
 # Gói MCP đã kiểm chứng bằng npm/GitHub API ngày 2026-11-07 (ghi lại trong TASKS.md, nhật ký 2026-11-07).
 # Nguồn sự thật cho người đọc: profiles/agent-configs/curated-mcp-matrix.md (G-006).
 KNOWN_BAD_MCP_PACKAGES = {
-    "@modelcontextprotocol/server-playwright": "không tồn tại trên npm; dùng @playwright/mcp",
-    "@modelcontextprotocol/server-github": "đã deprecated và archived; dùng github/github-mcp-server",
-    "@modelcontextprotocol/server-postgres": "đã deprecated và archived; dùng crystaldba/postgres-mcp",
+    "@modelcontextprotocol/server-playwright": 'does not exist on npm; use @playwright/mcp',
+    "@modelcontextprotocol/server-github": 'deprecated and archived; use github/github-mcp-server',
+    "@modelcontextprotocol/server-postgres": 'deprecated and archived; use crystaldba/postgres-mcp',
 }
 
 MCP_CONFIG_FILES = (
@@ -80,7 +80,7 @@ def _read_head(path: Path, limit: int = 2048) -> str:
 def _summarize(names: list[str]) -> str:
     shown = ", ".join(clean_path(n) for n in names[:MAX_LISTED])
     more = len(names) - MAX_LISTED
-    return shown + (f" và {more} tệp khác" if more > 0 else "")
+    return shown + (f" and {more} more files" if more > 0 else "")
 
 
 TEST_PATH_SEGMENTS = {"tests", "test", "testing", "__tests__", "fixtures", "spec"}
@@ -165,16 +165,13 @@ def check_tracked_files(root: Path, tracked: list[str] | None) -> list[HygieneFi
     out = []
     if secrets:
         out.append(HygieneFinding(
-            "SEC-005", f"{len(secrets)} tệp có thể chứa bí mật đã bị commit vào git: {_summarize(secrets)}. "
-                       "Xoay khóa/mật khẩu rồi gỡ khỏi lịch sử, thêm vào .gitignore.", clean_path(secrets[0])))
+            "SEC-005", f"{len(secrets)} files may contain secrets committed to git: {_summarize(secrets)}. " "Rotate keys/passwords, remove them from history, and add them to .gitignore.", clean_path(secrets[0])))
     if logs:
         out.append(HygieneFinding(
-            "HYG-002", f"{len(logs)} tệp log đã bị commit: {_summarize(logs)}. Log dễ chứa token và dữ liệu cá nhân; "
-                       "thêm *.log vào .gitignore.", clean_path(logs[0])))
+            "HYG-002", f"{len(logs)} log files committed: {_summarize(logs)}. Logs often hold tokens and personal data; " "add *.log to .gitignore.", clean_path(logs[0])))
     if binaries:
         out.append(HygieneFinding(
-            "SUP-004", f"{len(binaries)} tệp thực thi/nhị phân nằm trong git: {_summarize(binaries)}. "
-                       "Không thể đọc nội dung để kiểm; chỉ giữ khi có nguồn và checksum rõ ràng.",
+            "SUP-004", f"{len(binaries)} executable/binary files in git: {_summarize(binaries)}. " "Their content cannot be inspected; keep them only with a clear source and checksum.",
             clean_path(binaries[0])))
     return out
 
@@ -222,13 +219,11 @@ def check_package_json(root: Path, package_files: list[Path]) -> list[HygieneFin
     out = []
     if install_hits:
         out.append(HygieneFinding(
-            "SUP-001", f"{len(install_hits)} script cài đặt (preinstall/install/postinstall) tải hoặc thực thi nội dung "
-                       f"từ xa hoặc mã hóa: {_summarize(install_hits)}. Script này chạy ngay khi cài đặt.",
+            "SUP-001", f"{len(install_hits)} install scripts (preinstall/install/postinstall) download or run remote " f"or encoded content: {_summarize(install_hits)}. These scripts run immediately on install.",
             clean_path(install_hits[0].split(":")[0])))
     if unpinned:
         out.append(HygieneFinding(
-            "SUP-002", f"{len(unpinned)} phụ thuộc không ghim phiên bản (*, latest, URL/git không kèm commit): "
-                       f"{_summarize(unpinned)}.", clean_path(unpinned[0].split(":")[0])))
+            "SUP-002", f"{len(unpinned)} dependencies without a pinned version (*, latest, URL/git without a commit): " f"{_summarize(unpinned)}.", clean_path(unpinned[0].split(":")[0])))
     return out
 
 
@@ -256,11 +251,10 @@ def check_requirements(root: Path, requirement_files: list[Path]) -> list[Hygien
     out = []
     if index_hits:
         out.append(HygieneFinding(
-            "SUP-003", f"requirements dùng index gói ngoài PyPI hoặc http thường ({_summarize(sorted(set(index_hits)))}): "
-                       "gói trùng tên có thể bị lấy từ index khác.", clean_path(index_hits[0])))
+            "SUP-003", f"requirements use a package index other than PyPI or plain http ({_summarize(sorted(set(index_hits)))}): " "same-name packages may be fetched from another index.", clean_path(index_hits[0])))
     if unpinned:
         out.append(HygieneFinding(
-            "SUP-002", f"requirements cài từ git không ghim commit/tag: {_summarize(sorted(set(unpinned)))}.",
+            "SUP-002", f"requirements install from git without a pinned commit/tag: {_summarize(sorted(set(unpinned)))}.",
             clean_path(unpinned[0])))
     return out
 
@@ -298,12 +292,11 @@ def check_mcp_configs(root: Path) -> list[HygieneFinding]:
     out = []
     if bad:
         detail = "; ".join(f"{clean_path(p)} ({why})" for _r, p, why in bad[:MAX_LISTED])
-        out.append(HygieneFinding("AGT-004", f"Cấu hình MCP dùng gói sai/lỗi thời: {detail}.", bad[0][0]))
+        out.append(HygieneFinding("AGT-004", f"MCP configuration uses wrong/outdated packages: {detail}.", bad[0][0]))
     if unpinned:
         pkgs = ", ".join(clean_path(p) for _r, p in unpinned[:MAX_LISTED])
         out.append(HygieneFinding(
-            "AGT-005", f"{len(unpinned)} máy chủ MCP chạy bằng npx không ghim phiên bản ({pkgs}): mỗi lần mở dự án "
-                       "sẽ chạy bản mới nhất, kể cả bản bị chiếm quyền.", unpinned[0][0]))
+            "AGT-005", f"{len(unpinned)} MCP servers run via npx without a pinned version ({pkgs}): each time the project opens " "it runs the latest release, even a hijacked one.", unpinned[0][0]))
     return out
 
 
@@ -329,8 +322,7 @@ def check_spec_markers(root: Path, markdown_files: list[Path]) -> list[HygieneFi
         return []
     files = sorted(set(hits))
     return [HygieneFinding(
-        "SPEC-001", f"{len(hits)} marker [NEEDS CLARIFICATION] còn sót trong {len(files)} tệp spec/task: "
-                    f"{_summarize(files)}. Làm rõ với người dùng trước khi code.", clean_path(first))]
+        "SPEC-001", f"{len(hits)} [NEEDS CLARIFICATION] markers left in {len(files)} spec/task files: " f"{_summarize(files)}. Clarify with the user before coding.", clean_path(first))]
 
 
 def run_hygiene_checks(root: Path, tree_files: list[Path]) -> list[HygieneFinding]:

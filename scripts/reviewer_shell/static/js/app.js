@@ -1579,15 +1579,15 @@ function renderGroupedViolations(violations, containerEl) {
 
 // -------------------------------------------------------------
 
-const SEV_EN = { "Cao": "High", "Trung bình": "Medium", "Thấp": "Low" };
+const SEV_EN = { "High": "High", "Medium": "Medium", "Low": "Low" };
 
 function sevLabel(sev) { return currentLang() === "vi" ? sev : (SEV_EN[sev] || sev); }
 
 function getSeverityClass(sev) {
 
-  if (sev === "Cao") return "sev-high";
+  if (sev === "High") return "sev-high";
 
-  if (sev === "Trung bình") return "sev-medium";
+  if (sev === "Medium") return "sev-medium";
 
   return "sev-low";
 
@@ -1634,7 +1634,7 @@ function renderFindingsTable(findings) {
 
         <td><span class="code-pill">${escapeHtml(f?.code ?? "GEN-001")}</span></td>
 
-        <td><span class="sev-badge ${getSeverityClass(f?.severity)}">${escapeHtml(sevLabel(f?.severity ?? "Trung bình"))}</span></td>
+        <td><span class="sev-badge ${getSeverityClass(f?.severity)}">${escapeHtml(sevLabel(f?.severity ?? "Medium"))}</span></td>
 
         <td>${locHtml}</td>
 
@@ -2749,7 +2749,7 @@ function handlePillarSelection(pillarKey) {
 
         const remediation = typeof item === "object" ? (item.remediation || "") : "";
 
-        const isCritical = (typeof item === "object" && (item.is_critical || item.severity === "Cao"));
+        const isCritical = (typeof item === "object" && (item.is_critical || item.severity === "High"));
         const li = document.createElement("li");
         li.className = isCritical ? "analysis-criterion-item unmet critical-risk" : "analysis-criterion-item unmet";
         const dotClass = (isCritical || isPillarCritical || ratio < 0.5) ? 'danger-icon' : 'warning-icon';

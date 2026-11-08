@@ -35,10 +35,10 @@ class DocsPillarsMixin:
                 self.add_log(f"  -> Found {readme_file.name} ({lines_count} lines).", "readme", "muted")
 
                 found.append(CriterionItem(
-                    "Tệp README.md chuẩn xác tại thư mục gốc",
-                    evidence=f"{readme_file.name} ({lines_count} dòng, {file_size_kb:.1f} KB)",
-                    details=f"Đã phát hiện tệp tài liệu khởi đầu chính của dự án tại `{readme_file.name}` với {lines_count} dòng nội dung.",
-                    badge=f"{lines_count} dòng"
+                    'Accurate README.md in root directory',
+                    evidence=f"{readme_file.name} ({lines_count} lines, {file_size_kb:.1f} KB)",
+                    details=f"Detected the main starter documentation file at `{readme_file.name}` with {lines_count} lines of content.",
+                    badge=f"{lines_count} lines"
                 ))
 
                 # Tiêu đề & Bài toán (Product Vision)
@@ -47,18 +47,18 @@ class DocsPillarsMixin:
                     score += 20
                     title_str = title_match.group(1).strip()
                     found.append(CriterionItem(
-                        "Mô tả bài toán, mục tiêu và định vị giá trị sản phẩm rõ ràng",
+                        'Clear product vision, problem description and value proposition',
                         evidence=f"{readme_file.name}:L1",
                         snippet=f"# {title_str[:80]}",
-                        details=f"Phát hiện tiêu đề và định vị sản phẩm: '{title_str}' cùng phần mô tả mục tiêu bài toán nghiệp vụ.",
+                        details=f"Detected the title and product positioning: '{title_str}' along with a description of the business problem and goals.",
                         badge="Product Vision"
                     ))
                 else:
                     missing.append(CriterionItem(
-                        "Đoạn giới thiệu mục tiêu bài toán và giá trị sản phẩm (PRODUCT VISION)",
+                        'Product vision and problem value proposition section',
                         evidence=readme_file.name,
-                        details="Tệp README thiếu tiêu đề cấp cao nhất (# Heading) hoặc quá ngắn (< 15 dòng) để mô tả bài toán và giá trị sản phẩm.",
-                        remediation="Bổ sung mục giới thiệu: # Tên dự án, vấn đề giải quyết, đối tượng người dùng và giá trị cốt lõi."
+                        details='The README lacks a top-level heading (# Heading) or is too short (< 15 lines) to describe the problem and product value.',
+                        remediation='Add an introduction: # Project name, the problem solved, target users and core value.'
                     ))
 
                 # Hướng dẫn khởi chạy (Quick Start)
@@ -92,18 +92,18 @@ class DocsPillarsMixin:
                 if found_quickstart_cmd:
                     score += 25
                     found.append(CriterionItem(
-                        "Khối lệnh QUICK START hướng dẫn cài đặt và khởi chạy dự án cục bộ",
+                        'QUICK START command block guiding local setup and startup',
                         evidence=f"{readme_file.name}",
                         snippet=found_quickstart_cmd,
-                        details="Đã phát hiện khối mã lệnh hướng dẫn khởi chạy dự án môi trường phát triển cục bộ.",
+                        details='Detected command block instructing how to run the project in local development.',
                         badge="Quick Start"
                     ))
                 else:
                     missing.append(CriterionItem(
-                        "Khối lệnh QUICK START hướng dẫn thiết lập môi trường và chạy mã nguồn",
+                        'QUICK START block for environment setup and running code',
                         evidence=readme_file.name,
-                        details="Không tìm thấy khối mã (code block bash/shell) hướng dẫn cài đặt dependencies và chạy dev server cục bộ.",
-                        remediation="Thêm khối lệnh Quick Start mẫu (ví dụ: npm install && npm run dev hoặc pip install -r requirements.txt)."
+                        details='No code block (bash/shell) found with instructions to install dependencies and run the local dev server.',
+                        remediation='Add a sample Quick Start command block (e.g. npm install && npm run dev or pip install -r requirements.txt).'
                     ))
 
                 # Biến môi trường (.ENV)
@@ -113,18 +113,18 @@ class DocsPillarsMixin:
                     score += 15
                     ev_name = env_example[0].name if env_example else readme_file.name
                     found.append(CriterionItem(
-                        "Tài liệu hướng dẫn cấu hình biến môi trường (.ENV)",
+                        'Environment variables configuration documentation (.ENV)',
                         evidence=ev_name,
-                        snippet=f"Tệp {ev_name}" if env_example else "Mục .ENV trong README",
-                        details="Đã xác minh tài liệu biến môi trường và tệp cấu hình mẫu an toàn.",
+                        snippet=f"File {ev_name}" if env_example else '.ENV section in README',
+                        details='Verified environment variable documentation and a safe sample configuration file.',
                         badge=".ENV Docs"
                     ))
                 else:
                     missing.append(CriterionItem(
-                        "Tài liệu hướng dẫn cấu hình biến môi trường (.ENV)",
+                        'Environment variables configuration documentation (.ENV)',
                         evidence=readme_file.name,
-                        details="Thiếu tài liệu hướng dẫn cấu hình biến môi trường và không tìm thấy tệp .env.example mẫu.",
-                        remediation="Tạo tệp `.env.example` liệt kê các biến cấu hình cần thiết và ghi chú vào README.md."
+                        details='Missing documentation on configuring environment variables and no sample .env.example file found.',
+                        remediation='Create a `.env.example` file listing the required configuration variables and note it in README.md.'
                     ))
 
                 # Cấu trúc kiến trúc / Thư mục
@@ -133,17 +133,17 @@ class DocsPillarsMixin:
                     has_mermaid = 'mermaid' in content.lower()
                     badge_str = "Mermaid Diagram" if has_mermaid else "Directory Map"
                     found.append(CriterionItem(
-                        "Mô tả cấu trúc thư mục và sơ đồ ARCHITECTURE tổng quan",
+                        'Directory structure description and ARCHITECTURE overview diagram',
                         evidence=readme_file.name,
-                        details=f"Đã phát hiện sơ đồ/mô tả cấu trúc kiến trúc dự án ({badge_str}).",
+                        details=f"Detected an architecture structure diagram/description of the project ({badge_str}).",
                         badge=badge_str
                     ))
                 else:
                     missing.append(CriterionItem(
-                        "Sơ đồ hoặc tài liệu mô tả cấu trúc thư mục ARCHITECTURE",
+                        'Diagram or document describing ARCHITECTURE directory layout',
                         evidence=readme_file.name,
-                        details="Không tìm thấy sơ đồ kiến trúc (Mermaid diagram) hoặc cây thư mục giải thích cấu trúc dự án trong README.",
-                        remediation="Bổ sung sơ đồ kiến trúc tổng quan hoặc cây thư mục với chú thích vai trò của từng thư mục."
+                        details='No architecture diagram (Mermaid diagram) or folder tree explaining the project structure found in the README.',
+                        remediation="Add an overview architecture diagram or a folder tree annotated with each folder's role."
                     ))
 
                 # Living Documentation & Auto-Sync Pipeline (S-007)
@@ -160,9 +160,9 @@ class DocsPillarsMixin:
                     if has_pre_commit:
                         tools_found.append("pre-commit hook")
                     found.append(CriterionItem(
-                        "Cơ chế Tài liệu sống & Đồng bộ tự động 4 lớp (LIVING DOCUMENTATION AUTO-SYNC PIPELINE)",
+                        '4-Layer Living Documentation auto-sync pipeline',
                         evidence=", ".join(tools_found),
-                        details=f"Đã phát hiện hệ thống chống trôi lệch tài liệu tự động: {', '.join(tools_found)}.",
+                        details=f"Detected an automatic documentation-drift prevention system: {', '.join(tools_found)}.",
                         badge="Living Docs"
                     ))
 
@@ -170,15 +170,15 @@ class DocsPillarsMixin:
                 pass
         else:
             missing.append(CriterionItem(
-                "Dự án chưa có tệp README.md giới thiệu",
-                evidence="Thư mục gốc",
-                details="Không tìm thấy tệp README.md (hoặc readme.md) tại thư mục gốc của dự án.",
-                remediation="Khởi tạo tệp README.md trình bày mục tiêu sản phẩm, kiến trúc và lệnh khởi chạy."
+                'Project is missing introductory README.md file',
+                evidence='Root folder',
+                details='No README.md (or readme.md) found in the project root.',
+                remediation='Create README.md covering the product goal, architecture and run commands.'
             ))
-            self.gaps.append("Thiếu tệp README.md hướng dẫn khởi chạy dự án và ONBOARDING cho thành viên mới.")
+            self.gaps.append('Missing README.md with run instructions and ONBOARDING for new members.')
 
         score = min(100, score)
-        self.scores['Tài Liệu & Hướng Dẫn (README & ONBOARDING)'] = score
+        self.scores['Documentation & Guides (README & ONBOARDING)'] = score
         self.details['readme'] = {
             'name': 'Readme & Onboarding',
             'found': found,
@@ -208,19 +208,19 @@ class DocsPillarsMixin:
                 except Exception:
                     lines_cnt = 0
                 found.append(CriterionItem(
-                    f"Tệp quy chuẩn chỉ dẫn dành cho AI AGENT ({af})",
-                    evidence=f"{af} ({lines_cnt} dòng)",
-                    details=f"Đã phát hiện hiến pháp chỉ đạo Agent tại `{af}` với {lines_cnt} dòng định hướng hành vi.",
+                    f"Standard instruction file for AI AGENTS ({af})",
+                    evidence=f"{af} ({lines_cnt} lines)",
+                    details=f"Detected the Agent constitution at `{af}` with {lines_cnt} lines of behavior guidance.",
                     badge="Agent Governance"
                 ))
                 break
 
         if not has_ai_rules:
             missing.append(CriterionItem(
-                "Tệp quy chuẩn chỉ dẫn cho AI AGENT (AGENTS.md hoặc .CURSORRULES)",
-                evidence="Thư mục gốc",
-                details="Chưa có tệp AGENTS.md, .cursorrules hoặc CLAUDE.md để định hướng hành vi của AI Agent.",
-                remediation="Tạo tệp AGENTS.md tuân thủ chuẩn Project-Builder-4-Agents để giao tiếp hiệu quả với AI."
+                'AI Agent directive specification (AGENTS.md or .cursorrules)',
+                evidence='Root folder',
+                details="No AGENTS.md, .cursorrules or CLAUDE.md to steer the AI Agent's behavior.",
+                remediation='Create an AGENTS.md following the Project-Builder-4-Agents standard to communicate effectively with AI.'
             ))
 
         # 2. ARCHITECTURE DECISION RECORDS (ADRs)
@@ -229,26 +229,26 @@ class DocsPillarsMixin:
             score += 35
             adr_samples = ", ".join([p.name for p in adrs[:3]])
             found.append(CriterionItem(
-                f"Kho lưu trữ hồ sơ quyết định kiến trúc ({len(adrs)} tệp ADR)",
-                evidence=f"{len(adrs)} tệp ({adr_samples}...)",
-                details=f"Phát hiện {len(adrs)} hồ sơ quyết định kiến trúc (ADR) ghi lại các quyết định kỹ thuật cốt lõi.",
+                f"Architecture decision record repository ({len(adrs)} ADR files)",
+                evidence=f"{len(adrs)} files ({adr_samples}...)",
+                details=f"Detected {len(adrs)} architecture decision records (ADRs) documenting core technical decisions.",
                 badge=f"{len(adrs)} ADRs"
             ))
         elif len(adrs) >= 1:
             score += 20
             adr_samples = ", ".join([p.name for p in adrs])
             found.append(CriterionItem(
-                f"Kho lưu trữ hồ sơ quyết định kiến trúc ({len(adrs)} tệp ADR - Cần bổ sung)",
-                evidence=f"{len(adrs)} tệp ({adr_samples})",
-                details=f"Phát hiện {len(adrs)} ADR, khuyến nghị bổ sung thêm các quyết định quan trọng.",
+                f"Architecture decision record repository ({len(adrs)} ADR files - needs more)",
+                evidence=f"{len(adrs)} files ({adr_samples})",
+                details=f"Detected {len(adrs)} ADRs; adding more important decisions is recommended.",
                 badge=f"{len(adrs)} ADRs"
             ))
         else:
             missing.append(CriterionItem(
-                "Hồ sơ ARCHITECTURE DECISION RECORDS (ADRS)",
-                evidence="docs/adr/ hoặc adrs/",
-                details="Chưa phát hiện thư mục ADRs lưu trữ lịch sử các quyết định kiến trúc hệ thống.",
-                remediation="Khởi tạo thư mục docs/adr/ hoặc adrs/ và viết ADR cho các quyết định công nghệ quan trọng."
+                'Architecture Decision Records (ADRs)',
+                evidence='docs/adr/ or adrs/',
+                details='No ADR folder found to store the history of system architecture decisions.',
+                remediation='Create a docs/adr/ or adrs/ folder and write ADRs for important technology decisions.'
             ))
 
         # 3. API CONTRACTS (OpenAPI / Swagger / Contracts / MANIFEST.json)
@@ -257,24 +257,24 @@ class DocsPillarsMixin:
             score += 30
             rel_path = str(self.tree.rel_path(api_contracts[0])) if hasattr(self.tree, 'rel_path') else api_contracts[0].name
             found.append(CriterionItem(
-                f"Chuẩn hóa tài liệu API CONTRACT ({api_contracts[0].name})",
+                f"Standardized API CONTRACT documentation ({api_contracts[0].name})",
                 evidence=rel_path,
-                details=f"Đã phát hiện đặc tả API hợp đồng tại `{rel_path}` phục vụ tích hợp chuẩn mực.",
+                details=f"Detected an API contract specification at `{rel_path}` supporting standard integration.",
                 badge="API Contract"
             ))
         else:
             missing.append(CriterionItem(
-                "Tài liệu đặc tả hợp đồng API CONTRACT (OPENAPI / SWAGGER)",
+                'API contract specification (OpenAPI / Swagger)',
                 evidence="openapi.yaml / swagger.json",
-                details="Chưa phát hiện tài liệu đặc tả API chuẩn (OpenAPI 3.0, Swagger hoặc Proto schemas).",
-                remediation="Bổ sung tài liệu OpenAPI (openapi.yaml) hoặc tích hợp thư viện auto-generate Swagger docs."
+                details='No standard API specification found (OpenAPI 3.0, Swagger or Proto schemas).',
+                remediation='Add OpenAPI documentation (openapi.yaml) or integrate a Swagger auto-generation library.'
             ))
 
         score = min(100, score)
-        self.scores['Quản Trị API CONTRACT & Cấu Hình AI AGENT'] = score
+        self.scores['API CONTRACT Governance & AI AGENT Configuration'] = score
         self.add_log("  -> Verified Architecture Decision Records (ADRs), OpenAPI specs and Product Vision.", "contracts", "muted")
         self.details['contracts'] = {
-            'name': 'Hồ Sơ Kiến Trúc & Hợp Đồng API',
+            'name': 'Architecture Records & API Contracts',
             'found': found,
             'missing': missing,
             'score': score,
@@ -309,9 +309,9 @@ class DocsPillarsMixin:
             score += 20
             names_str = ", ".join(sorted(list({p.name for p in rule_files}))[:4])
             found.append(CriterionItem(
-                f"Tệp quy chuẩn chỉ dẫn AI AGENT chuẩn mực ({names_str})",
+                f"Standard AI AGENT instruction files ({names_str})",
                 evidence=names_str,
-                details=f"Đã tìm thấy {len(rule_files)} tệp chỉ dẫn Agent trong dự án: {names_str}.",
+                details=f"Found {len(rule_files)} Agent instruction files in the project: {names_str}.",
                 badge=f"{len(rule_files)} rules"
             ))
 
@@ -330,56 +330,56 @@ class DocsPillarsMixin:
             if has_negative_constraints:
                 score += 10
                 found.append(CriterionItem(
-                    "Quy tắc ràng buộc phủ định (NEGATIVE CONSTRAINTS) ngăn chặn Agent tự ý sửa đổi bừa bãi",
+                    'Negative constraints preventing unintended modifications by Agent',
                     evidence="AGENTS.md / rules",
-                    details="Phát hiện các điều khoản cấm (never, do not, cấm) thiết lập ranh giới an toàn cho Agent.",
+                    details='Detected prohibition clauses (never, do not, prohibited) that set safety boundaries for the Agent.',
                     badge="Negative Constraints"
                 ))
             else:
                 missing.append(CriterionItem(
-                    "Quy tắc điều khoản cấm (NEGATIVE CONSTRAINTS: hành động nào Agent tuyệt đối KHÔNG được làm)",
+                    'Prohibited actions (Negative constraints: what Agent must NEVER do)',
                     evidence="AGENTS.md",
-                    details="Hiến pháp Agent chưa liệt kê các hành động bị cấm tuyệt đối (ví dụ: không xóa file, không đổi kiến trúc khi chưa hỏi).",
-                    remediation="Bổ sung danh sách điều khoản cấm (Negative Constraints) vào AGENTS.md."
+                    details='The Agent constitution does not list absolutely forbidden actions (e.g. do not delete files, do not change the architecture without asking).',
+                    remediation='Add a list of prohibition clauses (Negative Constraints) to AGENTS.md.'
                 ))
 
             if has_stop_and_ask:
                 score += 10
                 found.append(CriterionItem(
-                    "Cơ chế ngắt mạch dừng lại hỏi (STOP & ASK / 2-ATTEMPT CIRCUIT BREAKER) chống vòng lặp Doom Loop",
+                    'Stop & Ask / 2-Attempt Circuit Breaker preventing Doom Loops',
                     evidence="AGENTS.md",
-                    details="Phát hiện điều khoản ngắt mạch (stop & ask, 2-attempt circuit breaker) yêu cầu Agent dừng lại hỏi ý kiến.",
+                    details='Detected circuit-breaker clauses (stop & ask, 2-attempt circuit breaker) requiring the Agent to stop and ask.',
                     badge="Circuit Breaker"
                 ))
             else:
                 missing.append(CriterionItem(
-                    "Cơ chế chốt chặn STOP & ASK / CIRCUIT BREAKER (buộc Agent dừng lại xin ý kiến khi chạm rủi ro kiến trúc)",
+                    'Stop & Ask / Circuit Breaker gate (forces Agent to seek confirmation on architectural risks)',
                     evidence="AGENTS.md",
-                    details="Thiếu quy tắc ngắt mạch buộc Agent dừng lại xin ý kiến sau 2 lần thử thất bại hoặc khi có nguy cơ phá vỡ cấu trúc.",
-                    remediation="Thêm nguyên tắc '2-Attempt Circuit Breaker: Stop and ask before breaking backwards compatibility' vào AGENTS.md."
+                    details='Missing a circuit-breaker rule forcing the Agent to stop and ask after 2 failed attempts or when the structure is at risk of breaking.',
+                    remediation="Add the principle '2-Attempt Circuit Breaker: Stop and ask before breaking backwards compatibility' to AGENTS.md."
                 ))
 
             if has_anti_crash_rules:
                 score += 10
                 found.append(CriterionItem(
-                    "Điều khoản ràng buộc bắt buộc lập trình phòng thủ (ANTI-CRASH DEFENSIVE STANDARD)",
+                    'Mandatory defensive programming clause (Anti-Crash standard)',
                     evidence="AGENTS.md",
-                    details="Phát hiện điều khoản quy định bắt buộc lập trình phòng thủ chống đổ vỡ runtime.",
+                    details='Detected a clause mandating defensive programming against runtime breakage.',
                     badge="Defensive Standards"
                 ))
             else:
                 missing.append(CriterionItem(
-                    "Quy chuẩn chống đổ vỡ ANTI-CRASH bắt buộc trong hiến pháp Agent",
+                    'Mandatory anti-crash defensive rules in Agent constitution',
                     evidence="AGENTS.md",
-                    details="Thiếu yêu cầu bắt buộc Agent phải bọc try-catch, kiểm tra null safety và validate kiểu dữ liệu đầu vào.",
-                    remediation="Bổ sung mục Defensive Programming Guidelines vào AGENTS.md."
+                    details='Missing mandatory rule requiring Agent to wrap try-catch, check null safety, and validate input types.',
+                    remediation='Add Defensive Programming Guidelines section to AGENTS.md.'
                 ))
         else:
             missing.append(CriterionItem(
-                "Thiếu tệp hiến pháp định hướng hành vi cho AI Agent (AGENTS.md, .cursorrules hoặc .mdc)",
-                evidence="Thư mục gốc",
-                details="Không tìm thấy tệp hiến pháp nào định hướng hành vi cho AI Coding Agent.",
-                remediation="Khởi tạo tệp AGENTS.md theo mẫu Project-Builder-4-Agents."
+                'Missing behavioral constitution for AI Agents (AGENTS.md, .cursorrules or .mdc)',
+                evidence='Root folder',
+                details="No constitution file found to steer the AI Coding Agent's behavior.",
+                remediation='Create an AGENTS.md from the Project-Builder-4-Agents template.'
             ))
 
         # 2. Quét Agent Skills Catalog (.agents/skills/*/SKILL.md, .claude/skills/*/SKILL.md, skills/*/SKILL.md)
@@ -402,33 +402,33 @@ class DocsPillarsMixin:
             score += 25
             skill_names = [p.parent.name for p in skill_files[:4]]
             found.append(CriterionItem(
-                f"Kho kỹ năng đóng gói AGENT SKILLS ({len(skill_files)} kỹ năng được phát hiện)",
+                f"Packaged AGENT SKILLS repository ({len(skill_files)} skills detected)",
                 evidence=f"{len(skill_files)} skills ({', '.join(skill_names)})",
-                details=f"Đã xác minh kho kỹ năng Agent đóng gói dạng SKILL.md: {', '.join(skill_names)}.",
+                details=f"Verified a repository of Agent skills packaged as SKILL.md: {', '.join(skill_names)}.",
                 badge=f"{len(skill_files)} skills"
             ))
 
             if has_yaml_frontmatter:
                 score += 10
                 found.append(CriterionItem(
-                    "Cấu trúc SKILL.md chuẩn hóa với YAML FRONTMATTER (name, description, instructions)",
-                    evidence=f"{valid_skills_count} tệp SKILL.md",
-                    details=f"Đã xác minh {valid_skills_count} tệp SKILL.md có YAML frontmatter đúng chuẩn Agent Skill Specification.",
+                    'Standardized SKILL.md structure with YAML frontmatter (name, description, instructions)',
+                    evidence=f"{valid_skills_count} SKILL.md files",
+                    details=f"Verified {valid_skills_count} SKILL.md files with YAML frontmatter conforming to the Agent Skill Specification.",
                     badge="Frontmatter OK"
                 ))
             else:
                 missing.append(CriterionItem(
-                    "Chuẩn hóa YAML FRONTMATTER (name, description) cho các tệp SKILL.md",
+                    'Standardized YAML frontmatter (name, description) for SKILL.md files',
                     evidence=".agents/skills/*/SKILL.md",
-                    details="Các tệp SKILL.md hiện tại thiếu khối YAML Frontmatter chuẩn (name, description).",
-                    remediation="Bổ sung block YAML `--- name: ... description: ... ---` vào đầu mỗi tệp SKILL.md."
+                    details='The current SKILL.md files lack the standard YAML frontmatter block (name, description).',
+                    remediation='Add the YAML block `--- name: ... description: ... ---` at the top of each SKILL.md.'
                 ))
         else:
             missing.append(CriterionItem(
-                "Thư mục đóng gói kỹ năng AGENT SKILLS (.agents/skills/*/SKILL.md) để mở rộng năng lực tự động",
+                'Packaged Agent skills directory (.agents/skills/*/SKILL.md) for automated capability expansion',
                 evidence=".agents/skills/",
-                details="Chưa có thư mục đóng gói Agent Skills chuyên biệt để trao quyền cho Agent tự thực thi tác vụ chuyên sâu.",
-                remediation="Tạo thư mục `.agents/skills/<skill-name>/SKILL.md` đóng gói các kỹ năng kiểm thử, review hoặc deploy."
+                details='No dedicated Agent Skills folder to empower the Agent to run specialized tasks on its own.',
+                remediation='Create `.agents/skills/<skill-name>/SKILL.md` packaging testing, review or deploy skills.'
             ))
 
         # 3. Quét Agent Workflows, Playbooks & Automation Pipelines (.agent/workflows/, workflows/, playbooks/, prompts/)
@@ -442,9 +442,9 @@ class DocsPillarsMixin:
             score += 15
             wf_names = ", ".join(sorted(list({p.name for p in workflow_files}))[:3])
             found.append(CriterionItem(
-                f"Quy trình tự động hóa tác vụ AGENT WORKFLOWS & PLAYBOOKS ({len(workflow_files)} kịch bản: {wf_names})",
-                evidence=f"{len(workflow_files)} kịch bản ({wf_names})",
-                details=f"Đã tìm thấy {len(workflow_files)} kịch bản quy trình nhiều bước hỗ trợ cộng tác: {wf_names}.",
+                f"AGENT WORKFLOWS & PLAYBOOKS task automation ({len(workflow_files)} scripts: {wf_names})",
+                evidence=f"{len(workflow_files)} scripts ({wf_names})",
+                details=f"Found {len(workflow_files)} multi-step workflow scripts supporting collaboration: {wf_names}.",
                 badge=f"{len(workflow_files)} workflows"
             ))
 
@@ -460,40 +460,40 @@ class DocsPillarsMixin:
             if has_verification_step:
                 score += 10
                 found.append(CriterionItem(
-                    "Quy trình tác vụ tích hợp chặng tự kiểm chứng (SELF-VERIFICATION / TDD FIRST)",
+                    'Task workflow with integrated self-verification stage (Self-Verification / TDD first)',
                     evidence="workflows / playbooks",
-                    details="Kịch bản quy trình chứa bước kiểm chứng tự động (test, lint, verification) trước khi đóng task.",
+                    details='The workflow scripts contain an automatic verification step (test, lint, verification) before closing a task.',
                     badge="Verification Gate"
                 ))
             else:
                 missing.append(CriterionItem(
-                    "Chặng tự kiểm thử và nghiệm thu (SELF-VERIFICATION) trong kịch bản Workflow",
+                    'Self-testing and acceptance verification stage in Agent workflow',
                     evidence="workflows / playbooks",
-                    details="Kịch bản workflow chưa có bước bắt buộc Agent tự chạy test / lint để kiểm chứng kết quả trước khi báo cáo hoàn thành.",
-                    remediation="Bổ sung bước Self-Verification Gate vào các kịch bản workflow."
+                    details='The workflow scripts lack a mandatory step for the Agent to run tests / lint itself to verify results before reporting completion.',
+                    remediation='Add a Self-Verification Gate step to the workflow scripts.'
                 ))
         else:
             missing.append(CriterionItem(
-                "Quy trình kịch bản tác vụ nhiều bước (AGENT WORKFLOWS) hỗ trợ cộng tác tự động",
-                evidence=".agents/workflows/ hoặc playbooks/",
-                details="Chưa có kịch bản quy trình từng bước chuẩn hóa để phối hợp tác vụ phức tạp.",
-                remediation="Tạo thư mục `.agents/workflows/` chứa các kịch bản chạy test, refactor hoặc phát hành phiên bản."
+                'Multi-step task workflow scripts (Agent Workflows) for autonomous collaboration',
+                evidence='.agents/workflows/ or playbooks/',
+                details='No standardized step-by-step workflow for coordinating complex tasks.',
+                remediation='Create an `.agents/workflows/` folder containing scripts for running tests, refactoring or releasing versions.'
             ))
 
         # Ghi nhận thêm nếu repo có MANIFEST.json / llms.txt (Zero-Clone Remote Hub)
         if (self.root / 'MANIFEST.json').is_file() or (self.root / 'llms.txt').is_file():
             found.append(CriterionItem(
-                "Hạ tầng chỉ mục máy đọc ZERO-CLONE REMOTE HUB (MANIFEST.json / llms.txt)",
+                'Zero-Clone machine-readable index infrastructure (MANIFEST.json / llms.txt)',
                 evidence="MANIFEST.json / llms.txt",
-                details="Dự án trang bị chỉ mục máy đọc MANIFEST.json và llms.txt cho AI Agent tra cứu không cần clone toàn bộ repo.",
+                details='The project provides machine-readable indexes MANIFEST.json and llms.txt so AI Agents can look things up without cloning the whole repo.',
                 badge="Zero-Clone Hub"
             ))
 
         score = min(100, score)
-        self.scores['Hệ Sinh Thái AI AGENT (RULES, SKILLS & WORKFLOWS)'] = score
+        self.scores['AI AGENT Ecosystem (RULES, SKILLS & WORKFLOWS)'] = score
         self.add_log("  -> Audited Agent Rules, SKILL.md specs, Workflows and Circuit Breaker standards.", "agent_ecosystem", "muted")
         self.details['agent_ecosystem'] = {
-            'name': 'Hệ Sinh Thái AI Agent',
+            'name': 'AI Agent Ecosystem',
             'found': found,
             'missing': missing,
             'score': score,

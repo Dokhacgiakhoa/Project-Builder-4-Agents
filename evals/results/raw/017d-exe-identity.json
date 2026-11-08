@@ -1,0 +1,508 @@
+[
+  {
+    "target": "aider",
+    "exe": {
+      "rc": 0,
+      "sec": 2.48,
+      "score_line": "Score: 43/100 — F (RED ALARM: 3 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 22324
+    },
+    "src": {
+      "rc": 0,
+      "sec": 0.81,
+      "score_line": "Score: 43/100 — F (RED ALARM: 3 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 22324
+    },
+    "lines_exe": 209,
+    "lines_src": 209,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "anthropic-quickstarts",
+    "exe": {
+      "rc": 0,
+      "sec": 1.91,
+      "score_line": "Score: 43/100 — F (RED ALARM: 3 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 33896
+    },
+    "src": {
+      "rc": 0,
+      "sec": 0.99,
+      "score_line": "Score: 43/100 — F (RED ALARM: 3 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 33896
+    },
+    "lines_exe": 318,
+    "lines_src": 318,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "awesome-cursorrules",
+    "exe": {
+      "rc": 0,
+      "sec": 1.49,
+      "score_line": "Score: 46/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 17311
+    },
+    "src": {
+      "rc": 0,
+      "sec": 0.56,
+      "score_line": "Score: 46/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 17311
+    },
+    "lines_exe": 173,
+    "lines_src": 173,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "cline",
+    "exe": {
+      "rc": 0,
+      "sec": 5.86,
+      "score_line": "Score: 40/100 — F (RED ALARM: 4 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 306856
+    },
+    "src": {
+      "rc": 0,
+      "sec": 4.98,
+      "score_line": "Score: 40/100 — F (RED ALARM: 4 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 306856
+    },
+    "lines_exe": 1141,
+    "lines_src": 1141,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "continue",
+    "exe": {
+      "rc": 0,
+      "sec": 5.19,
+      "score_line": "Score: 28/100 — F (RED ALARM: 8 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 412781
+    },
+    "src": {
+      "rc": 0,
+      "sec": 3.16,
+      "score_line": "Score: 28/100 — F (RED ALARM: 8 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 412781
+    },
+    "lines_exe": 1510,
+    "lines_src": 1510,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "fastapi",
+    "exe": {
+      "rc": 0,
+      "sec": 3.37,
+      "score_line": "Score: 46/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 24556
+    },
+    "src": {
+      "rc": 0,
+      "sec": 2.57,
+      "score_line": "Score: 46/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 24556
+    },
+    "lines_exe": 221,
+    "lines_src": 221,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "flask",
+    "exe": {
+      "rc": 0,
+      "sec": 1.32,
+      "score_line": "Score: 35/100 — F (RED ALARM: 3 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 22558
+    },
+    "src": {
+      "rc": 0,
+      "sec": 0.47,
+      "score_line": "Score: 35/100 — F (RED ALARM: 3 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 22558
+    },
+    "lines_exe": 201,
+    "lines_src": 201,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "garak",
+    "exe": {
+      "rc": 0,
+      "sec": 2.34,
+      "score_line": "Score: 50/100 — C (BELOW CRITERIA BASELINE)",
+      "stderr_tail": [],
+      "report_bytes": 27319
+    },
+    "src": {
+      "rc": 0,
+      "sec": 1.16,
+      "score_line": "Score: 50/100 — C (BELOW CRITERIA BASELINE)",
+      "stderr_tail": [],
+      "report_bytes": 27319
+    },
+    "lines_exe": 261,
+    "lines_src": 261,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "gitingest",
+    "exe": {
+      "rc": 0,
+      "sec": 1.3,
+      "score_line": "Score: 46/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 18538
+    },
+    "src": {
+      "rc": 0,
+      "sec": 0.39,
+      "score_line": "Score: 46/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 18538
+    },
+    "lines_exe": 181,
+    "lines_src": 181,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "httpx",
+    "exe": {
+      "rc": 0,
+      "sec": 1.33,
+      "score_line": "Score: 39/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 18995
+    },
+    "src": {
+      "rc": 0,
+      "sec": 0.46,
+      "score_line": "Score: 39/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 18995
+    },
+    "lines_exe": 183,
+    "lines_src": 183,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "jinja",
+    "exe": {
+      "rc": 0,
+      "sec": 1.28,
+      "score_line": "Score: 38/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 18640
+    },
+    "src": {
+      "rc": 0,
+      "sec": 0.46,
+      "score_line": "Score: 38/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 18640
+    },
+    "lines_exe": 180,
+    "lines_src": 180,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "litellm",
+    "exe": {
+      "rc": 0,
+      "sec": 20.2,
+      "score_line": "Score: 20/100 — F (RED ALARM: 55 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 306497
+    },
+    "src": {
+      "rc": 0,
+      "sec": 19.63,
+      "score_line": "Score: 20/100 — F (RED ALARM: 55 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 306497
+    },
+    "lines_exe": 1115,
+    "lines_src": 1115,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "llama_index",
+    "exe": {
+      "rc": 0,
+      "sec": 7.09,
+      "score_line": "Score: 20/100 — F (RED ALARM: 21 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 40707
+    },
+    "src": {
+      "rc": 0,
+      "sec": 6.26,
+      "score_line": "Score: 20/100 — F (RED ALARM: 21 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 40707
+    },
+    "lines_exe": 337,
+    "lines_src": 337,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "llm-security",
+    "exe": {
+      "rc": 0,
+      "sec": 1.16,
+      "score_line": "Score: 44/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 17295
+    },
+    "src": {
+      "rc": 0,
+      "sec": 0.33,
+      "score_line": "Score: 44/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 17295
+    },
+    "lines_exe": 173,
+    "lines_src": 173,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "mkdocs",
+    "exe": {
+      "rc": 0,
+      "sec": 1.35,
+      "score_line": "Score: 35/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 20837
+    },
+    "src": {
+      "rc": 0,
+      "sec": 0.52,
+      "score_line": "Score: 35/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 20837
+    },
+    "lines_exe": 202,
+    "lines_src": 202,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "phobert",
+    "exe": {
+      "rc": 0,
+      "sec": 1.13,
+      "score_line": "Score: 46/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 11357
+    },
+    "src": {
+      "rc": 0,
+      "sec": 0.3,
+      "score_line": "Score: 46/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 11357
+    },
+    "lines_exe": 124,
+    "lines_src": 124,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "pydantic",
+    "exe": {
+      "rc": 0,
+      "sec": 4.2,
+      "score_line": "Score: 49/100 — F (RED ALARM: 1 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 22910
+    },
+    "src": {
+      "rc": 0,
+      "sec": 3.3,
+      "score_line": "Score: 49/100 — F (RED ALARM: 1 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 22910
+    },
+    "lines_exe": 208,
+    "lines_src": 208,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "rebuff",
+    "exe": {
+      "rc": 0,
+      "sec": 1.16,
+      "score_line": "Score: 43/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 28349
+    },
+    "src": {
+      "rc": 0,
+      "sec": 0.35,
+      "score_line": "Score: 43/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 28349
+    },
+    "lines_exe": 288,
+    "lines_src": 288,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "requests",
+    "exe": {
+      "rc": 0,
+      "sec": 1.25,
+      "score_line": "Score: 41/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 18712
+    },
+    "src": {
+      "rc": 0,
+      "sec": 0.44,
+      "score_line": "Score: 41/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 18712
+    },
+    "lines_exe": 180,
+    "lines_src": 180,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "underthesea",
+    "exe": {
+      "rc": 0,
+      "sec": 3.08,
+      "score_line": "Score: 43/100 — F (RED ALARM: 3 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 34809
+    },
+    "src": {
+      "rc": 0,
+      "sec": 1.56,
+      "score_line": "Score: 43/100 — F (RED ALARM: 3 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 34809
+    },
+    "lines_exe": 318,
+    "lines_src": 318,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "vncorenlp",
+    "exe": {
+      "rc": 0,
+      "sec": 1.12,
+      "score_line": "Score: 46/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 18107
+    },
+    "src": {
+      "rc": 0,
+      "sec": 0.31,
+      "score_line": "Score: 46/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 18107
+    },
+    "lines_exe": 171,
+    "lines_src": 171,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "P-062",
+    "exe": {
+      "rc": 0,
+      "sec": 5.72,
+      "score_line": "Score: 46/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 33589
+    },
+    "src": {
+      "rc": 0,
+      "sec": 4.64,
+      "score_line": "Score: 46/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 33589
+    },
+    "lines_exe": 318,
+    "lines_src": 318,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "Project-Builder-4-Agents",
+    "exe": {
+      "rc": 0,
+      "sec": 1.44,
+      "score_line": "Score: 88/100 — A (VERY GOOD - STAGING READY)",
+      "stderr_tail": [],
+      "report_bytes": 13139
+    },
+    "src": {
+      "rc": 0,
+      "sec": 0.63,
+      "score_line": "Score: 88/100 — A (VERY GOOD - STAGING READY)",
+      "stderr_tail": [],
+      "report_bytes": 13139
+    },
+    "lines_exe": 184,
+    "lines_src": 184,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  }
+]

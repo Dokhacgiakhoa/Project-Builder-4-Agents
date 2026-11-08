@@ -308,401 +308,98 @@
  "Unknown": "Không rõ"
 } };
 
-  const VI_TO_EN = {
-    // Project Types & Archetypes
-    "Kho tài liệu / tri thức": "Documentation / Knowledge base",
-    "Kho tài liệu / tri thức kèm công cụ": "Documentation / Knowledge base with tools",
-    "Ứng dụng web full-stack": "Full-stack web application",
-    "Dịch vụ backend / API": "Backend / API service",
-    "Ứng dụng giao diện web": "Web frontend application",
-    "Ứng dụng desktop": "Desktop application",
-    "Dự án dữ liệu / AI": "Data / AI project",
-    "Công cụ dòng lệnh / script": "Command-line tool / script",
-    "Thư viện / mã chưa rõ điểm vào": "Library / unspecified entrypoint",
-    "Chưa xác định": "Undetermined",
+  // ---- Engine text -------------------------------------------------------------------------------
+  // English is the source language: the audit engine emits English only. Other languages are packs
+  // registered in window.I18N_ENGINE_PACKS[<code>] = { exact: {english: translated}, templates: [{en, tr}] }
+  // (see js/lang/<code>.engine.js). Templates use {p1}, {p2}... placeholders for the variable parts, so
+  // word order may differ per language. Text with no translation is shown in English.
+  const ENGINE_CACHE = {};
 
-    // Architectures & Styles
-    "Kiến trúc phân tầng kiểu Clean / Hexagonal": "Clean / Hexagonal Layered Architecture",
-    "Monolith theo module": "Modular Monolith",
-    "Vertical slice (theo tính năng)": "Vertical Slice (Feature-driven)",
-    "Phân tầng đơn giản (presentation → service → data)": "Simple Layered (presentation → service → data)",
-    "Cấu trúc phẳng (ít thành phần)": "Flat structure (minimal components)",
-    "Các thành phần theo thư mục, chưa có tầng rõ ràng": "Component-based without explicit layering",
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
 
-    // Core Baseline Components (B1-B9)
-    "AGENTS.md (chỉ dẫn Agent)": "AGENTS.md (Agent instructions)",
-    "Lớp tương thích Agent (CLAUDE.md + skills)": "Agent compatibility layer (CLAUDE.md + skills)",
-    "docs/project-brief.md": "docs/project-brief.md",
-    "Nhật ký quyết định (adrs/ có ADR thật)": "Decision records (adrs/ with real ADRs)",
-    "Chuẩn làm việc (docs/standards/)": "Working standards (docs/standards/)",
-    "Lệnh kiểm chứng đã điền + CI chạy được": "Verification commands filled + CI operational",
-    "Vệ sinh repo (.gitignore, .env.example)": "Repo hygiene (.gitignore, .env.example)",
-    "Hồ sơ kit (.builder/kit.json)": "Kit profile (.builder/kit.json)",
-    "Quy trình PR (PULL_REQUEST_TEMPLATE)": "PR workflow (PULL_REQUEST_TEMPLATE)",
+  function enginePack(code) {
+    if (ENGINE_CACHE[code]) return ENGINE_CACHE[code];
+    const src = (window.I18N_ENGINE_PACKS || {})[code];
+    if (!src) return null;
+    const templates = [];
+    (src.templates || []).forEach((t) => {
+      try {
+        const names = [];
+        const body = String(t.en).split(/(\{p\d+\})/).map((part) => {
+          const m = part.match(/^\{(p\d+)\}$/);
+          if (!m) return escapeRegExp(part);
+          if (names.includes(m[1])) return "\\k<" + m[1] + ">";
+          names.push(m[1]);
+          return "(?<" + m[1] + ">[\\s\\S]*?)";
+        }).join("");
+        templates.push({ re: new RegExp("^" + body + "$"), tr: String(t.tr) });
+      } catch (e) {
+        // A malformed template must not break the whole language: skip it.
+      }
+    });
+    ENGINE_CACHE[code] = { exact: src.exact || {}, templates };
+    return ENGINE_CACHE[code];
+  }
 
-    // Core Baseline Details / Failures
-    "Thiếu AGENTS.md": "Missing AGENTS.md",
-    "Thiếu CLAUDE.md": "Missing CLAUDE.md",
-    "Thiếu skills (.agents/skills hoặc .claude/skills có */SKILL.md)": "Missing skills (.agents/skills or .claude/skills with */SKILL.md)",
-    "Thiếu docs/project-brief.md": "Missing docs/project-brief.md",
-    "Chưa có ADR nào ngoài mẫu": "No real ADRs beyond templates",
-    "Thiếu docs/standards/coding-conventions.md hoặc definition-of-done.md": "Missing docs/standards/coding-conventions.md or definition-of-done.md",
-    "AGENTS.md còn {{PLACEHOLDER}}": "AGENTS.md still contains {{PLACEHOLDER}}",
-    "Thiếu workflow CI trong .github/workflows/": "Missing CI workflow in .github/workflows/",
-    "Thiếu .gitignore hoặc .env.example": "Missing .gitignore or .env.example",
-    "Thiếu .builder/kit.json": "Missing .builder/kit.json",
-    "Thiếu .github/PULL_REQUEST_TEMPLATE.md": "Missing .github/PULL_REQUEST_TEMPLATE.md",
-
-    // Strengths (Innovations)
-    "Trang bị hạ tầng VECTOR DATABASE sẵn sàng cho AI RAG & SEMANTIC SEARCH.": "Equipped with VECTOR DATABASE infrastructure ready for AI RAG & SEMANTIC SEARCH.",
-    "Cấu hình DISTRIBUTED CACHE với REDIS tối ưu tốc độ phản hồi.": "Configured DISTRIBUTED CACHE with REDIS for low latency.",
-    "Tự động hóa QUALITY GATE & CI/CD PIPELINE với GITHUB ACTIONS.": "Automated QUALITY GATE & CI/CD PIPELINE with GITHUB ACTIONS.",
-    "Chuẩn hóa môi trường phát triển nhất quán với DOCKER COMPOSE.": "Standardized consistent dev environment with DOCKER COMPOSE.",
-    "Hệ thống DESIGN SYSTEM & UI TOKENS độc quyền được thiết kế bài bản.": "Structured DESIGN SYSTEM & UI TOKENS architecture implemented.",
-    "Bảo vệ chuỗi cung ứng mã nguồn chặt chẽ qua DEPENDENCY LOCKFILE.": "Supply chain security protected via DEPENDENCY LOCKFILE.",
-    "Chuẩn hóa hệ sinh thái AI AGENT (HIẾN PHÁP AGENTS.MD, SKILLS & WORKFLOWS) đón đầu kỷ nguyên Agentic AI.": "Standardized AI AGENT ecosystem (AGENTS.MD, SKILLS & WORKFLOWS).",
-    "Tự động hóa đồng bộ TÀI LIỆU SỐNG (4-LAYER LIVING DOCUMENTATION & DRIFT-CONTROL PIPELINE).": "Automated LIVING DOCUMENTATION (4-Layer Drift-Control Pipeline).",
-
-    // Gaps & Bloat
-    "Dự án chưa có tệp `.gitignore` để loại trừ các tệp tạm và artifacts BUILD.": "Project lacks a `.gitignore` file to exclude temporary files and build artifacts.",
-    "Sạch sẽ, không phát hiện tệp rác hay rủi ro bảo mật tệp cấu hình.": "Clean codebase, no surplus files or sensitive config risks.",
-    "Clean codebase, no surplus files.": "Sạch sẽ, không phát hiện tệp rác hay rủi ro bảo mật tệp cấu hình.",
-
-    // Pillar Criteria Met / Unmet
-    "Phân định ranh giới rõ ràng giữa DOMAIN, APPLICATION và INFRASTRUCTURE": "Clear separation of DOMAIN, APPLICATION and INFRASTRUCTURE boundaries",
-    "Cấu trúc module độc lập theo FEATURE-DRIVEN ARCHITECTURE": "Independent module structure following FEATURE-DRIVEN ARCHITECTURE",
-    "Phân tách cơ bản giữa tầng PRESENTATION và BUSINESS LOGIC": "Basic separation between PRESENTATION and BUSINESS LOGIC layers",
-    "Đã xác minh tổ chức mã nguồn theo từng Feature/Module độc lập cô lập.": "Verified independent isolated Feature/Module code organization.",
-    "Đã xác minh phân định giữa tầng hiển thị/API và tầng xử lý nghiệp vụ.": "Verified separation between presentation/API and business logic layers.",
-    "Toàn bộ mã nguồn nằm lẫn lộn trong cùng thư mục hoặc thiếu phân tầng rõ rệt giữa nghiệp vụ cốt lõi và hạ tầng.": "Source files mixed in same directories or lacking clear layering between core business and infrastructure.",
-    "Tổ chức lại thư mục theo chuẩn phân tầng (domain/core, services, controllers/routes).": "Reorganize folders by architectural layers (domain/core, services, controllers/routes).",
-    "Độ thuần khiết của DOMAIN và ranh giới CONTROLLER được bảo vệ hoàn hảo (0 LAYER LEAKS)": "DOMAIN purity and CONTROLLER boundaries protected (0 Layer Leaks)",
-    "Không phát hiện bất kỳ controller nào gọi truy vấn SQL trực tiếp hoặc domain bị dính framework.": "No controllers execute direct SQL queries or bind domain to frameworks.",
-    "Áp dụng DEPENDENCY INJECTION (DI) tiêm phụ thuộc tường minh": "Explicit DEPENDENCY INJECTION (DI) applied",
-    "Đã phát hiện áp dụng kỹ thuật tiêm phụ thuộc (DI / IoC) giúp mã nguồn module hóa và dễ viết Unit Test.": "Detected Dependency Injection (DI/IoC) usage for modularity and testability.",
-    "Xác thực dữ liệu đầu vào DTO tự động (ZOD / PYDANTIC / CLASS-VALIDATOR)": "Automated DTO input validation (Zod / Pydantic / Class-Validator)",
-    "100% dữ liệu đầu vào từ API Request được kiểm tra tính hợp lệ qua schema DTO trước khi xử lý.": "100% API request input data validated via DTO schemas prior to processing.",
-    "Cơ chế giải phóng kết nối và tài nguyên khi tắt SERVER (GRACEFUL SHUTDOWN)": "Graceful resource release and cleanup on SERVER shutdown (GRACEFUL SHUTDOWN)",
-    "Chưa có cơ chế xử lý tín hiệu SIGTERM/SIGINT để giải phóng kết nối DB và dừng server mà không làm rớt request đang dở dang.": "Lacks SIGTERM/SIGINT signal handling to release DB connections and stop server without dropping in-flight requests.",
-    "Bổ sung hàm lắng nghe SIGTERM/SIGINT đóng gracefully các pool kết nối cơ sở dữ liệu và server.": "Add SIGTERM/SIGINT signal listeners to gracefully close database connection pools and server instances.",
-    "Thiếu cấu trúc DTO validation cho API requests": "Missing DTO validation structure for API requests",
-    "Tất cả request payload cần được validate qua schema trước khi vào controller": "All request payloads should be validated against schemas before reaching controllers",
-    "Thiếu Dependency Injection (DI)": "Missing Dependency Injection (DI)",
-    "Khởi tạo trực tiếp dependencies trong class gây khó khăn cho Unit Test": "Directly instantiating dependencies inside classes makes unit testing difficult",
-
-    // Anti-Crash & Database & Security
-    "Kiểm soát ngoại lệ: Không có Silent Exception Eater (Bare Except / Pass)": "Exception control: No Silent Exception Eaters (Bare Except / Pass)",
-    "Không nuốt chửng ngoại lệ hệ thống bằng except: pass, toàn bộ lỗi được ghi log tường minh.": "No silent swallowing of exceptions with except: pass; all errors logged explicitly.",
-    "Bắt lỗi dạng `except:` hoặc `except Exception: pass` làm ẩn đi các lỗi nghiêm trọng không thể debug.": "Catching errors with `except:` or `except Exception: pass` obscures critical errors from debugging.",
-    "Chỉ định chính xác ngoại lệ cần bắt (vd: except ValueError) và ghi log lỗi đầy đủ.": "Specify exact exceptions (e.g. except ValueError) and log errors comprehensively.",
-    "An toàn bí mật mã nguồn: Không phát hiện Hardcoded Secret / API Key": "Secret safety: No Hardcoded Secrets / API Keys detected",
-    "Không phát hiện chuỗi khóa bí mật, API key hoặc password nào bị gán cứng vào mã nguồn.": "No secret keys, API keys or passwords statically hardcoded in source.",
-    "Chuỗi bí mật hoặc API key được gán tĩnh trực tiếp vào mã nguồn, có nguy cơ lộ khi commit lên Git.": "Secret keys or API keys hardcoded in source code; risk of leaking upon git commit.",
-    "Di chuyển toàn bộ khóa bảo mật vào biến môi trường (.env) và đọc qua process.env hoặc os.environ.": "Move all secrets into environment variables (.env) and read via process.env or os.environ.",
-    "An toàn phân tích cú pháp JSON: 0 Naked JSON.parse rủi ro sập runtime": "JSON Parsing Safety: 0 Naked JSON.parse runtime crash risks",
-    "100% các lời gọi parse JSON đều được bọc trong try-catch hoặc schema validation an toàn.": "100% of JSON parsing calls wrapped in try-catch or safe schema validation.",
-    "Gọi JSON.parse trực tiếp mà không có try-catch sẽ làm sập server hoặc ứng dụng nếu chuỗi JSON không hợp lệ.": "Directly calling JSON.parse without try-catch crashes the application if JSON is malformed.",
-    "Bọc toàn bộ JSON.parse trong khối `try { ... } catch (e) { ... }` hoặc dùng hàm parse an toàn.": "Wrap all JSON.parse in `try { ... } catch (e) { ... }` blocks or use safe parse utilities.",
-    "An toàn tài nguyên: Không phát hiện Timer / Event Listener rò rỉ bộ nhớ": "Resource safety: No Timer / Event Listener memory leak risks detected",
-    "Toàn bộ các tác vụ định thời và đăng ký sự kiện đều có hàm hủy cleanup giải phóng tài nguyên.": "All timers and event subscriptions provide cleanup cancellation handlers.",
-    "Khởi tạo setInterval hoặc addEventListener trong useEffect nhưng thiếu hàm cleanup giải phóng khi unmount.": "setInterval or addEventListener initiated in useEffect lacking cleanup on unmount.",
-    "Trả về hàm dọn dẹp trong useEffect: `return () => clearInterval(id);`.": "Return cleanup handler in useEffect: `return () => clearInterval(id);`.",
-    "An toàn truy vấn SQL: Không phát hiện Raw SQL Concatenation": "SQL Query Safety: No Raw SQL Concatenation detected",
-    "100% câu lệnh truy vấn dữ liệu sử dụng ORM an toàn hoặc tham số hóa (parameterized queries).": "100% of database queries use safe ORMs or parameterized queries.",
-    "Chuyển đổi các câu lệnh nối chuỗi sang sử dụng query parameter (ví dụ: $1, :val hoặc ?).": "Convert string concatenation queries to parameterized placeholders (e.g. $1, :val, or ?).",
-
-    // Violations
-    "Bắt lỗi im lặng (BARE EXCEPT hoặc EXCEPT EXCEPTION: PASS) làm nuốt chửng lỗi hệ thống.": "Silent exception handling (bare except or except Exception: pass) swallows system errors.",
-    "Gọi JSON.PARSE không bọc trong khối TRY-CATCH an toàn (Nguy cơ sập RUNTIME khi dữ liệu JSON hỏng).": "JSON.parse called outside try-catch block (runtime crash risk on malformed JSON).",
-    "Sử dụng kiểu dữ liệu \": any\" vi phạm quy chuẩn STRICT TYPING của TYPESCRIPT.": "Using \": any\" type violates TypeScript strict typing standards.",
-    "Phát hiện CHUỖI KHÓA BẢO MẬT (SECRET/API KEY) được gán tĩnh trực tiếp vào mã nguồn.": "Hardcoded secret / API key statically assigned directly in source code.",
-    "Phát hiện nối chuỗi trực tiếp vào câu lệnh SQL thay vì dùng tham số hóa (Nguy cơ SQL INJECTION nghiêm trọng).": "Direct string concatenation into SQL statements without parameterization (Critical SQL Injection risk).",
-    "Controller trực tiếp truy vấn dữ liệu/gọi SQL vi phạm phân tầng Clean Architecture.": "Controller queries database directly, violating Clean Architecture layering.",
-    "setInterval hoặc addEventListener trong useEffect thiếu hàm cleanup giải phóng tài nguyên.": "setInterval or addEventListener in useEffect lacks cleanup function (memory leak risk).",
-
-    // Common labels
-    "Hạng mục này không áp dụng cho cấu trúc dự án hiện tại": "This category does not apply to the current project structure",
-    "Không có vi phạm nào thuộc nhóm này": "No violations recorded in this group",
-    "Chưa có phát hiện nào cần xử lý. Dự án đạt chuẩn!": "No actionable findings. The project meets all standards!",
-    "Chưa có dữ liệu kiểm tra": "No audit data yet",
-    "Chưa có dữ liệu": "No data yet",
-    "Quét Regex nhạy cảm": "Sensitive Regex Scan",
-    "Quét Lifecycle Hooks": "Lifecycle Hooks Scan",
-    "Cấu trúc thư mục": "Directory Structure",
-    "Tệp README.md chuẩn xác tại thư mục gốc": "Accurate README.md in root directory",
-    "Mô tả bài toán, mục tiêu và định vị giá trị sản phẩm rõ ràng": "Clear product vision, problem description and value proposition",
-    "Đoạn giới thiệu mục tiêu bài toán và giá trị sản phẩm (PRODUCT VISION)": "Product vision and problem value proposition section",
-    "Khối lệnh QUICK START hướng dẫn cài đặt và khởi chạy dự án cục bộ": "QUICK START command block guiding local setup and startup",
-    "Khối lệnh QUICK START hướng dẫn thiết lập môi trường và chạy mã nguồn": "QUICK START block for environment setup and running code",
-    "Tài liệu hướng dẫn cấu hình biến môi trường (.ENV)": "Environment variables configuration documentation (.ENV)",
-    "Mô tả cấu trúc thư mục và sơ đồ ARCHITECTURE tổng quan": "Directory structure description and ARCHITECTURE overview diagram",
-    "Sơ đồ hoặc tài liệu mô tả cấu trúc thư mục ARCHITECTURE": "Diagram or document describing ARCHITECTURE directory layout",
-    "Cơ chế Tài liệu sống & Đồng bộ tự động 4 lớp (LIVING DOCUMENTATION AUTO-SYNC PIPELINE)": "4-Layer Living Documentation auto-sync pipeline",
-    "Dự án chưa có tệp README.md giới thiệu": "Project is missing introductory README.md file",
-    "Tệp quy chuẩn chỉ dẫn cho AI AGENT (AGENTS.md hoặc .CURSORRULES)": "AI Agent directive specification (AGENTS.md or .cursorrules)",
-    "Hồ sơ ARCHITECTURE DECISION RECORDS (ADRS)": "Architecture Decision Records (ADRs)",
-    "Tài liệu đặc tả hợp đồng API CONTRACT (OPENAPI / SWAGGER)": "API contract specification (OpenAPI / Swagger)",
-    "Quy tắc ràng buộc phủ định (NEGATIVE CONSTRAINTS) ngăn chặn Agent tự ý sửa đổi bừa bãi": "Negative constraints preventing unintended modifications by Agent",
-    "Quy tắc điều khoản cấm (NEGATIVE CONSTRAINTS: hành động nào Agent tuyệt đối KHÔNG được làm)": "Prohibited actions (Negative constraints: what Agent must NEVER do)",
-    "Cơ chế ngắt mạch dừng lại hỏi (STOP & ASK / 2-ATTEMPT CIRCUIT BREAKER) chống vòng lặp Doom Loop": "Stop & Ask / 2-Attempt Circuit Breaker preventing Doom Loops",
-    "Cơ chế chốt chặn STOP & ASK / CIRCUIT BREAKER (buộc Agent dừng lại xin ý kiến khi chạm rủi ro kiến trúc)": "Stop & Ask / Circuit Breaker gate (forces Agent to seek confirmation on architectural risks)",
-    "Điều khoản ràng buộc bắt buộc lập trình phòng thủ (ANTI-CRASH DEFENSIVE STANDARD)": "Mandatory defensive programming clause (Anti-Crash standard)",
-    "Quy chuẩn chống đổ vỡ ANTI-CRASH bắt buộc trong hiến pháp Agent": "Mandatory anti-crash defensive rules in Agent constitution",
-    "Thiếu tệp hiến pháp định hướng hành vi cho AI Agent (AGENTS.md, .cursorrules hoặc .mdc)": "Missing behavioral constitution for AI Agents (AGENTS.md, .cursorrules or .mdc)",
-    "Cấu trúc SKILL.md chuẩn hóa với YAML FRONTMATTER (name, description, instructions)": "Standardized SKILL.md structure with YAML frontmatter (name, description, instructions)",
-    "Chuẩn hóa YAML FRONTMATTER (name, description) cho các tệp SKILL.md": "Standardized YAML frontmatter (name, description) for SKILL.md files",
-    "Thư mục đóng gói kỹ năng AGENT SKILLS (.agents/skills/*/SKILL.md) để mở rộng năng lực tự động": "Packaged Agent skills directory (.agents/skills/*/SKILL.md) for automated capability expansion",
-    "Quy trình tác vụ tích hợp chặng tự kiểm chứng (SELF-VERIFICATION / TDD FIRST)": "Task workflow with integrated self-verification stage (Self-Verification / TDD first)",
-    "Chặng tự kiểm thử và nghiệm thu (SELF-VERIFICATION) trong kịch bản Workflow": "Self-testing and acceptance verification stage in Agent workflow",
-    "Quy trình kịch bản tác vụ nhiều bước (AGENT WORKFLOWS) hỗ trợ cộng tác tự động": "Multi-step task workflow scripts (Agent Workflows) for autonomous collaboration",
-    "Hạ tầng chỉ mục máy đọc ZERO-CLONE REMOTE HUB (MANIFEST.json / llms.txt)": "Zero-Clone machine-readable index infrastructure (MANIFEST.json / llms.txt)",
-    "Mô hình tiêm phụ thuộc DEPENDENCY INJECTION (DI) để hỗ trợ Unit Testing": "Dependency Injection (DI) pattern supporting Unit Testing",
-    "Xác thực tự động cho dữ liệu DTO đầu vào (Zod, Pydantic hoặc Schema Validator)": "Automated input DTO validation (Zod, Pydantic, or Schema Validator)",
-    "Cơ chế giải phóng tài nguyên an toàn khi tắt SERVER (GRACEFUL SHUTDOWN)": "Safe resource cleanup on shutdown (Graceful Shutdown)",
-    "Hệ thống DESIGN TOKENS độc quyền (CUSTOM TAILWIND CONFIG / CSS VARIABLES / THEME TOKENS)": "Design tokens system (Custom Tailwind config / CSS variables / Theme tokens)",
-    "Hệ thống quản lý biến thiết kế giao diện tập trung (DESIGN TOKENS / THEME VARIABLES)": "Centralized design tokens and theme variables system",
-    "API CLIENT phòng thủ tập trung (INTERCEPTORS, BASEURL, ERROR NORMALIZATION)": "Centralized defensive API client (Interceptors, baseURL, error normalization)",
-    "Tệp bọc API CLIENT tập trung (tránh gọi FETCH / AXIOS rải rác trong COMPONENT)": "Centralized API client wrapper (avoids scattered fetch/axios calls in components)",
-    "Trang bị ERROR BOUNDARY bắt lỗi runtime chống crash trắng toàn bộ màn hình": "Error Boundary catching runtime errors preventing white-screen crash",
-    "Thành phần ERROR BOUNDARY bao bọc route để xử lý lỗi sập giao diện an toàn": "Error Boundary component wrapping routes for safe UI crash recovery",
-    "Kỹ thuật CODE-SPLITTING / LAZY LOADING tối ưu tốc độ tải trang ban đầu": "Code-splitting / lazy loading optimizing initial page load speed",
-    "Áp dụng React.lazy hoặc Dynamic Import tải chậm các module nặng": "Applied React.lazy or dynamic imports for heavy module lazy loading",
-    "Quản lý DATABASE MIGRATION có kiểm soát phiên bản theo thời gian": "Version-controlled database migration management",
-    "Công cụ quản lý LƯỢC ĐỒ CƠ SỞ DỮ LIỆU có phiên bản (Prisma, Alembic, Drizzle, TypeORM, Flyway)": "Database schema migration tooling with versioning (Prisma, Alembic, Drizzle, TypeORM, Flyway)",
-    "Cấu hình CONNECTION POOL & TIMEOUT bảo vệ giới hạn kết nối DATABASE": "Connection pool & timeout configuration protecting database connection limits",
-    "Cơ chế bọc TRANSACTION tường minh cho các tác vụ thay đổi nhiều thực thể": "Explicit transaction wrapping for multi-entity mutation operations",
-    "An toàn câu lệnh QUERY: Sử dụng PARAMETERIZED QUERIES hoặc TYPE-SAFE ORM": "Query safety: Parameterized queries or type-safe ORM usage",
-    "An toàn xử lý JSON: 0 Naked JSON.parse rủi ro sập runtime": "JSON handling safety: 0 naked JSON.parse risks of runtime crash",
-    "Xác minh chính xác phiên bản phụ thuộc qua DEPENDENCY LOCKFILE (chống Supply Chain Attack)": "Dependency lockfile pinning exact versions (preventing supply chain attacks)",
-    "Tệp DEPENDENCY LOCKFILE (package-lock.json, poetry.lock, go.sum)": "Dependency lockfile (package-lock.json, poetry.lock, go.sum)",
-    "Cấu hình HTTP SECURITY HEADERS (CORS strict, HELMET, Content-Security-Policy)": "HTTP security headers configuration (Strict CORS, Helmet, Content-Security-Policy)",
-    "Thiết lập HTTP SECURITY HEADERS bảo vệ giao thức (CORS, Helmet, CSP)": "Configured HTTP security headers protocol protection (CORS, Helmet, CSP)",
-    "Cơ chế RATE LIMITING giới hạn tần suất yêu cầu chống Brute-force & DDoS": "Rate limiting mechanism protecting against brute-force and DDoS",
-    "Cơ chế RATE LIMITING bảo vệ API trước các đợt tấn công vét cạn (Brute-force)": "Rate limiting protecting APIs from brute-force scanning attacks",
-    "Cô lập biến môi trường nhạy cảm: .ENV được loại trừ 100% khỏi kho Git": "Sensitive environment isolation: .env 100% excluded from Git repository",
-    "Chính sách cô lập SECRET nghiêm ngặt (đưa .ENV vào .gitignore và dùng KMS/Vault)": "Strict secret isolation policy (.env in .gitignore and KMS/Vault usage)",
-    "Dockerfile chuẩn mực MULTI-STAGE BUILD tối ưu dung lượng và tính bảo mật": "Standard multi-stage build Dockerfile optimizing size and security",
-    "Dockerfile tối ưu MULTI-STAGE BUILD (tách biệt môi trường build và runtime)": "Optimized multi-stage Dockerfile (separating build from minimal runtime)",
-    "Chạy CONTAINER với quyền hạn tối thiểu (USER NON-ROOT)": "Container running with minimal privileges (non-root user)",
-    "Khai báo USER NON-ROOT trong Dockerfile để ngăn chặn Container Escape": "Non-root user declaration in Dockerfile preventing container escapes",
-    "Endpoint thăm dò trạng thái sức khỏe: LIVENESS & READINESS PROBES (/healthz, /readyz)": "Health check probe endpoints: Liveness & Readiness probes (/healthz, /readyz)",
-    "Cung cấp endpoint LIVENESS & READINESS PROBES (/healthz, /readyz) cho bộ điều phối Cloud": "Liveness & Readiness probe endpoints (/healthz, /readyz) for cloud orchestrator",
-    "Khai báo hạ tầng dưới dạng mã INFRASTRUCTURE AS CODE (DOCKER COMPOSE / KUBERNETES MANIFESTS)": "Infrastructure as Code declaration (Docker Compose / Kubernetes manifests)",
-    "Tệp quản lý hạ tầng INFRASTRUCTURE AS CODE (docker-compose.yml hoặc K8s Helm)": "Infrastructure as Code management file (docker-compose.yml or K8s Helm)",
-    "API GATEWAY / REVERSE PROXY làm cổng điều phối lưu lượng tập trung": "API Gateway / Reverse Proxy as centralized ingress traffic router",
-    "Cấu hình API GATEWAY tập trung (Kong, Traefik, Ocelot hoặc Nginx)": "Centralized API Gateway configuration (Kong, Traefik, Ocelot, or Nginx)",
-    "Cơ chế ngắt mạch CIRCUIT BREAKER & RETRY WITH JITTER chống sập dây chuyền (Cascading Failure)": "Circuit Breaker & retry with jitter preventing cascading failures",
-    "Cơ chế CIRCUIT BREAKER bảo vệ các lời gọi liên dịch vụ phân tán": "Circuit breaker mechanism protecting distributed inter-service calls",
-    "Hợp đồng liên dịch vụ chặt chẽ qua gRPC PROTOBUF hoặc EVENT-DRIVEN MESSAGING (KAFKA/RABBITMQ)": "Inter-service contract enforcement via gRPC Protobuf or Event-driven messaging",
-    "Đặc tả hợp đồng giao tiếp liên dịch vụ (gRPC Protobuf hoặc Event Broker)": "Inter-service communication contract specification (gRPC Protobuf or Event Broker)",
-    "Đính kèm CORRELATION ID (x-request-id) xuyên suốt hành trình của request": "Correlation ID (x-request-id) propagation throughout request lifecycle",
-    "Middleware gán CORRELATION ID (x-request-id) phục vụ truy vết phân tán": "Middleware attaching Correlation ID (x-request-id) for distributed tracing",
-    "Chiến lược CACHING chuẩn mực: Bắt buộc cài đặt thời gian sống (TTL) cho mọi Redis Key": "Standard caching strategy: Mandatory TTL for all cache keys",
-    "Thiết lập TTL (Time-To-Live) bắt buộc cho Cache Key để chống cạn kiệt RAM Redis": "Mandatory TTL configuration for cache keys preventing RAM exhaustion",
-    "Dự án áp dụng bộ nhớ đệm cục bộ (In-Memory Cache) đơn giản": "Project applies basic local in-memory caching",
-    "Giới hạn CONNECTION POOLING rõ ràng bảo vệ hạ tầng cơ sở dữ liệu": "Explicit connection pooling limit protecting database infrastructure",
-    "Giới hạn CONNECTION POOLING tối đa để chống nghẽn đường truyền (Connection Exhaustion)": "Maximum connection pooling limit preventing connection exhaustion",
-    "Kiểm soát chặt chẽ hợp đồng dữ liệu qua DATA CONTRACTS / SCHEMA VALIDATION": "Strict data contract control via Data Contracts / Schema Validation",
-    "Đặc tả SCHEMA tường minh cho các đối tượng luồng dữ liệu (Data Contracts)": "Explicit schema specification for data transfer objects (Data Contracts)",
-    "Ghi nhật ký có cấu trúc chuẩn mực (STRUCTURED JSON LOGGING) sẵn sàng cho ELK / Loki": "Standardized structured JSON logging ready for ELK / Loki",
-    "Thư viện ghi nhật ký có cấu trúc STRUCTURED LOGGING (thay thế console.log / print thô)": "Structured logging library (replacing raw console.log / print)",
-    "Tích hợp OPENTELEMETRY phục vụ thu thập dấu vết và phân tích độ trễ xuyên suốt": "OpenTelemetry integration for end-to-end tracing and latency analysis",
-    "Công cụ truy vết OPENTELEMETRY để theo dõi độ trễ hệ thống": "OpenTelemetry tracing instrumentation for latency observation",
-    "Cung cấp endpoint chỉ số PROMETHEUS METRICS (/metrics) phục vụ giám sát": "Prometheus metrics endpoint (/metrics) for operational monitoring",
-    "Endpoint xuất chỉ số hiệu năng PROMETHEUS METRICS (/metrics) phục vụ giám sát": "Prometheus metrics export endpoint (/metrics) for monitoring",
-    "Bổ sung mục Defensive Programming Guidelines vào AGENTS.md.": "Add Defensive Programming Guidelines section to AGENTS.md.",
-    "Chưa trang bị công cụ APM Tracing phân tán để quan sát độ trễ của các lệnh gọi CSDL và API bên ngoài.": "Missing distributed APM tracing tool to monitor database and external API call latencies.",
-    "Chưa tìm thấy khối bọc Transaction cho các nghiệp vụ cập nhật nhiều bảng cùng lúc.": "No transaction block found for multi-table update operations.",
-    "Cài đặt `@opentelemetry/sdk-node` hoặc `opentelemetry-sdk` Python để theo dõi hiệu năng hệ thống.": "Install `@opentelemetry/sdk-node` or `opentelemetry-sdk` Python to track performance.",
-    "Thiếu yêu cầu bắt buộc Agent phải bọc try-catch, kiểm tra null safety và validate kiểu dữ liệu đầu vào.": "Missing mandatory rule requiring Agent to wrap try-catch, check null safety, and validate input types.",
-    "Tệp .env chứa biến nhạy cảm đã được loại trừ an toàn trong .gitignore và không bị theo dõi bởi Git.": ".env file containing secrets is safely excluded in .gitignore and not tracked by Git.",
-    "Đã phát hiện component Error Boundary bắt các ngoại lệ React rendering, bảo vệ trải nghiệm người dùng.": "Detected Error Boundary component catching React rendering exceptions, protecting user experience.",
-    "Đã phát hiện khối mã lệnh hướng dẫn khởi chạy dự án môi trường phát triển cục bộ.": "Detected command block instructing how to run the project in local development.",
-    "Đã xác minh Dockerfile sử dụng multi-stage build tách biệt giai đoạn biên dịch và môi trường chạy tối giản.": "Verified Dockerfile utilizes multi-stage build separating compilation from minimal runtime.",
-    "Đã xác minh bộ giới hạn tần suất yêu cầu chống tấn công dò quét vét cạn và quá tải tài nguyên.": "Verified rate limiter protecting against brute-force attacks and resource exhaustion.",
-    "Đã xác minh cấu hình Gateway/Reverse Proxy điều phối và định tuyến lưu lượng vào hệ thống.": "Verified Gateway/Reverse Proxy routing and ingress configuration.",
-    "Đã xác minh tham số giới hạn connection pooling tối đa chống cạn kiệt tài nguyên kết nối.": "Verified maximum connection pooling limits preventing connection exhaustion.",
-    "Đã xác minh tích hợp SDK OpenTelemetry hỗ trợ APM và đo lường độ trễ chi tiết từng span.": "Verified OpenTelemetry SDK integration supporting APM and span latency measurement.",
-    "Đã xác minh đối tượng truyền tải dữ liệu có schema validation chặt chẽ bảo vệ tính toàn vẹn dữ liệu.": "Verified data transfer objects have strict schema validation protecting integrity.",
-  };
-
-  // Two-way synchronization: populate DICT.vi with any missing English -> Vietnamese pairs
-  Object.keys(VI_TO_EN).forEach(viKey => {
-    const enVal = VI_TO_EN[viKey];
-    if (!DICT.vi[enVal]) {
-      DICT.vi[enVal] = viKey;
+  // A variable part captured by a template: translate it whole, or item by item when it is a "a; b" / "a, b" list.
+  function translateCapture(code, v, depth) {
+    const direct = translateEngine(code, v, depth + 1);
+    if (direct !== null) return direct;
+    if (/[;,]\s/.test(v)) {
+      let any = false;
+      const out = v.split(/([;,]\s+)/).map((piece, i) => {
+        if (i % 2 === 1) return piece;
+        const r = translateEngine(code, piece, depth + 1);
+        if (r === null) return piece;
+        any = true;
+        return r;
+      });
+      if (any) return out.join("");
     }
-  });
+    return v;
+  }
 
-  function translateDynamicViToEn(text) {
-    if (!text || typeof text !== "string") return text;
-    // Grade with red alarm
-    let m = text.match(/^F\s*\(BÁO ĐỘNG ĐỎ:\s*PHÁT HIỆN\s*(\d+)\s*LỖI MỨC CAO\)/i);
-    if (m) return `F (RED ALARM: ${m[1]} HIGH-SEVERITY RISKS DETECTED)`;
-    if (text === "F (CẦN TÁI CẤU TRÚC KIẾN TRÚC TOÀN DIỆN)") return "F (NEEDS ARCHITECTURAL REFACTORING)";
-    if (text === "A+ (XUẤT SẮC - SẴN SÀNG PRODUCTION)") return "A+ (EXCELLENT - PRODUCTION READY)";
-    if (text === "A (RẤT TỐT - SẴN SÀNG STAGING)") return "A (VERY GOOD - STAGING READY)";
-    if (text === "B+ (TỐT - CÒN MỘT SỐ TECHNICAL DEBT NHỎ)") return "B+ (GOOD - MINOR TECH DEBT)";
-    if (text === "B (CHẤP NHẬN ĐƯỢC - CẦN REFACTOR)") return "B (ACCEPTABLE - NEEDS REFACTOR)";
-    if (text === "C (DƯỚI CHUẨN TIÊU CHÍ)") return "C (BELOW CRITERIA BASELINE)";
-
-    // Secret count
-    m = text.match(/^CẢNH BÁO:\s*Phát hiện\s*(\d+)\s*chuỗi HARDCODED SECRET trong mã/i);
-    if (m) return `WARNING: Detected ${m[1]} HARDCODED SECRET strings in code`;
-
-    // Bare except count
-    m = text.match(/^Phát hiện\s*(\d+)\s*vị trí BARE EXCEPT nuốt chửng lỗi hệ thống/i);
-    if (m) return `Detected ${m[1]} BARE EXCEPT locations silently swallowing system errors`;
-
-    // Naked JSON parse count
-    m = text.match(/^Phát hiện\s*(\d+)\s*vị trí NAKED JSON\.PARSE không bọc try-catch/i);
-    if (m) return `Detected ${m[1]} NAKED JSON.PARSE locations without try-catch`;
-
-    // React leak count
-    m = text.match(/^Cảnh báo MEMORY LEAK:\s*Phát hiện\s*(\d+)\s*Timer\/Listener thiếu hàm cleanup/i);
-    if (m) return `MEMORY LEAK WARNING: Detected ${m[1]} Timer/Listeners lacking cleanup handler`;
-
-    // SQL injection count
-    m = text.match(/^Cảnh báo SQL INJECTION:\s*Phát hiện\s*(\d+)\s*vị trí nối chuỗi trực tiếp/i);
-    if (m) return `SQL INJECTION WARNING: Detected ${m[1]} direct string concatenation locations`;
-
-    // Scanned files
-    m = text.match(/^(\d+)\s*tệp mã nguồn/i);
-    if (m) return `${m[1]} source files`;
-    m = text.match(/^Đã quét\s*(\d+)\s*tệp mã nguồn/i);
-    if (m) return `Scanned ${m[1]} source files`;
-
-    // Bloat env
-    m = text.match(/^Có tệp cấu hình nhạy cảm `([^`]+)` trong dự án/i);
-    if (m) return `Sensitive configuration file \`${m[1]}\` present in project: ensure it is in .gitignore and not tracked by Git.`;
-
-    // Build cache bloat
-    m = text.match(/^Thư mục cache BUILD `([^`]+)` có nguy cơ bị đưa lên remote git\./i);
-    if (m) return `Build cache directory \`${m[1]}\` risks being committed to remote Git.`;
-
-    // Layered arch template
-    m = text.match(/^Cấu trúc phân tầng chuẩn mực theo (.*)$/i);
-    if (m) {
-      const arch = VI_TO_EN[m[1]] || m[1];
-      return `Standard layered structure following ${arch}`;
+  // One whole string: exact match, then templates. A trailing period is optional on either side.
+  function matchOne(code, pack, text, depth) {
+    if (Object.prototype.hasOwnProperty.call(pack.exact, text)) return pack.exact[text];
+    for (const t of pack.templates) {
+      const m = text.match(t.re);
+      if (m) {
+        return t.tr.replace(/\{(p\d+)\}/g, (_, n) => {
+          const v = m.groups && m.groups[n];
+          if (v === undefined) return "";
+          return translateCapture(code, v, depth);
+        });
+      }
     }
-    m = text.match(/^Đã xác minh cấu trúc phân tầng với các tầng chức năng rõ rệt:\s*(.*)$/i);
-    if (m) return `Verified layered architecture with distinct functional layers: ${m[1]}`;
-
-    // Scan activity log translations
-    m = text.match(/^\s*->\s*đã quét\s*(\d+)\s*tệp văn bản\.\.\./i);
-    if (m) return `  -> scanned ${m[1]} text files...`;
-
-    m = text.match(/^Quét an toàn nội dung:\s*(\d+)\s*tệp văn bản,\s*(\d+)\s*tín hiệu\./i);
-    if (m) return `Content safety scan: ${m[1]} text files, ${m[2]} signals.`;
-
-    if (/^Quét an toàn nội dung\s*\(tệp văn bản/i.test(text)) {
-      return "Scanning content safety (text files, agent directives)...";
+    if (text.endsWith(".")) {
+      const r = matchOne(code, pack, text.slice(0, -1), depth);
+      if (r !== null) return r.endsWith(".") ? r : r + ".";
     }
+    return null;
+  }
 
-    m = text.match(/^✓\s*HOÀN THÀNH ĐO KIỂM TOÀN DIỆN!\s*TỔNG ĐIỂM:\s*(\d+)\/100\s*\[HẠNG:\s*(.*)\]/i);
-    if (m) return `✓ COMPREHENSIVE AUDIT COMPLETE! TOTAL SCORE: ${m[1]}/100 [GRADE: ${translateDynamicViToEn(m[2])}]`;
-
-    m = text.match(/^Tệp báo cáo lưu tại:\s*(.*)$/i);
-    if (m) return `Audit report saved to: ${m[1]}`;
-
-    if (/^✓\s*Quá trình quét hoàn tất thành công/i.test(text)) {
-      return "✓ Scan completed successfully. Click 'View Overview Results' or select any pillar on the left for details.";
-    }
-
-    m = text.match(/^Tech Stack nhận diện:\s*Ngôn ngữ\s*\[(.*?)\]\s*\|\s*Frameworks\s*\[(.*?)\]/i);
-    if (m) return `Detected Tech Stack: Languages [${m[1]}] | Frameworks [${m[2]}]`;
-
-    m = text.match(/^\[(\d+)\/(\d+)\]\s*(.*?)\.\.\.$/i);
-    if (m) return `[${m[1]}/${m[2]}] ${lookup(m[3])}...`;
-
-    m = text.match(/^Đang thẩm định\s*\[(\d+)\/(\d+)\]:\s*(.*?)\.\.\.$/i);
-    if (m) return `Auditing [${m[1]}/${m[2]}]: ${lookup(m[3])}...`;
-
-    m = text.match(/^Đang quét an toàn nội dung:\s*(\d+)\s*tệp\.\.\.$/i);
-    if (m) return `Scanning content safety: ${m[1]} files...`;
-
-    m = text.match(/^Đã hoàn thành thẩm định!\s*Báo cáo:\s*(.*)$/i);
-    if (m) return `Audit complete! Report: ${m[1]}`;
-
-    m = text.match(/^->\s*Đã tìm thấy\s*(.*?)\s*\((\d+)\s*dòng\)\./i);
-    if (m) return `  -> Found ${m[1]} (${m[2]} lines).`;
-
-    m = text.match(/^Đã phát hiện tệp tài liệu khởi đầu chính của dự án tại `(.*?)` với (\d+) dòng nội dung\./i);
-    if (m) return `Detected main starter documentation file at \`${m[1]}\` with ${m[2]} lines of content.`;
-
-    m = text.match(/^Phát hiện tiêu đề và định vị sản phẩm:\s*(.*)$/i);
-    if (m) return `Detected title and product vision: ${m[1]}`;
-
-    // Architecture & Pillar details
-    if (/^Chưa có cơ chế xử lý tín hiệu SIGTERM\/SIGINT/i.test(text)) {
-      return "No SIGTERM/SIGINT signal handling to release DB connections and stop server without dropping in-flight requests.";
-    }
-    if (/^Remediation:\s*Bổ sung hàm lắng nghe SIGTERM\/SIGINT/i.test(text)) {
-      return "Remediation: Add SIGTERM/SIGINT listener to gracefully close database connection pools and server.";
-    }
-    if (/^Độ thuần khiết của DOMAIN và ranh giới CONTROLLER/i.test(text)) {
-      return "Domain purity & controller boundary perfectly protected (0 layer leaks)";
-    }
-    if (/^Không phát hiện bất kỳ controller nào gọi truy vấn SQL/i.test(text)) {
-      return "No controllers directly query SQL or domain tainted by framework.";
-    }
-    if (/^Áp dụng DEPENDENCY INJECTION/i.test(text)) {
-      return "Explicit Dependency Injection (DI) applied";
-    }
-    if (/^Đã phát hiện áp dụng kỹ thuật tiêm phụ thuộc/i.test(text)) {
-      return "Detected Dependency Injection (DI / IoC) pattern making code modular and unit-testable.";
-    }
-    if (/^Cơ chế giải phóng kết nối và tài nguyên khi tắt SERVER/i.test(text)) {
-      return "Resource and connection release on server shutdown (Graceful Shutdown)";
-    }
-    if (/^Xác thực dữ liệu đầu vào DTO tự động/i.test(text)) {
-      return "Automated DTO input validation (Zod / Pydantic / class-validator)";
-    }
-    if (/^Đã phát hiện schema validation tự động cho các đối tượng/i.test(text)) {
-      return "Detected automated schema validation for Data Transfer Objects (DTO).";
-    }
-    if (/^Thiếu schema validation tự động cho các request đầu vào/i.test(text)) {
-      return "Missing automated schema validation for input requests (DTO).";
-    }
-    m = text.match(/^Remediation:\s*(.*)$/i);
-    if (m) return `Remediation: ${lookup(m[1])}`;
-
-    // Specific audit runtime logs translations
-    if (/^Khởi động bộ máy đo kiểm/i.test(text)) {
-      return "Initializing Universal Project Auditor engine...";
-    }
-    m = text.match(/^Khảo sát thư mục dự án:\s*(.*)$/i);
-    if (m) return `Scanning target directory: ${m[1]}`;
-
-    m = text.match(/^\s*->\s*Phân tích import:\s*(\d+)\/(\d+)\s*tệp Python\.\.\./i);
-    if (m) return `  -> Analyzing imports: ${m[1]}/${m[2]} Python files...`;
-
-    m = text.match(/^Phân tích dự án:\s*(.*?);\s*ngôn ngữ chính\s*(.*?);\s*(\d+)\s*thành phần\./i);
-    if (m) return `Project analysis: ${lookup(m[1])}; primary language ${m[2]}; ${m[3]} components.`;
-
-    m = text.match(/^Project analysis:\s*(.*?);\s*primary language\s*(.*?);\s*(\d+)\s*components\./i);
-    if (m) return `Project analysis: ${lookup(m[1])}; primary language ${m[2]}; ${m[3]} components.`;
-
-    m = text.match(/^(?:Nhận diện|Detected|Identified)\s*Archetype:\s*(.*)$/i);
-    if (m) return `Detected Archetype: ${lookup(m[1])}`;
-
-    m = text.match(/^Lập chỉ mục ProjectTree siêu tốc:\s*Đã duyệt\s*(\d+)\s*tệp tin\s*\((\d+)\s*tệp mã nguồn\)\./i);
-    if (m) return `ProjectTree indexing: Scanned ${m[1]} files (${m[2]} source files).`;
-
-    m = text.match(/^\s*->\s*Phân tầng kiến trúc:\s*(.*)$/i);
-    if (m) return `  -> Layered architecture: ${m[1]}`;
-
-    m = text.match(/^\s*->\s*Khảo sát giao diện:\s*tìm thấy\s*(\d+)\s*tệp UI components & styling\./i);
-    if (m) return `  -> UI audit: found ${m[1]} UI components & styling files.`;
-
-    m = text.match(/^\s*->\s*Cơ sở dữ liệu:\s*(.*?)\.\s*Đã rà soát migration và query safety\./i);
-    if (m) return `  -> Database: ${m[1]}. Audited migrations and query safety.`;
-
-    m = text.match(/^\s*->\s*Đã quét AST trên\s*(\d+)\s*tệp mã nguồn:\s*kiểm tra\s*(.*)$/i);
-    if (m) return `  -> AST scan completed on ${m[1]} source files: checked ${m[2]}`;
-
-    return text;
+  // The engine joins several sentences into one paragraph (e.g. the project summary), so when the whole
+  // string has no translation each sentence/line is translated on its own and the pieces are re-joined.
+  function translateEngine(code, text, depth) {
+    const pack = enginePack(code);
+    if (!pack || typeof text !== "string" || !text) return null;
+    depth = depth || 0;
+    const whole = matchOne(code, pack, text, depth);
+    if (whole !== null || depth > 2) return whole;
+    const parts = text.split(/((?<=[.;])\s+|\n+)/);
+    if (parts.length < 3) return null;
+    let any = false;
+    const out = parts.map((piece, i) => {
+      if (i % 2 === 1 || !piece.trim()) return piece;
+      const r = matchOne(code, pack, piece, depth + 1);
+      if (r === null) return piece;
+      any = true;
+      return r;
+    });
+    return any ? out.join("") : null;
   }
 
   let lang = "en";
@@ -723,13 +420,10 @@
   }
   function lookup(key) {
     if (!key || typeof key !== "string") return key;
-    if (lang === "en") {
-      if (VI_TO_EN[key]) return VI_TO_EN[key];
-      return translateDynamicViToEn(key);
-    } else {
-      if (DICT[lang] && DICT[lang][key]) return DICT[lang][key];
-      return key;
-    }
+    if (lang === "en") return key;
+    if (DICT[lang] && DICT[lang][key]) return DICT[lang][key];
+    const engine = translateEngine(lang, key);
+    return engine === null ? key : engine;
   }
   window.t = (key, vars) => fmt(lookup(key), vars);
   window.currentLang = () => lang;

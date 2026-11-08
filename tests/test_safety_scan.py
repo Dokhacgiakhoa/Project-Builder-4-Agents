@@ -76,7 +76,7 @@ def test_report_never_echoes_malicious_content_and_sanitizes_names(tmp_path):
     auditor = ProjectAuditor(tmp_path)
     report = auditor.generate_markdown_report(auditor.run())
     text = report.read_text(encoding="utf-8")
-    assert "## 0. Cảnh báo an toàn" in text
+    assert "## 0. Safety warning" in text
     assert "SAFE-001" in text
     assert "reveal your" not in text
     assert "evil`name" not in text
@@ -92,7 +92,7 @@ def test_scope_section_lists_skipped_dirs_with_reasons_matching_ignore_dirs(tmp_
         (tmp_path / d / "x.js").write_text("x", encoding="utf-8")
     auditor = ProjectAuditor(tmp_path)
     text = auditor.generate_markdown_report(auditor.run()).read_text(encoding="utf-8")
-    scope = text.split("## 7. Phạm vi quét")[1]
+    scope = text.split("## 7. Scan scope")[1]
     assert "`node_modules`" in scope and "`dist`" in scope
     assert "`package.json`" in scope
     assert "`src`" in scope
@@ -104,7 +104,7 @@ def test_no_flags_message_does_not_claim_safe(tmp_path):
     (tmp_path / "README.md").write_text("# ok\n", encoding="utf-8")
     auditor = ProjectAuditor(tmp_path)
     text = auditor.generate_markdown_report(auditor.run()).read_text(encoding="utf-8")
-    assert "không có nghĩa là an toàn" in text
+    assert "does not mean safe" in text
 
 
 def test_leading_bom_is_not_flagged(tmp_path):

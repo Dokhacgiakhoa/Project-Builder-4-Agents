@@ -39,7 +39,7 @@ def test_auditor_scores_within_bounds_and_writes_report(sample_project):
     assert report.name == "project-review.md"
     text = report.read_text(encoding="utf-8")
     assert text.startswith("---") and "report: project-review" in text.splitlines()[1]
-    assert "## 2. Phát hiện cần xử lý" in text
+    assert "## 2. Findings to handle" in text
 
 
 def test_auditor_detects_silent_exception_eater(sample_project):
@@ -69,9 +69,9 @@ def test_auditor_red_alarm_on_critical_vulnerability(tmp_path):
     assert auditor.quality_gate == "FAILED"
     assert score <= 49
     grade = auditor.get_letter_grade(score)
-    assert "RED ALARM" in grade or "BÁO ĐỘNG ĐỎ" in grade
+    assert "RED ALARM" in grade
     assert grade.startswith("F")
 
     report = auditor.generate_markdown_report(score)
     report_text = report.read_text(encoding="utf-8")
-    assert "FAILED" in report_text or "BÁO ĐỘNG ĐỎ" in report_text
+    assert "FAILED" in report_text

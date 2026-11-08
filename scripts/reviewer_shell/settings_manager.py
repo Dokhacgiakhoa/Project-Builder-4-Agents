@@ -94,7 +94,7 @@ class SettingsManager:
                     merged[k] = _unprotect(str(merged.get(k, "")))
                 return merged
         except Exception as e:
-            print(f"[SettingsManager] Lỗi đọc cấu hình: {e}")
+            print(f"[SettingsManager] Error reading configuration: {e}")
             return DEFAULT_SETTINGS.copy()
 
     @staticmethod

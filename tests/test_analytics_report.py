@@ -72,12 +72,12 @@ def test_arch_profile_and_guardrail_codes_have_remediation():
 # ---- Phân loại phát hiện ----
 def test_violation_maps_to_code_severity_and_location():
     f = from_violation({"file": "src/a.ts", "line": 7, "type": "HARDCODED SECRET IN CODE", "desc": "x"})
-    assert (f.code, f.severity, f.location) == ("SEC-001", "Cao", "src/a.ts:7")
+    assert (f.code, f.severity, f.location) == ("SEC-001", "High", "src/a.ts:7")
 
 
 def test_unknown_text_falls_back_to_generic_and_summary_is_dropped():
     assert from_text("điều gì đó lạ").code == "GEN-001"
-    assert from_text("Phát hiện 3 vị trí vi phạm tiêu chuẩn ANTI-CRASH trong mã nguồn.") is None
+    assert from_text("Detected 3 locations violating ANTI-CRASH standards in the source code.") is None
 
 
 # ---- Core Baseline ----
@@ -165,7 +165,7 @@ def test_guardrails_arch008_detected_when_missing_boundary_or_ci(tmp_path):
     wf.mkdir(parents=True)
     (wf / "ci.yml").write_text("name: ci\n", encoding="utf-8")
     ok, msg, docs = check_guardrails(tmp_path, cfg)
-    assert not ok and "ranh giới" in msg
+    assert not ok and "boundary" in msg
 
     # 3. Khi có luật chặn import chéo (eslint-plugin-boundaries) -> đạt
     (tmp_path / "package.json").write_text('{"devDependencies": {"eslint-plugin-boundaries": "^4.0.0"}}', encoding="utf-8")

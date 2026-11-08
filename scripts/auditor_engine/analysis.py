@@ -441,36 +441,36 @@ class ProjectAnalyzer:
         for (a, b), n in self.edges.items():
             la, lb = layer_of.get(a), layer_of.get(b)
             if la and lb and (la, lb) in forbidden:
-                violations.append(f'{a} ({la}) phụ thuộc {b} ({lb}) — {n} import')
+                violations.append(f'{a} ({la}) depends on {b} ({lb}) — {n} imports')
         modular = [c for c in code if c['name'].split('/')[0].lower() in {'features', 'modules', 'slices', 'domains', 'contexts'}]
         total_loc = sum(c['loc'] for c in code) or 1
         if {'domain', 'infrastructure'} <= layers and ('application' in layers or 'presentation' in layers):
-            style, label = 'clean-architecture', 'Kiến trúc phân tầng kiểu Clean / Hexagonal'
-            evidence.append('Có các tầng domain, infrastructure và application/presentation.')
-            conf = 'cao' if not violations else 'trung bình'
+            style, label = 'clean-architecture', 'Clean / Hexagonal Layered Architecture'
+            evidence.append('Has domain, infrastructure and application/presentation layers.')
+            conf = 'high' if not violations else 'medium'
         elif len(modular) >= 3:
             cross = sum(n for (a, b), n in self.edges.items()
                         if a in {m['name'] for m in modular} and b in {m['name'] for m in modular})
             style = 'modular-monolith' if cross else 'vertical-slice'
-            label = 'Monolith theo module' if cross else 'Vertical slice (theo tính năng)'
-            evidence.append(f'{len(modular)} module/tính năng; {cross} import chéo giữa chúng.')
-            conf = 'trung bình'
+            label = 'Monolith theo module' if cross else 'Vertical Slice (Feature-driven)'
+            evidence.append(f'{len(modular)} modules/features; {cross} cross-imports between them.')
+            conf = 'medium'
         elif len(layers & {'presentation', 'application', 'domain', 'infrastructure'}) >= 2:
-            style, label = 'simple-layered', 'Phân tầng đơn giản (presentation → service → data)'
-            evidence.append('Tìm thấy các thư mục tầng: ' + ', '.join(sorted(layers)))
-            conf = 'trung bình'
+            style, label = 'simple-layered', 'Simple Layered (presentation → service → data)'
+            evidence.append('Found layer folders:' + ', '.join(sorted(layers)))
+            conf = 'medium'
         elif len(code) <= 2:
-            style, label = 'flat', 'Cấu trúc phẳng (ít thành phần)'
-            evidence.append(f'Chỉ {len(code)} thành phần mã nguồn.')
-            conf = 'cao'
+            style, label = 'flat', 'Flat structure (minimal components)'
+            evidence.append(f'Only {len(code)} source components.')
+            conf = 'high'
         else:
-            style, label = 'component-based', 'Các thành phần theo thư mục, chưa có tầng rõ ràng'
-            evidence.append(f'{len(code)} thành phần, chưa khớp mẫu tầng/module nào.')
-            conf = 'thấp'
+            style, label = 'component-based', 'Component-based without explicit layering'
+            evidence.append(f'{len(code)} components, matching no layer/module pattern yet.')
+            conf = 'low'
         if cycles:
-            evidence.append(f'Có {len(cycles)} nhóm phụ thuộc vòng giữa các thành phần.')
+            evidence.append(f'{len(cycles)} circular dependency groups between components.')
         if names and total_loc < 800:
-            evidence.append(f'Quy mô nhỏ ({total_loc} dòng mã).')
+            evidence.append(f'Small codebase ({total_loc} lines of code).')
         return {'style': style, 'label': label, 'confidence': conf, 'evidence': evidence, 'violations': violations}
 
     def _kind(self, stack, comps) -> dict:
@@ -483,30 +483,30 @@ class ProjectAnalyzer:
         evidence, secondary = [], []
         code = self.code_loc
         if code == 0 or self.doc_loc >= code:
-            primary = ('docs-knowledge', 'Kho tài liệu / tri thức' + (' kèm công cụ' if code else ''))
-            evidence.append(f'{self.doc_loc} dòng tài liệu so với {code} dòng mã.')
+            primary = ('docs-knowledge', 'Documentation / Knowledge base' + (' with tools' if code else ''))
+            evidence.append(f'{self.doc_loc} documentation lines vs {code} lines of code.')
         elif 'web-fullstack' in cats or ({'web-backend', 'web-frontend'} <= cats):
-            primary = ('web-fullstack', 'Ứng dụng web full-stack')
+            primary = ('web-fullstack', 'Full-stack web application')
         elif 'web-backend' in cats:
-            primary = ('web-backend', 'Dịch vụ backend / API')
+            primary = ('web-backend', 'Backend / API service')
         elif 'web-frontend' in cats:
-            primary = ('web-frontend', 'Ứng dụng giao diện web')
+            primary = ('web-frontend', 'Web frontend application')
         elif 'desktop' in cats:
-            primary = ('desktop-app', 'Ứng dụng desktop')
+            primary = ('desktop-app', 'Desktop application')
         elif 'data-ml' in cats or 'ai' in cats:
-            primary = ('data-ml', 'Dự án dữ liệu / AI')
+            primary = ('data-ml', 'Data / AI project')
         elif self.entrypoints or 'cli' in cats:
-            primary = ('cli-tool', 'Công cụ dòng lệnh / script')
-            evidence.append(f'{len(self.entrypoints)} tệp có điểm vào `__main__`.')
+            primary = ('cli-tool', 'Command-line tool / script')
+            evidence.append(f'{len(self.entrypoints)} files with a `__main__` entry point.')
         else:
-            primary = ('library', 'Thư viện / mã chưa rõ điểm vào')
-        for cat, label in (('desktop', 'có thành phần desktop'), ('cli', 'có CLI'), ('ai', 'tích hợp AI/LLM'),
-                           ('database', 'có tầng dữ liệu'), ('web-backend', 'có thành phần web backend'),
-                           ('web-frontend', 'có thành phần giao diện web')):
+            primary = ('library', 'Library / unspecified entrypoint')
+        for cat, label in (('desktop', 'has a desktop component'), ('cli', 'has a CLI'), ('ai', 'integrates AI/LLM'),
+                           ('database', 'has a data layer'), ('web-backend', 'has a web backend component'),
+                           ('web-frontend', 'has a web frontend component')):
             if cat in all_cats and primary[0] not in (cat,):
                 secondary.append(label)
         if self.entrypoints and primary[0] != 'cli-tool':
-            secondary.append('có script chạy trực tiếp')
+            secondary.append('has directly runnable scripts')
         return {'id': primary[0], 'label': primary[1], 'secondary': secondary, 'evidence': evidence}
 
     def analyze(self) -> dict:
