@@ -3,87 +3,87 @@ title: "Workflow Design & Reliability"
 weight: 7
 ---
 
-# Chương 7 — Workflow Design & Reliability: edge case, failback, Human-in-the-Loop, governance
+# Chapter 7 — Workflow Design & Reliability: Edge Cases, Failback, Human-in-the-Loop, Governance
 
-> 📊 **Bằng chứng cohort —** Ba con số từ các cohort trước giải thích vì sao chương này tồn tại: (1) **11/12 đội** chỉ có guardrail 1 lớp prompt-only — prompt bị lật là cả hệ thống trần trụi; (2) đội **002** từng viết `except Exception: return default` — AI chạy regression giữa chừng mà không ai biết, đây là "silent fallback" kinh điển; (3) đội **Gamma** để session hết hạn giữa bài thi 35 phút, state không persist — user mất trắng tiến độ (G-06), MCQ click không register và không có toast chỉ câu thiếu (G-08). Cả ba lỗi đều không phải lỗi AI — chúng là **lỗi thiết kế workflow**. Chương này trang bị bộ tư duy và checklist để không lặp lại.
+> 📊 **Cohort Evidence —** Three figures from previous cohorts explain why this chapter exists: (1) **11/12 teams** relied on a single prompt-only guardrail layer — once the prompt was bypassed, the entire system stood unprotected; (2) Team **002** wrote `except Exception: return default` — the AI experienced silent regressions without anyone noticing, a textbook "silent fallback"; (3) Team **Gamma** allowed user sessions to expire during a 35-minute exam without persisting state — users lost all progress (G-06), while unrecorded MCQ clicks displayed no toast warning of missing answers (G-08). None of these were AI model failures — they were **workflow design failures**. This chapter provides the mindset and actionable checklists to prevent their recurrence.
 
-Nguyên tắc xuyên suốt: **thiết kế cho đáng tin cậy trước, tự động hóa sau**. Tự động hóa một quy trình rác = tự động hóa cái rác, với tốc độ nhanh hơn.
+Core principle: **design for reliability first, automate second**. Automating a broken process simply produces broken outcomes at higher velocity.
 
 ---
 
-## 7.1 Value stream — vẽ IPO cho luồng sản phẩm
+## 7.1 Value Stream — Mapping IPO for Product Flows
 
-Mọi quy trình, dù đơn giản đến đâu, đều là **Input → Process → Output (IPO)**. Trước khi viết dòng code nào, bạn phải vẽ được luồng này và trả lời 2 câu hỏi:
+Every workflow, regardless of complexity, follows an **Input → Process → Output (IPO)** structure. Before writing any code, map this flow and answer two questions:
 
-1. **AI ở đâu?** — bước nào cần suy luận phi cấu trúc (sinh văn bản, phân loại mơ hồ, tóm tắt)?
-2. **Người ở đâu?** — bước nào cần phán quyết, chịu trách nhiệm, hoặc xử lý khi AI không chắc?
+1. **Where is AI?** — which steps require unstructured reasoning (text generation, ambiguous classification, summarization)?
+2. **Where is Human?** — which steps require human judgment, accountability, or intervention when AI is uncertain?
 
-### Ví dụ IPO: chatbot tư vấn tuyển sinh (kiểu đội Alpha)
+### IPO Example: Admissions Counseling Chatbot (Team Alpha model)
 
-| Pha | Nội dung | AI / Người | Ghi chú rủi ro |
+| Phase | Description | AI / Human | Risk Note |
 |---|---|---|---|
-| **Input** | Câu hỏi user qua chat; KB học bổng, hạn nộp | Người soạn KB | KB nghèo = AI bịa (lỗi Alpha cohort trước) |
-| **Process** | Phân loại intent → retrieve KB → sinh câu trả lời có citation | AI | Cần guardrail 2 lớp (mục 7.7) |
-| **Output** | Câu trả lời + link nguồn; nếu confidence thấp → chuyển người tư vấn | AI + Người | Đây là điểm HITL (mục 7.5) |
+| **Input** | User chat questions; scholarship and deadline KB | Human KB curator | Deficient KB causes AI hallucination (Alpha cohort defect) |
+| **Process** | Intent classification → retrieve KB → generate cited answer | AI | Requires 2-layer guardrail (Section 7.7) |
+| **Output** | Answer + source links; if low confidence → escalate to human counselor | AI + Human | Designates the HITL junction (Section 7.5) |
 
-Nếu bạn không vẽ được bảng này trong 15 phút, bạn chưa hiểu đủ luồng sản phẩm mình đang build. Cohort trước cho thấy hệ quả: nhiều đội build feature trước, phát hiện messaging lệch giá trị cốt lõi sau (Beta default Direct answer thay vì Socratic — ngược value prop của chính mình).
+If you cannot sketch this table within 15 minutes, you do not adequately understand your product workflow. Previous cohorts demonstrated the consequence: teams built features first, only to realize later that messaging contradicted core values (e.g., Beta defaulting to Direct answers over Socratic dialogue — reversing their own stated value proposition).
 
-### Bài tập nhanh
+### Quick Exercise
 
-Vẽ IPO cho sản phẩm đội bạn trong 1 bảng 3 hàng (Input/Process/Output), mỗi bước ghi rõ AI hay Người và một rủi ro có thể xảy ra ở bước đó.
+Map the IPO for your team's product in a 3-row table (Input/Process/Output), identifying for each step whether AI or Human executes it, along with one concrete operational risk.
 
 ---
 
-## 7.2 Sáu thuộc tính của quy trình đáng tin cậy
+## 7.2 Six Attributes of a Reliable Workflow
 
-Đây là bộ tiêu chí tự kiểm trước khi đưa workflow ra production. Mỗi thuộc tính kèm **cách kiểm chứng** — thuộc tính không kiểm chứng được chỉ là lời hứa.
+Use this evaluation checklist before deploying workflows to production. Each attribute requires an **empirical verification method** — an unverified attribute is merely an aspiration.
 
-| # | Thuộc tính | Nghĩa | Cách kiểm chứng |
+| # | Attribute | Definition | Verification Method |
 |---|---|---|---|
-| 1 | **Fault-tolerant** (chịu lỗi) | Một node fail không sập cả workflow; có nhánh fallback rõ ràng | Tắt node giữa (mock raise) → workflow vẫn trả kết quả hoặc thông báo lỗi hiểu được cho user |
-| 2 | **Observable** (quan sát được) | Mọi bước log trạng thái OK/WARN/FAIL, đủ truy nguyên nhân | Giả định: nửa đêm server lỗi — sáng ra đọc log trả lời được "chỗ nào fail, input gì, bao nhiêu case" |
-| 3 | **Scalable** (mở rộng được) | 1 user hay 100 user gửi đồng thời vẫn ổn | Test gửi 10 request song song — không có ERR_ABORTED kiểu đội Alpha (A-02) |
-| 4 | **Workable** (làm được) | User thật đi hết luồng giá trị cốt lõi mà không bị chặn | Smoke-test E2E đường "vàng" mỗi lần deploy (Gamma bị chặn 2 lần ngay bước đăng nhập) |
-| 5 | **Idempotent** (lặp an toàn) | Chạy lại cùng input không sinh kết quả trùng/lệch | Gọi API 2 lần cùng payload → không tạo 2 bản ghi, không charge 2 lần |
-| 6 | **Auditable** (kiểm toán được) | Truy ngược được: ai/yếu tố nào quyết định gì, lúc nào | Xem 1 output xấu → truy được trace: prompt nào, context nào, bước nào duyệt |
+| 1 | **Fault-tolerant** | An isolated node failure does not crash the entire workflow; explicit fallback branches exist | Terminate an intermediate node (mock raise) → workflow gracefully degrades or returns a clear error message |
+| 2 | **Observable** | Every step logs state as OK/WARN/FAIL, enabling root-cause diagnosis | Scenario: server crashes at midnight — morning logs clearly answer: "which step failed, on what input, affecting how many cases" |
+| 3 | **Scalable** | System operates reliably under 1 or 100 concurrent requests | Execute 10 parallel requests — no ERR_ABORTED streaming exceptions like team Alpha (A-02) |
+| 4 | **Workable** | Real users traverse the core value stream without blocking defects | Execute automated E2E smoke tests on the golden path upon each deployment (Gamma was blocked twice at login) |
+| 5 | **Idempotent** | Re-executing with identical input creates no duplicate or corrupted state | Call API twice with identical payload → no duplicate database records created, no duplicate billing charges |
+| 6 | **Auditable** | Deterministic backward traceability: who/what decided what, and when | Inspect a flawed output → trace execution path: prompt used, retrieved context, and human approval record |
 
-Hai thuộc tính cohort trước yếu nhất: **Workable** (không đội nào tự phát hiện lỗi của mình — mọi CRITICAL do QA bên ngoài phát hiện) và **Observable** (silent fallback của đội 002 chính là vi phạm thuộc tính số 2).
+The two weakest attributes across prior cohorts were: **Workable** (zero teams caught their own blocking defects — all CRITICAL bugs were surfaced by external QA) and **Observable** (Team 002's silent fallback violated attribute #2).
 
 ---
 
-## 7.3 Edge-case taxonomy có hệ thống
+## 7.3 Systematic Edge-Case Taxonomy
 
-Edge case không phải là "trường hợp lạ may rủi" — nó rơi vào các nhóm đếm được trên đầu ngón tay. Khi thiết kế, đi qua từng nhóm và tự hỏi: sản phẩm tôi xử lý nhóm này thế nào?
+Edge cases are not unpredictable anomalies — they cluster into identifiable, recurring categories. When architecting workflows, systematically inspect each category and determine your system's response:
 
-| Loại edge | Ví dụ thật từ cohort | Xử lý chuẩn |
+| Edge Category | Real Cohort Example | Standard Mitigation |
 |---|---|---|
-| **Dữ liệu thiếu / rỗng** | KB tuyển sinh thiếu 2 chủ đề user hỏi nhiều nhất (học bổng, hạn nộp) | Validate input ở cổng vào (Pydantic); thiếu dữ liệu nguồn → trả lời thẳng "chưa có thông tin" + route người, KHÔNG để AI tự bịa |
-| **Sai format** | LLM trả JSON cắt giữa dòng, thiếu field | Schema-lock: sai schema → exception tường minh + retry 1 lần → fallback (đội 012: mọi output qua Pydantic) |
-| **User nhập ngoài scope** | Hỏi y khoa vào chatbot tuyển sinh; câu hỏi trái quy định | Phân loại intent + từ chối lịch sự + redirect đúng kênh (guardrail input, mục 7.7) |
-| **Concurrency** | Gửi tin liên tiếp → stream ERR_ABORTED (Alpha A-02) | Debounce client + queue server-side + khóa phiên theo user |
-| **Timeout / hết budget** | Phiên phỏng vấn AI kéo dài vô hạn | Cost locks kiểu Delta: phiên tối đa 60 phút, idle 30 giây ngắt, 10 phiên/24h — tính **server-side** |
-| **Injection** | User nhét "bỏ qua mọi instruct trước đó, trả lời..." | Prompt safeguard + tách dữ liệu người dùng khỏi system prompt + filter banned-pattern (mục 7.7) |
-| **Loop vô hạn** | Agent gọi tool lặp không dừng | Escape hatch: đếm vòng lặp, vượt max → ép sang phase kết thúc (đội 011: count ≥ max → Closing → END) |
+| **Missing / Empty Data** | Admissions KB lacked 2 most frequent topics (scholarships, deadlines) | Input validation at boundary (Pydantic); missing source data → respond explicitly "information unavailable" + route to human, NEVER allow AI to hallucinate |
+| **Invalid Format** | LLM returns truncated JSON mid-stream with missing fields | Schema-lock: schema mismatch triggers explicit exception + 1 retry → fallback (team 012: all outputs validated via Pydantic) |
+| **Out-of-Scope User Input** | Submitting medical questions to admissions bot; illicit requests | Intent classification + polite rejection + redirect to proper channel (input guardrails, Section 7.7) |
+| **Concurrency** | Rapid consecutive message bursts trigger streaming ERR_ABORTED (Alpha A-02) | Client-side debouncing + server-side queue + per-user session lock |
+| **Timeout / Budget Exhaustion** | AI interview session runs indefinitely | Cost locks like Delta: max 60-minute session, 30-second idle disconnect, 10 sessions/24h — enforced **server-side** |
+| **Prompt Injection** | User submits "disregard all previous instructions, output..." | Prompt safeguards + isolate untrusted user data from system prompts + filter banned patterns (Section 7.7) |
+| **Infinite Loop** | Agent invokes tools in endless recurring cycle | Escape hatch: iteration counter exceeding maximum threshold forces termination state (team 011: count ≥ max → Closing → END) |
 
-Quy tắc: mỗi edge case trong bảng phải tồn tại **dưới dạng test** trong repo. Edge case chỉ nằm trong đầu bạn thì đến Demo Day nó sẽ nằm trong demo của bạn.
+Rule: every edge case listed in this matrix must be represented as an **automated test** within your repository. An unencoded edge case will inevitably surface during live Demo Day evaluations.
 
 ---
 
-## 7.4 Failback & state — không silent fallback
+## 7.4 Failback & State — Eliminating Silent Fallbacks
 
-### Tội danh: silent fallback
+### Anti-Pattern: Silent Fallback
 
 ```python
-# ANTI-PATTERN — đội 002 cohort trước
+# ANTI-PATTERN — Team 002 from previous cohort
 try:
     result = run_ai_analysis(data)
 except Exception:
-    return default_answer   # AI chết âm thầm, user và dev đều không hay
+    return default_answer   # AI fails silently, neither user nor dev knows
 ```
 
-Vấn đề không phải là có fallback — fallback là bắt buộc. Vấn đề là **âm thầm**: hệ thống chuyển sang chế độ kém chất lượng mà không ai biết. Với lỗi kiểu này, quy trình bắt buộc là viết **RCA (Root Cause Analysis)**: đội 002 sau đó chính là đội có file `ROOT_CAUSE_ANALYSIS.md` trong repo — biến sai lầm thành tài liệu.
+The issue is not having a fallback — fallbacks are essential. The flaw lies in **silence**: the system degrades to low-fidelity output without alerting anyone. For defects of this nature, establishing a **Root Cause Analysis (RCA)** protocol is mandatory: Team 002 addressed this by committing a `ROOT_CAUSE_ANALYSIS.md` to their repository — converting an operational failure into persistent institutional knowledge.
 
-### Chuẩn: log FAILED + fallback rõ ràng cho user
+### Production Pattern: Log FAILED + Explicit User Degradation Notice
 
 ```python
 import logging
@@ -99,58 +99,58 @@ def safe_ai_step(data: dict) -> dict:
             hash(str(data)), type(exc).__name__,
         )
         return {
-            "status": "DEGRADED",          # user BIẾT chất lượng giảm
+            "status": "DEGRADED",          # user KNOWS quality is degraded
             "answer": None,
-            "message": "Phân tích AI tạm lỗi, hiển thị dữ liệu thô.",
+            "message": "AI analysis temporarily unavailable, displaying raw data.",
         }
 ```
 
-Ba khác biệt so với anti-pattern: (1) log dòng FAILED kèm hash input và lý do — thuộc tính Observable; (2) trạng thái `DEGRADED` tường minh — không giả vờ bình thường; (3) user nhận thông điệp rõ ràng thay vì câu trả lời mặc định ngụy trang.
+Three critical distinctions from the anti-pattern: (1) structured `FAILED` log containing input hash and exception type — satisfying Observability; (2) explicit `DEGRADED` status instead of masked normalcy; (3) transparent user notification rather than disguised placeholder data.
 
-### State persist & resume — bài học 35 phút của Gamma
+### State Persistence & Resumption — Gamma's 35-Minute Lesson
 
-Gamma để user làm bài thi placement 35 phút, session hết hạn giữa chừng, state không persist → mất toàn bộ tiến độ (G-06). Đây là vi phạm thuộc tính Fault-tolerant nghiêm trọng nhất cohort. Chuẩn tối thiểu cho mọi flow dài (thi, phỏng vấn, onboarding nhiều bước):
+Gamma allowed users to undertake a 35-minute placement assessment where sessions expired mid-exam without state persistence → resulting in total progress loss (G-06). This constituted the cohort's most severe Fault-tolerance failure. Baseline requirements for extended workflows (exams, structured interviews, multi-step onboarding):
 
-- **Persist sau mỗi bước**, không chờ hết flow (checkpoint mỗi câu trả lời)
-- **Resume từ đúng chỗ** khi user quay lại — kể cả đổi tab, refresh, mất mạng
-- **Toast/indicator** khi có sự cố (G-08: MCQ click không register mà không có bất kỳ tín hiệu nào — user tưởng đã chọn)
+- **Persist state after every individual step**, never deferring until workflow completion (checkpoint per response)
+- **Resume seamlessly from the exact step** upon user return — surviving tab switches, page reloads, and transient network drops
+- **Provide clear UI toasts/indicators** upon execution anomalies (G-08: clicked MCQs failed to register without UI feedback, leaving users unaware of unrecorded answers)
 
 ---
 
-## 7.5 Human-in-the-Loop — tiered autonomy
+## 7.5 Human-in-the-Loop — Tiered Autonomy
 
-### Quy tắc vàng
+### The Golden Rule
 
-> **Bước tiền bạc, PII, y tế, pháp lý, hoặc quyết định không thể đảo ngược → KHÔNG tự động hoàn toàn. Bắt buộc có con người duyệt trước khi tiếp tục.**
+> **Any step impacting finances, PII, healthcare, legal compliance, or irreversible outcomes MUST NOT be fully automated. Mandatory human review is required before execution.**
 
-Đây không phải tùy chọn tối ưu UX — đây là ranh giới an toàn. Tiered autonomy chia workflow thành 2 mức:
+This is not a UX design preference — it is an operational safety boundary. Tiered autonomy separates workflows into two distinct operational tiers:
 
-- **Low-risk** (tóm tắt tài liệu, gợi ý câu hỏi, sinh nháp nội dung): AI tự chạy, audit log lại sau
-- **High-risk** (chuyển tiền, gửi email cho người thật, chẩn đoán, xóa dữ liệu, công bố kết quả): dừng lại, chờ người duyệt — hoặc tự động chạy chỉ khi confidence vượt ngưỡng đã định trước
+- **Low-Risk** (internal document summarization, drafting suggestions, content generation): AI runs autonomously, verified post-hoc via audit logs.
+- **High-Risk** (disbursing funds, outbound external emails, clinical advice, record deletion, publishing results): pause execution for human verification — or automate solely when confidence scores exceed predefined safety thresholds.
 
-### Mermaid 1 — workflow mẫu có điểm HITL (tư vấn tuyển sinh)
+### Diagram 1 — Reference Workflow with HITL Junction (Admissions Counseling)
 
 ```mermaid
 flowchart TD
-    A["User hỏi qua chat"] --> B["AI: phan loai intent\n+ retrieve KB"]
+    A["User asks via chat"] --> B["AI: classify intent\n+ retrieve KB"]
     B --> C{"Confidence >= 0.7?"}
-    C -- "Khong" --> H["PERSON: cho duyet, roi tra loi thu cong\nroi tra loi thu cong"]
-    C -- "Co" --> D["AI: sinh cau tra loi\nkem citation"]
-    D --> E["Guardrail 2 lop\nschema + banned-pattern"]
-    E -- "FAIL" --> F["Log FAILED\n+ thong bao loi cho user"]
-    E -- "PASS" --> G{"Cau hoi cham\nhoc bong / ho so?"}
-    G -- "Co — high-risk" --> H
-    G -- "Khong" --> I["Tra loi user\n+ ghi audit log"]
+    C -- "No" --> H["PERSON: pending review,\nthen answer manually"]
+    C -- "Yes" --> D["AI: generate answer\nwith citation"]
+    D --> E["2-layer guardrail\nschema + banned-pattern"]
+    E -- "FAIL" --> F["Log FAILED\n+ notify error to user"]
+    E -- "PASS" --> G{"Question touches\nscholarship / application?"}
+    G -- "Yes — high-risk" --> H
+    G -- "No" --> I["Answer user\n+ record audit log"]
     H --> I
-    F --> J["Ket thuc co trang thai\nFAILED — KHONG im lang"]
+    F --> J["Exit with status\nFAILED — NOT silent"]
 ```
-> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNptUl1vEzEQ_Csrv7aBtkJCikRRkssXqdqKlCfMw9a3OVu9s4OzBlVR_jvr-yCAuJeT1zOzs7M-KhNKUmNQuzr8NBYjw1OhPcg3-arVlwNFsDpdk9k5-J4QBMNafYPR6Bamgpisx7C36KEO6MB5Js9a-wuIxNHRD4LNVPCd5LSlzY5azYLfuZK8Ibj9AFdv3n_U6tSBZgICrTY2-EqrlrGSRo_zz9uH-7EYCFCmV-JLiMEBR5TW8rcJTGZo_9_yYKFXn4VeuuhnODhvwWAamKLzQg0Yx8gu-N_8omXNhbVMGMuIroYbIeyFcDCWGoQLeEbvqRztkZnimTvvei8m67u--0J07kIFuTQv2tw4zy0KofWfp02yhH81Hifbba-xzHGKcdvCsREVGww8Z5m3UoVDOIe7HMYHnW6urt-BdZUdRXd4GaL-C_fnEtbi9amPtbWU3VbWAabSsZTPIa86QndYtIdPwt4Q54UY2UiOWfyxxZx0N_5gabN6uF-Ca6DGdnHqElRDsUFX5pd6zLJasWRNWgpalbTDVMuz1P6UwZg4bF-9kUuOiaSS9iUyFQ6riE1fPv0CxsTnXQ==)
+> [📊 Open diagram on Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNptUl1vEzEQ_Csrv7aBtkJCikRRkssXqdqKlCfMw9a3OVu9s4OzBlVR_jvr-yCAuJeT1zOzs7M-KhNKUmNQuzr8NBYjw1OhPcg3-arVlwNFsDpdk9k5-J4QBMNafYPR6Bamgpisx7C36KEO6MB5Js9a-wuIxNHRD4LNVPCd5LSlzY5azYLfuZK8Ibj9AFdv3n_U6tSBZgICrTY2-EqrlrGSRo_zz9uH-7EYCFCmV-JLiMEBR5TW8rcJTGZo_9_yYKFXn4VeuuhnODhvwWAamKLzQg0Yx8gu-N_8omXNhbVMGMuIroYbIeyFcDCWGoQLeEbvqRztkZnimTvvei8m67u--0J07kIFuTQv2tw4zy0KofWfp02yhH81Hifbba-xzHGKcdvCsREVGww8Z5m3UoVDOIe7HMYHnW6urt-BdZUdRXd4GaL-C_fnEtbi9amPtbWU3VbWAabSsZTPIa86QndYtIdPwt4Q54UY2UiOWfyxxZx0N_5gabN6uF-Ca6DGdnHqElRDsUFX5pd6zLJasWRNWgpalbTDVMuz1P6UwZg4bF-9kUuOiaSS9iUyFQ6riE1fPv0CxsTnXQ==)
 
-Đọc sơ đồ: nhánh người (node `PERSON`) chỉ kích hoạt khi confidence thấp HOẶC chủ đề high-risk — mọi trường hợp còn lại AI tự chạy để giữ trải nghiệm nhanh.
+Diagram interpretation: the human escalation node (`PERSON`) activates only when model confidence falls below threshold OR when the inquiry touches high-risk domains — all standard interactions execute automatically to preserve responsiveness.
 
-### LangGraph `interrupt()` + checkpointer — code mẫu
+### LangGraph `interrupt()` + Checkpointer Implementation
 
-LangGraph 1.x có cơ chế dựng sẵn: node gọi `interrupt()` để tạm dừng graph, checkpointer lưu state, người duyệt xong thì graph resume từ đúng chỗ — không mất state kiểu Gamma.
+LangGraph provides native stateful primitives: nodes call `interrupt()` to suspend graph execution, the checkpointer serializes state, and upon human review completion, execution resumes without state degradation.
 
 ```python
 from typing import TypedDict
@@ -166,18 +166,18 @@ class State(TypedDict):
 
 
 def draft(state: State) -> dict:
-    return {"answer": f"Nhap luu cho: {state['question']}"}
+    return {"answer": f"Draft response for: {state['question']}"}
 
 
 def human_review(state: State) -> dict:
-    verdict = interrupt(          # graph DUNG o day, state da duoc luu
-        {"answer": state["answer"], "note": "Duyet truoc khi gui?"}
+    verdict = interrupt(          # Graph HALTS here, state is safely persisted
+        {"answer": state["answer"], "note": "Approve before sending?"}
     )
     return {"approved": verdict == "APPROVE"}
 
 
 def send(state: State) -> dict:
-    return {"answer": state["answer"] + " [da gui]"}
+    return {"answer": state["answer"] + " [sent]"}
 
 
 g = StateGraph(State)
@@ -191,85 +191,85 @@ g.add_conditional_edges("review", lambda s: "send" if s["approved"] else END)
 
 graph = g.compile(checkpointer=MemorySaver())
 cfg = {"configurable": {"thread_id": "t1"}}
-result = graph.invoke({"question": "Ho so hoc bong?"}, cfg)
-# result dung tai node review — lay ve interrupt payload, nguoi duyet roi:
-result = graph.invoke(Command(resume="APPROVE"), cfg)   # resume tu review
+result = graph.invoke({"question": "Scholarship application?"}, cfg)
+# Graph halts at review node — inspect interrupt payload, human reviewer approves:
+result = graph.invoke(Command(resume="APPROVE"), cfg)   # Resumes from review node
 ```
 
-Điểm mấu chốt: `MemorySaver` (hoặc `SqliteSaver` cho production — đội 011 dùng SqliteSaver) lưu state tại điểm interrupt; nếu process chết, thread_id cho phép resume không mất tiến độ.
+Key insight: `MemorySaver` (or durable `SqliteSaver` in production — utilized by Team 011) persists execution state at interruption boundaries; if server processes restart, the `thread_id` enables exact resumption without progress loss.
 
-### Bảng quyết định — workflow của BẠN cần HITL ở đâu?
+### Decision Matrix — Where Does YOUR Workflow Need HITL?
 
-| Dấu hiệu bước | Tự động hoàn toàn? | Lý do |
+| Step Indicator | Fully Automated? | Rationale |
 |---|---|---|
-| Sinh nháp nội dung nội bộ, không ai đọc ngay cũng không sao | Có — low-risk | Sai thì sửa được |
-| Gửi tin nhắn / email tới người ngoài đội | **Không** — cần duyệt | Ảnh hưởng người thật, khó rút lại |
-| Xử lý PII (hồ sơ, transcript, điểm số) | **Không** tối thiểu phải PII-filter + duyệt | Ràng buộc pháp lý, niềm tin |
-| Gợi ý liên quan y tế / sức khỏe | **Không** — route khẩn cấp nếu cần | Đội 005: danger_keywords → emergency ngay lập tức |
-| Quyết định tài chính, công bố kết quả, xóa dữ liệu | **Không — tuyệt đối** | Irreversible |
+| Drafting internal content, zero immediate public exposure | Yes — low-risk | Errors can be rectified downstream |
+| Dispatching outbound messages/emails to external users | **No** — review required | Direct external user impact, difficult to retract |
+| Processing PII (transcripts, identity, grades) | **No** — requires PII-filter + review | Regulatory compliance, user trust |
+| Medical or health-related recommendations | **No** — emergency route if triggered | Team 005 pattern: danger keywords escalate immediately |
+| Financial transactions, publishing results, record deletion | **No — absolute prohibition** | Irreversible real-world consequences |
 
-### Mermaid 2 — tiered-autonomy decision flow
+### Diagram 2 — Tiered Autonomy Decision Flow
 
 ```mermaid
 flowchart TD
-    A["Bước trong workflow"] --> B{"Hậu quả sai có\nđảo ngược được?"}
-    B -- "Khong" --> C["HITL bắt buộc\nKHÔNG tự động"]
-    B -- "Co" --> D{"Liên quan tiền bạc,\nPII, y tế, pháp lý?"}
-    D -- "Co" --> C
-    D -- "Khong" --> E{"AI confidence >=\nngưỡng định trước?"}
-    E -- "Co" --> F["Tự động + audit log"]
-    E -- "Khong / khong do duoc" --> G["HITL theo confidence\n(low-confidence → human)"]
-    F --> H["Checkpoint giám sát\nđịnh kỳ bởi người"]
+    A["Workflow step"] --> B{"Is failure consequence\nreversible?"}
+    B -- "No" --> C["Mandatory HITL\nNO full automation"]
+    B -- "Yes" --> D{"Involves money,\nPII, medical, or legal?"}
+    D -- "Yes" --> C
+    D -- "No" --> E{"AI confidence >=\npredetermined threshold?"}
+    E -- "Yes" --> F["Automated + audit log"]
+    E -- "No / unmeasurable" --> G["HITL by confidence\n(low-confidence → human)"]
+    F --> H["Periodic human\nsupervision checkpoint"]
     G --> H
-    C --> I["Người duyệt xong mới\nchạy tiếp + log người duyệt"]
+    C --> I["Human approves before\nresuming + log approver"]
 ```
-> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNptk29r2zAQxr_KoVcbS1jUDEYG62icNDEtZbC8m_pCluRYJJY8V6ILId99J8mt7TC_8J_T6fndcyefibBSkW9AyqN9FRVvHexWzABed78ZWTI_o8WMeapkIcC11uzh1baHkM7IM0ynt7A8M7INKVx6-OPj2xxeuAaB22flnDETdChNSxbMvtdVcwFvq4PYD0YuqY4lQoCRhwrZjERihqVt890jFFGxdFBErFwIZD1sA1Z-edqAC9GSQo-Xi6DyPJLObKe7QiePOuxW3KAVvDkddglqOhYVE0T8zPMJnJJ8UU6gqeIm2sAxWpZ9-asrRjYKD12tkX6Xg7Cm1FIZoeD2O7JGzaLY_96MKEyFQxkNqSevr8j32LXdfxsCn4B7qR0cbd-c9aBC-AyH-JQWpLeiU9y8zcFVyg4Kx6o_4AGZDqwwf0MXN1D5mpuP74z7KLNFmaxS4tBYbRzs0wRoDS_pxY0OUDR9iD7maSiy1KMjJaV-J2wSIX1k8SNH3NM4HU2dovZXB3-Dzzp1UyNZVGnwp-4sFGWD_cJOXTMHIognEyC1amuuZfi_zqECRrBRtWIYYESqkvsjpjJzCcncO_vrZAQuutYrjPhGcqdWmu9bXnfhyz-vJiKf)
+> [📊 Open diagram on Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNptk29r2zAQxr_KoVcbS1jUDEYG62icNDEtZbC8m_pCluRYJJY8V6ILId99J8mt7TC_8J_T6fndcyefibBSkW9AyqN9FRVvHexWzABed78ZWTI_o8WMeapkIcC11uzh1baHkM7IM0ynt7A8M7INKVx6-OPj2xxeuAaB22flnDETdChNSxbMvtdVcwFvq4PYD0YuqY4lQoCRhwrZjERihqVt890jFFGxdFBErFwIZD1sA1Z-edqAC9GSQo-Xi6DyPJLObKe7QiePOuxW3KAVvDkddglqOhYVE0T8zPMJnJJ8UU6gqeIm2sAxWpZ9-asrRjYKD12tkX6Xg7Cm1FIZoeD2O7JGzaLY_96MKEyFQxkNqSevr8j32LXdfxsCn4B7qR0cbd-c9aBC-AyH-JQWpLeiU9y8zcFVyg4Kx6o_4AGZDqwwf0MXN1D5mpuP74z7KLNFmaxS4tBYbRzs0wRoDS_pxY0OUDR9iD7maSiy1KMjJaV-J2wSIX1k8SNH3NM4HU2dovZXB3-Dzzp1UyNZVGnwp-4sFGWD_cJOXTMHIognEyC1amuuZfi_zqECRrBRtWIYYESqkvsjpjJzCcncO_vrZAQuutYrjPhGcqdWmu9bXnfhyz-vJiKf)
 
 ---
 
-## 7.6 AI governance mini — audit log, trách nhiệm, escalation
+## 7.6 Lightweight AI Governance — Audit Logs, Accountability, Escalation
 
-Governance không phải trang Privacy Policy tĩnh (đội Alpha từng để link Privacy Policy chết `#` — trong khi sản phẩm là B2B xử lý PII). Governance là **cơ chế chạy trong code**. Ba thành phần tối thiểu:
+Governance is not a static Privacy Policy web page (Team Alpha had dead `#` Privacy Policy links despite deploying a B2B product handling sensitive PII). Governance is an **executable runtime mechanism**. Three required components:
 
-### 1. Audit log — mọi bước AI để lại dấu vết
+### 1. Audit Logging — Every AI Decision Leaves a Trace
 
-Mỗi lần AI ra quyết định, ghi audit log theo **schema canonical duy nhất** định nghĩa ở [Chương Privacy](chapter-11.md) §11.7 (ts, user hash, input_hash, output_hash, model_version, risk_level, human_approved — không lưu output/PII gốc). Đội 002 kèm artifacts eval vào repo là cùng tư duy — quyết định phải truy ngược được.
+Each time an AI component makes an inference or decision, record an audit event adhering to the **canonical schema** detailed in [Chapter 11](chapter-11.md) §11.7 (timestamp, user hash, input hash, output hash, model version, risk tier, human approval flag — omitting raw PII/payloads). Team 002 committed evaluation artifacts directly into source control with identical rationale: automated decisions must remain retrospectively auditable.
 
-### 2. Ai chịu trách nhiệm khi AI sai?
+### 2. Accountability Definition
 
-Trả lời trước khi ship, bằng 1 câu viết được trong README: **"Khi output của sản phẩm gây hậu quả X, người/bộ phận chịu trách nhiệm là Y, vì Z."** Ví dụ chuẩn: MommyCare (005) không để AI tư vấn y tế tự chịu — AI chỉ phân loại, câu hỏi có `danger_keywords` chuyển emergency, nguồn không chính thống bị hạ `safety_level` xuống warning. Trách nhiệm nằm ở thiết kế hệ thống, không nằm ở model.
+Formulate a clear statement in your project README prior to deployment: **"If system outputs cause harm X, the responsible party is role Y, under justification Z."** Reference standard: MommyCare (Team 005) did not assign liability to the AI model — the system triaged inputs, routed detected emergency keywords to urgent hotlines, and downgraded safety tiers for unverified clinical sources. Accountability resides in architecture design, not model weights.
 
-### 3. Escalation path — đường lên khi vượt tầm
+### 3. Escalation Paths — Graceful Upward Handoffs
 
-Workflow phải có tầng thoát lên cao hơn: AI không chắc → reviewer người → reviewer không xử lý được → kênh con người thật (hotline, 115, on-call). Đội Delta làm đúng: AI **từ chối** phỏng vấn thật và chuyển humans-in-charge khi vượt phạm vi luyện tập.
+Workflows require clear upward escape routes: uncertain AI → human reviewer → secondary specialist → emergency services/on-call staff. Team Delta executed this cleanly: the system gracefully **declined** to conduct real employment interviews, steering users back to designated human instructors when queries exceeded educational boundaries.
 
-Checklist governance 1 trang (đặt cạnh IPO của bạn):
+One-Page Governance Checklist (place alongside your IPO):
 
-- [ ] Audit log ghi mọi bước AI quyết định (không lưu PII gốc)
-- [ ] Câu trả lời "ai chịu trách nhiệm khi AI sai" viết rõ trong README
-- [ ] Escalation path vẽ trên sơ đồ workflow, có ít nhất 1 đích đến là người
-- [ ] Cost lock + rate limit server-side (không chỉ client)
+- [ ] Audit log records every automated decision step (storing hashes, never raw PII)
+- [ ] Accountability policy explicitly documented in repository README
+- [ ] Escalation path mapped in architecture diagrams, culminating in a human endpoint
+- [ ] Server-side cost ceilings and rate limits enforced (independent of client controls)
 
 ---
 
-## 7.7 Guardrail 2 lớp — code validation + prompt safeguard
+## 7.7 2-Layer Guardrails — Code Validation + Prompt Safeguards
 
-Bằng chứng cohort: **11/12 đội guardrail 1 lớp prompt-only**. Prompt là lớp mỏng — bị lật bởi jailbreak, bị sai bởi model yếu, bị quên bởi model mới. Lớp thứ hai phải nằm trong **code**, chạy trước và sau AI, không thể bị thuyết phục.
+Cohort benchmark: **11/12 teams relied solely on prompt-only guardrails**. Prompts represent a fragile defense — easily subverted via jailbreaks, misunderstood by smaller models, or dropped across model migrations. The primary defensive layer must be implemented in **imperative code**, executing deterministically before and after model invocation.
 
-### Lớp 1 — code validation: Pydantic schema-lock + banned-pattern
+### Layer 1 — Code Validation: Pydantic Schema-Lock + Banned-Pattern Filtering
 
 ```python
 from pydantic import BaseModel, ValidationError
 
-BANNED = ("ignore previous", "bo qua chi dan", "dien ngay lap tuc")
+BANNED = ("ignore previous", "disregard instructions", "urgent bypass")
 
-class TriageOutput(BaseModel):          # schema-lock: sai format -> exception
+class TriageOutput(BaseModel):          # Schema-lock: format mismatch raises exception
     level: str                          # "routine" | "warning" | "emergency"
     reason: str
 
 def check_input(text: str) -> str | None:
     low = text.lower()
-    for pat in BANNED:                  # banned-pattern guard
+    for pat in BANNED:                  # Banned-pattern guard
         if pat in low:
             return "BLOCKED_INJECTION"
     return None
@@ -281,79 +281,79 @@ def guard(ai_result: dict) -> TriageOutput:
         raise RuntimeError(f"FAILED schema: {exc.errors()[:2]}") from exc
 ```
 
-Đội 012 (ResearchKit) áp dụng triệt để nhất: **mọi** output AI qua Pydantic, sai schema → exception tường minh, không bao giờ nuốt. Đội 010 thêm sandbox AST-block chặn import module nguy hiểm.
+Team 012 (ResearchKit) enforced this comprehensively: **all** model outputs were parsed through Pydantic models; validation failures generated explicit exceptions without silent error suppression. Team 010 introduced AST-level sandboxing to block unauthorized module imports.
 
-### Lớp 2 — prompt safeguard
+### Layer 2 — Prompt Safeguards
 
-Prompt vẫn cần: chỉ định vai trò + ranh giới từ chối + yêu cầu citation + chỉ dẫn "nếu không chắc, nói không chắc". Nhưng prompt là **phòng thủ bổ trợ**, không phải phòng thủ chính.
+Prompt engineering remains necessary: declaring system persona + explicit boundary refusals + citation requirements + "admit uncertainty when ungrounded" directives. However, prompt safeguards serve as **secondary defenses**, never the primary barrier.
 
-### Case study 1 — triage y khoa 2 lớp của đội 005 (MommyCare)
+### Case Study 1 — 2-Layer Medical Triage (Team 005, MommyCare)
 
-Lớp code: danh sách `danger_keywords` tiếng Việt — nếu input chứa từ khóa khẩn cấp, hệ thống **bỏ qua AI**, chuyển emergency ngay lập tức. Song song, `trust_manager` phân loại nguồn: nội dung từ nguồn y khoa chính thống (Vinmec, BYT) giữ mức tin cao; thiếu nguồn → hạ `safety_level` xuống warning. Đây là guardrail by design: quyết định an toàn không phụ thuộc vào việc model có nghe lời hay không.
+Code layer: a deterministic keyword list — if incoming queries contain critical symptom patterns, the workflow **bypasses the LLM entirely**, triggering immediate emergency escalation. In parallel, a `trust_manager` classifies information provenance: authoritative clinical references maintain high confidence; missing source citations automatically degrade the `safety_level` to warning. This represents safety by design: patient risk mitigation does not depend on model compliance.
 
-### Case study 2 — Guardrails class của đội 008 (Buddy)
+### Case Study 2 — Guardrails Class (Team 008, Buddy)
 
-Một class riêng: enum `SafetyLevel`, `ViolationType`, tách bạch `check_input` / `check_output` — input độc hại chặn trước khi vào model, output xấu chặn trước khi tới user. Đáng học nhất: test đặt tên đọc như spec — `test_blocks_grooming_secret_language` — tức hành vi an toàn được **test như functional requirement**, không phải nhận định.
+A dedicated module encapsulating `SafetyLevel` and `ViolationType` enumerations, decoupling `check_input` from `check_output` — malicious input is blocked before model entry, and non-compliant output is halted before user exposure. Most notably, test suites were written like formal specifications — e.g. `test_blocks_grooming_secret_language` — validating safety properties as **core functional requirements**.
 
-### Mẫu tổng hợp — guardrail 2 lớp đầu-cuối
+### Architectural Summary — End-to-End 2-Layer Guardrail
 
 ```mermaid
 flowchart LR
-    A["User input"] --> B["Lop 1 CODE:\ncheck_input + Pydantic"]
-    B -- "Block" --> X["Tu choi + log FAILED"]
+    A["User input"] --> B["Layer 1 CODE:\ncheck_input + Pydantic"]
+    B -- "Block" --> X["Reject + log FAILED"]
     B -- "Pass" --> C["AI model + prompt safeguard"]
-    C --> D["Lop 1 CODE:\ncheck_output + schema-lock"]
-    D -- "Fail" --> Y["Retry 1 lan\nroi fallback DEGRADED"]
+    C --> D["Layer 1 CODE:\ncheck_output + schema-lock"]
+    D -- "Fail" --> Y["Retry 1 time\nthen fallback DEGRADED"]
     D -- "Pass" --> E["User"]
 ```
-> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNp1kE1LxDAQhv_KkKv24HUPQtt0ZaHgUhUUIzIm6QdNk5ImSFn2vzvdFhHF3DJ5nzcPc2LSKc12wGrjPmWLPkBZCQt00lfBnibtobNjDIK9QZLcQkbT0o1wA_k9L3ZCWNlq2b9fQnAFx1mhDZ2k_FqTEQaCZcbJXrBLxzN1PEaQreuIMK6BfXooC_6bOeI0bUhOSHqAgWwNMaN3wxhgwlo3Eb36JvNLmv8j6WJYLSe6D5isThvK10_32Jnt0xeqqXTwMxUZtFTjybhGYz5Q9sCLuyrlP7T5H-1i2yFF2DWwQfsBO7Xs-7QgggXy0IIGgildYzS0aGHPSxhjcA-zlfQYfNQ0iaPCoHmHjcdhG5-_AL4WiBE=)
+> [📊 Open diagram on Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNp1kE1LxDAQhv_KkKv24HUPQtt0ZaHgUhUUIzIm6QdNk5ImSFn2vzvdFhHF3DJ5nzcPc2LSKc12wGrjPmWLPkBZCQt00lfBnibtobNjDIK9QZLcQkbT0o1wA_k9L3ZCWNlq2b9fQnAFx1mhDZ2k_FqTEQaCZcbJXrBLxzN1PEaQreuIMK6BfXooC_6bOeI0bUhOSHqAgWwNMaN3wxhgwlo3Eb36JvNLmv8j6WJYLSe6D5isThvK10_32Jnt0xeqqXTwMxUZtFTjybhGYz5Q9sCLuyrlP7T5H-1i2yFF2DWwQfsBO7Xs-7QgggXy0IIGgildYzS0aGHPSxhjcA-zlfQYfNQ0iaPCoHmHjcdhG5-_AL4WiBE=)
 
 ---
 
-## 7.8 Bài tập tổng hợp
+## 7.8 Chapter Exercises
 
-### Bài tập 1 — IPO + self-check 6 thuộc tính (30 phút)
+### Exercise 1 — IPO Mapping & 6-Attribute Self-Assessment (30 minutes)
 
-Vẽ bảng IPO cho luồng giá trị cốt lõi của sản phẩm đội bạn (Input/Process/Output, cột AI/Người, cột rủi ro). Sau đó tự chấm thẳng thắn 6 thuộc tính ở mục 7.2 — mỗi thuộc tính 1 dòng: đạt / chưa đạt / chưa đo được.
+Map the IPO value stream for your product's core feature (Input/Process/Output with AI/Human and Risk columns). Subsequently, perform a candid self-evaluation across the 6 attributes in Section 7.2 — rating each as: Pass / Fail / Unmeasured.
 
-- Output: `docs/workflow-ipo.md` trong repo đội bạn — bảng IPO + bảng tự chấm 6 thuộc tính + 3 thuộc tính yếu nhất kèm kế hoạch fix.
+- Output: `docs/workflow-ipo.md` in your repository — containing the IPO table, the 6-attribute scorecard, and remediation plans for the 3 weakest attributes.
 
-### Bài tập 2 — Edge-case table + test (45 phút)
+### Exercise 2 — Edge-Case Taxonomy & Automated Tests (45 minutes)
 
-Lấy taxonomy ở mục 7.3, viết bảng edge case cho sản phẩm đội bạn: 7 loại, mỗi loại 1 ví dụ cụ thể + cách xử lý hiện tại. Mọi dòng ghi "chưa xử lý" phải có issue và ít nhất 3 dòng quan trọng nhất phải có test thật trong repo.
+Using the taxonomy from Section 7.3, author an edge-case matrix tailored to your system: 7 categories, each with a concrete failure scenario and current mitigation. Every row marked "unhandled" must link to an issue, and at least 3 critical edge cases must feature automated tests in your test suite.
 
-- Output: `docs/edge-cases.md` + ít nhất 3 file test mới trong `tests/` (tên test đọc như spec, kiểu `test_blocks_out_of_scope_question`).
+- Output: `docs/edge-cases.md` + at least 3 new test files under `tests/` named after explicit specs (e.g. `test_blocks_out_of_scope_question.py`).
 
-### Bài tập 3 — Sơ đồ Mermaid workflow hoàn chỉnh (60 phút)
+### Exercise 3 — Comprehensive Mermaid Workflow Architecture (60 minutes)
 
-Vẽ Mermaid workflow sản phẩm đội bạn trong phạm vi tối đa 12 node, bắt buộc đủ 4 nhóm phần tử:
+Construct a Mermaid workflow diagram for your system (maximum 12 nodes), strictly incorporating all 4 architectural components:
 
-1. **Edge branches** — ít nhất 2 nhánh lỗi rõ ràng (failback path, trạng thái DEGRADED/FAILED)
-2. **HITL points** — ít nhất 1 node người (viết hoa `PERSON` hoặc icon tương đương) theo bảng quyết định mục 7.5
-3. **Failback paths** — mọi node AI phải có đường ra khi fail, không có dead-end
-4. **Governance checkpoints** — audit log và escalation path xuất hiện trên sơ đồ
+1. **Edge Branches** — at least 2 distinct failure paths (fallback execution, explicit DEGRADED/FAILED states)
+2. **HITL Junctions** — at least 1 human review node (labeled `PERSON` or icon equivalent) adhering to Section 7.5 guidelines
+3. **Failback Routes** — every AI node must have an explicit failure recovery route, avoiding terminal dead-ends
+4. **Governance Checkpoints** — audit logging and escalation paths visible within the topology
 
-- Output: `docs/workflow-diagram.mmd` (hoặc nhúng trong README) + 1 đoạn 5 dòng giải thích vì sao mỗi điểm HITL nằm ở đó.
+- Output: `docs/workflow-diagram.mmd` (or embedded in README) + a 5-line design justification explaining the placement of each HITL junction.
 
-### Bảng "lên Giỏi" — tiêu chí Sản phẩm hoàn thiện
+### "Reaching Excellence" Rubric — Production Quality & Reliability
 
-| Mức | Biểu hiện |
+| Level | Demonstrated Competency |
 |---|---|
-| **9-10 Giỏi** | Guardrail 2 lớp (code + prompt) có test theo tên spec; không silent fallback — mọi except log FAILED kèm fallback rõ ràng cho user; state persist/resume cho flow dài; ít nhất 1 điểm HITL đúng quy tắc vàng + code interrupt/checkpointer chạy được; audit log + escalation path vẽ trên sơ đồ workflow |
-| 7-8 Khá | Guardrail 2 lớp nhưng test ít; có fallback + log nhưng 1-2 chỗ còn nuốt lỗi; HITL có trên sơ đồ nhưng chưa chạy bằng cơ chế thật |
-| 5-6 TB | Guardrail chủ yếu prompt-only; fallback có nhưng một phần âm thầm; edge case liệt kê trong doc nhưng không test |
-| ≤4 Yếu | `except: return default`; không persist state; guardrail 1 lớp hoặc không có; không xác định được ai chịu trách nhiệm khi AI sai |
+| **9-10 Excellent** | 2-layer guardrails (code + prompt) with spec-driven tests; zero silent fallbacks — all exception blocks log FAILED and return explicit DEGRADED states to users; durable state persist/resume for extended sessions; at least 1 verified HITL junction with functional interrupt/checkpointer logic; audit logging and escalation paths diagrammed in workflow topology |
+| 7-8 Good | 2-layer guardrails with modest test coverage; fallback and structured logging present with minimal error swallowing; HITL modeled in diagrams though simulated in code |
+| 5-6 Average | Predominantly prompt-only guardrails; fallbacks exist but are partially silent; edge cases cataloged in documentation without automated test coverage |
+| ≤4 Deficient | Bare `except: return default` blocks; volatile in-memory state without persistence; single-layer or absent guardrails; undefined accountability upon AI failure |
 
-### Exit-test chương (tự kiểm — trả lời được mới được sang chương sau)
+### Chapter Exit-Test (Self-Check — Pass before proceeding)
 
-1. Guardrail của đội bạn hiện có mấy lớp? Lớp nào nằm trong code, lớp nào nằm trong prompt? Nếu prompt bị lật hoàn toàn, có gì chặn còn lại?
-2. Tìm trong repo đội bạn một chỗ `except` nuốt lỗi — nó có log FAILED không? User có biết hệ thống đang chạy chế độ degraded không?
-3. Nếu user của bạn làm dở một flow 35 phút rồi đóng tab, quay lại ngày mai — họ mất bao nhiêu tiến độ? Cơ chế nào trong code bảo đảm điều đó?
-4. Điểm HITL đầu tiên trong workflow của bạn nằm ở đâu, vì sao ở đó chứ không phải chỗ khác — tiêu chí nào trong bảng quyết định mục 7.5 áp dụng?
+1. How many guardrail layers currently protect your system? Which layer executes in code, and which in prompt text? If prompt instructions are completely subverted, what prevents failure?
+2. Locate an `except` block in your codebase that catches exceptions — does it emit a structured FAILED log? Does the end user recognize that the system is operating in a degraded mode?
+3. If a user interrupts a 35-minute workflow and closes the browser tab, returning 24 hours later — how much progress is lost? Which code mechanism guarantees state recovery?
+4. Where is the initial HITL junction situated in your workflow, and what justifies that specific placement under the decision matrix in Section 7.5?
 
 ---
 
-## Ghi chú liên kết
+## Related References
 
-- Guardrail an toàn nội dung chi tiết: xem [Chương Privacy](chapter-11.md) §11.4 (prompt injection + red-team).
-- Đánh giá độ tin cậy bằng eval (golden dataset, LLM-judge, pass@k/pass^k): xem chương Đánh giá hiệu quả ([chapter-10.md](chapter-10.md)).
+- Content safety guardrails & red-teaming: see [Chapter 11 (Privacy & Security)](chapter-11.md) §11.4.
+- Reliability evaluation via quantitative benchmarking (golden datasets, LLM-judges, pass@k): see [Chapter 10 (Testing & Evaluation)](chapter-10.md).

@@ -1,163 +1,141 @@
-# PRD mẫu — Trợ lý tra cứu tri thức cho phòng Kế toán
+# Sample PRD — Knowledge Retrieval Assistant for Accounting Teams
 
-**Phiên bản:** 0.2 · **Trạng thái:** Draft để xác thực với người dùng · **Primary persona:** Kế toán viên doanh nghiệp
+**Version:** 0.2 · **Status:** Draft for user validation · **Primary Persona:** Enterprise Accountant
 
-> Sản phẩm giúp kế toán tìm và đối chiếu thông tin trong bộ tài liệu đã được doanh nghiệp phê duyệt. Sản phẩm hỗ trợ tra cứu, không thay thế phê duyệt nghiệp vụ hay tư vấn thuế.
+> The product assists accountants in finding and cross-referencing information within enterprise-approved documents. It supports discovery and citation, not operational approval or formal tax advisory.
 
-## 1. Problem statement
+## 1. Problem Statement
 
-Khi kiểm tra một khoản thu/chi, hóa đơn hoặc cách hạch toán, kế toán viên phải tìm thủ công trong nhiều nguồn: quy chế tài chính nội bộ, quy trình thanh toán, hướng dẫn hạch toán, luật, nghị định, thông tư và công văn. Tài liệu phân tán, dài, có nhiều phiên bản và cách diễn đạt khác nhau khiến việc tìm chậm, dễ dùng nhầm văn bản hết hiệu lực hoặc trả lời thiếu căn cứ.
+When auditing an expense, invoice, or bookkeeping treatment, accountants must manually search across fragmented sources: internal financial regulations, payment procedures, accounting guidelines, laws, decrees, circulars, and official letters. Documents are dispersed, lengthy, multi-versioned, and phrase concepts differently, making search slow, risking reliance on obsolete regulations, or yielding unsubstantiated answers.
 
-**Giả thuyết baseline cần kiểm chứng:** mỗi kế toán có 5–10 lượt tra cứu/tuần, mất 15–30 phút/lượt; vào kỳ khóa sổ hoặc kê khai, tần suất và rủi ro sai tăng cao. Trước khi chốt PRD, phỏng vấn 3–5 kế toán, quan sát ít nhất 5 lượt tra cứu và thu 5–10 tài liệu mẫu.
+**Baseline Hypothesis to Validate:** Each accountant executes 5–10 lookups/week, spending 15–30 minutes/lookup; during closing periods or tax declarations, frequency and error risks escalate. Prior to PRD sign-off, interview 3–5 accountants, observe ≥ 5 live retrieval sessions, and collect 5–10 representative sample files.
 
-### Pain points ưu tiên
+### Prioritized Pain Points
 
-| Pain point | Quy trình hiện tại → failure | Tác động | Root cause |
+| Pain Point | Current Workflow → Failure | Impact | Root Cause |
 |---|---|---|---|
-| Tra cứu quy định thu/chi và tiền | Mở quy chế, quy trình, file biểu mẫu và hỏi người có kinh nghiệm → lâu, câu trả lời không đồng nhất | Chậm duyệt thanh toán; có thể thiếu hồ sơ hoặc vượt thẩm quyền | Tài liệu phân tán, tìm theo từ khóa, thiếu một nguồn đã duyệt |
-| Áp dụng chính sách thuế | Tìm luật/nghị định/thông tư/công văn trên nhiều cổng → khó xác định hiệu lực và văn bản liên quan | Nguy cơ kê khai hoặc xác định chi phí/thuế sai | Văn bản thay đổi, dẫn chiếu chéo, thiếu lịch sử phiên bản |
-| Đối chiếu chứng từ và hạch toán | So hóa đơn/chứng từ với hướng dẫn nội bộ, chế độ kế toán → dễ bỏ sót điều kiện | Tốn thời gian rà soát; tăng vòng hỏi–đáp và sửa hồ sơ | Thông tin nằm ở nhiều đoạn, bảng và phụ lục |
-| Bàn giao và giải trình | Tìm lại căn cứ cho kiểm toán, quản lý hoặc nhân sự mới → phụ thuộc người nhớ tài liệu | Mất thời gian, tri thức thất lạc khi đổi nhân sự | Kiến thức nằm trong đầu người và thư mục rời rạc |
+| Revenue/Expense Regulation Lookups | Open policy PDFs, templates, and ask seniors → slow, conflicting answers | Delays payment approvals; risk of missing documentation or exceeding authority | Dispersed docs, keyword search, lack of single approved source |
+| Applying Tax Policies | Search laws/decrees/circulars across multiple portals → hard to verify validity dates | Risk of incorrect tax declarations or non-deductible expense treatments | Frequent legal revisions, cross-references, missing version history |
+| Document Cross-Checking & Bookkeeping | Match invoices/vouchers with internal accounting policies → easy to miss conditions | Time lost in reviews; repeated back-and-forth revisions | Rules scattered across chapters, tables, and annexes |
+| Audit Handover & Inquiries | Retrieve justification for auditors, executives, or onboarded staff → depends on individual memory | Time wasted, knowledge lost when staff departs | Knowledge trapped in employee heads and fragmented folders |
 
-Đây là các pain point hợp lý theo nghiệp vụ nhưng **chưa phải evidence nội bộ**. Cơ sở pháp lý cho thấy tài liệu kế toán phải được bảo quản đầy đủ, an toàn và người lập/ký chịu trách nhiệm về nội dung; thủ tục thuế trải rộng từ khai, nộp, hoàn, miễn/giảm đến tra soát nghĩa vụ. Vì vậy nguồn trích dẫn, phiên bản và quyền truy cập là yêu cầu cốt lõi, không phải tính năng phụ ([Luật Kế toán 88/2015/QH13](https://vanban.chinhphu.vn/?classid=1&docid=183198&pageid=27160&typegroupid=3), [Cục Thuế — giao dịch điện tử trong lĩnh vực thuế](https://gdt.gov.vn/wps/portal/home/documents/detail?1dmy=&current=true&urile=wcm%3Apath%3AGDT+Content%2Fsa_gdt%2Fcctthc%2Ftthchh%2Fsa_tthc_vanban%2Fsa_tthc_vb_vbqd%2F85fdcbb0-5cbc-474d-a5af-14182128833f)).
+## 2. Goals & Metrics
 
-## 2. Goals & metrics
+During a 4-week pilot with 5 accountants and a benchmark query suite approved by the Chief Accountant:
 
-Trong pilot 4 tuần với 5 kế toán viên và bộ câu hỏi chuẩn do Kế toán trưởng duyệt:
-
-- Giảm thời gian trung vị để tìm được câu trả lời có căn cứ xuống **≤ 3 phút/lượt** và ít nhất **70% so với baseline đo tuần đầu**.
-- Ít nhất **90% câu trả lời được chấp nhận** bởi Kế toán trưởng, không có lỗi nghiêm trọng trong bộ 30 câu hỏi chuẩn.
-- **100% câu trả lời khẳng định nghiệp vụ** có trích dẫn đúng tài liệu, phiên bản và vị trí nguồn.
-- **100% câu không đủ căn cứ hoặc ngoài phạm vi** được báo rõ là chưa đủ thông tin, không tự suy diễn.
+- Reduce median retrieval time to verified answers to **≤ 3 minutes/session** (at least a **70% reduction vs. week 1 baseline**).
+- At least **90% answer acceptance rate** by the Chief Accountant with zero critical errors across the 30 benchmark queries.
+- **100% of affirmative operational statements** cite exact document title, version, and location.
+- **100% of queries with insufficient grounds or out of scope** clearly declare lack of information without hallucinating.
 
 ## 3. Persona
 
-**Primary — Kế toán viên doanh nghiệp:** làm việc trên laptop; dùng phần mềm kế toán, Excel, email và thư mục dùng chung; thường tra cứu dưới áp lực hạn thanh toán, khóa sổ và kê khai; hiểu nghiệp vụ nhưng mức độ quen AI không đồng đều. Mục tiêu là tìm đúng căn cứ nhanh và có thể kiểm tra lại trước khi thực hiện.
+**Primary — Enterprise Accountant:** Works on laptop; utilizes accounting software, Excel, email, and shared drive storage; performs lookups under tight closing and payment deadlines; deep domain understanding but varying technical/AI literacy. Primary goal is fast, verifiable citations before executing transactions.
 
-**Vai trò liên quan:** Kế toán trưởng là người phê duyệt nguồn và kết quả quan trọng; quản trị tri thức quản lý tài liệu/quyền truy cập. Hai vai trò này không phải primary persona.
+**Peripheral Roles:** Chief Accountant (approves knowledge sources and answers to sensitive queries); Knowledge Admin (manages document uploads and RBAC permissions).
 
 ## 4. Input
 
-| Chiều input | Phạm vi MVP |
+| Dimension | MVP Scope |
 |---|---|
-| Loại | PDF và DOCX dạng text: quy chế tài chính, quy trình thu/chi–thanh toán, hướng dẫn hạch toán, luật/nghị định/thông tư/công văn |
-| Kích thước | ≤ 50 MB/file, ≤ 200 trang/file, tối đa 20 file/lần |
-| Ngôn ngữ | Tiếng Việt; có thể chứa bảng và thuật ngữ tiếng Anh |
-| Chất lượng | Tài liệu đọc được, có tiêu đề/phiên bản; file scan và chữ viết tay ngoài MVP |
-| Khối lượng pilot | ≤ 1.000 tài liệu, 5 người dùng |
-| Nguồn | Chỉ tài liệu do quản trị tri thức tải lên và Kế toán trưởng đánh dấu **Đã duyệt**; lưu metadata: tên, loại, số hiệu, ngày hiệu lực/hết hiệu lực, phiên bản, phòng ban, mức truy cập |
+| File Types | Searchable text PDF and DOCX: financial regulations, payment protocols, accounting manuals, legal circulars |
+| Size Limits | ≤ 50 MB/file, ≤ 200 pages/file, max 20 files per batch |
+| Language | English and Vietnamese; allows financial tables and industry terms |
+| Document Quality | Machine-readable text with titles/versioning; scanned images and handwriting are out of scope for MVP |
+| Pilot Volume | ≤ 1,000 documents, 5 pilot users |
+| Sources | Only documents uploaded by Knowledge Admin and marked **Approved** by Chief Accountant; metadata: title, category, reference number, effective/expiry dates, version, department, access level |
 
-## 5. Scope & priority
+## 5. Scope & Priority
 
-| Priority | Feature | Giá trị |
+| Priority | Feature | Business Value |
 |---|---|---|
-| **Must** | Quản lý kho tài liệu đã duyệt | Một nguồn tra cứu có phiên bản và trạng thái hiệu lực rõ ràng |
-| **Must** | Hỏi đáp kèm trích dẫn | Tìm câu trả lời và mở đúng vị trí nguồn để kiểm chứng |
-| **Must** | Phân quyền 2 vai trò | Ngăn người dùng xem tài liệu ngoài quyền truy cập |
-| **Should** | Tóm tắt một tài liệu theo mẫu | Nắm nhanh phạm vi, điểm chính, nghĩa vụ và mốc thời gian |
-| **Could** | So sánh hai phiên bản văn bản | Hỗ trợ nhận biết nội dung thay đổi |
-| **Won't** | Tự động hạch toán, duyệt chi, kê khai/nộp thuế; kết nối ngân hàng/phần mềm kế toán; tư vấn pháp lý; OCR file scan; tìm Internet trực tiếp | Giữ MVP trong một hành trình tra cứu an toàn |
+| **Must** | Approved Document Repository Management | Single source of truth with explicit versioning and validity states |
+| **Must** | Q&A with Strict Grounded Citations | Answers directly linked to verifiable source passages |
+| **Must** | Role-Based Access Control (2 roles) | Restricts access to sensitive departmental documents |
+| **Should** | Structured Document Summarization | Rapid synthesis of scope, key mandates, obligations, and deadlines |
+| **Could** | Side-by-side Version Comparison | Highlights revisions between legal or internal policy versions |
+| **Won't** | Automated ledger booking, payment approvals, tax filing, direct bank integration, legal advice, OCR scans | Keeps MVP focused strictly on safe, verifiable knowledge retrieval |
 
-## 6. Features & acceptance criteria
+## 6. Features & Acceptance Criteria
 
-> **Quy ước:** Feature và AC ở cấp feature là phạm vi cam kết của PRD. Các user stories bên dưới chỉ là gợi ý phân rã, **không bắt buộc và chưa được chốt**; team sẽ refinement, bổ sung và chốt AC cấp story trong buổi grooming trước từng sprint.
+### F1 — Approved Document Repository Management (Must)
+**Addressed Pain Point:** Dispersed documentation, lack of canonical versioning, unclear validity status.
 
-### F1 — Quản lý kho tài liệu đã duyệt (Must)
-
-**Pain point giải quyết:** tài liệu phân tán, thiếu phiên bản chuẩn và khó xác định hiệu lực.
-
-**User stories**
-
-1. Là quản trị tri thức, tôi muốn tải tài liệu và khai báo metadata để tạo nguồn tra cứu có cấu trúc.
-2. Là Kế toán trưởng, tôi muốn duyệt tài liệu để chỉ nguồn hợp lệ được sử dụng.
-3. Là kế toán viên, tôi muốn thấy phiên bản và hiệu lực để tránh dùng nhầm tài liệu.
+**User Stories**
+1. As a Knowledge Admin, I want to upload files with structured metadata so the repository is well-organized.
+2. As a Chief Accountant, I want to approve documents so only vetted policies are used for generation.
+3. As an Accountant, I want visibility into validity dates and revisions to avoid applying outdated policies.
 
 **AC**
+- Given an in-scope file, when uploaded, then the system displays processing status and requires mandatory metadata.
+- Documents are only queried after status transitions to **Approved**.
+- Superseded versions remain auditable but clearly flagged as expired/replaced.
+- Corrupted files, missing metadata, or size breaches are rejected with clear diagnostic reasons.
 
-- Given file đúng phạm vi, when tải lên, then hệ thống hiển thị trạng thái xử lý và các metadata bắt buộc.
-- Tài liệu chỉ được dùng để trả lời sau khi có trạng thái **Đã duyệt**.
-- Phiên bản cũ vẫn truy vết được nhưng phải hiển thị trạng thái hết hiệu lực/thay thế.
-- File lỗi, thiếu metadata hoặc vượt giới hạn bị từ chối với lý do cụ thể.
+### F2 — Grounded Q&A with Source Citations (Must)
+**Addressed Pain Point:** Slow regulation lookups; hallucinated or conflicting answers.
 
-### F2 — Hỏi đáp có căn cứ (Must)
-
-**Pain point giải quyết:** tra cứu thu/chi, thuế, chứng từ và hạch toán chậm; kết quả tìm kiếm thiếu căn cứ hoặc mâu thuẫn. *Lưu ý phạm vi: MVP hỗ trợ tra cứu quy định/hướng dẫn liên quan; việc so khớp từng chứng từ cụ thể vẫn do kế toán viên thực hiện.*
-
-**User stories**
-
-1. Là kế toán viên, tôi muốn hỏi bằng ngôn ngữ tự nhiên để không phải mở từng tài liệu.
-2. Là kế toán viên, tôi muốn mở đúng đoạn nguồn để kiểm tra trước khi áp dụng.
-3. Là kế toán viên, tôi muốn hệ thống từ chối khi thiếu căn cứ để không dùng câu trả lời sai.
+**User Stories**
+1. As an Accountant, I want to ask questions in natural language to avoid manual search across dozens of files.
+2. As an Accountant, I want 1-click links to exact source passages to verify accuracy before applying rules.
+3. As an Accountant, I want the system to decline answering when evidence is lacking to prevent compliance errors.
 
 **AC**
+- Answers are synthesized strictly from **Approved** documents the user has permission to read.
+- Every operational statement includes document title, version, and page/section number; users can open the exact highlighted passage.
+- **Definition of "Sufficient Grounds":** Each conclusion must tie directly to at least one verbatim excerpt from an Approved document. Speculative synthesis combining disconnected fragments is classified as **Insufficient Grounds**.
+- When queries are out of scope or lack evidence, the system replies "Insufficient evidence in approved documents" and specifies what information is missing.
+- When sources conflict, the system surfaces the discrepancy and requests Chief Accountant review rather than picking one arbitrarily.
+- Zero fabricated citations; 100% valid citation rate on the 30 benchmark queries.
+- p95 response latency ≤ 10s during pilot (excluding initial document indexing time).
 
-- Câu trả lời chỉ dựa trên tài liệu **Đã duyệt** mà người dùng có quyền xem.
-- Mỗi kết luận nghiệp vụ kèm tên/số hiệu tài liệu, phiên bản và số trang hoặc mục; người dùng mở được đúng đoạn nguồn.
-- **Định nghĩa "đủ căn cứ":** mỗi kết luận nghiệp vụ phải gắn với ít nhất một đoạn trích nguyên văn từ tài liệu **Đã duyệt** chứa trực tiếp nội dung kết luận đó. Câu trả lời chỉ suy diễn bằng cách ghép nhiều đoạn, mà không đoạn nào nêu trực tiếp kết luận, được coi là **thiếu căn cứ**.
-- Khi câu hỏi ngoài phạm vi hoặc thiếu căn cứ theo định nghĩa trên, hệ thống báo "Chưa đủ căn cứ trong kho tài liệu" và gợi ý thông tin/tài liệu cần bổ sung.
-- Nếu các nguồn mâu thuẫn, hệ thống nêu rõ mâu thuẫn và yêu cầu Kế toán trưởng xác nhận, không tự chọn một đáp án.
-- Không tạo trích dẫn không tồn tại; tỷ lệ trích dẫn hợp lệ đạt 100% trên bộ 30 câu hỏi chuẩn.
-- p95 thời gian phản hồi ≤ 10 giây trong pilot, không tính thời gian xử lý tài liệu mới.
+### F3 — Access Control & Audit Trails (Must)
+**Addressed Pain Point:** Sensitive financial documents in shared folders; lack of access accountability.
 
-### F3 — Phân quyền và truy vết (Must)
-
-**Pain point giải quyết:** tài liệu tài chính nhạy cảm nhưng đang nằm trong thư mục dùng chung; khó biết ai đã tải, duyệt hoặc sử dụng nguồn nào.
-
-**User stories**
-
-1. Là kế toán viên, tôi chỉ muốn thấy tài liệu được cấp quyền để tránh lộ dữ liệu phòng ban khác.
-2. Là quản trị tri thức, tôi muốn gán quyền theo vai trò để quản lý phạm vi truy cập.
-3. Là Kế toán trưởng, tôi muốn xem nhật ký để truy vết khi cần kiểm tra hoặc giải trình.
+**User Stories**
+1. As an Accountant, I only want access to documents permitted for my role to avoid compliance breaches.
+2. As a Knowledge Admin, I want to assign role-based permissions to govern repository access.
+3. As a Chief Accountant, I want audit logs to trace who uploaded, approved, or queried documents.
 
 **AC**
+- Accountants can only query/view authorized documents; Knowledge Admins manage repository assets.
+- Unauthorized users cannot view restricted document titles, excerpts, or presence in search results.
+- All uploads, status mutations, queries, and citation view events are logged with user ID and timestamp.
 
-- Kế toán viên chỉ xem/hỏi trên tài liệu được cấp quyền; quản trị tri thức được tải và quản lý tài liệu.
-- Người không có quyền không thấy tên, nội dung, đoạn trích hoặc sự tồn tại của tài liệu bị hạn chế.
-- Mọi lần tải tài liệu, đổi trạng thái, hỏi và mở nguồn đều có nhật ký gồm người dùng và thời điểm.
+### F4 — Structured Document Summarization (Should)
+**Addressed Pain Point:** Long legal and policy texts take hours to parse for operational impact.
 
-### F4 — Tóm tắt tài liệu theo mẫu (Should)
-
-**Pain point giải quyết:** văn bản dài, nhiều dẫn chiếu khiến kế toán mất thời gian xác định phần liên quan đến nghiệp vụ.
-
-**User stories**
-
-1. Là kế toán viên, tôi muốn xem tóm tắt để nhanh chóng hiểu phạm vi và nội dung chính.
-2. Là kế toán viên, tôi muốn thấy nghĩa vụ, điều kiện và mốc thời gian để biết phần cần chú ý.
-3. Là kế toán viên, tôi muốn từng ý có nguồn để kiểm tra lại tài liệu gốc.
+**User Stories**
+1. As an Accountant, I want structured summaries to quickly grasp document scope and mandates.
+2. As an Accountant, I want key obligations, conditions, and deadlines highlighted.
+3. As an Accountant, I want each point linked to source paragraphs.
 
 **AC**
+- Output structure: Scope of Application, Core Directives, Mandatory Obligations/Deadlines, Related Documents, Points Requiring Clarification.
+- Every section includes citations; absent points are explicitly marked "Not Mentioned".
 
-- Output gồm: phạm vi áp dụng, nội dung chính, nghĩa vụ/điều kiện, mốc thời gian, văn bản liên quan và điểm cần Kế toán trưởng xác nhận.
-- Mỗi mục có trích dẫn; nội dung không có trong tài liệu được ghi "Không đề cập".
-
-## 7. Non-functional requirements
-
-- **Bảo mật:** xác thực người dùng, kiểm soát quyền ở cả kết quả và trích dẫn; không dùng dữ liệu nội bộ để huấn luyện nếu chưa được cho phép.
-- **Độ tin cậy:** không trả lời khi nguồn không đủ; lưu phiên bản nguồn và nhật ký để truy vết. **Mọi câu trả lời khẳng định nghiệp vụ (hỏi đáp, tóm tắt) luôn kèm cảnh báo: cần người có thẩm quyền kiểm tra trước khi áp dụng** — áp dụng chung cho mọi feature, không lặp lại ở AC từng feature.
-- **Hiệu năng:** p95 hỏi đáp ≤ 10 giây với phạm vi pilot.
-- **Đánh giá AI:** bộ 30 câu hỏi chuẩn với phân bố cố định — 12 happy path · 6 thiếu nguồn · 6 nguồn mâu thuẫn · 6 ngoài phạm vi; Kế toán trưởng chấm đúng/sai và mức độ có căn cứ. Phân bố có thể điều chỉnh khi chốt đáp án chuẩn nhưng phải cố định trước khi đo.
-- **Khả dụng:** lỗi tải/xử lý tài liệu phải có trạng thái và hướng xử lý rõ ràng.
+## 7. Non-Functional Requirements
+- **Security:** User authentication, RBAC enforced on search and citations; no internal enterprise data used for third-party model training without explicit consent.
+- **Reliability:** Refuse answering when context is insufficient; immutable version history and audit trails. **All affirmative outputs include a mandatory disclaimer: "Subject to verification by authorized personnel before operational application."**
+- **Performance:** p95 query latency ≤ 10 seconds within pilot workload scope.
+- **AI Evaluation:** 30 benchmark queries (12 happy path, 6 missing sources, 6 conflicting sources, 6 out-of-scope); Chief Accountant grades correctness and groundedness.
+- **Usability:** Upload and processing errors must surface actionable diagnostic messages.
 
 ## 8. Definition of Done
+MVP is done when 5 pilot accountants complete the end-to-end journey: **Sign in → Ask question → Read grounded response → Inspect source citation → Confirm/reject answer**, all **Must features (F1–F3) satisfy feature-level ACs in Section 6**, and metrics in Section 2 pass across the 30 benchmark queries.
 
-MVP done khi 5 người dùng hoàn thành hành trình **đăng nhập → hỏi → đọc câu trả lời → mở nguồn → xác nhận/từ chối sử dụng**, toàn bộ **Must features (F1–F3) đạt AC cấp feature ở mục 6** và đạt các metric ở mục 2 trên bộ 30 câu hỏi chuẩn.
-
-## 9. Open questions
-
-| Câu hỏi cần chốt | Owner | Hạn |
+## 9. Open Questions
+| Question | Owner | Deadline |
 |---|---|---|
-| Baseline thực tế: lượt tra cứu, thời gian và lỗi phổ biến? | PO | Trước khi sprint 1 bắt đầu |
-| 5–10 tài liệu mẫu và metadata nào đang sẵn có? | Kế toán trưởng | Trước grooming F1 |
-| Ai có quyền duyệt từng loại văn bản và xử lý khi nguồn mâu thuẫn? | Kế toán trưởng | Trước grooming F2 |
-| Ngưỡng "lỗi nghiêm trọng" (quyết định cách xây bộ eval) | PO + Kế toán trưởng | Trước khi sprint 1 bắt đầu |
-| Đáp án chuẩn cho 30 câu eval | Kế toán trưởng | Trước UAT |
+| Empirical baseline: lookup count, duration, and top errors? | PO | Prior to Sprint 1 |
+| 5–10 initial sample files and metadata templates? | Chief Accountant | Prior to F1 grooming |
+| Approval authority for document types & conflict resolution policy? | Chief Accountant | Prior to F2 grooming |
+| Threshold defining "critical error" in eval suite? | PO + Chief Accountant | Prior to Sprint 1 |
+| Benchmark ground-truth answers for 30 eval queries? | Chief Accountant | Prior to UAT |
 
 ## 10. Sign-off
-
-PRD chỉ chuyển từ **Draft → Approved** khi đủ 3 xác nhận dưới đây. Mỗi người ký xác nhận đúng phạm vi trách nhiệm của mình.
-
-| Vai trò | Phạm vi xác nhận | Người | Ngày | Trạng thái |
+| Role | Verification Scope | Assignee | Date | Status |
 |---|---|---|---|---|
-| PO | Nội dung, ưu tiên MoSCoW, metric khả thi về nghiệp vụ | — | — | ☐ Chờ ký |
-| Tech Lead | Khả thi kỹ thuật trong capacity team, gồm p95 ≤ 10s với kho ≤ 1.000 tài liệu | — | — | ☐ Chờ ký |
-| Kế toán trưởng | Đúng nghiệp vụ kế toán–thuế; duyệt bộ 30 câu eval và định nghĩa "đủ căn cứ" | — | — | ☐ Chờ ký |
+| PO | Business requirements, MoSCoW priorities, KPI targets | — | — | ☐ Pending Sign-off |
+| Tech Lead | Technical feasibility within team capacity (p95 ≤ 10s on ≤ 1,000 docs) | — | — | ☐ Pending Sign-off |
+| Chief Accountant | Domain correctness, 30 eval questions, definition of sufficient grounds | — | — | ☐ Pending Sign-off |

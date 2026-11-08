@@ -1,30 +1,30 @@
 ---
-title: "Giao diện người dùng"
+title: "User Interface"
 weight: 9
 ---
 
-# Chương 9: Giao diện người dùng
+# Chapter 9: User Interface
 
-Sau khi xây dựng AI Agent (Chương 4) và API backend (Chương 8), bạn cần giao diện người dùng (UI) để người dùng tương tác với agent. Chương này hướng dẫn xây dựng frontend chat application với Next.js — từ setup dự án đến hiển thị streaming response từ AI agent.
+After building the AI Agent (Chapter 4) and API backend (Chapter 8), you need a user interface (UI) so users can interact with the agent. This chapter guides you through building a frontend chat application using Next.js—from project setup to rendering streaming responses from the AI agent.
 
-> 💡 **MẸO:** Nếu thời gian có hạn và bạn cần prototype nhanh cho demo, hãy bắt đầu với **Streamlit** (xem phần 6.0 bên dưới). Sau khi prototype ổn định, bạn có thể migrate sang Next.js cho giao diện polished hơn.
+> 💡 **TIP:** If time is limited and you need a fast demo prototype, start with **Streamlit** (see section 9.0 below). Once the prototype stabilizes, you can migrate to Next.js for a more polished interface.
 
 ---
 
-## 9.0 Streamlit — Prototype trong 30 phút
+## 9.0 Streamlit — Prototype in 30 Minutes
 
-Nếu bạn chưa biết React/Next.js hoặc cần giao diện demo nhanh nhất có thể, **Streamlit** là lựa chọn tuyệt vời. Chỉ cần Python — không cần JavaScript, không cần npm, không cần frontend knowledge. Bạn có thể tạo giao diện chat hoàn chỉnh trong dưới 30 phút.
+If you are not yet familiar with React/Next.js or need a working demo interface as quickly as possible, **Streamlit** is an excellent choice. Python only—no JavaScript, no npm, and no frontend development experience required. You can build a complete chat UI in under 30 minutes.
 
-### Cài đặt và chạy
+### Installation and Setup
 
 ```bash
 pip install streamlit requests
 ```
 
-Tạo file `app.py` ở thư mục gốc:
+Create an `app.py` file in the root directory:
 
 ```python
-# app.py — Streamlit Chat UI cho AI Agent
+# app.py — Streamlit Chat UI for AI Agent
 import streamlit as st
 import requests
 import json
@@ -42,7 +42,7 @@ if "messages" not in st.session_state:
 
 # Title
 st.title("🤖 AI20K Agent")
-st.caption("Trợ lý AI thông minh — Powered by LangGraph")
+st.caption("Intelligent AI Assistant — Powered by LangGraph")
 
 # Display chat history
 for message in st.session_state.messages:
@@ -50,7 +50,7 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 # Chat input
-if prompt := st.chat_input("Nhập câu hỏi..."):
+if prompt := st.chat_input("Enter your question..."):
     # Add user message
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
@@ -60,7 +60,7 @@ if prompt := st.chat_input("Nhập câu hỏi..."):
     with st.chat_message("assistant"):
         API_URL = "http://localhost:8000/api/v1/chat"
         
-        with st.spinner("Đang suy nghĩ..."):
+        with st.spinner("Thinking..."):
             try:
                 response = requests.post(
                     API_URL,
@@ -69,13 +69,13 @@ if prompt := st.chat_input("Nhập câu hỏi..."):
                 )
                 response.raise_for_status()
                 data = response.json()
-                answer = data.get("response", "Không có câu trả lời.")
+                answer = data.get("response", "No answer returned.")
             except requests.exceptions.ConnectionError:
-                answer = "❌ Không thể kết nối đến API. Đảm bảo server đang chạy: `make run`"
+                answer = "❌ Unable to connect to API. Ensure the server is running: `make run`"
             except requests.exceptions.Timeout:
-                answer = "⏱️ Agent phản hồi quá lâu. Thử lại với câu hỏi ngắn hơn."
+                answer = "⏱️ Agent took too long to respond. Try again with a shorter question."
             except Exception as e:
-                answer = f"❌ Lỗi: {str(e)}"
+                answer = f"❌ Error: {str(e)}"
 
         st.markdown(answer)
 
@@ -83,9 +83,9 @@ if prompt := st.chat_input("Nhập câu hỏi..."):
 
 # Sidebar — Info
 with st.sidebar:
-    st.header("Thông tin")
-    st.write(f"Số tin nhắn: {len(st.session_state.messages)}")
-    if st.button("Xóa lịch sử"):
+    st.header("Information")
+    st.write(f"Message count: {len(st.session_state.messages)}")
+    if st.button("Clear history"):
         st.session_state.messages = []
         st.rerun()
     
@@ -93,33 +93,33 @@ with st.sidebar:
     st.caption("AI20K Build Phase — Template Agent")
 ```
 
-### Chạy ứng dụng
+### Running the Application
 
 ```bash
-# Terminal 1: Chạy FastAPI backend
+# Terminal 1: Run FastAPI backend
 make run
 
-# Terminal 2: Chạy Streamlit frontend
+# Terminal 2: Run Streamlit frontend
 streamlit run app.py --server.port 8501
 ```
 
-Mở http://localhost:8501 — bạn đã có giao diện chat hoàn chỉnh!
+Open http://localhost:8501 — you now have a complete chat interface!
 
-### Streaming với Streamlit
+### Streaming with Streamlit
 
-> ⚠️ **LƯU Ý:** Endpoint `/api/v1/chat/stream` chưa có sẵn trong template — bạn cần tự triển khai endpoint này ở backend (xem Chương 8 phần Streaming Response). Các code mẫu dưới đây giả định bạn đã triển khai endpoint streaming.
+> ⚠️ **NOTE:** The endpoint `/api/v1/chat/stream` is not included out-of-the-box in the template—you need to implement this endpoint on the backend yourself (see Chapter 8 section on Streaming Response). The sample code below assumes you have deployed the streaming endpoint.
 
 ```python
-# Thay phần "Call API" bằng streaming version:
+# Replace the "Call API" section with the streaming version:
 with st.chat_message("assistant"):
     API_URL = "http://localhost:8000/api/v1/chat/stream"
     
-    with st.spinner("Đang suy nghĩ..."):
+    with st.spinner("Thinking..."):
         try:
             response = requests.post(
                 API_URL,
                 json={"message": prompt, "stream": True},
-                stream=True,  # Bật streaming cho requests
+                stream=True,  # Enable streaming for requests
                 timeout=60,
             )
             
@@ -130,22 +130,22 @@ with st.chat_message("assistant"):
                 and not line.endswith('"type": "done"')
             )
         except Exception as e:
-            answer = f"❌ Lỗi: {str(e)}"
+            answer = f"❌ Error: {str(e)}"
             st.error(answer)
 ```
 
-### Khi nào nên dùng Streamlit vs Next.js?
+### When to Use Streamlit vs. Next.js?
 
-| Tiêu chí | Streamlit | Next.js |
+| Criteria | Streamlit | Next.js |
 |-----------|-----------|---------|
-| Thời gian setup | 30 phút | 2-3 giờ |
-| Cần biết | Chỉ Python | Python + JavaScript/React |
-| Giao diện | Đẹp mặc định, ít tùy chỉnh | Tùy chỉnh hoàn toàn |
-| Streaming | Hỗ trợ | Hỗ trợ |
-| Production | Không phù hợp | Phù hợp |
-| Demo Day | ✅ Chấp nhận được | ✅ Tốt hơn |
+| Setup time | 30 minutes | 2–3 hours |
+| Knowledge required | Python only | Python + JavaScript/React |
+| UI customization | Great defaults, limited custom styling | Fully customizable |
+| Streaming | Supported | Supported |
+| Production readiness | Not recommended | Recommended |
+| Demo Day | ✅ Acceptable | ✅ Preferred |
 
-> 🔑 **ĐIỂM CHÍNH:** Streamlit là công cụ **prototype nhanh nhất** cho AI Agent UI. Dùng nó khi bạn cần focus vào Agent logic (Chương 4) hơn là frontend engineering. Nếu team có thành viên biết React, hãy dùng Next.js (phần 6.1 trở đi) cho giao diện polished hơn.
+> 🔑 **KEY TAKEAWAY:** Streamlit is the **fastest prototyping tool** for AI Agent UIs. Use it when you need to focus on agent logic (Chapter 4) rather than frontend engineering. If your team has members proficient in React, choose Next.js (section 9.1 onward) for a more polished product.
 
 ---
 
@@ -153,29 +153,29 @@ with st.chat_message("assistant"):
 flowchart LR
     U[User input] --> SW[SWR hook useChat]
     SW --> API["POST /api/v1/chat/stream"]
-    API -->|SSE chunks| BUF[Buffer + render tung dong]
+    API -->|SSE chunks| BUF[Buffer + incremental line rendering]
     BUF --> STATES{UI states}
     STATES -->|loading| SP["Spinner / skeleton"]
     STATES -->|error| ER[Error message + retry]
-    STATES -->|done| DK[Sources + citations hien thi]
+    STATES -->|done| DK[Sources + citations displayed]
 ```
-> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNplkEFqwzAQRa8yaNsG020XhaRxIbTQEMVkYWUh7LEtbEtGGrWEOHfv2DGlUK3E15uvJ11F4UoUzyCqzn0XjfYEHwdlgVeWZwE9GDtEOsNq9QLylMvTARrnWogBXxtN5zsrTzOw3u9yJfaf8giJHkzy9ZRwJyWBPOpeiYVmbMJHKVMommjbMMIme8s3sar4xgfwaEveULQ1lM7Wyxwzd4_j-pjKa7aDQJow3BaJOZ6bO6dLY-sR5J6F5GCs5b4EQosdkrO_Kn9m0HvnR0gPeTrtoMcQdI2zDvnL_wE2wxG277l00RcYmCwMCxlnAzQGLVBjzuIRRI--16ac_vk61ShBDfaoOFCixErHjpRQ9jbBOpKTF1vwIfmInMSh5Gduja697pf49gMqYo38)
+> [📊 Open diagram on Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNplkEFqwzAQRa8yaNsG020XhaRxIbTQEMVkYWUh7LEtbEtGGrWEOHfv2DGlUK3E15uvJ11F4UoUzyCqzn0XjfYEHwdlgVeWZwE9GDtEOsNq9QLylMvTARrnWogBXxtN5zsrTzOw3u9yJfaf8giJHkzy9ZRwJyWBPOpeiYVmbMJHKVMommjbMMIme8s3sar4xgfwaEveULQ1lM7Wyxwzd4_j-pjKa7aDQJow3BaJOZ6bO6dLY-sR5J6F5GCs5b4EQosdkrO_Kn9m0HvnR0gPeTrtoMcQdI2zDvnL_wE2wxG277l00RcYmCwMCxlnAzQGLVBjzuIRRI--16ac_vk61ShBDfaoOFCixErHjpRQ9jbBOpKTF1vwIfmInMSh5Gduja697pf49gMqYo38)
 
-## 9.1 Setup Next.js
+## 9.1 Next.js Setup
 
-### Tại sao chọn Next.js?
+### Why Choose Next.js?
 
-Next.js là React framework phổ biến nhất hiện nay, cung cấp nhiều tính năng production-ready out-of-the-box: file-based routing (App Router), server-side rendering (SSR), static site generation (SSG), API routes, và optimization tự động. Đối với AI chat application, Next.js là lựa chọn tuyệt vời vì hỗ trợ streaming natively qua App Router và React Server Components.
+Next.js is currently the most popular React framework, offering numerous production-ready features out of the box: file-based routing (App Router), server-side rendering (SSR), static site generation (SSG), API routes, and automated optimizations. For AI chat applications, Next.js is an outstanding choice because it natively supports streaming via the App Router and React Server Components.
 
-### Tạo dự án Next.js
+### Initializing the Next.js Project
 
-Khởi tạo dự án Next.js với TypeScript và Tailwind CSS:
+Create a new Next.js project with TypeScript and Tailwind CSS:
 
 ```bash
 npx create-next-app@latest ai20k-chat --typescript --tailwind --eslint --app --src-dir --import-alias "@/*"
 ```
 
-Khi được hỏi các tùy chọn, chọn:
+When prompted with configuration options, select:
 - TypeScript: Yes
 - ESLint: Yes
 - Tailwind CSS: Yes
@@ -183,40 +183,40 @@ Khi được hỏi các tùy chọn, chọn:
 - App Router: Yes
 - Import alias: `@/*`
 
-### Cấu trúc thư mục (App Router)
+### Directory Structure (App Router)
 
-Next.js App Router sử dụng file-based routing — mỗi folder trong `app/` tương ứng với một route:
+The Next.js App Router relies on file-based routing—each folder inside `app/` corresponds to a route segment:
 
 ```
 ai20k-chat/
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx          # Root layout (bao bọc mọi page)
+│   │   ├── layout.tsx          # Root layout (wraps all pages)
 │   │   ├── page.tsx            # Home page (/)
 │   │   ├── globals.css         # Global styles
 │   │   ├── chat/
 │   │   │   └── page.tsx        # Chat page (/chat)
 │   │   └── api/                # API routes (optional backend)
 │   ├── components/
-│   │   ├── ChatMessage.tsx     # Component hiển thị message
-│   │   ├── ChatInput.tsx       # Component input chat
-│   │   ├── Sidebar.tsx         # Sidebar navigation
-│   │   └── ThemeToggle.tsx     # Toggle dark/light mode
+│   │   ├── ChatMessage.tsx     # Message display component
+│   │   ├── ChatInput.tsx       # Chat input bar component
+│   │   ├── Sidebar.tsx         # Sidebar navigation component
+│   │   └── ThemeToggle.tsx     # Dark/light mode toggle
 │   ├── hooks/
-│   │   └── useChat.ts          # Custom hook cho chat logic
+│   │   └── useChat.ts          # Custom hook for chat logic
 │   ├── lib/
 │   │   └── api.ts              # API client functions
 │   └── types/
-│       └── chat.ts             # TypeScript types
+│       └── chat.ts             # TypeScript type definitions
 ├── tailwind.config.ts
 ├── next.config.js
 ├── package.json
 └── tsconfig.json
 ```
 
-### Pages và Layouts
+### Pages and Layouts
 
-**Root Layout** (`src/app/layout.tsx`) là bao bọc cho toàn bộ ứng dụng:
+**Root Layout** (`src/app/layout.tsx`) acts as the top-level wrapper for the entire application:
 
 ```tsx
 // src/app/layout.tsx
@@ -238,7 +238,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider>
           {children}
@@ -263,15 +263,15 @@ export default function Home() {
           AI20K Agent
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
-          Trợ lý AI thông minh sẵn sàng giúp bạn nghiên cứu,
-          phân tích và trả lời câu hỏi.
+          Intelligent AI assistant ready to help you research,
+          analyze, and answer complex questions.
         </p>
         <Link
           href="/chat"
           className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg
                      hover:bg-blue-700 transition-colors font-medium"
         >
-          Bắt đầu trò chuyện
+          Start Chatting
         </Link>
       </div>
     </main>
@@ -295,7 +295,7 @@ export default function ChatPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSend = async (content: string) => {
-    // Thêm user message
+    // Add user message
     const userMessage: Message = {
       id: Date.now().toString(),
       role: "user",
@@ -306,7 +306,7 @@ export default function ChatPage() {
     setIsLoading(true);
 
     try {
-      // Gọi API
+      // Call API
       const response = await fetch("http://localhost:8000/api/v1/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -341,7 +341,7 @@ export default function ChatPage() {
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.length === 0 ? (
           <div className="text-center text-gray-500 mt-20">
-            Gửi tin nhắn để bắt đầu trò chuyện
+            Send a message to start the conversation
           </div>
         ) : (
           messages.map((msg) => (
@@ -350,7 +350,7 @@ export default function ChatPage() {
         )}
         {isLoading && (
           <div className="text-gray-500 animate-pulse">
-            Đang suy nghĩ...
+            Thinking...
           </div>
         )}
       </div>
@@ -362,35 +362,35 @@ export default function ChatPage() {
 }
 ```
 
-> 💡 **MẸO:** `"use client"` directive ở đầu file cho Next.js biết đây là Client Component — component chạy ở browser, có thể dùng useState, useEffect, event handlers. Mặc định tất cả components trong App Router là Server Components (chạy ở server). Dùng `"use client"` chỉ khi cần interactivity.
+> 💡 **TIP:** The `"use client"` directive at the top signals to Next.js that this is a Client Component—a component evaluated in the browser with support for useState, useEffect, and event listeners. By default, components in App Router are Server Components (rendered on the server). Use `"use client"` only when interactivity is required.
 
 ---
 
-## 9.2 Thiết kế responsive
+## 9.2 Responsive Design
 
 ### Tailwind CSS Basics
 
-Tailwind CSS là utility-first CSS framework — thay vì viết CSS classes riêng, bạn kết hợp các utility classes để tạo giao diện. Mỗi class làm một việc duy nhất:
+Tailwind CSS is a utility-first CSS framework—instead of authoring custom CSS classes, you compose utility classes to construct interfaces. Each class carries a single, explicit responsibility:
 
 ```html
 <!-- Padding, margin, background, text -->
 <div class="p-4 bg-white rounded-lg shadow-md">
-  <h2 class="text-xl font-bold text-gray-900 mb-2">Tiêu đề</h2>
-  <p class="text-gray-600 leading-relaxed">Nội dung...</p>
+  <h2 class="text-xl font-bold text-gray-900 mb-2">Title</h2>
+  <p class="text-gray-600 leading-relaxed">Content...</p>
 </div>
 ```
 
-Các utility class phổ biến:
+Common utility classes:
 - **Spacing:** `p-4` (padding), `m-4` (margin), `gap-2` (gap in flex/grid)
 - **Sizing:** `w-full`, `h-screen`, `max-w-4xl`, `min-h-screen`
 - **Typography:** `text-sm`, `font-bold`, `text-gray-600`, `leading-relaxed`
 - **Layout:** `flex`, `grid`, `items-center`, `justify-between`
-- **Visual:** `bg-white`, `rounded-lg`, `shadow-md`, `border`
+- **Visuals:** `bg-white`, `rounded-lg`, `shadow-md`, `border`
 - **Interactivity:** `hover:bg-blue-700`, `focus:ring-2`, `transition-colors`
 
 ### Responsive Breakpoints
 
-Tailwind sử dụng mobile-first approach — thiết kế cho mobile trước, rồi thêm styles cho screen lớn hơn:
+Tailwind adheres to a mobile-first philosophy—styles are applied for mobile viewports first, then extended for larger viewports:
 
 ```html
 <!-- Mobile: 1 column, Tablet: 2 columns, Desktop: 3 columns -->
@@ -402,7 +402,7 @@ Tailwind sử dụng mobile-first approach — thiết kế cho mobile trước,
 ```
 
 Breakpoints:
-- Mặc định (không prefix): 0px+ (mobile)
+- Default (no prefix): 0px+ (mobile)
 - `sm:`: 640px+ (large phone)
 - `md:`: 768px+ (tablet)
 - `lg:`: 1024px+ (laptop)
@@ -411,10 +411,10 @@ Breakpoints:
 
 ### Mobile-first Design
 
-Thiết kế cho mobile trước, rồi mở rộng cho desktop:
+Structure layouts for mobile screens first, then expand for desktop viewports:
 
 ```tsx
-// ChatLayout với responsive sidebar
+// ChatLayout with responsive sidebar
 export default function ChatLayout({
   children,
 }: {
@@ -422,13 +422,13 @@ export default function ChatLayout({
 }) {
   return (
     <div className="flex h-screen">
-      {/* Sidebar: ẩn trên mobile, hiện trên desktop */}
+      {/* Sidebar: hidden on mobile, visible on desktop */}
       <aside className="hidden md:flex md:w-64 lg:w-80 flex-col border-r bg-gray-50 dark:bg-gray-900">
         <div className="p-4 border-b">
-          <h2 className="font-semibold">Lịch sử chat</h2>
+          <h2 className="font-semibold">Chat History</h2>
         </div>
         <nav className="flex-1 overflow-y-auto p-2">
-          {/* Danh sách conversations */}
+          {/* Conversation list */}
         </nav>
       </aside>
 
@@ -441,10 +441,10 @@ export default function ChatLayout({
 }
 ```
 
-### Grid Layout cho Chat
+### Grid Layout for Chat
 
 ```tsx
-// Dashboard layout với grid
+// Dashboard layout using CSS Grid
 export default function Dashboard() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 p-4 h-screen">
@@ -466,7 +466,7 @@ export default function Dashboard() {
 
       {/* Info panel */}
       <div className="lg:col-span-1 border rounded-lg p-4">
-        <h3 className="font-semibold mb-4">Thông tin</h3>
+        <h3 className="font-semibold mb-4">Information</h3>
         {/* Sources, metadata */}
       </div>
     </div>
@@ -474,21 +474,21 @@ export default function Dashboard() {
 }
 ```
 
-> 🔑 **ĐIỂM CHÍNH:** Nguyên tắc mobile-first: viết styles cho mobile trước (không prefix), rồi thêm responsive overrides với `md:`, `lg:`. Điều này đảm bảo giao diện hoạt động trên mọi thiết bị mà không cần media queries thủ công.
+> 🔑 **KEY TAKEAWAY:** Mobile-first principle: declare mobile styles first (without prefix), then layer responsive overrides using `md:` and `lg:`. This ensures the UI renders cleanly across all devices without needing manual media queries.
 
-> 💡 **MẸO:** Dùng `min-w-0` trên flex/grid children để text không tràn ra ngoài container. Đây là lỗi phổ biến: nội dung dài làm vỡ layout. `min-w-0` cho phép text truncation hoạt động đúng.
+> 💡 **TIP:** Apply `min-w-0` to flex/grid children to prevent long text from overflowing the container. This is a common bug where long unbroken strings break the layout. `min-w-0` allows text truncation and ellipsis to work correctly.
 
 ---
 
 ## 9.3 Dark Mode
 
-### Tại sao cần Dark Mode?
+### Why Support Dark Mode?
 
-Dark mode không chỉ là xu hướng — nó giảm mỏi mắt khi đọc trong môi trường tối, tiết kiệm pin trên màn hình OLED, và nhiều người dùng đơn giản là thích hơn. Một ứng dụng AI chat hiện đại cần hỗ trợ cả light và dark mode.
+Dark mode is more than aesthetic preference—it reduces eye strain in low-light environments, saves battery on OLED displays, and satisfies widespread user expectations. A modern AI chat application must support both light and dark themes smoothly.
 
-### Setup với next-themes
+### Setup with next-themes
 
-`next-themes` là thư viện phổ biến nhất cho dark mode trong Next.js:
+`next-themes` is the standard library for theme management in Next.js:
 
 ```bash
 npm install next-themes
@@ -496,7 +496,7 @@ npm install next-themes
 
 ### Theme Provider
 
-Tạo ThemeProvider component bao bọc toàn bộ app:
+Create a ThemeProvider component wrapping the application:
 
 ```tsx
 // src/components/ThemeProvider.tsx
@@ -508,10 +508,10 @@ import { ReactNode } from "react";
 export function ThemeProvider({ children }: { children: ReactNode }) {
   return (
     <NextThemesProvider
-      attribute="class"       // Thêm class "dark" vào <html>
-      defaultTheme="system"   // Theo hệ điều hành
-      enableSystem={true}     // Cho phép auto-detect system theme
-      disableTransitionOnChange  // Tránh flash khi chuyển theme
+      attribute="class"          // Appends "dark" class to <html>
+      defaultTheme="system"      // Follow OS preference
+      enableSystem={true}        // Auto-detect system theme
+      disableTransitionOnChange // Prevent flashing when switching themes
     >
       {children}
     </NextThemesProvider>
@@ -532,30 +532,30 @@ export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Chỉ render toggle sau khi mount (tránh hydration mismatch)
+  // Render toggle only after mount (prevents hydration mismatch)
   useEffect(() => {
     setMounted(true);
   }, []);
 
   if (!mounted) {
-    return <div className="w-10 h-10" />; // Placeholder tránh layout shift
+    return <div className="w-10 h-10" />; // Placeholder preventing layout shift
   }
 
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-      aria-label="Chuyển đổi theme"
+      aria-label="Toggle theme"
     >
       {theme === "dark" ? (
-        // Sun icon cho dark mode
+        // Sun icon for dark mode
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
             d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
           />
         </svg>
       ) : (
-        // Moon icon cho light mode
+        // Moon icon for light mode
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
             d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
@@ -569,14 +569,14 @@ export default function ThemeToggle() {
 
 ### Tailwind Dark Mode Configuration
 
-Cấu hình Tailwind để hỗ trợ dark mode qua class:
+Configure Tailwind to enable class-based dark mode:
 
 ```javascript
 // tailwind.config.ts
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  darkMode: "class",  // Sử dụng class strategy (tương thích next-themes)
+  darkMode: "class",  // Uses class strategy (compatible with next-themes)
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -591,12 +591,12 @@ const config: Config = {
 export default config;
 ```
 
-### Sử dụng Dark Mode trong Components
+### Using Dark Mode in Components
 
-Tailwind cung cấp `dark:` prefix cho mọi utility class:
+Tailwind provides the `dark:` variant across all utility classes:
 
 ```tsx
-// Message component hỗ trợ dark mode
+// Message component supporting dark mode
 export default function ChatMessage({ message }: { message: Message }) {
   const isUser = message.role === "user";
 
@@ -612,7 +612,7 @@ export default function ChatMessage({ message }: { message: Message }) {
         <p className="whitespace-pre-wrap">{message.content}</p>
         {message.sources && message.sources.length > 0 && (
           <div className="mt-2 pt-2 border-t border-gray-200 dark:border-gray-700">
-            <p className="text-xs text-gray-500 dark:text-gray-400">Nguồn:</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Sources:</p>
             {message.sources.map((src, i) => (
               <p key={i} className="text-xs text-gray-400 dark:text-gray-500 truncate">
                 {src}
@@ -626,15 +626,15 @@ export default function ChatMessage({ message }: { message: Message }) {
 }
 ```
 
-> ⚠️ **LƯU Ý:** Luôn xử lý hydration mismatch khi dùng `next-themes`. Theme được xác định ở client, nên server và client có thể khác nhau. Pattern `mounted` state (như trong ThemeToggle) giải quyết vấn đề này — chỉ render UI phụ thuộc theme sau khi component đã mount.
+> ⚠️ **NOTE:** Always handle hydration mismatches when using `next-themes`. The active theme is resolved on the client, meaning the server-rendered HTML may temporarily mismatch the client state. The `mounted` state pattern (as shown in ThemeToggle) reliably solves this issue by rendering theme-dependent UI only after mounting.
 
 ---
 
-## 9.4 Kết nối với API
+## 9.4 Connecting with the API
 
 ### Fetch API
 
-Cách cơ bản nhất để gọi API từ frontend:
+The standard method for invoking backend endpoints from the frontend:
 
 ```typescript
 // src/lib/api.ts
@@ -672,7 +672,7 @@ export async function sendMessage(
 
 ### SWR (Stale-While-Revalidate)
 
-SWR là thư viện data fetching từ Vercel (tác giả Next.js). Nó cung cấp caching, revalidation, optimistic UI, và error handling:
+SWR is a data-fetching library created by Vercel. It provides caching, revalidation, optimistic updates, and built-in error handling:
 
 ```bash
 npm install swr
@@ -695,7 +695,7 @@ export function useChat() {
     setIsLoading(true);
     setError(null);
 
-    // Optimistic update: thêm user message ngay lập tức
+    // Optimistic update: append user message immediately
     const userMsg: Message = {
       id: Date.now().toString(),
       role: "user",
@@ -717,7 +717,7 @@ export function useChat() {
       setMessages((prev) => [...prev, assistantMsg]);
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Lỗi không xác định"
+        err instanceof Error ? err.message : "Unknown error occurred"
       );
     } finally {
       setIsLoading(false);
@@ -756,7 +756,7 @@ export default function ChatError({
         onClick={onRetry}
         className="text-sm text-red-600 dark:text-red-400 underline hover:no-underline"
       >
-        Thử lại
+        Retry
       </button>
     </div>
   );
@@ -800,7 +800,7 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Nhập câu hỏi..."
+          placeholder="Enter your question..."
           rows={1}
           disabled={disabled}
           className="flex-1 resize-none rounded-lg border border-gray-300 dark:border-gray-700
@@ -815,7 +815,7 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
                      hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed
                      transition-colors"
         >
-          {disabled ? "Đang gửi..." : "Gửi"}
+          {disabled ? "Sending..." : "Send"}
         </button>
       </div>
     </div>
@@ -823,15 +823,15 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
 }
 ```
 
-> 💡 **MẸO:** Luôn xử lý ba trạng thái cho mọi async operation: loading (hiển thị spinner/skeleton), success (hiển thị data), và error (hiển thị error message + retry button). Đây là pattern UI cơ bản nhưng nhiều developer bỏ quên.
+> 💡 **TIP:** Always account for three states in every asynchronous workflow: loading (show spinner/skeleton), success (render data), and error (render message with retry option). This standard pattern ensures a resilient user experience.
 
 ---
 
-## 9.5 Hiển thị AI Response
+## 9.5 Rendering AI Responses
 
 ### Chat UI Pattern
 
-Giao diện chat có pattern chuẩn: messages hiển thị theo thứ tự thời gian, user message bên phải, AI message bên trái, input ở dưới cùng:
+Conversational user interfaces follow an established pattern: messages displayed chronologically, user bubbles aligned right, AI bubbles aligned left, and an input dock anchored at the bottom:
 
 ```tsx
 // src/components/ChatMessage.tsx
@@ -864,7 +864,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
             : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-bl-md"
         }`}
       >
-        {/* Nội dung: markdown rendering */}
+        {/* Content: markdown rendering */}
         <div className="prose prose-sm dark:prose-invert max-w-none">
           {message.content}
         </div>
@@ -872,7 +872,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
         {/* Sources */}
         {message.sources && message.sources.length > 0 && (
           <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-            <p className="text-xs font-medium opacity-60 mb-1">Nguồn tham khảo:</p>
+            <p className="text-xs font-medium opacity-60 mb-1">Sources:</p>
             {message.sources.map((src, i) => (
               <p key={i} className="text-xs opacity-50 truncate">{src}</p>
             ))}
@@ -881,7 +881,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
 
         {/* Timestamp */}
         <p className="text-xs opacity-40 mt-2">
-          {new Date(message.timestamp).toLocaleTimeString("vi-VN")}
+          {new Date(message.timestamp).toLocaleTimeString("en-US")}
         </p>
       </div>
     </div>
@@ -891,7 +891,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
 
 ### Streaming Display
 
-Hiển thị response từng token khi nhận được từ SSE stream:
+Display tokens incrementally as they arrive from the SSE stream:
 
 ```typescript
 // src/lib/stream.ts
@@ -929,7 +929,7 @@ export async function streamChat(
 
       // Parse SSE events
       const lines = buffer.split("\n");
-      buffer = lines.pop() || ""; // Giữ phần chưa hoàn thành
+      buffer = lines.pop() || ""; // Retain incomplete trailing line
 
       for (const line of lines) {
         if (line.startsWith("data: ")) {
@@ -950,17 +950,18 @@ export async function streamChat(
       }
     }
   } catch (err) {
-    onError(err instanceof Error ? err.message : "Lỗi streaming");
+    onError(err instanceof Error ? err.message : "Streaming error occurred");
   }
 }
 ```
 
 ```tsx
-// Sử dụng streaming trong component
+// Using streaming within a custom hook
 "use client";
 
 import { useState, useCallback, useRef } from "react";
 import { streamChat } from "@/lib/stream";
+import { Message } from "@/types/chat";
 
 export function useStreamingChat() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -968,7 +969,7 @@ export function useStreamingChat() {
   const streamRef = useRef<string>("");
 
   const sendStream = useCallback(async (content: string) => {
-    // Thêm user message
+    // Append user message
     setMessages((prev) => [
       ...prev,
       {
@@ -979,7 +980,7 @@ export function useStreamingChat() {
       },
     ]);
 
-    // Tạo placeholder cho AI message
+    // Create placeholder for assistant response
     const assistantId = (Date.now() + 1).toString();
     setMessages((prev) => [
       ...prev,
@@ -996,7 +997,7 @@ export function useStreamingChat() {
 
     await streamChat(
       content,
-      // onToken: cập nhật message content
+      // onToken: append token to content
       (token) => {
         streamRef.current += token;
         setMessages((prev) =>
@@ -1014,7 +1015,7 @@ export function useStreamingChat() {
         setMessages((prev) =>
           prev.map((msg) =>
             msg.id === assistantId
-              ? { ...msg, content: `Lỗi: ${error}` }
+              ? { ...msg, content: `Error: ${error}` }
               : msg
           )
         );
@@ -1029,7 +1030,7 @@ export function useStreamingChat() {
 
 ### Markdown Rendering
 
-AI agent thường trả về markdown (headers, lists, code blocks). Hiển thị markdown trong React:
+AI agents frequently return markdown format (headers, lists, tables, code blocks). Render markdown in React with syntax highlighting:
 
 ```bash
 npm install react-markdown remark-gfm rehype-highlight
@@ -1053,8 +1054,8 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeHighlight]}
       components={{
-        // Custom rendering cho code blocks
-        code({ inline, className, children, ...props }) {
+        // Custom rendering for code blocks
+        code({ inline, className, children, ...props }: any) {
           if (inline) {
             return (
               <code
@@ -1076,8 +1077,8 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             </div>
           );
         },
-        // Custom rendering cho links
-        a({ href, children }) {
+        // Custom rendering for hyperlinks
+        a({ href, children }: any) {
           return (
             <a
               href={href}
@@ -1089,8 +1090,8 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             </a>
           );
         },
-        // Custom rendering cho tables
-        table({ children }) {
+        // Custom rendering for tables
+        table({ children }: any) {
           return (
             <div className="overflow-x-auto my-3">
               <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700">
@@ -1107,24 +1108,24 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
 }
 ```
 
-Cập nhật ChatMessage để dùng MarkdownRenderer:
+Update `ChatMessage` to use `MarkdownRenderer`:
 
 ```tsx
-// Cập nhật ChatMessage component
+// Update ChatMessage component
 import MarkdownRenderer from "./MarkdownRenderer";
 
-// Trong ChatMessage, thay thế:
+// Inside ChatMessage, replace:
 // <div>{message.content}</div>
-// bằng:
+// with:
 <MarkdownRenderer content={message.content} />
 ```
 
-> 🔑 **ĐIỂM CHÍNH:** Streaming display là yếu tố then chốt cho UX của AI chat. Người dùng thấy câu trả lời xuất hiện từng phần, tạo cảm giác "AI đang suy nghĩ và trả lời". Kết hợp với markdown rendering, bạn có giao diện chat chuyên nghiệp, tương tự ChatGPT.
+> 🔑 **KEY TAKEAWAY:** Streaming display is pivotal for chat UX. Users observe answers forming in real time, mirroring natural conversational pacing. Combined with markdown formatting, the interface matches modern ChatGPT-like production standards.
 
-> 💡 **MẸO:** Thêm cursor blinking animation khi đang stream để người dùng biết AI vẫn đang sinh nội dung:
+> 💡 **TIP:** Add a blinking typing cursor animation during streaming to indicate active token generation:
 
 ```css
-/* Thêm vào globals.css */
+/* Add to globals.css */
 .typing-cursor::after {
   content: "▋";
   animation: blink 1s infinite;
@@ -1138,28 +1139,28 @@ import MarkdownRenderer from "./MarkdownRenderer";
 
 ---
 
-## Tóm tắt
+## Summary
 
-1. **Next.js App Router** cung cấp file-based routing, layouts, và server components. Cấu trúc thư mục rõ ràng: `app/` cho pages, `components/` cho reusable UI, `hooks/` cho custom hooks, `lib/` cho utilities.
+1. **Next.js App Router** provides file-based routing, layouts, and server components. Maintain a clear directory layout: `app/` for routes, `components/` for reusable UI, `hooks/` for stateful abstractions, and `lib/` for helpers.
 
-2. **Tailwind CSS** với mobile-first approach giúp tạo giao diện responsive nhanh chóng. Dùng `sm:`, `md:`, `lg:` breakpoints và luôn test trên nhiều kích thước màn hình.
+2. **Tailwind CSS** with a mobile-first mindset enables rapid responsive development. Utilize `sm:`, `md:`, and `lg:` breakpoints and test across multiple viewports.
 
-3. **Dark mode** với `next-themes` dễ setup: ThemeProvider bao bọc app, `dark:` prefix trong Tailwind classes, xử lý hydration mismatch với `mounted` state.
+3. **Dark Mode** via `next-themes` is straightforward: wrap the app in `ThemeProvider`, use the `dark:` utility prefix, and handle hydration mismatch with a `mounted` guard.
 
-4. **API integration** cần xử lý ba trạng thái: loading, success, error. Dùng custom hooks (`useChat`, `useStreamingChat`) để tách logic khỏi UI components.
+4. **API Integration** must cover all three operational states: loading, success, and error. Use custom hooks (`useChat`, `useStreamingChat`) to decouple communication logic from components.
 
-5. **AI response display** cần: chat UI pattern (user phải, AI trái), streaming display qua SSE, và markdown rendering cho code blocks, tables, links.
+5. **AI Response Rendering** requires three pillars: a structured chat layout (user right, agent left), SSE streaming consumption, and rich markdown parsing for code and tables.
 
 ---
 
-## Câu hỏi ôn tập
+## Review Questions
 
-1. Giải thích sự khác biệt giữa Server Component và Client Component trong Next.js App Router. Khi nào cần dùng `"use client"`?
+1. Explain the distinction between Server Components and Client Components in Next.js App Router. When must you specify `"use client"`?
 
-2. Thiết kế responsive layout cho chat app: sidebar (conversations) + main chat area + info panel. Sidebar ẩn trên mobile, hiện trên desktop. Viết code Tailwind CSS.
+2. Design a responsive layout for a chat application: sidebar (conversation list) + main chat container + context panel. Ensure the sidebar hides on mobile screens and appears on desktop. Provide the Tailwind CSS classes.
 
-3. Tại sao cần xử lý `mounted` state trong ThemeToggle component? Điều gì xảy ra nếu không xử lý?
+3. Why is it necessary to track `mounted` state inside the `ThemeToggle` component? What bug occurs if this is omitted?
 
-4. Viết hàm `streamChat` gọi SSE endpoint và cập nhật UI realtime. Xử lý trường hợp connection bị ngắt giữa chừng.
+4. Write a client-side `streamChat` function that connects to an SSE endpoint and updates state incrementally. Handle unexpected connection drops gracefully.
 
-5. So sánh hai cách hiển thị AI response: chờ response hoàn chỉnh rồi hiển thị vs. streaming từng token. Ưu/nhược điểm của mỗi cách?
+5. Compare rendering an AI response upon full completion versus streaming tokens in real time. What are the key advantages and trade-offs of each approach?

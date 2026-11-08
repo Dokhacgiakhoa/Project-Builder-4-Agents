@@ -1,56 +1,56 @@
 ---
-title: "Software Engineering: Team + AI (tóm tắt)"
-source: "SoftwareEngineeringAITeamWork.pdf — Nguyễn Trí Dũng (CTO, AI-native SE), BTC AI20K Build Phase, 11 trang dạng ảnh"
-note: "Bản ghi ý để agent tra nhanh. Không thay bản gốc PDF."
+title: "Software Engineering: Team + AI (Executive Summary)"
+source: "SoftwareEngineeringAITeamWork.pdf — Nguyen Tri Dung (CTO, AI-native SE), AI20K Build Phase"
+note: "Key insights captured for agent reference."
 ---
 
-# Software Engineering: Team + AI — ý chính
+# Software Engineering: Team + AI — Core Concepts
 
-## Luận điểm
-- Mỗi engineer có "đội quân AI" riêng. Năng suất cá nhân tăng, nhưng câu hỏi là team vận hành thế nào.
-- Làm nhỏ (1 người + AI) ≠ làm sản phẩm thật (cần team). Scale thì phải đổi cách làm.
-- AI tăng tốc độ, **không đổi quy luật**. AI không có context tổng thể, chỉ tối ưu task cục bộ.
-- Thiếu bản vẽ thì xây sai. Không theo chuẩn thì lệch hệ thống. Không phối hợp thì phá công trình.
-- Không có quy trình và kiến trúc thì AI giúp **phá nhanh hơn**.
+## Core Theses
+- Every engineer now commands an "AI workforce". Individual throughput skyrockets, but the fundamental challenge is how the team operates collaboratively.
+- Solo experimentation (1 developer + AI) $\neq$ Production engineering (team-based). Scaling requires fundamentally restructured engineering disciplines.
+- AI accelerates velocity; it **does not alter engineering laws**. AI lacks global context and optimizes solely for localized subtasks.
+- Without an architectural blueprint, AI builds the wrong structure. Without shared standards, components diverge. Without coordination, collaborative construction collapses.
+- Without clear workflows and architecture, AI simply enables teams to **break systems faster**.
 
-## Quy trình = hệ thống 4 yếu tố (thiếu 1 thì lệch, chậm, tốn)
-1. Method: V-model, Agile/Scrum.
-2. People: PM, BA, Designer, Dev, Tester. AI kiêm nhiều vai nhưng trách nhiệm phải rõ.
-3. Workspace & tools: docs/spec/ADR, Jira/Linear, Git, Slack/Discord.
-4. Workflow & rules: Idea → Spec → Dev → Test → Release. Có coding convention, PR review, DoD, security/CI.
+## Process = 4-Pillar System (Missing any pillar causes drift, latency, and waste)
+1. **Methodology**: Agile/Scrum, iterative verification.
+2. **People & Roles**: Product Owner, Business Analyst, Designer, Software Engineer, QA. AI assistants adopt multiple roles, but human accountability must remain unambiguous.
+3. **Workspace & Tooling**: Specs, ADRs, Contracts, Issue Trackers, Git, CI/CD pipelines.
+4. **Workflows & Governance**: Idea → Spec → Development → Verification → Release. Enforced coding conventions, code review, Definition of Done, automated security gates.
 
-## Big picture workflow (lặp theo sprint)
-Brainstorm → Specs (domain, feature, role, API contract, business rule) → Architecture (ADR, stack, convention, folder) → Planning (backlog, sprint, story, ước lượng) → Thực thi song song (mỗi người + AI) → Review & merge → Retro.
-- Nền chung: repo Git, vai trò rõ (người + AI), tool (CI, test, MCP), rules/DoD.
-- AI mạnh khi context rõ: Specs + ADR + Contracts + Rules.
+## Big Picture Lifecycle (Iterative Sprint Loop)
+Problem Definition → Specifications (Domain, Features, Roles, API Contracts, Business Invariants) → Architecture (ADRs, Stack, Folder Conventions) → Planning (Backlog, Sprints, User Stories, Estimates) → Parallel Execution (Developer + Agent pairs) → Review & Integration Merge → Retrospective.
+- **Shared Foundation**: Canonical Git repository, explicit roles (Human + AI), automated tooling (CI, Linters, Test Runners, MCP servers), clear Definition of Done.
+- **Context is King**: AI succeeds when context is unambiguous: Specs + ADRs + Contracts + Behavioral Rules.
 
-## Repo là nguồn sự thật duy nhất
-- Cấu trúc gợi ý: `/specs` (vision, domain, role, feature, api-contract) · `/adrs` · `/planning/sprints` · `/tasks/<ID>.md` · `/src` · `/docs` · `AGENTS.md` · `README.md`.
-- Git lưu cả ý tưởng, quyết định, kế hoạch, context, không chỉ code.
+## The Repository as the Single Source of Truth
+- Recommended topology: `/specs` (vision, domain, roles, features, contracts) · `/adrs` · `/planning/sprints` · `/tasks/<ID>.md` · `/src` · `/docs` · `AGENTS.md` · `README.md`.
+- Git tracks not only code, but also intent, architectural decisions, planning roadmaps, and contextual invariants.
 
-## Thực thi mỗi task
-1. Pick task: đọc spec, ADR, contract, rule. `git checkout -b feature/<ID>`.
-2. AI + dev code: agent đọc context, lập plan, chia subtask. **Agent là trợ lý, không quyết định thay người.**
-3. Local test: unit, integration, lint, build. **Chỉ push khi pass local.**
-4. Commit và push theo quy ước.
-5. PR và review (người hoặc AI): code, test, docs, contract, tuân rule.
-6. Merge khi approved: CI chạy đủ test, task chuyển Done.
-- Git: `main` luôn ổn định · `feature/*` · `hotfix/*` · `release/*`. Pull mới nhất trước khi làm, commit nhỏ, PR để review, tag release.
-- Agent luôn đọc: `/specs`, `/adrs`, `/contracts`, `/tasks/<id>.md`, `AGENTS.md`, `/src`.
-- DoD mỗi task: code theo spec · test pass · docs/contract cập nhật · tuân ADR và rule · PR review và merge · task Done. **Chưa đạt DoD thì không merge.**
+## Executing Each Task
+1. **Pick Task**: Review specs, relevant ADRs, API contracts, and rules. `git checkout -b feature/<ID>`.
+2. **AI + Developer Pair**: Agent reads context, outlines implementation plan, and decomposes subtasks. **The Agent is an assistant; it does not replace human decision authority.**
+3. **Local Verification**: Unit tests, integration suites, linting, and build validation. **Never push code that fails local checks.**
+4. **Atomic Commit & Push**: Adhere strictly to Conventional Commits.
+5. **Pull Request & Multi-Perspective Review**: Human or Automated Agent verifies code quality, test coverage, documentation updates, and architectural compliance.
+6. **Merge Upon Approval**: CI passes all tests; task transitions to Done.
+- **Branch Conventions**: `main` remains permanently deployable · `feature/*` · `hotfix/*` · `release/*`. Pull latest changes before work, keep commits granular, enforce PR reviews, tag releases.
+- **Context Agents Must Read**: `/specs`, `/adrs`, `/contracts`, `/tasks/<id>.md`, `AGENTS.md`, `/src`.
+- **Definition of Done (DoD)**: Implemented per spec · All tests pass · Docs/contracts updated · Conforms to ADRs and rules · PR approved and merged. **Do not merge if DoD is unmet.**
 
-## 6 nguyên tắc
-1. Spec-driven: rõ cái gì, tại sao, thế nào trước khi code.
-2. ADR là nền: mọi quyết định kiến trúc, công nghệ, quy tắc đều ghi lại. Muốn đổi thì viết ADR mới.
-3. Task đủ lớn (feature-level) để AI tự chia nhỏ. Đừng chia quá vụn.
-4. Làm việc qua contract (API/Proto/Event), không dựa vào hiểu ngầm.
-5. AI luôn đọc context trước khi code. Cập nhật context là trách nhiệm của cả team.
-6. Git là kỷ luật: nhánh rõ, PR và review bắt buộc, mọi thay đổi truy vết được.
-- AI ra kết quả sai thì thường do context thiếu hoặc cũ.
+## 6 Foundational Principles
+1. **Spec-Driven**: Clarify what, why, and acceptance criteria before writing code.
+2. **ADRs as Foundations**: Record all architectural decisions, technology selections, and conventions. Changes require a new ADR.
+3. **Task Granularity**: Frame tasks at feature level so AI can decompose subtasks. Avoid micromanaged task fragmentation.
+4. **Contract-First**: Interface via explicit contracts (OpenAPI, Protobuf, Event schemas) rather than implicit assumptions.
+5. **Mandatory Context Ingestion**: AI must inspect existing context before modifying files. Keeping context fresh is a collective team responsibility.
+6. **Git Discipline**: Clean branches, mandatory PR reviews, fully auditable history.
+- When an AI agent outputs incorrect code, the root cause is almost always missing, stale, or contradictory context.
 
-## 5 ADR nên có
-1. Test strategy / test-first: test là hợp đồng hành vi.
-2. Domain split (microservice hoặc modular monolith): chia domain tốt thì chia context tốt.
-3. API contract first (OpenAPI, gRPC, event, DTO): scale bằng contract, không bằng hiểu ngầm.
-4. Project structure & coding convention (folder, naming, lint, error handling, logging, validation, test style, commit): không có convention thì AI nhân bản hỗn loạn.
-5. Definition of Done: done là đủ chuẩn để merge, không phải "code chạy được".
+## 5 Recommended ADRs
+1. **Test Strategy / Test-First**: Tests serve as verifiable behavioral contracts.
+2. **Domain Boundaries**: Clean separation (modular monolith or microservices) enables clean context boundaries.
+3. **API Contract First**: OpenAPI, gRPC, event schemas, DTOs—scale through contracts, not verbal assumptions.
+4. **Project Structure & Coding Conventions**: Folder layouts, naming, linting, error handling, logging, validation, commit standards. Without conventions, AI replicates chaos.
+5. **Definition of Done**: "Done" means production-grade quality ready to merge, not "it compiles on my machine".

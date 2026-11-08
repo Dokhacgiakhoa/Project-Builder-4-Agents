@@ -1,77 +1,67 @@
 ---
 title: "Context Management"
-description: "PROJECT_CONTEXT, handoff, ADR — chống agent drift — cohort 1 & 2"
+description: "PROJECT_CONTEXT, session handoffs, and ADRs to prevent agent drift"
 weight: 4
 ---
 
-# Context Management — chống agent drift
+# Context Management — Preventing Agent Drift
 
-## Vấn đề
+## The Challenge
 
-AI agent (Claude Code, Cursor, Codex...) mỗi session đọc lại codebase. Không có
-context file → agent tự khám phá → dễ hallucinate, dùng doc cũ, lặp quyết định sai.
-9/12 đội Cohort 1 không có context-management layer.
+Every time an AI Coding Agent launches a new session, it re-ingests the repository. Without a structured context gateway, agents spend excessive tokens exploring, hallucinate past architecture, or resurrect previously discarded approaches. 9 of 12 teams in Cohort 1 lacked a structured context management layer.
 
-## Pattern 1: PROJECT_CONTEXT.md — Quick Rehydrate (team 001 Memio)
+## Pattern 1: PROJECT_CONTEXT.md — Quick Rehydration (Team 001 Memio)
 
-File agent đọc ĐẦU TIÊN khi resume. Mục tiêu: < 60 giây để agent "lên dây".
+The designated entry point read by the agent upon starting work. Target: rehydrate full mental context in under 60 seconds:
 
 ```markdown
-## 0. Quick Rehydrate (≤ 60s)
-- Project: [tên] — [1 câu]
+## 0. Quick Rehydration (≤ 60s)
+- Project: [Name] — [1-sentence summary]
 - Stack: Python / FastAPI / LangGraph
-- Dev: uvicorn src.main:app --reload
-- Test: make test. Eval: python eval/run_eval.py
+- Dev Server: uvicorn src.main:app --reload
+- Test Suite: pytest. Evaluation: python eval/run_eval.py
 
-## 0.1 Current Invariants (để không drift)
-- Source of truth kỹ thuật: code trong src/. Doc chỉ tóm tắt — CODE WINS.
-- Agent flow: src/agents/graph.py.
+## 0.1 Current Invariants (Prevent Drift)
+- Technical Single Source of Truth: executable code in src/. Docs summarize — CODE WINS.
+- Agent Orchestration: src/agents/graph.py.
 
 ## 0.2 Known Ambiguities / Mismatches
-- [liệt kê chỗ doc-vs-code lệch]
+- [Explicitly list known doc-vs-code discrepancies to prevent hallucination]
 ```
 
-Tại sao hiệu quả: agent biết ngay source-of-truth ở đâu → không drift; mục
-"Known Ambiguities" (team 011) ngăn agent tin doc stale.
+Why it works: The agent immediately knows canonical file coordinates, and the "Known Ambiguities" register (Team 011) stops the agent from acting on stale documentation.
 
-## Pattern 2: Handoff low-token (team 001)
+## Pattern 2: Token-Efficient Session Handoffs (Team 001)
 
-Khi chuyển session/người, ghi `handoff/SESSION_NOTES.md`:
+When wrapping up a session or handing off work, append notes to `handoff/SESSION_NOTES.md`:
 
 ```markdown
-## Handoff — [date] — [người]
-**Đang giữa**: [1 câu]
-**Files đã chạm** (5-15):
-- path/file1.py — [thay đổi]
-**Bước tiếp theo**: [1 câu]
-**Blocker**: [nếu có]
+## Handoff — [Date] — [Developer]
+**In Progress**: [1 sentence]
+**Touched Files** (5–15 files max):
+- path/file1.py — [concise modification]
+**Next Action**: [1 sentence]
+**Active Blockers**: [if any]
 ```
 
-Quy tắc: CHỈ 5-15 file quan trọng nhất, KHÔNG dump diff. Tiết kiệm token khi
-agent resume.
+Rule: List only the 5–15 most critical files; never dump voluminous raw diffs. Saves context tokens during rehydration.
 
-## Pattern 3: ADR trong WORKLOG (team 010)
+## Pattern 3: Embedded Architecture Decision Records (ADRs) (Team 010)
 
-Mỗi quyết định kỹ thuật lớn ghi theo format ADR (Architecture Decision Record):
+Document significant architectural choices in ADR format:
 
 ```markdown
-### [ADR-001] — Mock-first LLM — [date]
-**Context**: Sinh viên cần test flow khi chưa có API key.
+### [ADR-001] — Mock-First Model Provider — [Date]
+**Context**: Developers need to test workflows locally without requiring external API keys.
 **Options**:
-- A: bắt buộc key → friction cao.
-- B: mock khi thiếu key → friction thấp, output không thật.
-**Decision**: B.
-**Consequences**: (+) chạy được ngay; (−) phải set key khi muốn output thật.
+- A: Require live API keys → high developer onboarding friction.
+- B: Provide mock provider when keys are absent → seamless local startup.
+**Decision**: Option B.
+**Consequences**: (+) Immediate setup; (−) Live output requires populating valid keys in `.env`.
 ```
 
-ADR giúp agent sau hiểu VÌ SAO code hiện tại như vậy — không chỉ WHAT. Đây là
-pattern ít đội làm nhưng rất có giá trị.
+ADRs help subsequent agents and developers understand **WHY** code was structured in a specific manner, preventing regressions.
 
-## Pattern 4: Tách template khỏi instance (team 001)
+## Pattern 4: Decouple Templates from Instances (Team 001)
 
-`docs/templates/JOURNAL.template.md` riêng — JOURNAL.md instance không lặp template
-→ token-clean.
-
-## Tham khảo template
-
-`ai20k-agent-template`: `PROJECT_CONTEXT.md`, `handoff/`, `WORKLOG.md` mục ADR.
+Maintain `docs/templates/JOURNAL.template.md` separately from active `JOURNAL.md` instances to keep working files clean and token-efficient.

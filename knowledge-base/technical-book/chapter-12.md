@@ -1,68 +1,68 @@
 ---
-title: "DevOps và Triển khai"
+title: "DevOps and Deployment"
 weight: 12
 ---
 
-## 12.1 Docker — Container hóa ứng dụng
+## 12.1 Docker — Application Containerization
 
-Docker là một nền tảng (platform) cho phép bạn đóng gói ứng dụng cùng toàn bộ dependencies (thư viện, cấu hình, biến môi trường) vào một đơn vị gọi là **container**. Container đảm bảo ứng dụng chạy đồng nhất trên mọi máy — từ laptop của bạn đến server production. Trong AI20K, 100% BTC chấm điểm DevOps, và Docker là công cụ nền tảng để đạt điểm cao.
+Docker is a platform that allows you to package an application along with all of its dependencies (libraries, configuration, environment variables) into a single unit called a **container**. Containers ensure that an application runs identically across any environment — from your personal laptop to production servers. In AI20K, 100% of judging panels grade DevOps criteria, and Docker is the foundational tool required to achieve a high score.
 
-Trước Docker, developer thường gặp "tối thứ Sáu" — ứng dụng chạy trên máy mình nhưng lỗi trên server. Nguyên nhân là sự khác biệt về phiên bản Python, thư viện hệ thống, biến môi trường. Docker giải quyết vấn đề này bằng cách đóng gói toàn bộ runtime environment vào một image bất biến (immutable image). Bạn build một lần, chạy ở đâu cũng được.
+Before Docker, developers often faced the classic "Friday night problem" — an application worked perfectly on local machines but failed when deployed to the server. The root causes were discrepancies in Python versions, system libraries, and environment configurations. Docker resolves this by packaging the entire runtime environment into an immutable image. You build once and run anywhere.
 
-**Image vs Container** là hai khái niệm cốt lõi cần phân biệt:
+**Image vs Container** are two core concepts that must be distinguished:
 
-- **Image** (ảnh): bản thiết kế (blueprint) bất biến, chứa OS, runtime, code, dependencies. Image được build từ `Dockerfile` và lưu trong registry (Docker Hub, GitHub Container Registry).
-- **Container** (thùng chứa): một instance đang chạy của image. Bạn có thể chạy nhiều container từ cùng một image, mỗi container có trạng thái riêng.
+- **Image**: An immutable blueprint containing the OS, runtime, application code, and dependencies. Images are built from a `Dockerfile` and stored in a registry (Docker Hub, GitHub Container Registry).
+- **Container**: A running instance of an image. You can launch multiple isolated containers from the same image, each maintaining its own runtime state.
 
-Ví dụ vòng đời Docker cơ bản:
+A basic Docker lifecycle workflow:
 
 ```bash
-# Build image từ Dockerfile
+# Build image from Dockerfile
 docker build -t my-agent-api:latest .
 
-# Chạy container từ image
+# Run container from image
 docker run -d -p 8000:8000 --name my-api my-agent-api:latest
 
-# Xem log container
+# View container logs
 docker logs my-api
 
-# Dừng container
+# Stop container
 docker stop my-api
 
-# Xóa container
+# Remove container
 docker rm my-api
 
-# Xóa image
+# Remove image
 docker rmi my-agent-api:latest
 ```
 
-Vòng đời hoàn chỉnh: viết `Dockerfile` → build image → chạy container → push image lên registry → pull trên server → chạy production.
+The complete lifecycle: write a `Dockerfile` → build the image → run the container → push the image to a registry → pull it to the server → run in production.
 
-> 💡 **MẸO:** Hãy luôn tag image với version cụ thể (ví dụ `my-agent-api:1.0.3`) thay vì chỉ dùng `latest`. Tag `latest` gây nhầm lẫn khi rollback và không đảm bảo reproducibility.
+> 💡 **TIP:** Always tag images with a specific semantic version (for example, `my-agent-api:1.0.3`) rather than relying solely on `latest`. The `latest` tag creates ambiguity during rollbacks and fails to guarantee reproducibility.
 
-Một số lệnh Docker hữu ích khác khi làm việc hàng ngày:
+Essential Docker commands for everyday workflows:
 
 ```bash
-# Xem tất cả container đang chạy
+# List all running containers
 docker ps
 
-# Xem tất cả container (kể đã dừng)
+# List all containers (including stopped ones)
 docker ps -a
 
-# Xem resource usage
+# Monitor resource usage
 docker stats
 
-# Vào bên trong container để debug
+# Open an interactive shell inside a running container for debugging
 docker exec -it my-api /bin/bash
 
-# Xem chi tiết image (layers, size)
+# Inspect image details (layers, size)
 docker images
 docker history my-agent-api:latest
 ```
 
-Khi bạn phát triển ứng dụng AI Agent, Docker đặc biệt quan trọng vì ứng dụng có nhiều dependencies phức tạp: LangChain, LangGraph, các model embedding, vector store client, LLM API keys. Docker đảm bảo tất cả được cấu hình đúng trên mọi môi trường.
+When building AI Agent applications, Docker becomes particularly vital because these applications depend on a complex stack: LangChain, LangGraph, embedding models, vector store clients, and LLM API keys. Docker ensures that every component is consistently configured across development, testing, and production environments.
 
-> ⚠️ **LƯU Ý:** Không lưu secrets (API keys, passwords) trong Docker image. Sử dụng environment variables hoặc Docker secrets để truyền thông tin nhạy cảm lúc runtime.
+> ⚠️ **NOTE:** Never store secrets (API keys, passwords, database credentials) inside a Docker image. Use runtime environment variables or Docker secrets to inject sensitive information safely.
 
 ```mermaid
 flowchart LR
@@ -75,43 +75,43 @@ flowchart LR
     DEPLOY -->|develop| STG["Staging: Render/Vercel preview"]
     DEPLOY -->|main| PROD[Production deploy]
 ```
-> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNplkMtuwjAQRX9l5G2Luu-iFSUIIkUQkVCpsrMw9iSxSOzIsUEI-Pc6D6mLennP8VzN3IkwEsk7kLIxV1Fz6yA5MA3hpcdsSyvloPN9XcBi8QGrmG6U2_oTLIVTRvfFpK7iESfxLqfWlyWIGsV5hkM64nyd5bS7OewdvIAwF7S8wtka4Gh9HeMkopERZ7Rw8qqR0PrGqUXv_uxRGvVstdzRLfLG1VNrGKwdVxrt7A7GqEbrNNn_3E-Wa1F_Pic6hQN_SLxgY7oHZPmGMpKFPqWrdziglmjfvtEKbKCzeFF4ZaT4N6ANtQ9ID_uIptZIP94IJHaNuRXkFUiLNjhyuPd9-M2Iq7FFFgJGJJY8LMoI089B5t6Z7KZFgM56DInvJHcYKV5Z3s7x8xexOI_z)
+> [📊 Open diagram on Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNplkMtuwjAQRX9l5G2Luu-iFSUIIkUQkVCpsrMw9iSxSOzIsUEI-Pc6D6mLennP8VzN3IkwEsk7kLIxV1Fz6yA5MA3hpcdsSyvloPN9XcBi8QGrmG6U2_oTLIVTRvfFpK7iESfxLqfWlyWIGsV5hkM64nyd5bS7OewdvIAwF7S8wtka4Gh9HeMkopERZ7Rw8qqR0PrGqUXv_uxRGvVstdzRLfLG1VNrGKwdVxrt7A7GqEbrNNn_3E-Wa1F_Pic6hQN_SLxgY7oHZPmGMpKFPqWrdziglmjfvtEKbKCzeFF4ZaT4N6ANtQ9ID_uIptZIP94IJHaNuRXkFUiLNjhyuPd9-M2Iq7FFFgJGJJY8LMoI089B5t6Z7KZFgM56DInvJHcYKV5Z3s7x8xexOI_z)
 
 ## 12.2 Multi-stage Dockerfile
 
-Multi-stage build là kỹ thuật Docker cho phép bạn sử dụng nhiều stage (giai đoạn) trong một `Dockerfile`. Stage đầu tiên (builder) cài đặt dependencies và build ứng dụng. Stage thứ hai (production) chỉ copy kết quả build, bỏ qua toàn bộ công cụ build. Kết quả: image production nhỏ gọn hơn 5-10 lần, an toàn hơn vì không chứa build tools.
+Multi-stage builds are a Docker technique that allows you to define multiple stages within a single `Dockerfile`. The first stage (builder) installs compilation tools and project dependencies. The second stage (production) copies only the required build artifacts, omitting build tools entirely. Result: a production image that is 5 to 10 times smaller and significantly more secure since it lacks compilation toolchains.
 
-Tại sao multi-stage quan trọng? Một image Python thông thường có thể nặng 1-2 GB vì chứa pip cache, build tools (gcc, g++), và các dependencies chỉ cần lúc build. Multi-stage giảm xuống còn 200-400 MB, tiết kiệm bandwidth khi deploy và giảm attack surface.
+Why are multi-stage builds important? A standard Python image often swells to 1–2 GB because it retains the pip cache, compilation toolchains (gcc, g++), and temporary build artifacts. Multi-stage builds reduce this size down to 200–400 MB, saving network bandwidth during deployments and shrinking the attack surface.
 
-Dưới đây là `Dockerfile` hoàn chỉnh cho ứng dụng LangGraph + FastAPI:
+Here is a complete, production-ready `Dockerfile` for a LangGraph + FastAPI application:
 
 ```dockerfile
 # ============================================
-# Stage 1: Builder — cài đặt dependencies
+# Stage 1: Builder — install dependencies
 # ============================================
 FROM python:3.11-slim AS builder
 
 WORKDIR /app
 
-# Cài build tools cần thiết cho compile C extensions
+# Install build dependencies required for compiling C extensions
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements trước — tận dụng Docker layer caching
+# Copy requirements first — leverage Docker layer caching
 COPY requirements.txt .
 
-# Cài Python dependencies vào virtual environment
+# Install Python dependencies into an isolated virtual environment
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 RUN pip install --no-cache-dir -r requirements.txt
 
 # ============================================
-# Stage 2: Production — image cuối cùng
+# Stage 2: Production — minimal runtime image
 # ============================================
 FROM python:3.11-slim AS production
 
-# Thiết lập biến môi trường
+# Configure environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PATH="/opt/venv/bin:$PATH" \
@@ -119,43 +119,43 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-# Tạo non-root user cho bảo mật
+# Create a non-root user for security hardening
 RUN groupadd -r appuser && useradd -r -g appuser appuser
 
-# Copy virtual environment từ builder stage
+# Copy virtual environment from the builder stage
 COPY --from=builder /opt/venv /opt/venv
 
-# Copy source code
+# Copy application source code
 COPY . .
 
-# Chown tất cả file cho appuser
+# Transfer file ownership to appuser
 RUN chown -R appuser:appuser /app
 
-# Chuyển sang non-root user
+# Switch to the non-root user
 USER appuser
 
-# Expose port
+# Expose application port
 EXPOSE 8000
 
-# Health check — kiểm tra API còn sống
+# Health check — verify that the API is responsive
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')" || exit 1
 
-# Chạy ứng dụng với uvicorn
+# Launch application using uvicorn
 CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
-Giải thích chi tiết từng phần:
+Detailed breakdown of critical components:
 
-**Layer caching:** Docker build theo từng layer (từng lệnh trong Dockerfile). Khi bạn sửa code, chỉ các layer từ `COPY . .` trở đi bị rebuild. Nếu `requirements.txt` không đổi, layer `pip install` được cache — tiết kiệm 2-5 phút mỗi lần build. Đây là lý do `COPY requirements.txt` đặt trước `COPY . .`.
+**Layer caching:** Docker builds images layer by layer, corresponding to each instruction in the Dockerfile. When code changes occur, only layers from `COPY . .` downward need to be rebuilt. As long as `requirements.txt` remains unchanged, the `pip install` layer is retrieved directly from cache — saving 2–5 minutes per build. This explains why `COPY requirements.txt` must always precede `COPY . .`.
 
-**Non-root user:** Mặc định Docker chạy container với user `root`. Nếu attacker khai thác lỗ hổng trong ứng dụng, họ có quyền root trong container. Tạo `appuser` giới hạn quyền truy cập, tuân thủ nguyên tắc least privilege (quyền tối thiểu).
+**Non-root user:** By default, Docker runs containers as `root`. If an attacker exploits a vulnerability in the application, they inherit root privileges inside the container. Creating and running as `appuser` enforces the principle of least privilege, isolating system resources.
 
-**HEALTHCHECK directive:** Docker tự động kiểm tra sức khỏe container mỗi 30 giây. Nếu kiểm tra thất bại 3 lần liên tiếp, container được đánh dấu `unhealthy` và orchestrator (Docker Compose, Kubernetes) có thể tự động restart. Điều này đảm bảo tính available cho API.
+**HEALTHCHECK directive:** Docker periodically checks the container's health every 30 seconds. If the health probe fails 3 consecutive times, the container is flagged as `unhealthy`, allowing orchestrators (Docker Compose, Kubernetes) to trigger automatic restarts. This guarantees high service availability for the API.
 
-> 🔑 **ĐIỂM CHÍNH:** Luôn sử dụng multi-stage build cho production. Image nhỏ hơn, an toàn hơn, và deploy nhanh hơn. Stage 1 build, Stage 2 chạy — pattern này áp dụng cho mọi ứng dụng Python.
+> 🔑 **KEY TAKEAWAY:** Always adopt multi-stage builds for production environments. Smaller images are faster to deploy and inherently more secure. Stage 1 compiles, Stage 2 executes — this standard pattern applies to any modern Python application.
 
-Thêm file `.dockerignore` để loại bỏ file không cần thiết:
+Add a `.dockerignore` file to exclude unnecessary files from the build context:
 
 ```text
 __pycache__/
@@ -173,15 +173,15 @@ Dockerfile
 docker-compose.yml
 ```
 
-File `.dockerignore` giống `.gitignore` — ngăn các file không cần thiết vào Docker context, giúp build nhanh hơn và image nhỏ hơn.
+The `.dockerignore` file functions like `.gitignore` — preventing superfluous files from entering the Docker build context, accelerating build times, and maintaining minimal image sizes.
 
-## 12.3 Docker Compose — Quản lý nhiều dịch vụ
+## 12.3 Docker Compose — Multi-Service Management
 
-Docker Compose là công cụ cho phép bạn định nghĩa và chạy nhiều container (nhiều dịch vụ) cùng lúc bằng một file YAML. Thay vì gõ 5-6 lệnh `docker run` dài dòng, bạn viết một file `docker-compose.yml` và chạy `docker compose up` — mọi thứ tự động khởi động, kết nối mạng, và quản lý vòng đời.
+Docker Compose is a tool for defining and running multi-container applications using a declarative YAML file. Instead of executing 5 to 6 cumbersome `docker run` commands manually, you define a single `docker-compose.yml` file and run `docker compose up` — automatically handling service provisioning, network interconnection, and container lifecycles.
 
-Trong ứng dụng AI Agent điển hình, bạn cần ít nhất 3-4 dịch vụ chạy cùng nhau: API server, database (PostgreSQL), vector store (Chroma/PGVector), và có thể Redis cho caching. Docker Compose quản lý toàn bộ stack này.
+In a typical AI Agent architecture, you need at least 3 to 4 collaborating services: an API server, a relational database (PostgreSQL), a vector store (Chroma/PGVector), and optionally Redis for caching and session state. Docker Compose orchestrates this entire stack effortlessly.
 
-Dưới đây là `docker-compose.yml` hoàn chỉnh cho dự án AI Agent:
+Below is a complete `docker-compose.yml` configuration tailored for an AI Agent project:
 
 ```yaml
 version: "3.9"
@@ -215,7 +215,7 @@ services:
       retries: 3
       start_period: 10s
     volumes:
-      - ./app:/app/app  # Hot reload khi dev
+      - ./app:/app/app  # Hot reload during development
     networks:
       - agent-network
     deploy:
@@ -229,7 +229,7 @@ services:
     restart: unless-stopped
 
   # ============================================
-  # PostgreSQL — Database chính
+  # PostgreSQL — Primary Database
   # ============================================
   db:
     image: postgres:16-alpine
@@ -290,57 +290,57 @@ volumes:
     driver: local
 
 # ============================================
-# Network — Cách ly các dịch vụ
+# Networks — Service isolation
 # ============================================
 networks:
   agent-network:
     driver: bridge
 ```
 
-Giải thích các khái niệm chính:
+Key architectural concepts explained:
 
-**depends_on với condition:** Service `api` sẽ đợi `db` và `redis` healthy trước khi khởi động. Nếu không có `condition`, API có thể start trước khi database sẵn sàng → connection error. `service_healthy` đảm bảo API chỉ start khi healthcheck của dependencies pass.
+**depends_on with health conditions:** The `api` service waits until both `db` and `redis` report healthy status before spinning up. Without `condition: service_healthy`, the API container might launch before the database is ready to accept connections, causing startup connection errors.
 
-**Named volumes:** `postgres-data` và `redis-data` là named volumes — dữ liệu được lưu ngoài container. Khi bạn chạy `docker compose down`, container bị xóa nhưng data vẫn còn. Chạy `docker compose down -v` mới xóa data. Đây là cách bảo vệ data quan trọng khỏi mất mát.
+**Named volumes:** `postgres-data` and `redis-data` persist data independently outside the container lifecycles. Running `docker compose down` destroys container instances while preserving stored state. Only `docker compose down -v` wipes volume data, guarding against accidental data loss.
 
-**Resource limits:** `deploy.resources.limits` giới hạn memory và CPU cho mỗi container. Nếu API bị memory leak (rất phổ biến với Python + AI models), nó chỉ dùng tối đa 512MB thay vì chiếm toàn bộ RAM server, ảnh hưởng đến các dịch vụ khác.
+**Resource limits:** The `deploy.resources.limits` directives cap memory and CPU usage per service. If the API suffers from a memory leak (common in Python stacks handling complex AI workflows), consumption is throttled to 512MB instead of exhausting server RAM and crashing sibling services.
 
-> 💡 **MẸO:** Khi phát triển (development), thêm `volumes: - ./app:/app/app` để hot reload — thay đổi code trên máy local sẽ lập tức phản ánh trong container. Khi deploy production, xóa dòng này đi.
+> 💡 **TIP:** During active development, mount `./app:/app/app` under `volumes` to enable live hot-reloading — changes made locally will instantly take effect inside the container. Ensure this line is removed when deploying to production.
 
-Các lệnh Docker Compose cần biết:
+Essential Docker Compose commands:
 
 ```bash
-# Khởi động tất cả dịch vụ (nền)
+# Launch all services in background (detached mode)
 docker compose up -d
 
-# Xem log tất cả dịch vụ
+# Stream real-time logs across all services
 docker compose logs -f
 
-# Xem log một dịch vụ cụ thể
+# Stream logs for a specific service
 docker compose logs -f api
 
-# Khởi động lại một dịch vụ
+# Restart a specific service
 docker compose restart api
 
-# Dừng tất cả (giữ data)
+# Stop all containers while preserving data volumes
 docker compose down
 
-# Dừng tất cả (xóa data)
+# Stop all containers and remove volume data
 docker compose down -v
 
-# Rebuild và khởi động
+# Rebuild images and restart services
 docker compose up -d --build
 ```
 
-> ⚠️ **LƯU Ý:** Không commit `docker-compose.yml` chứa password thật vào git. Sử dụng `.env` file cho secrets và thêm `.env` vào `.gitignore`. Docker Compose tự động đọc file `.env` trong cùng thư mục.
+> ⚠️ **NOTE:** Never commit a `docker-compose.yml` file containing production credentials into version control. Store secrets in a local `.env` file and verify that `.env` is listed in `.gitignore`. Docker Compose automatically reads environment files present in the working directory.
 
-## 12.4 CI/CD với GitHub Actions
+## 12.4 CI/CD with GitHub Actions
 
-CI/CD là viết tắt của Continuous Integration (Tích hợp liên tục) và Continuous Deployment (Triển khai liên tục). CI đảm bảo mỗi lần push code lên GitHub, toàn bộ test suite tự động chạy — phát hiện lỗi sớm trước khi merge. CD tự động deploy lên server khi code pass tất cả tests. Đây là lỗi phổ biến nhất và mất điểm nghiêm trọng ở tiêu chí DevOps — phần lớn đội bỏ qua CI/CD.
+CI/CD stands for Continuous Integration and Continuous Deployment. CI ensures that every code push triggers automated test suites — detecting bugs and regressions before code merges into protected branches. CD automates deployment pipelines to servers once all tests pass successfully. Overlooking CI/CD is one of the most common pitfalls in hackathons and leads to severe score deductions under DevOps judging criteria.
 
-GitHub Actions là CI/CD platform tích hợp sẵn trong GitHub. Bạn định nghĩa workflow bằng file YAML trong thư mục `.github/workflows/`. Mỗi workflow chứa một hoặc nhiều job, mỗi job chứa nhiều step (bước). Workflow được trigger bởi events như push, pull request, hoặc manual dispatch.
+GitHub Actions is an integrated CI/CD platform built directly into GitHub. Workflows are declared using YAML files located under `.github/workflows/`. Each workflow comprises one or more jobs, and each job executes a sequence of individual steps. Workflows are triggered by repository events such as pushes, pull requests, or manual triggers (`workflow_dispatch`).
 
-Dưới đây là workflow CI hoàn chỉnh:
+Here is a comprehensive CI workflow:
 
 ```yaml
 # .github/workflows/ci.yml
@@ -357,7 +357,7 @@ jobs:
   # Job 1: Lint & Format Check
   # ============================================
   lint:
-    name: Lint với Ruff
+    name: Lint with Ruff
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -381,9 +381,9 @@ jobs:
   # Job 2: Run Tests
   # ============================================
   test:
-    name: Chạy Tests
+    name: Run Tests
     runs-on: ubuntu-latest
-    needs: lint  # Chỉ chạy sau khi lint pass
+    needs: lint  # Only run after linting passes
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -426,7 +426,7 @@ jobs:
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
-    needs: test  # Chỉ chạy sau khi test pass
+    needs: test  # Only run after tests pass
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -444,17 +444,17 @@ jobs:
           cache-to: type=gha,mode=max
 ```
 
-**Giải thích workflow:**
+**Workflow structure explained:**
 
-Workflow này có 3 jobs chạy tuần tự: lint → test → build. Nếu lint thất bại, test và build không chạy — tiết kiệm tài nguyên. Nếu test thất bại, build không chạy — không build code có lỗi.
+This pipeline sequences 3 jobs sequentially: lint → test → build. If linting fails, testing and building are cancelled immediately, conserving runner minutes. If unit tests fail, the build stage is halted, ensuring broken code is never packaged into an image.
 
-**Lint với Ruff:** Ruff là Python linter và formatter siêu nhanh (viết bằng Rust), thay thế Flake8, isort, Black. Nó kiểm tra code style, import order, unused imports, và nhiều lỗi phổ biến khác. Output format `github` tạo annotation trực tiếp trên pull request — reviewer thấy lỗi ngay trên diff.
+**Linting with Ruff:** Ruff is an extremely fast Python linter and code formatter written in Rust, replacing Flake8, isort, and Black. It enforces code conventions, import order, detects unused variables, and flags common anti-patterns. Using `--output-format=github` outputs inline annotations directly onto pull request diffs for instant reviewer feedback.
 
-**Cache pip dependencies:** Action `actions/cache` lưu cache của pip, tránh download lại 100+ packages mỗi lần chạy. Key cache dựa trên hash của `requirements.txt` — chỉ invalidate khi dependencies thay đổi.
+**Caching pip dependencies:** The `actions/cache` action caches downloaded wheels and tarballs across workflow runs, avoiding redundant downloads of 100+ packages on every commit. The cache key tracks changes to `requirements.txt`, invalidating only when dependencies are modified.
 
-> 🔑 **ĐIỂM CHÍNH:** Luôn có ít nhất lint + test trong CI pipeline. Đây là dấu hiệu chuyên nghiệp nhất cho BTC. Phần lớn đội không có CI/CD — chỉ cần bạn có, bạn đã vượt xa.
+> 🔑 **KEY TAKEAWAY:** Maintain at least linting and automated tests inside your CI pipeline. This constitutes one of the clearest signals of software engineering maturity to the evaluation committee. Many teams omit CI/CD entirely — having it running immediately sets your project apart.
 
-**Deploy workflow** riêng cho production:
+Dedicated production **deployment workflow**:
 
 ```yaml
 # .github/workflows/deploy.yml
@@ -463,11 +463,11 @@ name: Deploy to Production
 on:
   push:
     branches: [main]
-  workflow_dispatch:  # Cho phép trigger thủ công
+  workflow_dispatch:  # Enable manual triggering
 
 jobs:
   deploy:
-    name: Deploy lên Render
+    name: Deploy to Render
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
@@ -480,30 +480,30 @@ jobs:
           echo "Deployed commit ${{ github.sha }} to production"
 ```
 
-Workflow này tự động deploy mỗi khi code được merge vào nhánh `main`. Nó gọi Render Deploy Hook qua HTTP POST — Render sẽ pull image mới nhất và deploy.
+This workflow automates continuous delivery whenever code is merged into the `main` branch by invoking a Render Deploy Hook via HTTP POST, instructing Render to fetch the latest changes and initiate deployment.
 
-## 12.5 Deploy lên Cloud
+## 12.5 Cloud Deployment
 
-Sau khi đã có Docker image và CI/CD pipeline, bước tiếp theo là deploy ứng dụng lên cloud để người dùng thực sự truy cập được. Trong AI20K, Live URL (URL truy cập được) là một trong 10 deliverables bắt buộc.
+Once your Docker image and CI/CD pipelines are verified, the next step is hosting the application on cloud infrastructure for real user access. In AI20K, a functional Live URL is one of the 10 mandatory deliverables.
 
-Có nhiều lựa chọn deploy, nhưng đây là những lựa chọn tốt nhất cho dự án AI Agent:
+Several hosting options exist, but the following stack offers the optimal balance of simplicity and reliability for AI Agent projects:
 
-### Backend — Render hoặc Railway
+### Backend — Render or Railway
 
-**Render** (render.com) là platform-as-a-service (PaaS) cho phép deploy ứng dụng từ Docker image hoặc git repository. Ưu điểm: free tier, tự động SSL, tự động deploy từ GitHub, hỗ trợ Docker.
+**Render** (render.com) is a platform-as-a-service (PaaS) supporting containerized and Git-backed deployments. Highlights: generous free tier, automated SSL, native GitHub deployment webhooks, and seamless Dockerfile support.
 
-**Railway** (railway.app) tương tự Render nhưng có UX thân thiện hơn và hỗ trợ thêm nhiều loại database. Cả hai đều phù hợp cho AI20K.
+**Railway** (railway.app) provides similar capabilities with intuitive UX and multi-database provisioning. Both options work smoothly for AI20K requirements.
 
-Các bước deploy lên Render:
+Step-by-step deployment on Render:
 
-1. Đăng ký Render bằng GitHub account
-2. Chọn "New Web Service" → "Build and deploy from a Docker image"
-3. Connect GitHub repository
-4. Thêm environment variables: `OPENAI_API_KEY`, `DATABASE_URL`, `LANGSMITH_API_KEY`
-5. Chọn instance type: Free (512MB RAM) hoặc Starter ($7/tháng)
-6. Render tự động build Docker image và deploy
+1. Sign up on Render using your GitHub account.
+2. Select "New Web Service" → "Build and deploy from a Docker image".
+3. Connect your project's GitHub repository.
+4. Configure environment variables: `OPENAI_API_KEY`, `DATABASE_URL`, `LANGSMITH_API_KEY`.
+5. Select an instance tier: Free (512MB RAM) or Starter ($7/month).
+6. Render builds the Docker image and provisions the public URL.
 
-**Environment variables** là nơi lưu cấu hình và secrets. Trên Render, bạn thêm trong Dashboard → Environment:
+**Environment variables** manage dynamic configuration and secrets safely. On Render, set them under Dashboard → Environment:
 
 ```
 OPENAI_API_KEY=sk-proj-xxxxx
@@ -516,49 +516,49 @@ LOG_LEVEL=INFO
 
 ### Frontend — Vercel
 
-Nếu bạn có giao diện web (React, Next.js, Streamlit), deploy lên **Vercel** (vercel.com). Vercel tối ưu cho frontend, có CDN global, và free tier rất hào phóng.
+For web user interfaces (React, Next.js, Streamlit), deploy to **Vercel** (vercel.com). Vercel is optimized for frontend architectures, featuring a global CDN and generous free tier allowances.
 
 ```bash
-# Deploy frontend lên Vercel
+# Deploy frontend to Vercel
 npm install -g vercel
 vercel --prod
 ```
 
-### Custom Domain
+### Custom Domains
 
-Mua domain từ Namecheap hoặc GoDaddy (~$10/năm), trỏ DNS về Render/Vercel:
+Acquire a custom domain from Namecheap, Cloudflare, or GoDaddy (~$10/year) and configure DNS records toward Render/Vercel:
 
-- Render: thêm custom domain trong Settings → Custom Domains
-- Vercel: thêm trong Project Settings → Domains
+- Render: Configure custom domains under Settings → Custom Domains
+- Vercel: Configure under Project Settings → Domains
 - CNAME record: `your-subdomain.yourdomain.com` → `your-app.onrender.com`
 
-> 💡 **MẸO:** Mua domain `.app` hoặc `.dev` — Google tự động bật HTTPS cho các TLD này, tiết kiệm cấu hình SSL. Domain `.me` cũng phổ biến cho project demo.
+> 💡 **TIP:** Consider purchasing a `.app` or `.dev` top-level domain — Google enforces built-in HTTPS on these TLDs, eliminating manual SSL configuration. A `.me` domain is also popular for portfolio demonstrations.
 
-Kiểm tra sau khi deploy:
+Post-deployment verification commands:
 
 ```bash
-# Test health endpoint
+# Probe health endpoint
 curl https://your-app.onrender.com/health
 
-# Test API endpoint
+# Test primary chat API endpoint
 curl https://your-app.onrender.com/api/v1/chat \
   -H "Content-Type: application/json" \
-  -d '{"message": "Xin chào", "thread_id": "test-123"}'
+  -d '{"message": "Hello", "thread_id": "test-123"}'
 
-# Kiểm tra response time
+# Measure response latency
 curl -o /dev/null -s -w "Time: %{time_total}s\n" \
   https://your-app.onrender.com/health
 ```
 
-> ⚠️ **LƯU Ý:** Render free tier "sleeps" sau 15 phút không có request. Lần truy cập đầu tiên sau sleep mất 30-60 giây để "wake up". Dùng cron job (như UptimeRobot) ping mỗi 5 phút để giữ server awake, hoặc upgrade lên paid plan.
+> ⚠️ **NOTE:** Render free tier instances enter sleep mode after 15 minutes of inactivity. Initial requests following sleep take 30 to 60 seconds to cold start. Set up an automated ping service (such as UptimeRobot) every 5 minutes to prevent cold starts, or upgrade to a paid tier during Demo Day.
 
-## 12.6 Monitoring và Logging
+## 12.6 Monitoring and Logging
 
-Monitoring (giám sát) và Logging (ghi log) là hai pilre của vận hành ứng dụng production. Không có monitoring, bạn không biết ứng dụng đang chạy tốt hay không. Không có logging, bạn không thể debug khi có lỗi. Trong tiêu chí DevOps của AI20K, monitoring và logging là yếu tố phân biệt giữa điểm trung bình và điểm cao.
+Monitoring and structured logging form the pillars of production reliability. Without monitoring, identifying outages or degradation is impossible. Without logging, diagnosing bugs and edge cases becomes guesswork. Within AI20K DevOps grading, robust monitoring and logging represent the differentiator between an average score and top marks.
 
-### Python Logging Setup
+### Python Structured Logging Setup
 
-Python có thư viện `logging` tích hợp sẵn, nhưng cấu hình mặc định khá cơ bản. Dưới đây là cấu hình logging production-ready:
+While Python includes a built-in `logging` module, its default configuration lacks structure. Below is a production-grade structured logging setup:
 
 ```python
 # app/core/logging_config.py
@@ -569,7 +569,7 @@ from datetime import datetime, timezone
 
 
 class JSONFormatter(logging.Formatter):
-    """Format log thành JSON structured logging."""
+    """Format application logs into structured JSON records."""
 
     def format(self, record: logging.LogRecord) -> str:
         log_entry = {
@@ -582,11 +582,11 @@ class JSONFormatter(logging.Formatter):
             "line": record.lineno,
         }
 
-        # Thêm extra fields nếu có
+        # Include custom context attributes if present
         if hasattr(record, "extra_data"):
             log_entry["data"] = record.extra_data
 
-        # Thêm exception info nếu có
+        # Capture exception tracebacks if present
         if record.exc_info and record.exc_info[0] is not None:
             log_entry["exception"] = {
                 "type": record.exc_info[0].__name__,
@@ -597,25 +597,25 @@ class JSONFormatter(logging.Formatter):
 
 
 def setup_logging(log_level: str = "INFO") -> None:
-    """Cấu hình logging cho ứng dụng."""
+    """Initialize application logging configuration."""
     root_logger = logging.getLogger()
     root_logger.setLevel(getattr(logging, log_level.upper()))
 
-    # Handler cho stdout (console)
+    # Output handler for stdout
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setFormatter(JSONFormatter())
     root_logger.addHandler(console_handler)
 
-    # Giảm log level cho các thư viện noisy
+    # Suppress verbose loggers from external dependencies
     logging.getLogger("httpx").setLevel(logging.WARNING)
     logging.getLogger("httpcore").setLevel(logging.WARNING)
     logging.getLogger("urllib3").setLevel(logging.WARNING)
 ```
 
-**Structured logging** (logging có cấu trúc) ghi log dưới dạng JSON thay vì plain text. Ưu điểm: dễ parse, dễ search, dễ integrate với công cụ monitoring như ELK Stack, Datadog, Grafana Loki.
+**Structured logging** serializes log messages into structured JSON rather than unstructured text. Benefits: easily indexable, searchable, and natively compatible with monitoring backends such as Datadog, Grafana Loki, or ELK Stack.
 
 ```python
-# Cách sử dụng logging trong code
+# Logging usage across application logic
 import logging
 
 logger = logging.getLogger(__name__)
@@ -657,11 +657,11 @@ async def chat(request: ChatRequest):
         raise
 ```
 
-### LangSmith cho AI Tracing
+### LangSmith for AI Tracing
 
-LangSmith là công cụ monitoring chuyên biệt cho ứng dụng LLM/LangChain/LangGraph. Nó trace từng bước của agent — từ lúc nhận input, gọi LLM, retrieve documents, đến lúc trả output. AI Logs là deliverable thường được hoàn thành tốt nhất vì dễ thiết lập.
+LangSmith provides deep observability tailored specifically for LLM, LangChain, and LangGraph architectures. It instruments every single agent step — from user input, model invocations, document retrievals, to generated outputs. AI Logs is frequently among the highest scoring deliverables when configured properly.
 
-Cấu hình LangSmith chỉ cần 3 environment variables:
+Configuring LangSmith requires only three environment variables:
 
 ```bash
 export LANGSMITH_API_KEY="lsv2_pt_xxxxx"
@@ -670,27 +670,28 @@ export LANGCHAIN_TRACING_V2="true"
 ```
 
 ```python
-# Trong app, LangSmith tự động trace khi biến môi trường được set
-# Không cần code thêm — chỉ cần import langchain
+# In the application, LangSmith tracing activates automatically via environment variables
+# No custom instrumentation required — simply import langchain
 import os
 
-# Verify LangSmith config
+# Verify LangSmith configuration
 assert os.getenv("LANGCHAIN_TRACING_V2") == "true", "LangSmith not configured"
 ```
 
-Trên LangSmith dashboard, bạn sẽ thấy:
-- Mỗi request là một trace
-- Mỗi bước trong graph là một span
-- Token usage, latency, cost cho mỗi LLM call
-- Input/output của mỗi node — debug dễ dàng
+The LangSmith dashboard offers granular visibility:
+- Every execution represents a traceable session.
+- Every state node in the graph is visualized as a child span.
+- Token metrics, execution latencies, and dollar costs per model call.
+- Inspection of prompt inputs and model completions at every node for effortless debugging.
 
-### Health Check Endpoint
+### Health Check Endpoints
 
-Health check endpoint là URL mà monitoring tools gọi định kỳ để kiểm tra ứng dụng còn sống và hoạt động đúng:
+A health check endpoint provides a standardized probe for monitoring systems to verify application uptime and dependency status:
 
 ```python
 # app/api/health.py
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
+from fastapi.responses import JSONResponse
 from datetime import datetime, timezone
 import logging
 
@@ -701,8 +702,8 @@ logger = logging.getLogger(__name__)
 @router.get("/health")
 async def health_check():
     """
-    Health check endpoint cho monitoring.
-    Kiểm tra: API sống, database kết nối, các dependencies.
+    Primary health check endpoint for monitoring probes.
+    Verifies API availability, database connectivity, and downstream services.
     """
     checks = {
         "status": "healthy",
@@ -710,9 +711,9 @@ async def health_check():
         "version": "1.0.0",
     }
 
-    # Kiểm tra database connection
+    # Verify database connectivity
     try:
-        # Thay bằng logic check thực tế của bạn
+        # Example probe logic:
         # async with db.session() as session:
         #     await session.execute(text("SELECT 1"))
         checks["database"] = "connected"
@@ -721,9 +722,9 @@ async def health_check():
         checks["database"] = "disconnected"
         checks["status"] = "degraded"
 
-    # Kiểm tra LLM API
+    # Verify downstream LLM service availability
     try:
-        # Có thể ping OpenAI API nhẹ
+        # Lightweight probe to LLM endpoint or verification of API credentials
         checks["llm_api"] = "reachable"
     except Exception as e:
         logger.error(f"LLM API health check failed: {e}")
@@ -736,39 +737,39 @@ async def health_check():
 
 @router.get("/health/live")
 async def liveness_probe():
-    """Kubernetes liveness probe — chỉ kiểm tra process còn sống."""
+    """Kubernetes liveness probe — verifies container process is alive."""
     return {"status": "alive"}
 
 
 @router.get("/health/ready")
 async def readiness_probe():
-    """Kubernetes readiness probe — kiểm tra sẵn sàng nhận traffic."""
-    # Kiểm tra tất cả dependencies
+    """Kubernetes readiness probe — verifies service is ready to handle incoming traffic."""
+    # Check all critical upstream and downstream dependencies
     return {"status": "ready"}
 ```
 
-> 🔑 **ĐIỂM CHÍNH:** Ba công cụ monitoring cần có: (1) Structured logging cho application logs, (2) LangSmith cho AI tracing, (3) Health check endpoint cho uptime monitoring. BTC đặc biệt chú ý AI Logs — đây là bằng chứng rõ ràng nhất rằng agent hoạt động đúng.
+> 🔑 **KEY TAKEAWAY:** Three essential monitoring pillars: (1) Structured logging for application error tracing, (2) LangSmith for AI pipeline observability, and (3) Health check endpoints for infrastructure uptime monitoring. The evaluation panel places special emphasis on AI Logs as clear evidence of deterministic, reliable agent execution.
 
-## Tóm tắt
+## Summary
 
-Trong chương này, chúng ta đã tìm hiểu toàn bộ pipeline DevOps cho ứng dụng AI Agent:
+This chapter explored the complete DevOps lifecycle for production-ready AI Agent applications:
 
-- **Docker** đóng gói ứng dụng vào container, đảm bảo chạy đồng nhất trên mọi môi trường
-- **Multi-stage Dockerfile** tạo image production nhỏ gọn, an toàn với non-root user và HEALTHCHECK
-- **Docker Compose** quản lý nhiều dịch vụ (API, database, Redis) cùng lúc với health checks và resource limits
-- **GitHub Actions CI/CD** tự động lint, test, build trên mỗi push — chuyên nghiệp và bắt buộc cho Demo Day
-- **Cloud deploy** với Render (backend) và Vercel (frontend) — đơn giản, nhanh chóng
-- **Monitoring và Logging** với structured logging, LangSmith tracing, và health check endpoint
+- **Docker** encapsulates applications within portable containers, ensuring consistent runtime behavior across all target environments.
+- **Multi-stage Dockerfile** minimizes production image sizes and enhances container hardening using non-root users and automated health checks.
+- **Docker Compose** coordinates multi-service topologies (API, PostgreSQL, Redis) with health checks, restarts, and resource constraints.
+- **GitHub Actions CI/CD** automates linting, test suites, and image builds on every push — demonstrating software engineering rigor.
+- **Cloud Deployment** leverages Render for backend hosting and Vercel for frontend distribution quickly and reliably.
+- **Monitoring and Logging** integrates structured JSON logging, LangSmith AI observability, and standardized health check probes.
 
-DevOps là tiêu chí chấm điểm riêng trong AI20K. Phần lớn đội thiếu CI/CD và không có test. Chỉ cần bạn có Docker + CI/CD + tests + health check, bạn đã ở top về DevOps.
+DevOps constitutes an explicit scoring category in AI20K. While many teams overlook testing and CI/CD pipelines, establishing Docker + CI/CD + automated tests + health checks firmly establishes your project among top contenders.
 
-## Câu hỏi ôn tập
+## Review Questions
 
-1. Sự khác biệt giữa Docker image và Docker container là gì?
-2. Tại sao multi-stage build làm image nhỏ hơn? Giải thích cơ chế layer caching.
-3. `depends_on` với `condition: service_healthy` khác gì với `depends_on` không có condition?
-4. Nếu GitHub Actions CI pipeline của bạn thất bại ở bước test, bước build có chạy không? Tại sao?
-5. Tại sao không nên lưu API keys trong Docker image? Cách đúng là gì?
-6. Structured logging (JSON) ưu điểm gì so với plain text logging?
-7. LangSmith trace những thông tin gì? Tại sao nó quan trọng cho AI Agent?
-8. Health check endpoint trả về HTTP status code nào khi ứng dụng không khỏe?
+1. What is the fundamental difference between a Docker image and a Docker container?
+2. Why do multi-stage builds yield significantly smaller images? Explain the mechanics of Docker layer caching.
+3. How does `depends_on` with `condition: service_healthy` differ from a standard `depends_on` configuration?
+4. If a GitHub Actions CI pipeline fails at the testing step, does the build job proceed? Why?
+5. Why is it dangerous to embed API keys directly in a Docker image? What is the recommended best practice?
+6. What advantages does structured JSON logging provide over standard plain text logging?
+7. What telemetry does LangSmith capture, and why is this critical for AI Agent debugging?
+8. What HTTP status code should a health check endpoint return when application dependencies are unhealthy or degraded?

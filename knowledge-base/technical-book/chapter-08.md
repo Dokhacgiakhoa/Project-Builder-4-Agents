@@ -1,56 +1,56 @@
 ---
-title: "Phát triển API với FastAPI"
+title: "API Development with FastAPI"
 weight: 8
 ---
 
-# Chương 8: Phát triển API với FastAPI
+# Chapter 8: API Development with FastAPI
 
-Sau khi xây dựng AI Agent ở Chương 4, bạn cần "đóng gói" agent thành một dịch vụ web mà người dùng có thể truy cập. FastAPI là framework Python hiện đại, lý tưởng để xây dựng API cho AI agents. Chương này sẽ hướng dẫn bạn từ cơ bản đến nâng cao — từ việc tạo route đầu tiên đến triển khai streaming response và kết nối với LangGraph agent.
+After building the AI Agent in Chapter 4, you need to "package" the agent into a web service that users can access. FastAPI is a modern Python framework ideal for building APIs for AI agents. This chapter guides you from fundamentals to advanced concepts—from creating your first route to implementing streaming responses and connecting with a LangGraph agent.
 
 ---
 
-## 8.1 FastAPI — Framework hiện đại cho AI
+## 8.1 FastAPI — Modern Framework for AI
 
-### Tại sao chọn FastAPI?
+### Why Choose FastAPI?
 
-FastAPI là framework Python được thiết kế đặc biệt cho xây dựng API hiện đại. Nó nổi bật nhờ bốn ưu điểm chính:
+FastAPI is a Python framework designed specifically for building modern APIs. It stands out due to four main advantages:
 
-**Hiệu năng cao:** FastAPI xây dựng trên Starlette (ASGI) và Pydantic, đạt hiệu năng ngang với NodeJS và Go — nhanh hơn Flask và Django đáng kể. Khi bạn xử lý hàng ngàn request đến AI agent, hiệu năng này tạo sự khác biệt lớn.
+**High Performance:** Built on Starlette (ASGI) and Pydantic, FastAPI achieves performance on par with NodeJS and Go—significantly faster than Flask and Django. When processing thousands of requests to an AI agent, this performance makes a substantial difference.
 
-**Async-first:** AI agents thường gọi LLM API, search API, và database — tất cả đều là I/O-bound operations. FastAPI hỗ trợ async/await native, cho phép xử lý nhiều request đồng thời mà không block thread. Điều này quan trọng vì một request đến AI agent có thể mất 5-30 giây để hoàn thành.
+**Async-First:** AI agents typically call LLM APIs, search APIs, and databases—all of which are I/O-bound operations. FastAPI provides native async/await support, enabling concurrent request processing without blocking threads. This is critical because a single request to an AI agent can take 5–30 seconds to complete.
 
-**Auto-documentation:** FastAPI tự động sinh OpenAPI (Swagger) documentation từ code. Mỗi route, parameter, request body, và response model đều được document tự động. Bạn không cần viết API docs thủ công — docs luôn đồng bộ với code.
+**Auto-Documentation:** FastAPI automatically generates OpenAPI (Swagger) documentation directly from code. Every route, parameter, request body, and response model is documented automatically. You never need to write API docs manually—documentation always remains in sync with the code.
 
-**Type-safe:** Pydantic validation tích hợp sâu giúp bắt lỗi early — sai kiểu dữ liệu, thiếu field, giá trị ngoài range — tất cả được phát hiện trước khi logic xử lý chạy. Điều này giảm bug và tăng độ tin cậy.
+**Type-Safe:** Deep integration with Pydantic validation catches errors early—wrong data types, missing fields, out-of-range values—all detected before the execution logic runs. This minimizes bugs and boosts reliability.
 
-### So sánh với Flask và Django
+### Comparison with Flask and Django
 
-| Tiêu chí | FastAPI | Flask | Django |
+| Criteria | FastAPI | Flask | Django |
 |-----------|---------|-------|--------|
-| Async | Native async | WSGI (sync), cần extension | ASGI từ Django 3.0 |
-| API Docs | Tự động (Swagger) | Cần Flask-RESTX | Cần DRF + drf-spectacular |
-| Validation | Pydantic tích hợp | Cài thêm | Django forms / DRF serializers |
-| Hiệu năng | Rất cao | Trung bình | Trung bình |
-| Learning curve | Dễ | Rất dễ | Khá khó |
-| Phù hợp cho | API, microservices | Small apps, prototypes | Full-stack web apps |
+| Async | Native async | WSGI (sync), requires extensions | ASGI since Django 3.0 |
+| API Docs | Automatic (Swagger) | Requires Flask-RESTX | Requires DRF + drf-spectacular |
+| Validation | Integrated Pydantic | Additional install required | Django forms / DRF serializers |
+| Performance | Very high | Medium | Medium |
+| Learning curve | Easy | Very easy | Fairly steep |
+| Best suited for | APIs, microservices | Small apps, prototypes | Full-stack web apps |
 
-FastAPI là lựa chọn đúng khi bạn xây dựng **API backend cho AI application**. Flask phù hợp cho prototype nhanh, nhưng thiếu async và auto-docs. Django quá nặng cho API-only service.
+FastAPI is the right choice when building an **API backend for an AI application**. Flask suits quick prototypes but lacks native async and auto-docs. Django is overly heavy for an API-only service.
 
-### Khi nào FastAPI là lựa chọn đúng?
+### When Is FastAPI the Right Choice?
 
-FastAPI là lựa chọn tuyệt vời khi:
-- Bạn xây dựng API backend (không render HTML)
-- Cần async (gọi nhiều API bên ngoài, I/O nặng)
-- Muốn auto-documentation cho team collaboration
-- Xây dựng microservices hoặc serverless functions
-- Cần type validation mạnh mẽ
+FastAPI is an excellent choice when:
+- You are building an API backend (no HTML rendering)
+- Async is required (calling multiple external APIs, heavy I/O)
+- You need auto-documentation for team collaboration
+- Building microservices or serverless functions
+- Strong type validation is needed
 
-FastAPI có thể không phù hợp khi:
-- Cần render HTML templates (dùng Django hoặc Flask thay)
-- Project nhỏ, prototype nhanh không cần production-ready
-- Team đã quen Django và không muốn học framework mới
+FastAPI may not be optimal when:
+- HTML template rendering is needed (use Django or Flask instead)
+- Small projects or quick prototypes that do not require production readiness
+- The team is already proficient in Django and prefers not to learn a new framework
 
-> 💡 **MẸO:** Cài đặt FastAPI kèm uvicorn (ASGI server) để chạy: `pip install fastapi uvicorn`. Uvicorn là server ASGI hiệu năng cao, tương tự như Gunicorn cho WSGI. Trong production, chạy uvicorn với multiple workers: `uvicorn src.main:app --workers 4`.
+> 💡 **TIP:** Install FastAPI alongside uvicorn (ASGI server) to run: `pip install fastapi uvicorn`. Uvicorn is a high-performance ASGI server, comparable to Gunicorn for WSGI. In production, run uvicorn with multiple workers: `uvicorn src.main:app --workers 4`.
 
 ---
 
@@ -61,35 +61,35 @@ flowchart LR
     V --> R["Route handler /api/v1/chat"]
     R --> AG["Agent graph: src/agents/graph.py"]
     AG --> SS{streaming?}
-    SS -->|yes| ST[StreamingResponse: chunk tung phan]
+    SS -->|yes| ST[StreamingResponse: chunked stream]
     SS -->|no| JSON[JSON response: schema locked]
     ST --> E["Error mapping 4xx/5xx"]
 ```
-> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNpVkTFvwjAQhf_KyWtLo0rtkqEVogipKqWKER0SBss-EovEdh0bgoD_3kuASvXg4d37fO_ORyatQpYC29R2LyvhA3xkhQE6k3xSazRhDaPRC8y_87lWqsa98JjCZJFxuIPalqU25fpCzL8H6yr_OihhgpawE7VWIlifgsefiG2AVlbYiCuxGoAsL1hmY0CohKEWHhLhdLJ7TChRKNjVnA3m8Yzc45KCQemFq1JovUxEL7TJoDy4wx8zng0Q58c2eBQNhX09X0qc96XTAdsT8GXOb_UMW2dNS0PKKpothGhKcJRs_Y8z9gTvfPGZ9xdNd4Mu89Fm5BbVDVkOKaaUfOq99dAI56gVPHVd8tx1FJfdA2vQN0Kr_juOPViwQG9hQULBFG5ErGkbhTn3ZhGD5QcjqRh8RFKio1Xjmxa0heYqn38B10Gb0g==)
+> [📊 Open diagram on Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNpVkTFvwjAQhf_KyWtLo0rtkqEVogipKqWKER0SBss-EovEdh0bgoD_3kuASvXg4d37fO_ORyatQpYC29R2LyvhA3xkhQE6k3xSazRhDaPRC8y_87lWqsa98JjCZJFxuIPalqU25fpCzL8H6yr_OihhgpawE7VWIlifgsefiG2AVlbYiCuxGoAsL1hmY0CohKEWHhLhdLJ7TChRKNjVnA3m8Yzc45KCQemFq1JovUxEL7TJoDy4wx8zng0Q58c2eBQNhX09X0qc96XTAdsT8GXOb_UMW2dNS0PKKpothGhKcJRs_Y8z9gTvfPGZ9xdNd4Mu89Fm5BbVDVkOKaaUfOq99dAI56gVPHVd8tx1FJfdA2vQN0Kr_juOPViwQG9hQULBFG5ErGkbhTn3ZhGD5QcjqRh8RFKio1Xjmxa0heYqn38B10Gb0g==)
 
-## 8.2 Routes và Schemas
+## 8.2 Routes and Schemas
 
-### Định nghĩa Routes
+### Defining Routes
 
-Route (tuyến) là điểm truy cập vào API. Mỗi route kết hợp HTTP method (GET, POST, PUT, DELETE) với URL path:
+A route is an API entry point. Each route couples an HTTP method (GET, POST, PUT, DELETE) with a URL path:
 
 ```python
 from fastapi import FastAPI
 
 app = FastAPI(
     title="AI20K Agent API",
-    description="API cho AI Agent xây dựng với LangGraph",
+    description="API for AI Agent built with LangGraph",
     version="1.0.0",
 )
 
 @app.get("/")
 async def root():
     """Health check endpoint."""
-    return {"status": "ok", "message": "AI20K Agent API đang chạy"}
+    return {"status": "ok", "message": "AI20K Agent API is running"}
 
 @app.get("/health")
 async def health_check():
-    """Kiểm tra sức khỏe hệ thống."""
+    """Check system health."""
     return {
         "status": "healthy",
         "version": "1.0.0",
@@ -97,14 +97,14 @@ async def health_check():
 
 @app.post("/api/v1/chat")
 async def chat(request: ChatRequest):
-    """Xử lý tin nhắn từ người dùng."""
-    # Xử lý logic...
+    """Process incoming messages from users."""
+    # Business logic execution...
     return {"response": "..."}
 ```
 
 ### Pydantic Request/Response Models
 
-Pydantic models định nghĩa cấu trúc dữ liệu cho request và response. Đây là "hợp đồng" giữa client và server:
+Pydantic models define the data structures for requests and responses. They form the "contract" between client and server:
 
 ```python
 from pydantic import BaseModel, Field
@@ -112,43 +112,43 @@ from typing import Optional
 from datetime import datetime
 
 class ChatRequest(BaseModel):
-    """Schema cho request chat."""
+    """Schema for chat requests."""
     message: str = Field(
-        ...,  # ... nghĩa là bắt buộc (required)
+        ...,  # ... indicates required
         min_length=1,
         max_length=5000,
-        description="Tin nhắn từ người dùng",
-        examples=["GDP Việt Nam năm 2024 là bao nhiêu?"]
+        description="Message from user",
+        examples=["What is the GDP of Vietnam in 2024?"]
     )
     conversation_id: Optional[str] = Field(
         None,
-        description="ID cuộc hội thoại (mặc định: tạo mới)",
+        description="Conversation ID (default: create new)",
     )
     stream: bool = Field(
         False,
-        description="Có stream response không",
+        description="Whether to stream the response",
     )
 
 class ChatResponse(BaseModel):
-    """Schema cho response chat."""
-    response: str = Field(description="Câu trả lời từ agent")
-    conversation_id: str = Field(description="ID cuộc hội thoại")
+    """Schema for chat responses."""
+    response: str = Field(description="Response from agent")
+    conversation_id: str = Field(description="Conversation ID")
     sources: list[str] = Field(
         default_factory=list,
-        description="Nguồn tham khảo",
+        description="Reference sources",
     )
     timestamp: datetime = Field(
         default_factory=datetime.now,
-        description="Thời gian phản hồi",
+        description="Response timestamp",
     )
 
-# Sử dụng trong route
+# Route usage
 @app.post("/api/v1/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
-    """Xử lý tin nhắn chat với agent."""
-    # Logic xử lý...
+    """Process chat messages with the agent."""
+    # Handling logic...
     return ChatResponse(
-        response="Câu trả lời mẫu",
+        response="Sample response",
         conversation_id=request.conversation_id or "new-id",
         sources=["source1", "source2"],
     )
@@ -156,13 +156,13 @@ async def chat(request: ChatRequest):
 
 ### Field Validators
 
-Pydantic cho phép thêm validation phức tạp với validators:
+Pydantic allows complex validation rules using validators:
 
 ```python
 from pydantic import BaseModel, Field, field_validator
 
 class QueryRequest(BaseModel):
-    """Request cho agent research."""
+    """Request for research agent."""
     query: str = Field(
         ...,
         min_length=3,
@@ -177,21 +177,21 @@ class QueryRequest(BaseModel):
     @field_validator("query")
     @classmethod
     def validate_query(cls, v: str) -> str:
-        """Chuẩn hóa query."""
+        """Normalize query string."""
         v = v.strip()
         if not v:
-            raise ValueError("Query không được rỗng")
+            raise ValueError("Query cannot be empty")
         return v
 ```
 
 ### API Versioning
 
-Luôn version API để duy trì khả năng tương thích:
+Always version your API to preserve backward compatibility:
 
 ```python
 from fastapi import APIRouter
 
-# Tạo router cho v1
+# Router for v1
 v1_router = APIRouter(prefix="/api/v1")
 
 @v1_router.post("/chat", response_model=ChatResponse)
@@ -202,31 +202,31 @@ async def chat_v1(request: ChatRequest):
         conversation_id="id",
     )
 
-# Router cho v2 (khi cần thay đổi API mà không break v1)
+# Router for v2 (when modifying APIs without breaking v1)
 v2_router = APIRouter(prefix="/api/v2")
 
 @v2_router.post("/chat", response_model=ChatResponseV2)
 async def chat_v2(request: ChatRequestV2):
-    """Chat endpoint version 2 — hỗ trợ streaming."""
-    # Logic mới...
+    """Chat endpoint version 2 — streaming supported."""
+    # New logic...
     pass
 
-# Đăng ký routers
+# Register routers
 app.include_router(v1_router)
 app.include_router(v2_router)
 ```
 
-> 🔑 **ĐIỂM CHÍNH:** Pydantic models là trái tim của FastAPI. Chúng đảm bảo: (1) request đúng format, (2) response đúng schema, (3) auto-documentation luôn chính xác. Luôn định nghĩa rõ request và response models cho mọi endpoint.
+> 🔑 **KEY TAKEAWAY:** Pydantic models are the heart of FastAPI. They ensure: (1) requests follow the correct format, (2) responses adhere to the schema, and (3) auto-documentation remains completely accurate. Always specify explicit request and response models for every endpoint.
 
 ---
 
-## 8.3 Validation với Pydantic
+## 8.3 Validation with Pydantic
 
-Pydantic là thư viện validation mạnh mẽ được tích hợp sâu trong FastAPI. Khi request đến, Pydantic tự động parse và validate data trước khi route handler nhận được. Nếu validation fail, FastAPI tự động trả về 422 Unprocessable Entity với chi tiết lỗi.
+Pydantic is a powerful validation library deeply integrated into FastAPI. When a request arrives, Pydantic automatically parses and validates data before the route handler receives it. If validation fails, FastAPI automatically returns 422 Unprocessable Entity with detailed error diagnostics.
 
 ### BaseModel
 
-`BaseModel` là base class cho mọi Pydantic model:
+`BaseModel` serves as the foundation class for all Pydantic models:
 
 ```python
 from pydantic import BaseModel, Field
@@ -234,19 +234,19 @@ from typing import Optional
 from enum import Enum
 
 class MessageRole(str, Enum):
-    """Vai trò của message."""
+    """Message sender role."""
     USER = "user"
     ASSISTANT = "assistant"
     SYSTEM = "system"
 
 class Message(BaseModel):
-    """Một tin nhắn trong cuộc hội thoại."""
+    """A single message within a conversation."""
     role: MessageRole
     content: str = Field(..., min_length=1)
     timestamp: Optional[str] = None
 
 class ConversationContext(BaseModel):
-    """Ngữ cảnh cuộc hội thoại."""
+    """Conversation context and state."""
     conversation_id: str
     user_id: Optional[str] = None
     history: list[Message] = Field(default_factory=list)
@@ -254,27 +254,27 @@ class ConversationContext(BaseModel):
 
 ### Field Constraints
 
-Pydantic cung cấp nhiều constraint qua `Field`:
+Pydantic provides extensive constraints through `Field`:
 
 ```python
 from pydantic import BaseModel, Field
 from typing import Literal
 
 class AgentConfig(BaseModel):
-    """Cấu hình cho agent."""
-    # Danh sách model cập nhật 2026-09 — review mỗi cohort (xem cost-management.md).
-    # gpt-3.5-turbo đã bị retire — KHÔNG dùng nữa.
+    """Agent runtime configuration."""
+    # Model catalog updated 2026-09 — review each cohort (see cost-management.md).
+    # gpt-3.5-turbo has been retired — DO NOT use anymore.
     model: Literal["gpt-4o", "gpt-4o-mini", "gpt-4.1",
                    "claude-sonnet-4-5", "claude-haiku-4-5",
                    "gemini-2.5-pro", "gemini-2.5-flash"] = Field(
         default="gpt-4o-mini",
-        description="LLM model sử dụng",
+        description="LLM model to use",
     )
     temperature: float = Field(
         default=0.7,
         ge=0.0,    # >= 0.0
         le=2.0,    # <= 2.0
-        description="Nhiệt độ sinh text",
+        description="Text generation temperature",
     )
     max_tokens: int = Field(
         default=2048,
@@ -283,7 +283,7 @@ class AgentConfig(BaseModel):
     )
     tools: list[str] = Field(
         default_factory=lambda: ["web_search"],
-        description="Danh sách tools agent có thể sử dụng",
+        description="List of tools the agent can use",
     )
 ```
 
@@ -291,35 +291,36 @@ class AgentConfig(BaseModel):
 
 ```python
 from pydantic import BaseModel, Field, field_validator, model_validator
+from typing import Literal
 
 class ResearchRequest(BaseModel):
-    """Request cho agent nghiên cứu."""
+    """Research agent request payload."""
     query: str = Field(..., min_length=3, max_length=2000)
     depth: Literal["shallow", "medium", "deep"] = "medium"
-    language: str = "vi"
+    language: str = "en"
     
     @field_validator("query")
     @classmethod
     def clean_query(cls, v: str) -> str:
-        """Loại bỏ khoảng trắng thừa."""
+        """Strip redundant whitespace."""
         return " ".join(v.split())
     
     @field_validator("language")
     @classmethod
     def validate_language(cls, v: str) -> str:
-        """Chỉ hỗ trợ tiếng Việt và tiếng Anh."""
+        """Support English and Vietnamese only."""
         v = v.lower()
         if v not in ["vi", "en"]:
-            raise ValueError("Chỉ hỗ trợ ngôn ngữ: vi (tiếng Việt), en (tiếng Anh)")
+            raise ValueError("Supported languages: vi (Vietnamese), en (English) only")
         return v
     
     @model_validator(mode="after")
     def validate_depth_for_query(self):
-        """Deep research chỉ cho query dài."""
+        """Deep research requires longer, descriptive queries."""
         if self.depth == "deep" and len(self.query) < 20:
             raise ValueError(
-                "Deep research yêu cầu query ít nhất 20 ký tự. "
-                "Hãy mô tả chi tiết hơn những gì bạn cần nghiên cứu."
+                "Deep research requires a query of at least 20 characters. "
+                "Please describe what you need researched in more detail."
             )
         return self
 ```
@@ -327,22 +328,22 @@ class ResearchRequest(BaseModel):
 ### Nested Models
 
 ```python
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 class ToolCall(BaseModel):
-    """Một lần gọi tool."""
+    """A single tool invocation."""
     tool_name: str
     arguments: dict
     result: str | None = None
 
 class AgentStep(BaseModel):
-    """Một bước xử lý của agent."""
+    """A discrete execution step taken by the agent."""
     thought: str
     action: str | None = None
     observation: str | None = None
 
 class ChatResponse(BaseModel):
-    """Response đầy đủ từ agent."""
+    """Complete response payload from the agent."""
     answer: str
     conversation_id: str
     steps: list[AgentStep] = Field(default_factory=list)
@@ -351,30 +352,30 @@ class ChatResponse(BaseModel):
     latency_ms: float = 0.0
 ```
 
-> 💡 **MẸO:** Khi client gửi request sai format, FastAPI tự động trả về 422 với chi tiết lỗi rất hữu ích. Hãy tận dụng tính năng này — đừng validate thủ công trong route handler. Định nghĩa ràng buộc trong Pydantic model là đủ.
+> 💡 **TIP:** When a client sends a malformed request, FastAPI automatically returns 422 with actionable error details. Leverage this capability—never write manual validation inside route handlers. Declaring constraints in your Pydantic model is sufficient.
 
 ---
 
 ## 8.4 Error Handling
 
-Xử lý lỗi đúng cách là yếu tố then chốt cho API production. API cần trả về error response có cấu trúc, không leak thông tin nhạy cảm, và giúp client hiểu và xử lý lỗi.
+Proper error handling is fundamental for production-grade APIs. An API must return structured error responses, prevent leaking sensitive internal data, and provide clear diagnostics for client-side recovery.
 
 ### HTTPException
 
-FastAPI sử dụng `HTTPException` cho error responses:
+FastAPI uses `HTTPException` for standard error responses:
 
 ```python
 from fastapi import HTTPException
 
 @app.get("/api/v1/conversations/{conversation_id}")
 async def get_conversation(conversation_id: str):
-    """Lấy thông tin cuộc hội thoại."""
+    """Retrieve conversation details."""
     conversation = await db.get_conversation(conversation_id)
     
     if not conversation:
         raise HTTPException(
             status_code=404,
-            detail=f"Không tìm thấy cuộc hội thoại: {conversation_id}",
+            detail=f"Conversation not found: {conversation_id}",
         )
     
     return conversation
@@ -382,7 +383,7 @@ async def get_conversation(conversation_id: str):
 
 ### Global Exception Handler
 
-Bắt tất cả exceptions chưa được xử lý ở global level:
+Catch all unhandled exceptions at the global layer:
 
 ```python
 from fastapi import Request
@@ -392,72 +393,72 @@ import logging
 logger = logging.getLogger(__name__)
 
 class AgentError(Exception):
-    """Lỗi từ agent."""
+    """Custom agent execution error."""
     def __init__(self, message: str, code: str = "AGENT_ERROR"):
         self.message = message
         self.code = code
         super().__init__(message)
 
 class RateLimitError(Exception):
-    """Lỗi rate limit."""
+    """Rate limit violation error."""
     pass
 
 @app.exception_handler(AgentError)
 async def agent_error_handler(request: Request, exc: AgentError):
-    """Xử lý lỗi từ agent."""
+    """Handle custom agent errors."""
     logger.warning(f"Agent error: {exc.message}")
     return JSONResponse(
         status_code=503,
         content={
             "error": "agent_error",
-            "message": "Agent không thể xử lý yêu cầu. Vui lòng thử lại.",
+            "message": "The agent was unable to process the request. Please try again.",
             "code": exc.code,
         }
     )
 
 @app.exception_handler(RateLimitError)
 async def rate_limit_handler(request: Request, exc: RateLimitError):
-    """Xử lý lỗi rate limit."""
+    """Handle rate limit errors."""
     return JSONResponse(
         status_code=429,
         content={
             "error": "rate_limit",
-            "message": "Quá nhiều yêu cầu. Vui lòng thử lại sau 60 giây.",
+            "message": "Too many requests. Please try again after 60 seconds.",
             "retry_after": 60,
         }
     )
 
 @app.exception_handler(Exception)
 async def global_error_handler(request: Request, exc: Exception):
-    """Catch-all — không bao giờ leak internal error."""
+    """Catch-all handler — never leak internal details."""
     logger.error(f"Unhandled exception: {exc}", exc_info=True)
     return JSONResponse(
         status_code=500,
         content={
             "error": "internal_error",
-            "message": "Lỗi hệ thống. Vui lòng thử lại sau.",
-            # KHÔNG bao gồm str(exc) — có thể leak thông tin nhạy cảm
+            "message": "System error. Please try again later.",
+            # NEVER include str(exc) — doing so leaks sensitive system internals
         }
     )
 ```
 
 ### Domain Errors to HTTP Codes
 
-Ánh xạ lỗi nghiệp vụ sang HTTP status codes:
+Map domain-specific errors to HTTP status codes:
 
 ```python
 from fastapi import HTTPException
 
 class ErrorCode:
-    """Tập trung định nghĩa error codes."""
-    AGENT_TIMEOUT = ("agent_timeout", 504, "Agent xử lý quá lâu")
-    INVALID_QUERY = ("invalid_query", 400, "Câu hỏi không hợp lệ")
-    CONVERSATION_NOT_FOUND = ("not_found", 404, "Không tìm thấy cuộc hội thoại")
-    RATE_LIMIT = ("rate_limit", 429, "Quá nhiều yêu cầu")
-    MODEL_ERROR = ("model_error", 502, "Lỗi từ LLM provider")
+    """Centralized definition of error codes."""
+    AGENT_TIMEOUT = ("agent_timeout", 504, "Agent processing took too long")
+    INVALID_QUERY = ("invalid_query", 400, "Invalid query input")
+    CONVERSATION_NOT_FOUND = ("not_found", 404, "Conversation not found")
+    RATE_LIMIT = ("rate_limit", 429, "Too many requests")
+    MODEL_ERROR = ("model_error", 502, "Error from LLM provider")
 
 def raise_agent_error(code: tuple, detail: str = ""):
-    """Helper raise error với cấu trúc chuẩn."""
+    """Standardized error raising helper."""
     error_code, status, message = code
     raise HTTPException(
         status_code=status,
@@ -467,7 +468,7 @@ def raise_agent_error(code: tuple, detail: str = ""):
         }
     )
 
-# Sử dụng
+# Usage
 @app.post("/api/v1/chat")
 async def chat(request: ChatRequest):
     try:
@@ -480,34 +481,35 @@ async def chat(request: ChatRequest):
     return result
 ```
 
-> ⚠️ **LƯU Ý:** Nguyên tắc bảo mật quan trọng: **KHÔNG BAO GIỜ** expose stack trace, internal error message, hoặc thông tin hệ thống trong 500 responses. Một attacker có thể dùng thông tin này để tìm lỗ hổng. Global exception handler phải "sanitize" mọi error response.
+> ⚠️ **NOTE:** Vital security principle: **NEVER** expose stack traces, internal error messages, or environment paths in 500 responses. Attackers can leverage such information to identify system vulnerabilities. Global exception handlers must sanitize every error response.
 
 ---
 
-## 8.5 CORS và Middleware
+## 8.5 CORS and Middleware
 
-### CORS là gì?
+### What Is CORS?
 
-CORS (Cross-Origin Resource Sharing) là cơ chế bảo mật của browser. Khi frontend chạy ở `http://localhost:3000` (Next.js) gọi API ở `http://localhost:8000` (FastAPI), browser sẽ block request vì "cross-origin". CORS middleware cho phép bạn chỉ định domain nào được phép gọi API.
+CORS (Cross-Origin Resource Sharing) is a browser security mechanism. When frontend code hosted at `http://localhost:3000` (Next.js) invokes an API at `http://localhost:8000` (FastAPI), the browser blocks the request due to cross-origin restrictions. CORS middleware permits you to declare explicitly which origins may access the API.
 
-### Cấu hình CORS cho Frontend
+### Configuring CORS for Frontend
 
 ```python
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:3000",      # Next.js dev server
+        "http://localhost:3000",      # Next.js development server
         "http://localhost:3001",      # Alternative port
         "https://ai20k.yourdomain.com",  # Production frontend
     ],
-    allow_credentials=True,           # Cho phép gửi cookies
-    allow_methods=["*"],              # Cho phép tất cả HTTP methods
-    allow_headers=["*"],              # Cho phép tất cả headers
+    allow_credentials=True,           # Allow cookie transmission
+    allow_methods=["*"],              # Allow all HTTP methods
+    allow_headers=["*"],              # Allow all headers
 )
 
-# Cho development — cho phép tất cả origins (KHÔNG dùng trong production)
+# For development — permit all origins (DO NOT use in production)
 if os.getenv("ENVIRONMENT") == "development":
     app.add_middleware(
         CORSMiddleware,
@@ -518,9 +520,9 @@ if os.getenv("ENVIRONMENT") == "development":
     )
 ```
 
-### Logging Middleware với Timing
+### Logging Middleware with Timing
 
-Middleware chạy trước và sau mỗi request — phù hợp cho logging và monitoring:
+Middleware executes before and after every request—making it ideal for logging and request profiling:
 
 ```python
 import time
@@ -531,31 +533,31 @@ logger = logging.getLogger("api")
 
 @app.middleware("http")
 async def logging_middleware(request: Request, call_next):
-    """Log mọi request với thời gian xử lý."""
+    """Log all requests along with execution duration."""
     start_time = time.time()
     
-    # Log request
-    logger.info(f"→ {request.method} {request.url.path}")
+    # Log incoming request
+    logger.info(f"-> {request.method} {request.url.path}")
     
     try:
         response = await call_next(request)
     except Exception as e:
-        # Log lỗi
+        # Log failure
         duration = (time.time() - start_time) * 1000
         logger.error(
-            f"✗ {request.method} {request.url.path} "
-            f"ERROR {duration:.0f}ms — {str(e)}"
+            f"x {request.method} {request.url.path} "
+            f"ERROR {duration:.0f}ms - {str(e)}"
         )
         raise
     
-    # Log response
+    # Log completed response
     duration = (time.time() - start_time) * 1000
     logger.info(
-        f"← {request.method} {request.url.path} "
+        f"<- {request.method} {request.url.path} "
         f"{response.status_code} {duration:.0f}ms"
     )
     
-    # Thêm timing header
+    # Append processing time header
     response.headers["X-Process-Time"] = f"{duration:.0f}ms"
     return response
 ```
@@ -567,7 +569,7 @@ from fastapi import Request, HTTPException
 from collections import defaultdict
 import time
 
-# Simple in-memory rate limiter (dùng Redis trong production)
+# Simple in-memory rate limiter (use Redis in production)
 rate_limits: dict[str, list[float]] = defaultdict(list)
 
 RATE_LIMIT = 30  # 30 requests
@@ -575,38 +577,38 @@ RATE_WINDOW = 60  # per 60 seconds
 
 @app.middleware("http")
 async def rate_limit_middleware(request: Request, call_next):
-    """Giới hạn số request per IP."""
+    """Enforce request limits per IP address."""
     client_ip = request.client.host
     
-    # Clean old entries
+    # Evict expired entries
     now = time.time()
     rate_limits[client_ip] = [
         t for t in rate_limits[client_ip]
         if now - t < RATE_WINDOW
     ]
     
-    # Check limit
+    # Verify threshold
     if len(rate_limits[client_ip]) >= RATE_LIMIT:
         raise HTTPException(
             status_code=429,
-            detail=f"Quá nhiều yêu cầu. Thử lại sau {RATE_WINDOW} giây."
+            detail=f"Too many requests. Please try again after {RATE_WINDOW} seconds."
         )
     
     rate_limits[client_ip].append(now)
     return await call_next(request)
 ```
 
-> 💡 **MẸO:** Trong development, dùng `allow_origins=["*"]` để nhanh chóng. Nhưng trong production, luôn chỉ định chính xác domains được phép. Rate limiter in-memory phù hợp cho development; dùng Redis cho production để hoạt động đúng khi chạy multiple workers.
+> 💡 **TIP:** During development, using `allow_origins=["*"]` is convenient. However, in production, always declare exact trusted origins. An in-memory rate limiter works fine for single-process development; adopt Redis for production deployments running multiple workers.
 
 ---
 
 ## 8.6 Streaming Response
 
-AI agents thường mất nhiều giây để sinh câu trả lời. Streaming response (phản hồi luồng) giúp người dùng thấy câu trả lời từng phần ngay khi LLM sinh ra, thay vì chờ đến khi hoàn thành.
+AI agents often take several seconds to compose answers. Streaming responses allow users to see tokens incrementally as the LLM generates them, rather than waiting for the entire response to complete.
 
 ### SSE (Server-Sent Events) Pattern
 
-SSE là chuẩn web cho server push data đến client. FastAPI hỗ trợ SSE qua `StreamingResponse`:
+SSE is a web standard enabling servers to push events to clients. FastAPI provides native SSE support via `StreamingResponse`:
 
 ```python
 from fastapi.responses import StreamingResponse
@@ -615,15 +617,15 @@ import json
 
 @app.post("/api/v1/chat/stream")
 async def chat_stream(request: ChatRequest):
-    """Stream response từ agent."""
+    """Stream responses from the agent."""
     
     async def event_generator():
-        """Generator tạo SSE events."""
+        """Generator yielding SSE events."""
         try:
-            # Gửi status bắt đầu
+            # Emit start marker
             yield f"data: {json.dumps({'type': 'start'})}\n\n"
             
-            # Stream từ agent
+            # Stream tokens from agent
             async for chunk in agent.astream(request.message):
                 event = {
                     "type": "token",
@@ -631,13 +633,13 @@ async def chat_stream(request: ChatRequest):
                 }
                 yield f"data: {json.dumps(event)}\n\n"
             
-            # Gửi status kết thúc
+            # Emit completion marker
             yield f"data: {json.dumps({'type': 'done'})}\n\n"
             
         except Exception as e:
             error_event = {
                 "type": "error",
-                "message": "Lỗi khi xử lý. Vui lòng thử lại.",
+                "message": "Processing error. Please try again.",
             }
             yield f"data: {json.dumps(error_event)}\n\n"
     
@@ -652,19 +654,21 @@ async def chat_stream(request: ChatRequest):
     )
 ```
 
-### Async Generators với LangGraph
+### Async Generators with LangGraph
 
-LangGraph hỗ trợ streaming qua `astream` và `astream_events`:
+LangGraph supports streaming via `astream` and `astream_events`:
 
 ```python
+from fastapi.responses import StreamingResponse
 from langchain_core.messages import HumanMessage
+import json
 
 @app.post("/api/v1/agent/stream")
 async def agent_stream(request: ChatRequest):
-    """Stream response từ LangGraph agent."""
+    """Stream agent execution events from LangGraph."""
     
     async def stream_generator():
-        """Stream tokens từ LangGraph agent."""
+        """Stream tokens and tool events from LangGraph agent."""
         config = {
             "configurable": {
                 "thread_id": request.conversation_id or "default",
@@ -679,18 +683,18 @@ async def agent_stream(request: ChatRequest):
             kind = event.get("event")
             
             if kind == "on_chat_model_stream":
-                # Token mới từ LLM
+                # New token from LLM
                 token = event["data"]["chunk"].content
                 if token:
                     yield f"data: {json.dumps({'type': 'token', 'content': token})}\n\n"
             
             elif kind == "on_tool_start":
-                # Agent bắt đầu gọi tool
+                # Agent initiated tool call
                 tool_name = event.get("name", "unknown")
                 yield f"data: {json.dumps({'type': 'tool_start', 'tool': tool_name})}\n\n"
             
             elif kind == "on_tool_end":
-                # Tool hoàn thành
+                # Tool invocation complete
                 tool_name = event.get("name", "unknown")
                 output = str(event["data"].get("output", ""))[:200]
                 yield f"data: {json.dumps({'type': 'tool_end', 'tool': tool_name, 'preview': output})}\n\n"
@@ -703,13 +707,13 @@ async def agent_stream(request: ChatRequest):
     )
 ```
 
-> 🔑 **ĐIỂM CHÍNH:** Streaming là "must-have" cho AI chat applications. Người dùng không muốn nhìn vào màn hình trống trong 10-30 giây. SSE là chuẩn đơn giản nhất — client chỉ cần `EventSource` hoặc `fetch` với `ReadableStream`.
+> 🔑 **KEY TAKEAWAY:** Streaming is essential for AI chat applications. Users dislike waiting in front of blank screens for 10–30 seconds. SSE is the simplest standard—clients simply consume the stream with `EventSource` or `fetch` using a `ReadableStream`.
 
 ---
 
-## 8.7 Kết nối Agent với API
+## 8.7 Connecting Agent to API
 
-Phần quan trọng nhất: kết nối LangGraph agent (Chương 4) với FastAPI API. Có hai pattern chính: singleton agent và per-request agent.
+The most critical step: bridging the LangGraph agent (Chapter 4) with the FastAPI web layer. There are two primary architectural patterns: singleton agent and per-request agent.
 
 ### Dependency Injection Pattern
 
@@ -719,16 +723,16 @@ from langgraph.graph import StateGraph
 
 app = FastAPI(title="AI20K Agent API")
 
-# Agent singleton — chia sẻ giữa requests
+# Agent singleton — shared across incoming requests
 class AgentManager:
-    """Quản lý agent instance."""
+    """Manages agent instance lifecycle."""
     def __init__(self):
         self._agent = None
     
     async def get_agent(self):
-        """Lazy initialization."""
+        """Lazy initialization of the agent graph."""
         if self._agent is None:
-            # Build graph (từ Chương 4)
+            # Build graph (from Chapter 4)
             graph = StateGraph(ResearchState)
             graph.add_node("analyze", analyze_node)
             graph.add_node("plan", plan_node)
@@ -756,28 +760,31 @@ class AgentManager:
 agent_manager = AgentManager()
 
 async def get_agent():
-    """Dependency injection cho agent."""
+    """Dependency injection provider for agent instance."""
     return await agent_manager.get_agent()
 ```
 
 ### Lifespan Pattern
 
-Lifespan pattern cho phép khởi tạo và dọn dẹp tài nguyên khi app start/stop:
+The lifespan pattern allows explicit resource initialization on startup and teardown on shutdown:
 
 ```python
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
+import logging
+
+logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Khởi tạo tài nguyên khi app start, dọn dẹp khi stop."""
+    """Initialize resources on startup, release on shutdown."""
     # Startup
     logger.info("Starting AI20K Agent API...")
     app.state.agent = await initialize_agent()
     app.state.vectorstore = await initialize_vectorstore()
-    logger.info("Agent và VectorStore đã sẵn sàng")
+    logger.info("Agent and VectorStore ready")
     
-    yield  # App chạy ở đây
+    yield  # Application serves traffic here
     
     # Shutdown
     logger.info("Shutting down...")
@@ -788,10 +795,10 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Truy cập tài nguyên qua request.app.state
+# Access resources via request.app.state
 @app.post("/api/v1/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
-    """Chat endpoint sử dụng agent từ lifespan."""
+    """Chat endpoint using agent instance from application state."""
     from langchain_core.messages import HumanMessage
     
     agent = request.app.state.agent
@@ -802,16 +809,16 @@ async def chat(request: ChatRequest):
     })
     
     return ChatResponse(
-        response=result.get("draft", "Không thể tạo câu trả lời"),
+        response=result.get("draft", "Unable to generate response"),
         conversation_id=request.conversation_id or "new",
         sources=result.get("search_results", []),
     )
 ```
 
-### Ví dụ hoàn chỉnh
+### Complete Implementation Example
 
 ```python
-# main.py — File chính chạy API
+# main.py — Primary API entrypoint
 
 import os
 import logging
@@ -823,7 +830,7 @@ from pydantic import BaseModel, Field
 from typing import Optional
 from datetime import datetime
 
-# Cấu hình logging
+# Logging configuration
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("ai20k_api")
 
@@ -850,15 +857,15 @@ class HealthResponse(BaseModel):
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
-    logger.info("Khởi tạo AI20K Agent API...")
+    logger.info("Initializing AI20K Agent API...")
     from src.agents.graph import build_graph
     app.state.agent = build_graph()
-    logger.info("Agent đã sẵn sàng!")
+    logger.info("Agent ready!")
     
     yield
     
     # Shutdown
-    logger.info("Đóng API...")
+    logger.info("Closing API...")
 
 # ==================== APP ====================
 
@@ -889,7 +896,7 @@ async def health():
 
 @app.post("/api/v1/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
-    """Chat với agent — trả về response hoàn chỉnh."""
+    """Chat with the agent — returns complete response."""
     from langchain_core.messages import HumanMessage
     
     agent = app.state.agent
@@ -903,17 +910,17 @@ async def chat(request: ChatRequest):
         raise HTTPException(status_code=504, detail="Agent timeout")
     except Exception as e:
         logger.error(f"Agent error: {e}", exc_info=True)
-        raise HTTPException(status_code=503, detail="Agent không khả dụng")
+        raise HTTPException(status_code=503, detail="Agent unavailable")
     
     return ChatResponse(
-        response=result.get("draft", "Không thể tạo câu trả lời"),
+        response=result.get("draft", "Unable to generate response"),
         conversation_id=request.conversation_id or "conv-001",
         sources=result.get("search_results", []),
     )
 
 @app.post("/api/v1/chat/stream")
 async def chat_stream(request: ChatRequest):
-    """Chat với agent — stream response."""
+    """Chat with the agent — streams response tokens."""
     import json
     from langchain_core.messages import HumanMessage
     
@@ -945,40 +952,40 @@ if __name__ == "__main__":
         "main:app",
         host="0.0.0.0",
         port=8000,
-        reload=True,  # Auto-reload khi code thay đổi (development only)
+        reload=True,  # Auto-reload on code change (development only)
     )
 ```
 
-> 🔑 **ĐIỂM CHÍNH:** Lifespan pattern là cách đúng để khởi tạo LangGraph agent trong FastAPI. Agent được tạo một lần khi app start và được tái sử dụng cho mọi request. Điều này tránh overhead tạo graph mỗi request và cho phép agent duy trì state (nếu dùng checkpointer).
+> 🔑 **KEY TAKEAWAY:** The lifespan pattern is the recommended method to initialize a LangGraph agent inside FastAPI. The agent graph compiles once during startup and is reused across all requests. This eliminates compilation overhead per request and lets the agent retain execution state (when configured with checkpointers).
 
 ---
 
-## Tóm tắt
+## Summary
 
-1. **FastAPI** là framework lý tưởng cho AI API: async-first, auto-docs, type-safe. Chọn FastAPI khi xây dựng API backend cho AI applications.
+1. **FastAPI** is the ideal framework for AI APIs: async-first, auto-docs, and type-safe. Select FastAPI when building backend APIs for AI applications.
 
-2. **Routes + Schemas** là nền tảng: định nghĩa routes rõ ràng, dùng Pydantic models cho request/response, version API từ đầu.
+2. **Routes and Schemas** form the foundation: specify clear routes, leverage Pydantic models for request/response payloads, and adopt API versioning early.
 
-3. **Pydantic Validation** giúp bắt lỗi early: dùng Field constraints, custom validators, và nested models để đảm bảo data integrity.
+3. **Pydantic Validation** catches errors early: apply Field constraints, custom validators, and nested models to safeguard data integrity.
 
-4. **Error Handling** cần global handler: ánh xạ domain errors sang HTTP codes, không leak internal errors, log mọi thứ.
+4. **Error Handling** demands a global handler: map domain errors cleanly to HTTP status codes, avoid leaking internal implementation details, and log comprehensively.
 
-5. **CORS + Middleware** là lớp bảo vệ: cấu hình CORS đúng cho frontend, thêm logging/timing middleware, rate limiting cho production.
+5. **CORS and Middleware** serve as the guard layer: configure CORS correctly for frontend origins, incorporate timing/logging middleware, and enforce rate limits in production.
 
-6. **Streaming** là must-have cho AI chat: dùng SSE pattern với `StreamingResponse`, stream từ LangGraph qua `astream_events`.
+6. **Streaming** is a must-have for AI chat: employ the SSE pattern with `StreamingResponse`, streaming events directly from LangGraph using `astream_events`.
 
-7. **Kết nối Agent** dùng lifespan pattern: khởi tạo agent khi app start, tái sử dụng qua `app.state`, dependency injection cho testability.
+7. **Agent Integration** adopts the lifespan pattern: instantiate the agent graph once at startup, reuse it through `app.state`, and apply dependency injection to ensure testability.
 
 ---
 
-## Câu hỏi ôn tập
+## Review Questions
 
-1. Tại sao FastAPI phù hợp hơn Flask cho AI agent API? Nêu ít nhất 3 lý do cụ thể.
+1. Why is FastAPI better suited than Flask for AI agent APIs? State at least 3 concrete reasons.
 
-2. Viết Pydantic model cho `TranslationRequest` với: `text` (bắt buộc, 1-10000 ký tự), `source_lang` (mặc định "auto"), `target_lang` (bắt buộc, chỉ "vi" hoặc "en"). Thêm validator kiểm tra `source_lang` khác `target_lang`.
+2. Write a Pydantic model for `TranslationRequest` featuring: `text` (required, 1–10,000 characters), `source_lang` (default "auto"), and `target_lang` (required, either "vi" or "en"). Add a validator ensuring `source_lang` differs from `target_lang`.
 
-3. Giải thích tại sao cần CORS middleware. Điều gì xảy ra nếu frontend ở `localhost:3000` gọi API ở `localhost:8000` mà không có CORS?
+3. Explain why CORS middleware is required. What happens if a frontend at `localhost:3000` attempts to call an API at `localhost:8000` without CORS configured?
 
-4. So sánh streaming response và regular response. Khi nào nên dùng mỗi loại?
+4. Compare streaming responses with regular buffered responses. When should each approach be applied?
 
-5. Viết route `POST /api/v1/agent/stream` stream response từ LangGraph agent. Xử lý cả trường hợp agent throw error.
+5. Implement a route `POST /api/v1/agent/stream` that streams responses from a LangGraph agent. Include error handling for agent execution exceptions.

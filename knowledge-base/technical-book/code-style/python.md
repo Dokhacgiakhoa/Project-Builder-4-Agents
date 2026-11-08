@@ -1,21 +1,21 @@
 ---
 title: "Python Code Style"
-description: "Chuẩn code Python cho AI20K project"
+description: "Python coding standards and quality conventions"
 weight: 1
 ---
 
 ## Python Style Guide
 
-### 1. Type Hints — BẮT BUỘC
+### 1. Type Hints — MANDATORY
 
 ```python
-# ✅ TỐT — Full type hints
+# ✅ GOOD — Full type hints
 async def analyze_sentiment(text: str) -> dict[str, float]:
-    """Phân tích sentiment của text."""
+    """Analyze text sentiment."""
     result = await model.predict(text)
     return {"positive": result.pos, "negative": result.neg}
 
-# ❌ TỆ — Không type hints
+# ❌ BAD — Missing type hints
 def process(data):
     x = model.run(data)
     return x
@@ -23,9 +23,9 @@ def process(data):
 
 ### 2. Function Rules
 
-- **Max 30 lines** per function — dài hơn → tách ra
-- **Max 3 parameters** — nhiều hơn → dùng Pydantic model
-- **Luôn có return type hint**
+- **Max 30 lines** per function — decompose if longer
+- **Max 3 parameters** — use Pydantic models for larger inputs
+- **Always declare return type hints**
 - **Docstring** cho public functions
 
 ### 3. Naming Conventions
@@ -56,17 +56,17 @@ from src.models.schemas import ChatRequest
 ### 5. Error Handling
 
 ```python
-# ✅ TỐT — Specific exception
+# ✅ GOOD — Specific exception
 try:
     result = await llm.ainvoke(prompt)
 except openai.APIError as e:
     logger.error(f"LLM call failed: {e}")
     return {"error": str(e)}
 
-# ❌ TỆ — Bare except (trừ khi có lý do đặc biệt)
+# ❌ BAD — Bare except (masks all failures)
 try:
     result = await llm.ainvoke(prompt)
-except:  # Che mọi lỗi!
+except:  # Masks all errors!
     pass
 ```
 
@@ -80,4 +80,4 @@ ruff check src/ tests/
 ruff check --fix src/ tests/
 ```
 
-Ruff chạy tự động trong CI — code không pass ruff sẽ bị reject.
+Ruff executes automatically in CI — commits failing lint checks are rejected.

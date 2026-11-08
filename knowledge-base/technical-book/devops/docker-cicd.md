@@ -1,6 +1,6 @@
 ---
 title: "Docker & CI/CD"
-description: "Setup Docker và GitHub Actions"
+description: "Docker packaging and GitHub Actions CI pipelines"
 weight: 1
 ---
 
@@ -37,27 +37,27 @@ docker compose down
 
 ## CI/CD (GitHub Actions)
 
-CI tự chạy khi push lên GitHub:
+CI executes automatically on GitHub pushes:
 
-1. **Lint** — `ruff check` đảm bảo code style
-2. **Test** — `pytest` chạy tất cả tests
-3. Pass → merge được. Fail → fix trước.
+1. **Lint** — `ruff check` enforces formatting and style
+2. **Test** — `pytest` runs the test suite
+3. Pass → mergeable. Fail → fix issues before merge.
 
 ### Setup CI
 
-File `.github/workflows/ci.yml` đã có sẵn trong template.
+Configured in `.github/workflows/ci.yml`.
 
-### Yêu cầu minimum
+### Minimum Requirements
 
-- ✅ CI pipeline phải chạy được
+- ✅ CI pipeline must execute cleanly
 - ✅ Ruff lint pass
-- ✅ Tất cả tests pass
+- ✅ All tests must pass
 
 ## Environment Variables
 
 ```bash
-# .env.example — commit được (template)
-# .env — KHÔNG BAO GIỜ commit (actual values)
+# .env.example — safe to commit (template)
+# .env — NEVER COMMIT (contains real secrets)
 ```
 
 ## Git Workflow
@@ -73,9 +73,9 @@ main (production)
 ### Commit Messages
 
 ```
-feat: thêm agent graph với nodes analyze + respond
-fix: sửa lỗi CORS blocked trên frontend
-docs: cập nhật architecture diagram
-test: thêm test cho chat endpoint
-refactor: tách analyze node thành file riêng
+feat: add agent graph with analyze and respond nodes
+fix: resolve CORS blocked error on frontend
+docs: update architecture diagram
+test: add test cases for chat endpoint
+refactor: extract analyze node into separate module
 ```

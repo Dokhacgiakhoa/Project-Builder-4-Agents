@@ -1,43 +1,41 @@
 ---
 title: "Prompt Engineering"
-description: "Structured XML prompts, SAFEGUARDS, citation contract — từ cohort 1 & 2"
+description: "Structured XML prompts, SAFEGUARDS, citation contracts — lessons from cohorts 1 & 2"
 weight: 1
 ---
 
 # Prompt Engineering
 
-## Bài học từ cohort
+## Cohort Lessons
 
-3/12 đội (002 DevCoach, 004 MeeA, 007 Activation Engine) viết prompt theo cấu trúc
-XML rõ ràng → output ổn định, dễ debug. Các đội còn lại dùng prompt 1-2 dòng generic
-→ output lệch, mất điểm.
+3 of 12 teams (002 DevCoach, 004 MeeA, 007 Activation Engine) structured prompts using explicit XML tags → producing consistent outputs that were easy to debug. Teams relying on generic 1-2 line prompts suffered frequent model drift and lost evaluation points.
 
-## Pattern 1: Structured XML tags
+## Pattern 1: Structured XML Tags
 
-**Bad** (đa số đội yếu):
+**Bad** (Common in low-scoring projects):
 ```text
 You are a helpful assistant. Answer the user's question.
 ```
 
-**Good** (team 002, 004):
+**Good** (Teams 002, 004):
 ```xml
 <role>
-Bạn là AI20K Agent — trợ lý chính xác, đúng sự thật.
+You are the AI20K Agent — an accurate, grounded assistant.
 </role>
 
 <context>
-Bạn nhận Context từ knowledge base qua RAG. Ưu tiên Context.
+You receive Context from the knowledge base via RAG. Always prioritize Context over internal parametric memory.
 </context>
 
 <instructions>
-1. Đọc Context trước.
-2. Mỗi nhận định kèm [cite:chunk_id].
-3. Output đúng JSON schema.
+1. Inspect Context first.
+2. Accompany every domain assertion with [cite:chunk_id].
+3. Adhere strictly to the JSON schema.
 </instructions>
 
 <rules>
-- Tiếng Việt có dấu.
-- Không bịa khi thiếu dẫn chứng.
+- Do not speculate when evidence is absent.
+- Ensure clear, concise phrasing.
 </rules>
 
 <output_format>
@@ -45,49 +43,45 @@ Bạn nhận Context từ knowledge base qua RAG. Ưu tiên Context.
 </output_format>
 
 <verification>
-Trước khi trả, kiểm tra: citation có thật không? verdict nhất quán?
+Prior to emitting output, self-verify: Are all cited chunk IDs present in context? Is the verdict consistent with retrieved evidence?
 </verification>
 ```
 
-Tại sao hiệu quả: mỗi section có vai trò riêng, LLM dễ tuân theo; section
-`<verification>` ép agent tự check trước khi output (giảm hallucination).
+Why it works: Isolated XML tags assign clear semantic roles to prompt sections. The `<verification>` tag prompts the model to self-evaluate before generating output, significantly reducing hallucinations.
 
-## Pattern 2: SAFEGUARDS tách bạch (team 005 NestAI)
+## Pattern 2: Isolated SAFEGUARDS Blocks (Team 005 NestAI)
 
-KHÔNG pha rule an toàn vào personality. Tách section riêng:
+Do not mix safety constraints into conversational personality directives. Maintain a dedicated section:
 
 ```text
 <safeguards>
-KHẨN CẤP: nếu user nhắc dấu hiệu nguy hiểm (ra máu, khó thở...),
-đưa CẢNH BÁO ĐỎ, KHÔNG tư vấn chung.
-KHÔNG bịa liều lượng thuốc.
+EMERGENCY: If the user indicates life-threatening or dangerous symptoms,
+emit an immediate RED ALERT and decline general conversational advice.
+Never speculate on medication dosages or critical treatments.
 </safeguards>
 ```
 
-## Pattern 3: External prompt files (team 004 MeeA)
+## Pattern 3: External Prompt Templates (Team 004 MeeA)
 
-Lưu prompt ở `prompts/*.md` với `{{placeholder}}`, KHÔNG nhúng Python string:
+Store prompts in `prompts/*.md` using `{{placeholder}}` variables rather than hardcoded Python strings:
 
 ```markdown
 <role>...</role>
 <context>{{context}}</context>
 ```
 
-Loader (`src/agents/prompts.py`): `@lru_cache` + `str.replace`. Lợi ích: đổi prompt
-không cần deploy code; mentor review được; diff git rõ.
+Loader (`src/agents/prompts.py`): Decorate with `@lru_cache` and apply `str.replace`. Benefits: prompts can be tuned without modifying or redeploying code; mentors can review prompts directly; git diffs remain clean.
 
-## Pattern 4: SHARED_RULES DRY (team 002)
+## Pattern 4: Centralized SHARED_RULES (Team 002)
 
-Rule chung (tiếng Việt, độ dài câu...) thành 1 constant inject vào nhiều prompt —
-tránh lặp.
+Define cross-cutting directives (response constraints, output brevity, citation rules) as a single shared constant and inject it across multiple prompt templates to stay DRY.
 
-## Anti-pattern (tránh)
+## Anti-Patterns to Avoid
 
-- "Be helpful" generic → cụ thể hoá: "Be specific about output format".
-- "Don't hallucinate" → "Only reference chunks listed in Context".
-- Nhúng số liệu cứng vào prompt → để trong reference file.
+- Generic "Be helpful" directives → replace with explicit output schemas.
+- "Don't hallucinate" → "Cite only from chunks listed under Context; declare uncertainty if evidence is absent".
+- Hardcoded business data in prompts → isolate volatile data into external reference files or retrieval indexes.
 
-## Tham khảo template
+## Template References
 
-Xem `prompts/system_prompt.md`, `safeguards.md`, `citation_rules.md` trong
-`ai20k-agent-template`.
+Reference `prompts/system_prompt.md`, `safeguards.md`, and `citation_rules.md` in `ai20k-agent-template`.

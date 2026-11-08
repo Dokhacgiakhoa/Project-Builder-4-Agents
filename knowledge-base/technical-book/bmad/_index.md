@@ -1,11 +1,11 @@
 ---
 title: "BMAD Method"
-description: "BMAD-v6 — Phương pháp phát triển phần mềm theo agent-driven workflow"
+description: "BMAD-v6 — Software engineering methodology for agent-driven workflows"
 weight: 10
 ---
 
-Phần này giới thiệu BMAD Method — phương pháp phát triển phần mềm theo mô hình agent-driven workflow. Bạn sẽ tìm hiểu định nghĩa BMAD, 6 loại agent chuyên biệt và quy trình làm việc 4 giai đoạn từ phân tích yêu cầu đến triển khai. Cấu trúc thư mục chuẩn cũng được trình bày chi tiết để bạn áp dụng ngay vào dự án. BMAD giúp team làm việc hiệu quả hơn bằng cách phân rõ vai trò giữa các agent.
+This section introduces the BMAD Method — an agent-driven software development methodology. It covers the BMAD lifecycle, 6 specialized agent personas, and a 4-phase workflow from requirements scoping to deployment. Canonical folder structures are detailed for immediate project bootstrapping.
 
-## Trang trong mục này
+## Subsections
 
-- [Overview](overview.md) — Định nghĩa BMAD, 6 agents, 4-phase workflow và folder structure
+- [Overview](overview.md) — BMAD definition, 6 agent personas, 4-phase workflow, and folder hierarchy\n

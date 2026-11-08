@@ -1,11 +1,11 @@
 ---
 title: "Code Style Guide"
-description: "Chuẩn code chất lượng cao"
+description: "Engineering standards for high-quality Python codebases"
 weight: 4
 ---
 
-Phần này quy ước chuẩn code Python áp dụng cho toàn bộ dự án AI20K. Bạn sẽ tìm hiểu về type hints, quy tắc viết hàm, cách đặt tên biến, thứ tự import và xử lý lỗi đúng cách. Tất cả đều được tự động kiểm tra bằng Ruff linter. Tuân thủ code style giúp team collaboration hiệu quả và giảm thiểu bug trong quá trình phát triển.
+This guide defines Python coding conventions applicable across the codebase. It covers type hints, function purity, naming rules, import sorting, and robust error handling, automated via Ruff. Consistent adherence streamlines collaboration and minimizes defects.
 
-## Trang trong mục này
+## Subsections
 
-- [Python Style Guide](python.md) — Type hints, quy tắc hàm, naming, imports, error handling và Ruff
+- [Python Style Guide](python.md) — Type hints, function guidelines, naming, imports, error handling, and Ruff rules\n

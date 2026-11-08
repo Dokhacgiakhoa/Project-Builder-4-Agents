@@ -1,395 +1,387 @@
 ---
-title: "Tài nguyên học tập"
+title: "Learning Resources"
 weight: 15
 ---
 
-## 15.1 Lộ trình học 6 tuần
+## 15.1 Six-Week Learning Curriculum
 
-Lộ trình này thiết kế cho sinh viên VinUni tham gia AI20K Build Phase, với mục tiêu từ "chưa biết LangGraph" đến "có thể build và deploy AI Agent hoàn chỉnh" trong 6 tuần. Mỗi tuần có focus cụ thể, kết hợp lý thuyết và thực hành.
+This curriculum is tailored for VinUni students participating in the AI20K Build Phase, designed to guide engineers from "zero LangGraph background" to "capable of building and deploying production-grade AI Agents" within 6 weeks. Each week targets a specific objective balancing theoretical foundations with hands-on implementation.
 
-### Tuần 1: Nền tảng Python và API
+### Week 1: Python and API Fundamentals
 
-Mục tiêu: Hiểu FastAPI, viết được API endpoint, biết gọi LLM API.
+Objective: Master FastAPI architecture, author resilient API endpoints, and invoke LLM APIs via client SDKs.
 
-- Học FastAPI fundamentals: routing, request/response, Pydantic models
-- Làm quen với async/await trong Python
-- Gọi OpenAI API cơ bản: chat completion, streaming
-- Setup project structure: `app/`, `tests/`, `requirements.txt`
-- Bài tập: Viết FastAPI app có 3 endpoints (GET /health, POST /chat, GET /history)
+- Study FastAPI fundamentals: routing mechanics, request/response models, Pydantic schemas
+- Build fluency with Python `async`/`await` concurrency patterns
+- Execute core OpenAI API interactions: chat completions, streaming responses
+- Establish repository skeleton: `app/`, `tests/`, `requirements.txt`
+- Practical Exercise: Implement a FastAPI application exposing 3 endpoints (`GET /health`, `POST /chat`, `GET /history`)
 
-Tài liệu: FastAPI official tutorial (2-3 giờ), Python async docs (1 giờ), OpenAI API quickstart (1 giờ).
+Recommended Materials: FastAPI Official Tutorial (2–3 hours), Python Async Documentation (1 hour), OpenAI API Quickstart Guide (1 hour).
 
-### Tuần 2: LangGraph Fundamentals
+### Week 2: LangGraph Fundamentals
 
-Mục tiêu: Hiểu LangGraph graph, state, nodes, edges. Build được agent đơn giản.
+Objective: Comprehend LangGraph graphs, state persistence, nodes, and directional edges. Assemble your first functional agent.
 
-- Học LangGraph concepts: StateGraph, nodes, edges, conditional routing
-- Build graph đầu tiên: 2-3 nodes, conditional routing
-- Thử nghiệm với different state schemas (TypedDict vs Pydantic)
-- Debug với LangSmith tracing
-- Bài tập: Build agent có routing dựa trên intent (FAQ → retrieval, chitchat → respond directly)
+- Master LangGraph core abstractions: StateGraph, nodes, edges, conditional routing
+- Assemble an inaugural graph: 2–3 nodes with dynamic conditional routing
+- Experiment across state schemas (`TypedDict` vs Pydantic)
+- Instrument execution debugging using LangSmith tracing
+- Practical Exercise: Construct an agent routing queries by intent (FAQ → retrieval branch, chitchat → direct synthesis branch)
 
-Tài liệu: LangGraph Academy Module 1-2 (4-5 giờ), Lance Martin YouTube LangGraph playlist (2 giờ).
+Recommended Materials: LangGraph Academy Modules 1–2 (4–5 hours), Lance Martin YouTube LangGraph Playlist (2 hours).
 
-### Tuần 3: RAG và Vector Store
+### Week 3: RAG and Vector Stores
 
-Mục tiêu: Hiểu RAG pipeline, load documents, embed, retrieve.
+Objective: Master end-to-end RAG pipelines: document ingestion, chunking, embedding, vector storage, and semantic retrieval.
 
-- Học document loading: PDF, web, text files
-- Text splitting strategies: chunk size, overlap
-- Embedding models: OpenAI embeddings, local alternatives
-- Vector stores: ChromaDB (local), PGVector (production)
-- RAG pipeline: retrieve → rerank → generate
-- Bài tập: Build RAG agent trả lời câu hỏi từ 10 tài liệu PDF
+- Ingestion pipelines across formats: PDF, web URLs, markdown, unstructured text
+- Text splitting strategies: chunk size trade-offs, chunk overlap tuning
+- Embedding models: OpenAI embeddings and open-source local embedding alternatives
+- Vector database backends: ChromaDB (local development), PGVector (production hosting)
+- The complete RAG pipeline: retrieve → rerank → generate
+- Practical Exercise: Build an agent answering technical questions grounded in 10 ingested PDF documents
 
-Tài liệu: DeepLearning.AI "Building RAG Agents with LLMs" (4 giờ), LangChain RAG tutorial (2 giờ).
+Recommended Materials: DeepLearning.AI "Building RAG Agents with LLMs" (4 hours), LangChain RAG Tutorial (2 hours).
 
-### Tuần 4: Agent nâng cao và Tools
+### Week 4: Advanced Agents and Tool Integration
 
-Mục tiêu: Agent có tools, memory, multi-step reasoning.
+Objective: Equip agents with external tools, conversational memory, and multi-step reasoning capabilities.
 
-- Học LangGraph tools: @tool decorator, tool calling
-- Agent memory: conversation history, long-term memory
-- Multi-step reasoning: ReAct pattern, planning
-- Error handling trong agent: retry, fallback
-- Bài tập: Build agent có 3+ tools (search, calculator, database query)
+- LangGraph tool integration: `@tool` decorator, native model tool-calling
+- Agent memory architectures: conversational buffer history, long-term persistent memory
+- Multi-step reasoning loops: ReAct pattern, plan-and-execute workflows
+- Resilient error handling in agent graphs: retries, fallback routing
+- Practical Exercise: Construct an agent wielding 3+ tools (web search, math calculator, database querying)
 
-Tài liệu: LangGraph Academy Module 3-4 (4 giờ), DeepLearning.AI "AI Agents in LangGraph" (3 giờ).
+Recommended Materials: LangGraph Academy Modules 3–4 (4 hours), DeepLearning.AI "AI Agents in LangGraph" (3 hours).
 
-### Tuần 5: DevOps, Testing, và Deploy
+### Week 5: DevOps, Automated Testing, and Cloud Deployment
 
-Mục tiêu: Dockerize, viết tests, deploy lên cloud, setup CI/CD.
+Objective: Containerize workloads with Docker, achieve solid test coverage, deploy to cloud infrastructure, and set up CI/CD.
 
-- Docker: Dockerfile multi-stage, Docker Compose
-- Testing: pytest, mock LLM, test coverage
-- CI/CD: GitHub Actions workflow
-- Deploy: Render (backend), Vercel (frontend)
-- Monitoring: structured logging, LangSmith, health checks
-- Bài tập: Dockerize app, đạt 60%+ test coverage, deploy lên Render
+- Docker containerization: multi-stage `Dockerfile`, multi-service `docker-compose.yml`
+- Automated test suites: pytest, mocking LLM API responses, test coverage profiling
+- Continuous Integration: GitHub Actions automated workflow triggers
+- Cloud deployments: Render (backend services), Vercel (frontend interfaces)
+- Observability: structured JSON logging, LangSmith tracing, standardized health check probes
+- Practical Exercise: Containerize application, reach 60%+ automated test coverage, deploy live to Render
 
-Tài liệu: Chương 12 và 8 của guidebook này, Docker official tutorial (2 giờ), pytest docs (1 giờ).
+Recommended Materials: Chapters 12 and 8 of this guidebook, Docker Official Getting Started Tutorial (2 hours), pytest Documentation (1 hour).
 
-### Tuần 6: Evaluation và Chuẩn bị Demo Day
+### Week 6: Quantitative Evaluation and Demo Day Preparation
 
-Mục tiêu: Đánh giá chất lượng agent, chuẩn bị deliverables.
+Objective: Benchmark agent performance empirically, assemble mandatory deliverables, and refine presentation delivery.
 
-- RAGAS evaluation: faithfulness, relevance, precision
-- Evaluation report: metrics table, test results, user feedback
-- Hoàn thiện 10 deliverables
-- Pitch Deck: 10 slides, thuyết trình
-- Code review: xóa bare except, thêm type hints, cleanup
-- Bài tập: Nộp đủ 10 deliverables, đạt 35+/50 điểm dự kiến
+- RAGAS evaluation framework: faithfulness, answer relevance, context precision
+- Comprehensive evaluation reporting: metrics tables, test suite logs, authentic user feedback
+- Finalizing all 10 mandatory deliverables
+- Pitch Deck delivery: 10 slides, time-budgeted presentation practice
+- Static code analysis and cleanup: eliminate bare `except:` blocks, enforce strict type hints, clean Git history
+- Practical Exercise: Submit all 10 deliverables, tracking toward an anticipated score of 35+/50 points
 
-Tài liệu: Chương 13 của guidebook này, RAGAS docs (2 giờ).
+Recommended Materials: Chapter 13 of this guidebook, RAGAS Documentation (2 hours).
 
-> 💡 **MẸO:** Lộ trình này intensity cao — ~15-20 giờ/tuần. Nếu bạn có ít thời gian, ưu tiên: Tuần 2 (LangGraph) > Tuần 3 (RAG) > Tuần 5 (DevOps) > Tuần 6 (Evaluation). Đây là thứ tự impact đến điểm số.
+> 💡 **TIP:** This roadmap demands disciplined focus — approximately 15–20 hours per week. If your schedule is constrained, prioritize in this order: Week 2 (LangGraph) > Week 3 (RAG) > Week 5 (DevOps) > Week 6 (Evaluation). This sequence maximizes direct scoring impact.
 
-### Tổng kết thời gian
+### Time Commitment Summary
 
-| Tuần | Chủ đề | Giờ học | Giờ code |
-|------|--------|---------|----------|
-| 1 | FastAPI + LLM API | 6 | 8 |
-| 2 | LangGraph fundamentals | 6 | 10 |
-| 3 | RAG + Vector Store | 6 | 10 |
-| 4 | Agent nâng cao + Tools | 7 | 10 |
-| 5 | DevOps + Testing + Deploy | 5 | 12 |
-| 6 | Evaluation + Demo Day prep | 4 | 10 |
-| **Tổng** | | **34** | **60** |
+| Week | Core Focus | Study Hours | Coding Hours |
+|------|------------|-------------|--------------|
+| 1 | FastAPI + LLM APIs | 6 | 8 |
+| 2 | LangGraph Fundamentals | 6 | 10 |
+| 3 | RAG + Vector Stores | 6 | 10 |
+| 4 | Advanced Agents + Tool Calling | 7 | 10 |
+| 5 | DevOps + Testing + Deployment | 5 | 12 |
+| 6 | Quantitative Evaluation + Demo Day Prep | 4 | 10 |
+| **Total** | | **34** | **60** |
 
-## 15.2 Khóa học DeepLearning.AI
+## 15.2 DeepLearning.AI Curated Courses
 
-DeepLearning.AI (deeplearning.ai) là nền tảng học AI hàng đầu của Andrew Ng, với hơn 121 khóa học ngắn (short courses). Các khóa học này miễn phí, duration 1-2 giờ, và được thiết kế bởi chuyên gia từ OpenAI, LangChain, Google, Anthropic. Đây là nguồn học tập chất lượng cao nhất cho AI20K.
+DeepLearning.AI (deeplearning.ai) is a premier AI learning platform created by Andrew Ng, offering over 121 focused short courses. These courses are free, typically 1–2 hours in duration, and authored by leading practitioners across OpenAI, LangChain, Google, and Anthropic. They represent the highest-yield supplementary material for AI20K participants.
 
-### Top khóa học cho AI20K
+### Priority Course Matrix for AI20K
 
-| Khóa học | Chủ đề | Thời gian | Ưu tiên |
-|----------|--------|-----------|---------|
-| AI Agents in LangGraph | LangGraph agents, ReAct, tools | 2 giờ | CAO |
-| Building RAG Agents with LLMs | RAG pipeline, retrieval, evaluation | 2 giờ | CAO |
-| Prompt Engineering with LLMs | Prompt design, chain-of-thought | 1 giờ | CAO |
-| Functions, Tools and Agents with LangChain | Tool use, agents, chains | 1.5 giờ | CAO |
-| Multi-AI Agent Systems with CrewAI | Multi-agent collaboration | 1.5 giờ | TRUNG BÌNH |
-| Evaluating and Debugging Generative AI | Evaluation methods, metrics | 1 giờ | TRUNG BÌNH |
-| LangChain for LLM Application Development | LangChain basics, chains, memory | 1.5 giờ | TRUNG BÌNH |
-| ChatGPT Prompt Engineering for Developers | Prompt engineering basics | 1 giờ | THẤP |
-| Building Systems with the ChatGPT API | API usage, system design | 1 giờ | THẤP |
-| Red Teaming LLM Applications | Security, adversarial testing | 1 giờ | BONUS |
+| Course | Key Focus | Duration | Priority |
+|--------|-----------|----------|----------|
+| AI Agents in LangGraph | LangGraph architecture, ReAct loops, tool execution | 2 hours | HIGH |
+| Building RAG Agents with LLMs | End-to-end RAG pipelines, retrieval strategies, evaluation | 2 hours | HIGH |
+| Prompt Engineering with LLMs | Systematic prompt architecture, chain-of-thought patterns | 1 hour | HIGH |
+| Functions, Tools and Agents with LangChain | Tool schemas, autonomous agent loops, chains | 1.5 hours | HIGH |
+| Multi-AI Agent Systems with CrewAI | Multi-agent collaboration and delegation | 1.5 hours | MEDIUM |
+| Evaluating and Debugging Generative AI | Quantitative evaluation methodologies, metric tracking | 1 hour | MEDIUM |
+| LangChain for LLM Application Development | LangChain core components, memory systems, chains | 1.5 hours | MEDIUM |
+| ChatGPT Prompt Engineering for Developers | Prompting fundamentals and constraints | 1 hour | LOW |
+| Building Systems with the ChatGPT API | API interaction patterns, basic system design | 1 hour | LOW |
+| Red Teaming LLM Applications | Adversarial prompt testing, vulnerability auditing | 1 hour | BONUS |
 
-### Cách học hiệu quả từ DeepLearning.AI
+### High-Efficiency Learning Strategies
 
-**Chiến lược học tập:**
+**Study Recommendations:**
 
-1. **Xem video ở 1.5x speed.** Các khóa học DeepLearning.AI nói chậm, tăng tốc 1.5x tiết kiệm 33% thời gian mà vẫn hiểu.
+1. **Stream at 1.5x Speed:** DeepLearning.AI lectures feature deliberate pacing; accelerating to 1.5x cuts total runtime by 33% without compromising retention.
+2. **Code Along in Provided Notebooks:** Every course features interactive Jupyter notebooks. Write code concurrently with the lecture; modify parameters to observe shifts in model outputs.
+3. **Immediate Project Integration:** Integrate concepts into your AI20K codebase immediately. Completing "AI Agents in LangGraph" should directly trigger the addition of a new state node in your application.
+4. **Log Insights in Your Development Journal:** Record 3 architectural takeaways from each course in your Development Journal — simultaneously reinforcing memory and producing content for mandatory deliverables.
 
-2. **Code along.** Mỗi khóa có Jupyter notebook. Code cùng video, không chỉ xem. Sau đó, thử modify code và xem kết quả thay đổi thế nào.
+**AI Agent Course Catalog (35+ Courses):** DeepLearning.AI maintains an extensive collection of agent courses. Do not attempt to complete them all — master the 4 HIGH-priority courses first, expanding only if development bandwidth permits.
 
-3. **Áp dụng ngay.** Sau mỗi khóa, áp dụng concept vào dự án AI20K của bạn. Ví dụ: học xong "AI Agents in LangGraph" → thêm 1 node mới vào agent của bạn.
+> 🔑 **KEY TAKEAWAY:** Four essential foundation courses for AI20K: (1) AI Agents in LangGraph, (2) Building RAG Agents with LLMs, (3) Prompt Engineering with LLMs, (4) Functions, Tools and Agents with LangChain. Complete all four within your first two weeks.
 
-4. **Ghi chú vào journal.** Mỗi khóa học, ghi 3 điểm chính vào Development Journal — vừa ôn tập, vừa có material cho deliverable.
+### Recommended Weekly Course Progression
 
-**AI Agents courses (35 khóa):** DeepLearning.AI có 35 khóa liên quan đến AI Agents, từ cơ bản đến nâng cao. Không cần học tất cả — chọn 3-4 khóa có priority CAO trong bảng trên, rồi mở rộng nếu có thời gian.
+- **Week 1:** Prompt Engineering with LLMs + Building Systems with the ChatGPT API (2 courses)
+- **Week 2:** AI Agents in LangGraph + Functions, Tools and Agents with LangChain (2 courses)
+- **Week 3:** Building RAG Agents with LLMs (1 comprehensive course)
+- **Week 4:** Evaluating and Debugging Generative AI (1 course)
+- **Weeks 5–6:** Supplemental bonus courses as needed
 
-> 🔑 **ĐIỂM CHÍNH:** Bốn khóa học bắt buộc cho AI20K: (1) AI Agents in LangGraph, (2) Building RAG Agents with LLMs, (3) Prompt Engineering with LLMs, (4) Functions, Tools and Agents with LangChain. Hoàn thành 4 khóa này trong 2 tuần đầu.
+## 15.3 LangGraph Official Resources
 
-### Lộ trình học DeepLearning.AI theo tuần
+LangGraph is the core orchestration framework recommended for AI20K, and its official documentation represents your primary technical authority.
 
-- **Tuần 1:** Prompt Engineering + Building Systems with ChatGPT API (2 khóa)
-- **Tuần 2:** AI Agents in LangGraph + Functions/Tools/Agents (2 khóa)
-- **Tuần 3:** Building RAG Agents (1 khóa, nhưng intensive)
-- **Tuần 4:** Evaluating and Debugging Generative AI (1 khóa)
-- **Tuần 5-6:** Bonus courses tùy thời gian
-
-## 15.3 Tài liệu LangGraph
-
-LangGraph là framework chính cho AI20K, và tài liệu chính thức là nguồn học tập đáng tin cậy nhất. Ngoài docs, còn có nhiều tài nguyên cộng đồng chất lượng cao.
-
-### Tài liệu chính thức
+### Official Documentation
 
 **LangGraph Documentation** (langchain-ai.github.io/langgraph/):
-- Core concepts: StateGraph, nodes, edges, state, tools
-- Tutorials: step-by-step guides cho common patterns
-- API reference: chi tiết mọi class và function
-- How-to guides: specific tasks như "add memory to agent", "human-in-the-loop"
+- Core abstractions: StateGraph, nodes, edges, state schemas, tool integrations
+- Tutorials: Step-by-step implementations of common agent topologies
+- API Reference: Comprehensive class and function signatures
+- How-to Guides: Specific patterns such as persistent memory, human-in-the-loop validation, and subgraphs
 
 **LangGraph Academy** (academy.langchain.com):
-- Module 1: Fundamentals — StateGraph, nodes, edges
-- Module 2: State management — TypedDict state, reducers
-- Module 3: Tools and human-in-the-loop
-- Module 4: Multi-agent systems
-- Module 5: Persistence and deployment
-- Mỗi module 2-3 giờ, có code exercises
+- Module 1: Fundamentals — StateGraph construction, nodes, edges
+- Module 2: State Management — TypedDict state models, custom reducer functions
+- Module 3: Tool Execution and Human-in-the-Loop workflows
+- Module 4: Multi-Agent Architectures
+- Module 5: Graph Persistence and Production Deployment
+- Each module spans 2–3 hours with hands-on coding exercises
 
-### Kênh YouTube
+### Curated YouTube Technical Channels
 
 **Lance Martin** (youtube.com/@LanceMartinAI):
-- LangGraph tutorials từ cơ bản đến nâng cao
-- RAG deep dives
-- Agent patterns and best practices
-- Cập nhật liên tục khi LangGraph release version mới
-- Ưu điểm: ngắn gọn (10-20 phút/video), practical, code-first
+- Practical LangGraph architectures from basics to advanced patterns
+- Deep-dive technical analyses into RAG pipelines
+- Agent engineering design patterns and production best practices
+- Concise (10–20 minutes), code-first walkthroughs reflecting the latest releases
 
 **James Briggs** (youtube.com/@JamesBriggs):
-- Vector databases and embeddings
-- RAG optimization techniques
-- LangChain ecosystem tutorials
-- Ưu điểm: deep technical explanations, production-focused
+- Vector databases, indexing mechanics, and dense embeddings
+- Advanced RAG retrieval and reranking optimizations
+- Deep architectural explorations across the LangChain ecosystem
 
 **LangChain Official** (youtube.com/@LangChain):
-- Official tutorials và announcements
-- LangGraph release walkthroughs
-- Community showcases
+- Official product walkthroughs, architecture teardowns, and framework announcements
+- LangGraph release overviews and developer office hours
 
-### GitHub examples
+### Community GitHub Repositories
 
 **langchain-ai/langgraph** (github.com/langchain-ai/langgraph):
-- Thư mục `examples/` chứa dozens of complete examples
-- Examples theo pattern: ReAct agent, RAG, multi-agent, human-in-the-loop
-- Mỗi example có README và requirements.txt — chạy được ngay
+- The `examples/` directory houses dozens of fully realized reference architectures
+- Curated patterns: ReAct agents, RAG graphs, supervisor-worker multi-agent topologies, human-in-the-loop approvals
+- Every example includes an isolated `README.md` and dependencies for instant execution
 
 ```bash
-# Clone LangGraph repo và xem examples
+# Clone the LangGraph repository to explore reference patterns
 git clone https://github.com/langchain-ai/langgraph.git
 cd langgraph/examples
-ls -la
 
-# Chạy một example
+# Inspect and execute a reference pattern
 cd rag/
 pip install -r requirements.txt
 python agent.py
 ```
 
 **langchain-ai/langchain** (github.com/langchain-ai/langchain):
-- Thư mục `templates/` chứa project templates
-- `cookbook/` chứa recipes cho specific use cases
-- Useful cho tìm solutions cho specific problems
+- The `templates/` directory contains complete project blueprints
+- The `cookbook/` folder provides targeted recipes resolving specific integration challenges
 
-> 💡 **MẸO:** Khi gặp lỗi với LangGraph, search GitHub Issues trước: `repo:langchain-ai/langgraph "error message"`. 90% lỗi phổ biến đã được hỏi và trả lời. Nếu không tìm thấy, mở issue mới — maintainers phản hồi nhanh.
+> 💡 **TIP:** When encountering unexpected LangGraph exceptions, search GitHub Issues first: `repo:langchain-ai/langgraph "error message"`. 90% of common edge cases have established solutions and workarounds.
 
-## 15.4 BMAD Method
+## 15.4 The BMAD Method
 
-BMAD (Breakthrough Method for Agile AI-Driven Development) là một phương pháp phát triển phần mềm AI-first, phiên bản mới nhất là BMAD-v6. BMAD sử dụng 6 AI agents chuyên biệt, mỗi agent đảm nhiệm một vai trò trong quy trình phát triển, tương tự như một development team thực tế. Hiểu BMAD giúp bạn tư duy về multi-agent systems và project management hiệu quả.
+BMAD (Breakthrough Method for Agile AI-Driven Development) is an AI-first software engineering methodology, currently in version BMAD-v6. BMAD defines 6 specialized AI persona roles, each assuming a discrete functional responsibility across the project lifecycle, modeling an agile software development organization. Comprehending BMAD clarifies multi-agent system design and agile project management.
 
-### 6 AI Agents trong BMAD-v6
+### The 6 AI Roles in BMAD-v6
 
-| Agent | Vai trò | Analog thực tế | Khi nào dùng |
-|-------|---------|----------------|-------------|
-| **Mary** (Analyst) | Phân tích yêu cầu, viết PRD, user stories | Business Analyst | Đầu dự án, khi nhận brief |
-| **John** (Architect) | Thiết kế kiến trúc, tech stack, system design | Solution Architect | Sau khi có PRD |
-| **Winston** (Developer) | Viết code, implement features | Developer | Sau khi có architecture |
-| **Amelia** (Designer) | UI/UX design, wireframes, user flow | UX Designer | Song song với development |
-| **Sally** (QA) | Viết test, review code, quality assurance | QA Engineer | Song song với development |
-| **Paige** (PM) | Quản lý tiến độ, priorities, deliverables | Project Manager | Xuyên suốt dự án |
+| Role | Responsibility | Real-World Analog | Activation Phase |
+|------|----------------|-------------------|------------------|
+| **Mary** (Analyst) | Requirement scoping, PRD authoring, user stories | Business Analyst | Project initiation, upon receiving the brief |
+| **John** (Architect) | Architectural design, tech stack selection, schema modeling | Solution Architect | Immediately following PRD approval |
+| **Winston** (Developer) | Code implementation, feature development | Software Engineer | Following architectural design freeze |
+| **Amelia** (Designer) | UI/UX workflows, responsive design, wireframing | UX Designer | Concurrently with feature development |
+| **Sally** (QA) | Test suite creation, code review, quality gates | QA Engineer | Concurrently with development sprints |
+| **Paige** (PM) | Velocity tracking, sprint milestones, deliverable audits | Project Manager | Throughout the entire 6-week lifecycle |
 
-### 4-phase workflow
+### The 4-Phase Delivery Lifecycle
 
-**Phase 1: Discovery (Khám phá) — Agent Mary + Paige**
-Mary phân tích requirements từ BTC brief, viết Product Requirements Document (PRD), xác định user personas và use cases. Paige tạo project plan với timeline, milestones, và resource allocation. Output: PRD document + project plan.
+**Phase 1: Discovery — Roles Mary + Paige**
+Mary analyzes criteria from the competition brief, drafting a concise Product Requirements Document (PRD), profiling user personas, and specifying core use cases. Paige establishes sprint milestones, timelines, and deliverable tracking. Output: 1-page PRD + sprint milestone tracker.
 
-**Phase 2: Design (Thiết kế) — Agent John + Amelia**
-John thiết kế system architecture: tech stack, data flow, API design, deployment strategy. Amelia thiết kế UI/UX: wireframes, user flows, interaction patterns. Output: Architecture document + UI mockups.
+**Phase 2: Architecture & Design — Roles John + Amelia**
+John architects system boundaries: technology stack, state flows, API contracts, and deployment pipelines. Amelia defines UI/UX wireframes, interaction flows, and layout systems. Output: System architecture document + interactive UI mockups.
 
-**Phase 3: Build (Xây dựng) — Agent Winston + Sally**
-Winston implement code theo architecture design. Sally viết tests song song, review code, đảm bảo quality standards. Output: Working code + test suite.
+**Phase 3: Implementation & Validation — Roles Winston + Sally**
+Winston writes application logic against the architectural specification. Sally creates automated test suites concurrently, conducts pull request reviews, and audits quality gates. Output: Working codebase + comprehensive pytest test suite.
 
-**Phase 4: Deliver (Giao hàng) — Agent Paige + Sally**
-Paige quản lý deliverables checklist, đảm bảo đủ 10/10. Sally chạy final evaluation, verify tất cả quality gates pass. Output: Complete deliverables package.
+**Phase 4: Verification & Delivery — Roles Paige + Sally**
+Paige oversees the 10 mandatory deliverables checklist, ensuring 10/10 deliverable completion. Sally executes final end-to-end evaluation suites and verifies all quality thresholds pass. Output: Complete, verified submission package.
 
-### Khi nào sử dụng BMAD
+### When to Apply BMAD
 
-BMAD phù hợp khi:
-- Dự án có scope rõ ràng, cần structure
-- Team mới làm việc cùng nhau, cần roles phân minh
-- Cần documentation đầy đủ cho Demo Day
-- Muốn học multi-agent thinking pattern
+BMAD is ideally suited when:
+- Project scope is clearly defined and requires disciplined operational structure
+- A newly formed team needs distinct separation of roles
+- Comprehensive documentation and traceability are necessary for Demo Day scoring
+- Teams seek to internalize multi-agent orchestration mental models
 
-BMAD không phù hợp khi:
-- Prototype nhanh, thử nghiệm ý tưởng
-- Solo developer, không cần role separation
-- Dự án rất nhỏ (1-2 endpoints)
+BMAD is unnecessary when:
+- Hacking a fast, throwaway proof-of-concept
+- Working as a solo developer where role separation introduces unnecessary overhead
+- Building trivial applications (1–2 isolated endpoints)
 
-> ⚠️ **LƯU Ý:** BMAD là framework tư duy, không phải tool bắt buộc. Bạn không cần cài đặt gì cả. Hãy áp dụng mindset: phân tích trước khi code (Mary), thiết kế trước khi implement (John), test song song với dev (Sally), quản lý deliverables xuyên suốt (Paige).
+> ⚠️ **NOTE:** BMAD is an engineering mindset, not mandatory tooling. You do not need to install complex frameworks. Internalize its discipline: analyze requirements before coding (Mary), architect before implementing (John), test concurrently with development (Sally), and actively manage deliverables throughout (Paige).
 
-### Áp dụng BMAD vào AI20K
+### Applying BMAD to the AI20K Build Phase
 
-Trong AI20K, bạn có thể áp dụng BMAD bằng cách:
+In AI20K, you can execute BMAD through structured sessions:
 
-1. **Session 1 (Mary):** Đọc BTC brief, viết PRD 1 trang: problem, solution, target user, features, non-goals
-2. **Session 2 (John):** Vẽ architecture diagram, chọn tech stack, define API contracts
-3. **Session 3-10 (Winston + Sally):** Implement + test song song. Mỗi feature mới = test mới
-4. **Session 11-12 (Paige + Sally):** Hoàn thiện deliverables, chạy evaluation, chuẩn bị Pitch Deck
+1. **Sprint 1 (Mary):** Review the brief; author a 1-page PRD defining problem, solution, user personas, core features, and explicit non-goals.
+2. **Sprint 2 (John):** Diagram the system architecture, select the technology stack, and establish typed API contracts.
+3. **Sprints 3–10 (Winston + Sally):** Concurrent implementation and automated testing. Every newly merged feature must include corresponding test coverage.
+4. **Sprints 11–12 (Paige + Sally):** Finalize all 10 deliverables, run automated evaluation benchmarks, and rehearse the Pitch Deck.
 
-## 15.5 Dự án mẫu tham khảo
+## 15.5 Reference Architectural Patterns
 
-Khi học cách xây dựng AI Agent, việc tham khảo các dự án mẫu tốt là một trong những cách học nhanh nhất. Dưới đây là những pattern và best practices mà các dự án AI Agent chất lượng cao thường có, để bạn học hỏi và áp dụng vào dự án của mình.
+Studying production-grade AI Agent architectures is one of the most effective paths toward engineering mastery. Below are the key design patterns and disciplines shared by top-performing AI Agent projects:
 
-### Pattern 1: Sự hoàn chỉnh (Completeness)
+### Pattern 1: Holistic Completeness
 
-Dự án AI Agent chất lượng cao không cần xuất sắc ở mọi mặt, nhưng phải đủ tốt ở tất cả. Điểm đều ở 5 tiêu chí (Kiến trúc, Code, Tài liệu, Demo, Sáng tạo) tốt hơn điểm cao ở 1-2 tiêu chí.
+Excellence in hackathon environments is not defined by over-optimizing a single dimension, but by maintaining high standards across all evaluation criteria. Consistent marks across all 5 evaluation pillars (Architecture, Code Quality, Documentation, Demo Execution, Innovation) routinely outperform unbalanced submissions.
 
-Đặc điểm của dự án hoàn chỉnh:
-- Code structure rõ ràng, modular
-- Đầy đủ deliverables (gần đủ 10/10)
-- README chuyên nghiệp, có screenshot và hướng dẫn
-- DevOps setup hoàn chỉnh: Docker, CI/CD, health check
+Hallmarks of a complete submission:
+- Modular, well-organized directory layouts
+- Full submission of mandatory deliverables (10/10)
+- Professional README with architecture diagrams and setup walkthroughs
+- Complete DevOps foundations: multi-stage Dockerfiles, CI workflows, automated health probes
 
-Học: **completeness** — không cần perfect, nhưng không bỏ trống phần nào.
+Lesson: **Completeness** — avoid perfectionism in one area at the expense of blank sections elsewhere.
 
-### Pattern 2: Kỷ luật code (Code Discipline)
+### Pattern 2: Code Discipline
 
-Code chất lượng không cần kỹ thuật phức tạp — chỉ cần consistent application of best practices:
-- Type hints cho tất cả functions
-- Docstrings chi tiết
-- Error handling cụ thể (không bare except)
-- Code style nhất quán
-- Có tests (ít nhưng chất)
+High-caliber code does not require arcane wizardry — it requires consistent adherence to clean software craftsmanship:
+- Comprehensive type annotations across all function signatures
+- Descriptive docstrings detailing arguments and exceptions
+- Explicit exception handling (zero bare `except:` blocks)
+- Uniform, automated linting via Ruff
+- Meaningful unit and integration tests verifying critical paths
 
-Học: **discipline** — chất lượng code đến từ thói quen, không phải kỹ thuật cao siêu.
+Lesson: **Discipline** — software reliability arises from consistent engineering habits.
 
-### Pattern 3: Độ sâu trong LangGraph (Depth)
+### Pattern 3: Architectural Depth in LangGraph
 
-Thay vì xây nhiều features nông, xây ít features nhưng sâu và đúng:
-- Graph design phức tạp: 5+ nodes, conditional routing, tools
-- State management đúng cách (TypedDict với reducers)
-- Human-in-the-loop pattern
-- RAG pipeline tối ưu: chunking, retrieval, reranking
+Rather than building dozens of shallow features, prioritize depth and correctness in core workflows:
+- Thoughtful graph design: 5+ state nodes, conditional branch routing, integrated tool execution
+- Typed state persistence using `TypedDict` and custom state reducers
+- Human-in-the-loop approval checkpoints for sensitive actions
+- Tuned RAG retrieval: optimized chunking, hybrid search, semantic reranking
 
-Học: **depth** — hiểu sâu một vài pattern tốt hơn hiểu nông nhiều pattern.
+Lesson: **Depth** — mastering a few robust architectural patterns outscores implementing numerous fragile prototypes.
 
 ### Pattern 4: Infrastructure First
 
-Deploy sớm, deploy thường. Infrastructure vững chắc giúp development nhanh hơn:
-- Multi-stage Dockerfile tối ưu
-- Docker Compose với nhiều services
-- Live URL hoạt động ổn định
-- Environment-based configuration
+Deploy early and deploy often. A stable infrastructure layer accelerates development velocity:
+- Optimized multi-stage Docker builds
+- Multi-container orchestration via Docker Compose
+- Resilient public Live URLs backed by health probes
+- Environment-driven configuration management via `.env` files
 
-Học: **infrastructure first** — khi infrastructure vững, bạn tập trung vào logic thay vì fight với môi trường.
+Lesson: **Infrastructure First** — when your deployment pipeline is solid, team bandwidth remains focused on agent capabilities rather than environmental debugging.
 
-### Pattern 5: Thử nghiệm multi-agent (Ambition)
+### Pattern 5: Multi-Agent Ambition
 
-Thử nghiệm approach phức tạp hơn, kể cả khi chưa hoàn hảo:
-- Nhiều agents chuyên biệt (retrieval agent + reasoning agent)
-- Agent-to-agent communication
-- Task delegation based on query type
+Embrace advanced multi-agent patterns when problem domains justify orchestration:
+- Specialized collaborating agents (e.g., dedicated retrieval agent + dedicated reasoning agent)
+- Well-defined inter-agent messaging protocols
+- Dynamic task delegation driven by user intent routing
 
-Học: **ambition** — BTC đánh giá cao nỗ lực học hỏi và innovation. Thử nghiệm approach mới là cách học nhanh nhất.
+Lesson: **Ambition** — evaluators reward calculated architectural ambition. Exploring sophisticated paradigms provides massive learning returns.
 
-### Bảng tham chiếu nhanh
+### Quick Reference Guide
 
-| Khi bạn muốn học về... | Tập trung vào pattern... | Tài liệu tham khảo |
-|------------------------|--------------------------|-------------------|
-| Tổng thể hoàn chỉnh | Completeness | README mẫu, deliverables checklist |
-| Code sạch, có discipline | Code Discipline | Type hints guide, ruff config |
-| LangGraph nâng cao | Depth | LangGraph examples trên GitHub |
-| Docker, DevOps | Infrastructure First | Docker docs, CI/CD templates |
-| Multi-agent | Ambition | CrewAI docs, LangGraph multi-agent |
-| Documentation | Completeness | README template, ADR mẫu |
+| Desired Learning Goal | Target Architectural Pattern | Key Reference Resources |
+|-----------------------|------------------------------|--------------------------|
+| Holistic deliverable execution | Completeness | Guidebook README templates, 10 deliverables checklist |
+| Clean, robust codebases | Code Discipline | Python type hint guides, Ruff linter configurations |
+| Advanced LangGraph mechanics | Depth | Official LangGraph examples on GitHub |
+| Containerization & deployment | Infrastructure First | Docker official documentation, GitHub Actions CI templates |
+| Multi-agent collaboration | Ambition | CrewAI docs, LangGraph multi-agent supervisor guides |
+| Architectural documentation | Completeness | System architecture diagrams, Architecture Decision Records (ADRs) |
 
-> 💡 **MẸO:** Đừng copy code từ dự án khác. Học **pattern** và **approach**, rồi áp dụng vào context dự án của bạn. BTC có thể nhận ra code copy và đánh giá thấp. Hiểu tại sao họ làm vậy quan trọng hơn làm đúng hệt họ.
+> 💡 **TIP:** Never blindly copy and paste code from external repositories. Adopt underlying **patterns** and **architectural approaches**, tailoring them to your project's unique constraints. Evaluators easily detect plagiarized templates. Understanding architectural rationale matters far more than reproducing boilerplate.
 
 ```mermaid
 flowchart LR
-    G1["G1 Tuan 1: USP + proposal"] --> G2["G2 Tuan 2: diagram + API skeleton"]
-    G2 --> G3["G3 Tuan 3: agent chay + guardrail"]
-    G3 --> G4["G4 Tuan 4: deploy + CI + eval vong 1"]
-    G4 --> G5["G5 Tuan 5: before/after + slop CLEAN"]
-    G5 --> G6["G6 Tuan 6: 10/10 deliverables"]
+    G1["G1 Week 1: USP + proposal"] --> G2["G2 Week 2: diagram + API skeleton"]
+    G2 --> G3["G3 Week 3: agent running + guardrails"]
+    G3 --> G4["G4 Week 4: deploy + CI + round 1 eval"]
+    G4 --> G5["G5 Week 5: before/after + slop CLEAN"]
+    G5 --> G6["G6 Week 6: 10/10 deliverables"]
 ```
-> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNpF0E1rwzAMBuC_InzdSpvPQw6D0o1QKKOs22neQU2UNMyxg-NklNL_PhkX4oMP0vtIoJuoTE2iANEo81dd0Do4fEgN_MroW4oygs8JNUQFfJ2O8ASDNYMZUUnxA6vVC5SxT8UhFRdQd9ha7Dm5Pe5h_CVFzmhOP4bGQSVeJUElBWBL2gHvvzJsJ7S1xU4tKgkq9SoNKuVdNCjjxW7PH82oYDa6hWiBaYCZh1mAWQFnaoylNTaOLMtRmQF2h7ft-wKzAHMP8wDzAqLNOtrwXtXNZPGsaGQhnkH0ZHvsan_Jm58ghbtQT5ILUtTU4KScFFLffRgnZ05XXXHT2Ym4Mg01OnoNt3uU7_9KY3l_)
+> [📊 Open diagram on Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNpF0E1rwzAMBuC_InzdSpvPQw6D0o1QKKOs22neQU2UNMyxg-NklNL_PhkX4oMP0vtIoJuoTE2iANEo81dd0Do4fEgN_MroW4oygs8JNUQFfJ2O8ASDNYMZUUnxA6vVC5SxT8UhFRdQd9ha7Dm5Pe5h_CVFzmhOP4bGQSVeJUElBWBL2gHvvzJsJ7S1xU4tKgkq9SoNKuVdNCjjxW7PH82oYDa6hWiBaYCZh1mAWQFnaoylNTaOLMtRmQF2h7ft-wKzAHMP8wDzAqLNOtrwXtXNZPGsaGQhnkH0ZHvsan_Jm58ghbtQT5ILUtTU4KScFFLffRgnZ05XXXHT2Ym4Mg01OnoNt3uU7_9KY3l_)
 
-## 10.x Gates G1-G6 — rubric tiến độ theo tuần
+## 10.x Progression Gates G1–G6 — Weekly Evaluation Milestones
 
-> Nguồn: Sổ Tay Mentor Duty AI20K. Mentor dùng 6 gates này check đội mỗi tuần — tự chấm trước buổi mentor duty để không bị bất ngờ.
+> Source: AI20K Mentor Duty Handbook. Mentors utilize these 6 milestone gates to audit team velocity weekly — conduct self-assessments prior to mentor reviews to avoid unpleasant surprises.
 
-| Gate | Tuần | Bằng chứng tối thiểu | Chương guidebook |
+| Gate | Week | Minimum Required Supporting Evidence | Guidebook Chapter |
 |---|---|---|---|
-| G1 — Idea & scope | 1 | USP statement + 1 trang proposal + prototype tầng 1 đã cho 5 user xem | Ch USP + Ch02 |
-| G2 — Architecture | 2 | Kiến trúc diagram + API skeleton chạy + repo đúng cấu trúc template | Ch03 + Ch02 |
-| G3 — Agent chạy | 3 | Agent trả lời được 5 câu hỏi cốt lõi + tools thật được gọi + guardrail 1 lớp | Ch04 + Ch12 |
-| G4 — Production | 4 | Deploy lên cloud + CI xanh + golden dataset ≥45 case + eval vòng 1 có số | Ch08 + Ch07 |
-| G5 — Production-ready | 5 | Eval before/after + feedback ≥5 user thật + slop-check CLEAN + tổng duyệt BGK | Ch08 + Ch09 |
-| G6 — Demo Day | 6 | 10/10 deliverables + video demo + pitch theo AIDA | Ch09 |
+| G1 — Idea & Scope | 1 | Crisp USP statement + 1-page PRD + low-fidelity prototype reviewed by 5 target users | USP Chapter + Ch 02 |
+| G2 — Architecture & Scaffolding | 2 | Architecture diagram + functional API skeleton + repo matching standardized template | Ch 03 + Ch 02 |
+| G3 — Functional Agent | 3 | Agent resolves 5 core domain queries + executes real external tools + 1-tier guardrails | Ch 04 + Ch 12 |
+| G4 — Production Pipeline | 4 | Live cloud deployment + passing CI pipeline + golden dataset ≥45 cases + round 1 metrics | Ch 08 + Ch 07 |
+| G5 — Production Readiness | 5 | Before/after metrics + feedback from ≥5 real users + verified slop-check + mock panel review | Ch 08 + Ch 09 |
+| G6 — Demo Day Excellence | 6 | All 10/10 mandatory deliverables + verified demo video + AIDA-structured pitch delivery | Ch 09 |
 
-**At-risk triggers (mentor sẽ flag):** miss standup 2 ngày liên tiếp · không commit 3 ngày · gate trễ >3 ngày. Tự theo dõi các trigger này trong journal của đội.
+**At-Risk Escalation Triggers (Flagged by Mentors):** Missing daily standups for 2 consecutive days · Zero Git commits across 3 consecutive days · Progression gates slipping >3 days behind schedule. Actively audit these triggers in your team's Development Journal.
 
-## 10.y Danh mục stack — có NGÀY HẾT HẠN, review mỗi cohort
+## 10.y Recommended Technology Stack — Reviewed Each Cohort
 
-> Tech đổi nhanh. Danh mục dưới đây verify 2026-09 — đầu mỗi cohort, mentor review lại trước khi phát cho học viên.
+> Technology evolves rapidly. The matrix below reflects verified baseline versions as of September 2026 — mentors audit this stack at the onset of each cohort before distributing guidance to students.
 
-| Thành phần | Phiên bản đề xuất (2026-09) | Ngày cần review |
+| Technology Component | Recommended Baseline (2026-09) | Review Cadence |
 |---|---|---|
-| Python | 3.12.x | mỗi cohort |
-| LangGraph / LangChain | 1.2.x / 1.4.x | mỗi cohort (breaking changes thường xuyên) |
-| FastAPI / Pydantic | 0.141.x / 2.13.x | 6 tháng |
-| Model OpenAI | gpt-4o / gpt-4o-mini / gpt-4.1 | mỗi cohort — kiểm tra model đã retire chưa |
-| Model Anthropic | claude-sonnet-4-5 / claude-haiku-4-5 | mỗi cohort |
-| Model Google | gemini-2.5-pro / gemini-2.5-flash | mỗi cohort |
-| RAGAS | 0.4.x | mỗi cohort |
-| ~~gpt-3.5-turbo~~ | ĐÃ RETIRE — không dùng | — |
+| Python Runtime | 3.12.x | Every cohort |
+| LangGraph / LangChain | 1.2.x / 1.4.x | Every cohort (frequent framework breaking changes) |
+| FastAPI / Pydantic | 0.141.x / 2.13.x | Every 6 months |
+| OpenAI Models | gpt-4o / gpt-4o-mini / gpt-4.1 | Every cohort — verify model deprecation notices |
+| Anthropic Models | claude-sonnet-4-5 / claude-haiku-4-5 | Every cohort |
+| Google Models | gemini-2.5-pro / gemini-2.5-flash | Every cohort |
+| RAGAS Framework | 0.4.x | Every cohort |
+| ~~gpt-3.5-turbo~~ | RETIRED — DO NOT USE | — |
 
-## 10.z 17 đội spotlight cohort 2 (nguồn cảm hứng — case đầy đủ ở chương Case Studies)
+## 10.z 17 Spotlight Projects from Cohort 2 (Inspirational Case Studies)
 
 Turtalk · Arionear · MedEvidence · SilentGuard · EduGap · Legolas · PaperPulse · Quizify · Smart-XR · PickPilot · SecuSense · VISA · Sim2Real · EdupulseAI · VinAIR · AI Academic Advisor · PromptPilot
 
-## Tóm tắt
+## Summary
 
-Trong chương cuối này, chúng ta đã tổng hợp tài nguyên học tập cho hành trình AI20K:
+This concluding chapter consolidated the essential learning tools and roadmaps for your AI20K journey:
 
-- **Lộ trình 6 tuần** từ FastAPI cơ bản đến Demo Day, ~94 giờ tổng cộng
-- **DeepLearning.AI courses** — 4 khóa bắt buộc: LangGraph agents, RAG, Prompt Engineering, Tools
-- **LangGraph resources** — Official docs, Academy, YouTube channels (Lance Martin, James Briggs), GitHub examples
-- **BMAD Method** — 6 agents, 4 phases, áp dụng như framework tư duy cho project management
-- **Dự án mẫu tham khảo** — 5 pattern chính: completeness, code discipline, depth, infrastructure first, ambition
+- **6-Week Structured Curriculum** bridging initial FastAPI endpoints to polished Demo Day deliverables across ~94 total hours.
+- **DeepLearning.AI Masterclasses** — 4 high-priority courses covering LangGraph architectures, RAG pipelines, prompt design, and tool integrations.
+- **LangGraph Ecosystem Resources** — Official guides, LangGraph Academy modules, Lance Martin/James Briggs video tutorials, and reference GitHub repositories.
+- **The BMAD Method** — 6 specialized AI roles and 4 delivery phases serving as an agile operational mental model.
+- **5 High-Yield Architectural Patterns** — Completeness, code discipline, architectural depth, infrastructure-first deployments, and calculated ambition.
 
-AI20K Build Phase là hành trình ngắn nhưng intense. 6 tuần không nhiều, nhưng đủ để build một AI Agent hoàn chỉnh nếu bạn sử dụng thời gian và tài nguyên wisely. Lộ trình, tài liệu, và kinh nghiệm thực tiễn đã sẵn sàng — giờ là lúc bạn bắt tay vào code.
+The AI20K Build Phase is a focused, rigorous sprint. Six weeks is a compact timeframe, yet fully sufficient to assemble a production-grade AI Agent when your team stewards time and resources intentionally. The curriculum, reference architectures, and field-tested strategies are in your hands — the next step is writing great software.
 
-## Lời kết
+## Concluding Words
 
-Chúc các bạn VinUni AI20K thành công. Hãy nhớ:
+We wish every VinUni AI20K team great success. Keep these engineering principles close:
 
-- **Start simple, iterate fast.** Bắt đầu với 1 endpoint, 1 node, 1 test. Rồi mở rộng.
-- **Ship early, ship often.** Deploy trong tuần đầu tiên. Mỗi tuần thêm feature mới.
-- **Document everything.** README, journal, architecture. Deliverables đầy đủ = nửa chiến thắng.
-- **Tránh những sai lầm phổ biến.** Hầu hết đội thiếu CI/CD, thiếu tests, thiếu Evaluation Evidence. Tránh những lỗi này, bạn đã ở top.
+- **Start simple, iterate fast.** Launch with a single endpoint, a single graph node, and a single automated test. Expand incrementally.
+- **Ship early, ship often.** Deploy your initial cloud skeleton during Week 1. Ship demonstrable improvements weekly.
+- **Document relentlessly.** Architecture diagrams, structured engineering journals, and polished READMEs represent half the victory.
+- **Eliminate common pitfalls.** Most teams overlook CI/CD, omit automated tests, and skip quantitative evaluation. Avoiding these errors immediately positions your team among top contenders.
 
-May mắn và hẹn gặp ở Demo Day.
+Best of luck, and we look forward to seeing your solutions on Demo Day!

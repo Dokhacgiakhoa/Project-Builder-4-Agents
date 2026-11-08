@@ -1,22 +1,18 @@
 ---
 title: "Agent Engineering Practices"
-description: "Good practices từ Cohort 1 & 2 — prompts, evals, guardrails, multi-tool config"
+description: "Best practices from Cohorts 1 & 2 — prompts, evals, guardrails, multi-tool config"
 weight: 7
 ---
 
-# Agent Engineering Practices — bài học từ 12 đội Cohort 1 & 2
+# Agent Engineering Practices — Lessons from 12 Cohort Teams
 
-Phần này tổng hợp các **good practices** về agent engineering rút ra từ việc phân tích
-12 repo đội Cohort 1 & 2. Đây là những pattern thực chiến giúp đội đạt điểm cao ở
-các tiêu chí AI Agent, Code Quality và Evaluation Evidence.
+This section consolidates **engineering practices** extracted from analyzing 12 repositories from Cohorts 1 & 2. These patterns ensure teams excel across AI Agent robustness, Code Quality, and Evaluation Evidence.
 
-> Mỗi practice đều kèm **bằng chứng cohort** ("X/12 đội đã làm") và **before/after**,
-> để bạn hiểu VÌ SAO chứ không chỉ HOW.
+> Each practice provides **cohort evidence** ("X/12 teams implemented this") alongside **before/after comparisons** to explain the architectural rationale, not merely the mechanics.
 
-> 📄 **Xem bản tổng hợp one-page** (cả template + guidebook + anti-patterns +
-> inspiration map): [Báo cáo tổng hợp Cohort 3](https://github.com/hailoc12/ai20k-agent-template/blob/main/docs/COHORT3_REPORT.md).
+> 📄 **Cohort Synthesis Report** (templates + guidebook + anti-patterns + inspiration map): [Cohort 3 Synthesis Report](https://github.com/hailoc12/ai20k-agent-template/blob/main/docs/COHORT3_REPORT.md).
 
-## Trang trong mục này
+## Subsections
 
 - [Prompt Engineering](prompts.md) — XML structure, SAFEGUARDS, citation, external files
 - [Evaluation Framework](evals.md) — golden dataset, runner, LLM-as-Judge, cost benchmark
@@ -24,14 +20,14 @@ các tiêu chí AI Agent, Code Quality và Evaluation Evidence.
 - [Context Management](context-management.md) — PROJECT_CONTEXT, handoff, ADR
 - [Multi-Tool Config](multi-tool-config.md) — .claude/.codex/.gemini mirror, permissions
 
-## Tổng quan nhanh
+## Quick Overview
 
-| Pattern | Đội làm tốt | Đội bỏ sót | Hậu quả bỏ sót |
+| Pattern | High Performing Teams | Common Omissions | Risk of Omission |
 |---|---|---|---|
-| Structured XML prompt | 002, 004, 007 | đa số | Output không ổn định, khó debug |
-| Eval framework | 002, 008, 009, 011 | 10/12 | Mất điểm Evaluation Evidence |
-| Defence-in-depth guardrail | 005, 007 | 11/12 | Jailbreak bypass safeguard |
-| PROJECT_CONTEXT | 001, 008, 011 | 9/12 | Agent drift, hallucinate doc cũ |
-| Citation contract | 006, 009, 012 | 9/12 | User không verify nguồn |
+| Structured XML prompt | 002, 004, 007 | Majority | Unstable outputs, difficult debugging |
+| Eval framework | 002, 008, 009, 011 | 10/12 | Deduction in Evaluation Evidence |
+| Defence-in-depth guardrail | 005, 007 | 11/12 | Safeguard jailbreak bypass |
+| PROJECT_CONTEXT | 001, 008, 011 | 9/12 | Agent drift, stale doc hallucinations |
+| Citation contract | 006, 009, 012 | 9/12 | Users cannot verify source provenance |
 
-Đọc theo thứ tự trên. Mỗi trang ~5-10 phút.
+Read sequentially. Each section requires ~5-10 minutes.\n

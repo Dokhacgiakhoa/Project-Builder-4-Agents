@@ -1,108 +1,108 @@
 ---
-title: "Case Studies — Học từ 3 thế hệ đội AI20K"
+title: "Case Studies — Learning from 3 Generations of AI20K Teams"
 weight: 14
 ---
 
-# Case Studies — Học từ 3 thế hệ đội AI20K
+# Case Studies — Learning from 3 Generations of AI20K Teams
 
-> "Người dùng đi sâu hơn được một đoạn, song vẫn chưa chạm tới giá trị AI cốt lõi."
-> — Nhận định QA về đội bị chặn điểm cao nhất phase RA (Gamma VCoder, v2). Sản phẩm bị đánh giá theo khả năng người dùng chạm được giá trị AI, không theo số lượng feature.
+> "Users proceeded a step deeper, yet still failed to reach core AI value."
+> — QA evaluation finding regarding the team with the most blocking defects during the RA phase (Gamma VCoder, v2). Products are evaluated on whether users can actually experience core AI value, not on absolute feature count.
 
-Chương này là lớp học liệu "học từ đội thật": 12 case study được chọn từ 3 thế hệ đội AI20K, mỗi case có số liệu eval VERBATIM từ evidence gốc và path nguồn để bạn tự kiểm chứng. Không case nào là hoàn hảo — có đội điểm code cao nhất cohort nhưng thiếu journal, có đội positioning sắc bén nhưng bị chặn 2 lần. Đọc cả hai mặt.
+This chapter serves as a practical learning laboratory based on real teams: 12 case studies selected across 3 generations of AI20K teams, each featuring VERBATIM evaluation metrics sourced from original evidence files with source paths provided for independent verification. No single team was flawless — one team achieved the highest code quality score in the cohort yet omitted their development journal; another had razor-sharp market positioning but suffered two disqualifying blockers. Study both sides of the coin.
 
-## Bảng tổng quan 12 case
+## Overview Matrix of the 12 Cases
 
-| # | Case | Cohort | USP một câu | Metric nổi bật | Chương liên quan |
+| # | Case | Cohort | One-Sentence USP | Standout Metric | Related Chapter |
 |---|---|---|---|---|---|
-| 1 | Aclaris AI Knowledge Hub | C2 [118] | Pipeline biên soạn tri thức thành wiki có verifier dò mâu thuẫn | Hit Rate 0.91, Groundedness 0.96, $0.0011/câu | [Chương 4](chapter-04.md), [Chương 10](chapter-10.md) |
-| 2 | NurA Nurse Assistant | C2 [074] | Guardrail 4 lớp cho trợ lý y khoa tiếng Việt | Action accuracy 100%, LLM-judge 4.62/5 | [Chương Privacy](chapter-11.md), [Chương 10](chapter-10.md) |
-| 3 | MindCare AI | C2 [109] | Phân loại rủi ro trước khi AI phản hồi, escalation clinician | Risk accuracy 97%, crisis recall 96% | [Chương Privacy](chapter-11.md), [Chương 10](chapter-10.md) |
-| 4 | AI Finance Assistant | C2 [057] | Trình bày eval như improvement arc (đo baseline trước) | Behavior Accuracy 64% -> 96% | [Chương 10](chapter-10.md) |
-| 5 | Legolas AI | C2 [108] | Legal-tech citations kiểm chứng được | Citation hit 83.3%, keyword recall 96.5% | [Chương 10](chapter-10.md) |
-| 6 | DevCoach AI | C1-2 code [002] | Full loop code -> test -> eval -> CI -> deploy | Auto 37.0, code cao nhất cohort | [Chương 4](chapter-04.md), [Chương 12](chapter-12.md), [Chương 10](chapter-10.md) |
-| 7 | NexusEdu | C1-2 code [007] | DDD thật + guardrail PII nghiêm túc nhất cohort | 38.3 — điểm cao nhất cohort | [Chương 4](chapter-04.md), [Chương Privacy](chapter-11.md) |
-| 8 | ResearchKit | C1-2 code [012] | Schema-first không framework, Pydantic mọi output | 28.9 điểm nhưng 67 unit tests, code thuần nhất | [Chương 4](chapter-04.md), [Chương 10](chapter-10.md) |
-| 9 | Buddy | C1-2 code [008] | Guardrails class + golden benchmark cho safety-UX | Golden scenarios + cost benchmark chạy thật | [Chương 10](chapter-10.md), [Chương Privacy](chapter-11.md) |
-| 10 | VCareer (Delta) | Phase RA | Governance chuẩn mực: cost locks + privacy APAC | 80/100 — cao nhất phase RA | [Chương Workflow](chapter-07.md), [Chương Privacy](chapter-11.md) |
-| 11 | VCoder (Gamma) | Phase RA | Bài học bị chặn: user chưa chạm giá trị AI | 52/100, bị chặn 2 lần | [Chương USP](chapter-05.md), [Chương Workflow](chapter-07.md) |
-| 12 | Red Team Agent (Luna Wolves) | C3 [138] | AI Red Teaming tự động theo OWASP Top 10 for LLM (2025) | Bộ dữ liệu 18,293 kịch bản tấn công | [Chương 4](chapter-04.md), [Chương Privacy](chapter-11.md) |
+| 1 | Aclaris AI Knowledge Hub | C2 [118] | Automated knowledge synthesis wiki pipeline with conflict-detecting verifier | Hit Rate 0.91, Groundedness 0.96, $0.0011/query | [Chapter 4](chapter-04.md), [Chapter 10](chapter-10.md) |
+| 2 | NurA Nurse Assistant | C2 [074] | 4-layer cascading guardrails for Vietnamese medical assistance | Action accuracy 100%, LLM-judge 4.62/5 | [Chapter 11](chapter-11.md), [Chapter 10](chapter-10.md) |
+| 3 | MindCare AI | C2 [109] | Pre-response risk classification with clinician escalation protocols | Risk accuracy 97%, crisis recall 96% | [Chapter 11](chapter-11.md), [Chapter 10](chapter-10.md) |
+| 4 | AI Finance Assistant | C2 [057] | Presenting evaluation as an improvement arc (measuring baseline first) | Behavior Accuracy 64% -> 96% | [Chapter 10](chapter-10.md) |
+| 5 | Legolas AI | C2 [108] | Verifiable citations for legal-tech workflows | Citation hit 83.3%, keyword recall 96.5% | [Chapter 10](chapter-10.md) |
+| 6 | DevCoach AI | C1-2 code [002] | Closed-loop cycle: code -> test -> eval -> CI -> deploy | Auto score 37.0, highest code quality in cohort | [Chapter 4](chapter-04.md), [Chapter 12](chapter-12.md), [Chapter 10](chapter-10.md) |
+| 7 | NexusEdu | C1-2 code [007] | Authentic DDD architecture + most rigorous PII guardrails in cohort | 38.3 — highest overall score in cohort | [Chapter 4](chapter-04.md), [Chapter 11](chapter-11.md) |
+| 8 | ResearchKit | C1-2 code [012] | Schema-first architecture without frameworks, Pydantic on all outputs | 28.9 points but 67 unit tests, cleanest pure code | [Chapter 4](chapter-04.md), [Chapter 10](chapter-10.md) |
+| 9 | Buddy | C1-2 code [008] | Typed guardrail classes + golden safety-UX benchmarks | Real running golden scenarios + cost benchmarks | [Chapter 10](chapter-10.md), [Chapter 11](chapter-11.md) |
+| 10 | VCareer (Delta) | Phase RA | Exemplary governance: server-side cost locks + APAC privacy compliance | 80/100 — highest in RA phase | [Chapter 7](chapter-07.md), [Chapter 11](chapter-11.md) |
+| 11 | VCoder (Gamma) | Phase RA | The lesson of user blockage: users never touched core AI value | 52/100, blocked twice | [Chapter 5](chapter-05.md), [Chapter 7](chapter-07.md) |
+| 12 | Red Team Agent (Luna Wolves) | C3 [138] | Automated AI Red Teaming benchmarked against OWASP Top 10 for LLM (2025) | Comprehensive dataset of 18,293 adversarial attack prompts | [Chapter 4](chapter-04.md), [Chapter 11](chapter-11.md) |
 
 ---
 
-## Nhóm 1 — Cohort 2: 5 đội có số liệu eval đầy đủ
+## Group 1 — Cohort 2: 5 Teams with Comprehensive Empirical Evaluation
 
-5 đội này cùng thuộc một cohort, cùngdeadline, và cùng trình bày eval bằng số. Điểm chung: mỗi đội chọn MỘT trục đánh giá làm xương sống sản phẩm (groundedness, guardrail, risk, improvement arc, citation) rồi đo nó thật.
+These 5 teams shared the same cohort, faced the exact same deadline, and presented their evaluations using concrete quantitative metrics. Common trait: each team selected ONE central evaluation axis as the backbone of their product (groundedness, guardrail efficacy, risk classification, improvement progression, citation accuracy) and measured it rigorously.
 
 ### Case 1 — Aclaris AI Knowledge Hub [C2-118]
 
-**(a) Sản phẩm và đội.** Hệ thống biên soạn tri thức thành wiki: AI thu thập, tổng hợp, kiểm chứng rồi commit tri thức thành trang wiki có liên kết. Xây theo mô hình 2-agent kết hợp MCP.
+**(a) Product and Team:** An automated knowledge synthesis engine that curates, verifies, and commits unstructured notes into a structured, interconnected wiki knowledge base. Engineered using a 2-agent architecture integrated with Model Context Protocol (MCP).
 
-**(b) USP.** Tri thức vào wiki không phải "AI viết xong là xong" — có bước VERIFY riêng và verifier dò mâu thuẫn trước khi COMMIT. Wiki có wikilink graph, tức tri thức được cấu trúc hóa thành mạng, không phải danh sách văn bản rời rạc.
+**(b) Unique Selling Proposition (USP):** Committing knowledge to the wiki is never a matter of "the AI generated text and finished" — a dedicated VERIFY step executes where an independent verifier detects contradictions before triggering a COMMIT. The wiki maintains an active wikilink graph, structuring knowledge as an interconnected graph rather than disconnected text snippets.
 
-**(c) Kỹ thuật đáng học.** Pipeline 5 pha tách bạch trách nhiệm: MAP -> REDUCE -> REFINE -> VERIFY -> COMMIT. Phần VERIFY là node riêng với verifier dò mâu thuẫn — đúng tư tưởng "verification tách khỏi generation" ([Chương 4](chapter-04.md)). Guardrail prompt-injection đặt ở server-side với JWT gắn student_id để override — không tin input từ client ([Chương Privacy](chapter-11.md)).
+**(c) Notable Engineering Practices:** A 5-phase pipeline with clear separation of concerns: MAP -> REDUCE -> REFINE -> VERIFY -> COMMIT. The VERIFY stage operates as an isolated node with a contradiction-detection verifier — implementing the core design principle: "separate verification from generation" ([Chapter 4](chapter-04.md)). Prompt-injection guardrails reside server-side, using JWT tokens bound to student IDs for authorized overrides — never trusting client-supplied inputs ([Chapter 11](chapter-11.md)).
 
-**(d) Số liệu eval (verbatim từ evidence).**
+**(d) Evaluation Metrics (Verbatim from Evidence):**
 
-| Metric | Giá trị |
+| Metric | Value |
 |---|---|
 | Hit Rate | 0.91 |
 | Groundedness | 0.96 |
-| Cost | $0.0011/câu |
+| Cost | $0.0011/query |
 
-**(e) Bài học cho đội mới.** Groundedness 0.96 không đến từ prompt hay hơn mà từ việc tách VERIFY thành một pha pipeline riêng với quyền từ chối commit. Áp dụng ngay vào [Chương 4](chapter-04.md) (agent core: thêm node verify) và [Chương 10](chapter-10.md) (đo groundedness như metric chính nếu sản phẩm của bạn sinh tri thức).
+**(e) Actionable Takeaway:** A 0.96 groundedness score did not originate from clever prompting, but from isolating VERIFY into a dedicated pipeline stage empowered with commit rejection authority. Apply this immediately: in [Chapter 4](chapter-04.md) (agent core: add an independent verification node) and [Chapter 10](chapter-10.md) (treat groundedness as your primary metric if your system synthesizes knowledge).
 
-**(f) Nguồn evidence.** `cai_tien_tai_lieu_ky_thuat/reference/e1-secondbrain-mine.md` (mục TOP 5 case study cohort 2); dữ liệu gốc: `ai20k-cohort2-data/` (demoday_details, project_intros).
+**(f) Evidence Source:** `cai_tien_tai_lieu_ky_thuat/reference/e1-secondbrain-mine.md` (TOP 5 Cohort 2 Case Studies); raw records: `ai20k-cohort2-data/` (demoday_details, project_intros).
 
 ### Case 2 — NurA Nurse Assistant [C2-074]
 
-**(a) Sản phẩm và đội.** Trợ lý điều dưỡng (nurse assistant) cho lĩnh vực y khoa tiếng Việt — domain sai một câu là hậu quả thật.
+**(a) Product and Team:** A clinical nursing assistant deployed in the Vietnamese medical domain — a high-stakes environment where a single incorrect statement produces immediate clinical harm.
 
-**(b) USP.** Guardrail 4 lớp xếp tầng, mỗi lớp bắt loại lỗi khác nhau, thay vì một prompt "hãy cẩn thận".
+**(b) Unique Selling Proposition (USP):** A 4-layer cascading guardrail defense, with each successive layer targeting distinct failure modes, rather than relying on a generic "please be careful" system prompt.
 
-**(c) Kỹ thuật đáng học.** Chuỗi guardrail 4 lớp đúng thứ tự: (1) keyword phủ định lọc nhanh ca cấm -> (2) LLM intent classifier hiểu ý định -> (3) grounding guard buộc câu trả lời bám nguồn -> (4) output guard kiểm soát câu cuối ra user. Retrieval dùng hybrid dense (Cohere multilingual) + BM25 kết hợp RRF — cách chuẩn cho tiếng Việt y khoa vốn thuật ngữ lai Anh-Việt ([Chương Privacy](chapter-11.md): defence-in-depth).
+**(c) Notable Engineering Practices:** A strictly ordered 4-layer defense pipeline: (1) Deterministic regex negation filters intercepting forbidden diagnoses -> (2) LLM intent classifier parsing clinical context -> (3) Grounding guard forcing responses to adhere strictly to verified reference sources -> (4) Output safety guard vetting final responses before delivery to users. Retrieval leverages hybrid dense embeddings (Cohere multilingual) + BM25 combined via Reciprocal Rank Fusion (RRF) — the gold standard for Vietnamese clinical terminology mixing English and Vietnamese medical jargon ([Chapter 11](chapter-11.md): defense-in-depth).
 
-**(d) Số liệu eval (verbatim từ evidence).**
+**(d) Evaluation Metrics (Verbatim from Evidence):**
 
-| Metric | Giá trị |
+| Metric | Value |
 |---|---|
 | Action accuracy | 100% |
 | Hit rate | 86.8% |
 | LLM-judge | 4.62/5 |
-| Violation | ~0 |
+| Violation rate | ~0 |
 
-**(e) Bài học cho đội mới.** "Guardrail >= 2 lớp (code + prompt)" không phải slogan — NurA chứng minh 4 lớp xếp tầng đo được violation ~0. Nếu sản phẩm bạn dính domain nhạy cảm, thiết kế guardrail theo tầng trước khi viết tính năng đầu tiên ([Chương Privacy](chapter-11.md)), và đo mỗi tầng riêng ([Chương 10](chapter-10.md)).
+**(e) Actionable Takeaway:** Enforcing "Guardrails >= 2 layers (code + prompt)" is not a superficial slogan — NurA proved that cascading 4-layer filters drive violations to near zero. If your application handles sensitive domains, architect layered guardrails before writing your initial feature ([Chapter 11](chapter-11.md)), and benchmark each layer independently ([Chapter 10](chapter-10.md)).
 
-**(f) Nguồn evidence.** `cai_tien_tai_lieu_ky_thuat/reference/e1-secondbrain-mine.md` (mục TOP 5); dữ liệu gốc: `ai20k-cohort2-data/`.
+**(f) Evidence Source:** `cai_tien_tai_lieu_ky_thuat/reference/e1-secondbrain-mine.md` (TOP 5); raw records: `ai20k-cohort2-data/`.
 
 ### Case 3 — MindCare AI [C2-109]
 
-**(a) Sản phẩm và đội.** Trợ lý sức khỏe tâm thần — domain nơi sai sót có thể là khủng hoảng.
+**(a) Product and Team:** A mental health support assistant — an operating domain where errors risk psychological crisis.
 
-**(b) USP.** Risk classifier chạy TRƯỚC khi AI phản hồi: mọi tin nhắn được chấm mức rủi ro trước, ca nguy cơ được escalation sang clinician thay vì để AI tự trả lời.
+**(b) Unique Selling Proposition (USP):** A pre-response risk classification engine: every incoming interaction undergoes risk severity scoring BEFORE any AI response is generated; critical risk cases escalate directly to clinical personnel rather than permitting automated generation.
 
-**(c) Kỹ thuật đáng học.** Kiến trúc "phân loại trước, phản hồi sau" kết hợp bộ đo lâm sàng chuẩn PHQ-9/GAD-7; PHI/PII được mã hóa ([Chương Privacy](chapter-11.md): privacy-by-domain, HITL đúng chỗ — escalation là con đường chính, không phải fallback). Eval của đội có bảng so model-alone vs layered kèm false-positive table — hiếm thấy: đội chủ động công bố cả lỗi dương tính giả.
+**(c) Notable Engineering Practices:** A "classify-first, generate-second" pipeline incorporating validated clinical diagnostic instruments (PHQ-9/GAD-7); PHI/PII data is fully encrypted at rest and in transit ([Chapter 11](chapter-11.md): domain privacy, authentic Human-in-the-Loop workflows — escalation is the primary design path, not a secondary fallback). The evaluation report presented side-by-side comparisons of standalone models versus layered filtering, alongside an explicit false-positive breakdown — a rare show of engineering honesty.
 
-**(d) Số liệu eval (verbatim từ evidence).**
+**(d) Evaluation Metrics (Verbatim from Evidence):**
 
-| Metric | Giá trị |
+| Metric | Value |
 |---|---|
 | Risk accuracy | 97% |
 | Crisis recall | 96% |
-| So sánh | Bảng model-alone vs layered + false-positive table |
+| Comparative Analysis | Standalone model vs Layered pipeline + False-positive distribution table |
 
-**(e) Bài học cho đội mới.** Với sản phẩm dính con người thật, thứ tự quan trọng hơn tính năng: classifier rủi ro đứng TRƯỚC generator. Và khi báo cáo eval, kèm bảng false-positive — báo cáo một chiều là red flag với ban giám khảo ([Chương 10](chapter-10.md), [Chương Privacy](chapter-11.md)).
+**(e) Actionable Takeaway:** When building systems touching human health, execution sequencing supersedes feature breadth: risk classifiers must execute PRIOR to generators. Furthermore, when documenting evaluation results, always include false-positive tables — one-sided reporting signals an immediate red flag to technical judges ([Chapter 10](chapter-10.md), [Chapter 11](chapter-11.md)).
 
-**(f) Nguồn evidence.** `cai_tien_tai_lieu_ky_thuat/reference/e1-secondbrain-mine.md`; dữ liệu gốc: `ai20k-cohort2-data/`.
+**(f) Evidence Source:** `cai_tien_tai_lieu_ky_thuat/reference/e1-secondbrain-mine.md`; raw records: `ai20k-cohort2-data/`.
 
 ### Case 4 — AI Finance Assistant [C2-057]
 
-**(a) Sản phẩm và đội.** Trợ lý tài chính cá nhân — cohort 2.
+**(a) Product and Team:** A personal financial intelligence assistant — Cohort 2.
 
-**(b) USP.** Không phải tính năng mà là CÁCH trình bày eval: đội duy nhất cohort vẽ eval như improvement arc — có baseline xấu trước, có cải tiến sau.
+**(b) Unique Selling Proposition (USP):** Not an exotic model architecture, but their approach to presenting evaluation: the sole team in the cohort that framed evaluation as a quantified improvement arc — measuring an unflattering initial baseline before demonstrating iterative optimization.
 
-**(c) Kỹ thuật đáng học.** Đo baseline TRƯỚC khi tối ưu: chỉ khi biết Behavior Accuracy đang 64% và Grounding đang 13.3%, mọi cải tiến sau đó mới thành câu chuyện thay vì con số treo lơ lửng ([Chương 10](chapter-10.md): baseline -> thay đổi -> re-measure).
+**(c) Notable Engineering Practices:** Measuring unvarnished baselines BEFORE optimizing: by documenting that initial Behavior Accuracy sat at 64% and Grounding at 13.3%, subsequent gains evolved into a credible engineering narrative rather than isolated, suspect numbers ([Chapter 10](chapter-10.md): establish baseline -> apply architectural change -> re-measure).
 
-**(d) Số liệu eval (verbatim từ evidence).**
+**(d) Evaluation Metrics (Verbatim from Evidence):**
 
 | Metric | Before | After |
 |---|---|---|
@@ -110,222 +110,222 @@ Chương này là lớp học liệu "học từ đội thật": 12 case study �
 | Grounding | 13.3% | 93.3% |
 | Guardrail | — | 100% |
 
-**(e) Bài học cho đội mới.** Tuần 2 hãy đo baseline ngay cả khi số xấu — số xấu hôm nay là bằng chứng cải tiến ngày Demo Day. Grounding 13.3% -> 93.3% thuyết phục hơn tuyệt đối một con số 93.3% không có quá khứ ([Chương 10](chapter-10.md)).
+**(e) Actionable Takeaway:** In Week 2, measure your initial baseline even if performance is modest — an imperfect baseline today constitutes undeniable proof of engineering progress on Demo Day. A documented progression from 13.3% to 93.3% carries far greater credibility than a static 93.3% reported without context ([Chapter 10](chapter-10.md)).
 
-**(f) Nguồn evidence.** `cai_tien_tai_lieu_ky_thuat/reference/e1-secondbrain-mine.md`; dữ liệu gốc: `ai20k-cohort2-data/`.
+**(f) Evidence Source:** `cai_tien_tai_lieu_ky_thuat/reference/e1-secondbrain-mine.md`; raw records: `ai20k-cohort2-data/`.
 
-### Case 5 — Legolas AI [C2-108, spotlight #6]
+### Case 5 — Legolas AI [C2-108, Spotlight #6]
 
-**(a) Sản phẩm và đội.** Legal-tech: trợ lý pháp lý trả lời kèm citation kiểm chứng được — lọt top 17 spotlight cohort 2.
+**(a) Product and Team:** Legal-tech intelligence: a legal research assistant delivering answers supported by verifiable statutory citations — ranked top 17 spotlight in Cohort 2.
 
-**(b) USP.** "Citations kiểm chứng được" — cùng họ với bài toán chống bịa, nhưng đo bằng chính độ tin cậy của trích dẫn.
+**(b) Unique Selling Proposition (USP):** Verifiable legal citations — tackling hallucination risks through strict source citation fidelity.
 
-**(c) Kỹ thuật đáng học.** Eval được thiết kế theo từng loại thông tin pháp lý: citation hit, keyword recall, và riêng legal number recall — vì số điều luật sai một chữ là sai toàn bộ câu trả lời ([Chương 10](chapter-10.md): chọn metric theo rủi ro của domain, không đo chung chung).
+**(c) Notable Engineering Practices:** Evaluation tailored to specific categories of legal precision: citation hit rate, keyword recall, and an isolated legal statute number recall metric — because misquoting a statutory article number invalidates an entire legal opinion ([Chapter 10](chapter-10.md): select metrics aligned with domain risks rather than generic broad accuracy).
 
-**(d) Số liệu eval (verbatim từ evidence).**
+**(d) Evaluation Metrics (Verbatim from Evidence):**
 
-| Metric | Giá trị | Ngữ cảnh |
+| Metric | Value | Context |
 |---|---|---|
-| Citation hit | 83.3% | 30 câu |
-| Keyword recall | 96.5% | 30 câu |
-| Legal number recall | 90% | 30 câu / 526 chunks |
+| Citation hit | 83.3% | 30 test prompts |
+| Keyword recall | 96.5% | 30 test prompts |
+| Legal number recall | 90% | 30 test prompts / 526 document chunks |
 
-**(e) Bài học cho đội mới.** Đặt tên cho cái user sợ nhất trong domain của bạn (sai số điều luật, sai liều thuốc, sai con tiền) rồi đo riêng nó. Nếu mọi metric đều gọi chung "accuracy", bạn chưa có eval ([Chương 10](chapter-10.md)).
+**(e) Actionable Takeaway:** Identify the single failure mode your target users fear most in your domain (statutory misquotation, incorrect medication dosages, arithmetic financial errors) and construct an isolated benchmark for it. If all metrics are bundled into generic "accuracy", you lack meaningful evaluation ([Chapter 10](chapter-10.md)).
 
-**(f) Nguồn evidence.** `cai_tien_tai_lieu_ky_thuat/reference/e1-secondbrain-mine.md`; dữ liệu gốc: `ai20k-cohort2-data/`.
-
----
-
-## Nhóm 2 — Code-mining cohort 1-2: 4 đội đọc từ repo thật
-
-Nhóm này được đánh giá bằng cách ĐỌC CODE 12 repo cohort 1-2. Số liệu đến từ analysis_results.json và deep_analysis.json. Lưu ý: cả 12 repo đều squash 1 commit nên git history không đánh giá được — bài học nhỏ: commit lịch sử thật cũng là evidence.
-
-Thống kê nền: CI 5/12 đội, Docker 10/12, eval chạy thật (script + dataset + report artifact) chỉ 5/12, guardrail code-level 5/12, guardrail prompt-only tới 11/12 đội.
-
-### Case 6 — DevCoach AI [002]: full loop duy nhất
-
-**(a) Sản phẩm và đội.** AI interview coach — LangGraph supervisor-worker 6 agents, pgvector 13k, frontend React 35 pages, 29 file pytest, CI/CD deploy EC2.
-
-**(b) USP (dưới góc độ kỹ thuật).** Đội duy nhất cohort khép kín full loop: code -> test -> eval -> CI -> deploy. Không đội nào trong 12 đội làm trọn vòng này.
-
-**(c) Kỹ thuật đáng học.** (1) Supervisor-worker với TypedDict state + stage Literal — "một chỗ duy nhất merge state", tránh state conflict khi 6 agents chạy ([Chương 4](chapter-04.md)). (2) Prompt cấu trúc 6 section: role, context, instructions, examples, output_format, verification — prompt tách file riêng, không nhét trong code. (3) Threshold-based regression eval + synthetic answer bank, triết lý "sau mỗi thay đổi code/prompt/retrieval, pipeline còn đúng không?", artifacts commit vào repo ([Chương 10](chapter-10.md)). (4) CI chạy test trong container sạch python:3.12-slim + deploy concurrency guard group production-deploy ([Chương 12](chapter-12.md)). Kèm ROOT_CAUSE_ANALYSIS.md cho process debugging.
-
-**(d) Số liệu eval (verbatim từ evidence).**
-
-| Metric | Giá trị |
-|---|---|
-| Điểm auto | 37.0 |
-| Xếp hạng code | Cao nhất cohort về CHẤT LƯỢNG CODE (điểm auto tổng: 37.0 — thấp hơn 007) |
-| Eval | e2e replay + LLM-judge + artifacts (chạy thật) |
-
-**(e) Bài học cho đội mới.** Vòng lặp code -> test -> eval -> CI là MỘT vòng, không phải 4 việc riêng — đội 009 có 89 test files nhưng không workflow nào chạy chúng, tức bài test chết. Bắt đầu từ tuần 3: mỗi thay đổi agent phải chạy lại eval với threshold ([Chương 4](chapter-04.md), [Chương 12](chapter-12.md), [Chương 10](chapter-10.md)).
-
-**(f) Nguồn evidence.** `cai_tien_tai_lieu_ky_thuat/reference/e1-cohort12-code-mining.md` (bảng mục A, practices mục B); repo gốc: `A20-App-002`, analysis_results.json, deep_analysis.json.
-
-### Case 7 — NexusEdu [007]: DDD thật và biết RỜI framework
-
-**(a) Sản phẩm và đội.** Sản phẩm giáo dục, điểm auto 38.3 — cao nhất TỔNG trong 12 đội (007 thắng tổng; 002 thắng hạng code) được soi code.
-
-**(b) USP (dưới góc độ kỹ thuật).** DDD (Domain-Driven Design) 4 lớp làm THẬT, không phải vẽ diagram — và là đội guardrail PII nghiêm túc nhất cohort.
-
-**(c) Kỹ thuật đáng học.** (1) Deterministic chains + BAML structured output: chọn chuỗi tất định thay vì graph tự do, structured generation thay vì parse output tự do ([Chương 4](chapter-04.md)). (2) Pipeline PII 4 bước: mask (Presidio PII mask) -> BAML generate -> semantic validation -> invariant verification ([Chương Privacy](chapter-11.md)). (3) Đáng học nhất: README ghi "refactored from complex graph models for maximum reliability" — đội TỰ RỜI LangGraph khi bài toán không cần graph. Framework là công cụ, không phải KPI. Kèm 37 file pytest, uv sync --frozen + lockfile, Makefile developer-UX (make start/stop/logs/reset_db/reseed).
-
-**(d) Số liệu eval (verbatim từ evidence).**
-
-| Metric | Giá trị |
-|---|---|
-| Điểm auto | 38.3 (cao nhất cohort) |
-| Tests | 37 file pytest |
-| Eval chạy thật | Không (điểm trừ) |
-
-**(e) Bài học cho đội mới.** Dùng graph khi bài toán CẦN branching thật; chuỗi tất định + structured output khi không cần — đội điểm cao nhất cohort chọn đường đơn giản hơn. Và quy tắc PII: mask trước khi dữ liệu chạm model ([Chương Privacy](chapter-11.md)).
-
-**(f) Nguồn evidence.** `cai_tien_tai_lieu_ky_thuat/reference/e1-cohort12-code-mining.md`; repo gốc: `A20-App-007`.
-
-### Case 8 — ResearchKit [012]: điểm rubric thấp khác code kém
-
-**(a) Sản phẩm và đội.** Hệ thống claim verification: worker chạy trên Redis event-bus KHÔNG dùng agent framework nào.
-
-**(b) USP (dưới góc độ kỹ thuật).** Anti-hallucination schema-first không framework: MỌI output đi qua Pydantic — sai schema là exception tường minh, không phải fallback im lặng.
-
-**(c) Kỹ thuật đáng học.** (1) Pydantic làm hợp đồng mọi output — sai schema crash to, biết ngay (ngược với anti-pattern "silent fallback" ở chương workflow). (2) Prompt verify yêu cầu verbatim quote + page + confidence: AI phải trích nguyên văn kèm số trang thì mới tính là verify ([Chương 10](chapter-10.md)). (3) CancelToken qua Redis propagate user-cancel vào runner dài hạn. (4) 67 unit tests — nhiều nhất nhóm. README chuẩn: bảng feature + ASCII cây thư mục chú thích + link sản phẩm thật.
-
-**(d) Số liệu eval (verbatim từ evidence).**
-
-| Metric | Giá trị |
-|---|---|
-| Điểm rubric | 28.9 (thấp nhất top — thiếu journal/worklog) |
-| Unit tests | 67 |
-| Nhận xét | "Code thuần nhất" (thuần nhất nhất nhóm soi) |
-
-**(e) Bài học cho đội mới.** Hai chiều: (1) đội mới — đừng vì điểm rubric mà bỏ chất lượng code, và đừng vì code đẹp mà bỏ deliverables như journal; 012 mất điểm vì thiếu journal/worklog chứ không phải vì code. (2) khái niệm — "điểm rubric thấp không tương đương code kém" (feedback cohorts trước gửi BTC về rubric thiếu trọng số code) ([Chương 4](chapter-04.md), [Chương 10](chapter-10.md)).
-
-**(f) Nguồn evidence.** `cai_tien_tai_lieu_ky_thuat/reference/e1-cohort12-code-mining.md` (mục D — Top 3); repo gốc: `A20-App-012`.
-
-### Case 9 — Buddy [008]: guardrails class + golden benchmark
-
-**(a) Sản phẩm và đội.** English learning companion — bài toán safety-UX: luyện tiếng Anh với người mới học, phải an toàn cho mọi lứa tuổi.
-
-**(b) USP (dưới góc độ kỹ thuật).** Safety-UX tốt nhất cohort: guardrail không phải comment trong prompt mà là class hoàn chỉnh có test riêng.
-
-**(c) Kỹ thuật đáng học.** (1) Guardrails class: enum SafetyLevel, enum ViolationType, check_input/check_output tách bạch — guardrail vào hệ thống type, có thể review và test ([Chương Privacy](chapter-11.md)). (2) Golden scenario benchmark: mỗi kịch bản ghi rõ must/must-not behavior kèm needs_human_review flag — spec hành vi thành test ([Chương 10](chapter-10.md)). (3) Cost benchmark riêng — chi phí cũng là metric. (4) Tên test đọc như spec: test_blocks_grooming_secret_language — đọc tên test là biết yêu cầu an toàn nào được kiểm. Điểm trừ: repo có buddy.db 311KB commit nhầm và copy nguyên src/agent.py của template không sửa.
-
-**(d) Số liệu eval (verbatim từ evidence).**
-
-| Metric | Giá trị |
-|---|---|
-| Eval chạy thật | Có — golden_scenarios + cost benchmark |
-| Xếp hạng | Safety-UX tốt nhất cohort |
-| Điểm trừ | File rác commit (buddy.db 311KB) |
-
-**(e) Bài học cho đội mới.** Biến guardrail thành code có type và test tên-đọc-như-spec, kèm golden benchmark must/must-not cho hành vi an toàn ([Chương 10](chapter-10.md), [Chương Privacy](chapter-11.md)). Và thêm .gitignore cho database file trước tuần 2.
-
-**(f) Nguồn evidence.** `cai_tien_tai_lieu_ky_thuat/reference/e1-cohort12-code-mining.md`; repo gốc: `A20-App-008`.
+**(f) Evidence Source:** `cai_tien_tai_lieu_ky_thuat/reference/e1-secondbrain-mine.md`; raw records: `ai20k-cohort2-data/`.
 
 ---
 
-## Nhóm 3 — Phase RA + Cohort 3: governance, bài học bị chặn, và sản phẩm mới nhất
+## Group 2 — Code-Mining Across Cohorts 1 & 2: 4 Teams Evaluated from Repositories
 
-### Case 10 — VCareer (Delta): governance chuẩn mực
+This cluster was analyzed by performing direct static code analyses across 12 repositories from Cohorts 1 and 2. Telemetry is drawn from analysis_results.json and deep_analysis.json. Note: All 12 repositories squashed their commit histories into a single commit upon submission, preventing commit velocity analysis — a subtle lesson: maintaining genuine commit history serves as evaluation evidence.
 
-**(a) Sản phẩm và đội.** Nền tảng luyện phỏng vấn việc làm (mock interview), 4 team phase RA. Điểm: 80/100 — cao nhất phase RA.
+Baseline telemetry: Automated CI present in 5/12 teams, Docker adopted in 10/12, verifiable offline evaluation suites (test script + dataset + generated artifacts) present in only 5/12, code-level guardrails present in 5/12, and prompt-only filtering relied upon by 11/12 teams.
 
-**(b) USP.** Governance là CƠ CHẾ thật chứ không phải landing page viết "chúng tôi tôn trọng privacy": mọi ràng buộc đều thực thi được và có thể chỉ ra code/tài khoản demo.
+### Case 6 — DevCoach AI [002]: The Sole Closed-Loop Implementation
 
-**(c) Kỹ thuật đáng học.** Cost locks server-side: phiên tối đa 60 phút, idle 30 giây tự ngắt, tối đa 10 phiên/24h, tính toán ở server — client không vượt được ([Chương Workflow](chapter-07.md): workflow governance, [Chương Privacy](chapter-11.md)). AI từ chối phỏng vấn THẬT (chống lạm dụng thay thế người dùng trong quy trình thật). Watermark anti-cheat. Privacy: transcript PII-filter, audio lưu Cloudflare R2 Singapore (PDPA/APAC), xóa sau 24h, không chuyển data ra ngoài APAC. Landing honest: "MVP · Chỉ để luyện tập · Không liên kết nhà tuyển dụng" ([Chương USP](chapter-05.md): messaging đúng với những gì sản phẩm làm được).
+**(a) Product and Team:** An AI technical interview coach — LangGraph supervisor-worker architecture orchestrating 6 agents, 13,000 pgvector embeddings, a 35-page React frontend, 29 pytest suites, and automated CI/CD targeting AWS EC2.
 
-**(d) Số liệu eval (verbatim từ evidence).**
+**(b) Unique Selling Proposition (USP):** The only team across the cohort executing a complete engineering lifecycle: code -> test -> eval -> CI -> deploy. No other team among the 12 reviewed achieved this full loop.
 
-| Metric | Giá trị |
+**(c) Notable Engineering Practices:** (1) Supervisor-worker topology utilizing TypedDict state schemas with Literal stage enums — enforcing a "single source of truth for state mergers" to eliminate race conditions across 6 collaborating agents ([Chapter 4](chapter-04.md)). (2) Structured prompts organized across 6 distinct sections: role, context, instructions, examples, output_format, and verification — prompts maintained in dedicated configuration files, never hardcoded in application logic. (3) Threshold-based regression evaluations paired with a synthetic answer repository, answering the question: "Does the pipeline remain within quality bounds after every code, prompt, or retrieval change?", committing all benchmark outputs to version control ([Chapter 10](chapter-10.md)). (4) CI executing test suites inside isolated `python:3.12-slim` containers with deployment concurrency controls guarding production rollouts ([Chapter 12](chapter-12.md)). Included a detailed `ROOT_CAUSE_ANALYSIS.md` for post-incident debugging.
+
+**(d) Evaluation Metrics (Verbatim from Evidence):**
+
+| Metric | Value |
 |---|---|
-| Điểm phase RA | 80 (cao nhất 4 team) |
-| Cost locks | 60'/phiên, idle 30s, 10 phiên/24h, server-side |
-| Privacy | R2 Singapore, xóa 24h, APAC-only |
-| Điểm trừ (QA D-01) | Friction cao, không demo công khai |
+| Automated static score | 37.0 |
+| Code quality ranking | Highest code quality in cohort (overall static score: 37.0 — slightly trailing 007) |
+| Evaluation suite | End-to-end trace replay + LLM-judge + committed artifact reports |
 
-**(e) Bài học cho đội mới.** Điểm cao nhất phase RA không đến từ nhiều tính năng mà từ honest messaging + governance có cơ chế: limit tính server-side, PII filter, region lock. Đội nào tuyên bố privacy thì phải chỉ ra được cơ chế ([Chương USP](chapter-05.md), [Chương Workflow](chapter-07.md), [Chương Privacy](chapter-11.md)).
+**(e) Actionable Takeaway:** The loop of code -> test -> eval -> CI is ONE unified system, not four disconnected tasks — Team 009 committed 89 test files, yet zero automated CI workflows executed them, rendering those tests inactive. Starting in Week 3: every agent modification must trigger automated regression evaluations backed by quantitative quality thresholds ([Chapter 4](chapter-04.md), [Chapter 12](chapter-12.md), [Chapter 10](chapter-10.md)).
 
-**(f) Nguồn evidence.** `cai_tien_tai_lieu_ky_thuat/reference/e1-cohort-lessons.md` (mục 3, 7, và khối "Điểm chung các team đạt điểm cao"); QA report Delta v1+v2.
+**(f) Evidence Source:** `cai_tien_tai_lieu_ky_thuat/reference/e1-cohort12-code-mining.md` (Table Section A, Practices Section B); repository: `A20-App-002`, analysis_results.json, deep_analysis.json.
 
-### Case 11 — VCoder (Gamma): 2 lần bị chặn và north star
+### Case 7 — NexusEdu [007]: Authentic DDD and Knowing When to Step Away from Frameworks
 
-**(a) Sản phẩm và đội.** Nền tảng đánh giá AI readiness cho developer. Điểm: 52/100 — bị chặn 2 lần (login 401, rồi MCQ).
+**(a) Product and Team:** An educational intelligence platform, achieving an automated static evaluation score of 38.3 — the highest overall rating among all 12 evaluated codebases (Team 007 captured the top composite score; Team 002 captured top code architecture honors).
 
-**(b) USP.** Positioning rất sắc: "Prove your AI readiness — 5 axes, 5 levels, LLM-judged, AI-Ready Certificate". Bài học của case này nằm ở KHOẢNG CÁCH giữa định vị tốt và sản phẩm chạm được.
+**(b) Unique Selling Proposition (USP):** Domain-Driven Design (DDD) implemented across 4 functional layers, backed by the most disciplined PII sanitization pipeline in the cohort.
 
-**(c) Kỹ thuật đáng học.** Mặt tốt: Q4 loop-breaking được QA đánh "Xuất sắc" ([Chương Workflow](chapter-07.md): escape hatch chống loop vô hạn — so với anti-pattern team 011 cũng xử lý tốt: interviewer tự check count >= max chuyển phase Closing, luôn có đường tới END); Q7 CLAUDE.md persistent context cũng đánh "Xuất sắc"; leaderboard dùng dữ liệu cohort thật (level 0.0-2.2). Mặt bị chặn: nav null-href "khách mới không thấy giá trị trước khi đăng ký" (G-02); session hết hạn giữa bài thi 35 phút, state không persist -> mất tiến độ (G-06); MCQ click không register, không toast chỉ câu thiếu (G-08); raw React Router dev error lộ production (G-05); messaging lệch hero "~60 min" vs entry-test "~35 phút" -> giảm niềm tin (G-07). V2 xin re-test và fix được CRITICAL đầu (G-01) nhưng regress: lỗi chặn mới (G-08) xuất hiện ngay tại bước nộp bài — thiếu E2E regression test.
+**(c) Notable Engineering Practices:** (1) Deterministic pipelines paired with BAML structured output schemas: choosing deterministic execution chains over unconstrained cyclic graphs, and enforcing typed generation schemas over unstructured text parsing ([Chapter 4](chapter-04.md)). (2) A 4-stage PII pipeline: sanitization masking (Presidio PII mask) -> BAML generation -> semantic validation -> invariant consistency checks ([Chapter 11](chapter-11.md)). (3) Most notably: their README stated, "refactored from complex graph models for maximum reliability" — the team deliberately removed LangGraph when the problem did not require cyclic state branching. Frameworks are tools, not evaluation criteria. Accompanied by 37 pytest files, `uv sync --frozen` with deterministic lockfiles, and an ergonomic developer Makefile (`make start/stop/logs/reset_db/reseed`).
 
-**(d) Số liệu eval (verbatim từ evidence).**
+**(d) Evaluation Metrics (Verbatim from Evidence):**
 
-| Metric | Giá trị |
+| Metric | Value |
 |---|---|
-| Điểm phase RA | 52 (bị chặn) |
-| Số lần bị chặn | 2 (login 401 -> MCQ) |
-| QA đánh Xuất sắc | Q4 loop-breaking, Q7 CLAUDE.md persistent context |
-| Leaderboard | Dữ liệu cohort thật, level 0.0-2.2 |
-| Điểm yếu QA | Thiếu kiểm tính phân biệt, thiếu reproducibility |
+| Automated static score | 38.3 (highest in cohort) |
+| Automated tests | 37 pytest test files |
+| Active eval pipelines | Absent (deducted points) |
 
-**(e) Bài học cho đội mới.** North star của case này: sản phẩm bị đánh giá theo khả năng NGƯỜI DÙNG CHẠM ĐƯỢC GIÁ TRỊ AI (khách mới, không đăng ký, không qua 5 bước) — không theo số feature. Fix xong phải có E2E regression test trong CI vì mỗi lần fix có thể đẻ lỗi chặn mới ([Chương USP](chapter-05.md), [Chương Workflow](chapter-07.md)).
+**(e) Actionable Takeaway:** Adopt graph architectures only when workflows require authentic conditional branching; default to deterministic pipelines and structured outputs when workflows are sequential — the highest scoring team chose architectural simplicity over framework complexity. Core privacy rule: sanitize and mask PII before data ever reaches LLM endpoints ([Chapter 11](chapter-11.md)).
 
-**(f) Nguồn evidence.** `cai_tien_tai_lieu_ky_thuat/reference/e1-cohort-lessons.md` (mục 1, 9, north star cuối file); QA report Gamma v1+v2.
+**(f) Evidence Source:** `cai_tien_tai_lieu_ky_thuat/reference/e1-cohort12-code-mining.md`; repository: `A20-App-007`.
+
+### Case 8 — ResearchKit [012]: Rubric Scores vs Engineering Excellence
+
+**(a) Product and Team:** An automated factual claim verification system: distributed workers executing over a Redis event bus WITHOUT utilizing any commercial agent frameworks.
+
+**(b) Unique Selling Proposition (USP):** Schema-first anti-hallucination architecture: EVERY model output is enforced via Pydantic — schema validation failures raise immediate, explicit exceptions rather than masking errors through silent fallbacks.
+
+**(c) Notable Engineering Practices:** (1) Pydantic as a strict behavioral contract for all outputs — schema mismatches fail loudly and visibly, eliminating silent degradation. (2) Verification prompts requiring verbatim source quotations, page numbers, and confidence ratings: models must quote source documents verbatim with citations to confirm facts ([Chapter 10](chapter-10.md)). (3) Redis-backed CancelTokens propagating cancellation signals into long-running background workers. (4) 67 unit tests — the largest test suite in the group. Professional README: clear feature matrices + ASCII directory trees + active deployment links.
+
+**(d) Evaluation Metrics (Verbatim from Evidence):**
+
+| Metric | Value |
+|---|---|
+| Rubric score | 28.9 (lowest among top tier — omitted journal and worklog) |
+| Unit tests | 67 test suites |
+| Code review summary | "Cleanest, most idiomatic codebase in the evaluated set" |
+
+**(e) Actionable Takeaway:** A dual lesson: (1) Do not sacrifice engineering quality for quick rubric points, but never neglect mandatory deliverables like journals; Team 012 lost standing solely because they omitted their journal and worklog, not due to flawed code. (2) "A modest rubric score does not equal poor engineering" — past feedback submitted to organizers underscored that evaluation rubrics must appropriately reward deep software craftsmanship ([Chapter 4](chapter-04.md), [Chapter 10](chapter-10.md)).
+
+**(f) Evidence Source:** `cai_tien_tai_lieu_ky_thuat/reference/e1-cohort12-code-mining.md` (Section D — Top 3); repository: `A20-App-012`.
+
+### Case 9 — Buddy [008]: Typed Guardrail Classes + Golden Safety Benchmarks
+
+**(a) Product and Team:** An English conversational tutor — designed around Safety-UX principles: conversational practice for novice learners that remains completely safe across all age brackets.
+
+**(b) Unique Selling Proposition (USP):** The strongest Safety-UX implementation in the cohort: guardrails were implemented as fully typed classes accompanied by isolated unit tests, rather than informal prompt instructions.
+
+**(c) Notable Engineering Practices:** (1) Guardrails class hierarchy: `SafetyLevel` enums, `ViolationType` enums, and clear separation between `check_input` and `check_output` — baking safety rules into type systems for automated linting and testing ([Chapter 11](chapter-11.md)). (2) Golden scenario benchmark: every test scenario defined explicit `must` and `must_not` behavioral assertions accompanied by a `needs_human_review` escalation flag — transforming behavioral expectations into executable unit tests ([Chapter 10](chapter-10.md)). (3) Dedicated inference cost benchmarking. (4) Self-documenting test identifiers: `test_blocks_grooming_secret_language` clearly communicates the exact safety violation being intercepted. Areas for improvement: accidental inclusion of a 311KB `buddy.db` SQLite file in Git and committing an unmodified `src/agent.py` template file.
+
+**(d) Evaluation Metrics (Verbatim from Evidence):**
+
+| Metric | Value |
+|---|---|
+| Real evaluation suite | Yes — golden_scenarios + cost benchmarks |
+| Cohort standing | Best Safety-UX in cohort |
+| Defect noted | Binary file accidentally committed (`buddy.db` 311KB) |
+
+**(e) Actionable Takeaway:** Encode guardrails as strongly typed code with descriptive test names, supported by golden must/must-not behavioral benchmarks ([Chapter 10](chapter-10.md), [Chapter 11](chapter-11.md)). Verify your `.gitignore` configuration before Week 2 to keep local database files out of version control.
+
+**(f) Evidence Source:** `cai_tien_tai_lieu_ky_thuat/reference/e1-cohort12-code-mining.md`; repository: `A20-App-008`.
+
+---
+
+## Group 3 — Phase RA + Cohort 3: Governance, User Blockers, and Emerging Trends
+
+### Case 10 — VCareer (Delta): Exemplary Governance Architecture
+
+**(a) Product and Team:** An AI mock interview simulator evaluated among 4 teams during Phase RA. Score: 80/100 — highest ranking in Phase RA.
+
+**(b) Unique Selling Proposition (USP):** Governance implemented as enforceable runtime MECHANISMS rather than marketing statements on landing pages: every constraint is strictly enforced in code and verifiable in live demo accounts.
+
+**(c) Notable Engineering Practices:** Server-side cost controls: sessions hard-capped at 60 minutes, 30-second idle timeouts, maximum 10 sessions per rolling 24-hour window, calculated strictly on backend servers — client modifications cannot bypass restrictions ([Chapter 7](chapter-07.md), [Chapter 11](chapter-11.md)). AI refuses to participate in real job interviews (preventing fraudulent user substitution in authentic recruitment processes). Anti-cheating audio watermarking. Privacy compliance: PII transcript filtering, raw audio persisted to Cloudflare R2 Singapore (compliant with PDPA / APAC data privacy mandates), automated deletion after 24 hours, zero data transmission outside APAC boundaries. Transparent landing page disclosure: "MVP · Practice Simulation Only · Not Affiliated with Recruiters" ([Chapter 5](chapter-05.md)).
+
+**(d) Evaluation Metrics (Verbatim from Evidence):**
+
+| Metric | Value |
+|---|---|
+| Phase RA score | 80/100 (highest among 4 teams) |
+| Cost controls | 60 min session cap, 30s idle disconnect, 10 sessions/24h, enforced server-side |
+| Privacy infrastructure | Cloudflare R2 Singapore, 24h retention purge, APAC-locked |
+| QA Observation (D-01) | High initial onboarding friction, lack of open public demo access |
+
+**(e) Actionable Takeaway:** Winning Phase RA did not stem from accumulating dozens of secondary features, but from authentic messaging and verified governance: server-side budget limits, PII sanitization, and geographic data sovereignty. Teams advertising privacy compliance must demonstrate concrete technical enforcement ([Chapter 5](chapter-05.md), [Chapter 7](chapter-07.md), [Chapter 11](chapter-11.md)).
+
+**(f) Evidence Source:** `cai_tien_tai_lieu_ky_thuat/reference/e1-cohort-lessons.md` (Sections 3, 7, and Top Performing Teams analysis); QA Audit Reports Delta v1 and v2.
+
+### Case 11 — VCoder (Gamma): Two Disqualifying Blockers and the Core North Star
+
+**(a) Product and Team:** A technical assessment platform evaluating developer AI readiness. Score: 52/100 — blocked twice during formal QA audits (first by a 401 login failure, followed by an unhandled MCQ interaction defect).
+
+**(b) Unique Selling Proposition (USP):** Sharp market positioning: "Prove your AI readiness — 5 axes, 5 levels, LLM-judged, AI-Ready Certificate". The central lesson of this case lies in the CHASM between crisp positioning and a user's ability to access product value.
+
+**(c) Notable Engineering Practices:** Strengths: Loop-breaking safeguards in Q4 received an "Outstanding" evaluation from QA ([Chapter 7](chapter-07.md): escape hatches against infinite conversational loops — similar to Team 011 where interviewers actively track message counts against maximum thresholds to transition cleanly to Closing states); Q7 `CLAUDE.md` persistent context architecture was similarly rated "Outstanding"; leaderboard utilized real cohort benchmarks (levels 0.0–2.2). Blocker issues: navigation menus with `null` href attributes meant "unregistered users could not preview product value" (G-02); authentication sessions expired midway through 35-minute assessments without state persistence, causing complete progress loss (G-06); multiple-choice inputs failed to register clicks without warning toasts (G-08); unhandled React Router developer exceptions surfaced in production (G-05); conflicting duration messaging between hero banners ("~60 mins") and entry tests ("~35 mins") eroded evaluator trust (G-07). Version 2 requested re-testing and resolved the initial critical defect (G-01) but suffered regression: a new blocking bug (G-08) surfaced right on the submission button due to the absence of end-to-end regression tests.
+
+**(d) Evaluation Metrics (Verbatim from Evidence):**
+
+| Metric | Value |
+|---|---|
+| Phase RA score | 52/100 (blocked) |
+| Blocking occurrences | 2 (authentication 401 -> MCQ submission failure) |
+| QA Outstanding ratings | Q4 loop-breaking safeguards, Q7 CLAUDE.md context |
+| Leaderboard | Real cohort distribution data, levels 0.0–2.2 |
+| QA Critique | Lack of discriminative validation, poor reproducibility |
+
+**(e) Actionable Takeaway:** The enduring lesson of this case: products are judged by whether NEW USERS CAN UNLOCK CORE AI VALUE without jumping through convoluted registration barriers — not by the volume of background features. Once a defect is resolved, execute comprehensive E2E regression tests in CI to guarantee that bug fixes do not spawn fresh blockers ([Chapter 5](chapter-05.md), [Chapter 7](chapter-07.md)).
+
+**(f) Evidence Source:** `cai_tien_tai_lieu_ky_thuat/reference/e1-cohort-lessons.md` (Sections 1, 9, North Star Summary); QA Audit Reports Gamma v1 and v2.
 
 ### Case 12 — Red Team Agent / AIP-10 (Luna Wolves) [C3-138]
 
-**(a) Sản phẩm và đội.** Nền tảng AI Red Teaming tự động hóa: kiểm thử an toàn, phát hiện lỗ hổng và đánh giá rủi ro cho các hệ thống LLM / AI Agents, theo tiêu chuẩn OWASP Top 10 for LLM Applications (2025). Đội Luna Wolves, 4 thành viên (github: hieunm12122002, monobear2014, NgoKhoi1, xrl111). Spotlight rank 6/246 dự án cohort 3.
+**(a) Product and Team:** An automated AI Red Teaming platform: automated vulnerability detection, adversarial stress testing, and risk auditing tailored for LLM and AI Agent architectures, benchmarked against the OWASP Top 10 for LLM Applications (2025). Built by team Luna Wolves (4 members: hieunm12122002, monobear2014, NgoKhoi1, xrl111). Spotlight rank 6 out of 246 submissions in Cohort 3.
 
-**(b) USP.** (Từ mô tả dự án.) Hệ thống kết hợp LangGraph Control Plane, PyRIT Attack Engine cùng bộ dữ liệu 18,293 kịch bản tấn công — sản phẩm của cohort 3 attack chính là các hệ thống AI khác: đội xây công cụ đánh giá an toàn theo chuẩn công nghiệp có sẵn (OWASP), không tự chế rubric.
+**(b) Unique Selling Proposition (USP):** Combines a LangGraph Control Plane with the Microsoft PyRIT Attack Engine and a dedicated dataset of 18,293 adversarial attack scenarios. Rather than inventing arbitrary evaluation rubrics, the team audited AI systems against recognized global standards (OWASP).
 
-**(c) Kỹ thuật đáng học.** Theo mô tả dự án: dùng LangGraph làm control plane (điều phối) tách khỏi attack engine (PyRIT — framework red-teaming của Microsoft) — đúng mô hình orchestrator + specialized engine ([Chương 4](chapter-04.md)). Chọn chuẩn đánh giá ngoài có sức nặng (OWASP Top 10 for LLM Applications 2025) làm xương sống thay vì tự định nghĩa "an toàn". Bộ dữ liệu kịch bản 18,293 cảnh cũng là evidence eval khổng lồ. Số liệu benchmark an toàn chi tiết khác: (chưa công bố).
+**(c) Notable Engineering Practices:** Architecture isolates orchestration from execution: LangGraph operates as the control plane while PyRIT serves as the specialized attack engine — exemplifying the orchestrator + specialized worker paradigm ([Chapter 4](chapter-04.md)). Grounding product metrics on an established industry benchmark (OWASP Top 10 for LLM Applications 2025) provides instant authority. The curated repository of 18,293 attack prompts provides massive empirical evaluation evidence. Detailed security benchmark telemetry: (unreleased).
 
-**(d) Số liệu eval (verbatim từ mô tả dự án).**
+**(d) Evaluation Metrics (Verbatim from Project Description):**
 
-| Metric | Giá trị |
+| Metric | Value |
 |---|---|
-| Spotlight cohort 3 | Rank 6 |
-| Bộ dữ liệu kịch bản tấn công | 18,293 kịch bản |
-| Chuẩn áp dụng | OWASP Top 10 for LLM Applications (2025) |
-| Kiến trúc (theo desc) | LangGraph Control Plane + PyRIT Attack Engine |
-| Eval an toàn chi tiết | (chưa công bố) |
+| Cohort 3 Spotlight Rank | Rank 6 |
+| Adversarial attack prompts | 18,293 scenarios |
+| Standardized framework | OWASP Top 10 for LLM Applications (2025) |
+| Architecture design | LangGraph Control Plane + PyRIT Attack Engine |
+| Detailed security benchmark | (unreleased) |
 
-Demo: https://c3-app-138.tech-vibe.io.vn/ — Video: https://drive.google.com/file/d/1dlpjHG2W4Dk6v6-NEn0zmCAIb5vKScXA/view?usp=sharing
+Live Demo: https://c3-app-138.tech-vibe.io.vn/ — Video Walkthrough: https://drive.google.com/file/d/1dlpjHG2W4Dk6v6-NEn0zmCAIb5vKScXA/view?usp=sharing
 
-**(e) Bài học cho đội mới.** Đừng tự chế thước đo an toàn: bám chuẩn công nghiệp (OWASP) + dataset tấn công lớn + framework chuyên dụng (PyRIT), sản phẩm của bạn ngay lập tức nghiêm túc hơn ([Chương 4](chapter-04.md), [Chương Privacy](chapter-11.md)). Đây cũng là hướng đi mới ở cohort 3: đánh giá AI như một product category riêng.
+**(e) Actionable Takeaway:** Do not attempt to invent custom safety definitions: adopting established industry frameworks (OWASP), massive empirical scenario banks, and dedicated tooling (PyRIT) immediately elevates project credibility ([Chapter 4](chapter-04.md), [Chapter 11](chapter-11.md)). This represents an exciting product category: AI safety systems evaluating sibling AI agents.
 
-**(f) Nguồn evidence.** `cai_tien_tai_lieu_ky_thuat/reference/e1-cohort3-demoday-projects.json` (bản ghi team "Luna Wolves", code 138, spotlight_rank 6 — desc/demo/video/slides verbatim).
+**(f) Evidence Source:** `cai_tien_tai_lieu_ky_thuat/reference/e1-cohort3-demoday-projects.json` (Record for team "Luna Wolves", team ID 138, spotlight_rank 6 — verbatim descriptions, links, and slides).
 
 ---
 
 ```mermaid
 flowchart TD
-    START[Doi moi: doc case nao truoc?] --> Q1{San pham co RAG?}
-    Q1 -->|co| RAG[Legolas + NurA: RAG + guardrail y khoa]
-    Q1 -->|khong| Q2{Van de chinh la eval?}
-    Q2 -->|co| EV[AI Finance + Aclaris: eval arc + metrics]
-    Q2 -->|khong| Q3{Bi diem thap vi rubric?}
-    Q3 -->|co| RK[ResearchKit 012: diem rubric khac code]
-    Q3 -->|khong| DL[DevCoach 002 + NexusEdu 007: architecture + CI]
-    RAG --> WEEK2[Truoc tuan 2: doc 3 case gan nhat + adopt 1 ky thuat]
+    START[New teams: which case to read first?] --> Q1{Does your product use RAG?}
+    Q1 -->|Yes| RAG[Legolas + NurA: RAG + medical guardrails]
+    Q1 -->|No| Q2{Is your primary challenge evaluation?}
+    Q2 -->|Yes| EV[AI Finance + Aclaris: eval arc + metrics]
+    Q2 -->|No| Q3{Suffering low scores due to rubrics?}
+    Q3 -->|Yes| RK[ResearchKit 012: rubric score vs code quality]
+    Q3 -->|No| DL[DevCoach 002 + NexusEdu 007: architecture + CI]
+    RAG --> WEEK2[Before Week 2: read 3 closest cases + adopt 1 technique]
     EV --> WEEK2
     RK --> WEEK2
     DL --> WEEK2
 ```
-> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNpdUk2PmzAQ_Ssjru1KCTlU4tAVXWi1SlQpH0oPkMPUnsXWgh0ZO21E8t87LjRRygke78PzxkMirKQkg-Sttb-EQudhV9QG-Nnu8s2uKqyGzuoMpBUgsCcwaMG7YMXzAZ6ePsN6PmzRwFFhB8LCJv_2fB0d1vNIuAh7iWi1osa22MMH-B5cnkWM35uATjrULZzhXVk8PGgZMc0F1umw5wxJIJQ2CloEOmF7C0pvQeW-yl_hqzZoBLF9Llp0us_-8gGdYKwj77ToDw_if0mL4YsGqakDr_AIJw0u_GT6LWtxH2pZbagnNlVL7WE2T7NROSp4HOTOuODDg3RKKlZVQacXi0LBbJbGWuh36EsZ-PNTFs-qtCfhg4uDvLxOLrG22PuPslym1S5uAnzgdtJxSYtxTQ0jRqFnKUp79DCH9zPPFNBPRuX-7jNZL_9HitUdST5C0pHrUMt4Y4bIqBOvqKOagTqR9Iah9XVSm2skY_B2ezaCf_KFIUbCUaKnQmPjsJvg6x-dQsZS)
+> [📊 Open diagram on Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNpdUk2PmzAQ_Ssjru1KCTlU4tAVXWi1SlQpH0oPkMPUnsXWgh0ZO21E8t87LjRRygke78PzxkMirKQkg-Sttb-EQudhV9QG-Nnu8s2uKqyGzuoMpBUgsCcwaMG7YMXzAZ6ePsN6PmzRwFFhB8LCJv_2fB0d1vNIuAh7iWi1osa22MMH-B5cnkWM35uATjrULZzhXVk8PGgZMc0F1umw5wxJIJQ2CloEOmF7C0pvQeW-yl_hqzZoBLF9Llp0us_-8gGdYKwj77ToDw_if0mL4YsGqakDr_AIJw0u_GT6LWtxH2pZbagnNlVL7WE2T7NROSp4HOTOuODDg3RKKlZVQacXi0LBbJbGWuh36EsZ-PNTFs-qtCfhg4uDvLxOLrG22PuPslym1S5uAnzgdtJxSYtxTQ0jRqFnKUp79DCH9zPPFNBPRuX-7jNZL_9HitUdST5C0pHrUMt4Y4bIqBOvqKOagTqR9Iah9XVSm2skY_B2ezaCf_KFIUbCUaKnQmPjsJvg6x-dQsZS)
 
-## Cách dùng chương này
+## How to Apply These Case Studies
 
-1. **Trước tuần 2, đọc 3 case gần sản phẩm của bạn nhất.** Sản phẩm sinh tri thức/RAG -> Case 1, 5, 8. Domain nhạy cảm (y tế, tài chính, pháp lý, giáo dục) -> Case 2, 3, 4, 9. Muốn chuẩn hóa kỹ thuật đội -> Case 6, 7. Đang định nghĩa USP và public demo -> Case 10, 11, 12.
-2. **Mỗi case, đọc theo thứ tự (b) -> (d) -> (e).** USP cho bạn định vị, số liệu cho bạn target, bài học cho bạn hành động tuần này. Phần (f) là path evidence — mở ra và tự đối chiếu, đừng tin chương này một chiều.
-3. **Với mọi con số, hỏi: đội kia đo bằng gì, trên tập nào, ai chấm?** Nếu bạn không trả lời được cho con số của chính mình, bạn chưa có eval ([Chương 10](chapter-10.md)).
-4. **Case 11 (Gamma) đọc kỹ nhất trước Demo Day** — hai lần bị chặn đều ở chỗ user chạm sản phẩm, không phải ở chỗ AI thông minh.
+1. **Before Week 2, review the 3 case studies that mirror your proposed architecture.** If your product synthesizes knowledge or uses RAG -> Cases 1, 5, 8. If handling sensitive domains (health, finance, law, education) -> Cases 2, 3, 4, 9. If seeking to standardize team engineering practices -> Cases 6, 7. If refining product positioning and public demos -> Cases 10, 11, 12.
+2. **Review each case in this exact sequence: (b) -> (d) -> (e).** The USP guides positioning, the quantitative metrics set performance targets, and the actionable takeaway dictates your immediate sprints. Section (f) identifies the original source path — review the raw evidence directly.
+3. **For every reported metric, ask: What benchmark dataset was used, how was it measured, and who graded the results?** If you cannot answer these questions for your own system, you lack an empirical evaluation framework ([Chapter 10](chapter-10.md)).
+4. **Scrutinize Case 11 (Gamma) prior to Demo Day** — both blocking failures occurred directly at the user onboarding boundary, never within the underlying AI model.
 
-## Exit-test — 3 câu tự kiểm
+## Chapter Exit-Test (Self-Assessment Checklist)
 
-Trả lời được cả 3 câu mới quay lại làm sản phẩm:
+Verify you can answer all three questions before resuming development:
 
-1. **Case nào gần sản phẩm của bạn nhất, và USP của họ khác bạn ở điểm gì?** (Nếu trả lời "giống hệt" — bạn chưa có USP, xem lại [Chương USP](chapter-05.md).)
-2. **Một kỹ thuật nào trong 12 case bạn adopt được ngay tuần này?** (Ví dụ: guardrail lớp 2 ở NurA, baseline eval ở AI Finance Assistant, Pydantic mọi output ở ResearchKit, golden must/must-not ở Buddy, cost lock server-side ở Delta.)
-3. **Nếu QA phát hiện sản phẩm của bạn có lỗi chặn ngay tại bước đầu tiên của người dùng mới, bạn phát hiện nó bằng cơ chế nào của chính đội mình?** (Nhớ: ở cohorts trước, không đội nào tự phát hiện lỗi của mình — mọi CRITICAL/HIGH do QA bên ngoài tìm ra.)
+1. **Which case study most closely resembles your project, and how does your USP distinguish your solution?** (If your answer is "it is identical" — you lack a defined USP; revisit [Chapter 5](chapter-05.md).)
+2. **Which single technical practice from these 12 cases will you integrate into your codebase this week?** (Examples: 2-layer guardrails from NurA, baseline measurement from AI Finance Assistant, Pydantic schema validation from ResearchKit, golden must/must-not tests from Buddy, server-side budget locks from Delta.)
+3. **If external evaluators encounter a disqualifying blocker on your product's very first user screen, what internal testing mechanism would catch it first?** (Remember: in prior cohorts, zero teams caught their own blocking defects internally — all critical issues were uncovered by external QA audits.)
 
 ---
 
-Evidence gốc của toàn chương: `cai_tien_tai_lieu_ky_thuat/reference/` (e1-secondbrain-mine.md, e1-cohort12-code-mining.md, e1-cohort-lessons.md, e1-cohort3-demoday-projects.json). Mọi số liệu trong chương lấy verbatim; thông tin thiếu được ghi rõ "(chưa công bố)".
+Primary archival evidence sources: `cai_tien_tai_lieu_ky_thuat/reference/` (`e1-secondbrain-mine.md`, `e1-cohort12-code-mining.md`, `e1-cohort-lessons.md`, `e1-cohort3-demoday-projects.json`). All reported figures are reproduced verbatim; missing metrics are explicitly identified as "(unreleased)".

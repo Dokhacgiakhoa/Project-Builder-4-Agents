@@ -1,16 +1,16 @@
 ---
 title: "Nodes & Edges"
-description: "Định nghĩa nodes và edges trong LangGraph graph"
+description: "Defining execution nodes and edges in LangGraph"
 weight: 2
 ---
 
 ## Nodes
 
-Mỗi node là một hàm async nhận state, trả về dict:
+Each node is an async function receiving state and returning updated fields:
 
 ```python
 async def analyze_node(state: AgentState) -> dict:
-    """Phân tích query từ user."""
+    """Analyze user input query."""
     query = state.get("query", "")
     analysis = await process_query(query)
     return {"analysis": analysis}
@@ -18,14 +18,14 @@ async def analyze_node(state: AgentState) -> dict:
 
 ### Node Best Practices
 
-1. **Một node một trách nhiệm** — Không làm 2 việc trong 1 node
-2. **Return chỉ fields cần update** — Không return toàn bộ state
-3. **Error handling** — Luôn có try/except và set error field
-4. **Docstring** — Mô tả node làm gì
+1. **Single Responsibility per Node** — Keep each step focused
+2. **Return only updated fields** — Reducers merge keys into state
+3. **Defensive Error Handling** — Catch exceptions and populate error states
+4. **Docstrings** — Clearly describe node functionality
 
 ```python
 async def safe_analyze_node(state: AgentState) -> dict:
-    """Phân tích query, handle errors gracefully."""
+    """Analyze query and handle errors gracefully."""
     try:
         query = state.get("query", "")
         result = await llm_service.analyze(query)

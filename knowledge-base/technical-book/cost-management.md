@@ -1,94 +1,92 @@
 ---
-title: "Quản lý chi phí API"
-description: "Ước tính và tối ưu chi phí LLM API cho dự án AI20K"
+title: "API Cost Management"
+description: "Estimating and optimizing LLM API expenditures for engineering projects"
 weight: 98
 ---
 
-# Quản lý chi phí API — Đừng để bill bất ngờ
+# API Cost Management — Avoiding Billing Surprises
 
-Khi xây dựng AI Agent, mỗi lần gọi LLM (GPT-4, Claude, v.v.) đều tốn tiền. Nếu không kiểm soát, bạn có thể tiêu hết budget chỉ trong vài ngày testing. Phần này giúp bạn ước tính chi phí và áp dụng các chiến lược giảm cost.
-
----
-
-## Ước tính chi phí cho AI20K
-
-### Bảng giá tham khảo (tháng 5/2025)
-
-| Model | Input (per 1M tokens) | Output (per 1M tokens) | Phù hợp cho |
-|-------|----------------------|------------------------|-------------|
-| gpt-4o-mini | $0.15 | $0.60 | **Development + Production** |
-| gpt-4o | $2.50 | $10.00 | Testing chất lượng cao |
-| gpt-4.1-mini | $0.40 | $1.60 | Cân bằng cost/chất lượng |
-| gpt-4.1 | $2.00 | $8.00 | Agent phức tạp |
-| claude-sonnet-4-6 | $3.00 | $15.00 | Agent phức tạp |
-| claude-haiku-4-5 | $0.80 | $4.00 | Development |
-
-> 💡 **MẸO:** Dùng **gpt-4o-mini** cho toàn bộ quá trình development. Nó rẻ hơn gpt-4o ~17 lần nhưng vẫn đủ thông minh cho hầu hết tác vụ AI Agent. Chỉ chuyển sang model đắt hơn khi cần chất lượng output cao nhất cho Demo Day.
-
-### Ước tính chi phí theo giai đoạn
-
-**Giai đoạn Development (4-5 tuần):**
-- Mỗi lần test agent: ~500-2000 tokens → ~$0.001-0.003
-- Ngày code 4 giờ, test ~50 lần → ~$0.05-0.15/ngày
-- 5 tuần development → **~$2-5 tổng cộng**
-
-**Giai đoạn Evaluation:**
-- Chạy 50-100 câu hỏi test, mỗi câu ~1000 tokens → ~$0.10-0.50
-- Chạy 3-5 lần để tune → **~$0.50-2.50**
-
-**Giai đoạn Demo Day:**
-- Demo live ~10 phút, ~20 requests → **~$0.10**
-
-**Tổng ước tính cho toàn bộ AI20K: ~$5-10** (với gpt-4o-mini)
+When building AI Agents, every LLM invocation incurs monetary costs. Without strict telemetry and guardrails, developer testing loops can burn entire budgets in days. This guide outlines cost estimation models and engineering strategies to optimize token usage.
 
 ---
 
-## 8 chiến lược giảm chi phí
+## Cost Estimation Guidelines
 
-### 1. Dùng model rẻ nhất đủ cho task
+### Reference Pricing Table
+
+| Model | Input (per 1M tokens) | Output (per 1M tokens) | Recommended For |
+|---|---|---|---|
+| gpt-4o-mini | $0.15 | $0.60 | **Development + Production Workloads** |
+| gpt-4o | $2.50 | $10.00 | High-precision evaluation & final demos |
+| gpt-4.1-mini | $0.40 | $1.60 | Balanced cost / quality |
+| gpt-4.1 | $2.00 | $8.00 | Complex multi-step reasoning agents |
+| claude-sonnet-4-6 | $3.00 | $15.00 | Complex reasoning & code generation |
+| claude-haiku-4-5 | $0.80 | $4.00 | Lightweight routing & development |
+
+> 💡 **TIP:** Default to lightweight models like **gpt-4o-mini** throughout development. It is ~17x cheaper than flagship models while delivering sufficient reasoning capability for most tool-use and classification tasks. Escalate to flagship models only when benchmarked tasks require deeper frontier reasoning.
+
+### Lifecycle Phase Cost Estimates
+
+**Development Phase (4–5 weeks):**
+- Single agent test run: ~500–2,000 tokens → ~$0.001–0.003
+- 4 hours coding session with ~50 invocations → ~$0.05–0.15/day
+- 5 weeks of continuous development → **~$2–5 total**
+
+**Evaluation Phase:**
+- 50–100 benchmark queries (~1,000 tokens/query) → ~$0.10–0.50
+- 3–5 tuning sweeps → **~$0.50–2.50**
+
+**Demo Day Phase:**
+- Live demo session (~20 queries) → **~$0.10**
+
+**Total Lifecycle Estimate: ~$5–10** (using lightweight models)
+
+---
+
+## 8 Cost Reduction Strategies
+
+### 1. Match Model Capacity to Task Complexity
 
 ```python
-# ❌ Đắt — dùng gpt-4o cho mọi thứ
+# ❌ Expensive — using flagship model for every trivial step
 llm = ChatOpenAI(model="gpt-4o")
 
-# ✅ Rẻ — dùng gpt-4o-mini cho development
+# ✅ Cost-effective — lightweight model for development
 llm = ChatOpenAI(model="gpt-4o-mini")
 
-# ✅ Tối ưu — dùng model khác nhau cho task khác nhau
-analyze_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)  # Phân tích: rẻ, deterministic
-generate_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.7)  # Sinh text: rẻ, creative
+# ✅ Tiered routing — specialized models per subtask
+analyze_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)  # Classification & routing
+generate_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.7)  # Creative synthesis
 ```
 
-### 2. Giới hạn max_tokens
+### 2. Enforce Output Token Caps (`max_tokens`)
 
 ```python
-# ❌ Không giới hạn — LLM có thể sinh rất dài
+# ❌ Uncapped — models can generate run-away verbosity
 llm = ChatOpenAI(model="gpt-4o-mini")
 
-# ✅ Giới hạn output — tiết kiệm tokens
-llm = ChatOpenAI(model="gpt-4o-mini", max_tokens=500)  # Đủ cho câu trả lời ngắn
-llm = ChatOpenAI(model="gpt-4o-mini", max_tokens=1500)  # Đủ cho câu trả lời chi tiết
+# ✅ Explicit boundaries
+llm = ChatOpenAI(model="gpt-4o-mini", max_tokens=500)   # Short concise answers
+llm = ChatOpenAI(model="gpt-4o-mini", max_tokens=1500)  # Detailed synthesis
 ```
 
-### 3. Temperature = 0 cho task phân tích
+### 3. Temperature = 0 for Classification & Routing
 
 ```python
-# Task phân tích/routing — không cần creativity, giảm token waste
+# Eliminates non-deterministic tokens and prevents repetitive reasoning loops
 analyze_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 ```
 
-### 4. Cache kết quả LLM trong development
+### 4. Response Caching During Development
 
 ```python
-from functools import lru_cache
 import hashlib
-import json
+from typing import Dict
 
-# Cache đơn giản trong memory
-_llm_cache: dict[str, str] = {}
+_llm_cache: Dict[str, str] = {}
 
 def cached_llm_call(prompt: str, model: str = "gpt-4o-mini") -> str:
-    """Cache LLM responses để tránh gọi lại cùng prompt."""
+    """Cache LLM responses locally to avoid redundant API calls during testing."""
     cache_key = hashlib.md5(f"{model}:{prompt}".encode()).hexdigest()
     
     if cache_key in _llm_cache:
@@ -101,15 +99,16 @@ def cached_llm_call(prompt: str, model: str = "gpt-4o-mini") -> str:
     return response.content
 ```
 
-### 5. Mock LLM trong test
+### 5. Mock Model Invocations in Test Suites
 
 ```python
-# ❌ Tốn tiền — gọi LLM thật trong test
+# ❌ Burns budget — calling real external APIs inside CI / unit tests
 def test_analyze():
-    result = analyze_node({"query": "test"})  # Gọi OpenAI API thật
+    result = analyze_node({"query": "test"})
 
-# ✅ Miễn phí — mock LLM response
+# ✅ Deterministic & zero-cost — mock external provider responses
 from unittest.mock import AsyncMock, patch
+import pytest
 
 @pytest.mark.asyncio
 async def test_analyze():
@@ -119,28 +118,28 @@ async def test_analyze():
     assert result["query_type"] == "factual"
 ```
 
-### 6. Rút gọn prompt — ít tokens hơn
+### 6. Lean Prompts — Minimize Input Tokens
 
 ```python
-# ❌ Prompt dài — tốn input tokens
-prompt = """Bạn là một trợ lý AI thông minh, được thiết kế để giúp đỡ người dùng
-trả lời các câu hỏi về nhiều chủ đề khác nhau. Vui lòng phân tích câu hỏi sau
-và xác định loại của nó..."""
+# ❌ Bloated prompt — consumes excessive input tokens
+prompt = """You are a highly intelligent AI assistant designed to help developers
+answer questions across a broad variety of software engineering domains. Please carefully
+read the user inquiry and classify its fundamental nature..."""
 
-# ✅ Prompt ngắn — tiết kiệm tokens
-prompt = "Phân loại câu hỏi: factual, analytical, hoặc creative. Chỉ trả JSON."
+# ✅ Compact prompt — crisp directives save context budget
+prompt = "Classify query: factual, analytical, or creative. Output JSON only."
 ```
 
-### 7. Giới hạn số vòng lặp agent
+### 7. Constrain Agent Iteration Loops
 
 ```python
-# ❌ Không giới hạn — agent có thể lặp 20+ lần
+# ❌ Unbounded recursion — agents can loop 20+ times on tool failures
 def should_continue(state):
     if state.get("needs_more"):
         return "research"
     return END
 
-# ✅ Giới hạn 3 vòng — đủ cho hầu hết câu hỏi
+# ✅ Hard recursion ceiling
 MAX_ITERATIONS = 3
 
 def should_continue(state):
@@ -151,34 +150,27 @@ def should_continue(state):
     return END
 ```
 
-### 8. Monitor usage bằng LangSmith
+### 8. Telemetry & Observability with LangSmith / Langfuse
 
-LangSmith tự động track token usage cho mỗi LLM call. Kiểm tra dashboard định kỳ để phát hiện:
-- Node nào tốn nhiều tokens nhất
-- Có request bất thường không (agent lặp quá nhiều)
-- Tổng chi phí theo ngày/tuần
+Integrate tracing dashboards to audit:
+- Most token-heavy execution nodes
+- Anomalous trajectory loops or unexpected tool recursion
+- Cumulative token and dollar spend per day/week
 
 ---
 
-## Thiết lập budget limit
+## Budget Guardrails
 
-### OpenAI Usage Limits
+### Provider Usage Caps
+1. Navigate to billing settings in your model provider console (e.g. OpenAI platform settings).
+2. Configure **Monthly hard limits** (e.g. $20/month) and soft thresholds.
+3. Enable **Email notifications** at 80% quota consumption.
 
-1. Vào https://platform.openai.com/settings/organization/billing
-2. Set **Monthly budget limit** — ví dụ $20/tháng
-3. Bật **Email notification** khi đạt 80% budget
-
-### Cảnh báo trong code
+### In-Code Cost Accounting
 
 ```python
-import os
-import logging
-
-logger = logging.getLogger(__name__)
-
-# Ước tính cost per request
 def estimate_cost(input_tokens: int, output_tokens: int, model: str = "gpt-4o-mini") -> float:
-    """Ước tính chi phí USD cho một LLM call."""
+    """Calculates approximate USD spend for an API invocation."""
     pricing = {
         "gpt-4o-mini": {"input": 0.15 / 1_000_000, "output": 0.60 / 1_000_000},
         "gpt-4o": {"input": 2.50 / 1_000_000, "output": 10.00 / 1_000_000},
@@ -189,15 +181,15 @@ def estimate_cost(input_tokens: int, output_tokens: int, model: str = "gpt-4o-mi
 
 ---
 
-## Tóm tắt
+## Strategy Summary
 
-| Chiến lược | Tiết kiệm | Độ khó |
-|------------|-----------|--------|
-| Dùng gpt-4o-mini | ~17x so với gpt-4o | Dễ |
-| Giới hạn max_tokens | 20-50% | Dễ |
-| Mock LLM trong test | 100% test cost | Trung bình |
-| Giới hạn iterations | 30-60% | Dễ |
-| Rút gọn prompt | 10-30% | Dễ |
-| Cache responses | 50-80% repeated queries | Trung bình |
+| Strategy | Token / Cost Savings | Implementation Effort |
+|---|---|---|
+| Use lightweight models (e.g. gpt-4o-mini) | ~17x vs. flagship | Low |
+| Enforce output token caps (`max_tokens`) | 20–50% | Low |
+| Mock LLM in automated test suites | 100% of test costs | Medium |
+| Bound agent recursion limits | 30–60% | Low |
+| Compact prompt engineering | 10–30% | Low |
+| Response caching in local dev | 50–80% on repeat runs | Medium |
 
-> 🔑 **ĐIỂM CHÍNH:** Tổng chi phí cho toàn bộ AI20K với gpt-4o-mini chỉ khoảng **$5-10** — rất hợp lý cho sinh viên. Áp dụng các chiến lược trên để không bị bất ngờ với bill.
+> 🔑 **CORE PRINCIPLE:** A complete prototype lifecycle built with disciplined token hygiene typically costs under **$10**. Apply these strategies early to ensure cost predictability.

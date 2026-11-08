@@ -1,10 +1,10 @@
 ---
 title: "Recommended Courses"
-description: "Khóa học được tuyển chọn từ DeepLearning.AI (121 courses) và các nguồn khác"
+description: "Curated learning paths and reference courses from DeepLearning.AI and foundational AI engineering sources"
 weight: 1
 ---
 
-## Lộ trình học 6 tuần
+## 6-Week Learning Roadmap
 
 ### Week 1: Foundations (2h)
 
@@ -51,7 +51,7 @@ weight: 1
 | Evaluating and Debugging Generative AI | 1h | Intermediate |
 | Building Generative AI Applications with Gradio | 1h | Beginner |
 
-## Toàn bộ danh sách DeepLearning.AI — AI Agents (35 courses)
+## DeepLearning.AI AI Agent Courses (35 courses)
 
 | # | Course | Level | Focus |
 |---|--------|-------|-------|
@@ -121,4 +121,4 @@ weight: 1
 | Building Generative AI Applications with Gradio | 1h | Beginner |
 | Jupyter AI: AI Coding in Notebooks | 1h | Beginner |
 
-> Tất cả courses đều **miễn phí** tại [deeplearning.ai/courses](https://www.deeplearning.ai/courses)
+> All courses are **free** at [deeplearning.ai/courses](https://www.deeplearning.ai/courses)

@@ -1,97 +1,68 @@
 ---
-title: "Lỗi thường gặp"
-description: "Những sai lầm khiến đội mất điểm và cách tránh"
+title: "Common Engineering Mistakes"
+description: "Top code quality and architectural failure modes to avoid"
 weight: 1
 ---
 
-## 10 lỗi làm mất điểm nhiều nhất
+# Top 10 Engineering Mistakes
 
-### 1. Bare except
+### 1. Bare Except Clauses
 
 ```python
-# ❌ Lỗi: Che mọi lỗi, không biết gì fail
+# ❌ Masks critical errors and complicates debugging
 try:
     result = await process(data)
 except:
     pass
 
-# ✅ Fix: Specific exception
+# ✅ Catch specific exceptions and log diagnostics
 try:
     result = await process(data)
 except ValueError as e:
-    logger.error(f"Invalid data: {e}")
+    logger.error(f"Invalid payload format: {e}")
     return {"error": str(e)}
 ```
 
-### 2. Hardcoded Secrets
+### 2. Hardcoded API Credentials
 
 ```python
-# ❌ API key lộ trong code
+# ❌ Secret committed directly to version control
 client = OpenAI(api_key="sk-abc123...")
 
-# ✅ Dùng .env + config
+# ✅ Isolate credentials in .env and Pydantic settings
 from src.config import get_settings
 settings = get_settings()
 client = OpenAI(api_key=settings.openai_api_key)
 ```
 
-### 3. No Tests
+### 3. Missing Automated Tests
 
-```python
-# Template đã có sẵn test structure trong tests/ — chỉ cần viết thêm
-```
+Ensure comprehensive unit and integration tests exist in `tests/` covering both API routes and agent workflows.
 
-### 4. No CI/CD
+### 4. Absent CI/CD Pipelines
 
-```yaml
-# Template đã có .github/workflows/ci.yml
-# Chỉ cần push lên GitHub → CI tự chạy
-```
+Automate linting, type checks, and tests via `.github/workflows/ci.yml` so every PR is validated before merging.
 
-### 5. Functions quá dài
+### 5. Bloated Monolithic Functions
 
-```python
-# ❌ 1 function 200+ lines
-def process_everything(data):
-    # ... 200 lines ...
+Break functions exceeding 30 lines or 3 parameters into modular, single-purpose routines.
 
-# ✅ Tách thành nhiều functions
-async def analyze(data: str) -> dict:
-    """5-10 lines"""
-    ...
+### 6. Missing System Architecture Diagrams
 
-async def transform(result: dict) -> dict:
-    """5-10 lines"""
-    ...
-```
+Document system components and data flows in `docs/architecture_diagram.md` using Mermaid syntax.
 
-### 6. Không có Architecture Diagram
+### 7. Incomplete README Documentation
 
-- BTC chấm System Design thấp → mất 2-3 points
-- Template có sẵn `docs/architecture_diagram.md` để điền vào
+Ensure `README.md` includes clear problem statements, architecture summaries, and exact onboarding runbooks.
 
-### 7. README thiếu
+### 8. Missing Evaluation Evidence
 
-- Thiếu: problem statement, tech stack, setup guide
-- Dùng `README_boilerplate.md` làm khung, đừng viết lại từ đầu
+Record quantitative evaluation benchmarks and reproducibility scripts in `eval/`.
 
-### 8. Không có Evaluation Evidence
+### 9. Monolithic Single-File Architectures
 
-- BTC không thấy bằng chứng testing → điểm thấp
-- Kết quả đo đạc để ở `eval/`, kèm số liệu và cách chạy lại
+Deconstruct applications into dedicated layers: `agents/`, `api/`, `services/`, and `models/`.
 
-### 9. Tất cả code trong 1 file
+### 10. Absent Type Hints
 
-- `main.py` vài trăm dòng thì khó maintain, khó test, khó review
-- Template đã tách sẵn `agents/`, `api/`, `services/`, `models/`
-
-### 10. Không type hints
-
-- Code quality giảm → mất 1-2 points
-
-## Bắt đầu từ đâu
-
-Bốn lỗi đầu có thể xử lý gọn trong một buổi, vì template đã dựng sẵn hạ tầng cho
-chúng: `.env.example` cho secrets, `tests/` cho pytest, `ruff.toml` cho lint và
-`.github/workflows/ci.yml` cho CI. Phần lớn việc còn lại chỉ là dùng chúng thay
-vì bỏ trống.
+Enforce comprehensive type annotations across all function signatures to maintain code reliability.

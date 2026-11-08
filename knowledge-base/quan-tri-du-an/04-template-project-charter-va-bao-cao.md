@@ -1,325 +1,195 @@
-# Mẫu Điều Lệ Dự Án (Project Charter) & Báo Cáo Tuần (VinUni / AI20K)
+# Project Charter & Weekly Reporting Templates (VinUni / AI20K)
 
-> Được trích xuất đầy đủ và chuyển đổi định dạng Markdown từ bảng tính mẫu chính thức của AI20K & VinUni.
+> Comprehensive Markdown representation of the official AI20K & VinUni project charter and reporting spreadsheet.
 
 ---
 
-## Sheet 1: Quy Định
+## Sheet 1: Team Operating Rules
 
-| Quy định vận hành — Giai đoạn RA | Cột B |
+| Operating Rules & Governance — Build Phase | Column B |
 | --- | --- |
-| 1. Thời gian làm việc |  |
-| Giờ làm việc | Full-time: tối thiểu 40 giờ/tuần, từ Thứ 2 đến Thứ 7 |
-| Giờ core | 09:00-11:30 và 14:00-17:00 — tất cả thành viên phải online |
-| Daily Standup | 09:00 mỗi sáng (15 phút). Báo cáo về mentor: what done / doing / blockers |
-| Nghỉ phép | Báo trước 24h cho team lead + mentor. Tối đa 2 ngày/6 tuần |
-| 2. Báo cáo &amp; Trách nhiệm giải trình |  |
-| Daily Standup Report | Gửi hàng ngày cho mentor (Discord hoặc email). Nội dung: done / doing / blockers |
-| Báo cáo tuần | Tổng hợp trước mỗi Mentor Meeting T4. Sử dụng mẫu ở sheet 'Mẫu Báo Cáo Tuần' |
-| Nội dung bắt buộc | Tiến độ, Metrics, Blockers, Kế hoạch tuần sau, Screenshots, Link File Quản Trị |
-| Báo cáo muộn | Cảnh báo lần 1. Quá 3 lần → meeting với lead mentor |
-| Mentor Meeting | Tối T4: chung 1h30 (bắt buộc). T7: riêng 45p/team (bắt buộc) |
-| 3. Tài liệu dự án (Song song) |  |
-| GitHub | Code + README.md + Architecture. Commit ít nhất 1 lần/ngày khi có coding |
-| File Quản Trị Dự Án | Google Sheet hoặc Excel. Chứa: mọi đường link quan trọng, đặc tả tính năng, progress tracking, risks, meeting notes |
-| Branching | GitFlow hoặc GitHub Flow. PR phải được ít nhất 1 thành viên review |
-| Documentation | README.md cập nhật liên tục. Architecture diagram update khi thay đổi |
-| Testing | Viết test cho core features. Tối thiểu unit tests cho business logic |
-| 4. Quản lý đối tác |  |
-| Xác định stakeholder | Hoàn thành trong W1. Mentor hỗ trợ kết nối |
-| Meeting với stakeholder | W1 (giới thiệu) → W2 (đề xuất solution) → End W3 (Demo 1) → End W5 (Demo 2) |
-| Feedback thu thập | Ghi chép mọi feedback. Báo cáo trong File Quản Trị + báo cáo tuần |
-| Tác phong chuyên nghiệp | Đúng giờ, chuẩn bị kỹ, follow-up email sau mỗi meeting |
-| 5. Xử lý vấn đề &amp; Hỗ trợ |  |
-| Blocker kỹ thuật | Post trên Discord #support → mentor phản hồi trong 24h |
-| Blocker stakeholder | Báo mentor ngay → mentor hỗ trợ kết nối/giải quyết |
-| Xung đột team | Team lead giải quyết trước. Không được → escalate mentor |
-| Thành viên thiếu trách nhiệm | Cảnh báo lần 1 → meeting với mentor → quyết định program |
-| 6. Đánh giá &amp; Chấm điểm |  |
-| Tiêu chí chính | 1) Sản phẩm V1 chạy với real data <br> 2) Stakeholder satisfaction <br> 3) Code quality <br> 4) Team collaboration &amp; accountability |
-| Đánh giá liên tục | Mentor cho feedback mỗi meeting. Không chờ đến cuối |
-| Đánh giá cuối kỳ (W6) | Demo + Q&amp;A + scoring. Dựa trên Impact Report + Presentation |
-| Tiếp tục khởi nghiệp hay không | Sau W6, team + mentor đánh giá tiềm năng → quyết định tiếp startup |
-| 7. Nguyên tắc văn hóa |  |
-| Trách nhiệm | Ai làm nấy chịu. Việc của mình thì mình phải hoàn thành, không đùn cho người khác |
-| Nói thật | Báo cáo thật, kể cả khi chưa tốt. Giấu vấn đề còn nguy hiểm hơn vấn đề |
-| Chạy được quan trọng hơn hoàn hảo | Sản phẩm chạy được với người dùng thật quan trọng hơn code đẹp nhưng không xong kịp |
-| Sai thì sửa nhanh | Làm sai không sao, quan trọng là nhận ra và sửa nhanh. Không ai blame ai |
-| Tôn trọng nhau | Đúng giờ, trân trọng thời gian của người khác. Đã hẹn thì phải có mặt |
-
+| 1. Working Hours & Availability |  |
+| Commitment | Full-time: minimum 40 hours/week, Monday through Saturday |
+| Core Hours | 09:00–11:30 and 14:00–17:00 — all team members must be active and reachable |
+| Daily Standup | 09:00 every morning (15 minutes). Format: what done / doing / blockers |
+| Absence Policy | Notify team lead and mentor 24 hours in advance. Maximum 2 days across 6 weeks |
+| 2. Reporting & Accountability |  |
+| Daily Standup Report | Submit daily updates on Discord/chat: done / doing / blockers |
+| Weekly Report | Consolidate before Wednesday Mentor Review. Use 'Weekly Report Template' |
+| Mandatory Contents | Progress, Metrics, Blockers, Next Week Plan, Screenshots, SSOT Sheet Link |
+| Delinquency Policy | First notice on missed report. 3 missed reports → formal mentor review |
+| Mentor Sync Meetings | Wednesday evening: joint cohort sync (mandatory). Saturday: team sync (mandatory) |
+| 3. Parallel Project Artifacts |  |
+| GitHub Repository | Source code + README.md + Architecture diagrams. Daily commits on active coding days |
+| Central Project Sheet | Google Sheets or Excel: Canonical links, specs, sprint tracking, risks, notes |
+| Branching Strategy | GitHub Flow. Pull Requests require review by at least one other member |
+| Documentation | Continuous README updates. Architecture diagrams updated when components mutate |
+| Testing | Automated tests for core logic. Unit test coverage on critical business workflows |
+| 4. Stakeholder Engagement |  |
+| Identify Stakeholders | Finalize during Week 1 with mentor assistance |
+| Engagement Cadence | W1 (Discovery) → W2 (Solution proposal) → End W3 (Demo 1) → End W5 (Demo 2) |
+| Feedback Capture | Log all feedback in Central Project Sheet and weekly status reports |
+| Professional Standards | Punctual attendance, prepared agendas, follow-up minutes after meetings |
+| 5. Issue Resolution & Escalation |  |
+| Technical Blockers | Post in #support → mentors respond within 24 hours |
+| Stakeholder Blockers | Notify mentor immediately for relationship facilitation |
+| Team Friction | Team lead mediates first. Unresolved issues escalate to mentor |
+| 6. Evaluation & Scoring |  |
+| Core Criteria | 1) Working V1 on real data <br> 2) Stakeholder satisfaction <br> 3) Code quality <br> 4) Team collaboration & accountability |
+| Continuous Review | Mentors provide ongoing feedback each sync rather than waiting for Demo Day |
+| Final Evaluation (W6) | Live Demo + Q&A defense based on Impact Report and Presentation |
+| 7. Cultural Principles |  |
+| Ownership | End-to-end accountability. Own your assigned deliverables |
+| Candor | Honest reporting. Surfacing bad news early is essential |
+| Working Code First | Deployable working software in production outweighs theoretical perfection |
+| Fail Fast, Learn Fast | Mistakes are acceptable; failing to remediate rapidly is not |
+| Mutual Respect | Respect teammate time; commit to punctuality and reliable execution |
 
 ---
 
-## Sheet 2: Mẫu Quy Định Nội Bộ
+## Sheet 2: Internal Team Compact
 
-| Mẫu quy định nội bộ team | Cột B | Cột C | Cột D | Cột E | Cột F |
+| Internal Team Compact Template | Column B | Column C | Column D | Column E | Column F |
 | --- | --- | --- | --- | --- | --- |
-| Mỗi team điền 1 bản trong tuần 1, chốt cùng team lead. Cập nhật khi có thay đổi. |  |  |  |  |  |
-| 1. Thông tin nhóm |  |  |  |  |  |
-| Tên team | [Alpha / Beta / Gamma / Delta] |  |  |  |  |
-| Tên dự án | [Tên sản phẩm] |  |  |  |  |
-| Ngày lập | [DD/MM/YYYY] |  |  |  |  |
-| Ngày cập nhật gần nhất | [DD/MM/YYYY] |  |  |  |  |
-| 2. Vai trò trong nhóm |  |  |  |  |  |
-| Họ tên | Vai trò chính | Vai trò phụ (nếu có) | Trách nhiệm cụ thể | Thời gian cam kết <br> (giờ/tuần) | Ghi chú |
-| [Tên] | Team Lead | 51 |  | 40 |  |
-| [Tên] | [Backend / Frontend / AI / Design] | 55 |  | 40 |  |
-| [Tên] | [Vai trò] | 59 |  | 40 |  |
-| [Tên] | [Vai trò] | 59 |  | 40 |  |
-| 3. Quy tắc giao việc &amp; phân công |  |  |  |  |  |
-| Ai phân việc | Team Lead là người phân việc chính. Nếu lead bận, deputy (thành viên được ủy quyền) phân thay. |  |  |  |  |
-| Nguyên tắc phân việc | Rõ ràng: mỗi việc có 1 người chịu trách nhiệm chính, deadline cụ thể, kết quả mong đợi viết rõ. <br> Không giao chung chung 'ai rảnh thì làm'. |  |  |  |  |
-| Cập nhật tiến độ | Thành viên cập nhật trạng thái việc qua daily standup + cột status trên GitHub Issues hoặc Notion. |  |  |  |  |
-| Khi nhận việc | Người nhận xác nhận trong vòng 2 giờ. Nếu không hiểu yêu cầu → hỏi ngay, không im lặng rồi làm sai. |  |  |  |  |
-| Khi sắp trễ deadline | Báo team lead trước ít nhất 4 giờ. Không đợi đến lúc hết hạn mới nói 'em chưa xong'. |  |  |  |  |
-| Khi cần nhờ giúp | Tag trực tiếp người cần giúp trên Discord, kèm mô tả ngắn gọn vấn đề. Không nhắn chung chung 'ai giúp em với'. |  |  |  |  |
-| Code review | Mọi PR phải được ít nhất 1 người khác review trước khi merge. PR dưới 400 dòng — nếu lớn hơn thì chia nhỏ. |  |  |  |  |
-| 4. Phương thức liên lạc |  |  |  |  |  |
-| Kênh | Mục đích | Thời gian phản hồi | Quy tắc | Ghi chú |  |
-| Discord — #team-xxx | Tin nhắn hàng ngày, hỏi đáp nhanh, standup text | Trong vòng 2 giờ (giờ làm việc) | Tag người cần trả lời. Không spam. |  |  |
-| Discord — #team-xxx-standup | Daily standup text mỗi sáng | Gửi trước 09:30 | Theo mẫu Daily Standup sheet bên cạnh |  |  |
-| Call / Voice chat Discord | Thảo luận cần nói chuyện trực tiếp | Thỏa thuận trước | Ghi quyết định vào text channel sau khi call |  |  |
-| GitHub Issues / PR | Thảo luận kỹ thuật, bug, feature | Trong vòng 1 ngày làm việc | Mọi thay đổi code phải qua PR, có mô tả rõ |  |  |
-| Google Drive / Google Docs | Tài liệu chung, báo cáo, bản nháp | — | Đặt tên file rõ ràng. Không để 'Bản sao không tiêu đề' |  |  |
-| Email | Liên hệ mentor, đối tác ngoài, chính thức | Trong vòng 24 giờ | Dùng cho nội dung cần lưu vết rõ ràng |  |  |
-| 5. Quản lý mã nguồn (Git / GitHub) |  |  |  |  |  |
-| Repository | 1 repo GitHub cho mỗi team. Tên repo rõ ràng, không viết tắt khó hiểu. |  |  |  |  |
-| Branch chính | main → chỉ merge code đã review và test. Không push thẳng lên main. |  |  |  |  |
-| Branch quy ước | feature/tên-tính-năng — cho tính năng mới <br> bugfix/tên-lỗi — cho sửa lỗi <br> hotfix/... — cho sửa gấp trên production |  |  |  |  |
-| Commit message | Viết tiếng Anh, ngắn gọn, bắt đầu bằng động từ: <br> Thêm: feature thêm trang dashboard <br> Sửa: fix crash khi đăng nhập <br> Cập nhật: update API trả về đúng format |  |  |  |  |
-| Pull Request | Mọi thay đổi qua PR. Tiêu đề PR ghi rõ làm gì. Mô tả: thay đổi gì, tại sao, test thế nào. Gắn link issue nếu có. |  |  |  |  |
-| Code review | Ít nhất 1 người review trước khi merge. Review trong vòng 4 giờ làm việc. Góp ý cụ thể, không nói chung chung. |  |  |  |  |
-| Merge | Chỉ merge khi pass review + không conflict. Xóa branch sau khi merge. |  |  |  |  |
-| .gitignore | Không commit: node_modules, .env, API keys, file build, file tạm. Thêm vào .gitignore từ đầu. |  |  |  |  |
-| README.md | Giữ cập nhật: cách chạy project, cấu trúc thư mục, biến môi trường cần thiết, link tài liệu liên quan. |  |  |  |  |
-| 6. Lịch làm việc &amp; điểm danh |  |  |  |  |  |
-| Giờ làm việc | Thứ Hai — Thứ Sáu, 09:00 — 18:00. Trưa nghỉ 12:00 — 13:30. <br> Team tự sắp xếp nhưng phải đảm bảo overlapping hours (ít nhất 4 tiếng trùng nhau). |  |  |  |  |
-| Daily standup | 09:00 mỗi sáng. Xem chi tiết ở sheet Mẫu Daily Standup. |  |  |  |  |
-| Vắng mặt | Báo team lead trước 1 ngày (hoặc sớm nhất có thể nếu đột xuất). Gửi standup text dù không tham gia. |  |  |  |  |
-| Nghỉ phép | Tối đa 2 ngày/6 tuần. Sắp xếp trước với team lead để phân việc lại. Không nghỉ liên tiếp gần deadline. |  |  |  |  |
-| Overtime | Tránh tối đa. Nếu deadline ép → team cùng quyết định, không ép cá nhân. Overtime phải có lý do rõ ràng. |  |  |  |  |
-| Cuối tuần | Thứ Bảy: mentor meeting (bắt buộc). Chủ Nhật: nghỉ, trừ trường hợp khẩn cấp do team cùng chốt. |  |  |  |  |
-| 7. Xử lý xung đột &amp; ra quyết định |  |  |  |  |  |
-| Nguyên tắc chính | Bất đồng ý kiến là bình thường. Cách xử lý mới quan trọng: <br> 1. Nêu rõ quan điểm + lý do <br> 2. Lắng nghe phía kia <br> 3. Tìm điểm chung <br> 4. Nếu không tự hòa giải → team lead quyết định |  |  |  |  |
-| Ai quyết định | Vấn đề kỹ thuật → người có chuyên môn mạnh nhất quyết định. <br> Vấn đề tiến độ/phạm vi → team lead quyết định. <br> Vấn đề ảnh hưởng cả team → cả team vote, lead phá vỡ thế hòa. |  |  |  |  |
-| Không ai đồng tình | Team lead có quyền quyết định cuối. Mọi người thực hiện đúng quyết định đã chốt, không âm ỉ phản đối. |  |  |  |  |
-| KHI nào nhờ mentor | Xung đột kéo dài quá 2 ngày không giải quyết được. Hoặc ảnh hưởng đến tiến độ chung → lead báo mentor ngay. |  |  |  |  |
-| 8. Tiêu chuẩn chất lượng |  |  |  |  |  |
-| Code | Chạy được chưa đủ. Code phải dễ đọc, có comment ở chỗ phức tạp, tên biến/hàm rõ nghĩa. <br> Không để dead code (code không dùng đến). |  |  |  |  |
-| Test | Mỗi tính năng chính phải có test. Ít nhất test được happy path + 1 trường hợp lỗi. |  |  |  |  |
-| Documentation | README luôn cập nhật. API phải có mô tả endpoint. Architecture diagram cập nhật khi thay đổi cấu trúc. |  |  |  |  |
-| UI / UX | Không cần đẹp hoàn hảo, nhưng phải dùng được. Không có lỗi hiển thị rõ ràng (layout vỡ, text đè nhau, button không bấm được). |  |  |  |  |
-| Performance | Trang chính load dưới 3 giây. API phản hồi dưới 1 giây. Nếu chậm hơn → ghi lý do và kế hoạch tối ưu. |  |  |  |  |
-| Security | Không hardcode API key, password. Dùng .env cho biến môi trường. Validate input từ người dùng. |  |  |  |  |
-| 9. Cam kết của từng thành viên |  |  |  |  |  |
-| Mỗi thành viên ký xác nhận đã đọc và đồng ý với quy định trên. |  |  |  |  |  |
-| Họ tên | Vai trò | Xác nhận <br> (Có / Chưa) | Ngày | Chữ ký |  |
-| [Tên] | Team Lead | 22 |  |  |  |
-| [Tên] | [Vai trò] | 22 |  |  |  |
-| [Tên] | [Vai trò] | 22 |  |  |  |
-| [Tên] | [Vai trò] | 22 |  |  |  |
-| 10. Phê duyệt |  |  |  |  |  |
-| Vai trò | Họ tên | Ngày | Xác nhận |  |  |
-| Team Lead | [Tên] | [DD/MM/YYYY] |  |  |  |
-| Mentor | [Tên mentor] | [DD/MM/YYYY] |  |  |  |
-
+| Completed by each team during Week 1 with Team Lead. Updated as needed. |  |  |  |  |  |
+| 1. Team Information |  |  |  |  |  |
+| Team Cohort | [Alpha / Beta / Gamma / Delta] |  |  |  |  |
+| Product / Project Name | [Product Name] |  |  |  |  |
+| Date Established | [DD/MM/YYYY] |  |  |  |  |
+| Last Revision | [DD/MM/YYYY] |  |  |  |  |
+| 2. Team Member Roster |  |  |  |  |  |
+| Member Name | Primary Role | Secondary Role | Specific Responsibilities | Weekly Hours | Notes |
+| [Name] | Team Lead | Architecture | Coordination, mentor sync, PR review | 40 |  |
+| [Name] | Backend Engineer | DevOps | API, database, server runtime, CI/CD | 40 |  |
+| [Name] | Frontend Engineer | UI/UX | Web interface, responsive client, styling | 40 |  |
+| [Name] | AI / ML Engineer | Evaluation | LangGraph agent, RAG pipeline, benchmarks | 40 |  |
+| 3. Task Delegation & Cadence |  |  |  |  |  |
+| Assignment Authority | Team Lead delegates primary tasks with team alignment. |  |  |  |  |
+| Task Clarity | Single owner per task, specific deadline, explicit acceptance criteria. Avoid ambiguous tasks. |  |  |  |  |
+| Acceptance Window | Assignees acknowledge tasks within 2 hours. Ask clarifying questions immediately. |  |  |  |  |
+| Slippage Warnings | Flag potential delays at least 4 hours before deadline. |  |  |  |  |
+| Code Reviews | PRs require at least 1 approval before merge. Limit PRs to < 400 lines. |  |  |  |  |
+| 4. Communication Channels |  |  |  |  |  |
+| Channel | Purpose | Response Window | Operating Rules |  |  |
+| Discord — #team-chat | Daily async chat, quick Q&A | Within 2 business hours | Tag relevant members; no spam |  |  |
+| Discord — #team-standup | Morning standup text | Submit by 09:30 | Follow 3-question standup template |  |  |
+| Voice Sync / Discord Call | Urgent unblocking discussions | Scheduled as needed | Document decisions in text channel |  |  |
+| GitHub Issues / PRs | Code reviews, bug tracking, specs | Within 1 business day | PRs link to issues with testing steps |  |  |
+| Email | Formal mentor and partner communications | Within 24 hours | Keep formal record of commitments |  |  |
+| 5. Git & Code Governance |  |  |  |  |  |
+| Main Branch | main contains only tested, approved code. Direct push to main is prohibited. |  |  |  |  |
+| Branch Naming | feature/feature-name · bugfix/bug-name · hotfix/fix-name |  |  |  |  |
+| Commit Syntax | Conventional Commits in English (feat: ..., fix: ..., docs: ..., refactor: ...). |  |  |  |  |
+| Hygiene (.gitignore) | Never commit: node_modules, .env, keys, build artifacts, temporary logs. |  |  |  |  |
+| 6. Signatures & Commitments |  |  |  |  |  |
+| Member Name | Role | Confirmed (Yes/No) | Date | Signature |  |
+| [Name] | Team Lead | Yes | [DD/MM/YYYY] | [Signed] |  |
+| [Name] | Backend | Yes | [DD/MM/YYYY] | [Signed] |  |
+| [Name] | Frontend | Yes | [DD/MM/YYYY] | [Signed] |  |
+| [Name] | AI Engineer | Yes | [DD/MM/YYYY] | [Signed] |  |
 
 ---
 
-## Sheet 3: Mẫu Báo Cáo Tuần
+## Sheet 3: Weekly Progress Report
 
-| Mẫu báo cáo tuần — Giai đoạn RA | Cột B | Cột C | Cột D |
+| Weekly Status Report — Build Phase | Column B | Column C | Column D |
 | --- | --- | --- | --- |
-| Nộp hàng ngày qua Daily Standup \| Tổng hợp nộp trước mỗi Mentor Meeting (T4 tối) |  |  |  |
-| Phần 1: Thông tin cơ bản |  |  |  |
-| Team: | [Alpha / Beta / Gamma / Delta] |  |  |
-| Tuần: | [W1-W6] — [Ngày bắt đầu] đến [Ngày kết thúc] |  |  |
-| Người báo cáo: | [Tên Team Lead] |  |  |
-| Ngày nộp: | [DD/MM/YYYY] |  |  |
-| Phần 2: Tiến độ |  |  |  |
-| # | Mục tiêu / Task | Trạng thái | Ghi chú |
-| 1.0 | [Mô tả task] | Done / In Progress / Blocked | [Ghi chú] |
-| 2.0 | [Mô tả task] | Done / In Progress / Blocked | [Ghi chú] |
-| 3.0 | [Mô tả task] | Done / In Progress / Blocked | [Ghi chú] |
-| 4.0 | [Mô tả task] | Done / In Progress / Blocked | [Ghi chú] |
-| 5.0 | [Mô tả task] | Done / In Progress / Blocked | [Ghi chú] |
-| Phần 3: Số liệu |  |  |  |
-| Metric | Giá trị | Ghi chú |  |
-| Features hoàn thành | [X/Y] |  |  |
-| Bugs còn mở | [số] |  |  |
-| Stakeholder meetings tuần này | [số] |  |  |
-| Deployment status | [Local / Staging / Production] |  |  |
-| File Quản Trị cập nhật? | [Yes / No] | Link đính kèm |  |
-| Phần 4: Vướng mắc &amp; Rủi ro |  |  |  |
-| [Liệt kê blockers, rủi ro, đề xuất giải pháp. Nếu không có, ghi 'Không có blockers.'] |  |  |  |
-| Phần 5: Kế hoạch tuần sau |  |  |  |
-| # | Task | Assignee | Priority |
-| 1.0 | [Task cho tuần sau] | [Tên] | High / Medium / Low |
-| 2.0 | [Task cho tuần sau] | [Tên] | High / Medium / Low |
-| 3.0 | [Task cho tuần sau] | [Tên] | High / Medium / Low |
-| Phần 6: Bằng chứng (Screenshots / Links / File quản trị) |  |  |  |
-| [Dán link screenshots, demo recordings, File Quản Trị Dự Án. Tối thiểu 1 screenshot/tuần.] |  |  |  |
-
+| Consolidated prior to Wednesday Mentor Review |  |  |  |
+| Part 1: General Info |  |  |  |
+| Team Cohort: | [Alpha / Beta / Gamma / Delta] |  |  |
+| Sprint Week: | [W1–W6] — [Start Date] to [End Date] |  |  |
+| Reporter: | [Team Lead Name] |  |  |
+| Submission Date: | [DD/MM/YYYY] |  |  |
+| Part 2: Deliverable Progress |  |  |  |
+| No. | Planned Objective / Task | Status | Notes |
+| 1.0 | [Task description] | Done / In Progress / Blocked | [Diagnostic notes] |
+| 2.0 | [Task description] | Done / In Progress / Blocked | [Diagnostic notes] |
+| 3.0 | [Task description] | Done / In Progress / Blocked | [Diagnostic notes] |
+| 4.0 | [Task description] | Done / In Progress / Blocked | [Diagnostic notes] |
+| Part 3: Metrics & KPIs |  |  |  |
+| Metric | Value | Target / Notes |  |
+| Features Completed | [X / Y] | MVP scope tracking |  |
+| Open Bugs | [Count] | Unresolved defects |  |
+| Stakeholder Meetings | [Count] | User interviews |  |
+| Deployment State | [Local / Staging / Production] | Runtime environment |  |
+| SSOT Updated? | [Yes / No] | Sheet link attached |  |
+| Part 4: Blockers & Risks |  |  |  |
+| [Detail active blockers, technical risks, and requested escalations. If none, specify 'No blockers.'] |  |  |  |
+| Part 5: Next Week Commitment |  |  |  |
+| No. | Target Task | Assignee | Priority |
+| 1.0 | [Task description] | [Name] | High / Medium / Low |
+| 2.0 | [Task description] | [Name] | High / Medium / Low |
+| 3.0 | [Task description] | [Name] | High / Medium / Low |
+| Part 6: Verification Artifacts |  |  |  |
+| [Links to screenshots, live recording, PR diffs, or SSOT tracker. Minimum 1 verified screenshot/week.] |  |  |  |
 
 ---
 
-## Sheet 4: Mẫu Project Charter
+## Sheet 4: Project Charter Template
 
-| Project Charter — Mẫu theo chuẩn PMP | Cột B | Cột C | Cột D | Cột E |
+| Project Charter — PMP Standard Template | Column B | Column C | Column D | Column E |
 | --- | --- | --- | --- | --- |
-| Mỗi team điền 1 bản trong tuần 1. Nộp trước Mentor Meeting T4. |  |  |  |  |
-| 1. Thông tin dự án |  |  |  |  |
-| Tên dự án | [Tên sản phẩm / dự án] |  |  |  |
-| Team | [Alpha / Beta / Gamma / Delta] |  |  |  |
-| Người lập | [Tên Team Lead] |  |  |  |
-| Ngày lập | [DD/MM/YYYY] |  |  |  |
-| Phiên bản | [1.0 — cập nhật mỗi khi thay đổi lớn] |  |  |  |
-| 2. Lý do thực hiện &amp; Mục tiêu |  |  |  |  |
-| Vấn đề đang gặp | [Mô tả bài toán thực tế tại VinUni mà team đang giải quyết. Ví dụ: Phòng Tuyển sinh mất nhiều giờ trả lời câu hỏi lặp, sinh viên không có hướng dẫn học cá nhân hóa...] |  |  |  |
-| Giải pháp đề xuất | [Mô tả ngắn gọn sản phẩm sẽ xây dựng. Tránh viết dài, tập trung vào: làm gì cho ai, giải quyết vấn đề gì] |  |  |  |
-| Mục tiêu SMART (6 tuần) | [Ví dụ: Triển khai chatbot tư vấn tuyển sinh cho Phòng Tuyển sinh VinUni, phục vụ 100+ lượt hỏi/tháng, giảm 50% thời gian trả lời câu hỏi lặp] |  |  |  |
-| 3. Phạm vi dự án |  |  |  |  |
-| # | Trong phạm vi (In-scope) | Ngoài phạm vi (Out-of-scope) |  |  |
-| 1.0 | [Tính năng/công việc sẽ làm] | [Tính năng/công việc KHÔNG làm] |  |  |
-| 2.0 | [Tính năng/công việc sẽ làm] | [Tính năng/công việc KHÔNG làm] |  |  |
-| 3.0 | [Tính năng/công việc sẽ làm] | [Tính năng/công việc KHÔNG làm] |  |  |
-| 4.0 | [Tính năng/công việc sẽ làm] | [Tính năng/công việc KHÔNG làm] |  |  |
-| 5.0 | [Tính năng/công việc sẽ làm] | [Tính năng/công việc KHÔNG làm] |  |  |
-| 4. Đối tác liên quan (Stakeholders) |  |  |  |  |
-| Vai trò | Họ tên / Đơn vị | Mức ảnh hưởng <br> (Cao/Trung bình/Thấp) | Trách nhiệm |  |
-| Sponsor / Người quyết định | [Ai phê duyệt và cấp nguồn lực] | 199 |  |  |
-| Khách hàng / Người dùng | [Ai sẽ sử dụng sản phẩm] | 205 |  |  |
-| Team Lead | [Tên] | Cao | [Điều phối team, báo cáo mentor, phân việc] |  |
-| Thành viên 1 | [Tên] | 215 |  |  |
-| Thành viên 2 | [Tên] | 221 |  |  |
-| Thành viên 3 | [Tên] | 221 |  |  |
-| Mentor | [Tên mentor] | Cao | [Hướng dẫn, kết nối đối tác, review] |  |
-| 5. Cột mốc chính (Milestones) |  |  |  |  |
-| Cột mốc | Tuần | Ngày dự kiến | Sản phẩm nộp | Người chịu trách nhiệm |
-| Kickoff &amp; Project Charter | W1 | 25-31/05 | Project Charter + Quy chế | Team Lead |
-| Đề xuất giải pháp với đối tác | W2 | 01-07/06 | Solution Design + Architecture | Team Lead |
-| Demo 1 với đối tác | W3 | 08-14/06 | Bản Demo 1 + Phản hồi đối tác | Team |
-| Hoàn thiện sản phẩm | W4-W5 | 15-28/06 | Sản phẩm hoàn thiện + Deploy | Team |
-| Demo 2 với đối tác | W5 | 22-28/06 | Bản Demo 2 + Đánh giá hài lòng | Team |
-| Đánh giá cuối kỳ | W6 | 29-05/07 | Báo cáo tác động + Slide thuyết trình | Team Lead |
-| 6. Nguồn lực &amp; Ngân sách |  |  |  |  |
-| Nhân sự (số người x giờ/tuần) | [4 người x 40 giờ/tuần = 160 người-giờ/tuần] |  |  |  |
-| Công cụ (miễn phí) | [GitHub, Discord, Render free tier, Supabase free, Google Drive...] |  |  |  |
-| Công cụ (cần duyệt chi phí) | [Nếu cần: VPS ~$10/tháng, API key ~$20/tháng — ghi rõ ở sheet Hỗ Trợ Teams] |  |  |  |
-| Tổng ngân sách dự kiến | [$0 — ưu tiên dùng gói miễn phí. Nếu cần thêm, nộp yêu cầu qua Mentor Meeting] |  |  |  |
-| 7. Rủi ro chính &amp; Cách xử lý |  |  |  |  |
-| # | Rủi ro | Xác suất <br> (Cao/Trung bình/Thấp) | Tác động <br> (Cao/Trung bình/Thấp) | Cách phòng tránh / Xử lý |
-| 1.0 | Đối tác không hợp tác hoặc phản hồi chậm | Trung bình | Cao | Xác định 2-3 đối tác dự phòng. Mentor hỗ trợ kết nối từ W1 |
-| 2.0 | Phạm vi dự án bị mở rộng (scope creep) | Cao | Cao | Giữ đúng phạm vi đã chốt. Mọi thay đổi phải thảo luận với mentor trước |
-| 3.0 | Thiếu hụt kỹ thuật (AI/ML/DevOps) | Trung bình | Trung bình | Học nhanh, dùng API thay tự build. Nhờ mentor hướng dẫn |
-| 4.0 | Thành viên vắng mặt hoặc không hoàn thành việc | Thấp | Cao | Phân việc rõ ràng, check daily. Báo mentor ngay nếu có vấn đề |
-| 5.0 | [Rủi ro khác của team] |  |  |  |
-| 8. Tiêu chí thành công |  |  |  |  |
-| Đánh giá cuối kỳ dựa trên 4 tiêu chí: |  |  |  |  |
-| # | Tiêu chí | Trọng số | Cách đo lường |  |
-| 1.0 | Sản phẩm V1 chạy được với dữ liệu thật | 40% | Sản phẩm live trên production, đối tác sử dụng được, không crash |  |
-| 2.0 | Mức hài lòng của đối tác | 25% | Điểm đánh giá từ đối tác sau Demo 2 (thang 1-10) |  |
-| 3.0 | Chất lượng code &amp; tài liệu | 20% | Code review, test coverage, README, architecture diagram |  |
-| 4.0 | Làm việc nhóm &amp; Trách nhiệm | 15% | Standup đều đặn, báo cáo đúng hạn, phân việc rõ ràng |  |
-| 9. Phê duyệt |  |  |  |  |
-| Vai trò | Họ tên | Ngày | Chữ ký / Xác nhận |  |
-| Team Lead | [Tên] | [DD/MM/YYYY] |  |  |
-| Mentor phụ trách | [Tên mentor] | [DD/MM/YYYY] |  |  |
-| Đối tác (nếu có) | [Tên] | [DD/MM/YYYY] |  |  |
-| Lead Mentor (Lộc) | Lộc | [DD/MM/YYYY] |  |  |
-
+| Completed by team in Week 1 prior to first mentor review |  |  |  |  |
+| 1. Project Overview |  |  |  |  |
+| Project Title | [Product or Initiative Name] |  |  |  |
+| Team Cohort | [Alpha / Beta / Gamma / Delta] |  |  |  |
+| Author | [Team Lead Name] |  |  |  |
+| Date Created | [DD/MM/YYYY] |  |  |  |
+| Document Version | 1.0 |  |  |  |
+| 2. Problem Statement & Objectives |  |  |  |  |
+| Problem Statement | [Concrete business pain point being solved with quantitative costs] |  |  |  |
+| Proposed Solution | [Concise scope of the AI system being engineered and target users] |  |  |  |
+| SMART Goals (6 weeks) | [Specific, Measurable, Achievable, Relevant, Time-bound milestones] |  |  |  |
+| 3. Project Scope |  |  |  |  |
+| No. | In-Scope (Committed MVP) | Out-of-Scope (Explicitly Deferred) |  |  |
+| 1.0 | [Core capability to build] | [Feature explicitly excluded from 6-week scope] |  |  |
+| 2.0 | [Core capability to build] | [Feature explicitly excluded from 6-week scope] |  |  |
+| 3.0 | [Core capability to build] | [Feature explicitly excluded from 6-week scope] |  |  |
+| 4. Stakeholder Map |  |  |  |  |
+| Role | Organization / Contact | Influence | Engagement Cadence |  |
+| Executive Sponsor | [Sponsor Name] | High | Bi-weekly review |  |
+| End User Persona | [Target User Group] | High | Weekly feedback |  |
+| Team Lead | [Full Name] | High | Daily management |  |
+| Technical Mentor | [Mentor Name] | High | Weekly coaching |  |
+| 5. Core Milestones |  |  |  |  |
+| Milestone | Week | Target Date | Deliverables | Owner |
+| Kickoff & Charter | W1 | End of W1 | Charter + Team Compact | Team Lead |
+| Solution Architecture | W2 | End of W2 | Tech Specs + Architecture | Tech Lead |
+| Demo 1 (Prototype) | W3 | End of W3 | Working Prototype + Feedback | Team |
+| Feature Hardening | W4–W5 | End of W5 | Complete System + Deploy | Team |
+| Demo 2 (Final System) | W5 | End of W5 | Rehearsal Demo + Metrics | Team |
+| Final Evaluation | W6 | Demo Day | Impact Report + Pitch Deck | Team Lead |
+| 6. Success Criteria |  |  |  |  |
+| No. | Criterion | Weight | Measurement Method |  |
+| 1.0 | Working V1 with Real Data | 40% | Production deployment without crash on real test sets |  |
+| 2.0 | Stakeholder Satisfaction | 25% | Stakeholder rating after Demo 2 (scale 1–10) |  |
+| 3.0 | Code & Architecture Quality | 20% | PR reviews, test coverage, clean architecture |  |
+| 4.0 | Teamwork & Accountability | 15% | Punctual standups, reliable delivery, proactive escalation |  |
 
 ---
 
-## Sheet 5: Mẫu Daily Standup
+## Sheet 5: Daily Standup Template
 
-| Mẫu Daily Standup — Báo cáo hàng ngày | Cột B | Cột C | Cột D |
+| Daily Standup Reporting Format | Column B | Column C | Column D |
 | --- | --- | --- | --- |
-| Gửi mỗi sáng trước 09:30 qua Discord #team-xxx-standup \| Hoặc báo cáo miệng trong call 15 phút |  |  |  |
-| Thông tin |  |  |  |
-| Team | [Alpha / Beta / Gamma / Delta] |  |  |
-| Ngày | [DD/MM/YYYY] |  |  |
-| Người báo cáo | [Tên thành viên] |  |  |
-| Tuần | [W1-W6] |  |  |
-| 3 câu hỏi bắt buộc |  |  |  |
-| # | Câu hỏi | Trả lời |  |
-| 1.0 | Hôm qua mình làm được gì? | [Liệt kê việc đã hoàn thành. Gắn link commit/PR nếu có] |  |
-| 2.0 | Hôm nay mình dự định làm gì? | [Việc cần hoàn thành trong ngày. Rõ ràng, cụ thể] |  |
-| 3.0 | Có gì đang kẹt không? | [Nếu có: mô tả vấn đề + cần ai giúp. Nếu không: ghi 'Không có'] |  |
-| Template điền nhanh (copy cho mỗi thành viên) |  |  |  |
-| Thành viên | Hôm qua | Hôm nay | Vướng mắc |
-| [Tên 1] | [Việc đã làm] | [Việc sẽ làm] | [Blocker / Không có] |
-| [Tên 2] | [Việc đã làm] | [Việc sẽ làm] | [Blocker / Không có] |
-| [Tên 3] | [Việc đã làm] | [Việc sẽ làm] | [Blocker / Không có] |
-| [Tên 4] | [Việc đã làm] | [Việc sẽ làm] | [Blocker / Không có] |
-| Quy tắc Standup |  |  |  |
-| Giờ | 09:00 mỗi sáng. Không trễ quá 09:15. |  |  |
-| Thời lượng | Tối đa 15 phút. Không thảo luận chi tiết — việc đó để sau standup. |  |  |
-| Format | Gửi text trên Discord TRƯỚC 09:30, hoặc báo trong call 15 phút. |  |  |
-| Nội dung | Chỉ nói 3 thứ: đã làm gì / sẽ làm gì / có gì kẹt. Không kể lể dài dòng. |  |  |
-| Nếu vắng | Báo team lead trước 08:30. Gửi standup text dù không tham gia call. |  |  |
-| Blocker | Nếu có blocker → ghi rõ cần ai giúp gì. Team lead quyết định xử lý hoặc escalation mentor. |  |  |
-| Mentor | Team lead tổng hợp standup → gửi tóm tắt cho mentor (Discord hoặc email) trước 10:00. |  |  |
-| Mẫu tin nhắn gửi Discord |  |  |  |
-| Ví dụ format gửi trên Discord #team-xxx-standup: <br>  <br> 🟢 Standup [DD/MM] — [Tên] <br> ✅ Hôm qua: Hoàn thành API đăng nhập, push lên PR #12 <br> 📅 Hôm nay: Làm trang dashboard, kết nối với API <br> 🚫 Kẹt: Không có <br>  <br> Hoặc nếu có blocker: <br> 🔴 Standup [DD/MM] — [Tên] <br> ✅ Hôm qua: Thiết kế UI trang chủ <br> 📅 Hôm nay: Code frontend dashboard <br> ⚠️ Kẹt: Cần BE API /dashboard nhưng anh A chưa xong. Nhờ team lead hỗ trợ đẩy nhanh. |  |  |  |
-
+| Submit daily before 09:30 on Discord #team-standup or present during 15-minute sync |  |  |  |
+| 3 Core Questions |  |  |  |
+| No. | Question | Response Guideline |  |
+| 1.0 | What did I complete yesterday? | Concrete completed tasks; link PRs/commits |  |
+| 2.0 | What will I accomplish today? | Concrete focus items for the day |  |
+| 3.0 | What is currently blocked? | Explicit blockers + specific help required (or 'None') |  |
+| Daily Message Format Example: <br><br> 🟢 Standup [DD/MM] — [Name] <br> ✅ Yesterday: Implemented login API and opened PR #12 <br> 📅 Today: Build dashboard frontend and connect auth state <br> 🚫 Blockers: None |  |  |  |
 
 ---
 
-## Sheet 6: Đề xuất Hỗ Trợ Teams
+## Sheet 6: Infrastructure & Resource Requests
 
-| Đề xuất hỗ trợ — Server, GPU, công cụ, domain | Cột B | Cột C | Cột D | Cột E | Cột F | Cột G |
-| --- | --- | --- | --- | --- | --- | --- |
-| Teams chủ động sử dụng free tier trước |  |  |  |  |  |  |
-| 1. Tổng quan hạ tầng |  |  |  |  |  |  |
-| Loại tài nguyên | Mô tả | Gói miễn phí (Tự lo) | Gói trả phí | Ghi chú |  |  |
-| Server / Hosting | VPS hoặc cloud hosting cho FE + BE + DB | Render (free), Railway ($5 credit), Vercel (free FE), Supabase (free DB) | VPS riêng (Ramnode, Hetzner ~$5-10/tháng) hoặc VinUni server | Ưu tiên free tier. Nâng cấp khi có real users. |  |  |
-| GPU / AI Compute | Chạy inference LLM, embedding, fine-tune | Google Colab (free GPU), Hugging Face Spaces (free), Groq free tier | GPU VPS (RunPod ~$0.4/h) hoặc VinUni GPU cluster | Dùng API (OpenAI, Anthropic) thay self-host |  |  |
-| AI API Keys | LLM API cho chatbot, summarization, etc. | Groq (free tier), Google Gemini (free tier), OpenRouter (free models) | OpenAI API ($5-20/tháng), Anthropic API ($5-20/tháng) | Chia sẻ 1 account/team. Track usage. |  |  |
-| Claude Code | AI coding assistant cho development | Claude Free (hạn chế), GitHub Copilot Free | Claude Pro ($20/tháng/người) hoặc Claude Team | Đề xuất: 1 account Pro/team lead hoặc Max 20/tháng. |  |  |
-| Domain / Sub-domain | Domain cho sản phẩm deployed | Sub-domain free: .vercel.app, .onrender.com, .railway.app, .up.railway.app | Domain riêng (~$10-15/năm) hoặc sub-domain vinuni.edu.vn | Liên hệ IT VinUni để xin sub-domain nếu cần. |  |  |
-| Database | PostgreSQL, MongoDB, Redis cho app data | Supabase (free 500MB), MongoDB Atlas (free 512MB), Redis Cloud (free) | Managed DB trên VPS hoặc VinUni database | Free tier đủ cho MVP. Nâng cấp khi scale. |  |  |
-| Storage / CDN | Lưu file, ảnh, static assets | Cloudflare R2 (free 10GB), AWS S3 free tier, Firebase Storage | Nâng cấp khi vượt free tier | Tối ưu file size trước khi upgrade. |  |  |
-| Monitoring / Logging | Error tracking, performance, uptime | Sentry (free), UptimeRobot (free), Langfuse (free self-host) | Nâng cấp plan khi cần | Setup từ W2. Bắt buộc từ W3. |  |  |
-| 2. Theo dõi yêu cầu hỗ trợ theo team |  |  |  |  |  |  |
-| Team | Tài nguyên | Chi tiết yêu cầu | Chi phí dự kiến | Ưu tiên | Trạng thái | Người duyệt |
-| Team Alpha | Server / Hosting | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Alpha | GPU / AI Compute | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Alpha | AI API Keys | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Alpha | Claude Code | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Alpha | Domain | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Beta | Server / Hosting | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Beta | GPU / AI Compute | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Beta | AI API Keys | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Beta | Claude Code | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Beta | Domain | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Gamma | Server / Hosting | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Gamma | GPU / AI Compute | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Gamma | AI API Keys | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Gamma | Claude Code | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Gamma | Domain | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Delta | Server / Hosting | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Delta | GPU / AI Compute | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Delta | AI API Keys | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Delta | Claude Code | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| Team Delta | Domain | [Điền yêu cầu cụ thể] | [$ / tháng] | P1 / P2 / P3 | Chưa gửi / Pending / Approved / Rejected |  |
-| 3. Gợi ý tech stack (tự chọn) |  |  |  |  |  |  |
-| Thành phần | Option A (Free) | Option B (Nâng cấp) | Khi nào dùng Option B |  |  |  |
-| Frontend | React/Vue/Next.js + Vercel (free) | VPS + Nginx | Khi cần SSR hoặc custom domain |  |  |  |
-| Backend API | FastAPI/Flask + Render free | VPS + Docker | Khi Render free tier quá chậm |  |  |  |
-| Database | Supabase (PostgreSQL free) | Managed PostgreSQL trên VPS | Khi data &gt; 500MB |  |  |  |
-| AI / LLM | Groq free + Gemini free + OpenRouter | OpenAI/Anthropic API | Khi cần chất lượng output cao hơn |  |  |  |
-| Vector DB | ChromaDB local hoặc Pinecone free | Weaviate self-host trên VPS | Khi RAG data lớn |  |  |  |
-| Embedding | HuggingFace Inference (free) | Self-host embedding model | Khi cần tốc độ inference nhanh hơn |  |  |  |
-| Deployment | Render/Railway free tier | VPS + Docker Compose + Cloudflare | Khi cần uptime 99%+ và custom domain |  |  |  |
-| Monitoring | Sentry free + Langfuse self-host | Datadog/New Relic | Khi cần giám sát chuyên sâu |  |  |  |
-| 4. Quy trình yêu cầu hỗ trợ |  |  |  |  |  |  |
-| Bước 1 | Team xác định nhu cầu tài nguyên trong W1 (Project Charter) |  |  |  |  |  |
-| Bước 2 | Thử free tier trước (W2-W3). Đánh giá có đủ không. |  |  |  |  |  |
-| Bước 3 | Nếu cần nâng cấp: điền vào bảng Section 2, trình trong Mentor Meeting T4 hoặc T7 |  |  |  |  |  |
-| Bước 4 | Mentor review + approve (Lộc quyết định). Nếu cần funding → Lộc xin VinUni. |  |  |  |  |  |
-| Bước 5 | Tài nguyên được cấp. Team setup + báo cáo hoàn tất trong File Quản Trị. |  |  |  |  |  |
-
-
----
-
+| Infrastructure & Cloud Compute Catalog | Column B | Column C | Column D | Column E |
+| --- | --- | --- | --- | --- |
+| Prioritize free tier quotas first |  |  |  |  |
+| Resource Type | Description | Free Tier Options | Paid Tier | Notes |
+| Server / Hosting | Cloud hosting for API + Web + DB | Render (free), Railway ($5 credit), Vercel | VPS (Ramnode, Hetzner ~$5–10/mo) | Free tier first; upgrade on scale |
+| GPU / AI Compute | Model inference, embeddings, eval | Google Colab, Hugging Face Spaces, Groq | RunPod (~$0.4/hr) or cloud GPU | Prefer managed model APIs |
+| AI API Keys | LLMs for agent reasoning & RAG | Groq free, Gemini free tier, OpenRouter | OpenAI / Anthropic APIs | Track usage across team |
+| Storage / CDN | Object storage for user assets | Cloudflare R2 (10GB free), Supabase Storage | S3 Standard | Optimize payload sizes |
+| Observability | Error tracking and agent telemetry | Sentry free tier, Langfuse self-hosted | Paid observability suites | Mandatory starting Week 3 |

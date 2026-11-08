@@ -1,11 +1,11 @@
 ---
 title: "Common Patterns"
-description: "Các pattern hay dùng trong AI Agent"
+description: "Proven architectural patterns in AI Agent engineering"
 weight: 9
 ---
 
-Phần này tổng hợp các design pattern phổ biến khi xây dựng AI Agent, đặc biệt là RAG (Retrieval-Augmented Generation). Bạn sẽ tìm hiểu luồng RAG hoàn chỉnh, cách code retrieve node, xây dựng RAG graph builder, streaming response, cấu hình bằng Pydantic settings và quản lý FastAPI lifespan. Đây là phần tham khảo quan trọng để xây dựng agent có khả năng trả lời dựa trên tài liệu riêng.
+This section compiles core design patterns in AI Agent engineering, with an emphasis on Retrieval-Augmented Generation (RAG). It details end-to-end RAG workflows, retriever node implementations, streaming responses, Pydantic settings management, and FastAPI lifecycle handlers.
 
-## Trang trong mục này
+## Subsections
 
-- [RAG Pattern](rag-pattern.md) — Luồng RAG, code retrieve node, RAG graph builder, streaming, Pydantic settings, FastAPI lifespan
+- [RAG Pattern](rag-pattern.md) — End-to-end RAG pipelines, retrieval nodes, graph construction, streaming, and Pydantic configuration\n

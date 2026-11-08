@@ -1,46 +1,46 @@
 ---
-title: "Khởi tạo dự án từ Template"
+title: "Project Initialization from Template"
 weight: 2
 ---
 
-## Nhận repo của đội — Bắt đầu từ nền tảng đúng
+## Receiving Your Team Repo — Starting on the Right Foundation
 
-Một trong những sai lầm phổ biến nhất của sinh viên khi bắt đầu dự án mới là tạo mọi thứ từ con số không — tự setup cấu trúc thư mục, tự cấu hình linting, tự viết CI/CD file, tự tạo Dockerfile. Kết quả là mỗi đội có một cấu trúc khác nhau, thiếu những file quan trọng, và mất hàng ngày chỉ để setup thay vì viết logic chính. Template dự án giải quyết vấn đề này bằng cách cung cấp một nền tảng đã được chuẩn hóa, bao gồm tất cả best practices mà bạn cần.
+One of the most common mistakes students make when starting a new project is building everything from scratch — manually organizing directory structures, configuring linters, writing CI/CD files, and authoring Dockerfiles. As a result, each team ends up with an inconsistent structure, misses critical files, and loses days on configuration instead of core logic. A project template solves this by providing a standardized foundation that bundles all necessary best practices.
 
-Trong AI20K bạn không phải tự clone template rồi tự tạo repository. Khi đội của bạn được chốt, hệ thống sinh sẵn một repo riêng cho đội **từ chính template này** — nằm trong org GitHub của khoá bạn đang học, đặt tên theo mã đội. Việc của bạn là clone nó về và bắt đầu code.
+In AI20K, you do not manually clone a template to create a separate repository. Once your team is finalized, the system automatically generates a team repo **from this template** within your cohort's GitHub organization, named after your team ID. Your job is simply to clone it and start coding.
 
-### Trước khi clone, kiểm tra hai điều
+### Two Things to Verify Before Cloning
 
-1. **Bạn đã vào org GitHub của khoá.** BTC gửi lời mời tới tài khoản GitHub bạn đã đăng ký; lời mời chưa được chấp nhận thì lệnh clone sẽ báo lỗi 404 (GitHub trả 404 chứ không phải 403 cho repo private mà bạn chưa có quyền). Kiểm tra tại [github.com/settings/organizations](https://github.com/settings/organizations).
-2. **Repo của đội đã được tạo.** Link repo hiện ở trang đội trên Phoenix, đồng thời có một tin nhắn báo trong kênh feed GitHub trên Discord ngay khi repo được sinh ra.
+1. **You have joined the cohort's GitHub organization.** The organizing team sends an invitation to your registered GitHub account; if the invitation has not been accepted, your clone command will fail with a 404 error (GitHub returns 404 rather than 403 for private repositories you do not have permission to access). Check this at [github.com/settings/organizations](https://github.com/settings/organizations).
+2. **Your team repo has been created.** The repository link is displayed on your team page on Phoenix, and a notification is posted to the GitHub feed channel on Discord as soon as the repo is generated.
 
-Nếu chưa thấy repo của đội, **đừng tự tạo repo mới** — hãy báo BTC. Repo do đội tự tạo nằm ngoài org nên không bắn webhook về hệ thống chấm, và không được tính là bài nộp.
+If you cannot see your team repo yet, **do not create a new one yourself** — contact the organizing team. Repositories created outside the official organization will not fire webhooks to the evaluation grading engine and will not count as valid submissions.
 
-### Clone repo của đội
+### Cloning Your Team Repo
 
-Mở terminal và chạy các lệnh sau:
+Open your terminal and run the following commands:
 
 ```bash
-# Thay <ORG-CỦA-KHOÁ>/<MÃ-ĐỘI> bằng URL thật — copy ở trang đội trên Phoenix
-$ git clone https://github.com/<ORG-CỦA-KHOÁ>/<MÃ-ĐỘI>.git
+# Replace <COHORT-ORG>/<TEAM-ID> with your real URL from your Phoenix team page
+$ git clone https://github.com/<COHORT-ORG>/<TEAM-ID>.git
 
-# Di chuyển vào thư mục dự án
-$ cd <MÃ-ĐỘI>
+# Navigate into the project folder
+$ cd <TEAM-ID>
 
-# Xác nhận remote trỏ đúng repo của đội, không phải template
+# Confirm remote points to your team repo, not the template
 $ git remote -v
 ```
 
-Bạn **không** cần `rm -rf .git`, không cần `git init`, cũng không cần `git remote add`. Repo của đội được sinh bằng cơ chế *generate* của GitHub chứ không phải fork hay clone thủ công: nó bắt đầu bằng đúng một commit khởi tạo, lịch sử commit của template không đi theo. Thứ mà bước `rm -rf .git` ngày trước dùng để dọn dẹp thì nay không tồn tại.
+You **do not** need to run `rm -rf .git`, `git init`, or `git remote add`. The team repository is generated via GitHub's *template generate* feature rather than a manual fork or clone: it starts with a clean initial commit without carrying over the template's commit history. The historical need for `rm -rf .git` no longer applies.
 
-Ngược lại, xoá `.git` lúc này là tự phá dự án của mình: mất remote trỏ về GitHub, mất luôn branch `main` đang được bảo vệ, và lần push sau đó không còn chỗ để đẩy lên.
+Conversely, deleting `.git` at this stage harms your project: you lose the configured GitHub remote, drop the protected `main` branch, and leave subsequent pushes without an upstream target.
 
-### Cấu trúc thư mục và ý nghĩa
+### Directory Structure and Purpose
 
-Sau khi clone, hãy mở thư mục dự án trong editor (khuyến nghị VS Code). Bạn sẽ thấy cấu trúc như sau:
+After cloning, open the project in your code editor (VS Code recommended). You will see the following structure:
 
 ```
-<MÃ-ĐỘI>/
+<TEAM-ID>/
 ├── src/
 │   ├── agent/           # LangGraph Agent logic
 │   │   ├── __init__.py
@@ -72,178 +72,174 @@ Sau khi clone, hãy mở thư mục dự án trong editor (khuyến nghị VS Co
 │   ├── datasets/        # Test questions & expected outputs
 │   └── scripts/         # Evaluation runner scripts
 ├── presentation/        # Demo Day slides & materials
-├── .env.example         # Mẫu biến môi trường
+├── .env.example         # Environment variable template
 ├── .gitignore           # Git ignore rules
 ├── Dockerfile           # Container definition
 ├── docker-compose.yml   # Multi-container orchestration
-├── requirements.txt     # Danh sách dependencies
-├── ruff.toml            # Cấu hình linter/formatter
-├── Makefile             # Common commands shortcut
+├── requirements.txt     # Dependency specifications
+├── ruff.toml            # Linter/formatter configuration
+├── Makefile             # Common command shortcuts
 └── README.md            # Project documentation
 ```
 
-Mỗi thư mục phục vụ một mục đích cụ thể. Hãy hiểu rõ trước khi bắt đầu code:
+Each directory serves a defined purpose. Understand them before writing code:
 
-**`src/agent/`** — Nơi chứa toàn bộ logic AI Agent của bạn. File `graph.py` định nghĩa state graph (sơ đồ trạng thái) cho Agent, `state.py` chứa schema dữ liệu truyền giữa các node, `nodes.py` chứa các hàm xử lý logic tại mỗi bước, và `tools.py` chứa các công cụ mà Agent có thể sử dụng (tìm kiếm web, truy vấn database, gọi API, v.v.). Đây là "bộ não" của ứng dụng.
+**`src/agent/`** — Houses all AI Agent logic. `graph.py` defines the state graph for the Agent, `state.py` specifies data schemas passed across nodes, `nodes.py` handles execution logic at each step, and `tools.py` defines tools the Agent can invoke (web search, database queries, external APIs, etc.). This is the application's core brain.
 
-**`src/api/`** — FastAPI backend. File `main.py` tạo ứng dụng FastAPI và cấu hình middleware. Thư mục `routes/` chứa các file định nghĩa API endpoints, mỗi file tương ứng với một nhóm chức năng. File `deps.py` quản lý dependency injection — ví dụ, tạo instance của Agent và inject vào các route handler.
+**`src/api/`** — FastAPI backend. `main.py` bootstraps the FastAPI application and configures middleware. The `routes/` directory contains endpoint definitions grouped by domain. `deps.py` provides dependency injection — such as creating Agent instances and injecting them into route handlers.
 
-**`src/core/`** — Cấu hình và tiện ích dùng chung. File `config.py` sử dụng pydantic-settings để load và validate biến môi trường. File `logging.py` thiết lập logging format.
+**`src/core/`** — Shared configuration and utilities. `config.py` uses `pydantic-settings` to load and validate environment variables. `logging.py` sets up structured logging.
 
-**`src/models/`** — Pydantic models cho request và response. Đây là "hợp đồng" giữa client và server — định nghĩa rõ dữ liệu gửi lên phải có dạng gì, và dữ liệu trả về sẽ có dạng gì.
+**`src/models/`** — Pydantic models for requests and responses. This acts as the contract between client and server — defining input and output data shapes.
 
-**`tests/`** — Bài kiểm thử. `unit/` cho unit tests (test từng hàm riêng lẻ), `integration/` cho integration tests (test nhiều component hoạt động cùng nhau), và `eval/` cho Agent evaluation (đánh giá chất lượng trả lời của Agent).
+**`tests/`** — Test suites. `unit/` for unit tests (isolated functions), `integration/` for multi-component integrations, and `eval/` for Agent evaluation runs.
 
-**`docs/`** — Tài liệu dự án. `architecture/` chứa sơ đồ kiến trúc (Mermaid hoặc hình ảnh), `api/` chứa tài liệu API bổ sung, và `adr/` chứa Architecture Decision Records — ghi lại lý do tại sao bạn chọn giải pháp A thay vì giải pháp B.
+**`docs/`** — Project documentation. `architecture/` contains architecture diagrams (Mermaid or images), `api/` holds supplementary API docs, and `adr/` captures Architecture Decision Records — documenting why solution A was chosen over solution B.
 
-**`eval/`** — Dữ liệu và script để đánh giá Agent. Trong `datasets/` bạn đặt các câu hỏi test kèm câu trả lời mong đợi. Trong `scripts/` bạn viết script tự động chạy Agent qua tập test và tính điểm. Đây là phần mà hầu hết đội bỏ qua — hãy đảm bảo đội bạn khác biệt.
+**`eval/`** — Data and scripts for Agent evaluation. `datasets/` holds test scenarios with expected outcomes. `scripts/` contains automated evaluation runners that score Agent responses. Most teams overlook this — ensure your team does not.
 
-**`presentation/`** — Slide và tài liệu cho Demo Day. Không đợi đến phút cuối mới làm slide — hãy cập nhật dần trong suốt quá trình phát triển.
+**`presentation/`** — Slide decks and materials for Demo Day. Do not wait until the final hours — iterate on your slides continuously during development.
 
-> 🔑 **ĐIỂM CHÍNH:** Cấu trúc thư mục không phải ngẫu nhiên — nó phản ánh nguyên tắc separation of concerns (tách biệt trách nhiệm). Agent logic tách biệt khỏi API logic, tách biệt khỏi config, tách biệt khỏi tests. Khi dự án lớn lên, bạn sẽ thấy cấu trúc này giúp bạn tìm và sửa code nhanh hơn rất nhiều so với "bỏ tất cả vào một file."
+> 🔑 **KEY POINT:** This folder structure is deliberate — it reflects the principle of separation of concerns. Agent logic is isolated from API handling, configuration, and tests. As your project expands, this structure lets you navigate and refactor code quickly rather than maintaining a monolithic single file.
 
-## Chọn tầng khởi đầu: Prototype nhanh hay build nghiêm túc?
+## Choosing Your Starting Tier: Rapid Prototype or Serious Build?
 
-> 💡 **Bài học cohort:** đội có idea chưa validate mà dựng full Docker/CI ngay tuần 1 → 3 tuần đầu "set up hạ tầng" chứ không học được gì từ user. Ngược lại, đội đã chắc idea mà vẫn code prototype tay → demo ngày bị lỗi dưới tải nặng. Chọn đúng tầng.
+> 💡 **Cohort Lesson:** Teams with unvalidated ideas that built a full Docker/CI setup in Week 1 spent their first 3 weeks "setting up infrastructure" without gathering user feedback. Conversely, teams confident in their idea who stuck to manual prototyping saw their demos break under load. Pick the right tier.
 
-| | **Tầng 1 — Prototype ngày 1** (validate idea) | **Tầng 2 — Repo của đội** (chapter này) |
+| | **Tier 1 — Day 1 Prototype** (Idea Validation) | **Tier 2 — Team Repository** (This Chapter) |
 |---|---|---|
-| Khi nào | Tuần 1-2, chưa chắc user cần gì; cần cái gì đó MÌNH THẤY được để hỏi 5 user thật | Đã có USP + ≥5 feedback khẳng định (xem Chương 5); bắt đầu build nghiêm túc trên repo đã cấp |
-| Công cụ | AI Studio / Gemini canvas + Firebase/Supabase free — KHÔNG server, KHÔNG Docker | Repo này: FastAPI + LangGraph + Docker + CI |
-| Mục tiêu | Trả lời "user có dùng không?" trong 48 giờ | Trả lời "sản phẩm chịu được Demo Day không?" trong 6 tuần |
-| Bỏ gì | DevOps, tests, guardrails (chấp nhận — vì sẽ vứt đi) | Không bỏ gì được nữa |
+| When | Weeks 1-2, user need is unverified; need something tangible to interview 5 real users | USP confirmed + ≥5 validated user feedbacks (see Chapter 5); ready to build seriously on the provisioned repo |
+| Tools | AI Studio / Gemini Canvas + free Firebase/Supabase — NO servers, NO Docker | This repo: FastAPI + LangGraph + Docker + CI |
+| Objective | Answer "will users use this?" within 48 hours | Answer "can this product withstand Demo Day?" over 6 weeks |
+| Omissions | DevOps, tests, guardrails (acceptable — code will be discarded) | Zero omissions allowed |
 
-**Quy tắc:** chuẩn bị "hoàn thành hơn hoàn hảo". Tầng 1 có thể vứt đi 100% — và đó là thắng, không phải lỗ. Khi chuyển lên tầng 2, mang theo đúng 2 thứ từ tầng 1: câu hỏi user thật (→ golden dataset Chương 10) + USP đã validate (Chương 5).
+**Rule:** Focus on "done over perfect." Tier 1 code can be 100% discarded — that is a win, not a loss. When transitioning to Tier 2, carry over exactly two assets: real user inquiries (→ golden dataset in Chapter 10) and the validated USP (Chapter 5).
 
 ```mermaid
 flowchart LR
-    A[Nhan repo tren Phoenix] --> B[Clone repo doi]
-    B --> C[Tao venv Python 3.12]
-    C --> D[Cap nhat requirements.txt]
-    D --> E[Config .env: API key + cascade model]
-    E --> F[Setup AI logging hooks]
-    F --> G[make run: server + Swagger UI]
-    G --> H[Branch develop + commit dau]
+    A["Receive repo on Phoenix"] --> B["Clone team repo"]
+    B --> C["Create Python 3.12 venv"]
+    C --> D["Update requirements.txt"]
+    D --> E["Config .env: API key + cascade model"]
+    E --> F["Setup AI logging hooks"]
+    F --> G["make run: server + Swagger UI"]
+    G --> H["Branch develop + initial commit"]
 ```
-> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNotkM1uwjAQhF9l5WsLUtsbh0oQfopUVai0J4fDKl5si9ibOnYAId69TohP1sw3s17fRMWKxAzEseZzZTBE-PwuPeQzl18GPQRqGGIgDzvD5O3lAJPJOyxkUbOnh63YHh6hxWAW8gcZOvId7K7RsIe36cvriBQDspQFNuANxlzxl2wgRz6203iJI7ccuJUs2B-thmlum8F8t4UTXeEJKmwrVAQuL1CPkdUQWcs9xdTAfAs1a229BsN8akdoPUAb6fCUn5_8DFoKHYXcuT-j1vn2ux3ZzcB-yEVAXxlQ1FHNTT-dnbMRFKaDeAbhKDi0qv_IW58sRTR5oTILpVB0xFTHUpT-3sOYIu-vvspmDImykhqFkZYWdUA3yvd_h8SBlA==)
+> [📊 Open diagram in Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNotkM1uwjAQhF9l5WsLUtsbh0oQfopUVai0J4fDKl5si9ibOnYAId69TohP1sw3s17fRMWKxAzEseZzZTBE-PwuPeQzl18GPQRqGGIgDzvD5O3lAJPJOyxkUbOnh63YHh6hxWAW8gcZOvId7K7RsIe36cvriBQDspQFNuANxlzxl2wgRz6203iJI7ccuJUs2B-thmlum8F8t4UTXeEJKmwrVAQuL1CPkdUQWcs9xdTAfAs1a229BsN8akdoPUAb6fCUn5_8DFoKHYXcuT-j1vn2ux3ZzcB-yEVAXxlQ1FHNTT-dnbMRFKaDeAbhKDi0qv_IW58sRTR5oTILpVB0xFTHUpT-3sOYIu-vvspmDImykhqFkZYWdUA3yvd_h8SBlA==)
 
-## Thiết lập môi trường — Đừng để "trên máy tôi chạy được"
+## Environment Setup — Avoiding "It Works on My Machine"
 
-Một câu nói kinh điển trong ngành phần mềm là "It works on my machine" — "Trên máy tôi chạy được." Nỗi ám ảnh này xuất phát từ việc môi trường phát triển không được setup đồng bộ: phiên bản Python khác, thư viện khác, biến môi trường khác. Phần này sẽ giúp bạn thiết lập môi trường đúng cách để không chỉ "trên máy bạn chạy được" mà "trên mọi máy đều chạy được."
+A classic complaint in software engineering is "It works on my machine." This friction stems from mismatched environments: different Python versions, divergent libraries, and inconsistent environment variables. This section guides you through setting up an environment that runs identically on every machine.
 
-### Yêu cầu hệ thống
+### System Requirements
 
-Trước khi bắt đầu, hãy xác nhận máy bạn đáp ứng các yêu cầu sau:
+Confirm your machine meets these prerequisites:
 
-- **Python 3.12 hoặc mới hơn.** FastAPI, Pydantic 2, LangChain/LangGraph 1.x đều đã hỗ trợ đầy đủ 3.12/3.13. Khuyến nghị: dùng Python 3.12.x (ổn định, thư viện lõi đã verify 2026-09).
+- **Python 3.12 or newer.** FastAPI, Pydantic 2, and LangChain/LangGraph 1.x fully support Python 3.12/3.13. Recommended: Python 3.12.x (stable and core-library verified as of 2026-09).
+- **Latest pip version.** Run `pip install --upgrade pip` to update.
+- **Git 2.30+.** Run `git --version` to verify.
+- **(Optional) Docker Desktop.** Needed if you run containerized applications, though not strictly required during early local development.
 
-- **pip phiên bản mới nhất.** Chạy `pip install --upgrade pip` để cập nhật.
-
-- **Git 2.30+.** Chạy `git --version` để kiểm tra.
-
-- **(Tùy chọn) Docker Desktop.** Cần nếu bạn muốn chạy ứng dụng trong container, nhưng không bắt buộc cho giai đoạn phát triển ban đầu.
-
-Kiểm tra phiên bản Python:
+Verify your Python installation:
 
 ```bash
 $ python3 --version
-# Output mong đợi: Python 3.12.x hoặc cao hơn
+# Expected: Python 3.12.x or higher
 
-# Nếu bạn có nhiều phiên bản Python, kiểm tra chính xác:
+# If multiple Python versions are installed, check explicitly:
 $ python3.12 --version
 ```
 
-### Tạo virtual environment
+### Creating a Virtual Environment
 
-Virtual environment (venv) là một môi trường Python cô lập, tách biệt với hệ thống Python toàn cục. Mỗi dự án nên có venv riêng để tránh xung đột thư viện giữa các dự án.
+A virtual environment (venv) isolates project dependencies from the global operating system Python installation. Each project should maintain its own venv to prevent dependency conflicts.
 
 ```bash
-# Từ thư mục gốc của dự án
+# From the project root
 $ python3.12 -m venv .venv
 
-# Kích hoạt venv trên macOS/Linux
+# Activate venv on macOS/Linux
 $ source .venv/bin/activate
 
-# Kích hoạt venv trên Windows
+# Activate venv on Windows
 $ .venv\Scripts\activate
 
-# Xác nhận đang dùng Python trong venv
+# Confirm active Python is inside venv
 $ which python
-# Output nên là: /path/to/your/project/.venv/bin/python
+# Expected output: /path/to/your/project/.venv/bin/python
 ```
 
-Sau khi kích hoạt, bạn sẽ thấy tên venv hiển thị ở đầu command prompt, ví dụ: `(.venv) $`. Điều này xác nhận bạn đang làm việc trong môi trường ảo. Mọi lệnh `pip install` từ bây giờ sẽ chỉ cài thư viện vào venv, không ảnh hưởng đến hệ thống.
+Once activated, your command prompt displays `(.venv) $`, confirming your active virtual environment. Any subsequent `pip install` commands will install packages exclusively inside this venv.
 
-> ⚠️ **LƯU Ý:** Không bao giờ cài thư viện trực tiếp vào system Python. Nếu bạn lỡ cài mà không kích hoạt venv trước, hãy gỡ bỏ bằng `pip uninstall` và làm lại đúng cách. Thư mục `.venv` đã được thêm vào `.gitignore`, nên nó sẽ không bị commit lên Git.
+> ⚠️ **NOTE:** Never install dependencies into the system Python. If you install packages globally by accident, remove them with `pip uninstall` and repeat inside an active venv. The `.venv` directory is ignored by `.gitignore` and must never be committed.
 
-### Cài đặt dependencies
+### Installing Dependencies
 
-Template khai báo dependencies trong `requirements.txt` — cả thư viện chạy thật lẫn thư viện dùng để test và lint đều nằm trong một file, cài bằng một lệnh:
+The template specifies all runtime, testing, and linting dependencies in `requirements.txt`:
 
 ```bash
 $ pip install -r requirements.txt
 ```
 
-Không có bước `pip install -e .` như nhiều dự án Python khác: template không đóng gói `src/` thành package để cài, code chạy thẳng từ thư mục dự án (`uvicorn src.main:app`). Nghĩa là bạn sửa code trong `src/` thì lần chạy sau đã dùng bản mới, không cần cài lại gì.
+There is no `pip install -e .` step: the template does not package `src/` as an installed library; it runs directly from the repository folder (`uvicorn src.main:app`). Any edits inside `src/` take effect immediately on the next execution without reinstallation.
 
-Các dependencies chính trong template bao gồm:
+Key runtime dependencies:
 
-- **`fastapi`** — Framework web backend, async, auto-docs.
-- **`uvicorn`** — ASGI server để chạy FastAPI.
-- **`langgraph`** — Framework xây dựng AI Agent dạng state machine.
-- **`langchain`** — Thư viện cốt lõi của LangChain ecosystem.
-- **`langchain-openai`** — Tích hợp với OpenAI models (GPT-4, GPT-3.5).
-- **`pydantic`** và **`pydantic-settings`** — Data validation và settings management.
-- **`python-dotenv`** — Load biến môi trường từ file `.env`.
+- **`fastapi`** — Async backend framework with automatic documentation.
+- **`uvicorn`** — High-performance ASGI web server.
+- **`langgraph`** — State machine framework for building AI Agents.
+- **`langchain`** — Core orchestration abstractions.
+- **`langchain-openai`** — OpenAI model integrations (GPT-4, GPT-3.5).
+- **`pydantic`** and **`pydantic-settings`** — Data validation and environment settings.
+- **`python-dotenv`** — Loads environment variables from `.env`.
 
 Development dependencies:
 
-- **`pytest`** và **`pytest-asyncio`** — Testing framework với hỗ trợ async.
-- **`ruff`** — Linter và formatter thay thế cho flake8 + black, nhanh hơn 10-100x.
-- **`mypy`** — Static type checker. Không có trong `requirements.txt`; muốn chạy `make typecheck` thì cài thêm: `pip install mypy`.
-- **`httpx`** — HTTP client dùng cho testing API.
+- **`pytest`** and **`pytest-asyncio`** — Testing framework with async fixture support.
+- **`ruff`** — Fast linter and formatter replacing flake8 and black.
+- **`mypy`** — Static type checker. Optional in `requirements.txt`; install via `pip install mypy` when running `make typecheck`.
+- **`httpx`** — Async HTTP client for endpoint testing.
 
-Cuối file còn vài dependency để sẵn dạng comment — SQLAlchemy, Alembic, psycopg2 cho database, ChromaDB cho vector store. Đội nào cần thì bỏ dấu `#` rồi cài lại, không cần tự đi tra phiên bản.
+Optional dependencies (commented out at the end of the file) include SQLAlchemy, Alembic, psycopg2 for relational databases, and ChromaDB for vector stores. Uncomment the relevant packages if your project needs them.
 
-### Xác nhận cài đặt thành công
+### Verifying the Installation
 
-Sau khi cài xong, chạy các lệnh sau để xác nhận mọi thứ đã đúng:
+Verify that all dependencies were installed properly:
 
 ```bash
-# Kiểm tra FastAPI đã cài
+# Check FastAPI
 $ python -c "import fastapi; print(f'FastAPI {fastapi.__version__}')"
-# Output: FastAPI 0.x.x
 
-# Kiểm tra LangGraph đã cài
+# Check LangGraph
 $ python -c "import langgraph; print('LangGraph OK')"
 
-# Chạy tests để xác nhận template hoạt động
+# Run tests to confirm template baseline
 $ make test
-# Hoặc:
+# Or:
 $ pytest tests/ -v
 ```
 
-Nếu tất cả các lệnh trên chạy mà không có error, chúc mừng — môi trường của bạn đã sẵn sàng.
+If all commands complete without errors, your development environment is fully prepared.
 
-> 💡 **MẸO:** Nếu bạn gặp lỗi "Module not found" dù đã cài, nguyên nhân phổ biến nhất là bạn quên kích hoạt venv hoặc cài nhầm vào system Python. Chạy `which python` để xác nhận, và nếu cần, kích hoạt lại venv.
+> 💡 **TIP:** If you see "Module not found" errors after installing, you likely forgot to activate `.venv` or installed into system Python. Check `which python` and activate the environment again if needed.
 
-## Biến môi trường — Không bao giờ hardcode secrets
+## Environment Variables — Never Hardcode Secrets
 
-Một lỗi phổ biến và nguy hiểm mà nhiều sinh viên mắc phải là "hardcode" (nhúng trực tiếp) các giá trị nhạy cảm như API keys, database passwords vào trong source code. Khi bạn push code lên GitHub, bất kỳ ai cũng có thể thấy những giá trị này — và bot quét API keys hoạt động liên tục trên GitHub. Chỉ trong vài phút sau khi bạn push, key của bạn có thể bị đánh cắp và sử dụng trái phép, dẫn đến thiệt hại tài chính (OpenAI charge theo usage).
+Hardcoding sensitive values such as API keys or database credentials into source code is dangerous. Automated scanners crawl GitHub continuously. Once pushed, leaked keys can be exploited within minutes, incurring unexpected usage costs.
 
-Biến môi trường (environment variables) là cách đúng để xử lý. Bạn lưu các giá trị nhạy cảm trong file `.env` (đã được gitignore), và code đọc từ môi trường thay vì hardcode.
+Environment variables solve this. You store sensitive credentials in a local `.env` file (ignored by Git), and your code reads these values from the runtime environment.
 
-### File .env.example
+### The .env.example File
 
-> 💰 **Tài khoản AI miễn phí:** hướng dẫn đăng ký OpenAI/Anthropic/Gemini/Groq/Cohere... cho học viên AI20K ở [free-accounts.md](free-accounts.md).
+> 💰 **Free AI Accounts:** Registration guide for OpenAI/Anthropic/Gemini/Groq/Cohere for AI20K students is available in [free-accounts.md](free-accounts.md).
 
-Template cung cấp sẵn file `.env.example` — đây là "mẫu" liệt kê tất cả biến môi trường cần thiết mà không chứa giá trị thực. Bước đầu tiên của bạn là copy nó thành `.env` và điền giá trị:
+The template supplies a `.env.example` file listing all required environment keys without exposing real credentials. Copy it to `.env` and fill in your values:
 
 ```bash
 $ cp .env.example .env
 ```
 
-Nội dung file `.env.example` mẫu:
+Example `.env.example`:
 
 ```env
 # Application
@@ -260,31 +256,31 @@ API_PREFIX=/api/v1
 # LLM Provider
 LLM_PROVIDER=openai
 OPENAI_API_KEY=sk-your-key-here
-# Cascade router (src/services/llm.py): model rẻ classify, model mạnh generate,
-# judge PHẢI khác generate (app raise ValueError nếu trùng — chống self-preference bias)
+# Cascade router (src/services/llm.py): cheap model classifies, capable model generates,
+# judge MUST differ from generate (app raises ValueError if identical to prevent self-preference bias)
 MODEL_CLASSIFY=gpt-4o-mini
 MODEL_GENERATE=gpt-4o
 MODEL_JUDGE=gpt-4o-mini
 OPENAI_TEMPERATURE=0.7
 OPENAI_MAX_TOKENS=2048
-# Agent loop: số vòng ReAct tối đa trước khi escape hatch finalize-with-partial
+# Agent loop: max ReAct iterations before escape hatch finalize-with-partial triggers
 AGENT_MAX_ITERATIONS=8
 
-# Database (nếu cần)
+# Database (optional)
 DATABASE_URL=sqlite:///./data/app.db
 
-# Vector Store (cho RAG, nếu cần)
+# Vector Store (for RAG, optional)
 VECTOR_STORE_TYPE=chroma
 CHROMA_PERSIST_DIR=./data/chroma
 ```
 
-Sau khi copy, mở file `.env` và thay thế các giá trị placeholder bằng giá trị thực của bạn. Đặc biệt, thay `sk-your-key-here` bằng OpenAI API key của bạn.
+After copying, populate `.env` with your real keys, replacing `sk-your-key-here` with your actual OpenAI API key.
 
-> ⚠️ **LƯU Ý:** File `.env` không bao giờ được commit lên Git. Template đã bao gồm `.env` trong `.gitignore`. Nếu bạn vô tình commit `.env`, hãy ngay lập tức: (1) đổi API key trên dashboard của provider, (2) xóa file khỏi git history bằng `git filter-branch` hoặc BFG Repo-Cleaner.
+> ⚠️ **NOTE:** Never commit `.env` to Git. It is already included in `.gitignore`. If you accidentally commit `.env`: (1) revoke and regenerate the API key immediately, and (2) scrub the file from git history using `git filter-branch` or BFG Repo-Cleaner.
 
-### Config module với pydantic-settings
+### Config Module with pydantic-settings
 
-Template sử dụng `pydantic-settings` để quản lý cấu hình. Đây là cách hiện đại và type-safe để load biến môi trường. Hãy xem file `src/core/config.py`:
+The template manages configuration through `pydantic-settings`, providing type safety when loading variables. Review `src/core/config.py`:
 
 ```python
 from typing import Literal
@@ -325,18 +321,18 @@ class Settings(BaseSettings):
 settings = Settings()
 ```
 
-Phân tích từng phần quan trọng:
+Key mechanics:
 
-**`Literal` types** — `Literal["development", "staging", "production"]` giới hạn `app_env` chỉ nhận một trong ba giá trị. Nếu bạn đặt `APP_ENV=testing` (giá trị không hợp lệ), pydantic sẽ throw error ngay khi app khởi động, thay vì silently fail trong runtime. Đây là một ví dụ của "fail fast" principle — phát hiện lỗi càng sớm càng tốt.
+**`Literal` types** — `Literal["development", "staging", "production"]` restricts `app_env` to explicit choices. Setting `APP_ENV=testing` causes Pydantic to raise an error at startup rather than failing silently at runtime, following the fail-fast principle.
 
-**`Field` validators** — `Field(default=8000, ge=1024, le=65535)` áp dụng validation: port number phải từ 1024 đến 65535. Nếu ai đó đặt `API_PORT=80`, app sẽ báo lỗi ngay. Tương tự, `temperature` bị giới hạn từ 0.0 đến 2.0 (range hợp lệ của OpenAI), và `max_tokens` từ 1 đến 128000.
+**`Field` validation** — `Field(default=8000, ge=1024, le=65535)` enforces valid port ranges. Similarly, `temperature` is constrained between 0.0 and 2.0, and `max_tokens` between 1 and 128000.
 
-**`model_config`** — Chỉ định cách load biến môi trường. `env_file=".env"` nói rằng đọc từ file `.env`. `case_sensitive=False` cho phép biến môi trường viết hoa (OPENAI_API_KEY) map vào field viết thường (openai_api_key). `extra="ignore"` bỏ qua các biến môi trường không được định nghĩa trong Settings class.
+**`model_config`** — Directs environment loading: `env_file=".env"` specifies the target file, `case_sensitive=False` maps uppercase variables (`OPENAI_API_KEY`) to lowercase fields (`openai_api_key`), and `extra="ignore"` ignores unmapped keys.
 
-**Singleton pattern** — Dòng `settings = Settings()` tạo một instance duy nhất của Settings ở module level. Khi bạn cần dùng config ở bất kỳ đâu trong code, chỉ cần `from src.core.config import settings` — instance này được tạo một lần và dùng chung cho toàn bộ ứng dụng.
+**Singleton pattern** — `settings = Settings()` instantiates a module-level singleton. Anywhere in the codebase, you can import and reuse it: `from src.core.config import settings`.
 
 ```python
-# Sử dụng ở bất kỳ đâu trong project
+# Usage anywhere across the project
 from src.core.config import settings
 
 print(settings.openai_model)     # "gpt-4o-mini"
@@ -344,114 +340,114 @@ print(settings.api_port)         # 8000
 print(settings.app_env)          # "development"
 ```
 
-> 💡 **MẸO:** Khi thêm biến môi trường mới, luôn nhớ: (1) thêm vào `.env.example` với giá trị placeholder, (2) thêm field vào `Settings` class với type hint và default value, (3) thêm validation nếu cần. Đừng bao giờ thêm biến trực tiếp vào code mà không thông qua Settings.
+> 💡 **TIP:** When introducing new environment variables: (1) add them to `.env.example` with dummy values, (2) declare fields on `Settings` with type annotations and defaults, and (3) apply validation rules as needed. Never read environment keys directly in business logic without going through `Settings`.
 
-## Git workflow — Làm việc nhóm không hỗn loạn
+## Git Workflow — Structured Team Collaboration
 
-Một sai lầm phổ biến khi làm việc nhóm là thiếu quy trình Git thống nhất: đè code lên nhau (force push), merge conflict không giải quyết được, commit message vô nghĩa ("fix", "update", "test"), và code trên main branch liên tục bị hỏng. Nguyên nhân chính là thiếu quy trình rõ ràng. Phần này sẽ thiết lập quy trình mà toàn bộ đội phải tuân thủ.
+Teams without a unified Git workflow frequently encounter force-push overwrites, unresolved merge conflicts, cryptic commit messages ("fix", "update"), and broken builds on `main`. Establishing clear conventions prevents these issues.
 
-### Chiến lược branching
+### Branching Strategy
 
-Template khuyến nghị mô hình branching đơn giản nhưng hiệu quả:
+The template adopts a straightforward branching model:
 
-- **`main`** — Branch chính, luôn ổn định và có thể deploy bất cứ lúc nào. Không bao giờ push trực tiếp lên main. Mọi thay đổi phải thông qua Pull Request.
-- **`develop`** — Branch tích hợp, nơi tất cả feature branches merge vào trước khi lên main. Khi `develop` đã ổn định và sẵn sàng release, merge vào `main`.
-- **`feature/TÊN-FEATURE`** — Mỗi tính năng mới hoặc bug fix được phát triển trên branch riêng. Tên branch phải mô tả rõ tính năng.
+- **`main`** — Production-ready branch. Always deployable. Never push directly to `main`; all changes enter via Pull Requests.
+- **`develop`** — Integration branch where feature branches land prior to releases. Once verified, merge `develop` into `main`.
+- **`feature/FEATURE-NAME`** — Dedicated branch for each feature or bug fix with descriptive naming.
 
-Ví dụ quy trình làm việc:
+Workflow example:
 
 ```bash
-# Bắt đầu tính năng mới
+# Start a new feature
 $ git checkout develop
 $ git pull origin develop
 $ git checkout -b feature/agent-search-tool
 
-# Làm việc, commit thường xuyên
+# Work and commit regularly
 $ git add src/agent/tools/search.py
-$ git commit -m "feat(agent): thêm tool tìm kiếm web"
+$ git commit -m "feat(agent): add web search tool"
 
-# Push và tạo Pull Request
+# Push branch and open a PR
 $ git push origin feature/agent-search-tool
-# Sau đó tạo PR trên GitHub: feature/agent-search-tool → develop
+# Open PR on GitHub: feature/agent-search-tool → develop
 ```
 
-### Định dạng commit message
+### Commit Message Conventions
 
-Commit message phải có ý nghĩa. Mỗi commit message tuân theo format:
+Commit messages must remain informative and structured:
 
 ```
-type(scope): mô tả ngắn gọn
+type(scope): concise description
 
-[mô tả chi tiết nếu cần]
+[optional detailed body]
 ```
 
-Các type phổ biến:
+Standard types:
 
-- **`feat`** — Thêm tính năng mới. Ví dụ: `feat(api): thêm endpoint /chat/stream`
-- **`fix`** — Sửa bug. Ví dụ: `fix(agent): sửa lỗi Agent không xử lý input rỗng`
-- **`docs`** — Cập nhật tài liệu. Ví dụ: `docs: cập nhật README với hướng dẫn cài đặt`
-- **`test`** — Thêm hoặc sửa tests. Ví dụ: `test(agent): thêm test cho search tool`
-- **`refactor`** — Tái cấu trúc code không thay đổi functionality. Ví dụ: `refactor(config): chuyển config sang pydantic-settings`
-- **`chore`** — Việc bảo trì (update dependencies, v.v.). Ví dụ: `chore: cập nhật ruff lên v0.4.0`
+- **`feat`** — New functionality. E.g.: `feat(api): add /chat/stream endpoint`
+- **`fix`** — Bug fix. E.g.: `fix(agent): handle empty user query gracefully`
+- **`docs`** — Documentation updates. E.g.: `docs: update setup guide in README`
+- **`test`** — Test updates. E.g.: `test(agent): add test coverage for search tool`
+- **`refactor`** — Code restructuring without feature alterations. E.g.: `refactor(config): migrate settings to pydantic-settings`
+- **`chore`** — Maintenance tasks. E.g.: `chore: bump ruff to v0.4.0`
 
-Scope là tùy chọn, nhưng khuyến nghị dùng: `agent`, `api`, `config`, `models`, `tests`, hoặc tên module khác.
+Scope annotations are optional but recommended: `agent`, `api`, `config`, `models`, `tests`, etc.
 
-### Pull Request process
+### Pull Request Process
 
-Pull Request (PR) không chỉ là cách merge code — nó là cơ hội review và đảm bảo chất lượng. Mỗi PR nên:
+Pull Requests (PRs) serve as quality checkpoints. Every PR should:
 
-1. **Có tiêu đề rõ ràng** theo format commit message.
-2. **Có mô tả** giải thích: thay đổi gì, tại sao, và cách test.
-3. **Nhỏ và tập trung** — một PR nên giải quyết một vấn đề, không phải 10.
-4. **Được review bởi ít nhất 1 thành viên khác** trước khi merge.
-5. **Pass tất cả automated checks** (tests, linting) trước khi merge.
+1. **Feature a clear title** adhering to commit message conventions.
+2. **Contain a description** explaining what changed, why, and how to verify.
+3. **Stay compact and focused** — address one logical unit of work per PR.
+4. **Be reviewed by at least one teammate** before merging.
+5. **Pass all automated CI checks** (tests, linters) before merge approval.
 
 ```markdown
 ## PR Template
 
-### Thay đổi
-- Thêm tool tìm kiếm web cho Agent
-- Tích hợp Tavily Search API
+### Changes
+- Added web search tool for the Agent
+- Integrated Tavily Search API
 
-### Tại sao
-Agent cần khả năng tìm kiếm thông tin real-time để trả lời câu hỏi về sự kiện hiện tại.
+### Why
+The Agent requires real-time search capabilities to answer queries regarding recent events.
 
-### Cách test
-1. Set `TAVILY_API_KEY` trong `.env`
-2. Chạy `pytest tests/unit/test_search_tool.py -v`
-3. Hoặc test manual qua Swagger UI: POST /api/v1/chat
+### How to Test
+1. Configure `TAVILY_API_KEY` in `.env`
+2. Run `pytest tests/unit/test_search_tool.py -v`
+3. Verify manually via Swagger UI: POST /api/v1/chat
 
 ### Checklist
-- [x] Code tuân thủ style guide
-- [x] Đã viết unit test
-- [x] Tất cả tests pass
-- [x] Không có hardcoded secrets
+- [x] Conforms to project code style
+- [x] Unit tests added
+- [x] All automated tests pass
+- [x] No secrets committed
 ```
 
-> 🔑 **ĐIỂM CHÍNH:** Git workflow không phải "paperwork" — nó là mạng lưới an toàn. Khi ai đó vô tình xóa code quan trọng, bạn có thể revert. Khi có bug mới, bạn biết commit nào gây ra nhờ `git bisect`. Khi review PR, bạn học code của đồng đội. Đầu tư 5 phút cho mỗi commit message và PR sẽ tiết kiệm 5 giờ debug sau này.
+> 🔑 **KEY POINT:** A structured Git workflow serves as your team safety net. If regressions occur, you can revert cleanly. When bugs emerge, `git bisect` identifies the root cause. Investing 5 minutes into clear PRs and commits saves hours of debugging later.
 
-## Chạy server lần đầu — Hello World moment
+## Starting the Server — The Hello World Milestone
 
-Sau khi setup môi trường và cấu hình, đây là khoảnh khắc quan trọng nhất: chạy ứng dụng lần đầu tiên và thấy nó hoạt động. Template đã bao gồm sẵn một FastAPI server cơ bản với health check endpoint.
+After setting up your environment and secrets, start the server to confirm system health. The template includes a preconfigured FastAPI application with a health check endpoint.
 
-### Khởi động server
+### Starting the Server
 
 ```bash
-# Đảm bảo venv đã kích hoạt
+# Ensure venv is active
 $ source .venv/bin/activate
 
-# Chạy FastAPI server
+# Launch FastAPI server
 $ uvicorn src.api.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-Giải thích từng tham số:
+Parameter breakdown:
 
-- **`src.api.main:app`** — Đường dẫn đến FastAPI app instance. File `src/api/main.py` chứa dòng `app = FastAPI(...)`.
-- **`--reload`** — Tự động reload server khi code thay đổi. Chỉ dùng trong development, không dùng trong production.
-- **`--host 0.0.0.0`** — Lắng nghe trên tất cả network interfaces, cho phép truy cập từ thiết bị khác trong cùng mạng.
-- **`--port 8000`** — Port number. Khớp với `API_PORT` trong config.
+- **`src.api.main:app`** — Points to the FastAPI application instance (`app = FastAPI(...)` inside `src/api/main.py`).
+- **`--reload`** — Hot-reloads code changes during development. Never use in production.
+- **`--host 0.0.0.0`** — Binds to all interfaces for network accessibility.
+- **`--port 8000`** — Listens on port 8000, aligning with `API_PORT`.
 
-Output mong đợi:
+Expected output:
 
 ```
 INFO:     Will watch for changes in these directories: ['/path/to/project']
@@ -462,29 +458,29 @@ INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 ```
 
-### Swagger UI — API documentation tự động
+### Swagger UI — Automatic API Documentation
 
-Một trong những tính năng tuyệt vời nhất của FastAPI là **tự động sinh API documentation**. Mở trình duyệt và truy cập:
+FastAPI auto-generates interactive API documentation. Navigate to:
 
 ```
 http://localhost:8000/docs
 ```
 
-Bạn sẽ thấy Swagger UI — một giao diện tương tác cho phép bạn xem tất cả API endpoints, schema của request/response, và thậm chí "thử gọi" API trực tiếp từ trình duyệt mà không cần Postman hay curl.
+Swagger UI allows you to inspect all endpoints, review request/response schemas, and execute live API requests directly in your browser without external tools like Postman.
 
-### Health check endpoint
+### Health Check Endpoint
 
-Template cung cấp sẵn health check endpoint để xác nhận server đang hoạt động:
+Verify server readiness using the built-in health check:
 
 ```bash
-# Dùng curl
+# Using curl
 $ curl http://localhost:8000/api/v1/health
 
-# Hoặc mở trong trình duyệt
+# Or open in your browser
 # http://localhost:8000/api/v1/health
 ```
 
-Response mong đợi:
+Expected response:
 
 ```json
 {
@@ -494,109 +490,109 @@ Response mong đợi:
 }
 ```
 
-Nếu bạn thấy response này, chúc mừng — server đang chạy và config đã được load đúng. Nếu gặp lỗi, kiểm tra lại: (1) venv đã kích hoạt chưa, (2) file `.env` đã tạo chưa, (3) port 8000 có bị chiếm bởi process khác không (chạy `lsof -i :8000` để kiểm tra).
+If the response returns successfully, your configuration and server are working. If issues arise, check: (1) is the venv active?, (2) does `.env` exist?, (3) is port 8000 already occupied (`lsof -i :8000`)?
 
-### Dùng Makefile cho lệnh thường dùng
+### Using Makefile Shortcuts
 
-Template bao gồm `Makefile` với các lệnh shortcut:
+The template includes a `Makefile` with handy targets:
 
 ```bash
-$ make run          # Chạy server
-$ make test         # Chạy tất cả tests
-$ make lint         # Chạy linter (ruff)
-$ make format       # Format code (ruff format)
-$ make typecheck    # Chạy type checker (mypy)
-$ make check        # Chạy tất cả checks (lint + format + typecheck + test)
+$ make run          # Run the server
+$ make test         # Run test suites
+$ make lint         # Run ruff linter
+$ make format       # Format code with ruff
+$ make typecheck    # Run static type checker (mypy)
+$ make check        # Execute all checks (lint + format + typecheck + test)
 ```
 
-> 💡 **MẸO:** Bookmark `http://localhost:8000/docs` trong trình duyệt. Bạn sẽ dùng trang này rất thường xuyên trong suốt quá trình phát triển. Mỗi khi thêm endpoint mới, nó sẽ tự động xuất hiện ở đây. Swagger UI cũng là công cụ debug tuyệt vời — bạn có thể test API trực tiếp mà không cần viết script riêng.
+> 💡 **TIP:** Bookmark `http://localhost:8000/docs`. You will use it continuously throughout development. Every new route registered in FastAPI appears here immediately.
 
-## Bắt đầu project của bạn — Từ template thành sản phẩm
+## Customizing the Template for Your Project
 
-Bây giờ bạn đã có template chạy được trên máy. Nhưng template chỉ là bộ khung — bạn cần tùy chỉnh nó thành dự án của riêng mình. Phần này hướng dẫn bạn những gì cần thay đổi và những gì cần giữ nguyên.
+With a running template, customize the scaffolding for your domain while keeping core architecture intact.
 
-### Những gì cần thay đổi ngay
+### Immediate Customizations
 
-**1. Rà lại `requirements.txt`:** bỏ dấu `#` ở những dependency đội thật sự dùng, và thêm thư viện mới vào đây thay vì cài lẻ trên máy — CI dựng môi trường từ đầu bằng đúng file này, thư viện không được khai báo thì chạy trên máy bạn được nhưng hỏng trên CI.
+**1. Review `requirements.txt`:** Uncomment packages your team actually needs, and add any third-party libraries here rather than installing them ad-hoc. CI builds environments directly from this file; unlisted dependencies will fail CI builds even if they work locally.
 
 ```
-# Database — bỏ comment nếu đội dùng
+# Database — uncomment if used
 sqlalchemy>=2.0.0
 alembic>=1.14.0
 
-# Vector Store — bỏ comment nếu đội làm RAG
+# Vector Store — uncomment for RAG
 chromadb>=0.5.0
 ```
 
-Luôn ghi kèm ràng buộc phiên bản (`>=`), đừng để tên trần: một bản release mới của thư viện có thể làm hỏng build mà không ai đụng vào code.
+Always include version bounds (`>=`) to prevent unexpected upstream breaking changes from breaking builds.
 
-**2. Cập nhật `README.md`:** Template có README placeholder. Thay thế bằng nội dung thực tế:
+**2. Update `README.md`:** Replace placeholder text with your team's details:
 
 ```markdown
 # Team Alpha — AI Agent
 
-## Mô tả
-Agent tự động phân tích sentiment của bài đăng mạng xã hội và tạo báo cáo tóm tắt.
+## Overview
+Agent for automated social media sentiment analysis and summarization reports.
 
-## Thành viên
-- Nguyễn Văn A — Agent logic
-- Trần Thị B — API & Backend
-- Lê Văn C — Frontend & Testing
+## Members
+- Member A — Agent logic
+- Member B — API & Backend
+- Member C — Frontend & Testing
 
 ## Quick Start
 ```bash
 python3.12 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env  # Điền API key
+cp .env.example .env  # Populate API keys
 make run
 ```
 
 ## API Docs
-Sau khi chạy server, truy cập: http://localhost:8000/docs
+With server running, visit: http://localhost:8000/docs
 ```
 
-**3. Cập nhật `.env` với API key thực:** Nếu bạn có OpenAI API key, thêm vào file `.env`:
+**3. Configure `.env` with valid keys:** Add your real OpenAI API key to `.env`:
 
 ```env
 OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxx
 ```
 
-### Những gì cần giữ nguyên
+### What to Keep Intact
 
-- **Cấu trúc thư mục** — Đừng tái cấu trúc trừ khi có lý do rất tốt. Cấu trúc đã được thiết kế theo best practices.
-- **Git workflow** — Branching strategy và commit message format.
-- **CI/CD configuration** — Nếu template có sẵn file GitHub Actions, giữ nguyên và chỉ chỉnh sửa khi cần.
-- **Testing setup** — thư mục `tests/` và cách `pytest` được gọi trong `Makefile` lẫn CI.
-- **Linting configuration** — cấu hình `ruff` trong `ruff.toml`.
+- **Directory structure** — Do not rearrange folders without compelling reasons; it follows established patterns.
+- **Git workflow** — Branching conventions and commit formats.
+- **CI/CD configuration** — Retain predefined GitHub Actions workflows.
+- **Testing setup** — The `tests/` layout and pytest execution paths.
+- **Linting rules** — The `ruff` setup in `ruff.toml`.
 
-### Kế hoạch hành động cho tuần đầu tiên
+### First-Week Milestone Checklist
 
-Sau khi hoàn thành tất cả các bước trong chương này, bạn nên có:
+Before moving forward, ensure your team has:
 
-1. Repo của đội đã clone về máy, `git remote -v` trỏ đúng org của khoá.
-2. Môi trường ảo đã setup, tất cả dependencies đã cài.
-3. File `.env` đã cấu hình với API key.
-4. Server chạy được trên localhost, Swagger UI accessible.
-5. README đã cập nhật với thông tin đội.
-6. Branch `develop` đã tạo, ít nhất 1 commit trên `develop`.
-7. AI Logging Hooks đã cài đặt (xem phần dưới).
+1. Cloned the team repo; confirmed remote points to the cohort organization via `git remote -v`.
+2. Created `.venv` and installed all project dependencies.
+3. Created `.env` and set active API credentials.
+4. Started the server locally and opened Swagger UI.
+5. Updated `README.md` with team project metadata.
+6. Created the `develop` branch with at least one commit.
+7. Installed AI Logging Hooks (see below).
 
-Nếu bạn đã có đủ 7 mục trên, bạn đang đi đúng hướng. Sang Chương 3, chúng ta sẽ thiết kế kiến trúc hệ thống — quyết định quan trọng nhất ảnh hưởng đến toàn bộ dự án.
+Once these 7 items are checked off, you are ready for Chapter 3, where we design system architecture.
 
-> ⚠️ **LƯU Ý:** Đừng vội bắt đầu viết Agent logic ngay. Template có sẵn placeholder code trong `src/agent/` — để yên cho đến khi bạn hoàn thành thiết kế kiến trúc ở Chương 3. Code mà không có thiết kế là code mà bạn sẽ phải viết lại. Kinh nghiệm cho thấy: các đội thiết kế trước khi code luôn có kết quả tốt hơn đáng kể so với các đội "code first, design later."
+> ⚠️ **NOTE:** Do not rush into writing Agent logic immediately. The placeholder code in `src/agent/` should remain as-is until you finish the architecture design in Chapter 3. Coding without architectural clarity leads to rewrites.
 
-## Cài đặt AI Usage Logging Hooks
+## Setting Up AI Usage Logging Hooks
 
-Template tích hợp sẵn hệ thống auto-logging — ghi lại mọi prompt và tool call khi bạn dùng AI coding tools. Đây là yêu cầu bắt buộc của chương trình: BTC cần theo dõi việc sử dụng AI tools của các đội.
+The template bundles automated logging hooks to track prompts and tool interactions when utilizing AI coding assistants. This satisfies academic tracking requirements for grading AI usage rubrics.
 
-### Tại sao cần AI Logging?
+### Why AI Logging Is Required
 
-- **Transparency** — Minh bạch về việc sử dụng AI trong quá trình phát triển
-- **Grading** — BTC sử dụng data này để đánh giá phần "AI Usage" trong rubric
-- **Self-reflection** — Giúp đội xem lại pattern sử dụng AI của mình (tool nào dùng nhiều, prompt nào hiệu quả)
+- **Transparency** — Clear documentation of AI usage during project development.
+- **Grading** — Course instructors use this telemetry to grade the "AI Usage" rubric criteria.
+- **Self-reflection** — Allows teams to inspect their own tool usage patterns and prompt efficiency.
 
-### Chạy setup (bắt buộc — 1 lần duy nhất)
+### One-Time Setup Execution
 
 ```bash
 # Linux / macOS / Git Bash
@@ -606,81 +602,81 @@ bash scripts/setup_hooks.sh
 # powershell -ExecutionPolicy Bypass -File scripts\setup_hooks.ps1
 ```
 
-Lệnh này cài git pre-push hook và tạo thư mục `.ai-log/`. Sau khi chạy, mọi AI tool dưới đây sẽ tự động log — không cần thao tác thêm.
+This installs the git pre-push hook and initializes the `.ai-log/` folder. All supported AI tools will log telemetry automatically.
 
-### 6 AI tools được hỗ trợ tự động
+### Supported AI Tools
 
-| Tool | Cơ chế | Khi nào log |
-|------|--------|-------------|
-| **Claude Code** | `.claude/settings.json` hooks | Mỗi prompt + mỗi tool call |
-| **Cursor** | `.cursor/hooks.json` | Mỗi prompt + khi stop |
-| **OpenAI Codex CLI** | `.codex/hooks.json` | Mỗi prompt + khi stop |
+| Tool | Mechanism | When Telemetry Logs |
+|---|---|---|
+| **Claude Code** | `.claude/settings.json` hooks | On every prompt + tool invocation |
+| **Cursor** | `.cursor/hooks.json` | On every prompt + session stop |
+| **OpenAI Codex CLI** | `.codex/hooks.json` | On every prompt + session stop |
 | **Gemini CLI** | `.gemini/settings.json` | BeforeAgent + AfterModel + SessionEnd |
-| **GitHub Copilot** | `.github/hooks/hooks.json` | Mỗi prompt + khi session end |
-| **Antigravity IDE** | Pre-push scan transcript | Tự động quét transcript khi `git push` |
+| **GitHub Copilot** | `.github/hooks/hooks.json` | On every prompt + session end |
+| **Antigravity IDE** | Pre-push scan transcript | Automatic transcript scan on `git push` |
 
-### Cách hoạt động
+### Telemetry Flow
 
 ```
-Bạn dùng AI tool (Claude Code, Cursor, v.v.)
+Developer uses AI tool (Claude Code, Cursor, etc.)
         ↓
-Hook tự động capture prompt + metadata
+Hook captures prompt + metadata automatically
         ↓
-Append vào .ai-log/session.jsonl
+Appends entry to .ai-log/session.jsonl
         ↓
-git push → pre-push hook submit lên grading server
+git push → pre-push hook submits records to grading server
 ```
 
-Metadata được log bao gồm: timestamp, tool name, model, repo, branch, commit, student email, prompt text, tool response.
+Captured metadata includes: timestamp, tool name, model identifier, repo name, branch, commit SHA, student email, prompt contents, and tool responses.
 
-### Log thủ công cho web tools
+### Manual Logging for Web Interfaces
 
-Nếu dùng ChatGPT, Claude.ai, Gemini Web, hoặc tool không có hook:
+When using ChatGPT, Claude.ai, Gemini Web, or tools lacking local hooks:
 
 ```bash
-# Interactive (script sẽ hỏi tool + prompt)
+# Interactive mode (prompts for tool and text)
 bash scripts/_pyrun.sh scripts/log_manual.py
 
-# One-line
+# CLI one-liner
 bash scripts/_pyrun.sh scripts/log_manual.py --tool chatgpt --prompt "Brainstorm UI layout"
 bash scripts/_pyrun.sh scripts/log_manual.py --tool gemini-web --prompt "Research scoring algorithms"
 ```
 
-### Cấu hình `.env`
+### Configuration in `.env`
 
-Template đã có sẵn trong `.env.example`:
+Supplied in `.env.example`:
 
 ```env
 AI_LOG_SERVER=https://ai-logs.note.transformerlabs.ai/api/ingest
-AI_LOG_API_KEY=<giáo viên sẽ cung cấp>
+AI_LOG_API_KEY=<provided by instructor>
 AI_LOG_DIR=.ai-log
 ```
 
-Copy từ `.env.example` sang `.env` và điền `AI_LOG_API_KEY` do instructor cấp.
+Copy to `.env` and fill in the instructor-provided `AI_LOG_API_KEY`.
 
 ### Troubleshooting
 
-| Vấn đề | Nguyên nhân | Cách fix |
-|---------|-------------|----------|
-| Hooks không log | Chưa chạy `setup_hooks.sh` | Chạy lại `bash scripts/setup_hooks.sh` |
-| `python3: not found` | Thiếu Python trên PATH | `brew install python3` (macOS) hoặc cài từ python.org (Windows) |
-| Submit failed | Sai `AI_LOG_API_KEY` hoặc không có network | Kiểm tra `.env`, logs vẫn giữ locally |
-| Antigravity không log | Chưa có transcript | Chắc chắn dùng Antigravity IDE trong repo folder |
+| Issue | Root Cause | Resolution |
+|---|---|---|
+| Hooks not logging | Setup script not run | Re-run `bash scripts/setup_hooks.sh` |
+| `python3: not found` | Missing Python in system PATH | `brew install python3` (macOS) or install via python.org (Windows) |
+| Submission fails | Invalid `AI_LOG_API_KEY` or network issue | Check `.env`; logs remain cached locally |
+| Antigravity missing logs | No transcript present | Confirm Antigravity IDE is opened in the repository directory |
 
-> ⚠️ **QUAN TRỌNG:** Đừng sửa hoặc xoá file trong `.ai-log/`. Đừng chạy `git push --no-verify` để bypass hook. Nếu hook báo lỗi, báo cho instructor thay vì tự bypass.
+> ⚠️ **IMPORTANT:** Never modify or delete files under `.ai-log/`. Do not bypass hooks with `git push --no-verify`. Contact instructors if issues persist.
 
-## Tóm tắt
+## Summary
 
-Chương này hướng dẫn bạn khởi tạo dự án từ template — bước đầu tiên và quan trọng nhất. Chúng ta đã đi qua việc clone repository, hiểu cấu trúc thư mục (src/, tests/, docs/, eval/, presentation/), thiết lập môi trường ảo với Python 3.11+, cài đặt dependencies, và chạy server lần đầu tiên.
+This chapter walked through initializing your project from the provided template — setting the project foundation. We covered repository cloning, directory layout (`src/`, `tests/`, `docs/`, `eval/`, `presentation/`), setting up virtual environments with Python 3.12+, installing dependencies, and running the server for the first time.
 
-Bạn cũng đã học cách quản lý biến môi trường với pydantic-settings, thiết lập Git workflow với branching strategy và commit message convention, và hiểu được những gì cần tùy chỉnh so với những gì cần giữ nguyên từ template.
+You also learned type-safe configuration using `pydantic-settings`, structured Git branching and commit standards, and differentiating template boilerplate from customized project components.
 
-Template không phải là gông cùm — nó là đường ray. Đường ray không giới hạn tốc độ của tàu, mà đảm bảo tàu đi đúng hướng và không bị trật. Tương tự, template đảm bảo dự án của bạn có nền tảng vững chắc, trong khi vẫn cho bạn tự do sáng tạo ở phần logic và tính năng.
+The template serves as guide rails: ensuring steady direction and preventing costly structural pitfalls while allowing full creative freedom in domain logic.
 
-## Câu hỏi ôn tập
+## Review Questions
 
-**Câu 1:** Tại sao sau khi clone repo đội được tạo từ GitHub Template, chúng ta không cần — và không nên — xóa `.git` rồi chạy `git init` lại? Việc xóa `.git` sẽ làm mất những thông tin nào? Bạn nên dùng lệnh nào để kiểm tra repository đang trỏ đúng remote?
+**Question 1:** Why should you avoid deleting `.git` and running `git init` after cloning a repo generated from a GitHub Template? What repository information is lost if `.git` is wiped? Which command verifies your active remote configuration?
 
-**Câu 2:** Giải thích sự khác biệt giữa file `.env.example` và file `.env`. Tại sao file `.env.example` được commit lên Git nhưng file `.env` thì không? Điều gì xảy ra nếu bạn lỡ commit file `.env`?
+**Question 2:** Explain the difference between `.env.example` and `.env`. Why is `.env.example` committed to version control while `.env` is ignored? What remediation steps should you take if a secret is committed accidentally?
 
-**Câu 3:** Trong cấu hình pydantic-settings, tại sao chúng ta dùng `Literal["development", "staging", "production"]` thay vì `str` cho field `app_env`? Lợi ích của việc này là gì trong thực tế? Hãy cho một ví dụ cụ thể về tình huống mà Literal type giúp phát hiện lỗi sớm.
+**Question 3:** In `pydantic-settings`, why use `Literal["development", "staging", "production"]` instead of raw `str` for `app_env`? What concrete real-world benefits does this provide for early error detection?

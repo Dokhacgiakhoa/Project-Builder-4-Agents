@@ -85,14 +85,14 @@
    "tier": "C",
    "when": "Repeated bug fixes, surface patching, or untangling spaghetti code",
    "path": "knowledge-base/tu-duy/anti-patching-architectural-thinking.md",
-   "title": "CẨM NANG TƯ DUY KIẾN TRÚC: CHẤM DỨT BẪY \"VÁ VÍU\" CỤC BỘ (ANTI-PATCHING)"
+   "title": "ARCHITECTURAL THINKING GUIDE: BREAKING THE \"LOCAL PATCHING\" TRAP (ANTI-PATCHING)"
   },
   {
    "id": "S-005",
    "tier": "L",
    "when": "Avoiding common pitfalls and anti-patterns when collaborating with AI agents",
    "path": "knowledge-base/technical-book/anti-patterns/common-mistakes.md",
-   "title": "❌ Lỗi: Che mọi lỗi, không biết gì fail"
+   "title": "Top 10 Engineering Mistakes"
   },
   {
    "id": "S-006",
@@ -367,21 +367,21 @@
    "tier": "L",
    "when": "Reference RAG patterns and vector search templates",
    "path": "knowledge-base/technical-book/patterns/rag-pattern.md",
-   "title": "Node: Retrieve context từ vector store"
+   "title": "Node: Retrieve context from vector store"
   },
   {
    "id": "G-001",
    "tier": "C",
    "when": "Configuring multi-tool agent setups (Claude Code, Codex, Antigravity, Cursor)",
    "path": "knowledge-base/technical-book/agent-practices/multi-tool-config.md",
-   "title": "Multi-Tool Agent Config"
+   "title": "Multi-Tool Agent Configuration"
   },
   {
    "id": "G-002",
    "tier": "L",
    "when": "Managing agent context window drift during long conversations",
    "path": "knowledge-base/technical-book/agent-practices/context-management.md",
-   "title": "Context Management — chống agent drift"
+   "title": "Context Management — Preventing Agent Drift"
   },
   {
    "id": "G-003",
@@ -395,7 +395,7 @@
    "tier": "L",
    "when": "Authoring effective instructions and prompts for Claude Code",
    "path": "knowledge-base/claude-code.md",
-   "title": "Dùng Claude Code hiệu quả — Phan Minh Tâm · Bùi Việt Hoàng (24/09)"
+   "title": "Using Claude Code Effectively — Notes from Phan Minh Tam & Bui Viet Hoang"
   },
   {
    "id": "G-005",
@@ -478,7 +478,7 @@
    "tier": "L",
    "when": "Project management, sprint workflows, and retrospectives",
    "path": "knowledge-base/quan-tri-du-an/README.md",
-   "title": "🎓 Cổng Tài Liệu Workshop AI20K & VinUni (Quản Trị Dự Án & Xử Lý Xung Đột)"
+   "title": "🎓 AI20K & VinUni Workshop Portal (Project Management & Conflict Resolution)"
   },
   {
    "id": "O-004",
@@ -492,7 +492,7 @@
    "tier": "L",
    "when": "Environment debugging and common runtime issue troubleshooting",
    "path": "knowledge-base/technical-book/troubleshooting.md",
-   "title": "Troubleshooting — Sửa lỗi thường gặp"
+   "title": "Troubleshooting — Common Engineering Errors"
   },
   {
    "id": "O-006",

@@ -1,13 +1,13 @@
 ---
 title: "LangGraph Agent"
-description: "Xây dựng AI Agent với LangGraph"
+description: "Engineering AI Agents with LangGraph"
 weight: 3
 ---
 
-Phần này đi sâu vào LangGraph — framework chính để xây dựng AI Agent trong template AI20K. Bạn sẽ tìm hiểu ba khái niệm cốt lõi: State (trạng thái), Nodes & Edges (nút và cạnh), và Tools (công cụ). Mỗi khái niệm đều có ví dụ code cụ thể để bạn có thể áp dụng ngay. Nắm vững LangGraph là chìa khóa để xây dựng agent thông minh có khả năng suy luận và hành động.
+This section dives into LangGraph — the primary state-machine framework for AI Agents. It explores three foundational concepts: State management, Nodes & Edges, and Tool dispatch. Each concept includes executable code examples.
 
-## Trang trong mục này
+## Subsections
 
-- [State](state.md) — Định nghĩa và quản lý trạng thái trong LangGraph
-- [Nodes & Edges](nodes-and-edges.md) — Xây dựng luồng xử lý bằng nodes và edges
-- [Tools](tools.md) — Tạo và tích hợp công cụ cho agent
+- [State](state.md) — State schema definition and reducer state management
+- [Nodes & Edges](nodes-and-edges.md) — Constructing execution graphs with deterministic and conditional edges
+- [Tools](tools.md) — Defining and binding tools for autonomous agent execution\n

@@ -1,61 +1,61 @@
 ---
 title: "State Management"
-description: "Định nghĩa State schema cho LangGraph agent"
+description: "Defining State schemas for LangGraph agents"
 weight: 1
 ---
 
 ## State Schema
 
-State là "bộ nhớ" của agent, truyền giữa các nodes:
+State serves as the shared memory bus passed between graph execution nodes:
 
 ```python
 from typing import TypedDict
 
 class AgentState(TypedDict, total=False):
-    query: str        # Input từ user
-    context: str      # Context từ RAG
-    analysis: str     # Kết quả phân tích
-    response: str     # Response cuối cùng
-    error: str        # Error nếu có
-    metadata: dict    # Extra info
+    query: str        # User input query
+    context: str      # Retrieved RAG context
+    analysis: str     # Structured analysis output
+    response: str     # Final user response
+    error: str        # Diagnostic error details
+    metadata: dict    # Operational telemetry
 ```
 
-## Nguyên tắc thiết kế State
+## State Design Principles
 
-### 1. Dùng TypedDict
+### 1. Use TypedDict
 
 ```python
-# ✅ TỐT — TypedDict cho state
+# ✅ RECOMMENDED — TypedDict for LangGraph state definitions
 class AgentState(TypedDict, total=False):
     query: str
     response: str
 
-# ❌ TỆ — Không dùng Pydantic cho LangGraph state
+# ❌ AVOID — Do not use Pydantic models for raw LangGraph state
 class AgentState(BaseModel):
-    query: str  # LangGraph expects TypedDict
+    query: str  # LangGraph reducers expect TypedDict schemas
 ```
 
-### 2. total=False cho optional fields
+### 2. Configure `total=False` for Optional Fields
 
 ```python
 class AgentState(TypedDict, total=False):
-    query: str           # Input (luôn có)
-    context: str         # Optional — chỉ có khi dùng RAG
-    error: str           # Optional — chỉ có khi lỗi
+    query: str           # Invariant input (always present)
+    context: str         # Optional — populated during retrieval steps
+    error: str           # Optional — populated during failure handling
 ```
 
-### 3. Chỉ thêm fields thực sự cần
+### 3. Maintain High State Hygiene
 
-- Mỗi field = data được truyền giữa nodes
-- Không dùng state như "trash can" chứa mọi thứ
-- Thêm docstring cho từng field
+- Every state attribute represents data communicated between execution steps.
+- Avoid treating state as an arbitrary catch-all container.
+- Document the schema and lifecycle of each state property.
 
-### 4. Pattern cập nhật State
+### 4. Incremental State Mutation Pattern
 
 ```python
-# Mỗi node chỉ return fields nó thay đổi
+# Each node returns only the mutated keys it updates
 async def analyze_node(state: AgentState) -> dict:
     query = state.get("query", "")
     analysis = await process(query)
-    return {"analysis": analysis}  # Chỉ update "analysis"
+    return {"analysis": analysis}  # Updates only "analysis" in shared state
 ```

@@ -1,6 +1,6 @@
 ---
 title: "Writing Tests"
-description: "Cách viết tests cho agent và API"
+description: "Writing automated tests for agents and API endpoints"
 weight: 1
 ---
 
@@ -8,7 +8,7 @@ weight: 1
 
 ```
 tests/
-├── conftest.py           ← Fixtures dùng chung
+├── conftest.py           ← Shared fixtures
 ├── test_agents/
 │   └── test_graph.py     ← Test agent flow
 └── test_api/
@@ -86,6 +86,6 @@ pytest tests/ --cov=src --cov-report=term-missing
 
 ## Minimum Requirements
 
-- Tối thiểu **3 test cases** cho API
-- Tối thiểu **2 test cases** cho Agent
-- Tất cả tests phải pass trước khi push
+- Minimum **3 test cases** for API endpoints
+- Minimum **2 test cases** for Agent workflows
+- All tests must pass before pushing

@@ -1,25 +1,25 @@
-# [Tên Dự Án]
+# [Project Name]
 
-> Tóm tắt 1 câu: [Vấn đề] → [Giải pháp AI] cho [Target User]
+> One-sentence pitch: [Problem] → [AI Solution] for [Target User]
 
-## Vấn đề (Problem)
+## Problem
 
-Mô tả pain point cụ thể với data/số liệu:
-- Ai đang gặp vấn đề?
-- Vấn đề tốn bao nhiêu thời gian/tiền?
-- Tại sao các giải pháp hiện tại chưa đủ?
+Describe the specific pain point with data/metrics:
+- Who is experiencing this problem?
+- How much time/money does this problem cost?
+- Why are existing solutions insufficient?
 
-## Giải pháp (Solution)
+## Solution
 
-Sản phẩm giải quyết vấn đề như thế nào bằng AI:
-- Feature 1: [mô tả]
-- Feature 2: [mô tả]
-- Feature 3: [mô tả]
+How the product solves the problem using AI:
+- Feature 1: [description]
+- Feature 2: [description]
+- Feature 3: [description]
 
 ## Target User
 
-- Primary: [mô tả user chính]
-- Secondary: [mô tả user phụ]
+- Primary: [primary user persona]
+- Secondary: [secondary user persona]
 
 ## Tech Stack
 
@@ -35,8 +35,8 @@ Sản phẩm giải quyết vấn đề như thế nào bằng AI:
 
 ```bash
 # 1. Clone repo
-git clone https://github.com/<ORG-CỦA-KHOÁ>/<MÃ-ĐỘI>.git
-cd <MÃ-ĐỘI>
+git clone https://github.com/<COURSE-ORG>/<TEAM-ID>.git
+cd <TEAM-ID>
 
 # 2. Setup environment
 cp .env.example .env

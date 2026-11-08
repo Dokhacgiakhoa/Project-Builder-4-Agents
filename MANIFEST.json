@@ -9,7 +9,7 @@
     "how_it_works": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/HOW_IT_WORKS.md",
     "llms_txt": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/llms.txt"
   },
-  "generated_at": "2026-11-08T14:36:50.651986+00:00",
+  "generated_at": "2026-11-08T15:02:34.620734+00:00",
   "total_files": 431,
   "files": {
     ".agents/skills/health-check/SKILL.md": {
@@ -1055,42 +1055,42 @@
     "knowledge-base/README_boilerplate.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/README_boilerplate.md",
       "category": "knowledge-base",
-      "size_bytes": 2862
+      "size_bytes": 2683
     },
     "knowledge-base/archive/PLAN.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/archive/PLAN.md",
       "category": "knowledge-base",
-      "size_bytes": 18796
+      "size_bytes": 13058
     },
     "knowledge-base/claude-code.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/claude-code.md",
       "category": "knowledge-base",
-      "size_bytes": 3157
+      "size_bytes": 3518
     },
     "knowledge-base/phuong-phap-mentor.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/phuong-phap-mentor.md",
       "category": "knowledge-base",
-      "size_bytes": 7745
+      "size_bytes": 9697
     },
     "knowledge-base/quan-tri-du-an/02-kinh-nghiem-quan-tri-du-an-va-xu-ly-xung-dot.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/quan-tri-du-an/02-kinh-nghiem-quan-tri-du-an-va-xu-ly-xung-dot.md",
       "category": "knowledge-base",
-      "size_bytes": 16953
+      "size_bytes": 12077
     },
     "knowledge-base/quan-tri-du-an/03-team-project-management-template.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/quan-tri-du-an/03-team-project-management-template.md",
       "category": "knowledge-base",
-      "size_bytes": 31993
+      "size_bytes": 16359
     },
     "knowledge-base/quan-tri-du-an/04-template-project-charter-va-bao-cao.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/quan-tri-du-an/04-template-project-charter-va-bao-cao.md",
       "category": "knowledge-base",
-      "size_bytes": 30029
+      "size_bytes": 12723
     },
     "knowledge-base/quan-tri-du-an/README.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/quan-tri-du-an/README.md",
       "category": "knowledge-base",
-      "size_bytes": 3871
+      "size_bytes": 2769
     },
     "knowledge-base/quan-tri-du-an/images/slides/image1.png": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/quan-tri-du-an/images/slides/image1.png",
@@ -1170,77 +1170,77 @@
     "knowledge-base/sample_prd.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/sample_prd.md",
       "category": "knowledge-base",
-      "size_bytes": 14986
+      "size_bytes": 10901
     },
     "knowledge-base/technical-book/PHOENIX_BOOK_INDEX.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/PHOENIX_BOOK_INDEX.md",
       "category": "knowledge-base",
-      "size_bytes": 2037
+      "size_bytes": 1929
     },
     "knowledge-base/technical-book/agent-practices/_index.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/agent-practices/_index.md",
       "category": "knowledge-base",
-      "size_bytes": 1975
+      "size_bytes": 1908
     },
     "knowledge-base/technical-book/agent-practices/context-management.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/agent-practices/context-management.md",
       "category": "knowledge-base",
-      "size_bytes": 2621
+      "size_bytes": 2878
     },
     "knowledge-base/technical-book/agent-practices/evals.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/agent-practices/evals.md",
       "category": "knowledge-base",
-      "size_bytes": 2184
+      "size_bytes": 2285
     },
     "knowledge-base/technical-book/agent-practices/guardrails.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/agent-practices/guardrails.md",
       "category": "knowledge-base",
-      "size_bytes": 3032
+      "size_bytes": 3505
     },
     "knowledge-base/technical-book/agent-practices/multi-tool-config.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/agent-practices/multi-tool-config.md",
       "category": "knowledge-base",
-      "size_bytes": 3162
+      "size_bytes": 2463
     },
     "knowledge-base/technical-book/agent-practices/prompts.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/agent-practices/prompts.md",
       "category": "knowledge-base",
-      "size_bytes": 2684
+      "size_bytes": 3201
     },
     "knowledge-base/technical-book/anti-patterns/_index.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/anti-patterns/_index.md",
       "category": "knowledge-base",
-      "size_bytes": 850
+      "size_bytes": 674
     },
     "knowledge-base/technical-book/anti-patterns/cohort-1-2-agent-mistakes.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/anti-patterns/cohort-1-2-agent-mistakes.md",
       "category": "knowledge-base",
-      "size_bytes": 2988
+      "size_bytes": 2903
     },
     "knowledge-base/technical-book/anti-patterns/common-mistakes.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/anti-patterns/common-mistakes.md",
       "category": "knowledge-base",
-      "size_bytes": 2461
+      "size_bytes": 1980
     },
     "knowledge-base/technical-book/architecture/_index.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/architecture/_index.md",
       "category": "knowledge-base",
-      "size_bytes": 740
+      "size_bytes": 574
     },
     "knowledge-base/technical-book/architecture/system-design.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/architecture/system-design.md",
       "category": "knowledge-base",
-      "size_bytes": 2359
+      "size_bytes": 2459
     },
     "knowledge-base/technical-book/bmad/_index.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/bmad/_index.md",
       "category": "knowledge-base",
-      "size_bytes": 772
+      "size_bytes": 556
     },
     "knowledge-base/technical-book/bmad/overview.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/bmad/overview.md",
       "category": "knowledge-base",
-      "size_bytes": 1876
+      "size_bytes": 1954
     },
     "knowledge-base/technical-book/book-media/free-accounts/cohere.jpg": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/book-media/free-accounts/cohere.jpg",
@@ -1285,187 +1285,187 @@
     "knowledge-base/technical-book/chapter-01.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/chapter-01.md",
       "category": "knowledge-base",
-      "size_bytes": 7763
+      "size_bytes": 6762
     },
     "knowledge-base/technical-book/chapter-02.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/chapter-02.md",
       "category": "knowledge-base",
-      "size_bytes": 38850
+      "size_bytes": 31252
     },
     "knowledge-base/technical-book/chapter-03.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/chapter-03.md",
       "category": "knowledge-base",
-      "size_bytes": 44750
+      "size_bytes": 31517
     },
     "knowledge-base/technical-book/chapter-04.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/chapter-04.md",
       "category": "knowledge-base",
-      "size_bytes": 81339
+      "size_bytes": 78000
     },
     "knowledge-base/technical-book/chapter-05.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/chapter-05.md",
       "category": "knowledge-base",
-      "size_bytes": 29512
+      "size_bytes": 26223
     },
     "knowledge-base/technical-book/chapter-06.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/chapter-06.md",
       "category": "knowledge-base",
-      "size_bytes": 34856
+      "size_bytes": 33052
     },
     "knowledge-base/technical-book/chapter-07.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/chapter-07.md",
       "category": "knowledge-base",
-      "size_bytes": 25269
+      "size_bytes": 24951
     },
     "knowledge-base/technical-book/chapter-08.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/chapter-08.md",
       "category": "knowledge-base",
-      "size_bytes": 34929
+      "size_bytes": 33852
     },
     "knowledge-base/technical-book/chapter-09.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/chapter-09.md",
       "category": "knowledge-base",
-      "size_bytes": 37301
+      "size_bytes": 35873
     },
     "knowledge-base/technical-book/chapter-10.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/chapter-10.md",
       "category": "knowledge-base",
-      "size_bytes": 46142
+      "size_bytes": 46361
     },
     "knowledge-base/technical-book/chapter-11.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/chapter-11.md",
       "category": "knowledge-base",
-      "size_bytes": 29106
+      "size_bytes": 30098
     },
     "knowledge-base/technical-book/chapter-12.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/chapter-12.md",
       "category": "knowledge-base",
-      "size_bytes": 30984
+      "size_bytes": 31447
     },
     "knowledge-base/technical-book/chapter-13.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/chapter-13.md",
       "category": "knowledge-base",
-      "size_bytes": 42867
+      "size_bytes": 45182
     },
     "knowledge-base/technical-book/chapter-14.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/chapter-14.md",
       "category": "knowledge-base",
-      "size_bytes": 30184
+      "size_bytes": 33495
     },
     "knowledge-base/technical-book/chapter-15.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/chapter-15.md",
       "category": "knowledge-base",
-      "size_bytes": 22138
+      "size_bytes": 25691
     },
     "knowledge-base/technical-book/code-style/_index.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/code-style/_index.md",
       "category": "knowledge-base",
-      "size_bytes": 652
+      "size_bytes": 526
     },
     "knowledge-base/technical-book/code-style/python.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/code-style/python.md",
       "category": "knowledge-base",
-      "size_bytes": 1910
+      "size_bytes": 1894
     },
     "knowledge-base/technical-book/cost-management.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/cost-management.md",
       "category": "knowledge-base",
-      "size_bytes": 7137
+      "size_bytes": 6824
     },
     "knowledge-base/technical-book/devops/_index.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/devops/_index.md",
       "category": "knowledge-base",
-      "size_bytes": 705
+      "size_bytes": 503
     },
     "knowledge-base/technical-book/devops/docker-cicd.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/devops/docker-cicd.md",
       "category": "knowledge-base",
-      "size_bytes": 1728
+      "size_bytes": 1733
     },
     "knowledge-base/technical-book/free-accounts.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/free-accounts.md",
       "category": "knowledge-base",
-      "size_bytes": 19250
+      "size_bytes": 6038
     },
     "knowledge-base/technical-book/langgraph/_index.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/langgraph/_index.md",
       "category": "knowledge-base",
-      "size_bytes": 834
+      "size_bytes": 628
     },
     "knowledge-base/technical-book/langgraph/nodes-and-edges.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/langgraph/nodes-and-edges.md",
       "category": "knowledge-base",
-      "size_bytes": 2425
+      "size_bytes": 2438
     },
     "knowledge-base/technical-book/langgraph/state.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/langgraph/state.md",
       "category": "knowledge-base",
-      "size_bytes": 1645
+      "size_bytes": 1785
     },
     "knowledge-base/technical-book/langgraph/tools.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/langgraph/tools.md",
       "category": "knowledge-base",
-      "size_bytes": 1993
+      "size_bytes": 2012
     },
     "knowledge-base/technical-book/patterns/_index.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/patterns/_index.md",
       "category": "knowledge-base",
-      "size_bytes": 734
+      "size_bytes": 556
     },
     "knowledge-base/technical-book/patterns/rag-pattern.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/patterns/rag-pattern.md",
       "category": "knowledge-base",
-      "size_bytes": 2039
+      "size_bytes": 2043
     },
     "knowledge-base/technical-book/resources/_index.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/resources/_index.md",
       "category": "knowledge-base",
-      "size_bytes": 649
+      "size_bytes": 423
     },
     "knowledge-base/technical-book/resources/recommended-courses.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/resources/recommended-courses.md",
       "category": "knowledge-base",
-      "size_bytes": 6084
+      "size_bytes": 6054
     },
     "knowledge-base/technical-book/setup/_index.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/setup/_index.md",
       "category": "knowledge-base",
-      "size_bytes": 707
+      "size_bytes": 411
     },
     "knowledge-base/technical-book/setup/quick-start.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/setup/quick-start.md",
       "category": "knowledge-base",
-      "size_bytes": 2613
+      "size_bytes": 2660
     },
     "knowledge-base/technical-book/testing/_index.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/testing/_index.md",
       "category": "knowledge-base",
-      "size_bytes": 709
+      "size_bytes": 428
     },
     "knowledge-base/technical-book/testing/writing-tests.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/testing/writing-tests.md",
       "category": "knowledge-base",
-      "size_bytes": 1972
+      "size_bytes": 1979
     },
     "knowledge-base/technical-book/troubleshooting.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/technical-book/troubleshooting.md",
       "category": "knowledge-base",
-      "size_bytes": 8530
+      "size_bytes": 6462
     },
     "knowledge-base/tu-duy/anti-patching-architectural-thinking.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/tu-duy/anti-patching-architectural-thinking.md",
       "category": "knowledge-base",
-      "size_bytes": 4909
+      "size_bytes": 3783
     },
     "knowledge-base/tu-duy/software-engineering-ai-teamwork.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/tu-duy/software-engineering-ai-teamwork.md",
       "category": "knowledge-base",
-      "size_bytes": 4272
+      "size_bytes": 5292
     },
     "knowledge-base/tu-duy/tu-duy-product.md": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/tu-duy/tu-duy-product.md",
       "category": "knowledge-base",
-      "size_bytes": 3273
+      "size_bytes": 3279
     },
     "llms.txt": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/llms.txt",
@@ -1840,7 +1840,7 @@
     "scripts/auditor_engine/knowledge_pack.json": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/auditor_engine/knowledge_pack.json",
       "category": "scripts",
-      "size_bytes": 22521
+      "size_bytes": 22477
     },
     "scripts/auditor_engine/models.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/auditor_engine/models.py",
@@ -2090,7 +2090,7 @@
     "tests/test_repo_english.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/tests/test_repo_english.py",
       "category": "other",
-      "size_bytes": 4896
+      "size_bytes": 4820
     },
     "tests/test_reviewer_server.py": {
       "raw_url": "https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/tests/test_reviewer_server.py",

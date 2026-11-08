@@ -1,33 +1,34 @@
-# Dùng Claude Code hiệu quả — Phan Minh Tâm · Bùi Việt Hoàng (24/09)
+# Using Claude Code Effectively — Notes from Phan Minh Tam & Bui Viet Hoang
 
-Nguồn: `../cohort-4/mentor-g19/raw/claude-code-g19.html` (27 slide). Ghi ý. Áp dụng được cho mọi coding agent.
+Source: `claude-code-g19.html` (27 slides). Key takeaways applicable to any AI coding agent.
 
-## 5 câu cốt lõi
-1. Context là ngân sách, không phải bộ đệm. Chỉ tiêu vào thứ phục vụ task hiện tại.
-2. Sau mỗi turn chủ động chọn: Continue · Rewind · Clear · Compact · Subagent.
-3. Tách pha Explore → Plan → Implement → Verify, luôn có tín hiệu pass/fail.
-4. CLAUDE.md càng ngắn càng tốt. Bỏ một dòng mà Claude không dễ sai → cắt dòng đó.
-5. Task lớn: chốt spec trong repo trước khi code. Spec tốt làm Clear "rẻ".
+## 5 Core Principles
+1. Context is a budget, not a buffer. Spend tokens only on items directly relevant to the current task.
+2. Proactively steer after every turn: Continue · Rewind · Clear · Compact · Subagent.
+3. Decouple lifecycle phases: Explore → Plan → Implement → Verify, always bounded by deterministic pass/fail signals.
+4. Keep `CLAUDE.md` as lean as possible. If deleting a rule does not cause regressions, delete it.
+5. Large tasks require spec-first alignment in repository files before execution. Good specs make `/clear` cheap.
 
-## Context
-- Context rot: context càng đầy, attention càng loãng, trả lời vẫn tự tin nhưng lệch intent, không có cảnh báo. Heuristic của đội mentor: giữ conversation active ở khoảng 1/3 cửa sổ. Kiểm bằng `/context`.
-- Đáng giữ: file liên quan, ràng buộc, quyết định đã chốt, bằng chứng verify. Nhiễu: vòng debug thất bại, nhánh cũ, output dài hết giá trị, task không liên quan.
+## Context Management
+- **Context Rot:** As context fills up, attention dilutes. Responses remain superficially confident but drift away from intent without warnings. Mentor heuristic: keep active conversations within ~1/3 of the context window. Monitor with `/context`.
+- **Worth keeping:** Target files, architectural constraints, settled decisions, verification evidence.
+- **Noise to discard:** Failed debug loops, outdated exploratory branches, verbose one-off tool outputs, unrelated tasks.
 
-## Chọn gì sau mỗi turn (theo thứ tự)
-- Task kế không phụ thuộc context vừa xây → **Clear**.
-- Vừa đi sai hướng → **Rewind** (Esc Esc hoặc `/rewind`). Giữ phần đọc hiểu, bỏ nhánh sai. Trước khi rewind, bảo agent tóm tắt 3 dòng vì sao fail. Checkpoint không theo dõi thay đổi từ Bash, nên không thay được Git.
-- Chỉ cần kết luận → **Subagent** (context riêng, "phòng sạch"): điều tra flow, review diff theo spec, draft docs, tìm edge case.
-- History dài nhưng cần phần lớn → **Compact** sớm, kèm hướng dẫn giữ gì bỏ gì. Viết lại brief mất < 2 phút thì Clear.
-- Còn lại → Continue.
-- Quy tắc hai lần: sửa agent quá 2 lần cùng một lỗi → Clear và viết lại prompt.
-- Tách session theo mục đích: implement / review / điều tra. Reviewer ở context sạch bắt lỗi tốt hơn.
+## Choosing Actions After Each Turn (In Priority Order)
+- Next task does not depend on prior conversational context → **Clear**.
+- Agent took a wrong turn → **Rewind** (`Esc Esc` or `/rewind`). Retains file discovery while stripping dead-end branches. Before rewinding, ask the agent for a 3-line diagnostic of why it failed. (Checkpoints do not track external bash modifications; git remains authoritative).
+- Only need a final verdict/summary → **Subagent** (isolated context, "cleanroom"): trace execution flows, review diffs against spec, draft docs, investigate edge cases.
+- Conversation history is long but mostly needed → **Compact** early with explicit instructions on what to keep and drop. If writing a fresh brief takes < 2 minutes, choose **Clear** instead.
+- Otherwise → **Continue**.
+- **Two-strike rule:** If correcting an agent twice on the same mistake fails → **Clear** context and rewrite the prompt.
+- **Specialized sessions:** Separate implementation, review, and investigation into independent sessions. Reviewers in clean contexts catch subtleties much more reliably.
 
-## Làm việc
-- Bỏ qua Plan khi mô tả được diff trong 1 câu. Đụng nhiều file, dependency ngầm, vùng code lạ → plan.
-- Luôn cho cách tự verify: test, build, lint, script, screenshot đối chiếu. Đòi bằng chứng, không hỏi "xong chưa".
-- Prompt cụ thể: file/thư mục · constraint · pattern có sẵn để làm theo · triệu chứng quan sát được.
-- CLAUDE.md: giữ lệnh riêng của repo, code style khác mặc định, quy trình test/branch/PR, quyết định kiến trúc. Tránh giải thích dài, lời khuyên chung, tài liệu API, thông tin hay đổi.
-- Spec-first: để agent phỏng vấn → viết `SPEC.md` → mở session mới để thực thi. GitHub Spec Kit (`/speckit.constitution` → `specify` → `clarify` → `plan` → `tasks` → `analyze` → `implement`) là tuỳ chọn. Spec không thay verify.
+## Working Protocol
+- Skip planning only when the diff can be summarized in a single sentence. If touching multiple files, implicit dependencies, or unfamiliar modules → mandate a Plan.
+- Always provide automated self-verification: unit test, build command, linter, test script, or visual comparison. Require proof rather than asking "are you done?".
+- Prompt specifics: target files/directories · hard constraints · existing patterns to mirror · observable symptoms.
+- `CLAUDE.md`: reserve for custom build/test commands, repo-specific code style deviations, branch/PR conventions, and core architectural invariants. Avoid verbose explanations, generic advice, external API documentation, or volatile status info.
+- **Spec-first:** Let the agent interview you → generate `SPEC.md` → launch a fresh session for implementation. Spec tools like GitHub Spec Kit (`specify` → `clarify` → `plan` → `tasks` → `analyze` → `implement`) are optional structures. Specs never replace verification.
 
-## 5 failure pattern
-Kitchen sink session · sửa đi sửa lại · CLAUDE.md quá dài · tin mà không verify · khám phá vô hạn.
+## 5 Failure Patterns
+Kitchen sink sessions · Endless circular patching · Bloated CLAUDE.md · Unverified trust ("hallucinated completion") · Unbounded exploratory rabbit holes.

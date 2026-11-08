@@ -1,87 +1,86 @@
 ---
 title: "Quick Start"
-description: "Khởi tạo project trong 5 phút"
+description: "Bootstrap your project in 5 minutes"
 weight: 1
 ---
 
 ## Quick Start Guide
 
-### Bước 1: Clone repo của đội
+### Step 1: Clone Team Repository
 
-Repo của đội đã được tạo sẵn từ template trong org GitHub của khoá — copy URL ở
-trang đội trên Phoenix rồi clone về:
+Clone the project repository to your development machine:
 
 ```bash
-git clone https://github.com/<ORG-CỦA-KHOÁ>/<MÃ-ĐỘI>.git
-cd <MÃ-ĐỘI>
+git clone https://github.com/<COURSE-ORG>/<TEAM-ID>.git
+cd <TEAM-ID>
 ```
 
-### Bước 2: Environment Setup
+### Step 2: Environment Setup
 
 ```bash
-# Tạo virtual environment
+# Create virtual environment
 python3 -m venv .venv
-source .venv/bin/activate  # macOS/Linux
+source .venv/bin/activate  # macOS/Linux (or .venv\Scripts\Activate.ps1 on Windows)
 
-# Cài dependencies
+# Install dependencies
 pip install -r requirements.txt
 
-# Tạo .env từ template
+# Create .env from template
 cp .env.example .env
-# → Mở .env và điền API keys
+# → Open .env and populate required API keys
 ```
 
-### Bước 3: Verify Setup
+### Step 3: Verify Setup
 
 ```bash
-# Chạy server
+# Launch development server
 uvicorn src.main:app --reload
 
-# Mở browser: http://localhost:8000/docs
-# → Phải thấy Swagger UI
+# Open browser: http://localhost:8000/docs
+# → Confirm Swagger UI renders correctly
 ```
 
-### Bước 4: Git Setup
+### Step 4: Git Setup
 
 ```bash
-# Xác nhận remote đã trỏ đúng repo của đội (repo cấp sẵn — không cần set-url)
+# Confirm remote repository mapping
 git remote -v
 
-# Tạo branch develop
+# Create development branch
 git checkout -b develop
 
-# Push lần đầu
+# Initial push
 git push -u origin develop
 ```
 
 ## Folder Structure
 
 ```
-<MÃ-ĐỘI>/
-├── src/                    ← Source code chính
+<TEAM-ID>/
+├── src/                    ← Primary application source code
 │   ├── agents/             ← LangGraph agents
-│   │   ├── graph.py        ← Graph definition
+│   │   ├── graph.py        ← Graph topology definition
 │   │   ├── state.py        ← State schema
-│   │   ├── nodes/          ← Processing nodes
-│   │   └── tools/          ← Agent tools
+│   │   ├── nodes/          ← Graph processing nodes
+│   │   └── tools/          ← Agent tool definitions
 │   ├── api/                ← FastAPI routes
 │   ├── models/             ← Pydantic schemas
-│   ├── services/           ← Business logic
-│   ├── config.py           ← Settings
-│   └── main.py             ← App entry point
-├── tests/                  ← Test suite
-├── docs/                   ← Documentation
-├── eval/                   ← Evaluation results
-├── presentation/           ← Demo materials
-├── Dockerfile              ← Multi-stage build
-├── docker-compose.yml      ← Full stack
-└── .github/workflows/      ← CI/CD
+│   ├── services/           ← Domain business logic
+│   ├── config.py           ← Centralized configuration settings
+│   └── main.py             ← Application entry point
+├── tests/                  ← Automated test suite
+├── docs/                   ← Project documentation
+├── eval/                   ← Evaluation benchmarks & evidence
+├── presentation/           ← Demo slides and recordings
+├── Dockerfile              ← Multi-stage container build
+├── docker-compose.yml      ← Local full-stack runtime
+└── .github/workflows/      ← CI/CD pipeline definitions
 ```
 
-## Nguyên tắc tổ chức code
+## Code Organization Principles
 
-1. **Một file một trách nhiệm** — `graph.py` chỉ build graph, `state.py` chỉ định nghĩa state
-2. **Nodes vào folder `nodes/`** — Mỗi node là một file riêng
-3. **Tools vào folder `tools/`** — Mỗi tool là một file riêng
-4. **API routes tách riêng** — Không trộn logic vào main.py
-5. **Config centralized** — Tất cả settings trong `config.py`
+1. **Single Responsibility per File** — `graph.py` builds graphs, `state.py` defines schemas.
+2. **Modular Nodes in `nodes/`** — Isolate each graph node into its own module.
+3. **Dedicated Tools in `tools/`** — Separate external integrations into discrete tool definitions.
+4. **Decoupled API Routing** — Keep FastAPI endpoint routes isolated from `main.py`.
+5. **Centralized Configuration** — Manage all environment settings through `config.py`.

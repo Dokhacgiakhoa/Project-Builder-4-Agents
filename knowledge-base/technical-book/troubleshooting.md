@@ -1,11 +1,12 @@
 ---
-title: "Troubleshooting — Sửa lỗi thường gặp"
+title: "Troubleshooting Guide"
+description: "Resolving common engineering errors in AI Agent development"
 weight: 99
 ---
 
-# Troubleshooting — Sửa lỗi thường gặp
+# Troubleshooting — Common Engineering Errors
 
-Phần này tổng hợp các lỗi phổ biến khi setup và chạy dự án AI Agent, kèm hướng dẫn sửa chi tiết. Nếu bạn gặp lỗi không có trong danh sách, hãy kiểm tra lại các bước trong chương tương ứng hoặc tìm trên GitHub Issues của template.
+This guide synthesizes common failure modes encountered during agent environment setup, execution, testing, and deployment, accompanied by actionable remediation steps.
 
 ---
 
@@ -13,24 +14,24 @@ Phần này tổng hợp các lỗi phổ biến khi setup và chạy dự án A
 
 ### `ModuleNotFoundError: No module named 'xxx'`
 
-**Nguyên nhân:** Bạn chưa kích hoạt virtual environment, hoặc cài package nhầm vào system Python.
+**Root Cause:** Virtual environment is not activated, or packages were installed to system Python.
 
-**Cách sửa:**
+**Remediation:**
 ```bash
-# 1. Xác nhận đang ở trong venv
+# 1. Verify python interpreter path is inside .venv
 which python
-# Output phải chứa .venv, ví dụ: /path/to/project/.venv/bin/python
+# Output must point to .venv, e.g.: /path/to/project/.venv/bin/python
 
-# 2. Nếu không, kích hoạt lại
-source .venv/bin/activate
+# 2. Activate virtual environment
+source .venv/bin/activate  # On Windows: .venv\Scripts\Activate.ps1
 
-# 3. Cài lại package
+# 3. Reinstall dependencies
 pip install -r requirements.txt
 ```
 
-**Nếu vẫn lỗi:**
+**If issues persist:**
 ```bash
-# Xóa venv cũ và tạo lại
+# Rebuild virtual environment from scratch
 rm -rf .venv
 python3.11 -m venv .venv
 source .venv/bin/activate
@@ -39,39 +40,37 @@ pip install -r requirements.txt
 
 ### `python3.11: command not found`
 
-**Nguyên nhân:** Chưa cài Python 3.11 hoặc không có trong PATH.
+**Root Cause:** Python 3.11 is not installed or absent from system PATH.
 
-**Cách sửa (macOS):**
+**Remediation (macOS):**
 ```bash
 brew install python@3.11
 ```
 
-**Cách sửa (Ubuntu/WSL):**
+**Remediation (Ubuntu/WSL):**
 ```bash
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt update
 sudo apt install python3.11 python3.11-venv python3.11-dev
 ```
 
-### `pip install` chậm hoặc timeout
+### Slow `pip install` or Timeout Failures
 
-**Cách sửa:** Dùng mirror gần Việt Nam:
+**Remediation:** Use alternative reliable PyPI mirrors or configure timeout thresholds:
 ```bash
-pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-# Hoặc
-pip install -r requirements.txt -i https://mirror.cloudflare.com/pypi/simple
+pip install -r requirements.txt --default-timeout=100
 ```
 
 ### `ERROR: Could not build wheel for xxx`
 
-**Nguyên nhân:** Thiếu C compiler hoặc development headers.
+**Root Cause:** Missing C compiler toolchains or development headers.
 
-**Cách sửa (macOS):**
+**Remediation (macOS):**
 ```bash
 xcode-select --install
 ```
 
-**Cách sửa (Ubuntu/WSL):**
+**Remediation (Ubuntu/WSL):**
 ```bash
 sudo apt install build-essential python3.11-dev
 ```
@@ -82,222 +81,177 @@ sudo apt install build-essential python3.11-dev
 
 ### `uvicorn: command not found`
 
-**Nguyên nhân:** uvicorn chưa được cài hoặc chưa kích hoạt venv.
+**Root Cause:** `uvicorn` is uninstalled or virtual environment is deactivated.
 
-**Cách sửa:**
+**Remediation:**
 ```bash
 source .venv/bin/activate
 pip install uvicorn
 ```
 
-### `ERROR: [Errno 48] Address already in use` (Port 8000 bị chiếm)
+### `ERROR: [Errno 48] Address already in use` (Port 8000 Conflict)
 
-**Nguyên nhân:** Một process khác đang dùng port 8000 (có thể là lần chạy server trước chưa tắt).
+**Root Cause:** An existing background process is binding port 8000.
 
-**Cách sửa:**
+**Remediation:**
 ```bash
-# Tìm process đang chiếm port
-lsof -i :8000
+# Identify PID holding port 8000
+lsof -i :8000  # On Windows: netstat -ano | findstr :8000
 
-# Kill process đó (thay PID bằng số từ lệnh trên)
+# Terminate process
 kill -9 <PID>
 
-# Hoặc dùng port khác
+# Or bind to an alternative port
 uvicorn src.api.main:app --reload --port 8001
 ```
 
 ### `openai.AuthenticationError: Invalid API Key`
 
-**Nguyên nhân:** API key không hợp lệ, chưa set, hoặc hết hạn.
+**Root Cause:** Missing, expired, or improperly parsed API keys.
 
-**Cách sửa:**
+**Remediation:**
 ```bash
-# 1. Kiểm tra file .env đã tạo chưa
+# 1. Ensure .env exists
 ls -la .env
-# Nếu chưa: cp .env.example .env
+# If missing: cp .env.example .env
 
-# 2. Kiểm tra API key trong .env
+# 2. Verify key syntax (no extraneous quotes or whitespace)
 grep OPENAI_API_KEY .env
-# Phải có dạng: OPENAI_API_KEY=sk-proj-xxxxx (không có ngoặc kép)
 
-# 3. Test nhanh
-python -c "from openai import OpenAI; c=OpenAI(); print(c.models.list().data[:3])"
+# 3. Quick verification script
+python -c "from openai import OpenAI; c=OpenAI(); print(c.models.list().data[:1])"
 ```
 
-### `pydantic.ValidationError` khi khởi động app
+### `pydantic.ValidationError` on Application Startup
 
-**Nguyên nhân:** Biến môi trường sai kiểu dữ liệu (ví dụ: `API_PORT=abc` thay vì số).
+**Root Cause:** Environment variables do not match expected types (e.g. `API_PORT="abc"` instead of integer).
 
-**Cách sửa:** Kiểm tra file `.env` — đảm bảo:
-- Port là số nguyên (ví dụ: `8000`, không phải `"8000"`)
-- Boolean là `true`/`false` (không phải `yes`/`no`)
-- Enum values đúng (`development`/`staging`/`production`)
+**Remediation:** Verify `.env`:
+- Integers are numeric (e.g. `8000`)
+- Booleans are `true` / `false`
+- Enums match declared values (`development` / `staging` / `production`)
 
 ---
 
-## LangGraph
+## LangGraph & Agents
 
 ### `ImportError: cannot import name 'StateGraph' from 'langgraph'`
 
-**Nguyên nhân:** LangGraph chưa cài hoặc version cũ.
+**Root Cause:** Outdated or incomplete LangGraph installation.
 
-**Cách sửa:**
+**Remediation:**
 ```bash
 pip install --upgrade langgraph langchain-core
 ```
 
 ### `GraphRecursionError: Recursion limit reached`
 
-**Nguyên nhân:** Agent bị lặp vô hạn — conditional edge luôn trả về node cũ, không bao giờ đến END.
+**Root Cause:** Unbounded loop where conditional edges continuously route back to an antecedent node without reaching `END`.
 
-**Cách sửa:**
-1. Thêm `iteration` counter vào state và giới hạn số lần lặp:
+**Remediation:**
+1. Maintain an explicit `iteration` counter in state with a strict recursion ceiling:
 ```python
 def should_continue(state: AgentState) -> str:
-    if state.get("iteration", 0) >= 3:  # Tối đa 3 vòng
+    if state.get("iteration", 0) >= 3:
         return END
     if state.get("needs_more_research"):
         return "research"
     return END
 ```
-2. Kiểm tra routing function có fallback (default case) không.
+2. Verify routing functions contain comprehensive fallback defaults.
 
-### `TypeError: expected string or bytes-like object` trong routing function
+### `TypeError: expected string or bytes-like object` in Routing Logic
 
-**Nguyên nhân:** Routing function trả về giá trị không khớp với map trong `add_conditional_edges`.
+**Root Cause:** Routing function returns a value missing from the mapping dictionary passed to `add_conditional_edges`.
 
-**Cách sửa:** Đảm bảo mọi giá trị trả về của routing function có trong map:
+**Remediation:** Ensure all return variants are mapped:
 ```python
-# ✅ Đúng — có fallback
 def route(state) -> str:
     if state.get("type") == "search":
         return "search"
     return "answer"  # Fallback
 
 graph.add_conditional_edges(
-    "router", route,
-    {"search": "search", "answer": "answer"}  # Map chứa cả fallback
+    "router",
+    route,
+    {"search": "search", "answer": "answer"}
 )
 ```
 
 ---
 
-## Docker
+## Docker & Containers
 
 ### `docker: command not found`
 
-**Cách sửa (macOS):** Cài Docker Desktop từ https://docker.com/products/docker-desktop
-
-**Cách sửa (Ubuntu):**
+**Remediation:** Install Docker Desktop (macOS/Windows) or container engine on Ubuntu:
 ```bash
 sudo apt update
-sudo apt install docker.io docker-compose
+sudo apt install docker.io docker-compose-v2
 sudo usermod -aG docker $USER
-# Logout và login lại
 ```
 
-### `docker build` fails ở `pip install`
+### `docker build` Fails During Package Installation
 
-**Nguyên nhân:** Docker không cache layer do `requirements.txt` thay đổi, hoặc network issue.
-
-**Cách sửa:**
+**Remediation:**
 ```bash
-# Build không cache
+# Force fresh build without cached layers
 docker build --no-cache -t my-agent .
-
-# Nếu lỗi network, thêm pip mirror vào Dockerfile:
-# RUN pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-### `docker compose up` fails — service unhealthy
+### `docker compose up` Unhealthy Service State
 
-**Cách sửa:**
+**Remediation:**
 ```bash
-# Xem log chi tiết
+# Inspect container logs
 docker compose logs api
 docker compose logs db
 
-# Rebuild từ đầu
+# Clean rebuild
 docker compose down -v
 docker compose up -d --build
 ```
 
-### Container restart liên tục
-
-**Cách debug:**
-```bash
-# Xem log container
-docker logs <container_name> --tail 50
-
-# Vào container để debug
-docker exec -it <container_name> /bin/bash
-
-# Kiểm tra health check
-docker inspect <container_name> | grep -A 5 Health
-```
-
 ---
 
-## Git & GitHub
+## Git & Version Control
 
 ### `! [rejected] main -> main (fetch first)`
 
-**Nguyên nhân:** Remote có commit mới mà local chưa pull.
-
-**Cách sửa:**
+**Remediation:**
 ```bash
 git pull origin main --rebase
-# Giải quyết conflict nếu có
+# Resolve any merge conflicts
 git rebase --continue
 git push origin main
 ```
 
 ### `fatal: not a git repository`
 
-**Cách sửa:**
+**Remediation:**
 ```bash
 git init
 git add .
-git commit -m "feat: khởi tạo dự án"
+git commit -m "feat: initial repository bootstrap"
 git remote add origin https://github.com/your-org/your-repo.git
 git push -u origin main
 ```
 
-### Kích hoạt GitHub Actions
-
-Nếu CI không chạy sau khi push:
-1. Vào repo trên GitHub → **Actions** tab
-2. Nếu thấy "Workflows aren't being run on this fork", click **Enable workflows**
-3. Kiểm tra file `.github/workflows/ci.yml` có trong branch đúng không
-
 ---
 
-## Deploy
+## Deployment & Production
 
-### Render deploy fails — build error
+### API Returns `403 Forbidden` / CORS Errors Post-Deploy
 
-**Cách sửa:**
-1. Kiểm tra build log chi tiết trên Render Dashboard
-2. Đảm bảo `Dockerfile` hoặc `requirements.txt` có trong repo
-3. Thêm `runtime.txt` với nội dung `3.11.x` nếu Render chọn sai Python version
+**Root Cause:** Missing production origin in CORS whitelist.
 
-### Render free tier "sleeping" — response chậm
-
-**Cách khắc phục:**
-- Dùng UptimeRobot (free) ping `/health` mỗi 5 phút để giữ server awake
-- Hoặc upgrade lên paid plan ($7/tháng)
-
-### API trả về `403 Forbidden` sau khi deploy
-
-**Nguyên nhân:** CORS chưa cấu hình đúng cho production URL.
-
-**Cách sửa:**
+**Remediation:**
 ```python
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-        "https://your-frontend.vercel.app",  # Thêm production URL
+        "https://your-frontend.vercel.app",  # Production domain
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -307,10 +261,9 @@ app.add_middleware(
 
 ---
 
-## Lỗi không xác định?
+## General Diagnostic Checklist
 
-1. **Đọc error message kỹ** — Python traceback thường chỉ rõ file và dòng gây lỗi
-2. **Google lỗi** — Copy paste error message vào Google, thường có giải pháp trên StackOverflow
-3. **Check `.env`** — 80% lỗi production do biến môi trường thiếu hoặc sai
-4. **Chạy `make check`** — Lint + format + typecheck + test trong một lệnh
-5. **Xóa và tạo lại** — `rm -rf .venv && python3.11 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt`
+1. **Examine Tracebacks Thoroughly:** Python stack traces explicitly identify file names and exact line numbers.
+2. **Audit Environment Variables:** Over 80% of production deployment failures stem from missing or malformed `.env` keys.
+3. **Run Verification Commands:** Execute full test and link validation suites locally before pushing commits.
+4. **Clean Rebuild:** When obscure cache issues arise, rebuild the virtual environment and reinstall pinned packages.

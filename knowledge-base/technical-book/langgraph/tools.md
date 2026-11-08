@@ -1,6 +1,6 @@
 ---
 title: "Agent Tools"
-description: "Tạo tools cho LangGraph agent"
+description: "Tool definition and binding in LangGraph agents"
 weight: 3
 ---
 
@@ -11,24 +11,24 @@ from langchain_core.tools import tool
 
 @tool
 def search_knowledge(query: str) -> str:
-    """Tìm kiếm thông tin trong knowledge base.
+    """Search the knowledge base for relevant context.
 
     Args:
-        query: Câu hỏi cần tìm kiếm
+        query: User search query string
 
     Returns:
-        Kết quả tìm kiếm dạng text
+        Text search results
     """
     results = vector_store.similarity_search(query, k=3)
     return "\n".join([r.page_content for r in results])
 ```
 
-## Nguyên tắc
+## Core Principles
 
-1. **Luôn có docstring** — Agent dùng docstring để quyết định khi nào gọi tool
-2. **Type hints cho tất cả params** — Giúp agent truyền đúng kiểu data
-3. **Return string** — Agent dễ parse kết quả
-4. **Error handling bên trong tool** — Không throw, return error message
+1. **Always provide docstrings** — Agents use docstrings to decide tool applicability
+2. **Type hints for all parameters** — Ensures correct argument schemas
+3. **Return string** — Easiest for LLMs to ingest into conversational state
+4. **Handle errors internally** — Return error descriptions rather than throwing unhandled exceptions
 
 ## Tool Types
 
@@ -37,10 +37,10 @@ def search_knowledge(query: str) -> str:
 ```python
 @tool
 def search_documents(query: str) -> str:
-    """Tìm kiếm tài liệu liên quan."""
+    """Search for relevant documents."""
     docs = vector_store.similarity_search(query, k=5)
     if not docs:
-        return "Không tìm thấy tài liệu liên quan."
+        return "No relevant documents found."
     return "\n---\n".join([d.page_content for d in docs])
 ```
 
@@ -49,7 +49,7 @@ def search_documents(query: str) -> str:
 ```python
 @tool
 def call_external_api(endpoint: str, params: dict) -> str:
-    """Gọi API ngoài."""
+    """Invoke external API."""
     try:
         response = httpx.post(endpoint, json=params)
         return response.text
@@ -62,7 +62,7 @@ def call_external_api(endpoint: str, params: dict) -> str:
 ```python
 @tool
 def calculate(expression: str) -> str:
-    """Tính toán biểu thức toán học."""
+    """Evaluate mathematical expressions."""
     try:
         result = eval(expression, {"__builtins__": {}}, {})
         return str(result)
@@ -70,7 +70,7 @@ def calculate(expression: str) -> str:
         return f"Calculation error: {e}"
 ```
 
-## Thêm Tools vào Agent
+## Binding Tools to the Agent
 
 ```python
 from langchain_openai import ChatOpenAI

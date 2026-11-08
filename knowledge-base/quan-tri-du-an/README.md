@@ -1,36 +1,26 @@
-# 🎓 Cổng Tài Liệu Workshop AI20K & VinUni (Quản Trị Dự Án & Xử Lý Xung Đột)
+# 🎓 AI20K & VinUni Workshop Portal (Project Management & Conflict Resolution)
 
-Chào mừng bạn đến với Cổng tài nguyên và cẩm nang thực chiến chính thức từ **VinUni** và **Ban Tổ Chức AI20K** dành cho đội ngũ phát triển dự án **Hove AI (P-062)**.
+Welcome to the official repository of battle-tested resources and engineering playbooks from **VinUni** and the **AI20K Organizing Committee**.
 
-Toàn bộ 4 tài liệu và bảng mẫu gốc đã được trích xuất nguyên bản, chuẩn hóa cấu trúc và số hóa 100% sang định dạng Markdown để phục vụ tra cứu tức thì trong quá trình vận hành 6 tuần của Build Phase:
+All original templates and documents have been digitized into Markdown format to provide rapid reference across the 6-week Build Phase:
 
 ---
 
-## 📚 Danh Mục Tài Liệu Chi Tiết
+## 📚 Document Index
 
-| STT | Tài Liệu Số Hóa (Markdown) | Định Dạng Gốc | Mục Đích & Nội Dung Cốt Lõi |
+| No. | Digitized Document (Markdown) | Original Format | Objective & Core Summary |
 |:---:|---|:---:|---|
-| **01** | [Tài liệu theo dõi lộ trình](../../core/templates/planning/roadmap.md) | `.docx` (3.7 MB) | Danh mục chi tiết các gói Free Tier: AI/LLM APIs (OpenAI, Gemini, Groq, Mistral), Cloud Hosting (Render, Railway), Vector Store (Pinecone, Qdrant, Chroma), DevOps CI/CD, cấu trúc file `.env` mẫu và checklist kích hoạt trong Tuần 1. |
-| **02** | [🚀 **02. Cẩm Nang Quản Trị Dự Án & Xử Lý Xung Đột**](02-kinh-nghiem-quan-tri-du-an-va-xu-ly-xung-dot.md) | `.pptx` (17.8 MB, 15 slide) | Cẩm nang thực chiến từ VinUni: Triết lý thực thi, Project Charter, tam giác vai trò (PO - PM - Tech Lead), Single Source of Truth, kỷ luật Sprint 6 tuần, 2 Checkpoint sinh tử (W3 & W5), mô hình Tuckman, ma trận xung đột và bài tập Sad-Mad-Glad. |
-| **03** | [📊 **03. Mẫu Bảng Quản Trị Dự Án Nhóm (Team PM Template)**](03-team-project-management-template.md) | `.xlsx` (69 KB, 10 sheets) | Bảng tính chuẩn hóa 10 phân hệ: Tổng hợp tiến độ, Đường link quan trọng (SSOT), Thành viên & Phân vai, Lộ trình mốc chính, Backlog nhiệm vụ, Đặc tả tính năng (Tech Spec), Theo dõi lỗi (Bug Tracker), Hướng dẫn và Danh sách User Story. |
-| **04** | [📑 **04. Điều Lệ Dự Án (Project Charter) & Mẫu Báo Cáo**](04-template-project-charter-va-bao-cao.md) | `.xlsx` (46 KB, 6 sheets) | Khung điều lệ dự án theo chuẩn PMP: Quy định vận hành nội bộ, Bản cam kết thành viên, Mẫu báo cáo tuần nộp Mentor (T4 hàng tuần), Mẫu Daily Standup 3 câu hỏi và Form đề xuất hỗ trợ từ Ban Tổ Chức. |
+| **01** | [Roadmap Tracker](../../core/templates/planning/roadmap.md) | `.docx` (3.7 MB) | Comprehensive catalog of Free Tier packages: AI/LLM APIs (OpenAI, Gemini, Groq, Mistral), Cloud Hosting (Render, Railway), Vector Stores (Pinecone, Qdrant, Chroma), DevOps CI/CD, sample `.env` templates, and Week 1 activation checklists. |
+| **02** | [🚀 **02. Project Management & Conflict Resolution Guide**](02-kinh-nghiem-quan-tri-du-an-va-xu-ly-xung-dot.md) | `.pptx` (17.8 MB, 15 slides) | Field playbook: Execution philosophy, Project Charter, core role triangle (PO - PM - Tech Lead), Single Source of Truth, 6-week sprint discipline, 2 critical checkpoints (W3 & W5), Tuckman team model, conflict management matrix, and Sad-Mad-Glad retrospectives. |
+| **03** | [📊 **03. Team Project Management Template (Spreadsheet Spec)**](03-team-project-management-template.md) | `.xlsx` (69 KB, 10 sheets) | Standardized 10-sheet management tracker: Executive Summary, Critical Links (SSOT), Members & Roles, Roadmap Milestones, Sprint Backlog, Technical Specifications (Tech Spec), Bug Tracker, Runbook, and User Story Catalog. |
+| **04** | [📑 **04. Project Charter & Weekly Reporting Templates**](04-template-project-charter-va-bao-cao.md) | `.xlsx` (46 KB, 6 sheets) | PMP-aligned Project Charter: Team operating guidelines, member commitment compact, weekly reporting template for mentor reviews, daily standup 3-question format, and infrastructure support request forms. |
 
 ---
 
-## 🗄️ Tệp Tin Mẫu Gốc (Raw Templates)
-Các file gốc định dạng Microsoft Office được lưu trữ an toàn tại thư mục [**`knowledge-base/quan-tri-du-an/raw/`**](raw/):
-- [`AI20K_Hướng dẫn đăng ký các gói tài khoản miễn phí - update 1-6.docx`](raw/)
-- [`AI20K_Kinh nghiệm quản trị dự án & Xử lý xung đột nhóm.pptx`](raw/)
-- [`team_project_management_template.xlsx`](raw/)
-- [`Template Project Charter + Mẫu báo cáo.xlsx`](raw/)
-
----
-
-## 🎯 4 Điểm Áp Dụng Ngay Vào Dự Án Hove AI (P-062)
-
-1. **Tuân thủ Nguồn Sự Thật Duy Nhất (SSOT):** Đồng bộ toàn bộ các liên kết tài liệu kỹ thuật, GitHub Actions và link demo vào [`README.md`](../../README.md).
-2. **Kỷ Luật 2 Điểm Checkpoint:** 
-   - **Cuối Tuần 3 (Checkpoint 1 - Xong 80%):** Hoàn thiện và demo luồng chính nhận diện lừa đảo và cảnh báo HITL.
-   - **Cuối Tuần 5 (Checkpoint 2 - Xong 100%):** Hoàn thiện toàn bộ tích hợp SDK và sẵn sàng chạy thử nghiệm thực tế.
-3. **Daily Standup Kỷ Luật:** Duy trì nhịp độ 10 phút trả lời 3 câu hỏi: *Hôm qua làm gì? Hôm nay làm gì? Đang kẹt ở đâu?*
-4. **Vận Hành Sad - Mad - Glad:** Thực hiện đánh giá hồi tưởng (Retrospective) vào mỗi tối thứ Bảy để giải tỏa tâm lý nhóm và cải tiến quy trình.
+## 🎯 4 Core Operational Principles
+1. **Single Source of Truth (SSOT):** Consolidate all technical documentation, CI/CD pipeline results, and live demo links into [`README.md`](../../README.md).
+2. **Two Critical Checkpoint Cadences:** 
+   - **End of Week 3 (Checkpoint 1 — 80% Baseline):** Live demo of end-to-end happy path.
+   - **End of Week 5 (Checkpoint 2 — 100% Feature Complete):** Comprehensive integration ready for production trials.
+3. **Daily Standup Discipline:** 10-minute standups answering 3 questions strictly: *What was completed yesterday? What is planned today? Where are the active blockers?*
+4. **Sad - Mad - Glad Retrospectives:** Execute retrospectives at the close of every sprint to resolve team friction and continuously improve engineering workflows.

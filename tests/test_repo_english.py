@@ -33,10 +33,8 @@ ALLOWED_FILES = {
     "MANIFEST.json",                                      # generated file list (follows knowledge-base)
 }
 
-# Translation still in progress (TASKS.md I3). This list must only ever shrink.
-PENDING_PREFIXES = (
-    "knowledge-base/",
-)
+# Translation complete (TASKS.md I3). All repository files standardized to English.
+PENDING_PREFIXES: tuple[str, ...] = ()
 
 TEXT_SUFFIXES = {
     ".md", ".py", ".js", ".ts", ".tsx", ".jsx", ".html", ".css", ".json", ".yml", ".yaml", ".txt", ".cs", ".csproj",
@@ -63,7 +61,7 @@ def vietnamese_lines(text: str) -> list[str]:
 def test_tracked_files_are_english():
     offenders: dict[str, list[str]] = {}
     for rel in tracked_files():
-        if rel in ALLOWED_FILES or rel.startswith(PENDING_PREFIXES):
+        if rel in ALLOWED_FILES or (PENDING_PREFIXES and rel.startswith(PENDING_PREFIXES)):
             continue
         path = ROOT / rel
         if path.suffix.lower() not in TEXT_SUFFIXES or not path.is_file():

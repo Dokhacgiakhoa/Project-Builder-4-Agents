@@ -1,179 +1,179 @@
 ---
-title: "Xây dựng AI Agent với LangGraph"
+title: "Building AI Agents with LangGraph"
 weight: 4
 ---
 
-# Chương 4: Xây dựng AI Agent với LangGraph
+# Chapter 4: Building AI Agents with LangGraph
 
-Chương này là trái tim của toàn bộ tài liệu. Bạn sẽ học cách xây dựng AI Agent từ đầu — từ khái niệm cơ bản đến triển khai hoàn chỉnh — sử dụng LangGraph, thư viện mạnh mẽ nhất hiện nay cho việc xây dựng ứng dụng AI có trạng thái (stateful). Đến cuối chương này, bạn sẽ có đủ kiến thức để xây dựng một agent có khả năng suy nghĩ, hành động và phản hồi như một trợ lý thông minh thực thụ.
-
----
-
-## 4.1 Agent là gì?
-
-### Định nghĩa
-
-Agent (tác nhân thông minh) là một hệ thống AI có khả năng **tự quyết định** cách thực hiện tác vụ thay vì chỉ làm theo kịch bản cố định. Khác với chatbot thông thường chỉ trả lời câu hỏi dựa trên một chuỗi xử lý định trước, agent có thể quan sát môi trường, suy nghĩ về bước tiếp theo, sử dụng công cụ (tools) để thu thập thông tin, và điều chỉnh hành vi dựa trên kết quả.
-
-Hãy tưởng tượng sự khác biệt như sau: một chatbot giống như một nhân viên trực tổng đài đọc kịch bản — khi người dùng hỏi A, bot trả lời B. Còn agent giống như một trợ lý giỏi — khi nhận được yêu cầu, trợ lý sẽ tự đánh giá "mình cần làm gì để trả lời câu hỏi này?", có thể tìm kiếm tài liệu, tra cứu database, tính toán, rồi tổng hợp câu trả lời.
-
-### Sự khác biệt giữa Chatbot và Agent
-
-Để hiểu rõ hơn, hãy so sánh hai hệ thống:
-
-**Chatbot (chuỗi cố định — Chain):**
-- Luồng xử lý cố định: Input → LLM → Output
-- Không có khả năng ra quyết định
-- Không sử dụng công cụ bên ngoài
-- Phù hợp cho hội thoại đơn giản, FAQ
-
-**Agent (luồng linh hoạt):**
-- Luồng xử lý linh hoạt, quyết định tại runtime
-- Có khả năng gọi tools (tìm kiếm, tính toán, API)
-- Có vòng lặp suy nghĩ: Think → Act → Observe
-- Phù hợp cho tác vụ phức tạp, đa bước
-
-### Tại sao chọn LangGraph?
-
-LangGraph là thư viện được xây dựng trên đỉnh của LangChain, nhưng tiếp cận theo hướng **state machine (máy trạng thái)** thay vì **chain (chuỗi tuyến tính)**. Đây là điểm khác biệt quan trọng:
-
-- **Chain (LangChain):** A → B → C → D. Luồng cố định, khó nhánh, khó lặp.
-- **State Machine (LangGraph):** Các bước (nodes) được kết nối bằng edges, có thể có điều kiện, vòng lặp, và nhánh phức tạp.
-
-LangGraph giải quyết bài toán mà chain không giải quyết được: agent cần **quay lại** bước trước đó, **nhảy** đến bước khác tùy điều kiện, và **giữ trạng thái** qua nhiều bước xử lý.
-
-> 💡 **MẸO:** Không phải mọi ứng dụng AI đều cần agent. Nếu tác vụ của bạn đơn giản (ví dụ: dịch văn bản, tóm tắt bài viết), dùng chain hoặc thậm chí gọi LLM trực tiếp là đủ. Agent cần thiết khi: (1) tác vụ có nhiều bước, (2) cần ra quyết định tại runtime, (3) cần sử dụng tools bên ngoài.
-
-### Khi nào nên dùng Agent?
-
-Bạn nên cân nhắc xây dựng agent khi tác vụ có các đặc điểm sau:
-
-1. **Đa bước (Multi-step):** Tác vụ cần nhiều bước xử lý tuần tự hoặc song song
-2. **Cần quyết định (Decision-making):** Hệ thống cần chọn giữa nhiều hành động khác nhau
-3. **Cần công cụ (Tool usage):** Cần tương tác với hệ thống bên ngoài (API, database, search)
-4. **Cần phản hồi (Feedback loop):** Kết quả của bước trước ảnh hưởng đến bước sau
-5. **Không xác định (Non-deterministic):** Không thể biết trước chính xác luồng xử lý
-
-Ví dụ thực tế: một agent nghiên cứu khoa học cần (1) phân tích câu hỏi nghiên cứu, (2) tìm kiếm papers liên quan, (3) đọc và tóm tắt từng paper, (4) so sánh kết quả, (5) tổng hợp thành báo cáo. Đây là tác vụ hoàn hảo cho agent.
+This chapter is the heart of the entire material. You will learn how to build AI Agents from scratch — from fundamental concepts to full-fledged implementation — using LangGraph, the most powerful library today for building stateful AI applications. By the end of this chapter, you will have sufficient knowledge to build an agent capable of reasoning, acting, and responding like a true intelligent assistant.
 
 ---
 
-## 4.2 State — Bộ nhớ của Agent
+## 4.1 What Is an Agent?
 
-State (trạng thái) là khái niệm quan trọng nhất trong LangGraph. State chính là **bộ nhớ** của agent — nó lưu trữ mọi thông tin cần thiết để agent hoạt động: tin nhắn, kết quả tìm kiếm, trạng thái xử lý, v.v. Mỗi node đọc từ state và ghi ngược lại state sau khi xử lý.
+### Definition
 
-### TypedDict Pattern
+An Agent (intelligent agent) is an AI system capable of **autonomously deciding** how to accomplish a task instead of merely following a fixed script. Unlike standard chatbots that only answer questions based on a predetermined processing chain, an agent can observe its environment, reason about the next step, use tools to gather information, and adjust its behavior based on the results.
 
-Trong LangGraph, state được định nghĩa bằng `TypedDict` của Python. Đây là cách type-safe để khai báo cấu trúc dữ liệu mà agent sẽ sử dụng:
+Imagine the difference as follows: a chatbot is like a call center operator reading from a script — when the user asks A, the bot answers B. An agent is like a skilled assistant — upon receiving a request, the assistant independently evaluates "what do I need to do to answer this question?", potentially searches documents, queries a database, computes calculations, and synthesizes the answer.
+
+### Differences Between Chatbots and Agents
+
+To understand more clearly, let us compare the two systems:
+
+**Chatbot (Fixed Sequence — Chain):**
+- Fixed processing flow: Input → LLM → Output
+- No decision-making capabilities
+- Does not use external tools
+- Suitable for simple conversations, FAQs
+
+**Agent (Flexible Flow):**
+- Dynamic flow, decided at runtime
+- Capable of calling tools (search, calculation, APIs)
+- Reasoning loop: Think → Act → Observe
+- Suitable for complex, multi-step tasks
+
+### Why Choose LangGraph?
+
+LangGraph is a library built on top of LangChain, but approaches application architecture from the perspective of a **state machine** rather than a linear **chain**. This is a crucial distinction:
+
+- **Chain (LangChain):** A → B → C → D. Fixed flow, difficult to branch, difficult to loop.
+- **State Machine (LangGraph):** Steps (nodes) are connected by edges, supporting conditional branching, loops, and complex paths.
+
+LangGraph solves problems that chains cannot: an agent needs to **return** to a previous step, **jump** to a different step depending on conditions, and **maintain state** across multiple processing steps.
+
+> 💡 **TIP:** Not every AI application needs an agent. If your task is simple (e.g., text translation, article summarization), using a chain or even calling the LLM directly is sufficient. An agent is necessary when: (1) the task involves multiple steps, (2) runtime decision-making is required, (3) external tool usage is needed.
+
+### When Should You Use an Agent?
+
+You should consider building an agent when your task exhibits the following characteristics:
+
+1. **Multi-step:** The task requires multiple sequential or parallel processing steps.
+2. **Decision-making:** The system must choose among multiple different actions.
+3. **Tool usage:** Interaction with external systems (APIs, databases, web search) is required.
+4. **Feedback loop:** The outcome of an earlier step influences subsequent steps.
+5. **Non-deterministic:** The exact execution flow cannot be predetermined.
+
+Real-world example: A scientific research agent needs to (1) analyze the research question, (2) search for relevant papers, (3) read and summarize each paper, (4) compare results, and (5) synthesize findings into a report. This is a perfect task for an agent.
+
+---
+
+## 4.2 State — The Agent's Memory
+
+State is the most important concept in LangGraph. State serves as the agent's **memory** — it stores all information necessary for the agent to operate: messages, search results, processing status, etc. Every node reads from the state and writes updates back to the state after execution.
+
+### The TypedDict Pattern
+
+In LangGraph, state is defined using Python's `TypedDict`. This is a type-safe way to declare the data structure that the agent will utilize:
 
 ```python
 from typing import TypedDict, Annotated, Sequence
 from langchain_core.messages import BaseMessage
 
 class AgentState(TypedDict):
-    """State cho agent nghiên cứu."""
+    """State for a research agent."""
     messages: Annotated[Sequence[BaseMessage], "add_messages"]
-    query: str  # Câu hỏi gốc của người dùng
-    search_results: list[str]  # Kết quả tìm kiếm
-    draft: str  # Bản nháp câu trả lời
-    iteration: int  # Số lần lặp
+    query: str  # Original user query
+    search_results: list[str]  # Search results
+    draft: str  # Draft answer
+    iteration: int  # Iteration count
 ```
 
-`TypedDict` hoạt động như một schema — nó cho biết state có những trường gì, mỗi trường kiểu dữ liệu gì. LangGraph sẽ sử dụng thông tin này để quản lý state xuyên suốt quá trình agent chạy.
+`TypedDict` acts as a schema — it specifies what fields the state contains and their respective types. LangGraph uses this schema to manage state throughout the agent's lifecycle.
 
-### total_false và Annotated
+### total=False and Annotated
 
-Khi định nghĩa state, bạn sẽ thường thấy `total=False` được sử dụng:
+When defining state, you will often see `total=False` used:
 
 ```python
 from typing import TypedDict
 
 class AgentState(TypedDict, total=False):
-    """total=False cho phép các trường có thể không tồn tại."""
-    messages: list  # Có thể không có lúc ban đầu
+    """total=False allows fields to be optional/omitted initially."""
+    messages: list  # Might not exist initially
     query: str
     search_results: list[str]
     draft: str
 ```
 
-`total=False` có nghĩa là không phải tất cả các trường đều bắt buộc. Điều này rất quan trọng vì trong quá trình agent chạy, một số trường chưa được tạo ra ở bước đầu tiên. Ví dụ: `search_results` sẽ rỗng cho đến khi node tìm kiếm chạy xong.
+`total=False` means that not all fields are mandatory upon initialization. This is essential because as the agent executes, certain fields have not yet been produced in initial steps. For instance, `search_results` remains empty until the search node finishes running.
 
-### Nguyên tắc thiết kế State
+### State Design Principles
 
-Khi thiết kế state cho agent, hãy tuân thủ các nguyên tắc sau:
+When designing state for an agent, adhere to the following principles:
 
-1. **Chỉ lưu những gì cần thiết:** State được truyền giữa mọi node, đừng lưu dữ liệu thừa
-2. **Tên trường rõ ràng:** Dùng tên như `query`, `search_results`, `draft` thay vì `data1`, `data2`
-3. **Kiểu dữ liệu chính xác:** Luôn annotate kiểu để dễ debug và maintain
-4. **Tách biệt concerns:** State cho agent nghiên cứu khác với state cho agent chatbot
+1. **Store only what is necessary:** State is passed across every node; do not bloat it with redundant data.
+2. **Descriptive field names:** Use clear names such as `query`, `search_results`, and `draft` instead of generic names like `data1` or `data2`.
+3. **Accurate type hints:** Always annotate types to facilitate debugging and maintainability.
+4. **Separation of concerns:** State for a research agent differs from state for a conversational agent.
 
-### Reducer — Cách cập nhật State
+### Reducer — How State Is Updated
 
-Reducer là cơ chế xác định cách một trường trong state được cập nhật khi node trả về giá trị mới. Có hai pattern chính:
+A reducer determines how a field in the state is updated when a node returns a new value. There are two primary patterns:
 
-**Overwrite (ghi đè) — Mặc định:**
+**Overwrite — Default:**
 
 ```python
 class SimpleState(TypedDict):
-    query: str  # Giá trị mới sẽ ghi đè hoàn toàn giá trị cũ
+    query: str  # The new value completely overwrites the previous value
     result: str
 
-# Node trả về {"query": "câu hỏi mới"} sẽ thay thế hoàn toàn query cũ
+# A node returning {"query": "new query"} will completely replace the old query
 ```
 
-**Accumulate (tích lũy) — Dùng cho danh sách:**
+**Accumulate — Used for Lists:**
 
 ```python
 from typing import Annotated
 from langgraph.graph.message import add_messages
 
 class ChatState(TypedDict):
-    messages: Annotated[list, add_messages]  # Thêm vào danh sách thay vì ghi đè
+    messages: Annotated[list, add_messages]  # Appends to the list instead of overwriting
     context: str
 
-# add_messages reducer sẽ thêm message mới vào danh sách messages hiện có
-# thay vì thay thế toàn bộ danh sách
+# The add_messages reducer appends new messages to the existing list of messages
+# instead of replacing the entire list
 ```
 
-Reducer `add_messages` đặc biệt quan trọng vì nó xử lý logic phức tạp: nếu message mới có cùng ID với message cũ, nó sẽ cập nhật thay vì thêm mới. Điều này hữu ích khi LLM quyết định sửa đổi message trước đó.
+The `add_messages` reducer is particularly critical because it handles complex logic: if a new message has the same ID as an existing message, it updates the existing message rather than appending a duplicate. This is helpful when an LLM modifies an earlier message.
 
 ### MessagesState
 
-LangGraph cung cấp sẵn `MessagesState` cho trường hợp phổ biến nhất — agent chatbot:
+LangGraph provides built-in `MessagesState` for the most common scenario — conversational agents:
 
 ```python
 from langgraph.graph import MessagesState
 
-# MessagesState tương đương với:
+# MessagesState is equivalent to:
 class MessagesState(TypedDict):
     messages: Annotated[list, add_messages]
 
-# Sử dụng trực tiếp:
+# Direct usage:
 class MyAgentState(MessagesState):
-    """Mở rộng MessagesState với các trường tùy chỉnh."""
+    """Extend MessagesState with custom fields."""
     user_id: str
     conversation_id: str
 ```
 
-`MessagesState` đã bao gồm reducer `add_messages` cho trường `messages`, nên bạn không cần định nghĩa lại. Chỉ cần mở rộng (extend) và thêm các trường bổ sung.
+`MessagesState` already includes the `add_messages` reducer on the `messages` field, eliminating the need to define it manually. You simply subclass and append custom fields.
 
-> ⚠️ **LƯU Ý:** Lỗi phổ biến nhất khi làm việc với state là quên thêm reducer cho trường kiểu list. Nếu bạn muốn tích lũy giá trị (thêm vào list), bắt buộc phải dùng `Annotated[list, add_messages]` hoặc reducer tùy chỉnh. Không có reducer, giá trị mới sẽ ghi đè hoàn toàn.
+> ⚠️ **NOTE:** The most common mistake when working with state is forgetting to specify a reducer for list fields. If you want to accumulate values (append to a list), you must use `Annotated[list, add_messages]` or a custom reducer. Without a reducer, new values will completely overwrite previous ones.
 
-> 💡 **MẸO:** Hãy bắt đầu với state đơn giản nhất có thể, sau đó thêm trường khi cần. Đừng thiết kế state "cho tương lai" — YAGNI (You Aren't Gonna Need It). Bạn có thể dễ dàng mở rộng TypedDict sau này.
+> 💡 **TIP:** Start with the simplest state possible, then add fields as needed. Avoid over-engineering state for hypothetical future needs — remember YAGNI (You Aren't Gonna Need It). You can easily expand your TypedDict later.
 
 ---
 
-## 4.3 Nodes — Các bước xử lý
+## 4.3 Nodes — Processing Steps
 
-Node (nút) là đơn vị xử lý cơ bản trong LangGraph. Mỗi node là một hàm nhận state hiện tại, thực hiện xử lý, và trả về những thay đổi cần áp dụng lên state. Hãy nghĩ mỗi node như một "bước" trong quy trình làm việc của agent.
+Nodes are the fundamental processing units in LangGraph. Each node is a function that receives the current state, performs execution, and returns the changes to apply back to the state. Think of each node as a distinct "step" in the agent's workflow.
 
-### Nguyên tắc: Hàm thuần (Pure Functions)
+### Principle: Pure Functions
 
-Node trong LangGraph nên được thiết kế gần giống hàm thuần (pure function):
+Nodes in LangGraph should be designed as close to pure functions as possible:
 
-1. **Nhận state, trả về thay đổi:** Node nhận toàn bộ state, nhưng chỉ trả về những trường cần cập nhật
-2. **Không Side effect trên state:** Không mutate (thay đổi trực tiếp) state đầu vào
-3. **Một trách nhiệm (Single Responsibility):** Mỗi node chỉ làm một việc duy nhất
+1. **Accept state, return updates:** The node receives the full state, but returns only the fields that need updating.
+2. **No state side-effects:** Never mutate the input state object directly.
+3. **Single Responsibility:** Each node should perform one and only one task.
 
 ```python
 from typing import TypedDict
@@ -184,128 +184,128 @@ class AgentState(TypedDict, total=False):
     answer: str
     error: str
 
-# ✅ Node đúng: chỉ trả về trường cần thay đổi
+# Correct node: returns only fields to update
 def analyze_query(state: AgentState) -> dict:
-    """Phân tích câu hỏi của người dùng."""
+    """Analyze the user's query."""
     query = state.get("query", "")
-    # Xử lý...
+    # Processing...
     return {"query": query.lower().strip()}
 
-# ❌ Node sai: mutate state trực tiếp
+# Incorrect node: directly mutates state
 def bad_node(state: AgentState) -> dict:
-    state["query"] = state["query"].lower()  # KHÔNG LÀM THẾ NÀY
-    return state  # Trả về toàn bộ state
+    state["query"] = state["query"].lower()  # DO NOT DO THIS
+    return state  # Returning the full mutated state
 ```
 
 ### Async Pattern
 
-Khi node cần gọi API hoặc thực hiện I/O, hãy dùng async:
+When a node needs to call APIs or perform I/O operations, use async functions:
 
 ```python
 import asyncio
 from langchain_openai import ChatOpenAI
 
 async def generate_answer(state: AgentState) -> dict:
-    """Tạo câu trả lời sử dụng LLM (async)."""
+    """Generate an answer using an LLM (async)."""
     llm = ChatOpenAI(model="gpt-4o-mini")
 
     query = state.get("query", "")
     search_results = state.get("search_results", [])
 
-    prompt = f"""Dựa trên kết quả tìm kiếm sau, trả lời câu hỏi.
+    prompt = f"""Based on the following search results, answer the question.
     
-    Câu hỏi: {query}
-    Kết quả tìm kiếm: {search_results}
+    Question: {query}
+    Search Results: {search_results}
     
-    Trả lời bằng tiếng Việt:"""
+    Answer in English:"""
 
     response = await llm.ainvoke(prompt)
 
     return {"answer": response.content}
 ```
 
-Dùng async khi node cần gọi LLM, HTTP API, database, hoặc bất kỳ thao tác I/O nào. LangGraph hỗ trợ cả sync và async, nhưng async thường hiệu quả hơn cho agent gọi nhiều API.
+Use async whenever a node calls LLMs, HTTP APIs, databases, or any other I/O operations. LangGraph supports both synchronous and asynchronous execution, but async is typically far more efficient for agents invoking multiple external services.
 
-### Error Handling trong Node
+### Error Handling Inside Nodes
 
-Node nên xử lý lỗi graceful (không crash toàn bộ graph):
+Nodes should handle errors gracefully to prevent crashing the entire graph:
 
 ```python
 async def search_web(state: AgentState) -> dict:
-    """Tìm kiếm trên web với error handling."""
+    """Search the web with error handling."""
     query = state.get("query", "")
     
     try:
-        # Giả sử gọi search API
+        # Assuming a search API invocation
         results = await search_api(query)
         return {"search_results": results}
     except ConnectionError:
-        # Trả về lỗi trong state thay vì crash
+        # Return error within state instead of crashing
         return {
             "search_results": [],
-            "error": "Không thể kết nối đến API tìm kiếm. Vui lòng thử lại."
+            "error": "Cannot connect to search API. Please try again."
         }
     except Exception as e:
         return {
             "search_results": [],
-            "error": f"Lỗi không xác định: {str(e)}"
+            "error": f"Unknown error: {str(e)}"
         }
 ```
 
-> 🔑 **ĐIỂM CHÍNH:** Mỗi node chỉ nên trả về những trường cần thay đổi. Nếu node xử lý tìm kiếm, chỉ trả về `{"search_results": [...]}`. Node khác sẽ đọc `search_results` từ state và xử lý tiếp. Điều này giúp code dễ debug, dễ test, và dễ hiểu.
+> 🔑 **KEY TAKEAWAY:** Each node should only return the specific fields that need updating. If a node handles web search, return only `{"search_results": [...]}`. Downstream nodes will read `search_results` from the updated state and continue execution. This keeps your codebase modular, easy to test, and maintainable.
 
-> 💡 **MẸO:** Đặt tên node mô tả đúng hành động: `analyze_query`, `search_web`, `generate_answer`, `validate_result`. Tránh tên chung chung như `process`, `handle`, `step1`.
+> 💡 **TIP:** Name nodes after their clear actions: `analyze_query`, `search_web`, `generate_answer`, `validate_result`. Avoid vague names like `process`, `handle`, or `step1`.
 
 ---
 
-## 4.4 Edges — Điều hướng luồng
+## 4.4 Edges — Directing the Flow
 
-Nếu nodes là các "trạm" xử lý, thì edges (cạnh) là các "con đường" kết nối chúng. Edges xác định luồng thực thi của graph — node nào chạy sau node nào, và theo điều kiện gì.
+If nodes are the processing "stations," edges are the "pathways" that connect them. Edges define the graph's execution flow — which node runs after which, and under what conditions.
 
-### Direct Edges (Cạnh trực tiếp)
+### Direct Edges
 
-Direct edge kết nối hai node cố định. Sau khi node A chạy xong, node B chắc chắn chạy tiếp:
+A direct edge connects two specific nodes deterministically. Once node A completes execution, node B will unconditionally execute next:
 
 ```python
 from langgraph.graph import StateGraph, START, END
 
 graph = StateGraph(AgentState)
 
-# Thêm nodes
+# Add nodes
 graph.add_node("analyze", analyze_query)
 graph.add_node("search", search_web)
 graph.add_node("answer", generate_answer)
 
-# Direct edges — luồng cố định
-graph.add_edge(START, "analyze")      # Bắt đầu → analyze
-graph.add_edge("analyze", "search")   # analyze → search
-graph.add_edge("search", "answer")    # search → answer
-graph.add_edge("answer", END)         # answer → Kết thúc
+# Direct edges — fixed workflow
+graph.add_edge(START, "analyze")      # Start -> analyze
+graph.add_edge("analyze", "search")   # analyze -> search
+graph.add_edge("search", "answer")    # search -> answer
+graph.add_edge("answer", END)         # answer -> End
 ```
 
-`START` và `END` là sentinel (đánh dấu đặc biệt) của LangGraph: `START` là điểm bắt đầu graph, `END` là điểm kết thúc. Graph luôn bắt đầu từ `START` và kết thúc tại `END`.
+`START` and `END` are special sentinel markers in LangGraph: `START` designates the entry point into the graph, while `END` marks termination. A graph always starts at `START` and concludes at `END`.
 
-### Conditional Edges (Cạnh có điều kiện)
+### Conditional Edges
 
-Conditional edge cho phép agent **ra quyết định** — chọn node tiếp theo dựa trên điều kiện tại runtime:
+A conditional edge enables an agent to **make decisions** — selecting the next node based on runtime state evaluation:
 
 ```python
 def route_after_analysis(state: AgentState) -> str:
-    """Quyết định node tiếp theo dựa trên phân tích."""
+    """Determine the next node based on analysis."""
     query = state.get("query", "")
     
-    if "tính" in query.lower() or "bao nhiêu" in query.lower():
-        return "calculate"  # Cần tính toán
-    elif "tìm" in query.lower() or "search" in query.lower():
-        return "search"     # Cần tìm kiếm
+    if "calculate" in query.lower() or "how much" in query.lower():
+        return "calculate"  # Needs calculation
+    elif "find" in query.lower() or "search" in query.lower():
+        return "search"     # Needs search
     else:
-        return "answer"     # Trả lời trực tiếp
+        return "answer"     # Direct answer
 
-# Thêm conditional edge
+# Add conditional edge
 graph.add_conditional_edges(
-    "analyze",                  # Node nguồn
-    route_after_analysis,       # Hàm routing
-    {                           # Map kết quả → node đích
+    "analyze",                  # Source node
+    route_after_analysis,       # Routing function
+    {                           # Mapping result -> destination node
         "calculate": "calculate",
         "search": "search",
         "answer": "answer",
@@ -313,22 +313,22 @@ graph.add_conditional_edges(
 )
 ```
 
-### Routing Function
+### Routing Functions
 
-Routing function (hàm định tuyến) là trái tim của conditional edge. Nó nhận state hiện tại và trả về tên của node tiếp theo:
+The routing function is the core of any conditional edge. It takes the current state and returns the key identifying the next target node:
 
 ```python
 def should_continue(state: AgentState) -> str:
-    """Kiểm tra xem agent có cần tiếp tục lặp không."""
+    """Check whether the agent needs to continue looping."""
     messages = state.get("messages", [])
     
-    # Kiểm tra message cuối cùng có gọi tool không
+    # Check whether the last message contains tool calls
     last_message = messages[-1] if messages else None
     
     if hasattr(last_message, "tool_calls") and last_message.tool_calls:
-        return "tools"  # Chuyển đến node xử lý tools
+        return "tools"  # Route to tools processing node
     
-    return END  # Không còn tool calls → kết thúc
+    return END  # No tool calls remaining -> terminate
 
 graph.add_conditional_edges(
     "agent",
@@ -337,57 +337,57 @@ graph.add_conditional_edges(
 )
 ```
 
-Pattern này đặc biệt quan trọng cho ReAct agent (sẽ nói ở section 4.6) — agent cần quyết định có tiếp tục gọi tool hay đã có đủ thông tin để trả lời.
+This pattern is fundamental for ReAct agents (detailed in Section 4.6) — the agent dynamically decides whether to execute another tool or finalize its response.
 
-> ⚠️ **LƯU Ý:** Routing function phải trả về một chuỗi khớp với key trong map. Nếu trả về giá trị không tồn tại trong map, LangGraph sẽ throw error. Hãy luôn có fallback (default case) trong routing function.
+> ⚠️ **NOTE:** A routing function must return a string matching one of the keys in the mapping dictionary. Returning a value not present in the map triggers a LangGraph exception. Always provide a fallback (default case) in routing functions.
 
-> 🔑 **ĐIỂM CHÍNH:** Edges là thứ biến một tập hợp nodes thành một agent thông minh. Direct edges cho luồng cố định, conditional edges cho luồng linh hoạt. Hầu hết agent thực tế sẽ kết hợp cả hai loại.
+> 🔑 **KEY TAKEAWAY:** Edges turn an isolated collection of nodes into an intelligent agent. Direct edges form predictable pipelines, while conditional edges introduce dynamic intelligence. Most real-world agents combine both types.
 
 ---
 
-## 4.5 Tools — Mở rộng khả năng
+## 4.5 Tools — Extending Capabilities
 
-Tools (công cụ) là cách để agent tương tác với thế giới bên ngoài — tìm kiếm web, tính toán, gọi API, đọc file, v.v. Nếu LLM là "bộ não" của agent, thì tools là "đôi tay" giúp agent hành động.
+Tools provide agents with the ability to interact with external environments — searching the web, performing calculations, invoking APIs, reading files, and more. If the LLM is the "brain," tools serve as the "hands" that enable action.
 
-### @tool Decorator
+### The @tool Decorator
 
-LangGraph (thông qua LangChain) cung cấp decorator `@tool` để định nghĩa tool:
+LangGraph (via LangChain) provides the `@tool` decorator to define tools cleanly:
 
 ```python
 from langchain_core.tools import tool
 
 @tool
 def multiply(a: int, b: int) -> int:
-    """Nhân hai số với nhau."""
+    """Multiply two integers together."""
     return a * b
 
 @tool
 def search_web(query: str) -> str:
-    """Tìm kiếm thông tin trên web."""
-    # Giả sử gọi API tìm kiếm
-    return f"Kết quả tìm kiếm cho '{query}': ..."
+    """Search for information on the web."""
+    # Assuming search API call
+    return f"Search results for '{query}': ..."
 ```
 
-### Tầm quan trọng của Docstring
+### The Critical Role of Docstrings
 
-Docstring của tool không chỉ là documentation — nó là **prompt** mà LLM sử dụng để quyết định khi nào gọi tool và với tham số gì. Hãy viết docstring rõ ràng, mô tả chính xác tool làm gì:
+A tool's docstring is not merely documentation — it serves as the **prompt** that the LLM inspects when deciding whether to call the tool and what parameters to provide. Always write clear, descriptive docstrings explaining exactly what the tool does:
 
 ```python
-# ✅ Docstring tốt — mô tả rõ ràng khi nào và dùng thế nào
+# Good docstring — clearly describes purpose and usage
 @tool
 def search_papers(query: str, max_results: int = 5) -> str:
-    """Tìm kiếm bài báo khoa học theo từ khóa.
+    """Search scientific research papers by keywords.
     
     Args:
-        query: Từ khóa tìm kiếm (ví dụ: "transformer attention mechanism")
-        max_results: Số kết quả tối đa (mặc định: 5, tối đa: 20)
+        query: Search keywords (e.g., "transformer attention mechanism")
+        max_results: Maximum number of papers to return (default: 5, max: 20)
     
     Returns:
-        Danh sách bài báo với tiêu đề, tác giả, và tóm tắt.
+        List of papers containing titles, authors, and abstracts.
     """
     # Implementation...
 
-# ❌ Docstring tồi — LLM không biết khi nào dùng
+# Poor docstring — the LLM has insufficient guidance on when or how to use it
 @tool
 def search(q: str) -> str:
     """Search."""
@@ -396,7 +396,7 @@ def search(q: str) -> str:
 
 ### Type Hints
 
-Type hints giúp LLM biết chính xác kiểu dữ liệu mỗi tham số. Điều này đặc biệt quan trọng vì LLM cần sinh JSON đúng kiểu để gọi tool:
+Type hints inform the LLM about the exact data types required for each parameter. This is vital because the LLM must construct valid JSON arguments matching the schema:
 
 ```python
 from typing import Literal, Optional
@@ -407,57 +407,57 @@ def get_weather(
     unit: Literal["celsius", "fahrenheit"] = "celsius",
     forecast_days: Optional[int] = None
 ) -> str:
-    """Lấy thông tin thời tiết cho một thành phố.
+    """Retrieve weather information for a specified city.
     
     Args:
-        city: Tên thành phố (ví dụ: "Hà Nội", "TP.HCM")
-        unit: Đơn vị nhiệt độ
-        forecast_days: Số ngày dự báo (None = chỉ thời tiết hiện tại)
+        city: City name (e.g., "Hanoi", "Tokyo")
+        unit: Temperature scale unit
+        forecast_days: Number of forecast days (None = current weather only)
     """
-    # LLM sẽ biết city là string, unit chỉ được "celsius" hoặc "fahrenheit"
-    # forecast_days có thể null hoặc int
+    # The LLM knows city is a string, unit is strictly "celsius" or "fahrenheit",
+    # and forecast_days can be null or an integer
     return f"Weather data for {city}..."
 ```
 
-### Error Handling trong Tools
+### Error Handling in Tools
 
-Tools nên xử lý lỗi graceful và trả về thông báo hữu ích:
+Tools should handle exceptions gracefully and return informative error messages:
 
 ```python
 import httpx
 
 @tool
 def fetch_api_data(url: str) -> str:
-    """Gọi HTTP GET đến URL và trả về response.
+    """Send an HTTP GET request to a URL and return the response text.
     
     Args:
-        url: URL cần gọi (phải là URL hợp lệ)
+        url: The endpoint URL to fetch (must be a valid URL)
     """
     try:
         response = httpx.get(url, timeout=10.0)
         response.raise_for_status()
-        return response.text[:5000]  # Giới hạn 5000 ký tự
+        return response.text[:5000]  # Limit to 5000 characters
     except httpx.TimeoutException:
-        return "Lỗi: Request timeout. URL không phản hồi trong 10 giây."
+        return "Error: Request timed out. The URL did not respond within 10 seconds."
     except httpx.HTTPStatusError as e:
-        return f"Lỗi HTTP {e.response.status_code}: {e.response.reason_phrase}"
+        return f"HTTP error {e.response.status_code}: {e.response.reason_phrase}"
     except Exception as e:
-        return f"Lỗi không xác định: {str(e)}"
+        return f"Unknown error: {str(e)}"
 ```
 
-### Ví dụ: Tool tìm kiếm
+### Example: Web Search Tool
 
 ```python
 @tool
 def web_search(query: str, num_results: int = 5) -> str:
-    """Tìm kiếm thông tin trên internet sử dụng Tavily Search API.
+    """Search the internet for current information using Tavily Search API.
     
-    Sử dụng tool này khi cần tìm thông tin mới, sự kiện hiện tại,
-    hoặc kiến thức không có trong training data của model.
+    Use this tool when looking up recent events, factual details,
+    or knowledge beyond the model's training data cutoff.
     
     Args:
-        query: Câu truy vấn tìm kiếm (nên cụ thể, rõ ràng)
-        num_results: Số kết quả trả về (1-10)
+        query: The search query string (should be specific and clear)
+        num_results: Number of results to return (1-10)
     """
     from langchain_community.tools.tavily_search import TavilySearchResults
     
@@ -466,17 +466,17 @@ def web_search(query: str, num_results: int = 5) -> str:
         results = search.invoke(query)
         return str(results)
     except Exception as e:
-        return f"Lỗi tìm kiếm: {str(e)}. Hãy thử lại với query khác."
+        return f"Search error: {str(e)}. Please retry with a different query."
 ```
 
-### Ví dụ: Tool tính toán
+### Example: Safe Calculator Tool
 
 ```python
 import math
 import ast
 import operator
 
-# Mapping an toàn từ AST operators sang hàm toán học
+# Safe mapping from AST operators to mathematical functions
 _SAFE_OPERATORS = {
     ast.Add: operator.add,
     ast.Sub: operator.sub,
@@ -501,206 +501,206 @@ _SAFE_FUNCTIONS = {
 }
 
 def _safe_eval(node: ast.AST) -> float:
-    """Đệ quy đánh giá AST node — không dùng eval()."""
-    if isinstance(node, ast.Constant):  # Số literal (3.14, 42, "hello")
+    """Recursively evaluate an AST node — avoiding eval()."""
+    if isinstance(node, ast.Constant):  # Literal value (3.14, 42, "hello")
         return node.value
-    elif isinstance(node, ast.Name):    # Biến (pi, e)
+    elif isinstance(node, ast.Name):    # Variable (pi, e)
         if node.id in _SAFE_FUNCTIONS:
             return _SAFE_FUNCTIONS[node.id]
-        raise ValueError(f"Tên không hợp lệ: {node.id}")
-    elif isinstance(node, ast.Call):    # Hàm (sqrt(144), sin(0))
+        raise ValueError(f"Invalid identifier: {node.id}")
+    elif isinstance(node, ast.Call):    # Function call (sqrt(144), sin(0))
         func_name = node.func.id if isinstance(node.func, ast.Name) else ""
         if func_name not in _SAFE_FUNCTIONS:
-            raise ValueError(f"Hàm không hợp lệ: {func_name}")
+            raise ValueError(f"Unsupported function: {func_name}")
         args = [_safe_eval(arg) for arg in node.args]
         return _SAFE_FUNCTIONS[func_name](*args)
-    elif isinstance(node, ast.BinOp):   # Phép tính nhị phân (2 + 3)
+    elif isinstance(node, ast.BinOp):   # Binary operation (2 + 3)
         left = _safe_eval(node.left)
         right = _safe_eval(node.right)
         op_type = type(node.op)
         if op_type in _SAFE_OPERATORS:
             return _SAFE_OPERATORS[op_type](left, right)
-        raise ValueError(f"Phép toán không hỗ trợ: {op_type.__name__}")
-    elif isinstance(node, ast.UnaryOp): # Phép toán một ngôi (-5)
+        raise ValueError(f"Unsupported operator: {op_type.__name__}")
+    elif isinstance(node, ast.UnaryOp): # Unary operation (-5)
         operand = _safe_eval(node.operand)
         op_type = type(node.op)
         if op_type in _SAFE_OPERATORS:
             return _SAFE_OPERATORS[op_type](operand)
-        raise ValueError(f"Phép toán không hỗ trợ: {op_type.__name__}")
+        raise ValueError(f"Unsupported operator: {op_type.__name__}")
     else:
-        raise ValueError(f"Biểu thức không hỗ trợ: {type(node).__name__}")
+        raise ValueError(f"Unsupported expression: {type(node).__name__}")
 
 @tool
 def calculate(expression: str) -> str:
-    """Tính toán biểu thức toán học an toàn.
+    """Safely calculate a mathematical expression.
 
-    Hỗ trợ các phép tính cơ bản (+, -, *, /, **), 
-    và hàm toán học (sqrt, sin, cos, log, abs, round).
-    Không sử dụng eval() — phân tích AST an toàn.
+    Supports basic operations (+, -, *, /, **), 
+    and math functions (sqrt, sin, cos, log, abs, round).
+    Does not use eval() — safely evaluates via AST.
 
     Args:
-        expression: Biểu thức toán học (ví dụ: "2 ** 10", "sqrt(144)")
+        expression: Mathematical expression (e.g., "2 ** 10", "sqrt(144)")
     """
     try:
         tree = ast.parse(expression, mode="eval")
         result = _safe_eval(tree.body)
-        return f"Kết quả: {expression} = {result}"
+        return f"Result: {expression} = {result}"
     except (SyntaxError, ValueError) as e:
-        return f"Biểu thức không hợp lệ '{expression}': {str(e)}"
+        return f"Invalid expression '{expression}': {str(e)}"
     except Exception as e:
-        return f"Không thể tính toán '{expression}': {str(e)}"
+        return f"Could not calculate '{expression}': {str(e)}"
 ```
 
-> ⚠️ **LƯU Ý:** Không bao giờ dùng `eval()` trong production code, đặc biệt khi input đến từ LLM. Dù `eval(expression, {"__builtins__": {}}, allowed_names)` giới hạn scope, vẫn có kỹ thuật bypass (dunder attributes, subclassing). Phân tích AST (như code trên) là cách an toàn hơn — bạn kiểm soát chính xác node nào được đánh giá.
+> ⚠️ **NOTE:** Never use Python's built-in `eval()` in production code, especially when inputs originate from an LLM. Even `eval(expression, {"__builtins__": {}}, allowed_names)` can be bypassed via dunder attributes and subclass lookups. AST parsing (as implemented above) provides robust security by explicitly controlling allowed node evaluations.
 
-> 💡 **MẸO:** LLM không biết tool nào tồn tại cho đến khi bạn cho nó biết. Khi bind tools vào LLM, model sẽ tự động quyết định tool nào cần gọi dựa trên câu hỏi và docstring. Hãy viết docstring như thể bạn đang hướng dẫn một đồng nghiệp mới: rõ ràng, cụ thể, có ví dụ.
+> 💡 **TIP:** The LLM does not know which tools exist until you bind them. When you bind tools to a model, it autonomously chooses the appropriate tool based on user queries and docstring definitions. Write your docstrings as if guiding a new team member: clear, concise, and illustrated with examples.
 
-> ⚠️ **LƯU Ý:** Không bao giờ trust input từ LLM một cách mù quáng. LLM có thể sinh ra tham số không hợp lệ. Luôn validate và sanitize input trong tool. Ví dụ: giới hạn số kết quả tìm kiếm, kiểm tra URL hợp lệ, v.v.
+> ⚠️ **NOTE:** Never blindly trust inputs generated by an LLM. LLMs can output invalid or out-of-range parameters. Always validate and sanitize parameters inside tools (e.g., clamp result limits, validate URL schemas).
 
 ---
 
-## 4.6 Pattern ReAct
+## 4.6 The ReAct Pattern
 
-ReAct (Reasoning + Acting) là pattern phổ biến nhất để xây dựng agent. Pattern này mô phỏng cách con người giải quyết vấn đề: **suy nghĩ → hành động → quan sát → lặp lại**.
+ReAct (Reasoning + Acting) is the most widely adopted pattern for constructing AI agents. It mirrors human problem-solving workflows: **think → act → observe → repeat**.
 
-### Vòng lặp Think → Act → Observe
+### The Think → Act → Observe Loop
 
-Quá trình ReAct hoạt động như sau:
+The ReAct cycle functions as follows:
 
-1. **Thought (Suy nghĩ):** Agent nhận câu hỏi, phân tích cần làm gì
-2. **Action (Hành động):** Agent gọi tool để thu thập thông tin
-3. **Observation (Quan sát):** Agent nhận kết quả từ tool
-4. **Lặp lại:** Nếu chưa đủ thông tin, quay lại bước 1
-5. **Answer (Trả lời):** Khi đủ thông tin, agent tổng hợp và trả lời
+1. **Thought:** The agent receives a query and reasons about what actions to take.
+2. **Action:** The agent calls a tool to acquire needed information.
+3. **Observation:** The agent inspects the output returned by the tool.
+4. **Repeat:** If information remains insufficient, return to step 1.
+5. **Answer:** Once sufficient context is gathered, the agent synthesizes the final response.
 
-Ví dụ minh họa với câu hỏi "Giá vàng hôm nay bao nhiêu?":
+Illustrative walkthrough for the question "What is the current gold price?":
 
 ```
-Thought: Tôi cần tìm giá vàng hôm nay. Tôi sẽ dùng tool search.
-Action: search_web("giá vàng hôm nay")
-Observation: Giá vàng SJC hôm nay 78.5 triệu/lượng
-Thought: Đã có thông tin. Tôi có thể trả lời.
-Answer: Giá vàng SJC hôm nay là 78.5 triệu đồng/lượng.
+Thought: I need to find the current gold price. I will use the web search tool.
+Action: search_web("current gold price")
+Observation: Gold spot price today is $2,650 per ounce.
+Thought: I now have the necessary information. I can answer the user.
+Answer: The gold spot price today is $2,650 per ounce.
 ```
 
-### Khi nào dùng ReAct?
+### When to Use ReAct
 
-ReAct phù hợp khi:
-- Agent cần **nhiều bước** để trả lời (phân tích → tìm kiếm → tổng hợp)
-- Agent cần **quyết định** có cần thêm thông tin không
-- Luồng xử lý **không thể biết trước** — phụ thuộc vào kết quả trung gian
+ReAct is ideal when:
+- The agent requires **multiple steps** to respond (analyze → retrieve → synthesize).
+- The agent must **decide** whether additional information is needed.
+- The execution path is **dynamic** — depending on intermediate observations.
 
-ReAct KHÔNG phù hợp khi:
-- Tác vụ đơn giản, một bước (dùng chain thay)
-- Luồng xử lý cố định, không cần quyết định (dùng workflow thay)
-- Cần tốc độ tối đa (ReAct có độ trễ do nhiều vòng LLM call)
+ReAct is NOT suitable when:
+- The task is simple and single-step (use a chain instead).
+- The workflow is strictly deterministic with no runtime decisions (use a fixed workflow).
+- Maximum throughput / minimum latency is required (ReAct introduces latency through multi-turn LLM reasoning cycles).
 
-### Ví dụ với create_react_agent
+### Example Using create_react_agent
 
-LangGraph cung cấp hàm `create_react_agent` để tạo ReAct agent nhanh:
+LangGraph provides a helper function `create_react_agent` to assemble a ReAct agent rapidly:
 
 ```python
 from langgraph.prebuilt import create_react_agent
 from langchain_openai import ChatOpenAI
 
-# Khởi tạo LLM
+# Initialize LLM
 llm = ChatOpenAI(model="gpt-4o-mini")
 
-# Khởi tạo tools
+# Initialize tools
 tools = [web_search, calculate, fetch_api_data]
 
-# Tạo ReAct agent — một dòng code!
+# Create ReAct agent — in a single line!
 agent = create_react_agent(llm, tools)
 
-# Chạy agent
+# Execute agent
 result = agent.invoke({
-    "messages": [{"role": "user", "content": "GDP của Việt Nam năm 2024 là bao nhiêu? Tính GDP per capita nếu dân số là 100 triệu."}]
+    "messages": [{"role": "user", "content": "What is Vietnam's GDP in 2024? Calculate GDP per capita assuming a population of 100 million."}]
 })
 
 print(result["messages"][-1].content)
 ```
 
-`create_react_agent` tự động tạo graph với: node agent (gọi LLM), node tools (thực thi tool calls), và conditional edge (kiểm tra có tool calls không). Đây là cách nhanh nhất để tạo agent hoạt động.
+`create_react_agent` automatically constructs a graph containing: an agent node (LLM invocation), a tools node (executing tool calls), and a conditional edge (checking for pending tool calls). This is the fastest way to get a working agent up and running.
 
-### ReAct Graph thủ công
+### Manual ReAct Graph Implementation
 
-Để hiểu sâu hơn, hãy xây dựng ReAct graph thủ công:
+To understand the internal mechanics, let us construct a ReAct graph manually:
 
 ```python
 from langgraph.graph import StateGraph, MessagesState, START, END
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
 
-# Khởi tạo
+# Initialization
 llm = ChatOpenAI(model="gpt-4o-mini")
 llm_with_tools = llm.bind_tools([web_search, calculate])
 
-# Node 1: Agent suy nghĩ và quyết định
+# Node 1: Agent reasoning and decision making
 async def agent_node(state: MessagesState) -> dict:
-    """Agent phân tích và quyết định hành động tiếp theo."""
-    system = SystemMessage(content="""Bạn là trợ lý AI thông minh.
-    Khi cần thông tin, hãy dùng tools. Khi đã đủ thông tin, hãy trả lời trực tiếp.
-    Trả lời bằng tiếng Việt.""")
+    """Agent analyzes state and decides on the next action."""
+    system = SystemMessage(content="""You are an intelligent AI assistant.
+    When information is needed, call appropriate tools. When sufficient information is available, answer directly.
+    Respond in English.""")
     
     messages = [system] + state["messages"]
     response = await llm_with_tools.ainvoke(messages)
     return {"messages": [response]}
 
-# Node 2: Thực thi tools
+# Node 2: Tool execution
 async def tools_node(state: MessagesState) -> dict:
-    """Thực thi tool calls từ message cuối cùng."""
+    """Execute tool calls from the latest message."""
     from langchain_core.messages import ToolMessage
     from langgraph.prebuilt import ToolNode
     
     tool_node = ToolNode([web_search, calculate])
     return await tool_node.ainvoke(state)
 
-# Routing: Kiểm tra có tool calls không
+# Routing: Check for tool calls
 def should_use_tools(state: MessagesState) -> str:
-    """Nếu message cuối có tool calls → chạy tools, ngược lại → kết thúc."""
+    """Route to tools if the last message contains tool calls; otherwise terminate."""
     last_message = state["messages"][-1]
     if hasattr(last_message, "tool_calls") and last_message.tool_calls:
         return "tools"
     return END
 
-# Xây dựng graph
+# Build graph
 graph = StateGraph(MessagesState)
 graph.add_node("agent", agent_node)
 graph.add_node("tools", tools_node)
 
 graph.add_edge(START, "agent")
 graph.add_conditional_edges("agent", should_use_tools, {"tools": "tools", END: END})
-graph.add_edge("tools", "agent")  # Sau khi chạy tools → quay lại agent
+graph.add_edge("tools", "agent")  # After tools run -> loop back to agent
 
 app = graph.compile()
 ```
 
-Chú ý dòng `graph.add_edge("tools", "agent")` — đây tạo ra **vòng lặp** (loop). Sau khi tools chạy xong, agent sẽ lại suy nghĩ xem cần thêm thông tin không. Vòng lặp tiếp tục cho đến khi agent quyết định trả lời (không có tool calls).
+Notice the line `graph.add_edge("tools", "agent")` — this establishes the **loop**. Once tools execute, the agent reasons over the observations again. The loop continues until the agent decides to formulate a final response without calling further tools.
 
-> 🔑 **ĐIỂM CHÍNH:** ReAct là pattern "tư duy → hành động → quan sát". Vòng lặp giữa agent và tools tiếp tục cho đến khi agent quyết định đã đủ thông tin. Pattern này là nền tảng cho hầu hết agent hiện đại.
+> 🔑 **KEY TAKEAWAY:** ReAct is the classic "think → act → observe" pattern. The loop between agent and tools persists until the agent determines it has gathered sufficient information. This architecture forms the backbone of modern autonomous agents.
 
 ---
 
-## 4.7 Xây dựng Graph hoàn chỉnh
+## 4.7 Building a Complete Graph
 
-Bây giờ chúng ta sẽ kết hợp tất cả kiến thức để xây dựng một agent hoàn chỉnh: **Planning Agent** — agent nhận câu hỏi, lập kế hoạch nghiên cứu, tìm kiếm thông tin, và tạo câu trả lời chi tiết.
+Now we will combine all the concepts learned so far to build an end-to-end agent: a **Planning Agent** — an agent that takes a complex query, drafts a structured research plan, conducts search queries, and synthesizes a comprehensive final report.
 
-### Tổng quan kiến trúc
+### Architectural Overview
 
 ```
 START → analyze → plan → [research → synthesize → review] → END
                         ↑                            |
-                        └──────── (cần bổ sung) ──────┘
+                        └───── (needs refinement) ───┘
 ```
 
-Agent hoạt động như sau:
-1. **Analyze:** Phân tích câu hỏi, xác định loại và yêu cầu
-2. **Plan:** Lập kế hoạch nghiên cứu — cần tìm kiếm gì
-3. **Research:** Thực hiện tìm kiếm theo kế hoạch
-4. **Synthesize:** Tổng hợp kết quả thành câu trả lời
-5. **Review:** Kiểm tra chất lượng — nếu chưa đủ, quay lại bước 3
+The agent executes through the following stages:
+1. **Analyze:** Parses the question, determining inquiry type and requirements.
+2. **Plan:** Drafts a multi-step research plan.
+3. **Research:** Executes searches according to the plan.
+4. **Synthesize:** Combines search findings into an answer draft.
+5. **Review:** Evaluates draft quality — loops back to step 3 if revisions are required.
 
-### Code hoàn chỉnh
+### Complete Code Implementation
 
 ```python
 import asyncio
@@ -714,33 +714,33 @@ from langchain_core.tools import tool
 # ==================== STATE ====================
 
 class ResearchState(TypedDict, total=False):
-    """State cho Planning Agent."""
+    """State for the Planning Agent."""
     messages: Annotated[list[BaseMessage], add_messages]
-    query: str                    # Câu hỏi gốc
-    query_type: str               # Loại câu hỏi (factual, analytical, creative)
-    research_plan: list[str]      # Kế hoạch nghiên cứu
-    search_results: list[str]     # Kết quả tìm kiếm
-    draft: str                    # Bản nháp câu trả lời
-    quality_score: float          # Điểm chất lượng (0-1)
-    iteration: int                # Số lần lặp
-    error: str                    # Thông báo lỗi (nếu có)
+    query: str                    # Original user query
+    query_type: str               # Question type (factual, analytical, creative)
+    research_plan: list[str]      # Multi-step research plan
+    search_results: list[str]     # Collected search results
+    draft: str                    # Draft answer
+    quality_score: float          # Quality score (0-1)
+    iteration: int                # Iteration counter
+    error: str                    # Error messages (if any)
 
 # ==================== TOOLS ====================
 
 @tool
 def web_search(query: str) -> str:
-    """Tìm kiếm thông tin trên web.
+    """Search for information on the web.
     
     Args:
-        query: Từ khóa tìm kiếm cụ thể
+        query: Specific search keyword or query
     """
-    # Placeholder — thay bằng API thực tế (Tavily, SerpAPI, v.v.)
-    return f"[Kết quả tìm kiếm cho '{query}']: Thông tin mẫu..."
+    # Placeholder — replace with real APIs (Tavily, SerpAPI, etc.)
+    return f"[Search results for '{query}']: Sample information..."
 
 # ==================== NODES ====================
 
 async def analyze_node(state: ResearchState) -> dict:
-    """Phân tích câu hỏi của người dùng."""
+    """Analyze the user's query."""
     llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
     
     query = state.get("query", "")
@@ -748,17 +748,17 @@ async def analyze_node(state: ResearchState) -> dict:
         last_msg = state["messages"][-1]
         query = last_msg.content if hasattr(last_msg, "content") else str(last_msg)
     
-    prompt = f"""Phân tích câu hỏi sau và xác định loại.
+    prompt = f"""Analyze the following question and determine its type.
     
-    Câu hỏi: {query}
+    Question: {query}
     
-    Trả về JSON:
+    Return JSON:
     {{
         "query_type": "factual|analytical|creative",
         "needs_research": true/false
     }}
     
-    Chỉ trả về JSON, không thêm gì khác."""
+    Return JSON only, with no markdown wrappers or additional text."""
     
     response = await llm.ainvoke([HumanMessage(content=prompt)])
     
@@ -775,19 +775,19 @@ async def analyze_node(state: ResearchState) -> dict:
     }
 
 async def plan_node(state: ResearchState) -> dict:
-    """Lập kế hoạch nghiên cứu."""
+    """Formulate a research plan."""
     llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
     
     query = state.get("query", "")
     query_type = state.get("query_type", "factual")
     
-    prompt = f"""Lập kế hoạch nghiên cứu cho câu hỏi sau.
+    prompt = f"""Create a structured research plan for the following question.
     
-    Câu hỏi: {query}
-    Loại: {query_type}
+    Question: {query}
+    Type: {query_type}
     
-    Liệt kê 3-5 bước tìm kiếm cần thực hiện, mỗi bước là một câu truy vấn tìm kiếm.
-    Trả về danh sách JSON array các string. Chỉ trả về JSON array."""
+    List 3-5 search queries to execute, where each step is a concrete query string.
+    Return a JSON array of strings. Return JSON only."""
     
     response = await llm.ainvoke([HumanMessage(content=prompt)])
     
@@ -802,7 +802,7 @@ async def plan_node(state: ResearchState) -> dict:
     return {"research_plan": plan}
 
 async def research_node(state: ResearchState) -> dict:
-    """Thực hiện tìm kiếm theo kế hoạch."""
+    """Execute search queries according to the plan."""
     plan = state.get("research_plan", [])
     results = []
     
@@ -821,48 +821,48 @@ async def research_node(state: ResearchState) -> dict:
     }
 
 async def synthesize_node(state: ResearchState) -> dict:
-    """Tổng hợp kết quả thành câu trả lời."""
+    """Synthesize findings into an answer draft."""
     llm = ChatOpenAI(model="gpt-4o-mini")
     
     query = state.get("query", "")
     search_results = state.get("search_results", [])
     
-    prompt = f"""Dựa trên kết quả nghiên cứu, viết câu trả lời chi tiết cho câu hỏi.
+    prompt = f"""Based on the research findings, write a comprehensive answer to the question.
     
-    Câu hỏi: {query}
+    Question: {query}
     
-    Kết quả nghiên cứu:
+    Research Findings:
     {chr(10).join(search_results)}
     
-    Yêu cầu:
-    - Trả lời đầy đủ, có cấu trúc rõ ràng
-    - Trích dẫn nguồn khi có thể
-    - Nếu thông tin không đủ, ghi chú điều cần bổ sung
-    - Viết bằng tiếng Việt"""
+    Requirements:
+    - Provide a complete, well-structured response
+    - Cite sources where applicable
+    - Note any missing information requiring further investigation
+    - Write in English"""
     
     response = await llm.ainvoke([HumanMessage(content=prompt)])
     
     return {"draft": response.content}
 
 async def review_node(state: ResearchState) -> dict:
-    """Đánh giá chất lượng câu trả lời."""
+    """Evaluate draft quality."""
     llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
     
     query = state.get("query", "")
     draft = state.get("draft", "")
     
-    prompt = f"""Đánh giá chất lượng câu trả lời sau trên thang 0-1.
+    prompt = f"""Evaluate the quality of the following draft on a scale of 0.0 to 1.0.
     
-    Câu hỏi: {query}
-    Câu trả lời: {draft}
+    Question: {query}
+    Draft: {draft}
     
-    Tiêu chí:
-    - Độ đầy đủ: Có trả lời đủ câu hỏi không?
-    - Độ chính xác: Thông tin có đáng tin không?
-    - Độ rõ ràng: Có dễ hiểu không?
+    Evaluation Criteria:
+    - Completeness: Does it address all aspects of the query?
+    - Accuracy: Is the information credible and consistent?
+    - Clarity: Is the explanation clear and well-organized?
     
-    Trả về JSON: {{"score": 0.0-1.0, "needs_more": true/false, "feedback": "..."}}
-    Chỉ trả về JSON."""
+    Return JSON: {{"score": 0.0-1.0, "needs_more": true/false, "feedback": "..."}}
+    Return JSON only."""
     
     response = await llm.ainvoke([HumanMessage(content=prompt)])
     
@@ -872,35 +872,35 @@ async def review_node(state: ResearchState) -> dict:
         score = float(review.get("score", 0.5))
     except (json.JSONDecodeError, ValueError):
         score = 0.5
-        review = {"needs_more": True, "feedback": "Không thể parse review"}
+        review = {"needs_more": True, "feedback": "Could not parse review output"}
     
     return {"quality_score": score}
 
 # ==================== ROUTING ====================
 
 def should_continue_research(state: ResearchState) -> str:
-    """Quyết định có cần nghiên cứu thêm không."""
+    """Decide whether further research iterations are required."""
     score = state.get("quality_score", 0.0)
     iteration = state.get("iteration", 0)
     
-    # Nếu chất lượng đủ tốt hoặc đã lặp quá nhiều lần → kết thúc
+    # Terminate if quality meets threshold or maximum iterations reached
     if score >= 0.7 or iteration >= 3:
         return "finalize"
     
-    # Ngược lại → nghiên cứu thêm
+    # Otherwise continue research
     return "research"
 
 # ==================== BUILD GRAPH ====================
 
 async def finalize_node(state: ResearchState) -> dict:
-    """Chuẩn bị câu trả lời cuối cùng."""
+    """Prepare the final answer payload."""
     from langchain_core.messages import AIMessage
-    draft = state.get("draft", "Không thể tạo câu trả lời.")
+    draft = state.get("draft", "Unable to generate an answer.")
     return {"messages": [AIMessage(content=draft)]}
 
 graph = StateGraph(ResearchState)
 
-# Thêm nodes
+# Add nodes
 graph.add_node("analyze", analyze_node)
 graph.add_node("plan", plan_node)
 graph.add_node("research", research_node)
@@ -908,20 +908,20 @@ graph.add_node("synthesize", synthesize_node)
 graph.add_node("review", review_node)
 graph.add_node("finalize", finalize_node)
 
-# Thêm edges
+# Add edges
 graph.add_edge(START, "analyze")
 graph.add_edge("analyze", "plan")
 graph.add_edge("plan", "research")
 graph.add_edge("research", "synthesize")
 graph.add_edge("synthesize", "review")
 
-# Conditional edge từ review
+# Conditional edge from review
 graph.add_conditional_edges(
     "review",
     should_continue_research,
     {
-        "research": "research",    # Lặp lại nghiên cứu
-        "finalize": "finalize",    # Hoàn thành
+        "research": "research",    # Loop back to research
+        "finalize": "finalize",    # Conclude
     }
 )
 
@@ -930,56 +930,56 @@ graph.add_edge("finalize", END)
 # Compile
 app = graph.compile()
 
-# ==================== CHẠY ====================
+# ==================== EXECUTION ====================
 
 async def main():
     result = await app.ainvoke({
-        "messages": [HumanMessage(content="AI agents đang thay đổi ngành phần mềm như thế nào?")],
-        "query": "AI agents đang thay đổi ngành phần mềm như thế nào?"
+        "messages": [HumanMessage(content="How are AI agents transforming the software engineering industry?")],
+        "query": "How are AI agents transforming the software engineering industry?"
     })
     
     print("=" * 60)
-    print("CÂU TRẢ LỜI:")
+    print("FINAL ANSWER:")
     print("=" * 60)
-    print(result.get("draft", "Không có kết quả"))
-    print(f"\nSố lần lặp: {result.get('iteration', 0)}")
-    print(f"Điểm chất lượng: {result.get('quality_score', 0):.2f}")
+    print(result.get("draft", "No output generated"))
+    print(f"\nIteration count: {result.get('iteration', 0)}")
+    print(f"Quality score: {result.get('quality_score', 0):.2f}")
 
 if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-> 💡 **MẸO:** Khi xây dựng graph phức tạp, hãy bắt đầu với version đơn giản nhất (linear flow), sau đó thêm conditional edges và loops dần. Đừng cố xây dựng graph hoàn hảo ngay từ đầu — iterate như cách bạn iterate code.
+> 💡 **TIP:** When architecting complex graphs, always start with the simplest linear pipeline first, then incrementally introduce conditional edges and feedback loops. Do not attempt to design a sprawling graph upfront — iterate just as you iterate on software.
 
 ---
 
-## 4.8 RAG — Kết hợp tìm kiếm kiến thức
+## 4.8 RAG — Combining External Knowledge Retrieval
 
-RAG (Retrieval-Augmented Generation) là kỹ thuật kết hợp tìm kiếm kiến thức với khả năng sinh text của LLM. Thay vì chỉ dựa vào kiến thức đã học trong training data, agent có thể tìm kiếm trong kho tài liệu riêng để trả lời chính xác hơn.
+RAG (Retrieval-Augmented Generation) combines external knowledge retrieval with the generative capabilities of an LLM. Rather than relying solely on pre-trained parametric weights, the agent retrieves passages from custom knowledge bases to produce grounded, accurate answers.
 
-### RAG hoạt động như thế nào?
+### How RAG Works
 
-1. **Index (Đánh chỉ mục):** Chia tài liệu thành các đoạn nhỏ (chunks), tạo vector embedding cho mỗi đoạn, lưu vào vector store
-2. **Retrieve (Truy xuất):** Khi có câu hỏi, tạo embedding cho câu hỏi, tìm các đoạn tài liệu có embedding tương tự nhất
-3. **Generate (Sinh câu trả lời):** Đưa câu hỏi + các đoạn tài liệu tìm được cho LLM, yêu cầu trả lời dựa trên thông tin đó
+1. **Index:** Chunk documents into manageable passages, compute vector embeddings for each chunk, and store them in a vector database.
+2. **Retrieve:** Upon receiving a user question, generate an embedding for the query and retrieve chunks exhibiting the highest semantic similarity.
+3. **Generate:** Provide both the user query and retrieved context chunks to the LLM, prompting it to answer strictly based on the supplied evidence.
 
-### Embedding và Vector Store
+### Embeddings and Vector Stores
 
 ```python
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
 
-# Khởi tạo embedding model
+# Initialize embedding model
 embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
-# Tạo vector store từ tài liệu
+# Create vector store from documents
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 documents = [
-    "LangGraph là thư viện xây dựng AI agent dựa trên state machine...",
-    "State trong LangGraph được định nghĩa bằng TypedDict...",
-    "Nodes là các hàm xử lý nhận state và trả về thay đổi...",
-    # ... thêm tài liệu
+    "LangGraph is a library for building stateful AI agents based on state machines...",
+    "State in LangGraph is defined using TypedDict...",
+    "Nodes are processing functions that receive state and return updates...",
+    # ... additional documents
 ]
 
 text_splitter = RecursiveCharacterTextSplitter(
@@ -994,24 +994,24 @@ vectorstore = Chroma.from_documents(
     collection_name="ai20k_docs"
 )
 
-# Tìm kiếm
-results = vectorstore.similarity_search("LangGraph state là gì?", k=3)
+# Similarity search
+results = vectorstore.similarity_search("What is state in LangGraph?", k=3)
 for doc in results:
     print(doc.page_content)
 ```
 
-### Thêm RAG vào Graph
+### Integrating RAG into the Graph
 
 ```python
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
 
 async def retrieve_node(state: ResearchState) -> dict:
-    """Tìm kiếm tài liệu liên quan từ vector store."""
+    """Retrieve relevant documents from the vector store."""
     query = state.get("query", "")
     
     try:
-        # Tạo retriever từ vector store
+        # Build retriever from vector store
         embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
         vectorstore = Chroma(
             collection_name="ai20k_docs",
@@ -1021,93 +1021,93 @@ async def retrieve_node(state: ResearchState) -> dict:
         retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
         docs = await retriever.ainvoke(query)
         
-        # Format kết quả
+        # Format results
         context = "\n\n".join([
-            f"[Tài liệu {i+1}]: {doc.page_content}"
+            f"[Document {i+1}]: {doc.page_content}"
             for i, doc in enumerate(docs)
         ])
         
         return {"search_results": [context]}
     except Exception as e:
-        return {"error": f"Lỗi retrieval: {str(e)}"}
+        return {"error": f"Retrieval error: {str(e)}"}
 
 async def rag_generate_node(state: ResearchState) -> dict:
-    """Sinh câu trả lời dựa trên tài liệu đã truy xuất."""
+    """Generate an answer grounded in retrieved documents."""
     llm = ChatOpenAI(model="gpt-4o-mini")
     
     query = state.get("query", "")
     search_results = state.get("search_results", [])
     context = "\n".join(search_results)
     
-    prompt = f"""Dựa trên tài liệu sau, trả lời câu hỏi. 
-    Nếu thông tin không có trong tài liệu, hãy nói rõ.
+    prompt = f"""Based on the following documents, answer the question. 
+    If the answer cannot be found in the documents, state that clearly.
     
-    Tài liệu:
+    Documents:
     {context}
     
-    Câu hỏi: {query}
+    Question: {query}
     
-    Trả lời bằng tiếng Việt:"""
+    Answer in English:"""
     
     response = await llm.ainvoke([HumanMessage(content=prompt)])
     return {"draft": response.content}
 
-# Thêm vào graph
+# Add nodes to graph
 graph.add_node("retrieve", retrieve_node)
 graph.add_node("rag_generate", rag_generate_node)
 
-# Có thể chọn giữa web search và RAG tùy loại câu hỏi
+# Route between web search and RAG depending on query characteristics
 def route_search(state: ResearchState) -> str:
     query_type = state.get("query_type", "")
     if query_type == "factual":
-        return "retrieve"  # Dùng RAG cho câu hỏi kiến thức
-    return "research"      # Dùng web search cho câu hỏi thời sự
+        return "retrieve"  # Use RAG for proprietary knowledge queries
+    return "research"      # Use web search for real-time/current queries
 ```
 
-> ⚠️ **LƯU Ý:** Chất lượng RAG phụ thuộc rất nhiều vào chất lượng chunks và embedding. Chunk size quá lớn → mất thông tin chi tiết. Chunk size quá nhỏ → mất ngữ cảnh. Hãy thử nghiệm với chunk_size 300-1000 và chunk_overlap 50-200.
+> ⚠️ **NOTE:** RAG efficacy relies heavily on chunking quality and embedding relevance. Chunks that are too large dilute salient details; chunks that are too small lose crucial context. Experiment with `chunk_size` between 300-1000 and `chunk_overlap` between 50-200.
 
-> 🔑 **ĐIỂM CHÍNH:** RAG giải quyết vấn đề "LLM không biết dữ liệu riêng của bạn". Thay vì fine-tune model (đắt và phức tạp), bạn chỉ cần đưa tài liệu liên quan vào context. Đây là cách phổ biến nhất để xây dựng agent có kiến thức chuyên biệt.
+> 🔑 **KEY TAKEAWAY:** RAG resolves the fundamental limitation of "LLMs lacking access to your proprietary data." Instead of cost-prohibitive and complex model fine-tuning, you inject relevant passages into context dynamically. This remains the industry standard for specialized domain knowledge.
 
 ---
 
 ```mermaid
 flowchart LR
     IN[User query] --> GR[Guardrail input check]
-    GR --> RS[reason: chon hanh dong]
+    GR --> RS[reason: select action]
     RS --> RT{tool call?}
-    RT -->|tool thuong| ACT[act: chay tool an toan]
-    RT -->|tool rui ro| HUMAN["HITL interrupt: cho nguoi duyet"]
-    RT -->|du du kien| FIN[finalize: cau tra loi]
-    HUMAN -->|dong y| ACT
-    HUMAN -->|tu choi| RS
-    ACT --> AS[assess: du du kien chua?]
-    AS -->|chua + con vong| RS
-    AS -->|het vong| ESC[finalize_with_partial: escape hatch]
+    RT -->|standard tool| ACT[act: execute safe tool]
+    RT -->|high-risk tool| HUMAN["HITL interrupt: await human approval"]
+    RT -->|sufficient facts| FIN[finalize: answer]
+    HUMAN -->|approved| ACT
+    HUMAN -->|rejected| RS
+    ACT --> AS[assess: sufficient facts?]
+    AS -->|insufficient + turns left| RS
+    AS -->|turns exhausted| ESC[finalize_with_partial: escape hatch]
     FIN --> OUT[Output + citations]
     ESC --> OUT
 ```
-> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNplUttO4zAQ_ZWRXxd-oA-LKna3IHGRkvQpqdDImdYWrh2c8aJs03_fiRNAQF4sndvcclI6tKRWoPYuvGqDkeGuaDzId_tQb3uK8JIoDju4vPwJm6LeJIxtROvA-i4xaEP6eTc7NkVWFWUdCfvgV8IGDwa9gTb4wyIryllWnTgEBxqduzovVDVRY8bZJPGMsL6uatQ8heEAmUIvL_rdd1NMFmIY4WZ7v36oG3VzW91Jp0wxpi5nBPCHFCy0aSBu1OeMNgkOz5b8CH9kAXvr0dl_JEZMwBHBBbtYconZJX3CkDv9SnGaStpRhp4p0eTp12WNfU99v4KPoqJNeLXkr_OaxgmCH6BlkX_zPt6TZt4QL8Tv8vq94adXy-apk3tadCugXmNHcgnWZomX8XIjj9uqfkw83VKqWEa2wfeLSCLfROoC1JHiEW07_S-nSdAoNnSkRoBGtbTH5GSljT9PYkwcysFrITkmEiR1LTL9sniIeFzg839QtM0G)
+> [📊 Open diagram on Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNplUttO4zAQ_ZWRXxd-oA-LKna3IHGRkvQpqdDImdYWrh2c8aJs03_fiRNAQF4sndvcclI6tKRWoPYuvGqDkeGuaDzId_tQb3uK8JIoDju4vPwJm6LeJIxtROvA-i4xaEP6eTc7NkVWFWUdCfvgV8IGDwa9gTb4wyIryllWnTgEBxqduzovVDVRY8bZJPGMsL6uatQ8heEAmUIvL_rdd1NMFmIY4WZ7v36oG3VzW91Jp0wxpi5nBPCHFCy0aSBu1OeMNgkOz5b8CH9kAXvr0dl_JEZMwBHBBbtYconZJX3CkDv9SnGaStpRhp4p0eTp12WNfU99v4KPoqJNeLXkr_OaxgmCH6BlkX_zPt6TZt4QL8Tv8vq94adXy-apk3tadCugXmNHcgnWZomX8XIjj9uqfkw83VKqWEa2wfeLSCLfROoC1JHiEW07_S-nSdAoNnSkRoBGtbTH5GSljT9PYkwcysFrITkmEiR1LTL9sniIeFzg839QtM0G)
 
-## 4.8A Harness Engineering — Khung quanh agent
+## 4.8A Harness Engineering — The Scaffolding Around the Agent
 
-### Harness là gì?
+### What Is a Harness?
 
-Nếu LLM là bộ não thì **harness** (khung kết cấu) là toàn bộ phần còn lại của cơ thể: scaffolding (vòng lặp agent), tools, guardrails, giới hạn chi phí, và feedback loop. Một công thức dùng nhiều trong ngành năm 2026:
+If the LLM is the brain, then the **harness** is the rest of the body: scaffolding (agent reasoning loop), tools, guardrails, cost limits, and feedback loops. A widespread industry maxim in 2026 states:
 
-> **Agent giỏi là agent có harness giỏi.**
+> **A great agent is an agent with a great harness.**
 
-Điều này giải thích vì sao các nền tảng lớn — Claude Agent SDK, OpenAI Agents SDK, LangGraph — đều converge về cùng một kiến trúc: chúng không bán "model thông minh hơn", chúng cung cấp **harness có sẵn**: vòng lặp tool-call có kiểm soát, giới hạn bước, context quản lý, permission gate. Stanford CS329Z (Engineering AI Agents, Fall 2026) thậm chí đặt homework đầu tiên là "Build an Agentic Harness" — trước cả bài tập về model.
+This explains why major platforms — Claude Agent SDK, OpenAI Agents SDK, LangGraph — all converge on identical architectural patterns: they do not merely sell "smarter models," they provide **turnkey harnesses**: controlled tool-calling loops, step budgets, context window management, and permission gates. Stanford CS329Z (Engineering AI Agents, Fall 2026) even assigned "Build an Agentic Harness" as its very first homework assignment — prior to assignments focusing on models.
 
-Một harness tối thiểu gồm 4 thành phần:
+A minimal harness consists of 4 components:
 
-1. **Scaffolding:** vòng lặp agent — tools — observation (mà bạn đã xây ở §4.6)
-2. **Tools:** tập công cụ được khai báo schema rõ ràng (§4.5, §4.8B)
-3. **Guardrails:** kiểm tra input/output, giới hạn quyền, chống prompt injection
-4. **Feedback loop:** cách agent nhận biết kết quả tốt/xấu và tự sửa (review node ở §4.7 là một dạng)
+1. **Scaffolding:** The agent — tools — observation execution loop (built in §4.6)
+2. **Tools:** Explicitly defined tool schemas (§4.5, §4.8B)
+3. **Guardrails:** Input/output validation, permission boundary checks, prompt injection defenses
+4. **Feedback loop:** Mechanisms for evaluating output quality and self-correcting (the review node in §4.7 is an example)
 
-### Chống pattern drift
+### Mitigating Pattern Drift
 
-Pattern drift là hiện tượng agent **sao chép pattern xấu trong chính codebase của bạn** — nếu prompt mẫu hoặc tool cũ trong repo viết thiếu error handling, agent (và cả đồng đội dùng AI assistant) sẽ sinh code mới theo đúng pattern xấu đó, và lỗi lan truyền qua từng commit. Chống pattern drift bằng cách tập trung harness vào **một chỗ duy nhất**: system prompt, khai báo tools, guardrails, và giới hạn đều được định nghĩa ở một module, mọi agent trong dự án dùng chung.
+Pattern drift occurs when an agent **reproduces flawed patterns present in your own codebase** — if repository sample prompts or legacy tools lack proper error handling, the agent (as well as teammates using AI coding assistants) will generate new code adopting those identical anti-patterns, propagating bugs across commits. Combat pattern drift by consolidating the harness in **a single centralized location**: system prompts, tool declarations, guardrails, and operational limits are defined in one shared module consumed by all agents across the project.
 
 ```python
 from dataclasses import dataclass, field
@@ -1115,66 +1115,66 @@ from langchain_core.tools import BaseTool
 
 @dataclass
 class AgentHarness:
-    """Harness = mọi thứ quanh LLM, khai báo tập trung một chỗ."""
+    """Harness = everything surrounding the LLM, centrally declared in one place."""
     system_prompt: str
     tools: list[BaseTool] = field(default_factory=list)
-    guardrails: list = field(default_factory=list)   # hàm check_input / check_output
-    max_steps: int = 10          # chống loop vô hạn (chi tiết §4.8C)
-    budget_usd: float = 0.10     # trần chi phí mỗi phiên
+    guardrails: list = field(default_factory=list)   # check_input / check_output functions
+    max_steps: int = 10          # prevent infinite loops (detailed in §4.8C)
+    budget_usd: float = 0.10     # session spending ceiling
 
-# Toàn bộ agent trong dự án dùng chung harness này —
-# sửa một chỗ, mọi nơi được cập nhật, không drift.
+# All project agents share this centralized harness —
+# modify once, update everywhere, preventing pattern drift.
 HARNESS = AgentHarness(
-    system_prompt="Bạn là trợ lý nghiên cứu. Chỉ dùng tool được cấp...",
+    system_prompt="You are a research assistant. Use only authorized tools...",
     tools=[web_search, calculate],
     guardrails=[block_prompt_injection, mask_pii],
 )
 ```
 
-### Log agent (ch02) và harness sản phẩm (phần này) — khác nhau thế nào?
+### Agent Logging (Chapter 2) vs. Production Harness (This Section)
 
-Chương 2 đã dạy bạn cài **hooks Claude Code để LOG** usage AI của đội: capture prompt, tool call, gửi về grading server khi git push. Đó là harness **cho quy trình làm việc** (workflow) — quan sát con người dùng AI như thế nào. Phần này là harness **cho sản phẩm**: khung chạy quanh agent mà người dùng cuối tương tác. Hai thứ bổ sung nhau: hooks ch02 cho bạn dữ liệu quy trình để báo cáo; harness sản phẩm quyết định agent của đội chạy an toàn và ổn định thế nào. Đội có cả hai là đội hiểu agent ở cả hai tầng.
+Chapter 2 guided you in configuring **Claude Code hooks to LOG** team AI usage: capturing prompts, tool calls, and telemetry transmitted to grading servers on git push. That constitutes a harness **for workflow observability** — observing how humans interact with AI. This section addresses the harness **for the production application**: the runtime boundary encasing the agent during end-user interaction. Both complement each other: Chapter 2 hooks provide workflow telemetry for reporting; production harnesses ensure agents operate securely and predictably in production. Teams mastering both operate with deep multi-tier agent literacy.
 
-> 💡 **MẸO:** Khi đọc code các agent SDK (Claude Agent SDK, OpenAI Agents SDK), hãy đếm xem bao nhiêu phần trăm code là "vòng lặp LLM" và bao nhiêu là phần còn lại — permission, retry, giới hạn, format context. Con số thứ hai thường chiếm đa số, và đó chính là harness.
+> 💡 **TIP:** When inspecting agent SDK codebases (Claude Agent SDK, OpenAI Agents SDK), measure what percentage of code represents the "LLM inference loop" versus surrounding infrastructure — permissions, retries, step limits, context formatting. The latter almost always dominates the codebase: that infrastructure is the harness.
 
 ---
 
 ## 4.8B MCP — Model Context Protocol
 
-### Chuẩn công nghiệp cho tool access
+### The Industry Standard for Tool Access
 
-Tới năm 2026, **MCP (Model Context Protocol)** — được Anthropic công bố cuối 2024 và chuyển sang Linux Foundation — đã trở thành chuẩn công nghiệp để agent truy cập tools: một protocol mở chuẩn hóa cách khai báo tool, cách agent gọi tool, và cách server cung cấp tool. Thay vì mỗi dự án tự viết lớp kết nối riêng tới mỗi API, bạn viết **một MCP server** và mọi client hiểu MCP (Claude Code, Cursor, LangChain, ChatGPT, v.v.) dùng được ngay.
+By 2026, **MCP (Model Context Protocol)** — open-sourced by Anthropic in late 2024 and transitioned to the Linux Foundation — established itself as the open industry standard for agent tool integration: a standardized protocol governing tool schemas, invocation semantics, and server-side capability exposure. Instead of building bespoke API wrapper layers across projects, you write **one MCP server**, allowing any MCP-compliant client (Claude Code, Cursor, LangChain, ChatGPT, etc.) to consume it out of the box.
 
-Vì sao điều này quan trọng với đội của bạn:
+Why this matters for your engineering team:
 
-1. **Viết một lần, dùng mọi nơi:** tool search viết thành MCP server chạy được trong Claude Code khi dev, và trong app LangGraph khi deploy
-2. **Tách biệt quyền:** MCP server chạy tiến trình riêng — có thể giới hạn quyền, log, sandbox độc lập với agent
-3. **Ngôn ngữ trung tính:** server viết bằng Python, client bằng TypeScript, giao tiếp qua JSON-RPC
+1. **Write once, run anywhere:** A search tool implemented as an MCP server runs inside Claude Code during local development and seamlessly inside LangGraph applications in production.
+2. **Permission isolation:** MCP servers run in dedicated isolated processes — allowing independent sandboxing, privilege separation, and logging.
+3. **Language agnostic:** Servers written in Python communicate with clients written in TypeScript over standardized JSON-RPC.
 
-### MCP server đơn giản với FastMCP
+### Building a FastMCP Server
 
 ```python
-# server_search.py — MCP server cung cấp tool tìm kiếm
+# server_search.py — MCP server exposing a web search tool
 from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP("web-search")
 
 @mcp.tool()
 def web_search(query: str, max_results: int = 5) -> str:
-    """Tìm kiếm thông tin trên web cho câu truy vấn.
+    """Search the web for a given query string.
 
     Args:
-        query: Câu truy vấn tìm kiếm, cụ thể và rõ ràng
-        max_results: Số kết quả tối đa (1-10, mặc định 5)
+        query: Clear, specific search query
+        max_results: Maximum results to return (1-10, default 5)
     """
-    # Giữ nguyên logic web_search bạn đã viết ở §4.5
-    return f"[Kết quả cho '{query}']: ..."
+    # Reuse the web_search logic implemented in §4.5
+    return f"[Results for '{query}']: ..."
 
 if __name__ == "__main__":
-    mcp.run(transport="stdio")  # chạy local qua stdin/stdout
+    mcp.run(transport="stdio")  # run locally via stdin/stdout
 ```
 
-Và phía agent LangGraph, kết nối tới MCP server bằng `langchain-mcp-adapters`:
+Connecting to the MCP server within a LangGraph agent using `langchain-mcp-adapters`:
 
 ```python
 from langchain_mcp_adapters.client import MultiServerMCPClient
@@ -1190,121 +1190,121 @@ async def main():
             }
         }
     ) as client:
-        tools = client.get_tools()  # MCP tools trở thành LangChain tools
+        tools = client.get_tools()  # MCP tools adapt into LangChain tools
         agent = create_react_agent(llm, tools)
         result = await agent.ainvoke(
-            {"messages": [("user", "GDP Việt Nam 2024 là bao nhiêu?")]}
+            {"messages": [("user", "What is Vietnam's GDP in 2024?")]}
         )
 ```
 
-### Khi nào dùng MCP, khi nào viết tool thường?
+### When to Use MCP vs. Standard Tools
 
-| Tình huống | Nên chọn |
+| Scenario | Recommended Approach |
 |---|---|
-| Tool nội bộ, chỉ agent của đội dùng, logic đơn giản | Tool thường (`@tool`) — ít lớp trừu tượng hơn |
-| Cần dùng cùng tool trong nhiều môi trường (dev CLI + app deploy) | MCP server |
-| Tool cần quyền truy cập nhạy cảm (DB nội bộ, API trả phí) — muốn tách quyền, log riêng | MCP server |
-| Dùng service có sẵn MCP server (GitHub, filesystem, browser, Slack...) | Luôn MCP — không tự viết lại |
+| Internal tool, used solely by one team agent, straightforward logic | Standard tool (`@tool`) — fewer abstraction layers |
+| Reusing the identical tool across multiple environments (CLI dev + deployed app) | MCP server |
+| Tool requires sensitive access (internal DB, paid API) — requires isolated privilege separation and audit logging | MCP server |
+| Utilizing external services with existing MCP servers (GitHub, filesystem, browser, Slack...) | Always MCP — avoid reinventing the wheel |
 
-Case cohort 2 minh họa hướng đi này: đội **Aclaris aiKnowledge Hub** xây pipeline biên soạn tri thức bằng 2 agent dùng **MCP tools** cho các thao tác đọc/ghi tri thức, tách phần thực thi khỏi phần suy luận — nhờ đó pipeline MAP → REDUCE → REFINE → VERIFY → COMMIT (xem §4.8E) chạy ổn định qua nhiều tool call dài hạn.
+Case study from Cohort 2: The **Aclaris aiKnowledge Hub** team developed a knowledge authoring pipeline where 2 agents utilized **MCP tools** for reading and writing knowledge records, separating execution from inference. As a result, their MAP → REDUCE → REFINE → VERIFY → COMMIT pipeline (see §4.8E) operated reliably across prolonged tool-calling sessions.
 
-**Bài tập 4.8A-B.** Chuyển tool `web_search` ở §4.5 của bạn thành một MCP server (file `server_search.py`), rồi viết script client kết nối và gọi tool qua MCP. **Output nộp:** (1) file server, (2) screenshot hoặc log một lượt gọi tool thành công qua MCP client, (3) một đoạn 5 dòng giải thích đội bạn sẽ dùng MCP cho tool nào trong dự án và tại sao.
+**Exercise 4.8A-B.** Convert the `web_search` tool from §4.5 into an MCP server (`server_search.py`), then write a client script connecting to and invoking the tool over MCP. **Deliverables:** (1) server file, (2) screenshot or log output demonstrating a successful tool invocation via the MCP client, (3) a 5-line explanation identifying which project tool your team will expose via MCP and why.
 
 ---
 
-## 4.8C Loop Engineering — Thiết kế điều kiện dừng
+## 4.8C Loop Engineering — Designing Termination Criteria
 
-### Vòng lặp nào cũng cần lối ra
+### Every Loop Demands an Exit
 
-ReAct ở §4.6 tạo ra vòng lặp `agent → tools → agent`. Vòng lặp là sức mạnh của agent — nhưng vòng lặp **không có điều kiện dừng tốt** là cách nhanh nhất để đốt hết ngân sách API. Loop engineering là kỹ năng thiết kế **stopping criteria** một cách tường minh, thay vì hy vọng LLM "tự biết lúc nào đủ".
+The ReAct architecture in §4.6 sets up an execution loop: `agent → tools → agent`. Loops provide agents with adaptive power — but a loop **without deterministic stopping criteria** is the fastest path to consuming API token budgets. Loop engineering is the discipline of defining explicit **stopping criteria**, rather than trusting that an LLM will "know when to stop."
 
-Bốn lớp điều kiện dừng, từ thô tới tinh:
+Four layers of stopping criteria, from coarse to granular:
 
-1. **Max-iterations:** giới hạn cứng số vòng lặp — lớp bắt buộc, không bao giờ bỏ
-2. **Budget tokens/chi phí:** dừng khi tổng chi phí phiên vượt ngưỡng (ví dụ 0.10 USD)
-3. **Self-assessment node:** một node cho agent **tự hỏi** "đủ dữ kiện trả lời chưa?" trước mỗi vòng
-4. **Escape hatch:** mọi trạng thái đều phải có đường tới END — kể cả khi mọi thứ lỗi
+1. **Max iterations:** A hard ceiling on loop iterations — non-negotiable and mandatory.
+2. **Token / cost budget:** Halts execution when total session cost breaches a predetermined threshold (e.g., $0.10 USD).
+3. **Self-assessment node:** A dedicated node where the agent **evaluates** whether sufficient facts have been accumulated before each subsequent turn.
+4. **Escape hatch:** Every graph branch must possess an explicit path to `END` — even during cascading failures.
 
-### Self-assessment node
+### Self-Assessment Node
 
 ```python
 async def assess_node(state: ResearchState) -> dict:
-    """Agent tự hỏi: đã đủ dữ kiện trả lời chưa?"""
-    prompt = f"""Bạn đang trả lời câu hỏi: {state['query']}
-Đã thu thập: {len(state.get('search_results', []))} kết quả tìm kiếm.
-Đủ dữ kiện để trả lời đầy đủ chưa?
-Trả về JSON: {{"enough": true/false, "missing": "thiếu gì nếu chưa đủ"}}"""
+    """Agent evaluates: are there sufficient facts to formulate the final answer?"""
+    prompt = f"""You are answering the question: {state['query']}
+Collected so far: {len(state.get('search_results', []))} search results.
+Are there enough facts to provide a complete answer?
+Return JSON: {{"enough": true/false, "missing": "what is missing if not enough"}}"""
     response = await llm.ainvoke([HumanMessage(content=prompt)])
     import json
     try:
         return {"enough_info": json.loads(response.content).get("enough", False)}
     except json.JSONDecodeError:
-        return {"enough_info": False}  # parse lỗi → coi như chưa đủ, vòng sau chốt
+        return {"enough_info": False}  # parse failure -> assume insufficient, evaluate next turn
 ```
 
-### Escape hatch — học từ đội CareerPulse (011)
+### Escape Hatches — Lessons from Team CareerPulse (011)
 
-Đội **CareerPulse (cohort 1)** làm đúng bài toán này trong agent phỏng vấn: node interviewer **tự kiểm tra số câu hỏi đã hỏi**, khi `question_count >= max` thì chuyển sang pha `Closing` — luôn luôn có đường tới END, kể cả khi LLM vẫn "muốn hỏi thêm". Kèm theo `retry_policy` tối đa 3 lần và SqliteSaver checkpoint để phục hồi phiên. Logic routing chỉ cần vài dòng:
+Team **CareerPulse (Cohort 1)** demonstrated exemplary loop design in their interview agent: the interviewer node **tracks the count of questions asked**, transitioning to the `Closing` phase once `question_count >= max` — ensuring an inescapable path to `END` regardless of whether the LLM "wishes to ask more." They paired this with a `retry_policy` capped at 3 attempts and a `SqliteSaver` checkpointer for session persistence. The routing logic requires only a few lines:
 
 ```python
 MAX_QUESTIONS = 5
 BUDGET_USD = 0.10
 
 def route_interview(state: dict) -> str:
-    """Escape hatch: mọi nhánh đều có đường tới END."""
+    """Escape hatch: every execution path guarantees a route to END."""
     if state.get("question_count", 0) >= MAX_QUESTIONS:
-        return "closing"                      # hết lượt hỏi
+        return "closing"                      # question limit reached
     if state.get("cost_usd", 0.0) >= BUDGET_USD:
-        return "closing"                      # hết ngân sách
+        return "closing"                      # budget ceiling reached
     if state.get("enough_info"):
-        return "closing"                      # agent tự đánh giá đã đủ
-    return "ask"                              # chưa đủ → hỏi tiếp
+        return "closing"                      # agent self-assessment satisfied
+    return "ask"                              # insufficient -> ask next question
 ```
 
-Nguyên tắc thiết kế: **điều kiện dừng nằm trong code (deterministic), không nằm trong prompt**. Prompt có thể nói "hãy ngừng khi đủ thông tin" — nhưng chỉ dòng code `question_count >= MAX_QUESTIONS` mới bảo đảm dừng. Tư duy này cũng là trọng tâm câu hỏi loop-breaking assessment của case Gamma: agent sản phẩm phải chốt được câu trả lời trong trần lượt, chứ không "tự do" vô hạn.
+Design rule: **Termination criteria must reside in deterministic code, never solely inside prompts**. A prompt may suggest "stop once sufficient information is gathered" — but only a line of code like `question_count >= MAX_QUESTIONS` guarantees termination. This mental model forms the core of loop-breaking assessments: production agents must finalize answers within explicit operational boundaries rather than running unboundedly.
 
-> ⚠️ **LƯU Ý:** Vòng lặp ReAct mặc định của `create_react_agent` đã có `recursion_limit` (mặc định 25 bước) — graph vượt giới hạn sẽ raise `GraphRecursionError`. Đây là lưới an toàn cuối cùng, không phải điều kiện dừng chính của bạn. Thiết kế điều kiện dừng như một phần của sản phẩm, đừng delegate việc đó cho exception.
+> ⚠️ **NOTE:** The default ReAct loop created by `create_react_agent` includes a `recursion_limit` (defaulting to 25 steps) — exceeding this threshold raises a `GraphRecursionError`. This is an emergency safety net, not your primary stopping condition. Design application-level stopping criteria deliberately into your graph; never delegate control flow to runtime exceptions.
 
 ---
 
-## 4.8D Graph Orchestration — Khi nào cần graph thật?
+## 4.8D Graph Orchestration — When Do You Truly Need a Graph?
 
-### Graph không phải là mặc định
+### A Graph Is Not the Default
 
-Chương này dạy LangGraph từ đầu vì graph là mô hình tư duy đúng cho agent có trạng thái. Nhưng một quan sát quan trọng từ chính các đội AI20K: **nhiều team outgrow LangGraph** — bắt đầu với graph 10 node, rồi nhận ra luồng thực tế chỉ đi 2-3 đường cố định. Đội **NexusEdu (007)** — đội có điểm code cao nhất cohort 1 — ghi thẳng trong README rằng họ đã "refactored from complex graph models for maximum reliability": rời khỏi graph phức tạp sang deterministic chains, và sản phẩm ổn định hơn. **Rời graph khi không cần là quyết định kiến trúc đúng, không phải thất bại.**
+This chapter introduces LangGraph because state machines represent the correct paradigm for stateful agent systems. However, a critical empirical finding from AI20K cohorts is that **many teams outgrow LangGraph** — beginning with a 10-node graph before discovering their runtime path only traverses 2-3 deterministic sequences. Team **NexusEdu (007)** — who earned the highest code quality score in Cohort 1 — explicitly documented in their README that they "refactored from complex graph models for maximum reliability": transitioning from complex graphs to deterministic chains resulted in markedly higher stability. **Decoupling from unnecessary graph complexity is an architectural victory, not a regression.**
 
-Mọi layer orchestration thêm vào đều có giá: debug khó hơn, onboarding đồng đội chậm hơn, lỗi state khó tái hiện hơn. Dùng đúng tầng vừa đủ:
+Every orchestration layer introduces trade-offs: steeper debugging curves, slower onboarding, and harder state replication. Select the minimal abstraction layer that satisfies requirements:
 
-| Tình huống | Nền tảng nên dùng | Ví dụ |
+| Scenario | Recommended Foundation | Example |
 |---|---|---|
-| Luồng cố định A → B → C, không nhánh | **Chain đơn** (gọi LLM tuần tự) | Dịch, tóm tắt, extract |
-| Có phân loại đầu vào, mỗi loại một luồng xử lý | **Router + chain** (conditional edge đầu graph) | Phân loại câu hỏi → RAG hoặc web search (§4.8) |
-| Cần vòng lặp, quay lại bước trước theo điều kiện runtime | **Graph** (LangGraph) | Planning agent §4.7, ReAct §4.6 |
-| Nhiều vai trò chuyên biệt, cần phân công và tổng hợp kết quả | **Multi-agent / supervisor-worker** | DevCoach 002: 6 agents một supervisor |
+| Deterministic sequence A → B → C without branching | **Simple chain** (sequential LLM calls) | Translation, summarization, extraction |
+| Input classification routing to specialized handlers | **Router + chains** (conditional edge at graph entry) | Query classification → RAG or web search (§4.8) |
+| Runtime looping and state back-tracking based on conditions | **Graph** (LangGraph) | Planning agent §4.7, ReAct §4.6 |
+| Multiple specialized roles requiring delegation and synthesis | **Multi-agent / supervisor-worker** | DevCoach 002: 6 worker agents with 1 supervisor |
 
-### Nếu dùng graph: ba tính năng đáng giá
+### Three Indispensable Features When Using Graphs
 
-**1. Conditional edge THẬT** — routing function phải thật sự thay đổi luồng, không phải no-op trả về cùng một node mọi trường hợp (một lỗi template cũ từng mắc: khai báo conditional edge nhưng map cả hai nhánh về cùng node — graph "có điều kiện" trên giấy, tuyến tính trong thực tế). Mọi nhánh trong map phải dẫn tới node khác nhau:
+**1. GENUINE Conditional Edges** — The routing function must legitimately alter execution paths, avoiding no-op anti-patterns where every condition maps to the exact same node (a common template anti-pattern where conditional edges mapped both branches to the identical target — rendering the graph conditional on paper, but linear in reality). Every branch in the mapping dictionary should lead to a distinct node:
 
 ```python
 graph.add_conditional_edges(
     "review",
     should_continue_research,
     {
-        "research": "research",   # lặp lại — đường về trước
-        "finalize": "finalize",   # chốt — hai đường THẬT khác nhau
+        "research": "research",   # loop back — previous step
+        "finalize": "finalize",   # complete — two DISTINCT destinations
     },
 )
 ```
 
-**2. Subgraph** — gói một graph con thành một node của graph cha, để phân tách mối quan tâm (ví dụ: subgraph "nghiên cứu" làm việc với `search_results`, graph cha chỉ thấy `draft`):
+**2. Subgraphs** — Encapsulate a nested graph into a single node within the parent graph to maintain clean separation of concerns (e.g., a "research" subgraph operates over `search_results`, while the parent graph only inspects the final `draft`):
 
 ```python
-research_subgraph = research_builder.compile()   # graph §4.7 như một module
-graph.add_node("research", research_subgraph)    # dùng như node thường
+research_subgraph = research_builder.compile()   # §4.7 graph treated as a module
+graph.add_node("research", research_subgraph)    # consumed like a standard node
 ```
 
-**3. Checkpointer** — lưu state sau mỗi bước để debug time-travel và phục hồi phiên (đội 011 dùng SqliteSaver cho persistence phiên phỏng vấn):
+**3. Checkpointers** — Persist state snapshots after each step to facilitate time-travel debugging and session recovery (Team 011 utilized `SqliteSaver` for interview session persistence):
 
 ```python
 from langgraph.checkpoint.memory import InMemorySaver
@@ -1316,15 +1316,15 @@ result = await app.ainvoke(
 )
 ```
 
-**Bài tập 4.8C-D.** Viết một trang ADR (Architecture Decision Record, xem chương 3) cho dự án đội bạn, trả lời: dự án cần chain, router, graph, hay multi-agent? Trích 2 yêu cầu chức năng làm bằng chứng. Nếu chọn graph: vẽ graph (node + edge thật, không no-op) và chỉ rõ điều kiện dừng từng vòng lặp theo 4 lớp ở §4.8C. **Output nộp:** file `docs/ADR-orchestration.md` + diagram.
+**Exercise 4.8C-D.** Author a one-page Architecture Decision Record (ADR, reference Chapter 3) for your team's project addressing: Does the application require a chain, a router, a graph, or multi-agent orchestration? Cite 2 functional requirements as justification. If selecting a graph: diagram the architecture (displaying actual non-trivial nodes and edges) and define termination criteria across the 4 layers described in §4.8C. **Deliverables:** `docs/ADR-orchestration.md` file + architecture diagram.
 
 ---
 
-## 4.8E Multi-LLM — Cascade Routing và Judge khác Generator
+## 4.8E Multi-LLM — Cascade Routing and Judge-Generator Separation
 
-### Không phải task nào cũng cần model đắt
+### Not Every Task Warrants a Frontier Model
 
-Dùng một model duy nhất cho mọi request là lãng phí: phần lớn câu hỏi người dùng (FAQ, tra cứu đơn giản) không cần model flagship. **Cascade routing cheap-first** chạy model rẻ trước, chỉ escalate lên model mạnh khi cần:
+Routing every request to a single flagship model is cost-inefficient: a large share of queries (FAQs, direct lookups) requires minimal reasoning capacity. **Cascade routing (cheap-first)** invokes lightweight models initially, escalating to frontier models only when necessary:
 
 ```python
 CHEAP = "gpt-4o-mini"
@@ -1332,7 +1332,7 @@ STRONG = "gpt-4o"
 CONFIDENCE_THRESHOLD = 0.7
 
 async def cascade_answer(query: str, state: dict) -> dict:
-    """Model rẻ trả lời trước; confidence thấp thì escalate model mạnh."""
+    """Lightweight model answers first; escalate to frontier model if confidence is low."""
     cheap = await llm_with_confidence(CHEAP).ainvoke(query)
     if cheap.confidence >= CONFIDENCE_THRESHOLD:
         return {"answer": cheap.text, "model_used": CHEAP}
@@ -1340,67 +1340,67 @@ async def cascade_answer(query: str, state: dict) -> dict:
     return {"answer": strong.text, "model_used": STRONG}
 ```
 
-Luồng cascade:
+Cascade flow diagram:
 
 ```mermaid
 flowchart TD
-    Q["Câu hỏi người dùng"] --> R{"Router: câu đơn giản hay phức tạp?"}
-    R -->|"Câu đơn giản"| Cheap["Model rẻ: gpt-4o-mini"]
-    R -->|"Câu phức tạp"| Strong["Model mạnh: gpt-4o"]
+    Q["User query"] --> R{"Router: simple or complex?"}
+    R -->|"Simple query"| Cheap["Lightweight model: gpt-4o-mini"]
+    R -->|"Complex query"| Strong["Frontier model: gpt-4o"]
     Cheap --> C{"Confidence >= 0.7?"}
-    C -->|"Đạt"| J
-    C -->|"Không đạt - escalate"| Strong
-    Strong --> J["Judge: model thứ ba chấm điểm"]
-    J -->|"Đạt"| Out["Trả lời người dùng"]
-    J -->|"Không đạt - sinh lại"| Strong
+    C -->|"Sufficient"| J
+    C -->|"Insufficient - escalate"| Strong
+    Strong --> J["Judge: third model evaluates output"]
+    J -->|"Approved"| Out["Return answer to user"]
+    J -->|"Rejected - regenerate"| Strong
 ```
-> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNp9kl1rwyAUhv_KwetlJGvHaGDdRXqVMcba3s1dGDVRiCZYZZS2_31q0mxltLkIx_Px-L4HD4h2jKMcUN1231QQY2G7whr89_GJUYFdmvIHBwK7jNNagm58KqvScGZMAgsd9cKn0RckyRLWB4zWnbPc5EDP42Emy8KfZBoaGabJTIMge-gjmy8o2JjO-heMToOGdUAe_-i4AsLoCIXgpPea37yjFkyoVFUOTW-TeZcoqaWXeAX7X0MgbqzpdDMh1VDS4gydePHq6L7w7otO15JxTTksnyG9f_r1U4wXRxvpwLPhqvKy_iriWue6mRzHVkiA7yhpieW_AofRIY4iSi-5dKzhOaio3I72oCJAY0we1UiOK6QzNZkpr2l8d9aDt2bYObTnJ3DrSVwib9jaSS0GJPGSJm_oDpDiRhHJwis9BB5GVnDlF5D7kPGauNbrw_oUmomz3WavqS9a47jPuJ75da0kaQxRY_r0A2Fw60E=)
+> [📊 Open diagram on Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNp9kl1rwyAUhv_KwetlJGvHaGDdRXqVMcba3s1dGDVRiCZYZZS2_31q0mxltLkIx_Px-L4HD4h2jKMcUN1231QQY2G7whr89_GJUYFdmvIHBwK7jNNagm58KqvScGZMAgsd9cKn0RckyRLWB4zWnbPc5EDP42Emy8KfZBoaGabJTIMge-gjmy8o2JjO-heMToOGdUAe_-i4AsLoCIXgpPea37yjFkyoVFUOTW-TeZcoqaWXeAX7X0MgbqzpdDMh1VDS4gydePHq6L7w7otO15JxTTksnyG9f_r1U4wXRxvpwLPhqvKy_iriWue6mRzHVkiA7yhpieW_AofRIY4iSi-5dKzhOaio3I72oCJAY0we1UiOK6QzNZkpr2l8d9aDt2bYObTnJ3DrSVwib9jaSS0GJPGSJm_oDpDiRhHJwis9BB5GVnDlF5D7kPGauNbrw_oUmomz3WavqS9a47jPuJ75da0kaQxRY_r0A2Fw60E=)
 
-Theo các số liệu công bố về cascade routing (OpenAI, Microsoft AI agent design patterns), cách phân tầng này thường giúp **giảm đáng kể chi phí** — con số ~60% được ghi nhận ở các hệ thống có tỷ lệ lớn câu hỏi đơn giản — vì phần lớn request không bao giờ chạm tới model đắt. Đội bạn nên đo tỷ lệ escalate thực tế của chính mình thay vì lấy số của người khác.
+Empirical data published on cascade routing (OpenAI, Microsoft AI agent design patterns) demonstrates that multi-tiered routing can **drastically reduce inference expenditure** — savings around ~60% are documented in workloads with high proportions of simple queries — because the vast majority of requests never touch premium models. Teams should benchmark their own escalation ratios rather than relying on external estimates.
 
-### Judge khác Generator — người chấm phải khác người viết
+### Separate Judge from Generator — The Evaluator Must Not Be the Author
 
-Khi cần đánh giá chất lượng câu trả lời tự động (LLM-as-judge), quy tắc số một: **model chấm phải khác model sinh**. Model tự chấm bài của chính mình có bias thiên vị kết quả mình tạo ra — điểm tự chấm thường cao hơn điểm chấm bởi model khác. Dùng model thứ ba làm judge, hoặc tối thiểu một phiên bản/pipeline khác.
+When automating answer evaluation (LLM-as-a-judge), the golden rule is: **the evaluator model must differ from the generator model**. Models evaluating their own outputs exhibit self-preference bias — assigning higher scores to their own text than third-party models do. Employ a distinct third model as the judge, or at minimum an isolated independent evaluation pipeline.
 
-Liên hệ các case đã học:
+Case study takeaways:
 
-- **Aclaris aiKnowledge Hub (cohort 2):** kiến trúc **2-agent** — agent biên soạn chạy pipeline MAP → REDUCE → REFINE → VERIFY → COMMIT, agent verifier **độc lập** dò mâu thuẫn nội dung trước khi COMMIT vào wiki. Chính cấu trúc generator ≠ verifier này giúp đạt Hit Rate 0.91 và Groundedness 0.96 trong eval.
-- **NurA Nurse Assistant (cohort 2):** mở rộng thành nhiều lớp kiểm tra nối tiếp — phủ định keyword → LLM intent classifier → grounding guard → output guard. Mỗi lớp bắt loại lỗi lớp trước có thể bỏ sót.
-- **VibeMaster (009, cohort 1):** tự định nghĩa **citation-accuracy metric** — đo đích số trích dẫn có thật trong nguồn — thay vì chỉ hỏi LLM "câu trả lời tốt không". Metric cụ thể, đếm được, luôn thắng đánh giá chung chung.
+- **Aclaris aiKnowledge Hub (Cohort 2):** Deployed a **2-agent** architecture — the author agent executes the MAP → REDUCE → REFINE → VERIFY → COMMIT pipeline, while an **independent** verifier agent inspects the content for contradictions before committing to the wiki. This strict generator ≠ verifier decoupling produced a 0.91 Hit Rate and 0.96 Groundedness in evaluation benchmarks.
+- **NurA Nurse Assistant (Cohort 2):** Expanded verification into sequential screening stages — keyword negation check → LLM intent classifier → grounding guard → output guard. Each stage intercepts errors missed by preceding filters.
+- **VibeMaster (009, Cohort 1):** Defined a deterministic **citation-accuracy metric** — directly verifying citations against primary ground-truth sources — instead of simply asking an LLM "is this answer acceptable?" Specific, verifiable metrics consistently outperform subjective ratings.
 
-Chi tiết methodology LLM-as-judge (rubric, pairwise so pointwise, chống judge bias) thuộc chương 10 — Evaluation. Ở đây bạn chỉ cần nhớ nguyên tắc kiến trúc: **tách người viết khỏi người chấm, ở cả tầng model lẫn tầng node.**
+Comprehensive LLM-as-a-judge methodologies (scoring rubrics, pairwise vs. pointwise evaluation, mitigating evaluator bias) are covered in Chapter 10 — Evaluation. Here, prioritize the architectural foundation: **isolate the author from the evaluator, at both the model level and node level.**
 
-**Bài tập 4.8E.** Ghi log 50 câu hỏi thật (từ demo hoặc bạn bè chơi thử sản phẩm) với cascade router ở trên: mỗi câu ghi model nào xử lý và confidence. **Output nộp:** bảng kết quả 50 dòng + tỷ lệ câu xử lý bởi model rẻ + ước lượng tiết kiệm chi phí (% request không chạm model mạnh nhân chênh lệch giá) + một đoạn nhận xét: ngưỡng confidence 0.7 của đội bạn là quá cao, quá thấp, hay hợp lý?
+**Exercise 4.8E.** Log 50 representative user queries (from demos or user testing sessions) through the cascade router shown above, recording the assigned model and confidence score for each query. **Deliverables:** A 50-row results table + percentage of queries resolved by the lightweight model + estimated cost savings (% of requests bypassing frontier models multiplied by model price differential) + a short analysis evaluating whether your team's 0.7 confidence threshold is too high, too low, or well-calibrated.
 
 ---
 
-## 4.9 Error Handling — Ba tầng bảo vệ
+## 4.9 Error Handling — Three Defensive Tiers
 
-Agent chạy nhiều bước, gọi nhiều API, xử lý nhiều loại dữ liệu — nên lỗi là điều không thể tránh khỏi. Một agent production cần ba tầng error handling: node level, graph level, và tool level.
+Because agents execute multi-step routines, invoke external APIs, and process unstructured inputs, failures are inevitable. Production-grade agents require three distinct layers of error handling: node-level, graph-level, and tool-level.
 
-### Tầng 1: Node Level — Graceful Failure
+### Tier 1: Node Level — Graceful Degradation
 
-Mỗi node nên xử lý lỗi riêng, không để lỗi lan truyền:
+Each node must handle local failures independently, preventing uncaught exceptions from propagating:
 
 ```python
 async def search_node(state: ResearchState) -> dict:
-    """Node tìm kiếm với error handling đầy đủ."""
+    """Search node with comprehensive error handling."""
     query = state.get("query", "")
     
     if not query:
-        return {"error": "Query rỗng, không thể tìm kiếm."}
+        return {"error": "Query string is empty; cannot execute search."}
     
     try:
         results = await search_api(query)
         return {"search_results": results}
     except ConnectionError:
-        # Lỗi kết nối — có thể retry
+        # Connection failure — transient, can be retried in a subsequent loop
         return {
             "search_results": [],
-            "error": "Mất kết nối. Sẽ thử lại ở vòng tiếp theo."
+            "error": "Connection lost. Will retry on the next turn."
         }
     except RateLimitError:
-        # Lỗi rate limit — chờ rồi thử
+        # Rate limit encountered — back off before retrying
         await asyncio.sleep(2)
         try:
             results = await search_api(query)
@@ -1408,68 +1408,68 @@ async def search_node(state: ResearchState) -> dict:
         except Exception:
             return {
                 "search_results": [],
-                "error": "Rate limit. Vui lòng thử lại sau."
+                "error": "Rate limit exceeded. Please try again later."
             }
     except Exception as e:
-        # Lỗi không xác định — ghi log và tiếp tục
+        # Unhandled unexpected error — log and continue
         import logging
         logging.error(f"Unexpected error in search_node: {e}")
         return {
             "search_results": [],
-            "error": f"Lỗi không xác định: {type(e).__name__}"
+            "error": f"Unknown error: {type(e).__name__}"
         }
 ```
 
-### Tầng 2: Graph Level — Retry Policy
+### Tier 2: Graph Level — Retry Policies
 
-LangGraph hỗ trợ retry policy tự động ở level node. Bạn truyền `retry` parameter khi thêm node vào graph:
+LangGraph provides built-in automated retry policies configured at the node registration level:
 
 ```python
 from langgraph.types import RetryPolicy
 
-# Lưu ý: RetryPolicy có thể nằm ở module khác tùy phiên bản LangGraph — kiểm tra documentation chính thức
+# Note: RetryPolicy module location may vary across LangGraph versions — consult official documentation
 
-# Định nghĩa retry policy
+# Define retry policy
 retry_policy = RetryPolicy(
-    max_attempts=3,           # Thử tối đa 3 lần
-    initial_interval=1.0,     # Đợi 1 giây lần đầu
-    backoff_factor=2.0,       # Nhân đôi mỗi lần: 1s, 2s, 4s
-    max_interval=10.0,        # Đợi tối đa 10 giây
-    retry_on=[ConnectionError, TimeoutError],  # Chỉ retry các lỗi này
+    max_attempts=3,           # Attempt up to 3 times
+    initial_interval=1.0,     # Initial wait time of 1 second
+    backoff_factor=2.0,       # Exponential backoff: 1s, 2s, 4s
+    max_interval=10.0,        # Maximum backoff interval of 10 seconds
+    retry_on=[ConnectionError, TimeoutError],  # Retry only on specific transient errors
 )
 
-# Áp dụng retry policy khi thêm node
+# Attach retry policy when registering a node
 graph.add_node("search", search_node, retry=retry_policy)
 
-# Hoặc cấu hình khi invoke
+# Alternatively configure at invocation time
 result = await app.ainvoke(
     {"query": "test"},
     config={"retry": retry_policy}
 )
 ```
 
-### Tầng 3: Tool Level — handle_tool_errors
+### Tier 3: Tool Level — handle_tool_errors
 
-Khi tool throw error, bạn không muốn toàn bộ agent crash. LangGraph cung cấp `handle_tool_errors`:
+When an individual tool throws an exception, you must safeguard against crashing the entire graph execution. LangGraph provides `handle_tool_errors`:
 
 ```python
 from langgraph.prebuilt import ToolNode
 
-# Cách 1: ToolNode với handle_tool_errors
+# Approach 1: ToolNode with automatic error handling enabled
 tool_node = ToolNode(
     tools=[web_search, calculate, fetch_api_data],
-    handle_tool_errors=True,  # Tự động catch lỗi và trả về error message
+    handle_tool_errors=True,  # Automatically catches exceptions and returns error messages
 )
 
-# Cách 2: Custom error handler
+# Approach 2: Custom error handler function
 def custom_error_handler(error: Exception, tool_call: dict) -> str:
-    """Xử lý lỗi tool và trả về message cho agent."""
+    """Format tool execution errors into instructional messages for the agent."""
     if isinstance(error, ConnectionError):
-        return "Không thể kết nối. Hãy thử tool khác hoặc trả lời dựa trên kiến thức có sẵn."
+        return "Connection failed. Please attempt an alternative tool or answer from existing knowledge."
     elif isinstance(error, TimeoutError):
-        return "Tool timeout. Hãy thử lại hoặc dùng cách khác."
+        return "Tool execution timed out. Please retry or explore an alternative approach."
     else:
-        return f"Tool error: {str(error)}. Hãy thử cách tiếp cận khác."
+        return f"Tool error: {str(error)}. Please adjust parameters or try an alternate strategy."
 
 tool_node = ToolNode(
     tools=[web_search, calculate],
@@ -1477,28 +1477,28 @@ tool_node = ToolNode(
 )
 ```
 
-### Kết hợp ba tầng
+### Combining All Three Tiers
 
 ```python
-# Ví dụ đầy đủ: agent với 3 tầng error handling
+# Comprehensive example: Agent utilizing 3 error handling tiers
 
-# 1. Tool level: handle errors trong tools
+# 1. Tool level: handle errors inside tools
 @tool
 def robust_search(query: str) -> str:
-    """Tìm kiếm với error handling."""
+    """Search tool with self-contained error handling."""
     try:
         return search_api(query)
     except Exception as e:
-        return f"Lỗi tìm kiếm: {str(e)}"  # Tool tự xử lý lỗi
+        return f"Search error: {str(e)}"  # Handled locally within tool
 
-# 2. Node level: xử lý lỗi trong node
+# 2. Node level: fallback handling in nodes
 async def safe_search_node(state: ResearchState) -> dict:
-    """Node với fallback."""
+    """Node with fallback logic."""
     try:
         results = await robust_search.ainvoke({"query": state.get("query", "")})
         return {"search_results": [results]}
     except Exception as e:
-        # Fallback: dùng kết quả cũ hoặc trả về empty
+        # Fallback: preserve existing results or return empty list
         return {
             "search_results": state.get("search_results", []),
             "error": f"Search failed: {str(e)}"
@@ -1509,24 +1509,24 @@ app = graph.compile(
     retry=RetryPolicy(max_attempts=2),
 )
 
-# Thêm error vào routing
+# Integrate error signals into routing decisions
 def route_after_search(state: ResearchState) -> str:
     if state.get("error"):
-        return "handle_error"  # Node xử lý lỗi riêng
+        return "handle_error"  # Route to dedicated error handling node
     return "synthesize"
 ```
 
-> 💡 **MẸO:** Nguyên tắc quan trọng: **fail gracefully, never crash**. Agent production không bao giờ được crash vì lỗi tool hay API. Mỗi lỗi nên được catch, log, và agent nên có fallback plan (thử tool khác, trả lời dựa trên kiến thức có sẵn, hoặc thông báo lỗi cho user).
+> 💡 **TIP:** Core production rule: **fail gracefully, never crash**. A production agent must never terminate unexpectedly due to an API timeout or tool failure. Intercept exceptions, log telemetry, and maintain fallback pathways (retry an alternative tool, answer from existing parametric context, or inform the user cleanly).
 
 ---
 
-## 4.10 Testing Agent
+## 4.10 Testing Agents
 
-Testing agent khó hơn testing code thông thường vì agent không determinstic — kết quả có thể khác nhau mỗi lần chạy. Tuy nhiên, bạn vẫn có thể test hiệu quả bằng cách test từng thành phần riêng lẻ.
+Testing AI agents is uniquely challenging because LLM generation is non-deterministic — responses vary across invocations. Nonetheless, you can construct robust automated test suites by testing discrete architectural components in isolation.
 
 ### Unit Testing Nodes
 
-Test mỗi node độc lập bằng cách truyền state giả (mock state):
+Test individual nodes in isolation by feeding mock states:
 
 ```python
 import pytest
@@ -1534,14 +1534,14 @@ from unittest.mock import AsyncMock, patch
 
 @pytest.mark.asyncio
 async def test_analyze_node():
-    """Test node analyze với mock LLM."""
-    # Arrange: tạo mock state
+    """Unit test for analyze_node using a mocked LLM."""
+    # Arrange: prepare mock state
     mock_state = {
-        "query": "GDP Việt Nam 2024?",
+        "query": "What is Vietnam's GDP in 2024?",
         "messages": [],
     }
     
-    # Act: gọi node
+    # Act: invoke node
     with patch("langchain_openai.ChatOpenAI.ainvoke") as mock_llm:
         mock_llm.return_value = AsyncMock(
             content='{"query_type": "factual", "needs_research": true}'
@@ -1555,14 +1555,14 @@ async def test_analyze_node():
 
 @pytest.mark.asyncio
 async def test_research_node():
-    """Test node research."""
+    """Unit test for research_node."""
     mock_state = {
         "research_plan": ["GDP Vietnam 2024", "Vietnam economy statistics"],
         "iteration": 0,
     }
     
     with patch("__main__.web_search") as mock_search:
-        mock_search.invoke.return_value = "GDP Việt Nam 2024: 430 tỷ USD"
+        mock_search.invoke.return_value = "GDP Vietnam 2024: $430 billion"
         result = await research_node(mock_state)
     
     assert "search_results" in result
@@ -1570,26 +1570,26 @@ async def test_research_node():
     assert result["iteration"] == 1
 ```
 
-### Integration Testing Graph
+### Integration Testing the Graph
 
-Test toàn bộ graph với mock LLM:
+Test end-to-end graph state transitions with mocked LLM outputs:
 
 ```python
 @pytest.mark.asyncio
 async def test_full_graph():
-    """Test toàn bộ graph end-to-end."""
+    """Test full graph execution end-to-end with mocked LLMs."""
     with patch("langchain_openai.ChatOpenAI.ainvoke") as mock_llm:
-        # Mock các response theo thứ tự
+        # Mock sequential responses matching graph traversal
         mock_llm.side_effect = [
             AsyncMock(content='{"query_type": "factual", "needs_research": true}'),  # analyze
             AsyncMock(content='["search query 1", "search query 2"]'),                # plan
-            AsyncMock(content="Câu trả lời mẫu về GDP..."),                            # synthesize
+            AsyncMock(content="Sample synthesized response regarding GDP..."),         # synthesize
             AsyncMock(content='{"score": 0.9, "needs_more": false}'),                 # review
-            AsyncMock(content="Câu trả lời cuối cùng."),                               # finalize
+            AsyncMock(content="Final synthesized answer."),                            # finalize
         ]
         
         result = await app.ainvoke({
-            "query": "GDP Việt Nam 2024?",
+            "query": "What is Vietnam's GDP in 2024?",
             "messages": [],
         })
     
@@ -1600,25 +1600,25 @@ async def test_full_graph():
 
 @pytest.mark.asyncio
 async def test_graph_handles_empty_query():
-    """Test graph xử lý query rỗng."""
+    """Verify that graph gracefully handles empty query input."""
     result = await app.ainvoke({
         "query": "",
         "messages": [],
     })
     
-    # Graph không crash
+    # Graph executes without unhandled exceptions
     assert result is not None
 ```
 
-### Mock LLM Responses
+### Mocking LLM Responses
 
-Pattern quan trọng: mock LLM response thay vì gọi API thật trong test:
+Key pattern: Mock LLM completions rather than invoking live external APIs during automated testing:
 
 ```python
 from unittest.mock import AsyncMock, MagicMock
 
 def create_mock_llm(responses: list[str]):
-    """Tạo mock LLM trả về responses theo thứ tự."""
+    """Create a mock LLM returning predefined responses sequentially."""
     mock = MagicMock()
     mock.ainvoke = AsyncMock()
     mock.ainvoke.side_effect = [
@@ -1626,7 +1626,7 @@ def create_mock_llm(responses: list[str]):
     ]
     return mock
 
-# Sử dụng
+# Usage
 def test_with_mock():
     llm = create_mock_llm([
         "Response 1 from analyze",
@@ -1634,85 +1634,85 @@ def test_with_mock():
         "Response 3 from generate",
     ])
     
-    # Test code sử dụng llm...
+    # Test code consuming mock LLM...
 ```
 
-### Test Conditional Routing
+### Testing Conditional Routing
 
 ```python
 def test_should_continue_research():
-    """Test routing function."""
-    # Case 1: Score thấp → cần nghiên cứu thêm
+    """Test conditional routing logic."""
+    # Case 1: Low quality score -> requires further research
     state_low_score = {"quality_score": 0.3, "iteration": 1}
     assert should_continue_research(state_low_score) == "research"
     
-    # Case 2: Score cao → kết thúc
+    # Case 2: High quality score -> finalize response
     state_high_score = {"quality_score": 0.9, "iteration": 1}
     assert should_continue_research(state_high_score) == "finalize"
     
-    # Case 3: Score thấp nhưng đã lặp quá nhiều → kết thúc
+    # Case 3: Low quality score but iteration budget reached -> finalize
     state_max_iteration = {"quality_score": 0.3, "iteration": 3}
     assert should_continue_research(state_max_iteration) == "finalize"
 ```
 
-> ⚠️ **LƯU Ý:** Không test agent bằng cách gọi LLM thật. LLM trả về kết quả khác nhau mỗi lần (nhiệt độ > 0), tốn tiền, và chậm. Luôn mock LLM trong unit test và integration test. Chỉ gọi LLM thật trong end-to-end test thủ công hoặc staging environment.
+> ⚠️ **NOTE:** Do not rely on live LLM API calls in CI test suites. Live LLMs introduce stochastic outputs (temperature > 0), incur API expenses, and introduce network latency. Always mock LLM outputs in unit and integration test suites. Reserve live LLM calls for manual acceptance testing and staging verification.
 
-> 💡 **MẸO:** Test theo pyramid: nhiều unit tests (cho nodes, routing functions), ít integration tests (cho graph), và rất ít E2E tests (với LLM thật). Pattern này giúp test suite chạy nhanh, ổn định, và ít tốn kém.
-
----
-
-## Tóm tắt
-
-1. **Agent** là hệ thống AI có khả năng tự quyết định luồng xử lý, khác với chatbot chạy theo kịch bản cố định. Agent cần thiết cho tác vụ đa bước, cần tools, và có vòng lặp phản hồi.
-
-2. **State** (TypedDict) là bộ nhớ của agent. Thiết kế state cẩn thận: chỉ lưu những gì cần, dùng reducer đúng (overwrite vs accumulate), và bắt đầu đơn giản.
-
-3. **Nodes** là các hàm xử lý — mỗi node một trách nhiệm, nhận state, trả về thay đổi. Dùng async cho I/O và luôn xử lý lỗi graceful.
-
-4. **Edges** kết nối nodes thành luồng: direct edges cho luồng cố định, conditional edges cho luồng linh hoạt. `START` và `END` là sentinel đặc biệt.
-
-5. **Tools** mở rộng khả năng agent — viết docstring rõ ràng (đó là prompt cho LLM), dùng type hints, và luôn validate input.
-
-6. **ReAct** (Think → Act → Observe) là pattern phổ biến nhất cho agent. Vòng lặp giữa agent và tools tiếp tục cho đến khi agent quyết định đã đủ thông tin.
-
-7. **RAG** kết hợp tìm kiếm tài liệu riêng với LLM, giải quyết bài toán "LLM không biết dữ liệu của bạn".
-
-8. **Error handling** cần ba tầng: node level (try-except), graph level (RetryPolicy), và tool level (handle_tool_errors). Nguyên tắc: fail gracefully, never crash.
-
-9. **Testing** agent theo pyramid: nhiều unit tests cho nodes/routing, ít integration tests cho graph, mock LLM thay vì gọi thật.
-
-10. **Graph hoàn chỉnh** kết hợp tất cả: state design + nodes + edges + tools + error handling. Bắt đầu đơn giản, iterate dần.
-
-11. **Harness** là khung quanh agent: scaffolding + tools + guardrails + feedback loop + giới hạn, khai báo tập trung một chỗ để chống pattern drift. Agent giỏi là agent có harness giỏi — phân biệt với hooks logging ở chương 2 (quan sát quy trình) khác harness sản phẩm (khung chạy agent).
-
-12. **MCP** là chuẩn công nghiệp cho tool access: viết tool một lần dưới dạng MCP server, mọi client hiểu MCP dùng được. Chọn MCP khi cần tái sử dụng đa môi trường, tách quyền, hoặc dùng server có sẵn.
-
-13. **Loop engineering**: mọi vòng lặp cần điều kiện dừng tường minh — max-iterations, budget chi phí, self-assessment node, escape hatch. Điều kiện dừng nằm trong code (deterministic), không nằm trong prompt.
-
-14. **Graph orchestration**: graph không phải mặc định — bảng quyết định chain / router / graph / multi-agent; rời graph khi không cần là quyết định đúng. Nếu dùng graph: conditional edge thật, subgraph, checkpointer.
-
-15. **Multi-LLM**: cascade routing cheap-first (model rẻ trước, escalate theo confidence) giảm chi phí; judge phải khác model generator vì model tự chấm bài mình có bias.
+> 💡 **TIP:** Structure tests according to the testing pyramid: extensive unit tests (nodes and routing functions), focused integration tests (graph transitions), and minimal end-to-end tests (with live LLMs). This keeps test suites fast, deterministic, and cost-effective.
 
 ---
 
-## Câu hỏi ôn tập
+## Summary
 
-1. Sự khác biệt cơ bản giữa chatbot (chain) và agent (state machine) là gì? Cho ví dụ tác vụ phù hợp cho mỗi loại.
+1. **Agents** are AI systems capable of autonomously deciding execution paths, unlike chatbots following static scripts. Agents are required for multi-step tasks requiring external tools and iterative feedback loops.
 
-2. Tại sao `Annotated[list, add_messages]` cần thiết cho trường `messages` trong state? Điều gì xảy ra nếu chỉ dùng `list` không có reducer?
+2. **State** (TypedDict) acts as the agent's memory. Design state deliberately: store only essential fields, select proper reducers (overwrite vs. accumulate), and keep initial implementations simple.
 
-3. Giải thích vòng lặp ReAct (Think → Act → Observe). Tại sao `graph.add_edge("tools", "agent")` tạo ra vòng lặp này?
+3. **Nodes** are modular processing functions — each adhering to single-responsibility principles, receiving state, and returning updates. Employ async functions for I/O operations and handle failures gracefully.
 
-4. Viết một routing function quyết định node tiếp theo dựa trên nội dung câu hỏi. Ví dụ: câu hỏi về thời tiết → weather node, câu hỏi về toán → calculate node, khác → answer node.
+4. **Edges** orchestrate nodes into workflows: direct edges define deterministic steps, while conditional edges introduce dynamic branching. `START` and `END` act as system boundary sentinels.
 
-5. Bạn đang xây dựng agent trả lời câu hỏi về tài liệu nội bộ công ty. Bạn sẽ chọn RAG hay web search? Tại sao? Mô tả flow từ câu hỏi đến câu trả lời.
+5. **Tools** extend agent capabilities into external environments — author comprehensive docstrings (which act as model prompts), provide strict type hints, and sanitize inputs.
 
-6. Phân biệt harness và agent: nếu bỏ hết harness (guardrails, giới hạn, feedback loop), phần còn lại của agent là gì? Vì sao pattern drift nguy hiểm hơn khi dự án có nhiều thành viên dùng AI assistant?
+6. **ReAct** (Think → Act → Observe) is the foundational pattern for autonomous agents. The loop between agent and tools cycles iteratively until the model determines sufficient evidence has been gathered.
 
-7. Đội bạn có một tool tra cứu điểm số sinh viên cần dùng trong cả Claude Code (khi dev) và app LangGraph (khi deploy). Nên viết tool thường hay MCP server? Giải thích lợi ích và một rủi ro cần guard.
+7. **RAG** bridges external custom documents with LLM generation, solving the constraint of LLMs lacking proprietary organization data.
 
-8. Thiết kế điều kiện dừng cho agent tư vấn tuyển sinh: agent được phép hỏi tối đa 5 câu làm rõ, mỗi phiên chi không quá 0.05 USD. Viết routing function (dưới 10 dòng) đảm bảo mọi nhánh đều có đường tới END.
+8. **Error handling** spans three tiers: node-level (try-except blocks), graph-level (RetryPolicy), and tool-level (handle_tool_errors). Guiding principle: fail gracefully, never crash.
 
-9. Dự án của bạn có luồng cố định: nhận CV → trích thông tin → chấm điểm → trả kết quả, không nhánh nào. Có nên dùng LangGraph không? Trình bày lập luận theo bảng quyết định ở §4.8D và nêu một tình huống trong tương lai có thể khiến bạn đổi quyết định.
+9. **Testing** should follow the test pyramid: comprehensive unit testing of nodes and routing logic, targeted integration testing of graph state changes, and mocked LLM calls over live APIs.
 
-10. Vì sao model chấm điểm (judge) phải khác model sinh câu trả lời? Nếu buộc phải dùng cùng một model cho cả hai vai trò, bạn có thể giảm bias bằng cách nào?
+10. **Complete Graphs** synthesize state design, nodes, edges, tools, and defensive error handling. Start with linear pipelines and iterate toward complex topologies.
+
+11. **Harnesses** encase the agent: scaffolding + tools + guardrails + feedback loops + operational limits, centralized in one module to eliminate pattern drift. A great agent is defined by a great harness — distinguishing workflow telemetry hooks (Chapter 2) from production runtime harnesses.
+
+12. **MCP** is the open industry standard for tool integration: declare tools once as an MCP server for consumption across all MCP-enabled environments. Choose MCP for multi-environment reuse, permission isolation, or leveraging pre-built servers.
+
+13. **Loop engineering**: Every execution loop demands explicit, deterministic stopping criteria — max iterations, cost caps, self-assessment checks, and universal escape hatches. Termination criteria belong in code, not prompts.
+
+14. **Graph orchestration**: Graphs are not mandatory defaults — evaluate across chains, routers, graphs, and multi-agent topologies; simplifying away unnecessary graphs is sound architecture. When using graphs: rely on real conditional branching, modular subgraphs, and checkpointers.
+
+15. **Multi-LLM**: Cheap-first cascade routing (lightweight models escalating on confidence thresholds) minimizes operational costs; evaluators (judges) must remain strictly independent of generators to eliminate self-preference bias.
+
+---
+
+## Review Questions
+
+1. What is the fundamental architectural difference between a chatbot (chain) and an agent (state machine)? Provide a representative use case suited for each.
+
+2. Why is `Annotated[list, add_messages]` essential for the `messages` field in state definitions? What happens if a plain `list` is used without a reducer?
+
+3. Explain the ReAct execution cycle (Think → Act → Observe). Why does the edge `graph.add_edge("tools", "agent")` establish this cyclic behavior?
+
+4. Write a routing function that selects the subsequent node based on user query content (e.g., weather queries → weather node, math queries → calculate node, other queries → answer node).
+
+5. When building an agent to answer inquiries regarding internal corporate documentation, would you choose RAG or web search? Explain why and outline the query-to-answer processing flow.
+
+6. Distinguish between a harness and an agent: if all harness components (guardrails, ceilings, feedback loops) are stripped away, what remains? Why does pattern drift pose heightened risks when team members employ AI coding assistants?
+
+7. Your team needs a student grade inquiry tool accessible both within Claude Code (during development) and a deployed LangGraph application. Should you implement a standard Python tool or an MCP server? Discuss the benefits and identify one security risk requiring mitigation.
+
+8. Design stopping criteria for an admissions advising agent: the agent may ask at most 5 clarifying questions, with total session cost capped at $0.05 USD. Write a concise routing function (under 10 lines) ensuring all branches guarantee a path to `END`.
+
+9. Your project follows a strictly linear pipeline: accept resume → extract fields → calculate match score → return report, without conditional branching. Should you adopt LangGraph? Justify your decision referencing the evaluation matrix in §4.8D, and identify a hypothetical requirement that would alter your recommendation.
+
+10. Why must evaluation models (judges) remain decoupled from generation models? If constrained to utilize the identical model for both generation and evaluation, what mitigation techniques reduce self-preference bias?

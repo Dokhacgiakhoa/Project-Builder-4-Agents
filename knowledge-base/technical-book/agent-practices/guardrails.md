@@ -1,96 +1,91 @@
 ---
 title: "Guardrails & Anti-Hallucination"
-description: "Defence-in-depth, verbatim sacred, conservative bias — cohort 1 & 2"
+description: "Defence-in-depth, verbatim citations, conservative bias — cohorts 1 & 2"
 weight: 3
 ---
 
 # Guardrails & Anti-Hallucination
 
-## Bài học từ cohort
+## Cohort Lessons
 
-Prompt safeguard ĐỘC THÂN — LLM có thể bị jailbreak bỏ qua. Đội 005 (NestAI) đặt
-guardrail ở **cả prompt LẪN code** → an toàn hơn hẳn. Đội 012 (ARAS) có rule
-"verbatim is sacred" → chống bịa số liệu học thuật.
+Relying solely on prompt-based safeguards is risky — LLMs can be manipulated through prompt injections or jailbreaks. Team 005 (NestAI) enforced guardrails at **both the prompt AND deterministic code layers**, establishing robust defense-in-depth. Team 012 (ARAS) instituted a "verbatim is sacred" rule to prevent statistical hallucinations in academic metrics.
 
-## Pattern 1: Defence-in-depth (team 005 NestAI)
+## Pattern 1: Defence-in-Depth (Team 005 NestAI)
 
-2 lớp độc lập:
+Two independent protective layers:
 
-**Lớp 1 — prompt** (`prompts/safeguards.md`):
+**Layer 1 — Prompt Safeguard** (`prompts/safeguards.md`):
 ```text
 <safeguards>
-KHẨN CẤP: dấu hiệu nguy hiểm → cảnh báo đỏ, không tư vấn chung.
+EMERGENCY: Immediate danger indicators → trigger red alert, decline general advice.
 </safeguards>
 ```
 
-**Lớp 2 — code** (`nodes/safety_node.py`): check `DANGER_KEYWORDS` TRƯỚC khi qua LLM.
+**Layer 2 — Code Gate** (`nodes/safety_node.py`): Evaluate `DANGER_KEYWORDS` BEFORE invoking the LLM:
 ```python
-DANGER_KEYWORDS = ("ra máu", "khó thở", "tự hại", ...)
-if any(kw in query for kw in DANGER_KEYWORDS):
+DANGER_KEYWORDS = ("bleeding", "dyspnea", "self-harm", "overdose", ...)
+if any(kw in query.lower() for kw in DANGER_KEYWORDS):
     return {"bypass": True, "response": DANGER_RESPONSE}
 ```
 
-Nếu LLM bị jailbreak bỏ qua lớp prompt, lớp code vẫn chặn. Đây là pattern quan
-trọng NHẤT cho app y tế / pháp lý / tài chính.
+If a prompt injection bypasses the prompt layer, the deterministic code layer still intercepts the request. This pattern is essential for high-stakes healthcare, legal, or financial applications.
 
-## Pattern 2: Verbatim is sacred (team 012 ARAS)
+## Pattern 2: Verbatim is Sacred (Team 012 ARAS)
 
-Khi agent trích dẫn dữ liệu/số liệu:
+When an agent cites retrieved data or statistics:
 ```text
-- KHÔNG làm tròn số.
-- KHÔNG diễn giải lại.
-- KHÔNG đổi đơn vị.
-- Trích nguyên văn từ nguồn.
+- NEVER round numeric figures.
+- NEVER paraphrase domain equations or legal citations.
+- NEVER convert units arbitrarily.
+- Excerpt verbatim from canonical source chunks.
 ```
-Vì sao: làm tròn số liệu học thuật = fabrication, hậu quả nghiêm trọng.
+Rounding academic or financial figures constitutes synthetic fabrication and triggers compliance violations.
 
-## Pattern 3: Conservative bias (team 012)
+## Pattern 3: Conservative Bias (Team 012)
 
-Khi không đủ dẫn chứng → `verdict: "uncertain"`, KHÔNG claim "supported".
+When evidence is ambiguous or incomplete, default to `verdict: "uncertain"` rather than asserting `verdict: "supported"`:
 ```text
-Thà thiếu thông tin còn hơn bịa.
+Declaring insufficient evidence is always preferred over speculative synthesis.
 ```
 
-Áp dụng trong schema (`models/schemas.py`):
+Schema enforcement (`models/schemas.py`):
 ```python
 class AgentAnswer(BaseModel):
     verdict: Literal["supported", "partially_supported", "unsupported", "uncertain"]
     confidence: float = Field(ge=0.0, le=1.0)
     citation_ids: list[str]
+
     def is_safe(self) -> bool:
         if self.verdict != "uncertain" and not self.citation_ids:
-            return False  # claim mà không cite = unsafe
-        ...
+            return False  # Asserting an answer without citation is rejected as unsafe
+        return True
 ```
 
-## Pattern 4: Output schema-lock (team 009, 012)
+## Pattern 4: Strict Output Schema Locking (Teams 009, 012)
 
-Đừng chỉ yêu cầu JSON trong prompt — validate lại bằng Pydantic ở code. Double
-validation: prompt + schema.
+Do not rely solely on prompting for JSON output. Validate outputs in code using Pydantic schemas. Enforce double validation: prompt contract + runtime schema parsing.
 
-## Pattern 5: "Source code wins" (team 011)
+## Pattern 5: Source Code Authoritative Principle (Team 011)
 
-Rule cho agent khi code:
+Governing rule for coding agents:
 ```text
-Khi doc mâu thuẫn code → tin CODE.
-Ghi mismatch vào PROJECT_CONTEXT Known Ambiguities, KHÔNG "sửa" doc theo giả định.
+When documentation conflicts with executable code, the CODEBASE IS AUTHORITATIVE.
+Log documentation drift under PROJECT_CONTEXT Known Ambiguities; do not rewrite docs based on guesses.
 ```
 
-## Anti-pattern: silent fallback (team 002 root-cause)
+## Anti-Pattern: Silent Fallback (Team 002 Root Cause)
 
 ```python
-# ❌ Silent — che lỗi
+# ❌ Silent fallback masks runtime regressions
 try:
     result = await llm()
 except Exception:
-    return default_answer  # AI running trên/regression mà không ai biết
+    return default_answer  # Regressions go undetected in automated pipelines
 ```
 
 ```python
-# ✅ Log + đánh dấu
+# ✅ Explicit error logging and telemetry tagging
 except Exception as e:
-    logger.exception("llm failed")
+    logger.exception("LLM invocation failed")
     return {"error": str(e), "quality_result": {"status": "FAILED"}}
 ```
-
-Đội 002 đã viết `ROOT_CAUSE_ANALYSIS.md` cho bug này — hãy học từ họ.

@@ -1,19 +1,19 @@
 ---
 title: "BMAD-v6 Overview"
-description: "Tổng quan về BMAD Method và cách áp dụng"
+description: "Overview of the BMAD Method and agent-driven development workflows"
 weight: 1
 ---
 
-## BMAD Method là gì?
+## What is the BMAD Method?
 
-**BMAD** (Breakthrough Method for Agile AI-Driven Development) là framework mã nguồn mở cho AI-driven software development.
+**BMAD** (Breakthrough Method for Agile AI-Driven Development) is an open framework for AI-driven software development.
 
 - **GitHub:** github.com/bmad-code-org/BMAD-METHOD
 - **Docs:** docs.bmad-method.org
 - **License:** MIT (free)
 - **IDE:** Claude Code, Cursor, Codex CLI
 
-## 6 Agents mặc định
+## 6 Core Agent Personas
 
 | Agent | Name | Role |
 |-------|------|------|
@@ -54,9 +54,9 @@ project/
 └── src/                      ← Source code
 ```
 
-## Khi nào dùng BMAD?
+## When to Apply BMAD?
 
-- **YES** — Project phức tạp, cần planning kỹ
-- **YES** — Team muốn structured workflow
-- **NO** — Project nhỏ, quick prototype
-- **NO** — Team chưa quen với AI-assisted development
+- **YES** — Complex systems requiring detailed upfront planning
+- **YES** — Teams requiring structured multi-agent coordination
+- **NO** — Lightweight prototypes and quick single-file experiments
+- **NO** — Teams unfamiliar with agent-assisted development paradigms

@@ -15,7 +15,7 @@ Query → Embed → Search Vector DB → Retrieve Top-K → Context + Query → 
 ### Implementation
 
 ```python
-# Node: Retrieve context từ vector store
+# Node: Retrieve context from vector store
 async def retrieve_node(state: AgentState) -> dict:
     query = state.get("query", "")
 
@@ -30,7 +30,7 @@ async def retrieve_node(state: AgentState) -> dict:
     return {"context": context}
 ```
 
-### Graph với RAG
+### RAG Execution Graph
 
 ```python
 def build_rag_graph():

@@ -1,83 +1,66 @@
 ---
 title: "Cohort 1 & 2 — Agent Practice Mistakes"
-description: "Sai lầm về agent engineering từ 12 đội — PHẢI TRÁNH"
+description: "Agent engineering mistakes and configuration failures — MUST AVOID"
 weight: 2
 ---
 
 # Cohort 1 & 2 — Agent Engineering Mistakes
 
-Bổ sung cho [Common Mistakes](common-mistakes.md) (code quality). Phần này là
-**agent-practice** anti-pattern — lỗi về cấu hình AI agent, prompt, eval, guardrail.
+Complementary to [Common Mistakes](common-mistakes.md) (code quality). This section catalogs specific **agent engineering anti-patterns** involving prompts, evals, guardrails, and tool configuration.
 
-## 1. Hardcoded absolute path — team 005
+## 1. Hardcoded Absolute Machine Paths (Team 005)
 
 ```json
-// ❌ Gãy khi move repo / share team
-"command": "python /Users/huyenchu/A20-App-005/scripts/log_hook.py"
+// ❌ Breaks when teammates clone to different directory paths
+"command": "python /Users/developer/A20-App-005/scripts/log_hook.py"
 ```
 
 ```json
-// ✅ Dùng biến môi trường / relative path
+// ✅ Use repository-relative paths
 "command": "bash scripts/_pyrun.sh scripts/log_hook.py --tool=claude"
 ```
 
-## 2. `.bak` vô hiệu hoá hooks — team 007
+## 2. Disabling Hooks via `.bak` Renaming (Team 007)
 
-`.claude/settings.json.bak` → hook TẮT, AI logging không chạy, mất dấu vết dùng AI.
-Nếu muốn tắt tạm, comment có lý do + reminder bật lại. Đừng rename `.bak`.
+Renaming `.claude/settings.json.bak` disables telemetry and safety hooks without tracking reasons. If temporarily disabling hooks, document the rationale in comments rather than hiding configuration files.
 
-## 3. Stub code không dùng gây nhầm — team 005, 006, 008
+## 3. Disconnected Stub Files Causing Confusion (Teams 005, 006, 008)
 
-`src/agent.py` boilerplate generic ("You are a helpful assistant") KHÔNG được dùng,
-trong khi agent thật ở `src/retrieval/agent.py`. AI tool đọc codebase sẽ nhầm
-"đâu là agent thật".
+Leaving a generic boilerplate `src/agent.py` ("You are a helpful assistant") when active logic lives in `src/retrieval/agent.py` misleads AI tools exploring the codebase.
 
-→ Xoá stub, hoặc ghi rõ `# DEPRECATED — real agent ở src/...`.
+→ Delete unused stubs or clearly mark them `# DEPRECATED — Canonical implementation in src/...`.
 
-## 4. Silent fallback — team 002
+## 4. Silent Error Fallback (Team 002)
 
 ```python
-# ❌ Che regression
+# ❌ Masks regressions in automated test loops
 except Exception:
     logger.exception("...")
-    return default  # AI chạy trên/regression mà không ai biết
+    return default_answer
 ```
 
-Team 002 phải viết `ROOT_CAUSE_ANALYSIS.md` cho bug này. Log + đánh dấu FAILED,
-không return default lặng lẽ.
+Always log the failure and return an explicit error state (`status: "FAILED"`).
 
-## 5. Triplicate workflow — team 008
+## 5. Redundant Multi-Folder Workflow Duplication (Team 008)
 
-Cùng `feature-planner` nhân ra `.claude/commands/` + `.codex/skills/` +
-`.github/prompts/` → 3 chỗ phải sửa đồng bộ, dễ lệch.
+Duplicating the same prompt file across `.claude/commands/`, `.codex/skills/`, and `.github/prompts/` creates maintenance drift. Maintain one canonical source and reference it.
 
-→ 1 source of truth, generate/symlink ra các tool.
+## 6. Absent Evaluation Suites (10 of 12 Teams)
 
-## 6. Không có eval framework — 10/12 đội
+Leaving `eval/results/` empty results in severe deductions in Evaluation Evidence. Adopt structured evaluation suites (golden datasets + automated runners).
 
-Chỉ `eval/results/report.md` blank placeholder. → Mất điểm Evaluation Evidence.
-→ Dùng `eval/` framework trong template (golden dataset + runner + judge).
+## 7. Single-Layer Prompt Guardrails (11 of 12 Teams)
 
-## 7. Guardrail 1 lớp — 11/12 đội
+Prompt-only safeguards are vulnerable to jailbreaks. Enforce defence-in-depth with deterministic code checks.
 
-Chỉ prompt safeguard, không có code guardrail → jailbreak bypass. → Defence-in-depth.
+## 8. Overly Permissive Execution Permissions (Team 002)
 
-## 8. Permission quá permissive — team 002
+Auto-allowing blanket shell commands (`rm`, `git push --force`) creates severe risk of data loss. Enforce explicit permission deny lists.
 
-`.claude/settings.local.json` auto-allow `Bash(python *)`, `Bash(git commit *)`,
-`Bash(rm -v ...)`. Nguy hiểm nếu share. → Curated allow + deny rõ ràng.
+## 9. Missing Citation Contracts (9 of 12 Teams)
 
-## 9. Không citation contract — 9/12 đội
+Agents outputting claims without provenance citations prevent users from verifying correctness. Enforce strict `[cite:chunk_id]` contracts.
 
-Agent trả lời không kèm nguồn → user không verify → mất điểm credibility. →
-`[cite:chunk_id]` contract.
+## 10. Stale Documentation Drift (9 of 12 Teams)
 
-## 10. Doc stale mà không flag — 9/12 đội
-
-PRD/docs nói Node/Gemini nhưng code đã FastAPI/OpenAI → agent tin doc → code sai.
-→ Mục "Known Ambiguities" trong PROJECT_CONTEXT (team 011).
-
----
-
-> Mỗi anti-pattern trên đều có **pattern đúng** ở phần
-> [Agent Engineering Practices](../agent-practices/). Đọc đối chiếu.
+When architecture evolves from Node/Gemini to FastAPI/OpenAI without updating docs, agents ingest contradictory context and generate broken code. Maintain a "Known Ambiguities" log in `PROJECT_CONTEXT.md`.

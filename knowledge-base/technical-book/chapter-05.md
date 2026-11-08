@@ -1,280 +1,280 @@
 ---
-title: "Từ đề bài đến USP — Khảo sát thị trường & Positioning"
+title: "From Problem Statement to USP — Market Research & Positioning"
 weight: 5
 ---
 
-# Chương 5: Từ đề bài đến USP — Khảo sát thị trường & Positioning
+# Chapter 5: From Problem Statement to USP — Market Research & Positioning
 
-> 📊 **Bằng chứng cohort —** Ở phase RA, messaging lệch giữa các bề mặt đã hạ niềm tin trực tiếp: Gamma ghi "~60 min" ở hero nhưng entry-test chỉ chạy "~35 phút" (G-07), và để lộ nav link rỗng trước khi khách mới kịp thấy giá trị (G-02); Beta treo "Practice SOON" / "Exam NEW" trên chính tính năng cốt lõi (A-03); Alpha xây chatbot tuyển sinh nhưng knowledge base nghèo về học bổng và hạn nộp — đúng 2 chủ đề user hỏi nhiều nhất. Phía bên kia, đội làm sâu đúng 1 USP đã thắng: Alpha đạt 8.5/10 điểm AI cao nhất nhờ dồn toàn lực vào chống-bịa + citation; Aclaris aiknowledge Hub [C2-118] chứng minh USP "không phải RAG bot thông thường" bằng con số đo được — Hit Rate 0.91, Groundedness 0.96, $0.0011 mỗi câu trả lời.
+> 📊 **Cohort Evidence —** In the RA phase, inconsistent messaging across surfaces directly degraded trust: Gamma displayed "~60 min" on the hero but the entry-test only ran "~35 minutes" (G-07), and exposed empty nav links before new visitors could see value (G-02); Beta posted "Practice SOON" / "Exam NEW" right on core features (A-03); Alpha built an admissions chatbot whose knowledge base lacked scholarships and application deadlines — precisely the 2 topics users asked about most. On the other hand, the team going deep on a single USP won: Alpha achieved the highest AI score of 8.5/10 by pouring all resources into anti-hallucination + citations; Aclaris aiknowledge Hub [C2-118] proved its USP of "not just an ordinary RAG bot" with measurable numbers — Hit Rate 0.91, Groundedness 0.96, $0.0011 per answer.
 
-Chương này đứng giữa "đề bài" và "build". [Chương 2](chapter-02.md) giúp bạn khởi tạo repo, [Chương 4](chapter-04.md) giúp bạn build agent — nhưng nếu positioning sai, bạn build càng nhanh càng lãng phí. Vấn đề của đa số đội không phải là code kém; đó là **xây đúng thứ sai**: sản phẩm không ai cần, hoặc một wrapper mà platform sắp làm miễn phí, hoặc một USP nói một đằng làm một nẻo.
+This chapter sits between "problem statement" and "build". [Chapter 2](chapter-02.md) helps you initialize the repo, [Chapter 4](chapter-04.md) helps you build agents — but if positioning is wrong, the faster you build, the more you waste. Most teams' problem is not poor coding; it is **building the right wrong thing**: a product nobody needs, or a wrapper that the platform will release for free in 6 months, or a USP that promises one thing while doing another.
 
-**Positioning là chọn trận, không phải viết tagline.** Bạn không "định vị" bằng một câu slogan đẹp trên landing page. Bạn định vị bằng việc **từ chối** 4 trong 5 hướng đi khả dĩ, dồn nguồn lực vào 1 người dùng đầu tiên, và dùng positioning statement làm bộ lọc cho mọi quyết định build về sau.
+**Positioning is picking the battle, not writing a tagline.** You do not "position" with an attractive slogan on a landing page. You position by **saying no** to 4 out of 5 possible directions, concentrating resources on 1 initial user, and using the positioning statement as a filter for all subsequent build decisions.
 
-Toàn bộ chương đi theo một vòng lặp — nếu tín hiệu thị trường không đến, bạn quay lại đầu vòng chứ không phải build thêm tính năng:
+The entire chapter follows a loop — if market signals do not arrive, you return to the start of the loop rather than building more features:
 
 ```mermaid
 flowchart TD
-    A["De bai"] --> B{"Test AI Wrapper:<br/>platform lam mien phi<br/>trong 6 thang?"}
-    B -- "Co" --> B1["Doi huong de bai<br/>hoac tim lop gia tri moi"] --> B
-    B -- "Khong" --> C["Chon User F0<br/>tu choi 4/5 use cases"]
-    C --> D["Core Success Factor<br/>Top 3 Key Results do duoc"]
-    D --> E["One Positioning Statement<br/>+ test 3 cau voi nguoi ngoai"]
-    E --> F["Market reality check<br/>3 doi thu + 10 cau hoi user"]
-    F --> G["Build in Public 2 tuan<br/>6 posts + 3 signals"]
-    G --> H{"Du 1 signal<br/>trong 2 tuan?"}
-    H -- "Khong" --> P["PIVOT:<br/>doi User F0 hoac doi pain"] --> C
-    H -- "Co" --> I["COMMIT:<br/>positioning = decision filter"]
-    I --> J["Chuong 4: build agent<br/>theo dung USP da chon"]
+    A["Problem statement"] --> B{"AI Wrapper Test:<br/>will platform provide free<br/>within 6 months?"}
+    B -- "Yes" --> B1["Pivot problem statement<br/>or find new value layer"] --> B
+    B -- "No" --> C["Select User F0<br/>reject 4/5 use cases"]
+    C --> D["Core Success Factor<br/>Top 3 measurable Key Results"]
+    D --> E["One Positioning Statement<br/>+ 3-question test with outsiders"]
+    E --> F["Market reality check<br/>3 competitors + 10 real user questions"]
+    F --> G["Build in Public for 2 weeks<br/>6 posts + 3 signals"]
+    G --> H{"At least 1 signal<br/>in 2 weeks?"}
+    H -- "No" --> P["PIVOT:<br/>change User F0 or change pain point"] --> C
+    H -- "Yes" --> I["COMMIT:<br/>positioning = decision filter"]
+    I --> J["Chapter 4: build agent<br/>aligned with selected USP"]
 ```
-> [📊 Mở sơ đồ trên Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNplk09vGjEQxb_Kk680SihpDqhNFSAkNIpAhbSHugfjNbtWdu2V_7RCiO_esZcAUfew0o49v3kzb3bHpC0UG4JtavtXVsIFrCbcgJ67X5xNFNZCc_YbFxe3GO04WykfcDfDTyfaVrnh57W7vG1rETbWNahFg0Yrg7bS-SQ4a0rcIFTClF8523fsEfHA2dhy1pH7qZjVqGK6X-SyGVBZIRE0oW2LUgsEp9HYk6Z3wKeK0g_MMSHH9I0XrxymV52eCFlRnevLT4heQQqvPLE6yjgnTlKidQrLKKXyHlMhg3U5f0UqBnhSW3xXPtbBo7AoopVHxiQz7okxNwoL63XQ1mjqahlEUI0yIZN6CGmUA5IQ8YckmTLmt80D72D3GTYl2LNwryrAKVHrsKUmlHzNnAEp0DTfiB76V5mWGqTm3BEzzZgHwoyirgtog0Vc11riI0IUJoNu0FpPDfVIk9elEfVpMA8Z8Ej-TyL6h-MzgzvMyd_H_-1YUPXF7Md81a1MEn0wBtnjFGiFNm_Gjt-RjpsyS-bMn59nB057NuAvtDhSe_rCRtfhbACznPstb0TesOsh1nkUonwzJFQqWUmHL8sFCpEWJalhH8Aa5Rqhi_Sj7BKRM7rdKE4Bzgq1EbQKnHGzT5dFDHa5NZIOg4uKIrEtyPqJFqUTzSG8_wfPpRKU)
+> [📊 Open diagram on Mermaid Live / AI Editor](https://mermaid.live/edit#pako:eNplk09vGjEQxb_Kk680SihpDqhNFSAkNIpAhbSHugfjNbtWdu2V_7RCiO_esZcAUfew0o49v3kzb3bHpC0UG4JtavtXVsIFrCbcgJ67X5xNFNZCc_YbFxe3GO04WykfcDfDTyfaVrnh57W7vG1rETbWNahFg0Yrg7bS-SQ4a0rcIFTClF8523fsEfHA2dhy1pH7qZjVqGK6X-SyGVBZIRE0oW2LUgsEp9HYk6Z3wKeK0g_MMSHH9I0XrxymV52eCFlRnevLT4heQQqvPLE6yjgnTlKidQrLKKXyHlMhg3U5f0UqBnhSW3xXPtbBo7AoopVHxiQz7okxNwoL63XQ1mjqahlEUI0yIZN6CGmUA5IQ8YckmTLmt80D72D3GTYl2LNwryrAKVHrsKUmlHzNnAEp0DTfiB76V5mWGqTm3BEzzZgHwoyirgtog0Vc11riI0IUJoNu0FpPDfVIk9elEfVpMA8Z8Ej-TyL6h-MzgzvMyd_H_-1YUPXF7Md81a1MEn0wBtnjFGiFNm_Gjt-RjpsyS-bMn59nB057NuAvtDhSe_rCRtfhbACznPstb0TesOsh1nkUonwzJFQqWUmHL8sFCpEWJalhH8Aa5Rqhi_Sj7BKRM7rdKE4Bzgq1EbQKnHGzT5dFDHa5NZIOg4uKIrEtyPqJFqUTzSG8_wfPpRKU)
 
-Mỗi mục dưới đây đi kèm bài tập có output dạng file `usp/*.md` trong repo đội bạn. Đây là bằng chứng positioning cho QA và ban giám khảo — không có file, coi như chưa làm.
-
----
-
-## 5.1 Nhận diện AI Wrapper — sản phẩm của bạn còn lại gì sau 6 tháng?
-
-**AI Wrapper** là sản phẩm mà toàn bộ giá trị nằm ở việc "bọc" một API của platform (OpenAI, Google, Anthropic...) bằng một giao diện mỏng. Hình ảnh của workshop: **xe máy chạy vào làn đường container** — bạn đang cạnh tranh trực diện với những gã khổng lồ trên chính sân của họ.
-
-Test chỉ có một câu hỏi:
-
-> **"Nếu platform (OpenAI/Google/Anthropic) phát hành tính năng này miễn phí trong 6 tháng tới, sản phẩm của tôi còn lại gì?"**
-
-Nếu câu trả lời là "không còn gì" — bạn không có sản phẩm, bạn có một tính năng của người khác.
-
-Hai bằng chứng thật mà mọi đội đều phải thuộc:
-
-- **GPT Store ra mắt 11/2023** — cả một thế hệ "ChatGPT cho X" (wrapper mỏng quanh một prompt) mất giá trị gần như trong một đêm, vì chính OpenAI cho người dùng tạo và chia sẻ GPTs miễn phí.
-- **ChatGPT Memory ra mắt 5/2024** — các sản phẩm bán "chatbot nhớ ngữ cảnh cá nhân" bị thu hẹp còn đúng phần giá trị mà họ tự xây được ngoài memory mặc định (dữ liệu riêng, workflow riêng, tích hợp riêng).
-
-Câu hỏi tiếp theo: **lớp giá trị nào KHÔNG thể bị nuốt?** Thường rơi vào 4 nhóm:
-
-| Lớp giá trị | Ví dụ thật từ cohort | Vì sao khó bị nuốt |
-|---|---|---|
-| **Dữ liệu/domain riêng** | Gamma dùng dữ liệu leaderboard cohort thật (level 0.0–2.2) thay vì câu hỏi tổng quát | Platform không có dữ liệu của bạn |
-| **Workflow sâu** | Aclaris: pipeline MAP → REDUCE → REFINE → VERIFY → COMMIT + verifier dò mâu thuẫn, không phải 1 prompt | Là chuỗi bước có kiểm chứng, không thay được bằng 1 lần gọi API |
-| **Guardrail/governance theo domain** | NurA [C2-074]: guardrail 4 lớp cho tiếng Việt y khoa; MindCare [C2-109]: risk classifier trước khi AI phản hồi | Platform không chịu trách nhiệm domain của bạn |
-| **Tích hợp vào chỗ user đang ở** | Chatbot nằm đúng trong flow tuyển sinh/nhập học, kèm nguồn chính thức | Context phân phối là của bạn |
-
-> 💡 **MẸO:** Cách trả lời test này nhanh nhất là viết USP của bạn ra thành 1 câu, rồi gạch bỏ mọi từ mà platform cũng làm được miễn phí. Còn lại mấy từ? Đó chính là phần xây. Còn lại 0 từ — pivot đề bài ngay từ hôm nay, đừng đợi đến QA.
-
-**Bài tập 1 — Wrapper check (output: `usp/wrapper-check.md`)**
-
-Với đề bài của đội bạn, viết:
-1. Câu mô tả sản phẩm hiện tại (tối đa 2 câu).
-2. Trả lời test "platform miễn phí trong 6 tháng" — gạch bỏ từng từ, liệt kê phần còn lại.
-3. Xếp giá trị còn lại vào 1 trong 4 nhóm ở bảng trên. Nếu không vào nhóm nào — đây là red flag, mang đi hỏi coach trước khi viết thêm dòng code nào.
+Each section below includes an exercise with outputs in the form of `usp/*.md` files in your team repo. This is positioning evidence for QA and judges — without these files, it counts as undone.
 
 ---
 
-## 5.2 User F0 / Beachhead — từ chối quan trọng hơn lựa chọn
+## 5.1 Identifying AI Wrappers — What is left of your product after 6 months?
 
-**User F0** (beachhead) là nhóm người dùng đầu tiên bạn chọn để THẮNG tuyệt đối — không phải "phục vụ vừa đủ". Nguyên tắc số 1 của workshop: **"từ chối quan trọng hơn lựa chọn"**. Một đội 4 người không đủ nguồn lực để thắng 5 thị trường cùng lúc; liệt kê 5 use cases rồi chọn 1 nghĩa là bạn có 4 lý do từ chối rõ ràng — đó mới là bằng chứng bạn đã thật sự chọn.
+An **AI Wrapper** is a product where its entire value lies in "wrapping" a platform API (OpenAI, Google, Anthropic...) with a thin interface. The workshop metaphor: **a motorbike riding into a container truck lane** — you are competing head-to-head with giants on their own home turf.
 
-### Bài tập chọn User F0 (20 phút, làm nhóm)
+The test has only one question:
 
-**Bài tập 2 — Beachhead statement (output: `usp/beachhead.md`)**
+> **"If the platform (OpenAI/Google/Anthropic) releases this feature for free in the next 6 months, what is left of my product?"**
 
-1. Liệt kê **5 use cases** của đề bài (nhóm người cụ thể + việc cụ thể họ cần làm). Ví dụ với đề bài chatbot tuyển sinh: thí sinh hỏi học bổng, phụ huynh so sánh ngành, học sinh năm 2 tư vấn chuyển ngành, giáo viên counselor tra deadline, thí sinh quốc tế hỏi visa.
-2. Đánh giá từng use cases theo 3 tiêu chí: pain có thật không, đội bạn có lợi thế không, có chạm được người dùng thật trong 2 tuần không.
-3. **Chọn 1** — viết thành Beachhead statement: *"Chúng tôi phục vụ [nhóm người], giúp họ [việc cụ thể], thay cho [cách họ đang làm hôm nay]."*
-4. **Từ chối 4** — điền bảng dưới đây. Bảng từ chối quan trọng ngang statement, vì nó là phần "chứng minh bạn đã nghĩ".
+If the answer is "nothing" — you do not have a product, you have someone else's feature.
 
-Bảng lý do từ chối 4 use cases (điền vào `usp/beachhead.md`):
+Two real pieces of evidence every team must know by heart:
 
-| Use case bị từ chối | Họ sẵn trả tiền không? / Pain gì? | Sao không chọn? / Có expand được sau này không? |
+- **GPT Store launched in November 2023** — an entire generation of "ChatGPT for X" (thin wrappers around a prompt) lost value almost overnight, because OpenAI allowed users to create and share GPTs for free.
+- **ChatGPT Memory launched in May 2024** — products selling "chatbots remembering personal context" were reduced to only the value they built outside default memory (proprietary data, unique workflows, custom integrations).
+
+The next question: **which value layers CANNOT be swallowed?** Typically falling into 4 categories:
+
+| Value Layer | Real Cohort Example | Why It Is Hard to Swallow |
 |---|---|---|
-| (VD: Phụ huynh so sánh ngành) | Không trả tiền — tra miễn phí trên web nhà trường; pain thấp | Pain thật nhưng quyết định không nằm ở họ; có thể expand ở giai đoạn 2 sau khi thắng thí sinh |
+| **Proprietary data / domain** | Gamma used real cohort leaderboard data (level 0.0–2.2) instead of generic questions | The platform does not have your data |
+| **Deep workflow** | Aclaris: MAP → REDUCE → REFINE → VERIFY → COMMIT pipeline + contradiction detection verifier, not a single prompt | A sequence of verifiable steps cannot be replaced with a single API call |
+| **Domain-specific guardrail / governance** | NurA [C2-074]: 4-layer guardrail for Vietnamese medical domain; MindCare [C2-109]: risk classifier before AI response | The platform assumes no liability for your specific domain |
+| **Integration where the user already is** | Chatbot embedded directly inside the admissions/enrollment flow, with official sources | You own the distribution context |
+
+> 💡 **TIP:** The quickest way to pass this test is to write your USP in 1 sentence, then strike through every word the platform can also provide for free. How many words remain? That is your true build scope. If 0 words remain — pivot your topic today; do not wait until QA.
+
+**Exercise 1 — Wrapper check (output: `usp/wrapper-check.md`)**
+
+For your team's problem statement, write:
+1. Current product description (maximum 2 sentences).
+2. Answer the "free platform feature in 6 months" test — strike through each word, list what remains.
+3. Classify the remaining value into 1 of the 4 categories in the table above. If it fits none — this is a red flag, consult a coach before writing another line of code.
+
+---
+
+## 5.2 User F0 / Beachhead — Saying "No" Matters More Than Choosing
+
+**User F0** (beachhead) is the first user segment you choose to WIN decisively — not just "serve adequately". Workshop Rule #1: **"saying no is more important than choosing"**. A 4-person team does not have the resources to win 5 markets at once; listing 5 use cases and picking 1 means you have 4 clear rejection reasons — that is real proof you have made a deliberate choice.
+
+### Exercise: Choosing User F0 (20 minutes, group work)
+
+**Exercise 2 — Beachhead statement (output: `usp/beachhead.md`)**
+
+1. List **5 use cases** of the problem statement (specific group + specific task they need to accomplish). For example, with an admissions chatbot: applicants asking about scholarships, parents comparing majors, 2nd-year students seeking transfer advice, counselors checking deadlines, international applicants asking about visas.
+2. Evaluate each use case against 3 criteria: is the pain real, does your team have an edge, can you reach real users within 2 weeks?
+3. **Choose 1** — write it as a Beachhead statement: *"We serve [target group], helping them [specific task], replacing [what they currently do today]."*
+4. **Reject 4** — fill out the table below. The rejection table is just as critical as the statement, proving "you have actually thought it through".
+
+Rejection table for 4 use cases (fill into `usp/beachhead.md`):
+
+| Rejected Use Case | Willing to pay? / What pain? | Why not selected? / Can it expand later? |
+|---|---|---|
+| (E.g.: Parents comparing majors) | Won't pay — check for free on school website; low pain | Real pain but decision does not rest with them; can expand in Phase 2 after winning applicants |
 | ... | ... | ... |
 
-Ba cột bắt buộc: **sẵn trả tiền / pain gì / expand đâu**. Nếu một use case bị từ chối mà bạn không viết nổi lý do vào cột giữa — bạn chưa nghĩ đủ, chưa tính là từ chối.
+Three mandatory columns: **willing to pay / what pain / expansion path**. If you cannot articulate a reason in the middle column for a rejected use case — you haven't thought deeply enough; it does not count as a deliberate rejection.
 
-Lỗi thật của cohort ở bước này: Alpha chọn user là thí sinh hỏi tuyển sinh, nhưng knowledge base **thiếu 2 chủ đề user hỏi nhiều nhất** (học bổng, hạn nộp undergraduate). Chọn user xong mà không biết user thật hỏi gì thì lựa chọn chỉ nằm trên giấy — bài tập ở mục 5.5 sẽ đóng lỗ hổng này bằng 10 câu hỏi user thật.
+A real cohort mistake at this step: Alpha chose applicants asking about admissions as their user, but their knowledge base **lacked the 2 most frequently asked topics** (scholarships and undergraduate deadlines). Selecting a user without knowing what real users ask means the choice only exists on paper — the exercise in Section 5.5 closes this gap with 10 real user questions.
 
 ---
 
-## 5.3 Core Success Factor → Top 3 Key Results đo được
+## 5.3 Core Success Factor → Top 3 Measurable Key Results
 
-Bạn đã chọn trận (User F0). Câu hỏi tiếp: **cần thắng cái gì để GIÀNH thị trường đó?** Core Success Factor (CSF) là yếu tố quyết định thắng/thua ở User F0 đã chọn — không phải danh sách việc cần làm.
+You have chosen your battle (User F0). Next question: **what must you win to CAPTURE that market?** The Core Success Factor (CSF) is the decisive win/lose factor for the chosen User F0 — not a generic to-do list.
 
-Từ CSF, rút ra **Top 3 Key Results** — mỗi KR phải đo được bằng số, có deadline. Nếu KR không đo được thì nó là mong muốn, không phải key result.
+From the CSF, derive the **Top 3 Key Results** — each KR must be measurable by numbers with a clear deadline. If a KR is not measurable, it is a wish, not a key result.
 
-5 seed KR để đội khởi động (chọn 3, hoặc viết lại theo domain — nhưng phải giữ tính đo được):
+5 seed KRs for teams to kick off (choose 3, or rewrite for your domain — but preserve measurability):
 
-| # | Seed Key Result | Đo thế nào |
+| # | Seed Key Result | How to Measure |
 |---|---|---|
-| 1 | Tính năng lõi chạy đúng end-to-end từ UI công khai đến output (không tính demo nội bộ, không tính stub) | Checklist chạy tay từng bước trên URL công khai; mọi bước có output thật |
-| 2 | Tốc độ phản hồi trung bình < 3 giây với câu hỏi phổ biến | Log timestamp mỗi request (đã có pattern timing per-step ở chương RAG); đo 20 câu mẫu |
-| 3 | Accuracy >= 90% trên bộ câu hỏi vàng, hoặc >= 4/5 sao từ LLM-judge | Golden dataset + runner — xem [Chương 10](chapter-10.md); NurA đạt 4.62/5 LLM-judge là mốc tham chiếu |
-| 4 | Onboarding < 5 phút từ lần mở đầu tiên đến giá trị đầu tiên (user mới tự làm, không có member đội ngồi cạnh) | Nhờ 3 người ngoài đội thử, bấm giờ; ghi lại chỗ họ kẹt |
-| 5 | >= 50% user thử quay lại trong tuần đầu | Cơ chế đăng ký user (dù chỉ Google Form + email nhắc); đếm tỷ lệ quay lại |
+| 1 | Core feature runs correctly end-to-end from public UI to output (internal demos and stubs do not count) | Manual step-by-step checklist on the public URL; all steps produce real output |
+| 2 | Average response latency < 3 seconds for common questions | Log timestamps per request (following the per-step timing pattern from the RAG chapter); measure across 20 sample queries |
+| 3 | Accuracy >= 90% on golden dataset, or >= 4/5 stars from LLM-judge | Golden dataset + runner — see [Chapter 10](chapter-10.md); NurA's 4.62/5 LLM-judge score serves as a benchmark |
+| 4 | Onboarding < 5 minutes from first open to first value (new user self-serves without team members sitting nearby) | Ask 3 outsiders to try, time them; record where they get stuck |
+| 5 | >= 50% trial users return within the first week | User registration mechanism (even just Google Form + email reminders); count retention rate |
 
-Chỉ chọn **3**. Chọn 5 nghĩa là không chọn gì. Số dư bị loại cũng ghi lại lý do vào file bài tập — lại là bằng chứng "đã nghĩ".
+Choose only **3**. Choosing 5 means choosing nothing. Record reasons for excluded KRs in the exercise file — again, evidence of deliberate thinking.
 
-**Bài tập 3 — Key Results (output: `usp/key-results.md`)**
+**Exercise 3 — Key Results (output: `usp/key-results.md`)**
 
-1. Viết CSF của đội trong 1 câu: "Để thắng [User F0], chúng tôi phải thắng ở [yếu tố]."
-2. Chọn Top 3 KR từ bảng seed (hoặc tự viết), mỗi KR ghi: giá trị mục tiêu, cách đo (công cụ cụ thể), deadline.
-3. Với mỗi KR bị loại: 1 dòng lý do.
+1. Write your team's CSF in 1 sentence: "To win [User F0], we must win at [factor]."
+2. Select Top 3 KRs from the seed table (or author your own), documenting for each: target value, measurement method (specific tool), deadline.
+3. For each excluded KR: 1 line explaining why it was dropped.
 
-Bài học cohort liên quan trực tiếp: "video demo thiếu 11/11 đội, eval evidence thiếu 82%" (phản hồi ban giám khảo) và 10/12 đội cohort trước nộp eval placeholder trống. KR số 3 ở trên chính là thứ phân biệt đội có bằng chứng với đội chỉ có lời nói — chọn nó trừ khi bạn có lý do rất tốt.
-
----
-
-## 5.4 One Positioning Statement — một câu làm trọng tài
-
-Mọi thứ trên hội tụ về **một** câu. Một câu duy nhất, không phải 3 phiên bản cho 3 kênh. Nếu landing page nói một câu, pitch deck nói câu khác, demo lại nhấn thứ ba — người nghe sẽ tự chọn tin câu nào thuận tiện cho việc chê sản phẩm của bạn nhất.
-
-Khung câu:
-
-> **[Tên sản phẩm] giúp [User F0] [làm gì cụ thể] bằng cách [cơ chế đặc trưng] — khác với [cách hiện tại/đối thủ] ở điểm [khác biệt đo được].**
-
-Hai ví dụ thật từ cohort:
-
-- **Gamma** (định vị sắc, đáng học): *"Prove your AI readiness — 5 axes, 5 levels, LLM-judged, AI-Ready Certificate."* Ngắn, có cơ chế, có output xác thực.
-- **Aclaris** [C2-118] (USP đi kèm bằng chứng): định vị "không phải RAG bot thông thường" — pipeline biên soạn tri thức 5 bước + verifier dò mâu thuẫn, và chứng minh bằng Hit Rate 0.91 / Groundedness 0.96 / $0.0011 mỗi câu.
-
-Điểm chung: cả hai đều có **cơ chế** (5-axis assessment, pipeline VERIFY) chứ không chỉ có tính từ ("thông minh", "nhanh", "toàn diện" — những từ này là slop positioning, ai cũng gắn được).
-
-### Test 3 câu với người ngoài
-
-Viết xong statement, đưa cho **3 người không thuộc đội, không biết đề bài** (bạn cùng lớp khác nhóm, người nhà, admin group cộng đồng). Mỗi người đọc câu rồi trả lời:
-
-1. Sản phẩm này dành cho ai?
-2. Người đó làm được gì với nó?
-3. Nếu không có sản phẩm này, họ sẽ dùng gì thay thế?
-
-Nếu 3 người trả lời lệch nhau ở câu 1 — statement chưa đủ hẹp. Nếu câu 3 trả lời "dùng ChatGPT thôi mà" — bạn vừa trượt test wrapper ở mục 5.1 trong thực tế. Sửa rồi test lại với 3 người mới.
-
-**Bài tập 4 — Positioning statement (output: `usp/positioning-statement.md`)**
-
-1. Statement theo khung trên.
-2. Kết quả test 3 câu x 3 người (ghi nguyên văn câu trả lời của họ — không biên tập lại cho đẹp).
-3. Statement bản sửa (nếu có) sau khi test.
-
-File này trở thành **single source of truth cho messaging**: mọi text trên landing page, pitch deck, demo script, post BIP đều phải đọc lại từ file này trước khi xuất bản. Đây cũng là biện pháp chống trực tiếp lỗi messaging lệch kiểu Gamma (60 phút ở hero vs 35 phút ở entry-test) — hai bề mặt đó phải quote cùng một con số từ cùng một file.
+Direct cohort lesson: "11/11 teams lacked demo videos, 82% lacked eval evidence" (judge feedback) and 10/12 teams in the prior cohort submitted empty eval placeholders. KR #3 above distinguishes teams with hard evidence from teams with mere claims — choose it unless you have an exceptionally good reason not to.
 
 ---
 
-## 5.5 Market reality check checklist — đối thủ, câu hỏi thật, messaging đồng nhất
+## 5.4 One Positioning Statement — One Sentence as Referee
 
-Đây là checklist mà báo cáo bài học cohort khuyến nghị làm **bắt buộc trước khi build** — vì cả bốn đội phase RA đều vấp ở các mục của nó.
+Everything above converges into **one** sentence. A single sentence, not 3 versions for 3 channels. If your landing page says one thing, your pitch deck says another, and your demo highlights a third — listeners will pick whichever version makes it easiest to dismiss your product.
 
-### Checklist 4 mục
+Sentence framework:
 
-**1. Ba đối thủ trực tiếp + bảng so feature.** "Trực tiếp" nghĩa là: cùng user, cùng pain, đang được dùng thật (không phải "đối thủ về ý tưởng"). Với mỗi đối thủ, dùng thử 15 phút (hoặc xem review của user thật trên group Facebook / Reddit / App Store). Ghi vào bảng:
+> **[Product Name] helps [User F0] [specific task] by [distinctive mechanism] — unlike [current alternative / competitor] in that [measurable differentiator].**
 
-| Feature User F0 cần | Sản phẩm bạn | Đối thủ 1 | Đối thủ 2 | Đối thủ 3 |
+Two real cohort examples:
+
+- **Gamma** (sharp positioning, worth learning from): *"Prove your AI readiness — 5 axes, 5 levels, LLM-judged, AI-Ready Certificate."* Concise, mechanistic, verifiable output.
+- **Aclaris** [C2-118] (USP backed by evidence): positioned as "not an ordinary RAG bot" — 5-step knowledge synthesis pipeline + contradiction verifier, proven by Hit Rate 0.91 / Groundedness 0.96 / $0.0011 per answer.
+
+Common strength: both feature a **mechanism** (5-axis assessment, VERIFY pipeline) rather than just adjectives ("smart", "fast", "comprehensive" — these are positioning slop that anyone can paste).
+
+### The 3-Question Test with Outsiders
+
+Once written, show the statement to **3 people outside your team who know nothing about the topic** (classmates from another group, family, community group admins). Each person reads the sentence and answers:
+
+1. Who is this product for?
+2. What can that person do with it?
+3. Without this product, what would they use instead?
+
+If 3 people give divergent answers to question 1 — the statement is not narrow enough. If question 3 is answered with "just use ChatGPT" — you have failed the wrapper test from Section 5.1 in practice. Revise and re-test with 3 new people.
+
+**Exercise 4 — Positioning statement (output: `usp/positioning-statement.md`)**
+
+1. Statement following the framework above.
+2. Test results: 3 questions x 3 people (record their verbatim responses — do not edit to sound better).
+3. Revised statement (if applicable) post-test.
+
+This file becomes the **single source of truth for messaging**: all copy across landing pages, pitch decks, demo scripts, and BIP posts must be checked against this file before publication. This directly prevents Gamma-style messaging misalignment (60 minutes on hero vs 35 minutes in entry-test) — both surfaces must quote the same number from the same file.
+
+---
+
+## 5.5 Market Reality Check Checklist — Competitors, Real Questions, Consistent Messaging
+
+This checklist is recommended as **mandatory prior to building** by the cohort lessons report — as all four RA phase teams stumbled across its items.
+
+### 4-Item Checklist
+
+**1. Three direct competitors + feature comparison matrix.** "Direct" means: same user, same pain, actively used today (not "theoretical competitors"). For each competitor, spend 15 minutes hands-on (or read real user reviews on Facebook groups / Reddit / App Store). Fill into the matrix:
+
+| Feature Needed by User F0 | Your Product | Competitor 1 | Competitor 2 | Competitor 3 |
 |---|---|---|---|---|
-| (VD: Trả lời câu học bổng có trích nguồn) | Có / Không | | | |
+| (E.g.: Answering scholarship questions with citations) | Yes / No | | | |
 | ... | | | | |
 
-Bảng này có hai công dụng: tìm chỗ positioning đứng được (feature đối thủ đều "Không"), và chặn việc build lại thứ thị trường đã có sẵn miễn phí.
+This matrix serves two purposes: identifying viable positioning ground (features where all competitors are "No"), and preventing you from rebuilding what the market already offers for free.
 
-**2. Mười câu hỏi user thật nhất.** Thu thập từ 3 nguồn: phỏng vấn 5 người thuộc User F0 (Tally / Google Form + 15 phút gọi), đọc 20 thread hỏi-đáp trong group mà user thật của bạn hay ở, và review 1-2 sao của sản phẩm đối thủ. Rút ra 10 câu hỏi xuất hiện nhiều nhất. Đây chính là nội dung tối thiểu của knowledge base và của golden dataset ở [Chương 10](chapter-10.md). Lỗi Alpha (KB thiếu học bổng + deadline — 2 chủ đề được hỏi nhiều nhất) là hậu quả của việc bỏ qua mục này.
+**2. Ten most authentic user questions.** Gather from 3 sources: interviewing 5 people matching User F0 (Tally / Google Form + 15-minute call), reading 20 Q&A threads in communities where your target users hang out, and 1-2 star reviews of competitor products. Extract the 10 most frequent questions. These form the minimum content for your knowledge base and golden dataset in [Chapter 10](chapter-10.md). Alpha's failure (KB lacking scholarships + deadlines — the 2 most asked topics) resulted from skipping this step.
 
-**3. Messaging đồng nhất mọi bề mặt.** Đối chiếu từng con số, từng claim trên 4 bề mặt: landing hero, flow trong sản phẩm, pitch deck, demo script. Mọi con số phải về đúng một nguồn: `usp/positioning-statement.md` và `usp/key-results.md`. Quy tắc: một con số chỉ được viết ở một chỗ rồi tham chiếu — không copy tay.
+**3. Consistent messaging across all surfaces.** Cross-reference every number and claim across 4 surfaces: landing hero, in-product flow, pitch deck, demo script. All figures must originate from a single source: `usp/positioning-statement.md` and `usp/key-results.md`. Rule: write a number in one place only and reference it — no manual copying.
 
-**4. Tính năng chưa làm thì ẩn hoặc gắn nhãn rõ.** Không treo "SOON" / "NEW" / "Locked" trên tính năng cốt lõi (lỗi A-03 của Beta: "Practice SOON", "Exam NEW", Day 02–15 Locked khiến người đánh giá không thể kiểm tra đúng giá trị AI). Quy tắc: nếu tính năng nằm trên User F0 path mà chưa chạy được — ẩn hoàn toàn; nếu muốn giữ lộ trình — gắn nhãn lộ trình riêng, tách khỏi khu vực trải nghiệm chính. Nav không chứa link rỗng `#` (lỗi G-02 của Gamma: khách mới chưa thấy giá trị đã thấy sản phẩm bỏ trống).
+**4. Unfinished features must be hidden or clearly labeled.** Never slap "SOON" / "NEW" / "Locked" on core features (Beta's A-03 error: "Practice SOON", "Exam NEW", Day 02–15 Locked prevented evaluators from verifying AI value). Rule: if a feature lies on the User F0 path but does not function — hide it completely; if you wish to retain a roadmap — label it under a dedicated roadmap section, isolated from primary user flows. Navigation must not contain dead `#` links (Gamma's G-02 error: new visitors saw empty placeholders before experiencing value).
 
-### Case study tổng hợp — sai lầm thật vs làm đúng
+### Comprehensive Case Study — Real Mistakes vs Doing It Right
 
-| Đội | Việc xảy ra | Hậu quả | Bài học rút |
+| Team | What Happened | Consequence | Lesson Learned |
 |---|---|---|---|
-| **Beta** | Tính năng chính treo "Practice SOON"/"Exam NEW"; Day 02–15 Locked | Người đánh giá không thể kiểm chứng giá trị AI Tutor — điểm AI chỉ 6.5/10 dù tổng 78 | Tính năng cốt lõi phải chạm được từ UI công khai; chưa xong thì ẩn |
-| **Gamma** | Hero "~60 min" vs entry-test "~35 phút" | Giảm niềm tin (G-07) — bị bắt trong 1 phiên QA | Một con số, một nguồn, mọi bề mặt |
-| **Alpha** | KB thiếu học bổng và hạn nộp undergraduate | Chatbot tuyển sinh trả lời kém đúng 2 chủ đề user hỏi nhiều nhất | 10 câu hỏi user thật phải có TRƯỚC khi build KB |
-| **Delta (đúng)** | Landing honest: "MVP · Chỉ để luyện tập · Không liên kết nhà tuyển dụng" | Điểm cao nhất phase RA (80) — niềm tin tăng thay vì giảm | Honest messaging không làm sản phẩm kém đi; nó làm lời nói trở nên đáng giá |
-| **Gamma (đúng)** | Positioning 5-axis + AI-Ready Certificate | Định vị rõ nhất phase RA dù tổng điểm thấp | Một câu cơ chế cụ thể thắng mười tính từ |
-| **Aclaris (đúng)** | USP "không phải RAG bot thông thường" + số đo | Hit Rate 0.91, Groundedness 0.96 — định vị có bằng chứng | Claim đi kèm con số đo được, luôn |
+| **Beta** | Core feature labeled "Practice SOON"/"Exam NEW"; Day 02–15 Locked | Evaluators could not verify AI Tutor value — AI score was only 6.5/10 despite overall score 78 | Core features must be reachable from public UI; hide what is incomplete |
+| **Gamma** | Hero stated "~60 min" vs entry-test "~35 min" | Eroded trust (G-07) — caught in a single QA session | One number, one source, across all surfaces |
+| **Alpha** | KB lacked scholarships and undergraduate application deadlines | Admissions chatbot answered poorly on the 2 most queried topics | 10 real user questions must exist BEFORE building KB |
+| **Delta (correct)** | Honest landing: "MVP · Practice only · Not affiliated with employers" | Highest score in RA phase (80) — trust increased instead of dropping | Honest messaging does not diminish the product; it makes words credible |
+| **Gamma (correct)** | 5-axis positioning + AI-Ready Certificate | Clearest positioning in RA phase despite lower total score | A single specific mechanism sentence beats ten adjectives |
+| **Aclaris (correct)** | USP "not an ordinary RAG bot" + metrics | Hit Rate 0.91, Groundedness 0.96 — evidence-backed positioning | Claims must always be accompanied by measurable numbers |
 
-**Bài tập 5 — Market reality check (output: `usp/competitor-matrix.md`)**
+**Exercise 5 — Market reality check (output: `usp/competitor-matrix.md`)**
 
-File này gộm cả 4 mục checklist: bảng 3 đối thủ (mục 1), danh sách 10 câu hỏi user thật kèm nguồn từng câu (mục 2), bảng đối chiếu messaging 4 bề mặt với trạng thái Đồng nhất / Lệch (mục 3), danh sách tính năng ẩn kèm lý do (mục 4). Không hoàn thành file này thì không qua gate "được phép build" — quyết định này thuộc coach.
+This file consolidates all 4 checklist items: 3-competitor matrix (item 1), 10 real user questions with source attribution (item 2), 4-surface messaging reconciliation table with Consistent / Inconsistent status (item 3), and hidden features list with rationales (item 4). Without completing this file, you do not pass the "permission to build" gate — a decision held by coaches.
 
 ---
 
-## 5.6 Build in Public — 2 tuần, 6 posts, 3 signals
+## 5.6 Build in Public — 2 Weeks, 6 Posts, 3 Signals
 
-**Build in Public (BIP)** là đăng tải tiến trình sản phẩm thật trước khi hoàn thiện, ở nơi User F0 của bạn hay ở (Facebook group chuyên ngành, LinkedIn, Discord server, campus forum). Mục đích không phải marketing — mà là **thu tín hiệu thị trường sớm nhất có thể**, thay vì ngồi đoán.
+**Build in Public (BIP)** means sharing real product progress before completion where your User F0 hangs out (professional Facebook groups, LinkedIn, Discord servers, campus forums). The goal is not marketing — it is **gathering market signals as early as possible**, rather than guessing.
 
-Kế hoạch tối thiểu 2 tuần (từ Positioning Workshop):
+Minimum 2-week plan (from Positioning Workshop):
 
-- **6 posts** (3 mỗi tuần): mỗi post nói về 1 khía cạnh của USP đang build — vấn đề của User F0, cách tiếp cận của bạn, kết quả đo được (số thật từ KR). Post có số thật luôn outranking post cảm nghĩ.
-- **3 việc mỗi tuần** trong đội: (1) build đúng KR đang ưu tiên, (2) sản xuất 1-2 post từ chính kết quả đó, (3) trả lời/phỏng vấn user thật để lấp bảng 10 câu hỏi. Ba việc này khớp vòng BIP → Positioning → Focus của workshop: điều bạn học từ post quay lại sửa positioning.
+- **6 posts** (3 per week): each post covers 1 aspect of the USP being built — the User F0 pain point, your approach, measurable outcomes (real KR numbers). Posts with real data consistently outperform opinion pieces.
+- **3 tasks per week** within the team: (1) build the prioritized KR, (2) produce 1-2 posts directly from those results, (3) answer/interview real users to populate the 10-question matrix. These 3 tasks mirror the BIP → Positioning → Focus loop: learnings from posts feed back into refining positioning.
 
-**3 signals validate** — ít nhất 1 trong 3 xuất hiện trong 2 tuần:
+**3 validation signals** — at least 1 must appear within 2 weeks:
 
-| Signal | Ngưỡng | Nghĩa là |
+| Signal | Threshold | What It Means |
 |---|---|---|
-| Comments có nội dung trên posts | >= 10 comments | Người lạ quan tâm đủ để viết |
-| DM hỏi giá / hỏi dùng thử | >= 5 người | Có ý định dùng thật — tín hiệu mạnh nhất |
-| Trials thật (dùng thử từ người ngoài đội) | >= 20 lượt | Sản phẩm chạm được người thật |
+| Substantive post comments | >= 10 comments | Strangers care enough to write |
+| DMs asking for pricing / trials | >= 5 people | Genuine purchase intent — strongest signal |
+| Actual trials (usage from outside the team) | >= 20 sessions | Product touched real users |
 
-**2 tuần không thấy signal nào — PIVOT.** Không phải "build thêm tính năng rồi xem sao". Pivot nghĩa là quay lại mục 5.2: đổi User F0, hoặc đổi pain đang nhắm — rồi chạy lại vòng.
+**No signals after 2 weeks — PIVOT.** Not "let's build more features and see". Pivoting means returning to Section 5.2: change User F0, or change the pain point targeted — then run the loop again.
 
-**Bài tập 6 — BIP tracker (output: `usp/bip-tracker.md` hoặc Google Sheets)**
+**Exercise 6 — BIP tracker (output: `usp/bip-tracker.md` or Google Sheets)**
 
-1. Lịch 6 posts: ngày, kênh, chủ đề, KR liên quan.
-2. Bảng tracker: mỗi post ghi lượt comments / DM / trials phát sinh.
-3. 3 signals với ngưỡng và ngày hết hạn (14 ngày kể từ post đầu). Cột kết luận: ĐÚNG / PIVOT — điền theo dữ liệu, không theo cảm giác.
-
----
-
-## 5.7 Đọc tín hiệu thị trường — đừng tin survey, hãy tin credit card
-
-Signal ở mục 5.6 chỉ có giá trị nếu bạn đọc đúng. Ba câu hỏi tách tín hiệu thật khỏi nhiễu:
-
-**1. Ai THỰC SỰ đang dùng — có đúng User F0 bạn chọn không?**
-
-Nếu người dùng chủ động lại là sinh viên công nghệ tò mò (đồng trang lứa với bạn) chứ không phải User F0 đã khai trong `usp/beachhead.md` — đó là tín hiệu lệch. Ghi lại ai đã dùng thật (bio, ngữ cảnh), so với statement. Dùng lệch nhiều hơn dùng đúng = positioning sai đối tượng, hoặc product đang thu hút sớm-adopters thay vì user mục tiêu — cần phân biệt rõ hai trường hợp này trước khi quyết định.
-
-**2. User mô tả sản phẩm của bạn bằng những từ gì?**
-
-Đọc nguyên văn comment và DM (đừng tóm tắt lại cho hợp ý mình). Nếu user mô tả đúng theo statement — positioning hoạt động. Nếu họ mô tả theo một giá trị khác (mà bạn vô tình làm tốt hơn) — thị trường đang chỉ cho bạn hướng pivot nào đáng cân nhắc. Đem các từ của user về đối chiếu với `usp/positioning-statement.md`.
-
-**3. Ai trả tiền — hoặc hành xử như người chuẩn bị trả tiền?**
-
-Nguyên tắc: **"Đừng tin survey, hãy tin credit card."** Trong survey, ai cũng nói "hay đấy, sẽ dùng"; cái đếm được là hành vi tốn công/tốn tiền: điền form đăng ký đầy đủ, hỏi giá cụ thể, quay lại lần hai, chủ động chia sẻ cho người khác. 5 DM hỏi giá nặng ký hơn 100 like. Đây cũng là lý do KR số 5 (>= 50% quay lại tuần đầu) là một trong những seed đáng chọn — hành vi quay lại không giả vờ được.
-
-Kết thúc 2 tuần BIP, viết `usp/verdict.md` (nửa trang): signal nào xuất hiện với con số bao nhiêu, ai dùng thật, user mô tả thế nào, quyết định ĐÚNG (commit) hay PIVOT (về lại mục 5.2 với bài học gì).
+1. 6-post schedule: date, channel, topic, associated KR.
+2. Tracker table: record comments / DMs / trials generated per post.
+3. 3 signals with thresholds and expiration date (14 days from first post). Conclusion column: COMMIT / PIVOT — based on data, not gut feeling.
 
 ---
 
-## 5.8 Positioning làm decision filter — nối sang chương build
+## 5.7 Reading Market Signals — Don't Trust Surveys, Trust Credit Cards
 
-Sau khi commit, positioning statement không bị đóng khung. Nó trở thành **bộ lọc quyết định** cho mọi việc build về sau. Mỗi khi tranh luận trong đội về nên làm gì tiếp (và đội nào cũng tranh luận), đặt câu hỏi theo thứ tự:
+Signals in Section 5.6 are only valuable if interpreted correctly. Three questions separate true signal from noise:
 
-1. Tính năng này có nằm trên path của User F0 không? Không — loại.
-2. Tính năng này có giúp Top 3 Key Results không? Không — để sau.
-3. Tính năng này platform có thể làm miễn phí trong 6 tháng không? Có — nghĩ lại giá trị của nó.
-4. Sau khi làm xong, messaging trên mọi bề mặt có cần đổi không? Có — cập nhật `usp/positioning-statement.md` trước khi viết code.
+**1. Who is ACTUALLY using it — does it match your chosen User F0?**
 
-Quy tắc này giải thích trực tiếp vì sao "làm sâu 1 USP thắng trải mỏng 10 feature": Alpha đạt 8.5/10 điểm AI với đúng một USP (chống-bịa + citation) làm thật end-to-end, trong khi các đội dàn trải bị đánh giá theo "user chưa chạm được giá trị AI cốt lõi" — một product được đánh giá theo khả năng user chạm giá trị, không theo số lượng feature. Quy tắc "USP phải chạy được từ UI công khai đến output" (từ template cohort 3) là câu kiểm tra cuối cùng trước mọi lần nộp bài.
+If active users turn out to be curious tech students (your peers) rather than the User F0 declared in `usp/beachhead.md` — that is a misaligned signal. Record who actually used it (bio, context) versus the statement. Skewed usage > target usage = wrong audience positioning, or the product is attracting early-adopter hobbyists rather than target users — distinguish between these two scenarios before deciding.
 
-Từ đây, mọi file `usp/*.md` bạn đã viết trở thành đầu vào thật của việc build: 10 câu hỏi user thật là golden dataset, Top 3 KR là acceptance criteria, positioning statement là ràng buộc messaging. Sang [Chương 4](chapter-04.md) để build agent theo đúng những ràng buộc đó.
+**2. What words do users use to describe your product?**
+
+Read comments and DMs verbatim (do not paraphrase to suit your narrative). If users describe it consistent with your statement — positioning works. If they describe it through an alternative value proposition (that you accidentally delivered better) — the market is showing you a viable pivot direction. Cross-check user vocabulary with `usp/positioning-statement.md`.
+
+**3. Who pays — or behaves like someone ready to pay?**
+
+Principle: **"Don't trust surveys, trust credit cards."** In surveys, everyone says "great, I'd use it"; what counts is high-friction/financial commitment: filling out long registration forms, asking for exact pricing, returning a second time, proactively sharing with peers. 5 pricing DMs outweigh 100 likes. This is why KR #5 (>= 50% first-week retention) is a high-value seed choice — returning behavior cannot be faked.
+
+At the end of the 2-week BIP sprint, write `usp/verdict.md` (half a page): which signals emerged with what numbers, who used it in reality, how users described it, and the decision to COMMIT or PIVOT (returning to Section 5.2 with specific takeaways).
 
 ---
 
-## Bảng tự đánh giá "lên Giỏi" — tiêu chí Demo Day "Ý tưởng & ứng dụng thực tế"
+## 5.8 Positioning as Decision Filter — Connecting to the Build Chapter
 
-Dùng bảng này tự chấm trước khi nộp. Mức bạn tự chấm phải đứng được trước QA ngoài đội (nhớ lại: không team nào trong cohort tự phát hiện lỗi của mình — mọi CRITICAL/HIGH do QA bên ngoài bắt; nên nhờ 1 đội bạn chấm chéo).
+Once committed, the positioning statement does not sit in a frame. It becomes a **decision filter** for all subsequent building. Whenever debate arises in the team about what to build next (and every team debates), ask in order:
 
-| Mức | Nhận diện đề bài & thị trường | USP & bằng chứng | Ứng dụng thật |
+1. Does this feature lie on User F0's critical path? No — drop it.
+2. Does this feature contribute to the Top 3 Key Results? No — defer it.
+3. Could the platform offer this feature for free within 6 months? Yes — rethink its value proposition.
+4. Once completed, does messaging across surfaces need to change? Yes — update `usp/positioning-statement.md` before writing code.
+
+This rule directly explains why "going deep on 1 USP beats spreading thin across 10 features": Alpha scored 8.5/10 in AI with a single USP (anti-hallucination + citations) implemented end-to-end, whereas teams spreading thin were marked down for "users could not reach core AI value" — products are evaluated on user access to value, not feature counts. The rule "USP must run from public UI to output" (from cohort 3 template) serves as the final sanity check before every submission.
+
+From here, every `usp/*.md` file you have authored becomes real build input: 10 real user questions form the golden dataset, Top 3 KRs form acceptance criteria, positioning statement sets messaging constraints. Move to [Chapter 4](chapter-04.md) to build agents adhering strictly to those constraints.
+
+---
+
+## "Reaching Excellence" Self-Assessment Rubric — Demo Day "Concept & Practical Application"
+
+Use this rubric to self-evaluate before submission. Your self-grade must hold up against external QA (remember: no team in the cohort caught their own flaws — all CRITICAL/HIGH issues were found by external QA; get peer teams to cross-evaluate).
+
+| Level | Problem Statement & Market Understanding | USP & Evidence | Real-world Application |
 |---|---|---|---|
-| **1 — Chưa đạt** | Chưa xác định được đối thủ trực tiếp; chưa nói được user thật hỏi gì | USP là tính từ chung chung ("thông minh", "nhanh"), không đo được | Chưa có người ngoài đội dùng thử; tính năng cốt lõi không chạm được từ UI công khai |
-| **2 — Đạt** | Liệt kê được 3 đối thủ; có 10 câu hỏi user (nguồn sơ sài) | Có USP cụ thể nhưng bằng chứng chỉ là demo nội bộ | < 5 người ngoài đội thử; chưa có số đo hành vi |
-| **3 — Tốt** | Bảng so feature 3 đối thủ hoàn chỉnh; 10 câu hỏi có nguồn từng câu; messaging đồng nhất 4 bề mặt | USP có cơ chế đặc trưng + số đo (accuracy, tốc độ) trên golden dataset; signal đầu tiên xuất hiện (comments/DM/trials) | >= 20 người ngoài đội dùng thử; KR đang đo đều có dashboard/log |
-| **4 — Giỏi** | Đối thủ được dùng thử thật và ghi nhận điểm yếu cụ thể; phát hiện được chỗ trống thị trường mà bảng feature chứng minh; messaging 4 bề mặt quote một nguồn | 1 USP làm sâu end-to-end + bằng chứng độc lập đo lại được (kiểu Aclaris 0.91/0.96, AI Finance Assistant 64% → 96%); đạt >= 1 ngưỡng signal (>= 5 DM hỏi giá hoặc >= 20 trials) | User thật quay lại theo dõi KR; verdict ĐÚNG/PIVOT có dữ liệu 2 tuần; sản phẩm sống đúng positioning statement từ UI công khai đến output |
+| **1 — Below Standard** | Unidentified direct competitors; unable to articulate real user questions | USP is generic adjectives ("smart", "fast"), unmeasurable | No external trial users; core features inaccessible from public UI |
+| **2 — Meets Standard** | Lists 3 competitors; has 10 user questions (superficial sources) | Specific USP but evidence limited to internal demos | < 5 external trial users; lacks behavioral metrics |
+| **3 — Good** | Complete 3-competitor feature matrix; 10 questions with attributed sources; consistent messaging across 4 surfaces | USP features distinct mechanism + metrics (accuracy, speed) on golden dataset; initial signals emerge (comments/DMs/trials) | >= 20 external trial users; tracked KRs backed by dashboards/logs |
+| **4 — Excellent** | Competitors tested hands-on with documented weaknesses; market void identified and proven via matrix; 4 surfaces quote a single source | 1 USP executed deeply end-to-end + independently reproducible evidence (e.g. Aclaris 0.91/0.96, AI Finance Assistant 64% → 96%); reaches >= 1 signal threshold (>= 5 pricing DMs or >= 20 trials) | Real users returning to track KRs; COMMIT/PIVOT verdict backed by 2-week data; product lives up to positioning statement from public UI to output |
 
-## Exit-test — 4 câu trả lời thay lời kết
+## Exit-Test — 4 Concluding Questions
 
-Trước khi rời chương này (và trước mọi lần pitch), mỗi thành viên phải tự trả lời được 4 câu — mỗi câu là một tradeoff bạn đã chủ động chấp nhận, không phải câu trả lời êm tai:
+Before moving past this chapter (and before any pitch), every team member must be able to answer 4 questions — each representing an intentional trade-off you have accepted, not a feel-good answer:
 
-1. **Nếu platform phát hành tính năng cốt lõi của bạn miễn phí trong 6 tháng, sản phẩm còn lại gì?** — nếu trả lời là "chúng tôi tin tốc độ thực thi", đó chưa phải câu trả lời; hãy chỉ ra nhóm giá trị (dữ liệu riêng / workflow sâu / guardrail domain / tích hợp) mà bạn đang nắm.
-2. **Bạn đã từ chối 4/5 use cases vì lý do gì, và từ chối đó khiến bạn mất gì?** — bảng `usp/beachhead.md` phải cho thấy cái giá của sự từ chối, không chỉ lời giải thích.
-3. **Signal nào sẽ khiến bạn pivot, và đến hết 2 tuần bạn đã thấy hoặc chưa thấy nó ở mức nào?** — trả lời bằng con số từ `usp/bip-tracker.md`, kèm ngày hết hạn; "team thấy có vẻ ổn" không phải tín hiệu.
-4. **Tính năng nào bạn đang ẩn hoặc gắn nhãn lộ trình, và việc ẩn nó có làm positioning statement sai đi không?** — nếu phải ẩn quá nhiều thứ mà statement vẫn hứa, vấn đề không nằm ở UI; nó nằm ở statement.
+1. **If the platform releases your core feature for free in 6 months, what remains of your product?** — answering "we believe in execution speed" is not sufficient; point out the exact value category (proprietary data / deep workflow / domain guardrail / integration) you own.
+2. **Why did you reject 4 out of 5 use cases, and what did rejecting them cost you?** — the `usp/beachhead.md` table must reflect the true cost of rejection, not just rationalizations.
+3. **What signal triggers a pivot, and after 2 weeks, at what level did you observe or fail to observe it?** — answer with numbers from `usp/bip-tracker.md`, including expiration dates; "the team feels it's going well" is not a signal.
+4. **Which features are currently hidden or roadmap-labeled, and does hiding them invalidate your positioning statement?** — if hiding too much causes the statement to overpromise, the problem is not in the UI; it is in the statement itself.
 
-Trả lời được 4 câu với bằng chứng trong các file `usp/*.md` — bạn đã sẵn sàng build. Sang [Chương 4](chapter-04.md).
+Answer all 4 questions with documented evidence in `usp/*.md` files — you are now ready to build. Proceed to [Chapter 4](chapter-04.md).

@@ -1,12 +1,12 @@
 ---
 title: "Anti-Patterns"
-description: "Lỗi thường gặp từ Cohort 1 & 2 — PHẢI TRÁNH"
+description: "Common failure modes from Cohorts 1 & 2 — MUST AVOID"
 weight: 8
 ---
 
-Phần này tổng hợp sai lầm phổ biến từ các đội Cohort 1 & 2, được phân tích từ kết quả đánh giá thực tế. Dựa trên điểm số của các đội xếp hạng thấp, bạn sẽ thấy rõ những lỗi nào lặp đi lặp lại và hậu quả của chúng. Đọc kỹ phần này sẽ giúp bạn tránh những cái bẫy mà nhiều đội đã vấp phải, từ đó nâng cao chất lượng sản phẩm và điểm số cuối cùng.
+This section documents common pitfalls observed across Cohort 1 & 2 projects, analyzed from real evaluation outcomes. Reviewing low-scoring projects highlights recurring mistakes and their operational impact. Studying these patterns prevents recurring failure modes and elevates code quality and evaluation scores.
 
-## Trang trong mục này
+## Subsections
 
-- [Common Mistakes](common-mistakes.md) — Top sai lầm code quality các cohort
-- [Cohort 1 & 2 Agent Mistakes](cohort-1-2-agent-mistakes.md) — Sai lầm agent engineering (prompt, eval, guardrail, config)
+- [Common Mistakes](common-mistakes.md) — Top code quality failure modes across cohorts
+- [Cohort 1 & 2 Agent Mistakes](cohort-1-2-agent-mistakes.md) — Agent engineering errors (prompts, evals, guardrails, config)\n

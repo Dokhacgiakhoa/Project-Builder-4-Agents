@@ -1,11 +1,11 @@
 ---
 title: "Learning Resources"
-description: "Khóa học và tài liệu tham khảo được tuyển chọn"
+description: "Curated learning paths and reference materials"
 weight: 11
 ---
 
-Phần này tổng hợp các tài nguyên học tập được tuyển chọn để bạn nâng cao kỹ năng xây dựng AI Agent, bao gồm lộ trình học 6 tuần với các khóa học từ DeepLearning.AI. Dù bạn là người mới hay đã có kinh nghiệm, các tài liệu này sẽ giúp bạn đi nhanh hơn trên con đường phát triển AI Agent.
+Curated resources and structured learning roadmaps to deepen skills in AI Agent engineering, featuring courses from DeepLearning.AI and foundational AI engineering literature.
 
-## Trang trong mục này
+## Subsections
 
-- [Recommended Courses](recommended-courses.md) — Lộ trình học 6 tuần với các khóa DeepLearning.AI
+- [Recommended Courses](recommended-courses.md) — 6-week curriculum with DeepLearning.AI reference courses\n
