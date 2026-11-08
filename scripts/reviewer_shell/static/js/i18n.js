@@ -4,6 +4,10 @@
 (function () {
   const DICT = { vi: {
  "CRITICAL": "NGUY HIỂM",
+ "Checking connection...": "Đang kiểm tra kết nối...",
+ "Internet connected": "Đã kết nối Internet",
+ "No internet connection. Updates are unavailable.": "Không có kết nối Internet. Không thể cập nhật.",
+ "No internet connection. Connect and try again.": "Không có kết nối Internet. Hãy kết nối rồi thử lại.",
  "CRITICAL RISK": "LỖI NGUY HIỂM",
  "RED ALARM: {n} High-Severity Risk": "BÁO ĐỘNG ĐỎ: {n} LỖI NGUY HIỂM",
  "Quality Gate Passed": "Đạt chuẩn an toàn (Quality Gate Passed)",

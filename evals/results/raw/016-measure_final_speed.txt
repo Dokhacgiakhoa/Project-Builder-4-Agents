@@ -1,0 +1,8 @@
+=== Item 3e: Final 3-run timing on P-062 without profiler ===
+  Run 1: 4.3424s | Score: 46
+  Run 2: 4.3186s | Score: 46
+  Run 3: 4.3571s | Score: 46
+
+Baseline runs (mean: 33.0156s): [33.4809, 32.3016, 33.2643]
+After runs    (mean: 4.3394s): [4.3424, 4.3186, 4.3571]
+Wall time reduction: 86.86% (Target: >= 40%)

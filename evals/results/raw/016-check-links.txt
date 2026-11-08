@@ -1,0 +1,3 @@
+0 link hỏng.
+0 lỗi khuôn tài liệu.
+exit=0

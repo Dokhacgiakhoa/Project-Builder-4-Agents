@@ -1,0 +1,39 @@
+=== A/B Alternating Benchmark (5 pairs) ===
+
+--- Testing P-062 ---
+  Pair 1/5:
+    HEAD: 15.267s (score=80)
+    NEW : 4.230s (score=46)
+  Pair 2/5:
+    HEAD: 14.929s (score=80)
+    NEW : 4.278s (score=46)
+  Pair 3/5:
+    HEAD: 15.072s (score=80)
+    NEW : 4.380s (score=46)
+  Pair 4/5:
+    HEAD: 15.560s (score=80)
+    NEW : 4.451s (score=46)
+  Pair 5/5:
+    HEAD: 15.399s (score=80)
+    NEW : 4.637s (score=46)
+  Summary for P-062: HEAD mean = 15.245s, NEW mean = 4.395s (Speedup: 3.47x)
+
+--- Testing litellm ---
+  Pair 1/5:
+    HEAD: 58.700s (score=80)
+    NEW : 19.368s (score=20)
+  Pair 2/5:
+    HEAD: 59.508s (score=80)
+    NEW : 19.079s (score=20)
+  Pair 3/5:
+    HEAD: 58.335s (score=80)
+    NEW : 18.282s (score=20)
+  Pair 4/5:
+    HEAD: 57.984s (score=80)
+    NEW : 18.366s (score=20)
+  Pair 5/5:
+    HEAD: 56.463s (score=80)
+    NEW : 17.700s (score=20)
+  Summary for litellm: HEAD mean = 58.198s, NEW mean = 18.559s (Speedup: 3.14x)
+
+Saved raw results to D:\Github\_sandbox\016-run\raw\010-ab-benchmark.json

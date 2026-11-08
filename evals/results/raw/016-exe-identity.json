@@ -1,0 +1,55 @@
+[
+  {
+    "target": "requests",
+    "exe": {
+      "rc": 0,
+      "sec": 2.25,
+      "score_line": null,
+      "stderr_tail": [],
+      "report_bytes": 22507
+    },
+    "src": {
+      "rc": 0,
+      "sec": 0.42,
+      "score_line": "Score: 41/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 20361
+    },
+    "lines_exe": 184,
+    "lines_src": 180,
+    "diff_lines": 94,
+    "diff_sample": [
+      {
+        "line": 3,
+        "exe": "generator: Project Health Check (Project-Builder-4-Agents)",
+        "src": "generator: Project Builder Analytics (Project-Builder-4-Agents)"
+      },
+      {
+        "line": 5,
+        "exe": "score: 37",
+        "src": "score: 41"
+      },
+      {
+        "line": 6,
+        "exe": "grade: \"F (CẦN TÁI CẤU TRÚC KIẾN TRÚC TOÀN DIỆN)\"",
+        "src": "grade: \"F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)\""
+      },
+      {
+        "line": 10,
+        "exe": "findings: {cao: 6, trung_binh: 14, thap: 8}",
+        "src": "findings: {cao: 5, trung_binh: 15, thap: 4}"
+      },
+      {
+        "line": 28,
+        "exe": "> Phân tích tĩnh từ mã nguồn, đối chiếu với tri thức kit (pack `2026-11-07`, nguồn: bundled, 53 tài liệu). Mỗi nhận định có bằng chứng; xem giới hạn ở cuối mục.",
+        "src": "> Phân tích tĩnh từ mã nguồn, đối chiếu với tri thức kit (pack `2026-11-08`, nguồn: bundled, 53 tài liệu). Mỗi nhận định có bằng chứng; xem giới hạn ở cuối mục."
+      },
+      {
+        "line": 87,
+        "exe": "- **Điểm**: **37 / 100** — **F (CẦN TÁI CẤU TRÚC KIẾN TRÚC TOÀN DIỆN)**",
+        "src": "- **Điểm**: **41 / 100** — **F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)**"
+      }
+    ],
+    "score_equal": false
+  }
+]

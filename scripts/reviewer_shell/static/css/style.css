@@ -2567,3 +2567,6 @@ body {
   font-weight: 700 !important;
   letter-spacing: 0.03em;
 }
+
+/* Buttons that need the Internet while the engine cannot reach GitHub (still clickable: they re-probe first). */
+.btn.is-offline { opacity: 0.55; }

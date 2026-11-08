@@ -1,0 +1,71 @@
+## safety_eval.py: 3 changed lines
+-PROJECT_ROOT = Path(__file__).resolve().parent.parent
++PROJECT_ROOT = Path(r"D:\Github\Project-Builder-4-Agents\repo")
+-    manifest_path = PROJECT_ROOT / "evals" / "results" / "raw" / "corpus_manifest.json"
++    manifest_path = Path(r"D:\Github\_sandbox\016-run\raw") / "corpus_manifest.json"
+-    out_dir = PROJECT_ROOT / "evals" / "results" / "raw"
++    out_dir = Path(r"D:\Github\_sandbox\016-run\raw")
+## equivalence_check.py: 2 changed lines
+-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
++sys.path.insert(0, str(Path(r"D:\Github\Project-Builder-4-Agents\repo") / "scripts"))
+-RAW_OUT = Path(__file__).resolve().parent / "results" / "raw" / "009-equivalence.json"
++RAW_OUT = Path(r"D:\Github\_sandbox\016-run\raw") / "009-equivalence.json"
+## differential_test.py: 2 changed lines
+-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
++sys.path.insert(0, str(Path(r"D:\Github\Project-Builder-4-Agents\repo") / "scripts"))
+-    out_file = "D:/Github/Project-Builder-4-Agents/evals/results/raw/008-differential-test.txt"
++    out_file = "D:/Github/_sandbox/016-run/raw/008-differential-test.txt"
+## verify_nonsafe_identity.py: 4 changed lines
+-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
++sys.path.insert(0, str(Path(r"D:\Github\Project-Builder-4-Agents\repo") / "scripts"))
+-KIT_DIR = Path(r"D:\Github\Project-Builder-4-Agents")
+-BASELINE_FILE = Path(r"D:\Github\Project-Builder-4-Agents\evals\results\raw\008-baseline-findings.json")
+-RAW_OUT = Path(r"D:\Github\Project-Builder-4-Agents\evals\results\raw\011-nonsafe-identity.txt")
++KIT_DIR = Path(r"D:\Github\Project-Builder-4-Agents\repo")
++BASELINE_FILE = Path(r"D:\Github\_sandbox\016-run\raw\008-baseline-findings.json")
++RAW_OUT = Path(r"D:\Github\_sandbox\016-run\raw\011-nonsafe-identity.txt")
+## verify_differential_findings.py: 3 changed lines
+-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
++sys.path.insert(0, str(Path(r"D:\Github\Project-Builder-4-Agents\repo") / "scripts"))
+-KIT_DIR = Path(r"D:\Github\Project-Builder-4-Agents")
+-BASELINE_FILE = Path(r"D:\Github\Project-Builder-4-Agents\evals\results\raw\008-baseline-findings.json")
++KIT_DIR = Path(r"D:\Github\Project-Builder-4-Agents\repo")
++BASELINE_FILE = Path(r"D:\Github\_sandbox\016-run\raw\008-baseline-findings.json")
+## ab_speed.py: 2 changed lines
+-WORK_SCRIPTS = Path(r"D:\Github\Project-Builder-4-Agents\scripts")
++WORK_SCRIPTS = Path(r"D:\Github\Project-Builder-4-Agents\repo\scripts")
+-RAW_OUT = Path(r"D:\Github\Project-Builder-4-Agents\evals\results\raw\009-ab-speed.json")
++RAW_OUT = Path(r"D:\Github\_sandbox\016-run\raw\009-ab-speed.json")
+## benchmark_ab_pillars.py: 2 changed lines
+-NEW_SCRIPTS = r"D:\Github\Project-Builder-4-Agents\scripts"
+-RAW_OUT = Path(r"D:\Github\Project-Builder-4-Agents\evals\results\raw\010-ab-benchmark.json")
++NEW_SCRIPTS = r"D:\Github\Project-Builder-4-Agents\repo\scripts"
++RAW_OUT = Path(r"D:\Github\_sandbox\016-run\raw\010-ab-benchmark.json")
+## hygiene_eval.py: 3 changed lines
+-PROJECT_ROOT = Path(__file__).resolve().parent.parent
++PROJECT_ROOT = Path(r"D:\Github\Project-Builder-4-Agents\repo")
+-    manifest_path = PROJECT_ROOT / "evals" / "results" / "raw" / "corpus_manifest.json"
++    manifest_path = Path(r"D:\Github\_sandbox\016-run\raw") / "corpus_manifest.json"
+-    out_file = PROJECT_ROOT / "evals" / "results" / "raw" / f"hygiene-{time.strftime('%Y-%m-%d')}.json"
++    out_file = Path(r"D:\Github\_sandbox\016-run\raw") / f"hygiene-{time.strftime('%Y-%m-%d')}.json"
+## measure_final_speed.py: 3 changed lines
+-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
++sys.path.insert(0, str(Path(r"D:\Github\Project-Builder-4-Agents\repo") / "scripts"))
+-BASELINE_FILE = Path(r"D:\Github\Project-Builder-4-Agents\evals\results\raw\008-baseline-findings.json")
++BASELINE_FILE = Path(r"D:\Github\_sandbox\016-run\raw\008-baseline-findings.json")
+-    out_file = Path("D:/Github/Project-Builder-4-Agents/evals/results/raw/008-final-speed.txt")
++    out_file = Path("D:/Github/_sandbox/016-run/raw/008-final-speed.txt")
+## exe_variance.py: 1 changed lines
+-RAW_OUT = r"D:\Github\Project-Builder-4-Agents\evals\results\raw\008-variance.json"
++RAW_OUT = r"D:\Github\_sandbox\016-run\raw\008-variance.json"
+## scaling_check.py: 2 changed lines
+-RAW_OUT = Path(r"D:\Github\Project-Builder-4-Agents\evals\results\raw\010-scaling.json")
+-SCRIPTS_DIR = Path(r"D:\Github\Project-Builder-4-Agents\scripts")
++RAW_OUT = Path(r"D:\Github\_sandbox\016-run\raw\010-scaling.json")
++SCRIPTS_DIR = Path(r"D:\Github\Project-Builder-4-Agents\repo\scripts")
+## cold_warm_probe.py: 2 changed lines
+-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
++sys.path.insert(0, str(Path(r"D:\Github\Project-Builder-4-Agents\repo") / "scripts"))
+-RAW_OUT = Path(r"D:\Github\Project-Builder-4-Agents\evals\results\raw\011-cold-warm.json")
++RAW_OUT = Path(r"D:\Github\_sandbox\016-run\raw\011-cold-warm.json")
+## quote_cmd.py: 0 changed lines

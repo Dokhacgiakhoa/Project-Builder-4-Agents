@@ -1,0 +1,73 @@
+=== Running Differential Findings Verification ===
+Audited aider                     in  0.56s | Score: 43 | Findings: 28 | Safety: 4
+Audited anthropic-quickstarts     in  0.77s | Score: 43 | Findings: 52 | Safety: 0
+Audited awesome-cursorrules       in  0.37s | Score: 46 | Findings: 20 | Safety: 0
+Audited cline                     in  4.98s | Score: 40 | Findings: 834 | Safety: 3
+Audited continue                  in  3.25s | Score: 28 | Findings: 1209 | Safety: 0
+Audited fastapi                   in  2.89s | Score: 46 | Findings: 30 | Safety: 12
+Audited flask                     in  0.33s | Score: 35 | Findings: 31 | Safety: 1
+Audited garak                     in  1.02s | Score: 50 | Findings: 35 | Safety: 20
+Audited gitingest                 in  0.20s | Score: 46 | Findings: 22 | Safety: 0
+Audited httpx                     in  0.26s | Score: 39 | Findings: 24 | Safety: 3
+Audited jinja                     in  0.28s | Score: 38 | Findings: 24 | Safety: 0
+Audited litellm                   in 19.99s | Score: 20 | Findings: 746 | Safety: 57
+Audited llama_index               in  5.96s | Score: 20 | Findings: 51 | Safety: 0
+Audited llm-security              in  0.13s | Score: 44 | Findings: 23 | Safety: 0
+Audited mkdocs                    in  0.32s | Score: 35 | Findings: 29 | Safety: 0
+Audited phobert                   in  0.13s | Score: 46 | Findings: 17 | Safety: 0
+Audited pydantic                  in  2.99s | Score: 49 | Findings: 27 | Safety: 0
+Audited rebuff                    in  0.17s | Score: 43 | Findings: 45 | Safety: 0
+Audited requests                  in  0.21s | Score: 41 | Findings: 24 | Safety: 0
+Audited underthesea               in  1.31s | Score: 43 | Findings: 49 | Safety: 3
+Audited vncorenlp                 in  0.14s | Score: 46 | Findings: 23 | Safety: 0
+Audited P-062                     in  4.34s | Score: 46 | Findings: 37 | Safety: 9
+Audited Project-Builder-4-Agents  in  0.43s | Score: 88 | Findings: 4 | Safety: 3
+
+--- Verification Summary ---
+FAILED: Found 46 differences:
+  - aider: score changed from 46 to 43
+  - aider: findings changed (base 27 vs new 28)
+  - anthropic-quickstarts: score changed from 58 to 43
+  - anthropic-quickstarts: findings changed (base 44 vs new 52)
+  - awesome-cursorrules: score changed from 48 to 46
+  - awesome-cursorrules: findings changed (base 24 vs new 20)
+  - cline: score changed from 68 to 40
+  - cline: findings changed (base 483 vs new 834)
+  - continue: score changed from 60 to 28
+  - continue: findings changed (base 99 vs new 1209)
+  - fastapi: score changed from 52 to 46
+  - fastapi: findings changed (base 29 vs new 30)
+  - flask: score changed from 34 to 35
+  - flask: findings changed (base 31 vs new 31)
+  - garak: findings changed (base 32 vs new 35)
+  - gitingest: score changed from 60 to 46
+  - gitingest: findings changed (base 22 vs new 22)
+  - httpx: score changed from 36 to 39
+  - httpx: findings changed (base 28 vs new 24)
+  - jinja: score changed from 35 to 38
+  - jinja: findings changed (base 28 vs new 24)
+  - litellm: score changed from 80 to 20
+  - litellm: findings changed (base 1533 vs new 746)
+  - litellm: safety signals changed (base 56 vs new 57)
+  - llama_index: score changed from 66 to 20
+  - llama_index: findings changed (base 92 vs new 51)
+  - llm-security: findings changed (base 23 vs new 23)
+  - mkdocs: score changed from 32 to 35
+  - mkdocs: findings changed (base 32 vs new 29)
+  - phobert: score changed from 58 to 46
+  - phobert: findings changed (base 17 vs new 17)
+  - pydantic: score changed from 58 to 49
+  - pydantic: findings changed (base 28 vs new 27)
+  - rebuff: score changed from 59 to 43
+  - rebuff: findings changed (base 24 vs new 45)
+  - requests: score changed from 37 to 41
+  - requests: findings changed (base 28 vs new 24)
+  - underthesea: score changed from 59 to 43
+  - underthesea: findings changed (base 40 vs new 49)
+  - vncorenlp: score changed from 48 to 46
+  - vncorenlp: findings changed (base 23 vs new 23)
+  - P-062: score changed from 80 to 46
+  - P-062: findings changed (base 39 vs new 37)
+  - Project-Builder-4-Agents: score changed from 90 to 88
+  - Project-Builder-4-Agents: findings changed (base 7 vs new 4)
+  - synthetic_attack_set: signals changed

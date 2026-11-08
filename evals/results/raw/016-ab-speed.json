@@ -1,0 +1,157 @@
+{
+  "target_repo": "D:\\Github\\P-062",
+  "pairs_count": 5,
+  "head_summary": {
+    "mean_sec": 15.0824,
+    "min_sec": 14.8374,
+    "max_sec": 15.4593,
+    "runs": [
+      {
+        "run": 1,
+        "duration_sec": 15.0874,
+        "score": 80,
+        "cpu_load_pct": 20
+      },
+      {
+        "run": 2,
+        "duration_sec": 14.8374,
+        "score": 80,
+        "cpu_load_pct": 22
+      },
+      {
+        "run": 3,
+        "duration_sec": 14.9393,
+        "score": 80,
+        "cpu_load_pct": 0
+      },
+      {
+        "run": 4,
+        "duration_sec": 15.0888,
+        "score": 80,
+        "cpu_load_pct": 2
+      },
+      {
+        "run": 5,
+        "duration_sec": 15.4593,
+        "score": 80,
+        "cpu_load_pct": 3
+      }
+    ]
+  },
+  "work_summary": {
+    "mean_sec": 4.3008,
+    "min_sec": 4.2068,
+    "max_sec": 4.5136,
+    "runs": [
+      {
+        "run": 1,
+        "duration_sec": 4.2307,
+        "score": 46,
+        "cpu_load_pct": 21
+      },
+      {
+        "run": 2,
+        "duration_sec": 4.2349,
+        "score": 46,
+        "cpu_load_pct": 29
+      },
+      {
+        "run": 3,
+        "duration_sec": 4.5136,
+        "score": 46,
+        "cpu_load_pct": 0
+      },
+      {
+        "run": 4,
+        "duration_sec": 4.2068,
+        "score": 46,
+        "cpu_load_pct": 1
+      },
+      {
+        "run": 5,
+        "duration_sec": 4.3179,
+        "score": 46,
+        "cpu_load_pct": 1
+      }
+    ]
+  },
+  "speedup_ratio": 3.5069,
+  "reduction_pct": 71.4849,
+  "runs_log": [
+    {
+      "pair": 1,
+      "head": {
+        "run": 1,
+        "duration_sec": 15.0874,
+        "score": 80,
+        "cpu_load_pct": 20
+      },
+      "work": {
+        "run": 1,
+        "duration_sec": 4.2307,
+        "score": 46,
+        "cpu_load_pct": 21
+      }
+    },
+    {
+      "pair": 2,
+      "head": {
+        "run": 2,
+        "duration_sec": 14.8374,
+        "score": 80,
+        "cpu_load_pct": 22
+      },
+      "work": {
+        "run": 2,
+        "duration_sec": 4.2349,
+        "score": 46,
+        "cpu_load_pct": 29
+      }
+    },
+    {
+      "pair": 3,
+      "head": {
+        "run": 3,
+        "duration_sec": 14.9393,
+        "score": 80,
+        "cpu_load_pct": 0
+      },
+      "work": {
+        "run": 3,
+        "duration_sec": 4.5136,
+        "score": 46,
+        "cpu_load_pct": 0
+      }
+    },
+    {
+      "pair": 4,
+      "head": {
+        "run": 4,
+        "duration_sec": 15.0888,
+        "score": 80,
+        "cpu_load_pct": 2
+      },
+      "work": {
+        "run": 4,
+        "duration_sec": 4.2068,
+        "score": 46,
+        "cpu_load_pct": 1
+      }
+    },
+    {
+      "pair": 5,
+      "head": {
+        "run": 5,
+        "duration_sec": 15.4593,
+        "score": 80,
+        "cpu_load_pct": 3
+      },
+      "work": {
+        "run": 5,
+        "duration_sec": 4.3179,
+        "score": 46,
+        "cpu_load_pct": 1
+      }
+    }
+  ]
+}

@@ -4,8 +4,8 @@
 
 <!-- AUTO-GEN:STATS -->
 [![Health Score](https://img.shields.io/badge/Health_Score-88%2F100_A-yellow)](project-review.md)
-[![Automated Tests](https://img.shields.io/badge/Tests-164_passed-blue)](tests/)
-[![Indexed Files](https://img.shields.io/badge/Indexed_Files-452_files-purple)](MANIFEST.json)
+[![Automated Tests](https://img.shields.io/badge/Tests-170_passed-blue)](tests/)
+[![Indexed Files](https://img.shields.io/badge/Indexed_Files-481_files-purple)](MANIFEST.json)
 [![Architecture](https://img.shields.io/badge/Architecture-Remote_Knowledge_Hub-emerald)](HOW_IT_WORKS.md)
 <!-- /AUTO-GEN:STATS -->
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
@@ -158,12 +158,12 @@ In accordance with [ADR-0012](adrs/0012-agent-first-builder-and-health-check.md)
 
 | Metric / Claim | Status | Empirical Findings (Measured 2026-11-07) |
 | :--- | :---: | :--- |
-| **Audit Engine Speed** | ✅ Verified | **4.88x speedup** on benchmarks (P-062: 28.9s → 5.9s; Litellm 15k files: 69.0s → 35.4s; kit repo: ~0.6s) via directive pre-gating (`evals/results/raw/010-ab-benchmark.json`). |
+| **Audit Engine Speed** | 🔬 Measured | Rerun 2026-11-08 with the same A/B scripts (Core i7-12700F, 31.8 GB RAM, 5 runs per side): P-062 15.1s → 4.3s (**3.51x**); LiteLLM 58.2s → 18.6s (3.14x); kit repo ~0.6s (`evals/results/raw/016-ab-speed.json`, `016-ab-benchmark-pillars.json`). An earlier run (report 010) measured 28.9s → 5.9s (4.88x) on P-062; the two runs differ and were not reconciled. Absolute times depend on the machine. |
 | **Cold vs. Warm Latency** | 🔬 Measured | 4,000 files HDD cold read 30.3s vs warm cache 0.28s (109x difference). First-run on mechanical HDDs exhibits cache warming delay (`011-cold-warm.json`). |
 | **Prompt-Injection Detection (`SAFE-*`)** | 🔬 Measured | 49/49 synthetic attacks detected (100%), 23 benign look-alikes 0 false positives. Public repo audit raised benign quotation flags, hardened with context-aware gating (ADR-0021). |
 | **Watchdog & Reload Survivability** | ✅ Verified | Shell UI reloads preserve engine PID; orphaned engine processes terminate automatically after 180s without heartbeat (ADR-0019). |
 | **Zero-Clone HTTP Resolution** | ✅ Verified | 100% of raw GitHub URLs in `MANIFEST.json` resolve with HTTP 200 (tested across 333+ pushed assets). |
-| **Single-EXE Windows Delivery** | ✅ Verified | Rebuilt `Project-Builder-Analytics.exe` with embedded engine runs without Python installed (`evals/results/2026-11-07-ag-report-012.md`). |
+| **Single-EXE Windows Delivery** | ✅ Verified | `Project-Builder-Analytics.exe` v0.1.0 (SHA-256 `1ab9508199f0861daed1f854dfd885aba3cde74b20adbe629f41621ba75fd799`): UI tested manually by the maintainer; tests, exe-vs-source identity on 23 targets and README numbers checked in `evals/results/2026-11-08-release-v0.1.0-verification-016.md`. Not re-run for this build: clean-machine test (no Python/.NET), watchdog and reload behaviour. |
 | **English Token Efficiency** | 🔬 Measured | Claude tokenizer comparison across 9 parallel technical documents showed English consumes **~10% fewer tokens** (2–21% variance per file) compared to Vietnamese. |
 | **End-to-End Agent Bootstrap** | ⏳ Planned | Eval protocol specified in `evals/c1-bootstrap-protocol.md`, awaiting automated multi-agent run. |
 

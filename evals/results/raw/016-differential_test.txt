@@ -1,0 +1,9 @@
+Generating test lines for differential verification...
+Generated 21435 lines in 0.04s
+
+Results on 21435 lines:
+  Regex only time     : 0.1612s
+  Gate + regex time   : 0.0472s (Speedup: 3.42x)
+  Total matches       : 1462
+  Total mismatches    : 0
+SUCCESS: 100% agreement on all 21435 lines! Zero mismatches.

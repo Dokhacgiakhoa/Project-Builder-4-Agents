@@ -1,0 +1,34 @@
+=== A/B Speed Comparison on Stable Machine State (Item 2) ===
+Target repo: D:\Github\P-062
+HEAD scripts: D:\Github\_sandbox\head\scripts
+Work scripts: D:\Github\Project-Builder-4-Agents\repo\scripts
+
+--- Running Pair 1 ---
+  HEAD run 1: 15.0874s | Score: 80 | CPU load: 20%
+  WORK run 1: 4.2307s | Score: 46 | CPU load: 21%
+
+--- Running Pair 2 ---
+  HEAD run 2: 14.8374s | Score: 80 | CPU load: 22%
+  WORK run 2: 4.2349s | Score: 46 | CPU load: 29%
+
+--- Running Pair 3 ---
+  HEAD run 3: 14.9393s | Score: 80 | CPU load: 0%
+  WORK run 3: 4.5136s | Score: 46 | CPU load: 0%
+
+--- Running Pair 4 ---
+  HEAD run 4: 15.0888s | Score: 80 | CPU load: 2%
+  WORK run 4: 4.2068s | Score: 46 | CPU load: 1%
+
+--- Running Pair 5 ---
+  HEAD run 5: 15.4593s | Score: 80 | CPU load: 3%
+  WORK run 5: 4.3179s | Score: 46 | CPU load: 1%
+
+=== A/B Summary ===
+HEAD durations (s): [15.0874, 14.8374, 14.9393, 15.0888, 15.4593]
+  Mean: 15.0824s | Min: 14.8374s | Max: 15.4593s
+WORK durations (s): [4.2307, 4.2349, 4.5136, 4.2068, 4.3179]
+  Mean: 4.3008s | Min: 4.2068s | Max: 4.5136s
+Speedup ratio: 3.51x
+Wall time reduction: 71.48%
+
+Saved raw A/B speed results to D:\Github\_sandbox\016-run\raw\009-ab-speed.json

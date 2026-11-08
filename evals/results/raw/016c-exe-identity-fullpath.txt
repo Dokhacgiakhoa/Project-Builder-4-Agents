@@ -1,0 +1,6 @@
+continue                     score_equal=True diff_lines=0 exe=3.85s src=3.03s Score: 28/100 — F (RED ALARM: 8 HIGH-SE
+underthesea                  score_equal=True diff_lines=0 exe=2.4s src=1.57s Score: 43/100 — F (RED ALARM: 3 HIGH-SEV
+vncorenlp                    score_equal=True diff_lines=0 exe=1.03s src=0.29s Score: 46/100 — F (RED ALARM: 2 HIGH-SE
+P-062                        score_equal=True diff_lines=0 exe=5.5s src=4.65s Score: 46/100 — F (RED ALARM: 2 HIGH-SEV
+
+TOTAL 4 targets; score_equal: 4 | zero-diff reports: 4

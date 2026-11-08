@@ -1,0 +1,90 @@
+[
+  {
+    "target": "continue",
+    "exe": {
+      "rc": 0,
+      "sec": 3.85,
+      "score_line": "Score: 28/100 — F (RED ALARM: 8 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 456128
+    },
+    "src": {
+      "rc": 0,
+      "sec": 3.03,
+      "score_line": "Score: 28/100 — F (RED ALARM: 8 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 456128
+    },
+    "lines_exe": 1510,
+    "lines_src": 1510,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "underthesea",
+    "exe": {
+      "rc": 0,
+      "sec": 2.4,
+      "score_line": "Score: 43/100 — F (RED ALARM: 3 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 37440
+    },
+    "src": {
+      "rc": 0,
+      "sec": 1.57,
+      "score_line": "Score: 43/100 — F (RED ALARM: 3 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 37440
+    },
+    "lines_exe": 318,
+    "lines_src": 318,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "vncorenlp",
+    "exe": {
+      "rc": 0,
+      "sec": 1.03,
+      "score_line": "Score: 46/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 19671
+    },
+    "src": {
+      "rc": 0,
+      "sec": 0.29,
+      "score_line": "Score: 46/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 19671
+    },
+    "lines_exe": 171,
+    "lines_src": 171,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  },
+  {
+    "target": "P-062",
+    "exe": {
+      "rc": 0,
+      "sec": 5.5,
+      "score_line": "Score: 46/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 36085
+    },
+    "src": {
+      "rc": 0,
+      "sec": 4.65,
+      "score_line": "Score: 46/100 — F (RED ALARM: 2 HIGH-SEVERITY RISKS DETECTED)",
+      "stderr_tail": [],
+      "report_bytes": 36085
+    },
+    "lines_exe": 318,
+    "lines_src": 318,
+    "diff_lines": 0,
+    "diff_sample": [],
+    "score_equal": true
+  }
+]

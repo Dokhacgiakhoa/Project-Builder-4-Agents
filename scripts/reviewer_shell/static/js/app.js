@@ -419,6 +419,8 @@ function openSettingsModal() {
 
   updateApiKeyInputForProvider(provider);
 
+  refreshConnectivity();
+
 }
 
 // Pass true after a successful save; any other call (Cancel, X) reverts the live previews.
@@ -2979,6 +2981,43 @@ async function triggerLLMReview() {
 
 }
 
+// Reachability is probed by the engine (it does the downloading), not by navigator.onLine.
+let netHosts = null;
+
+async function probeInternet() {
+  try {
+    const res = await fetch("/api/connectivity");
+    const data = await res.json();
+    netHosts = (data && data.hosts) || {};
+  } catch (e) {
+    netHosts = {};
+  }
+  return netHosts;
+}
+
+async function refreshConnectivity() {
+  const el = document.getElementById("netStatus");
+  if (el) {
+    el.style.color = "var(--text-dim)";
+    el.textContent = t("Checking connection...");
+  }
+  const hosts = await probeInternet();
+  const updOk = !!hosts["api.github.com"];
+  const kbOk = !!hosts["raw.githubusercontent.com"];
+  const upd = document.getElementById("aboutCheckUpdateBtn");
+  const kb = document.getElementById("updateKnowledgeBtn");
+  if (upd) upd.classList.toggle("is-offline", !updOk);
+  if (kb) kb.classList.toggle("is-offline", !kbOk);
+  if (el) {
+    const online = updOk && kbOk;
+    el.style.color = online ? "var(--success, #2ecc71)" : "var(--danger, #e74c3c)";
+    el.textContent = online ? t("Internet connected") : t("No internet connection. Updates are unavailable.");
+  }
+}
+
+window.addEventListener("online", refreshConnectivity);
+window.addEventListener("offline", refreshConnectivity);
+
 async function checkUpdate() {
 
   const modal = document.getElementById("updateModal");
@@ -2991,9 +3030,27 @@ async function checkUpdate() {
 
   try {
 
+    const hosts = await probeInternet();
+
+    if (!hosts["api.github.com"]) {
+
+      body.innerHTML = `<span style="color: #ef4444;">${t("No internet connection. Connect and try again.")}</span>`;
+
+      return;
+
+    }
+
     const res = await fetch("/api/check-update");
 
     const data = await res.json();
+
+    if (data.error) {
+
+      body.innerHTML = `<span style="color: #ef4444;">${t("Could not check for updates:")} ${escapeHtml(data.error)}</span>`;
+
+      return;
+
+    }
 
     if (data.has_update) {
 
@@ -3232,6 +3289,20 @@ async function updateKnowledgePack() {
   const out = document.getElementById("updateKnowledgeResult");
 
   out.style.color = "var(--text-dim)";
+
+  out.textContent = t("Checking connection...");
+
+  const hosts = await probeInternet();
+
+  if (!hosts["raw.githubusercontent.com"]) {
+
+    out.style.color = "var(--danger, #e74c3c)";
+
+    out.textContent = t("No internet connection. Connect and try again.");
+
+    return;
+
+  }
 
   out.textContent = t("Downloading...");
 

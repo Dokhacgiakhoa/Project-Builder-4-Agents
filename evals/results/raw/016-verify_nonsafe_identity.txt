@@ -1,0 +1,81 @@
+=== Non-SAFE Findings Identity & SAFE Differential Check ===
+Auditing 23 repositories against baseline...
+[DIFF] aider                      2.62s | Score: 43 | Non-SAFE: 28 | SAFE new: 0, lost: 0
+[DIFF] anthropic-quickstarts      4.43s | Score: 43 | Non-SAFE: 52 | SAFE new: 0, lost: 0
+[DIFF] awesome-cursorrules        0.71s | Score: 46 | Non-SAFE: 20 | SAFE new: 0, lost: 0
+[DIFF] cline                     33.95s | Score: 40 | Non-SAFE: 834 | SAFE new: 0, lost: 0
+[DIFF] continue                  21.00s | Score: 28 | Non-SAFE: 1209 | SAFE new: 0, lost: 0
+[DIFF] fastapi                   11.01s | Score: 46 | Non-SAFE: 30 | SAFE new: 0, lost: 0
+[DIFF] flask                      0.85s | Score: 35 | Non-SAFE: 31 | SAFE new: 0, lost: 0
+[DIFF] garak                      5.48s | Score: 50 | Non-SAFE: 35 | SAFE new: 0, lost: 0
+[DIFF] gitingest                  0.81s | Score: 46 | Non-SAFE: 22 | SAFE new: 0, lost: 0
+[DIFF] httpx                      0.91s | Score: 39 | Non-SAFE: 24 | SAFE new: 0, lost: 0
+[DIFF] jinja                      0.77s | Score: 38 | Non-SAFE: 24 | SAFE new: 0, lost: 0
+[DIFF] litellm                   137.20s | Score: 20 | Non-SAFE: 746 | SAFE new: 1, lost: 0
+[DIFF] llama_index               34.33s | Score: 20 | Non-SAFE: 51 | SAFE new: 0, lost: 0
+[DIFF] llm-security               0.35s | Score: 44 | Non-SAFE: 23 | SAFE new: 0, lost: 0
+[DIFF] mkdocs                     2.25s | Score: 35 | Non-SAFE: 29 | SAFE new: 0, lost: 0
+[DIFF] phobert                    0.12s | Score: 46 | Non-SAFE: 17 | SAFE new: 0, lost: 0
+[DIFF] pydantic                  28.38s | Score: 49 | Non-SAFE: 27 | SAFE new: 0, lost: 0
+[DIFF] rebuff                     0.80s | Score: 43 | Non-SAFE: 45 | SAFE new: 0, lost: 0
+[DIFF] requests                   0.21s | Score: 41 | Non-SAFE: 24 | SAFE new: 0, lost: 0
+[DIFF] underthesea                7.61s | Score: 43 | Non-SAFE: 49 | SAFE new: 0, lost: 0
+[DIFF] vncorenlp                  0.48s | Score: 46 | Non-SAFE: 23 | SAFE new: 0, lost: 0
+[DIFF] P-062                      4.72s | Score: 46 | Non-SAFE: 37 | SAFE new: 0, lost: 0
+[DIFF] Project-Builder-4-Agents   0.43s | Score: 88 | Non-SAFE: 4 | SAFE new: 0, lost: 0
+
+--- Non-SAFE Identity Summary ---
+FAILED: 44 non-SAFE discrepancies detected:
+  - aider: score changed base 46 vs curr 43
+  - aider: non-SAFE findings changed (base 27 vs curr 28)
+  - anthropic-quickstarts: score changed base 58 vs curr 43
+  - anthropic-quickstarts: non-SAFE findings changed (base 44 vs curr 52)
+  - awesome-cursorrules: score changed base 48 vs curr 46
+  - awesome-cursorrules: non-SAFE findings changed (base 24 vs curr 20)
+  - cline: score changed base 68 vs curr 40
+  - cline: non-SAFE findings changed (base 483 vs curr 834)
+  - continue: score changed base 60 vs curr 28
+  - continue: non-SAFE findings changed (base 99 vs curr 1209)
+  - fastapi: score changed base 52 vs curr 46
+  - fastapi: non-SAFE findings changed (base 29 vs curr 30)
+  - flask: score changed base 34 vs curr 35
+  - flask: non-SAFE findings changed (base 31 vs curr 31)
+  - garak: non-SAFE findings changed (base 32 vs curr 35)
+  - gitingest: score changed base 60 vs curr 46
+  - gitingest: non-SAFE findings changed (base 22 vs curr 22)
+  - httpx: score changed base 36 vs curr 39
+  - httpx: non-SAFE findings changed (base 28 vs curr 24)
+  - jinja: score changed base 35 vs curr 38
+  - jinja: non-SAFE findings changed (base 28 vs curr 24)
+  - litellm: score changed base 80 vs curr 20
+  - litellm: non-SAFE findings changed (base 1533 vs curr 746)
+  - llama_index: score changed base 66 vs curr 20
+  - llama_index: non-SAFE findings changed (base 92 vs curr 51)
+  - llm-security: non-SAFE findings changed (base 23 vs curr 23)
+  - mkdocs: score changed base 32 vs curr 35
+  - mkdocs: non-SAFE findings changed (base 32 vs curr 29)
+  - phobert: score changed base 58 vs curr 46
+  - phobert: non-SAFE findings changed (base 17 vs curr 17)
+  - pydantic: score changed base 58 vs curr 49
+  - pydantic: non-SAFE findings changed (base 28 vs curr 27)
+  - rebuff: score changed base 59 vs curr 43
+  - rebuff: non-SAFE findings changed (base 24 vs curr 45)
+  - requests: score changed base 37 vs curr 41
+  - requests: non-SAFE findings changed (base 28 vs curr 24)
+  - underthesea: score changed base 59 vs curr 43
+  - underthesea: non-SAFE findings changed (base 40 vs curr 49)
+  - vncorenlp: score changed base 48 vs curr 46
+  - vncorenlp: non-SAFE findings changed (base 23 vs curr 23)
+  - P-062: score changed base 80 vs curr 46
+  - P-062: non-SAFE findings changed (base 39 vs curr 37)
+  - Project-Builder-4-Agents: score changed base 90 vs curr 88
+  - Project-Builder-4-Agents: non-SAFE findings changed (base 7 vs curr 4)
+
+--- SAFE Signal Changes ---
+Total new SAFE signals : 1
+Total lost SAFE signals: 0
+
+New SAFE signals:
+  + [litellm] litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml:93 SAFE-001
+
+Raw report written to D:\Github\_sandbox\016-run\raw\011-nonsafe-identity.txt

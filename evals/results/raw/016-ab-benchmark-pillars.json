@@ -1,0 +1,106 @@
+{
+  "P-062": {
+    "pairs": [
+      {
+        "pair": 1,
+        "head_sec": 15.2671,
+        "new_sec": 4.2304,
+        "head_score": 80,
+        "new_score": 46,
+        "speedup_sec": 11.037,
+        "speedup_ratio": 3.61
+      },
+      {
+        "pair": 2,
+        "head_sec": 14.9294,
+        "new_sec": 4.278,
+        "head_score": 80,
+        "new_score": 46,
+        "speedup_sec": 10.651,
+        "speedup_ratio": 3.49
+      },
+      {
+        "pair": 3,
+        "head_sec": 15.0721,
+        "new_sec": 4.3798,
+        "head_score": 80,
+        "new_score": 46,
+        "speedup_sec": 10.692,
+        "speedup_ratio": 3.44
+      },
+      {
+        "pair": 4,
+        "head_sec": 15.5603,
+        "new_sec": 4.451,
+        "head_score": 80,
+        "new_score": 46,
+        "speedup_sec": 11.109,
+        "speedup_ratio": 3.5
+      },
+      {
+        "pair": 5,
+        "head_sec": 15.3986,
+        "new_sec": 4.6369,
+        "head_score": 80,
+        "new_score": 46,
+        "speedup_sec": 10.762,
+        "speedup_ratio": 3.32
+      }
+    ],
+    "head_mean": 15.245,
+    "new_mean": 4.395,
+    "speedup_ratio": 3.47
+  },
+  "litellm": {
+    "pairs": [
+      {
+        "pair": 1,
+        "head_sec": 58.6999,
+        "new_sec": 19.3677,
+        "head_score": 80,
+        "new_score": 20,
+        "speedup_sec": 39.332,
+        "speedup_ratio": 3.03
+      },
+      {
+        "pair": 2,
+        "head_sec": 59.5079,
+        "new_sec": 19.0793,
+        "head_score": 80,
+        "new_score": 20,
+        "speedup_sec": 40.429,
+        "speedup_ratio": 3.12
+      },
+      {
+        "pair": 3,
+        "head_sec": 58.3352,
+        "new_sec": 18.2825,
+        "head_score": 80,
+        "new_score": 20,
+        "speedup_sec": 40.053,
+        "speedup_ratio": 3.19
+      },
+      {
+        "pair": 4,
+        "head_sec": 57.9837,
+        "new_sec": 18.3655,
+        "head_score": 80,
+        "new_score": 20,
+        "speedup_sec": 39.618,
+        "speedup_ratio": 3.16
+      },
+      {
+        "pair": 5,
+        "head_sec": 56.463,
+        "new_sec": 17.6995,
+        "head_score": 80,
+        "new_score": 20,
+        "speedup_sec": 38.764,
+        "speedup_ratio": 3.19
+      }
+    ],
+    "head_mean": 58.198,
+    "new_mean": 18.559,
+    "speedup_ratio": 3.14
+  }
+}

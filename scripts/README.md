@@ -49,8 +49,8 @@ Limits: git-based checks need `git` and a `.git` directory (skipped otherwise); 
   - `SAFE-002`: Context-aware rule evaluating hidden zero-width/bidi control characters inside visible markdown quotes vs standalone code.
   - `SAFE-003`: Flags hidden directives (zero-font, CSS `display:none`, HTML comments `<!-- ... -->`); text without an explicit noun is flagged when concealed in hidden markup.
 * **Measured Scan Speeds**:
-  - P-062 (5,470 files): Mean scan latency improved from **28.9s -> 5.9s (4.88x speedup)** (`evals/results/raw/010-ab-benchmark.json`).
-  - LiteLLM (15,227 files): Mean scan latency improved from **69.0s -> 35.4s (~2.0x speedup)** (`evals/results/raw/010-ab-benchmark.json`).
+  - P-062 (5,470 files), rerun 2026-11-08: mean scan latency **15.1s -> 4.3s (3.51x)**, 5 runs per side (`evals/results/raw/016-ab-speed.json`). An earlier run (report 010) measured 28.9s -> 5.9s (4.88x); the runs differ and were not reconciled.
+  - LiteLLM (15,227 files), rerun 2026-11-08: mean scan latency **58.2s -> 18.6s (3.14x)** (`evals/results/raw/016-ab-benchmark-pillars.json`). An earlier run (report 010) measured 69.0s -> 35.4s (~2.0x).
   - Cold Run HDD Penalty: 4,000 files on physical mechanical HDD took **30.32s cold vs 0.28s warm (109x)** for pure file reading; pre-warmed audit (**8.86s**) matched warm audit (**8.80s**) within 0.06s (`evals/results/raw/011-cold-warm.json`).
 
 ## Server Lifetime & Asynchronous Audit Protocol (ADR-0019)

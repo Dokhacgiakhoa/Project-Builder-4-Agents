@@ -12,6 +12,12 @@ if [ -n "$PERSONAL" ]; then
     echo "$PERSONAL"
     exit 1
 fi
+LEAK=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '^evals/results/' | xargs -r grep -I -l -E '@gmail\.com|KAI-LABS|Users\(Dell|KAI)' 2>/dev/null)
+if [ -n "$LEAK" ]; then
+    echo "❌ [pre-commit] Personal data (e-mail / machine / user path) in published results:"
+    echo "$LEAK"
+    exit 1
+fi
 # Git pre-commit hook: Auto-sync documentation and manifest before committing
 echo "🔄 [pre-commit] Synchronizing documentation, badges & manifest..."
 python scripts/sync_docs.py

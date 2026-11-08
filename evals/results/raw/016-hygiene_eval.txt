@@ -1,0 +1,24 @@
+Hygiene for awesome-cursorrules: 0 findings, git=True in 0.04s
+Hygiene for aider: 0 findings, git=True in 0.05s
+Hygiene for gitingest: 0 findings, git=True in 0.04s
+Hygiene for litellm: 1 findings, git=True in 0.32s
+Hygiene for continue: 2 findings, git=True in 0.11s
+Hygiene for anthropic-quickstarts: 2 findings, git=True in 0.08s
+Hygiene for cline: 1 findings, git=True in 0.10s
+Hygiene for llama_index: 0 findings, git=True in 0.31s
+Hygiene for mkdocs: 0 findings, git=True in 0.05s
+Hygiene for flask: 0 findings, git=True in 0.04s
+Hygiene for requests: 0 findings, git=True in 0.04s
+Hygiene for httpx: 0 findings, git=True in 0.04s
+Hygiene for fastapi: 0 findings, git=True in 0.13s
+Hygiene for pydantic: 1 findings, git=True in 0.09s
+Hygiene for jinja: 0 findings, git=True in 0.04s
+Hygiene for underthesea: 1 findings, git=True in 0.08s
+Hygiene for phobert: 0 findings, git=True in 0.04s
+Hygiene for vncorenlp: 1 findings, git=True in 0.04s
+Hygiene for llm-security: 0 findings, git=True in 0.04s
+Hygiene for rebuff: 0 findings, git=True in 0.04s
+Hygiene for garak: 1 findings, git=True in 0.05s
+Hygiene for P-062: 1 findings, git=True in 0.15s
+Hygiene for Project-Builder-4-Agents: 0 findings, git=True in 0.05s
+Wrote hygiene results to D:\Github\_sandbox\016-run\raw\hygiene-2026-11-08.json
