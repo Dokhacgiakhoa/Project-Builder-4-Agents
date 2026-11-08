@@ -1,0 +1,281 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" width="100%" height="100%">
+  <defs>
+    <!-- Background & Card Gradients -->
+    <linearGradient id="canvasBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#070a12" />
+    </linearGradient>
+
+    <linearGradient id="panelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95" />
+    </linearGradient>
+
+    <linearGradient id="neonCyan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0ea5e9" />
+    </linearGradient>
+
+    <linearGradient id="neonIndigo" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818cf8" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+
+    <linearGradient id="neonEmerald" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+
+    <linearGradient id="neonPurple" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+
+    <!-- Grid Pattern -->
+    <pattern id="gridPattern" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#334155" stroke-width="0.6" stroke-opacity="0.25" />
+    </pattern>
+
+    <!-- Blur & Glow Filters -->
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="15" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Marker Arrowheads -->
+    <marker id="arrowCyan" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 1 1 L 7 4 L 1 7 Z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrowIndigo" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 1 1 L 7 4 L 1 7 Z" fill="#818cf8" />
+    </marker>
+    <marker id="arrowEmerald" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 1 1 L 7 4 L 1 7 Z" fill="#34d399" />
+    </marker>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1100" height="520" rx="16" fill="url(#canvasBg)" />
+  <rect width="1100" height="520" rx="16" fill="url(#gridPattern)" />
+  <rect width="1100" height="520" rx="16" fill="none" stroke="#334155" stroke-width="1.2" stroke-opacity="0.5" />
+
+  <!-- Ambient Glow Blobs -->
+  <circle cx="150" cy="100" r="140" fill="#38bdf8" fill-opacity="0.08" filter="url(#softGlow)" />
+  <circle cx="550" cy="260" r="180" fill="#6366f1" fill-opacity="0.08" filter="url(#softGlow)" />
+  <circle cx="950" cy="400" r="160" fill="#10b981" fill-opacity="0.08" filter="url(#softGlow)" />
+
+  <!-- Diagram Title Header -->
+  <g transform="translate(50, 42)">
+    <rect x="0" y="0" width="170" height="26" rx="13" fill="#1e293b" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.6" />
+    <circle cx="14" cy="13" r="4" fill="#38bdf8" />
+    <text x="26" y="17" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#7dd3fc" letter-spacing="1">
+      ZERO-CLONE PIPELINE
+    </text>
+    <text x="185" y="18" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="800" fill="#f8fafc">
+      How AI Coding Agents Ingest Project-Builder-4-Agents
+    </text>
+    <text x="750" y="18" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="500" fill="#94a3b8">
+      Zero Local Git Clone • Token-Frugal • Context Protected
+    </text>
+  </g>
+
+  <!-- Flow Dividers / Connecting Curved Lines -->
+  <!-- Line 1: User -> Agent -->
+  <path d="M 320 200 C 355 200, 365 200, 400 200" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="6 4" marker-end="url(#arrowCyan)" />
+  <!-- Line 2: Remote Hub <-> Agent -->
+  <path d="M 565 140 C 565 105, 565 85, 565 65" fill="none" stroke="#818cf8" stroke-width="2" stroke-dasharray="5 3" />
+  <!-- Line 3: Agent -> Target Workspace -->
+  <path d="M 730 200 C 765 200, 775 200, 810 200" fill="none" stroke="#34d399" stroke-width="2.5" marker-end="url(#arrowEmerald)" />
+
+  <!-- ==================== COLUMN 1: HUMAN VIBE CODER ==================== -->
+  <g transform="translate(50, 95)">
+    <rect width="270" height="385" rx="14" fill="url(#panelGrad)" stroke="#38bdf8" stroke-width="1.4" stroke-opacity="0.5" />
+    <!-- Top Accent Bar -->
+    <rect width="270" height="4" rx="2" fill="url(#neonCyan)" />
+
+    <!-- Icon & Header -->
+    <circle cx="36" cy="40" r="18" fill="#0369a1" fill-opacity="0.3" stroke="#38bdf8" stroke-width="1" />
+    <text x="36" y="46" font-size="18" text-anchor="middle">👤</text>
+    <text x="66" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="700" fill="#f8fafc">
+      Human Vibe Coder
+    </text>
+    <text x="66" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="500" fill="#94a3b8">
+      Claude • Antigravity • Cursor
+    </text>
+
+    <!-- Step Content Box -->
+    <g transform="translate(16, 75)">
+      <rect width="238" height="110" rx="8" fill="#090d16" stroke="#334155" stroke-width="1" />
+      <text x="12" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#38bdf8">
+        SINGLE PROMPT TRIGGER
+      </text>
+      <text x="12" y="46" font-family="Consolas, Monaco, monospace" font-size="10.5" fill="#e2e8f0">
+        "Use https://github.com/
+      </text>
+      <text x="12" y="62" font-family="Consolas, Monaco, monospace" font-size="10.5" fill="#e2e8f0">
+        .../Project-Builder-4-Agents
+      </text>
+      <text x="12" y="78" font-family="Consolas, Monaco, monospace" font-size="10.5" fill="#e2e8f0">
+        to bootstrap this project.
+      </text>
+      <text x="12" y="94" font-family="Consolas, Monaco, monospace" font-size="10.5" fill="#94a3b8">
+        Vision: SaaS AI dashboard"
+      </text>
+    </g>
+
+    <!-- Key Advantages List -->
+    <g transform="translate(20, 205)">
+      <text x="0" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#38bdf8">
+        ✓ No manual git clone
+      </text>
+      <text x="0" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" fill="#94a3b8">
+        Zero 50MB+ boilerplate bloat
+      </text>
+      <text x="0" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#38bdf8">
+        ✓ 3 Clarifying Questions
+      </text>
+      <text x="0" y="90" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" fill="#94a3b8">
+        Scale, domain &amp; team alignment
+      </text>
+      <text x="0" y="120" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#38bdf8">
+        ✓ Context Window Guarded
+      </text>
+      <text x="0" y="140" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" fill="#94a3b8">
+        Agent memory stays 100% focused
+      </text>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 2: AI AGENT INTERMEDIARY ==================== -->
+  <g transform="translate(400, 95)">
+    <rect width="330" height="385" rx="14" fill="url(#panelGrad)" stroke="#818cf8" stroke-width="1.4" stroke-opacity="0.6" />
+    <!-- Top Accent Bar -->
+    <rect width="330" height="4" rx="2" fill="url(#neonIndigo)" />
+
+    <!-- Icon & Header -->
+    <circle cx="36" cy="40" r="18" fill="#4338ca" fill-opacity="0.3" stroke="#818cf8" stroke-width="1" />
+    <text x="36" y="46" font-size="18" text-anchor="middle">🤖</text>
+    <text x="66" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="700" fill="#f8fafc">
+      AI Agent Zero-Clone Engine
+    </text>
+    <text x="66" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="500" fill="#a5b4fc">
+      Autonomous Remote Synthesis
+    </text>
+
+    <!-- Remote Hub Banner Pill -->
+    <g transform="translate(18, 72)">
+      <rect width="294" height="46" rx="8" fill="#1e1b4b" stroke="#6366f1" stroke-width="1" stroke-opacity="0.7" />
+      <text x="14" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#c7d2fe">
+        🌐 Remote GitHub Ingestion (Raw HTTP)
+      </text>
+      <text x="14" y="36" font-family="Consolas, Monaco, monospace" font-size="10" fill="#818cf8">
+        raw.githubusercontent.com/.../BOOTSTRAP.md
+      </text>
+    </g>
+
+    <!-- Processing Steps List Inside Agent -->
+    <g transform="translate(18, 132)">
+      <!-- Step 1 -->
+      <g transform="translate(0, 0)">
+        <rect width="294" height="48" rx="8" fill="#090d16" stroke="#334155" stroke-width="1" />
+        <circle cx="20" cy="24" r="10" fill="#312e81" stroke="#818cf8" stroke-width="1" />
+        <text x="20" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="800" fill="#c7d2fe" text-anchor="middle">1</text>
+        <text x="38" y="21" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="700" fill="#f8fafc">
+          Read BOOTSTRAP.md &amp; MANIFEST.json
+        </text>
+        <text x="38" y="37" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" fill="#94a3b8">
+          Reads remote tree index without local storage
+        </text>
+      </g>
+
+      <!-- Step 2 -->
+      <g transform="translate(0, 56)">
+        <rect width="294" height="48" rx="8" fill="#090d16" stroke="#334155" stroke-width="1" />
+        <circle cx="20" cy="24" r="10" fill="#312e81" stroke="#818cf8" stroke-width="1" />
+        <text x="20" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="800" fill="#c7d2fe" text-anchor="middle">2</text>
+        <text x="38" y="21" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="700" fill="#f8fafc">
+          Match Domain Architecture Profile
+        </text>
+        <text x="38" y="37" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" fill="#94a3b8">
+          Clean Arch • Vertical Slice • Modular Monolith
+        </text>
+      </g>
+
+      <!-- Step 3 -->
+      <g transform="translate(0, 112)">
+        <rect width="294" height="48" rx="8" fill="#090d16" stroke="#334155" stroke-width="1" />
+        <circle cx="20" cy="24" r="10" fill="#312e81" stroke="#818cf8" stroke-width="1" />
+        <text x="20" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="800" fill="#c7d2fe" text-anchor="middle">3</text>
+        <text x="38" y="21" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="700" fill="#f8fafc">
+          Selective Pull: Core Baseline B1–B9
+        </text>
+        <text x="38" y="37" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" fill="#94a3b8">
+          Fetches only essential rules into workspace
+        </text>
+      </g>
+
+      <!-- Step 4 -->
+      <g transform="translate(0, 168)">
+        <rect width="294" height="48" rx="8" fill="#090d16" stroke="#334155" stroke-width="1" />
+        <circle cx="20" cy="24" r="10" fill="#312e81" stroke="#818cf8" stroke-width="1" />
+        <text x="20" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="800" fill="#c7d2fe" text-anchor="middle">4</text>
+        <text x="38" y="21" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="700" fill="#f8fafc">
+          Anti-Doom-Loop Fencing Active
+        </text>
+        <text x="38" y="37" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" fill="#94a3b8">
+          Pre-gated regex rules prevent recursion errors
+        </text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 3: TARGET LOCAL WORKSPACE ==================== -->
+  <g transform="translate(810, 95)">
+    <rect width="240" height="385" rx="14" fill="url(#panelGrad)" stroke="#34d399" stroke-width="1.4" stroke-opacity="0.6" />
+    <!-- Top Accent Bar -->
+    <rect width="240" height="4" rx="2" fill="url(#neonEmerald)" />
+
+    <!-- Icon & Header -->
+    <circle cx="34" cy="40" r="18" fill="#065f46" fill-opacity="0.3" stroke="#34d399" stroke-width="1" />
+    <text x="34" y="46" font-size="18" text-anchor="middle">📁</text>
+    <text x="62" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700" fill="#f8fafc">
+      Target Workspace
+    </text>
+    <text x="62" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="500" fill="#6ee7b7">
+      Clean &amp; Production-Ready
+    </text>
+
+    <!-- File tree mockup -->
+    <g transform="translate(16, 75)">
+      <rect width="208" height="175" rx="8" fill="#090d16" stroke="#334155" stroke-width="1" />
+      <text x="12" y="22" font-family="Consolas, Monaco, monospace" font-size="11" fill="#34d399">📁 your-new-project/</text>
+      <text x="24" y="42" font-family="Consolas, Monaco, monospace" font-size="10.5" fill="#e2e8f0">├── AGENTS.md (Rules)</text>
+      <text x="24" y="60" font-family="Consolas, Monaco, monospace" font-size="10.5" fill="#e2e8f0">├── .agents/skills/</text>
+      <text x="24" y="78" font-family="Consolas, Monaco, monospace" font-size="10.5" fill="#e2e8f0">├── adrs/ (Decisions)</text>
+      <text x="24" y="96" font-family="Consolas, Monaco, monospace" font-size="10.5" fill="#e2e8f0">├── src/ (Chosen Arch)</text>
+      <text x="24" y="114" font-family="Consolas, Monaco, monospace" font-size="10.5" fill="#e2e8f0">├── tests/ (Contracts)</text>
+      <text x="24" y="132" font-family="Consolas, Monaco, monospace" font-size="10.5" fill="#38bdf8">└── project-review.md</text>
+      <text x="12" y="158" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="600" fill="#a7f3d0">
+        ✨ Only ~10 files pulled (0 Bloat)
+      </text>
+    </g>
+
+    <!-- Health Check Badge Box -->
+    <g transform="translate(16, 265)">
+      <rect width="208" height="100" rx="8" fill="#064e3b" fill-opacity="0.4" stroke="#10b981" stroke-width="1.2" />
+      <text x="14" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#6ee7b7">
+        🛡️ BUILDER ANALYTICS
+      </text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="900" fill="#34d399">
+        Score: 90 / 100 [A]
+      </text>
+      <text x="14" y="64" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" fill="#e2e8f0">
+        • 0 External Model Calls
+      </text>
+      <text x="14" y="82" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" fill="#e2e8f0">
+        • Instant Offline Heuristic Audit
+      </text>
+    </g>
+  </g>
+</svg>

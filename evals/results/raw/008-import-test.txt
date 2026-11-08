@@ -1,0 +1,9 @@
+Total Python files compared across 23 repos: 36492
+Files with differences: 0
+P-062 walk time: 72.2920s
+P-062 selective time: 44.3284s
+P-062 speedup: 1.63x
+P-062 ProjectTree Python files (AST traversal only): 1037 files
+  ast.walk time: 0.6449s
+  selective time: 0.0496s
+  AST traversal speedup: 13.01x

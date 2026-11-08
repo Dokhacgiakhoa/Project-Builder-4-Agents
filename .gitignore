@@ -1,0 +1,76 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+/lib/
+/lib64/
+!**/src/lib/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+
+# .NET / C#
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+
+# Logs & Databases
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.sqlite3
+*.db
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Generated review output
+project-review.md
+project-review-ai.md
+
+# Packaged engine (build output)
+engine/
+
+# Private maintainer lab: lives in ../lab, never in this repo (second safety net)
+lab/
+.lab/
+evals/handoff/
+evals/clean-machine-test/
+evals/*.py
+evals/*.ps1
+evals/*.cmd
+
+# Built binary is distributed via GitHub Releases, never committed (ADR-0022, TASKS A3)
+/Project-Builder-Analytics.exe

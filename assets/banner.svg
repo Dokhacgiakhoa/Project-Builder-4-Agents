@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 460" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080b12" />
+      <stop offset="50%" stop-color="#0d1424" />
+      <stop offset="100%" stop-color="#05070d" />
+    </linearGradient>
+
+    <!-- Ambient Glows -->
+    <radialGradient id="glowCyan" cx="15%" cy="25%" r="55%">
+      <stop offset="0%" stop-color="#00f5ff" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#00f5ff" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="glowIndigo" cx="85%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.22" />
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="glowPink" cx="50%" cy="85%" r="50%">
+      <stop offset="0%" stop-color="#ec4899" stop-opacity="0.14" />
+      <stop offset="100%" stop-color="#ec4899" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Title Gradient -->
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="30%" stop-color="#e0e7ff" />
+      <stop offset="65%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#818cf8" />
+    </linearGradient>
+
+    <!-- Card Background Gradient -->
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95" />
+    </linearGradient>
+
+    <!-- Grid Pattern -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#334155" stroke-width="0.75" stroke-opacity="0.28" />
+    </pattern>
+
+    <filter id="blurFilter" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="35" />
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1200" height="460" fill="url(#bgGrad)" />
+  <rect width="1200" height="460" fill="url(#grid)" />
+
+  <!-- Ambient Light Orbs -->
+  <circle cx="180" cy="140" r="300" fill="url(#glowCyan)" filter="url(#blurFilter)" />
+  <circle cx="980" cy="180" r="320" fill="url(#glowIndigo)" filter="url(#blurFilter)" />
+  <circle cx="600" cy="380" r="260" fill="url(#glowPink)" filter="url(#blurFilter)" />
+
+  <!-- Top Decorative Tech Border Line -->
+  <line x1="80" y1="20" x2="1120" y2="20" stroke="#38bdf8" stroke-opacity="0.25" stroke-width="1" stroke-dasharray="8 6" />
+  <circle cx="80" cy="20" r="3" fill="#38bdf8" />
+  <circle cx="1120" cy="20" r="3" fill="#818cf8" />
+
+  <!-- 1. Top Badge Pill (Properly Spaced at y=52) -->
+  <g transform="translate(600, 52)">
+    <rect x="-215" y="-17" width="430" height="34" rx="17" fill="#0f172a" fill-opacity="0.9" stroke="#38bdf8" stroke-width="1.2" stroke-opacity="0.75" />
+    <circle cx="-190" cy="0" r="4.5" fill="#38bdf8">
+      <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite" />
+    </circle>
+    <text x="5" y="5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#7dd3fc" text-anchor="middle" letter-spacing="1.5">
+      ✦ ZERO-CLONE REMOTE HUB &amp; OFFLINE GUARDRAILS
+    </text>
+  </g>
+
+  <!-- 2. Main Title Brand Unit with Integrated Logo (y=122) -->
+  <g transform="translate(600, 122)">
+    <!-- Brand Logo Mark (Left of Title) -->
+    <g transform="translate(-370, -32) scale(0.12)" fill="url(#titleGrad)">
+      <path d="M 198.48 78.38 L 186.56 85.54 L 128.45 146.03 L 123.68 157.06 L 123.68 223.52 L 126.96 225.90 L 136.79 223.52 L 210.40 149.61 L 231.86 140.07 L 308.45 140.07 L 318.28 144.84 L 323.95 155.57 L 323.95 232.16 L 319.18 246.46 L 237.82 330.80 L 238.12 337.06 L 241.40 340.34 L 306.07 340.34 L 322.75 333.19 L 380.87 275.07 L 383.25 265.24 L 388.02 259.28 L 388.02 123.68 L 385.64 122.49 L 383.25 110.27 L 376.10 98.35 L 363.28 85.54 L 342.72 76.00 L 204.74 76.00 L 203.55 78.38 Z" />
+      <path d="M 272.69 183.28 L 270.01 183.28 L 267.92 180.90 L 253.32 180.90 L 251.23 183.28 L 243.78 183.28 L 241.70 185.67 L 234.25 188.05 L 229.77 192.82 L 227.09 192.82 L 133.22 286.70 L 133.22 289.38 L 128.45 293.85 L 128.45 296.53 L 125.77 299.51 L 126.07 303.68 L 123.68 304.87 L 123.68 433.32 L 125.47 433.62 L 126.07 435.70 L 132.92 435.70 L 133.81 433.32 L 136.79 433.32 L 178.22 391.89 L 178.22 389.21 L 182.99 384.74 L 182.69 380.57 L 185.37 377.59 L 185.37 372.52 L 187.75 370.44 L 187.75 334.38 L 190.14 332.29 L 190.14 324.84 L 192.52 322.75 L 192.52 317.69 L 197.29 313.22 L 197.29 310.54 L 273.58 234.54 L 273.58 231.86 L 280.74 220.24 L 280.74 212.79 L 283.12 210.70 L 283.12 196.10 L 280.74 194.01 L 280.74 191.33 Z" />
+    </g>
+
+    <!-- Main Title -->
+    <text x="25" y="5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="44" font-weight="900" fill="url(#titleGrad)" text-anchor="middle" letter-spacing="-0.5">
+      PROJECT-BUILDER-4-AGENTS
+    </text>
+
+    <!-- Subtitle (y=44 relative to title group, absolute y=166) -->
+    <text x="0" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#94a3b8" text-anchor="middle" letter-spacing="0.4">
+      The Remote Knowledge Hub &amp; Static Guardrail Engine for AI Coding Agents
+    </text>
+  </g>
+
+  <!-- 3. 4 Architecture Pillar Cards (Evenly Spaced at y=215, height=132) -->
+  <g transform="translate(68, 215)">
+    <!-- Card 1: Zero-Clone Ingestion -->
+    <g transform="translate(0, 0)">
+      <rect width="250" height="132" rx="14" fill="url(#cardGrad)" stroke="#38bdf8" stroke-opacity="0.45" stroke-width="1.3" />
+      <rect width="250" height="4" rx="2" fill="#38bdf8" />
+      <text x="20" y="36" font-size="20">⚡</text>
+      <text x="52" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14.5" font-weight="700" fill="#f8fafc">
+        Zero-Clone Ingestion
+      </text>
+      <text x="20" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="400" fill="#94a3b8">
+        Direct GitHub HTTP Fetch
+      </text>
+      <text x="20" y="90" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="400" fill="#64748b">
+        Selective Stack B1–B9 Pull
+      </text>
+      <rect x="20" y="104" width="75" height="18" rx="4" fill="#0369a1" fill-opacity="0.3" />
+      <text x="57" y="117" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="700" fill="#7dd3fc" text-anchor="middle">
+        0 REPO BLOAT
+      </text>
+    </g>
+
+    <!-- Card 2: Agent Constitution -->
+    <g transform="translate(272, 0)">
+      <rect width="250" height="132" rx="14" fill="url(#cardGrad)" stroke="#818cf8" stroke-opacity="0.45" stroke-width="1.3" />
+      <rect width="250" height="4" rx="2" fill="#818cf8" />
+      <text x="20" y="36" font-size="20">📜</text>
+      <text x="52" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14.5" font-weight="700" fill="#f8fafc">
+        Agent Constitution
+      </text>
+      <text x="20" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="400" fill="#94a3b8">
+        AGENTS.md &amp; Strict ADRs
+      </text>
+      <text x="20" y="90" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="400" fill="#64748b">
+        Anti-Drift Living Sync System
+      </text>
+      <rect x="20" y="104" width="75" height="18" rx="4" fill="#4338ca" fill-opacity="0.3" />
+      <text x="57" y="117" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="700" fill="#a5b4fc" text-anchor="middle">
+        GOVERNED
+      </text>
+    </g>
+
+    <!-- Card 3: Anti-Doom-Loop -->
+    <g transform="translate(544, 0)">
+      <rect width="250" height="132" rx="14" fill="url(#cardGrad)" stroke="#34d399" stroke-opacity="0.45" stroke-width="1.3" />
+      <rect width="250" height="4" rx="2" fill="#34d399" />
+      <text x="20" y="36" font-size="20">🛡️</text>
+      <text x="52" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14.5" font-weight="700" fill="#f8fafc">
+        Anti-Doom-Loop
+      </text>
+      <text x="20" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="400" fill="#94a3b8">
+        SAFE-* Injection Defense
+      </text>
+      <text x="20" y="90" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="400" fill="#64748b">
+        Context Fencing &amp; Breakers
+      </text>
+      <rect x="20" y="104" width="75" height="18" rx="4" fill="#065f46" fill-opacity="0.3" />
+      <text x="57" y="117" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="700" fill="#6ee7b7" text-anchor="middle">
+        PROTECTED
+      </text>
+    </g>
+
+    <!-- Card 4: 0-Token Auditor -->
+    <g transform="translate(816, 0)">
+      <rect width="250" height="132" rx="14" fill="url(#cardGrad)" stroke="#f472b6" stroke-opacity="0.45" stroke-width="1.3" />
+      <rect width="250" height="4" rx="2" fill="#f472b6" />
+      <text x="20" y="36" font-size="20">🔬</text>
+      <text x="52" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14.5" font-weight="700" fill="#f8fafc">
+        Project Builder Analytics
+      </text>
+      <text x="20" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="400" fill="#94a3b8">
+        Objective Grade A+ to F (0–100)
+      </text>
+      <text x="20" y="90" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="400" fill="#64748b">
+        Embedded Single-EXE / Python
+      </text>
+      <rect x="20" y="104" width="75" height="18" rx="4" fill="#831843" fill-opacity="0.3" />
+      <text x="57" y="117" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="700" fill="#f9a8d4" text-anchor="middle">
+        0 TOKENS
+      </text>
+    </g>
+  </g>
+
+  <!-- 4. Bottom Tech Stack Tag Bar (Centered in a Frosted Glass Container at y=400) -->
+  <g transform="translate(600, 400)">
+    <rect x="-470" y="-18" width="940" height="36" rx="18" fill="#1e293b" fill-opacity="0.65" stroke="#334155" stroke-width="1" />
+    <text x="0" y="5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace" font-size="11.5" font-weight="600" fill="#94a3b8" text-anchor="middle" letter-spacing="1.5">
+      CLAUDE CODE  •  ANTIGRAVITY  •  CURSOR  •  WINDSURF  •  ZERO-CLONE  •  PYTHON 3.12+  •  STANDALONE EXE  •  ALL RIGHTS RESERVED
+    </text>
+  </g>
+</svg>

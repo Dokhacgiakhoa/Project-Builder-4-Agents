@@ -1,0 +1,1478 @@
+[
+  {
+    "repo": "aider",
+    "file": "aider/website/assets/sample.aider.conf.yml",
+    "line": 355,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Sample / tutorial code comment",
+    "sample_snippet_len": 44
+  },
+  {
+    "repo": "aider",
+    "file": "aider/website/docs/config/aider_conf.md",
+    "line": 409,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Documentation / prompt design discussion",
+    "sample_snippet_len": 44
+  },
+  {
+    "repo": "aider",
+    "file": "aider/website/docs/config/dotenv.md",
+    "line": 376,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Documentation / prompt design discussion",
+    "sample_snippet_len": 44
+  },
+  {
+    "repo": "aider",
+    "file": "aider/website/docs/config/options.md",
+    "line": 662,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Documentation / prompt design discussion",
+    "sample_snippet_len": 43
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/policy_templates_backup.json",
+    "line": 2243,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 71
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/policy_templates_backup.json",
+    "line": 2267,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 60
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/policy_templates_backup.json",
+    "line": 2272,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 56
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/policy_templates_backup.json",
+    "line": 2287,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 52
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/policy_templates_backup.json",
+    "line": 2292,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 55
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/policy_templates_backup.json",
+    "line": 2297,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 53
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/policy_templates_backup.json",
+    "line": 2302,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 54
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+    "line": 77,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 5811
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+    "line": 86,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 918
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+    "line": 251,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 5811
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+    "line": 260,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 918
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+    "line": 424,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 5811
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+    "line": 433,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 1056
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+    "line": 601,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 5811
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+    "line": 610,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 918
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+    "line": 768,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 5811
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+    "line": 777,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 918
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+    "line": 1227,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 9856
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+    "line": 1720,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 9856
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_jailbreak.yaml",
+    "line": 79,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 28
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+    "line": 1,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 93
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+    "line": 4,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 95
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+    "line": 67,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 43
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+    "line": 71,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 47
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+    "line": 73,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 40
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+    "line": 75,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 40
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+    "line": 79,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 46
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+    "line": 85,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 42
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+    "line": 87,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 39
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+    "line": 95,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 41
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+    "line": 121,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 39
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+    "line": 123,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 41
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/prompt_injection.yaml",
+    "line": 91,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 47
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/prompt_injection.yaml",
+    "line": 97,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 41
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/prompt_injection.yaml",
+    "line": 99,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 33
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/prompt_injection.yaml",
+    "line": 113,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 41
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/sg_mas_model_security.yaml",
+    "line": 61,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 22
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/sg_mas_model_security.yaml",
+    "line": 62,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 19
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/sg_mas_model_security.yaml",
+    "line": 77,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 48
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/README.md",
+    "line": 127,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Documentation text matching conversational regex",
+    "sample_snippet_len": 48
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/README.md",
+    "line": 148,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Documentation text matching conversational regex",
+    "sample_snippet_len": 48
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/README.md",
+    "line": 173,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Documentation text matching conversational regex",
+    "sample_snippet_len": 43
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/example_config.yaml",
+    "line": 70,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Sample / tutorial code comment",
+    "sample_snippet_len": 50
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/example_config.yaml",
+    "line": 87,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Sample / tutorial code comment",
+    "sample_snippet_len": 50
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/guardrail_hooks/litellm_content_filter/guardrail_benchmarks/results/claims_system_override_cf.json",
+    "line": 259,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 74
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+    "line": 4,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 48
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+    "line": 12,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 38
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+    "line": 15,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 64
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+    "line": 34,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 58
+  },
+  {
+    "repo": "litellm",
+    "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+    "line": 55,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 64
+  },
+  {
+    "repo": "litellm",
+    "file": "tests/unit/fixtures/together_ai_sync/models_serverless.json",
+    "line": 1,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Test fixture / test cassette / mock data",
+    "sample_snippet_len": 73399
+  },
+  {
+    "repo": "litellm",
+    "file": "tests/unit/interactions/interactions.openapi.json",
+    "line": 6097,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Test fixture / test cassette / mock data",
+    "sample_snippet_len": 54
+  },
+  {
+    "repo": "litellm",
+    "file": "ui/litellm-dashboard/src/i18n/locales/en.json",
+    "line": 4805,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 103
+  },
+  {
+    "repo": "litellm",
+    "file": "ui/litellm-dashboard/src/i18n/locales/en.json",
+    "line": 6578,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 37
+  },
+  {
+    "repo": "litellm",
+    "file": "ui/litellm-dashboard/src/i18n/locales/en.json",
+    "line": 10736,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 146
+  },
+  {
+    "repo": "litellm",
+    "file": "ui/litellm-dashboard/src/i18n/locales/en.json",
+    "line": 11050,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 82
+  },
+  {
+    "repo": "continue",
+    "file": "CONTRIBUTING.md",
+    "line": 15,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 48
+  },
+  {
+    "repo": "continue",
+    "file": "CONTRIBUTING.md",
+    "line": 108,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 24
+  },
+  {
+    "repo": "cline",
+    "file": "apps/cli/README.md",
+    "line": 250,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Documentation / prompt design discussion",
+    "sample_snippet_len": 56
+  },
+  {
+    "repo": "cline",
+    "file": "apps/cli/src/tests/fixtures/web-fetch.json",
+    "line": 233,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Test fixture / test cassette / mock data",
+    "sample_snippet_len": 2654
+  },
+  {
+    "repo": "cline",
+    "file": ".claude/settings.json",
+    "line": 1,
+    "code": "SAFE-005",
+    "verdict": "TP",
+    "reason": "Agent config with executable command",
+    "sample_snippet_len": 1
+  },
+  {
+    "repo": "llama_index",
+    "file": "docs/src/content/docs/framework/CONTRIBUTING.md",
+    "line": 197,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 29
+  },
+  {
+    "repo": "llama_index",
+    "file": "llama-index-integrations/retrievers/llama-index-retrievers-videodb/README.md",
+    "line": 26,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 30
+  },
+  {
+    "repo": "flask",
+    "file": "docs/config.rst",
+    "line": 124,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Documentation text matching conversational regex",
+    "sample_snippet_len": 79
+  },
+  {
+    "repo": "httpx",
+    "file": "docs/advanced/clients.md",
+    "line": 172,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Documentation text matching conversational regex",
+    "sample_snippet_len": 57
+  },
+  {
+    "repo": "httpx",
+    "file": "tests/models/whatwg.json",
+    "line": 2296,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Test fixture / test suite data",
+    "sample_snippet_len": 40
+  },
+  {
+    "repo": "httpx",
+    "file": "tests/models/whatwg.json",
+    "line": 2311,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Test fixture / test suite data",
+    "sample_snippet_len": 46
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/de/docs/async.md",
+    "line": 192,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 246
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/de/docs/async.md",
+    "line": 196,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 117
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/de/docs/async.md",
+    "line": 228,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 110
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/de/docs/async.md",
+    "line": 230,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 81
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/en/docs/async.md",
+    "line": 192,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 243
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/en/docs/async.md",
+    "line": 196,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 123
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/en/docs/async.md",
+    "line": 228,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 93
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/en/docs/async.md",
+    "line": 230,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 76
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/en/docs/release-notes.md",
+    "line": 947,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 171
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/en/docs/release-notes.md",
+    "line": 954,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 191
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/en/docs/release-notes.md",
+    "line": 2695,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 178
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/es/docs/async.md",
+    "line": 192,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 258
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/es/docs/async.md",
+    "line": 196,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 131
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/es/docs/async.md",
+    "line": 228,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 105
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/es/docs/async.md",
+    "line": 230,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 73
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/fr/docs/async.md",
+    "line": 192,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 265
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/fr/docs/async.md",
+    "line": 196,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 118
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/fr/docs/async.md",
+    "line": 228,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 121
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/fr/docs/async.md",
+    "line": 230,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 96
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/hi/docs/async.md",
+    "line": 192,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 218
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/hi/docs/async.md",
+    "line": 196,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 113
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/hi/docs/async.md",
+    "line": 228,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 90
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/hi/docs/async.md",
+    "line": 230,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 79
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/ja/docs/async.md",
+    "line": 192,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 115
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/ja/docs/async.md",
+    "line": 196,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 53
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/ja/docs/async.md",
+    "line": 228,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 58
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/ja/docs/async.md",
+    "line": 230,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 31
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/ja/docs/tutorial/background-tasks.md",
+    "line": 52,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 92
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/ko/docs/async.md",
+    "line": 193,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 144
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/ko/docs/async.md",
+    "line": 197,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 58
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/ko/docs/async.md",
+    "line": 229,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 58
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/ko/docs/async.md",
+    "line": 231,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 36
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/language_names.yml",
+    "line": 168,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 13
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/pt/docs/async.md",
+    "line": 192,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 238
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/pt/docs/async.md",
+    "line": 196,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 137
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/pt/docs/async.md",
+    "line": 228,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 100
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/pt/docs/async.md",
+    "line": 230,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 70
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/pt/docs/deployment/concepts.md",
+    "line": 203,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 306
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/pt/docs/deployment/concepts.md",
+    "line": 217,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 242
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/pt/docs/how-to/general.md",
+    "line": 42,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 204
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/pt/docs/tutorial/cors.md",
+    "line": 31,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 171
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/pt/docs/tutorial/cors.md",
+    "line": 52,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 268
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/pt/docs/tutorial/response-model.md",
+    "line": 175,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 72
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/pt/docs/tutorial/response-model.md",
+    "line": 191,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 153
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/pt/docs/tutorial/response-model.md",
+    "line": 209,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 190
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/ru/docs/async.md",
+    "line": 192,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 217
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/ru/docs/async.md",
+    "line": 196,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 102
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/ru/docs/async.md",
+    "line": 228,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 106
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/ru/docs/async.md",
+    "line": 230,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 62
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/tr/docs/async.md",
+    "line": 192,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 182
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/tr/docs/async.md",
+    "line": 196,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 105
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/tr/docs/async.md",
+    "line": 228,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 107
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/tr/docs/async.md",
+    "line": 230,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 72
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/uk/docs/async.md",
+    "line": 192,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 211
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/uk/docs/async.md",
+    "line": 196,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 109
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/uk/docs/async.md",
+    "line": 228,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 93
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/uk/docs/async.md",
+    "line": 230,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 60
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/zh-hant/docs/async.md",
+    "line": 192,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 93
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/zh-hant/docs/async.md",
+    "line": 196,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 39
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/zh-hant/docs/async.md",
+    "line": 228,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 50
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/zh-hant/docs/async.md",
+    "line": 230,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 31
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/zh/docs/async.md",
+    "line": 192,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 86
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/zh/docs/async.md",
+    "line": 196,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 35
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/zh/docs/async.md",
+    "line": 228,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 51
+  },
+  {
+    "repo": "fastapi",
+    "file": "docs/zh/docs/async.md",
+    "line": 230,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 31
+  },
+  {
+    "repo": "underthesea",
+    "file": "docs/docs/contribute/sponsors.md",
+    "line": 18,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 23
+  },
+  {
+    "repo": "underthesea",
+    "file": "docs/versioned_docs/version-9.2.11/contribute/sponsors.md",
+    "line": 18,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 23
+  },
+  {
+    "repo": "underthesea",
+    "file": "docs/versioned_docs/version-9.3.0/contribute/sponsors.md",
+    "line": 18,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 23
+  },
+  {
+    "repo": "underthesea",
+    "file": "docs/versioned_docs/version-9.4.0/contribute/sponsors.md",
+    "line": 18,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 23
+  },
+  {
+    "repo": "underthesea",
+    "file": "docs/versioned_docs/version-9.5.0/contribute/sponsors.md",
+    "line": 18,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 23
+  },
+  {
+    "repo": "underthesea",
+    "file": "extensions/datasets/UD_Vietnamese-COL/corpus/raw/lyrics.txt",
+    "line": 8639,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 49
+  },
+  {
+    "repo": "underthesea",
+    "file": "extensions/datasets/UD_Vietnamese-COL/corpus/ud/lyrics.txt",
+    "line": 26228,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 58
+  },
+  {
+    "repo": "underthesea",
+    "file": "extensions/datasets/UD_Vietnamese-COL/corpus/ud/lyrics.txt",
+    "line": 26240,
+    "code": "SAFE-002",
+    "verdict": "FP",
+    "reason": "Documentation / typography artifact",
+    "sample_snippet_len": 11
+  },
+  {
+    "repo": "garak",
+    "file": "docs/source/probes/goat.rst",
+    "line": 36,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Documentation text matching conversational regex",
+    "sample_snippet_len": 98
+  },
+  {
+    "repo": "garak",
+    "file": "garak-report/extracted_digest.json",
+    "line": 6432,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 48
+  },
+  {
+    "repo": "garak",
+    "file": "garak-report/extracted_digest.json",
+    "line": 6576,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 48
+  },
+  {
+    "repo": "garak",
+    "file": "garak-report/extracted_digest.json",
+    "line": 6770,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 47
+  },
+  {
+    "repo": "garak",
+    "file": "garak-report/extracted_digest.json",
+    "line": 6960,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 48
+  },
+  {
+    "repo": "garak",
+    "file": "garak-report/extracted_digest.json",
+    "line": 7368,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 48
+  },
+  {
+    "repo": "garak",
+    "file": "garak/data/autodan/autodan_prompts.json",
+    "line": 2,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 715
+  },
+  {
+    "repo": "garak",
+    "file": "garak/data/autodan/autodan_prompts.json",
+    "line": 4,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 3031
+  },
+  {
+    "repo": "garak",
+    "file": "garak/data/cas/trait_typology.json",
+    "line": 186,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 35
+  },
+  {
+    "repo": "garak",
+    "file": "garak/data/cas/trait_typology.json",
+    "line": 188,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 84
+  },
+  {
+    "repo": "garak",
+    "file": "garak/data/cas/trait_typology.json",
+    "line": 779,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 44
+  },
+  {
+    "repo": "garak",
+    "file": "garak/data/dan/AntiDAN.json",
+    "line": 1,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 3327
+  },
+  {
+    "repo": "garak",
+    "file": "garak/data/sysprompt_extraction/attacks.json",
+    "line": 5,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 45
+  },
+  {
+    "repo": "garak",
+    "file": "garak/data/sysprompt_extraction/attacks.json",
+    "line": 11,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 103
+  },
+  {
+    "repo": "garak",
+    "file": "garak/data/sysprompt_extraction/attacks.json",
+    "line": 12,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 98
+  },
+  {
+    "repo": "garak",
+    "file": "garak/data/sysprompt_extraction/attacks.json",
+    "line": 21,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 70
+  },
+  {
+    "repo": "garak",
+    "file": "garak/data/tap/tap_jailbreaks.txt",
+    "line": 6,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Documentation / prompt design discussion",
+    "sample_snippet_len": 13046
+  },
+  {
+    "repo": "garak",
+    "file": "garak/resources/plugin_cache.json",
+    "line": 1360,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 60
+  },
+  {
+    "repo": "garak",
+    "file": "garak/resources/plugin_cache.json",
+    "line": 1393,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 79
+  },
+  {
+    "repo": "garak",
+    "file": "garak/resources/plugin_cache.json",
+    "line": 9161,
+    "code": "SAFE-001",
+    "verdict": "FP",
+    "reason": "Conversational UI string / prompt template in code",
+    "sample_snippet_len": 62
+  }
+]

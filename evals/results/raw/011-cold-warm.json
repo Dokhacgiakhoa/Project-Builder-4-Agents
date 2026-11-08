@@ -1,0 +1,26 @@
+{
+  "pure_read": {
+    "files_count": 4000,
+    "total_bytes": 152593569,
+    "read_cold_sec": 30.317,
+    "read_warm_sec": 0.277,
+    "speedup_ratio": 109.26
+  },
+  "audit_cold_vs_warm": {
+    "audit_cold_sec": 32.815,
+    "audit_warm_sec": 8.797,
+    "speedup_ratio": 3.73
+  },
+  "audit_prewarmed": {
+    "prewarm_read_sec": 26.425,
+    "audit_prewarmed_sec": 8.859
+  },
+  "attribution_analysis": {
+    "cold_penalty_audit_sec": 24.018,
+    "cold_penalty_read_sec": 30.04,
+    "cache_benefit_audit_sec": 23.956,
+    "prewarmed_vs_warm_diff_sec": 0.062,
+    "defender_av_cpu_measurement": "not determined (MsMpEng CPU time is not queryable without administrative ETW tracing)",
+    "conclusion": "Pre-warming the OS disk cache reduced audit time from 32.82s (cold) to 8.86s (pre-warmed), closely approaching the warm audit time of 8.80s. This confirms that filesystem disk caching / metadata loading accounts for the dominant portion of the Run 1 cold slowdown."
+  }
+}

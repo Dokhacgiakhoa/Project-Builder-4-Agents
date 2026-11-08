@@ -1,0 +1,105 @@
+{
+  "timestamp": "2026-11-07 18:08:38",
+  "help_runs": [
+    {
+      "run": 1,
+      "duration_sec": 0.537,
+      "exit_code": 0
+    },
+    {
+      "run": 2,
+      "duration_sec": 0.536,
+      "exit_code": 0
+    },
+    {
+      "run": 3,
+      "duration_sec": 0.553,
+      "exit_code": 0
+    },
+    {
+      "run": 4,
+      "duration_sec": 0.561,
+      "exit_code": 0
+    },
+    {
+      "run": 5,
+      "duration_sec": 0.578,
+      "exit_code": 0
+    }
+  ],
+  "help_cold_vs_warm_delta_sec": 0.001,
+  "exe_audit_runs": [
+    {
+      "run": 1,
+      "duration_sec": 32.111,
+      "exit_code": 0
+    },
+    {
+      "run": 2,
+      "duration_sec": 31.075,
+      "exit_code": 0
+    },
+    {
+      "run": 3,
+      "duration_sec": 30.888,
+      "exit_code": 0
+    },
+    {
+      "run": 4,
+      "duration_sec": 31.038,
+      "exit_code": 0
+    },
+    {
+      "run": 5,
+      "duration_sec": 31.099,
+      "exit_code": 0
+    }
+  ],
+  "exe_audit_min_sec": 30.888,
+  "exe_audit_max_sec": 32.111,
+  "exe_audit_delta_sec": 1.223,
+  "python_audit_runs": [
+    {
+      "run": 1,
+      "duration_sec": 30.404,
+      "exit_code": 0
+    },
+    {
+      "run": 2,
+      "duration_sec": 31.096,
+      "exit_code": 0
+    },
+    {
+      "run": 3,
+      "duration_sec": 30.724,
+      "exit_code": 0
+    },
+    {
+      "run": 4,
+      "duration_sec": 30.454,
+      "exit_code": 0
+    },
+    {
+      "run": 5,
+      "duration_sec": 30.317,
+      "exit_code": 0
+    }
+  ],
+  "python_audit_min_sec": 30.317,
+  "python_audit_max_sec": 31.096,
+  "python_audit_delta_sec": 0.779,
+  "defender_info": {
+    "real_time_protection_enabled": true,
+    "exclusion_paths": [
+      "N/A: Must be an administrator to view exclusions"
+    ]
+  },
+  "msmpeng_cpu_before_sec": null,
+  "msmpeng_cpu_after_sec": null,
+  "msmpeng_cpu_delta_sec": null,
+  "conclusions": [
+    "Startup overhead (cold vs warm help): run 1 was 0.537s vs warm min 0.536s (delta: 0.001s).",
+    "Exe audit variance: max=32.111s, min=30.888s (delta: 1.223s).",
+    "Python audit variance: max=31.096s, min=30.317s (delta: 0.779s)."
+  ]
+}

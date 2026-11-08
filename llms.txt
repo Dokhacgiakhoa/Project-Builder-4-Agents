@@ -1,0 +1,36 @@
+# Project-Builder-4-Agents
+
+> Remote knowledge library and bootstrap procedure for AI Coding Agents, readable from GitHub without cloning the repository (Zero-Clone). Unvalidated by external users or benchmarks; see README Validation Status.
+
+## Bootstrap Entry Points
+- [BOOTSTRAP.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/BOOTSTRAP.md): Step-by-step procedure for AI Agents bootstrapping a new project
+- [INDEX.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/INDEX.md): Intent-to-document routing table (Intent Router)
+- [MANIFEST.json](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/MANIFEST.json): Manifest of tracked repository files with raw URLs and SHA-256 hashes
+- [HOW_IT_WORKS.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/HOW_IT_WORKS.md): Complete operational specification and lifecycle mechanics
+
+## Phase 1: Discovery & Technology Selection Gate
+- [core/discovery.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/discovery.md): Discovery interview script (max 3 questions/turn, recommended defaults)
+- [profiles/README.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/README.md): Architecture signal table (Simple Layered, Clean Architecture, Vertical Slice, Modular Monolith)
+- [profiles/skills-catalog/curated-agent-skills.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/skills-catalog/curated-agent-skills.md): Curated skills matrix for Agent injection (self-contained text)
+
+## Phase 2: Core Baseline Standards (Mandatory across all stacks)
+- [core/README.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/README.md): Core Baseline B1-B9 standards
+- [core/standards/coding-conventions.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/standards/coding-conventions.md): Code conventions & runtime defensive crash boundaries
+- [core/standards/test-strategy.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/standards/test-strategy.md): Automated testing strategy
+- [core/standards/definition-of-done.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/core/standards/definition-of-done.md): Definition of Done (DoD) criteria
+- [profiles/playbooks/anti-doom-loop-guide.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/playbooks/anti-doom-loop-guide.md): Anti-Doom-Loop Playbook (The 3 Operating Loops)
+
+## Phase 3: Architecture Profiles (Select per project domain)
+- [profiles/architecture/simple-layered.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/architecture/simple-layered.md): Simple Layered (CRUD, demo, small MVP, Guardrail Level M1)
+- [profiles/architecture/clean-architecture.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/architecture/clean-architecture.md): Clean Architecture (Complex domains, framework-independent tests, Guardrail Level M2)
+- [profiles/architecture/vertical-slice.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/architecture/vertical-slice.md): Vertical Slice Architecture (Parallel independent features)
+- [profiles/architecture/modular-monolith.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/architecture/modular-monolith.md): Modular Monolith (Growing systems with strict module boundaries)
+- [profiles/design/screenshot-to-code-reverse-engineering.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/design/screenshot-to-code-reverse-engineering.md): Screenshot-to-Code & Visual Reverse Engineering Playbook
+- [profiles/agent-configs/curated-mcp-matrix.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/agent-configs/curated-mcp-matrix.md): Curated MCP Servers Matrix (Model Context Protocol)
+- [profiles/knowledge-map/agent-ecosystem-taxonomy.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/knowledge-map/agent-ecosystem-taxonomy.md): Agent Ecosystem Taxonomy & Precision Search Compass
+
+## Phase 4: Production-Readiness & Go-Live
+- [knowledge-base/tu-duy/anti-patching-architectural-thinking.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/knowledge-base/tu-duy/anti-patching-architectural-thinking.md): Anti-patching mindset, addressing root causes
+- [profiles/deployment/go-live-production-checklist.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/deployment/go-live-production-checklist.md): 5 Go-Live Gates Production Checklist
+- [profiles/stacks/cloud-free-tier-stack.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/profiles/stacks/cloud-free-tier-stack.md): Free-tier cloud deployment (Vercel, Railway, Supabase...)
+- [scripts/README.md](https://raw.githubusercontent.com/Dokhacgiakhoa/Project-Builder-4-Agents/main/scripts/README.md): Project Builder Analytics - Workspace audit and quality scoring engine

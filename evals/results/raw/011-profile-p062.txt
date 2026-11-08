@@ -1,0 +1,41 @@
+cProfile Report for P-062
+Target: D:\Github\P-062
+Total files: 5470 (1592 code files)
+Score: 80
+
+Stage Timings Split:
+  indexing_tree_sec        : 0.0818s
+  profiler_sec             : 0.0218s
+  analysis_py_sec          : 1.8194s
+  safety_scan_sec          : 2.8958s
+  pillars_and_report_sec   : 1.9727s
+  total_wall_sec           : 6.7916s
+
+AST Parsing Statistics:
+  _python_imports calls : 1037 (1.0326s cumulative)
+  ast.parse calls       : 1037 (0.9125s cumulative)
+
+Top 15 Functions by Cumulative Time:
+         9922140 function calls (9878416 primitive calls) in 6.710 seconds
+
+   Ordered by: cumulative time
+   List reduced from 587 to 15 due to restriction <15>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    6.710    6.710 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\auditor.py:98(run)
+        1    0.000    0.000    2.896    2.896 D:\Github\Project-Builder-4-Agents\evals\run_011_profile.py:48(timed_scan_safety)
+        1    0.039    0.039    2.896    2.896 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\safety.py:361(scan_safety)
+     2865    0.396    0.000    2.229    0.001 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\safety.py:246(_scan_text)
+        1    0.000    0.000    1.819    1.819 D:\Github\Project-Builder-4-Agents\evals\run_011_profile.py:41(timed_analysis)
+        1    0.000    0.000    1.819    1.819 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\auditor.py:506(_run_analysis)
+        1    0.003    0.003    1.819    1.819 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:546(analyze_project)
+        1    0.000    0.000    1.816    1.816 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:512(analyze)
+   510906    0.231    0.000    1.738    0.000 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\safety.py:152(_directive_matches)
+        1    0.056    0.056    1.340    1.340 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:301(_imports)
+    67402    1.047    0.000    1.047    0.000 {method 'search' of 're.Pattern' objects}
+     1037    0.072    0.000    1.033    0.001 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:195(_python_imports)
+     1037    0.116    0.000    0.912    0.001 C:\Users\<user>\AppData\Local\Programs\Python\Python312\Lib\ast.py:34(parse)
+     1037    0.796    0.001    0.796    0.001 {built-in method builtins.compile}
+        1    0.072    0.072    0.722    0.722 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\pillars_app.py:383(audit_database_waterflow)
+
+

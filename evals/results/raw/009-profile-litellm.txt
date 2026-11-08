@@ -1,0 +1,42 @@
+cProfile Report for litellm
+Target: D:\Github\_corpus\litellm
+Total files: 15224 (12949 code files)
+Score: 80
+
+Stage Timings Split:
+  indexing_tree_sec        : 0.5383s
+  profiler_sec             : 0.0313s
+  analysis_py_sec          : 15.9638s
+  safety_scan_sec          : 2.1402s
+  pillars_and_report_sec   : 154.2390s
+  total_wall_sec           : 172.9125s
+
+Top 15 Functions by Cumulative Time:
+         270275024 function calls (270013529 primitive calls) in 172.374 seconds
+
+   Ordered by: cumulative time
+   List reduced from 499 to 15 due to restriction <15>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001  172.374  172.374 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\auditor.py:98(run)
+ 24097549   12.168    0.000   82.563    0.000 C:\Users\<user>\AppData\Local\Programs\Python\Python312\Lib\re\__init__.py:174(search)
+        1    6.392    6.392   74.550   74.550 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\pillars_app.py:383(audit_database_waterflow)
+        1   13.740   13.740   73.547   73.547 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\pillars_app.py:560(audit_anti_crash_universal)
+ 24098797   43.637    0.000   43.637    0.000 {method 'search' of 're.Pattern' objects}
+ 31544247   19.431    0.000   33.196    0.000 C:\Users\<user>\AppData\Local\Programs\Python\Python312\Lib\re\__init__.py:280(_compile)
+ 13470410    9.843    0.000   19.941    0.000 C:\Users\<user>\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:591(suffix)
+        1    0.000    0.000   15.964   15.964 D:\Github\Project-Builder-4-Agents\evals\profile_investigation.py:41(timed_analysis)
+        1    0.000    0.000   15.964   15.964 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\auditor.py:506(_run_analysis)
+        1    0.019    0.019   15.962   15.962 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:546(analyze_project)
+        1    0.000    0.000   15.943   15.943 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:512(analyze)
+  7400208    4.127    0.000   13.589    0.000 C:\Users\<user>\AppData\Local\Programs\Python\Python312\Lib\re\__init__.py:164(match)
+        1    0.700    0.700   12.746   12.746 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:301(_imports)
+     4581    0.824    0.000   11.696    0.003 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:195(_python_imports)
+     4581    1.314    0.000    9.952    0.002 C:\Users\<user>\AppData\Local\Programs\Python\Python312\Lib\ast.py:34(parse)
+
+
+
+Sub-tree Scaling Check:
+  litellm_cli    :     2 files,     2 code,   0.01s (2.95 ms/file)
+  enterprise     :   161 files,   153 code,   0.17s (1.05 ms/file)
+  litellm_core   :  4200 files,  3316 code,  10.36s (2.47 ms/file)

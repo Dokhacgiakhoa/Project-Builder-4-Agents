@@ -1,0 +1,5 @@
+Differential test with 21435 lines:
+Regex only time: 0.1704s
+Gate + regex time: 0.0481s (Speedup: 3.54x)
+Matches count: 1462
+Mismatches count: 0

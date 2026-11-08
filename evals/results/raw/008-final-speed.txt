@@ -1,0 +1,7 @@
+Item 3e Final Timing Results on P-062:
+Baseline runs (s): [33.4809, 32.3016, 33.2643]
+Baseline mean (s): 33.0156
+After runs (s)   : [8.067, 10.741, 10.5741]
+After mean (s)   : 9.7940
+Wall time reduction: 70.34%
+Speedup multiplier: 3.37x

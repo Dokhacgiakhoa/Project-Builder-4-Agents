@@ -1,0 +1,270 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 450" width="100%" height="100%">
+  <defs>
+    <!-- Canvas & Panel Gradients -->
+    <linearGradient id="tierCanvasBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080c14" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#070a12" />
+    </linearGradient>
+
+    <linearGradient id="tierPanelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95" />
+    </linearGradient>
+
+    <linearGradient id="neonCyan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+
+    <linearGradient id="neonIndigo" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818cf8" />
+      <stop offset="100%" stop-color="#4f46e5" />
+    </linearGradient>
+
+    <linearGradient id="neonEmerald" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+
+    <!-- Grid Pattern -->
+    <pattern id="tierGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#334155" stroke-width="0.6" stroke-opacity="0.25" />
+    </pattern>
+
+    <!-- Glow Filter -->
+    <filter id="tierGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="15" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Marker Arrowheads -->
+    <marker id="arrowIndigo" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 1 1 L 7 4 L 1 7 Z" fill="#818cf8" />
+    </marker>
+    <marker id="arrowEmerald" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 1 1 L 7 4 L 1 7 Z" fill="#34d399" />
+    </marker>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1100" height="450" rx="16" fill="url(#tierCanvasBg)" />
+  <rect width="1100" height="450" rx="16" fill="url(#tierGrid)" />
+  <rect width="1100" height="450" rx="16" fill="none" stroke="#334155" stroke-width="1.2" stroke-opacity="0.5" />
+
+  <!-- Ambient Glow Orbs -->
+  <circle cx="200" cy="120" r="150" fill="#38bdf8" fill-opacity="0.07" filter="url(#tierGlow)" />
+  <circle cx="550" cy="240" r="160" fill="#6366f1" fill-opacity="0.08" filter="url(#tierGlow)" />
+  <circle cx="900" cy="360" r="150" fill="#10b981" fill-opacity="0.07" filter="url(#tierGlow)" />
+
+  <!-- Diagram Title Header -->
+  <g transform="translate(50, 36)">
+    <rect x="0" y="0" width="165" height="26" rx="13" fill="#1e293b" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.6" />
+    <circle cx="14" cy="13" r="4" fill="#38bdf8" />
+    <text x="26" y="17" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#7dd3fc" letter-spacing="1">
+      3-TIER ARCHITECTURE
+    </text>
+    <text x="180" y="18" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="800" fill="#f8fafc">
+      Context Fencing &amp; Knowledge Partitioning
+    </text>
+    <text x="735" y="18" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="500" fill="#94a3b8">
+      Zero Context Pollution • Ingests Only Required Rules
+    </text>
+  </g>
+
+  <!-- Flow Arrows Connecting Tier 1 -> Tier 2 -> Tier 3 -->
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 365 220 L 395 220" fill="none" stroke="#818cf8" stroke-width="2.2" stroke-dasharray="4 3" marker-end="url(#arrowIndigo)" />
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 715 220 L 745 220" fill="none" stroke="#34d399" stroke-width="2.2" stroke-dasharray="4 3" marker-end="url(#arrowEmerald)" />
+
+  <!-- ==================== COLUMN 1: CORE BASELINE ==================== -->
+  <g transform="translate(50, 80)">
+    <rect width="315" height="280" rx="14" fill="url(#tierPanelGrad)" stroke="#38bdf8" stroke-width="1.3" stroke-opacity="0.5" />
+    <rect width="315" height="4" rx="2" fill="url(#neonCyan)" />
+
+    <!-- Header -->
+    <g transform="translate(18, 22)">
+      <circle cx="18" cy="18" r="18" fill="#0369a1" fill-opacity="0.3" stroke="#38bdf8" stroke-width="1" />
+      <text x="18" y="24" font-size="18" text-anchor="middle">💎</text>
+      <text x="46" y="16" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800" fill="#f8fafc">
+        Tier 1: Core Baseline
+      </text>
+      <text x="46" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" fill="#38bdf8">
+        Mandatory Across All Projects (core/)
+      </text>
+    </g>
+
+    <!-- Item List -->
+    <g transform="translate(18, 75)">
+      <!-- Item 1 -->
+      <g transform="translate(0, 0)">
+        <rect width="279" height="34" rx="6" fill="#090d16" stroke="#334155" stroke-width="0.8" />
+        <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" fill="#f8fafc">
+          📜 AGENTS.md Constitution &amp; Personas
+        </text>
+      </g>
+      <!-- Item 2 -->
+      <g transform="translate(0, 42)">
+        <rect width="279" height="34" rx="6" fill="#090d16" stroke="#334155" stroke-width="0.8" />
+        <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" fill="#f8fafc">
+          📑 ADR Architecture Decision Schema
+        </text>
+      </g>
+      <!-- Item 3 -->
+      <g transform="translate(0, 84)">
+        <rect width="279" height="34" rx="6" fill="#090d16" stroke="#334155" stroke-width="0.8" />
+        <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" fill="#f8fafc">
+          🧪 Test Contracts &amp; Verification Gates
+        </text>
+      </g>
+      <!-- Item 4 -->
+      <g transform="translate(0, 126)">
+        <rect width="279" height="34" rx="6" fill="#090d16" stroke="#334155" stroke-width="0.8" />
+        <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" fill="#f8fafc">
+          🛡️ Git Hygiene &amp; PR Review Protocol
+        </text>
+      </g>
+    </g>
+
+    <!-- Bottom Pill -->
+    <g transform="translate(18, 246)">
+      <rect width="279" height="22" rx="5" fill="#0369a1" fill-opacity="0.25" stroke="#38bdf8" stroke-width="0.8" stroke-opacity="0.4" />
+      <text x="139" y="15" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700" fill="#7dd3fc" text-anchor="middle">
+        UNIVERSAL GOVERNANCE • ~3,500 TOKENS
+      </text>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 2: DOMAIN PROFILES ==================== -->
+  <g transform="translate(400, 80)">
+    <rect width="315" height="280" rx="14" fill="url(#tierPanelGrad)" stroke="#818cf8" stroke-width="1.3" stroke-opacity="0.5" />
+    <rect width="315" height="4" rx="2" fill="url(#neonIndigo)" />
+
+    <!-- Header -->
+    <g transform="translate(18, 22)">
+      <circle cx="18" cy="18" r="18" fill="#4338ca" fill-opacity="0.3" stroke="#818cf8" stroke-width="1" />
+      <text x="18" y="24" font-size="18" text-anchor="middle">📐</text>
+      <text x="46" y="16" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800" fill="#f8fafc">
+        Tier 2: Domain Profiles
+      </text>
+      <text x="46" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" fill="#a5b4fc">
+        Selected Per Architecture (profiles/)
+      </text>
+    </g>
+
+    <!-- Item List -->
+    <g transform="translate(18, 75)">
+      <!-- Item 1 -->
+      <g transform="translate(0, 0)">
+        <rect width="279" height="34" rx="6" fill="#090d16" stroke="#334155" stroke-width="0.8" />
+        <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" fill="#f8fafc">
+          🏛️ 4 Patterns (Clean, Slice, Monolith)
+        </text>
+      </g>
+      <!-- Item 2 -->
+      <g transform="translate(0, 42)">
+        <rect width="279" height="34" rx="6" fill="#090d16" stroke="#334155" stroke-width="0.8" />
+        <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" fill="#f8fafc">
+          ⚡ Curated 16+ MCP Server Matrix
+        </text>
+      </g>
+      <!-- Item 3 -->
+      <g transform="translate(0, 84)">
+        <rect width="279" height="34" rx="6" fill="#090d16" stroke="#334155" stroke-width="0.8" />
+        <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" fill="#f8fafc">
+          🎯 Curated Agent Skills Matrix
+        </text>
+      </g>
+      <!-- Item 4 -->
+      <g transform="translate(0, 126)">
+        <rect width="279" height="34" rx="6" fill="#090d16" stroke="#334155" stroke-width="0.8" />
+        <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" fill="#f8fafc">
+          🚦 Go-Live Checklist &amp; Anti-Doom-Loop
+        </text>
+      </g>
+    </g>
+
+    <!-- Bottom Pill -->
+    <g transform="translate(18, 246)">
+      <rect width="279" height="22" rx="5" fill="#4338ca" fill-opacity="0.25" stroke="#818cf8" stroke-width="0.8" stroke-opacity="0.4" />
+      <text x="139" y="15" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700" fill="#c7d2fe" text-anchor="middle">
+        PULL ONLY 1 PROFILE • ZERO BLOAT
+      </text>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 3: KNOWLEDGE LIBRARY ==================== -->
+  <g transform="translate(750, 80)">
+    <rect width="300" height="280" rx="14" fill="url(#tierPanelGrad)" stroke="#34d399" stroke-width="1.3" stroke-opacity="0.5" />
+    <rect width="300" height="4" rx="2" fill="url(#neonEmerald)" />
+
+    <!-- Header -->
+    <g transform="translate(18, 22)">
+      <circle cx="18" cy="18" r="18" fill="#065f46" fill-opacity="0.3" stroke="#34d399" stroke-width="1" />
+      <text x="18" y="24" font-size="18" text-anchor="middle">📖</text>
+      <text x="46" y="16" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800" fill="#f8fafc">
+        Tier 3: Knowledge Library
+      </text>
+      <text x="46" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" fill="#6ee7b7">
+        On-Demand Reference Only
+      </text>
+    </g>
+
+    <!-- Item List -->
+    <g transform="translate(18, 75)">
+      <!-- Item 1 -->
+      <g transform="translate(0, 0)">
+        <rect width="264" height="34" rx="6" fill="#090d16" stroke="#334155" stroke-width="0.8" />
+        <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" fill="#f8fafc">
+          💡 System Design Philosophy Playbooks
+        </text>
+      </g>
+      <!-- Item 2 -->
+      <g transform="translate(0, 42)">
+        <rect width="264" height="34" rx="6" fill="#090d16" stroke="#334155" stroke-width="0.8" />
+        <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" fill="#f8fafc">
+          ⚡ Token Frugality &amp; Memory Bounds
+        </text>
+      </g>
+      <!-- Item 3 -->
+      <g transform="translate(0, 84)">
+        <rect width="264" height="34" rx="6" fill="#090d16" stroke="#334155" stroke-width="0.8" />
+        <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" fill="#f8fafc">
+          📊 YC &amp; Sequoia 11-Slide Pitch Deck
+        </text>
+      </g>
+      <!-- Item 4 -->
+      <g transform="translate(0, 126)">
+        <rect width="264" height="34" rx="6" fill="#090d16" stroke="#334155" stroke-width="0.8" />
+        <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" fill="#f8fafc">
+          🔄 Incident Recovery &amp; SRE Tactics
+        </text>
+      </g>
+    </g>
+
+    <!-- Bottom Pill -->
+    <g transform="translate(18, 246)">
+      <rect width="264" height="22" rx="5" fill="#065f46" fill-opacity="0.25" stroke="#34d399" stroke-width="0.8" stroke-opacity="0.4" />
+      <text x="132" y="15" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700" fill="#a7f3d0" text-anchor="middle">
+        CONSULTED AS NEEDED • 0 INGESTION BLOAT
+      </text>
+    </g>
+  </g>
+
+  <!-- Bottom Context Budget Bar -->
+  <g transform="translate(50, 385)">
+    <rect width="1000" height="42" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1" />
+    <circle cx="22" cy="21" r="5" fill="#38bdf8" />
+    <text x="38" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">
+      Strict Context Fencing Contract:
+    </text>
+    <text x="245" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" fill="#94a3b8">
+      Core Baseline (~3.5k tokens) + Chosen Profile (~4k tokens) = Under 10k tokens total. 90% of Agent context remains free for user code!
+    </text>
+    <rect x="910" y="8" width="75" height="26" rx="6" fill="#0369a1" fill-opacity="0.4" />
+    <text x="947" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="800" fill="#7dd3fc" text-anchor="middle">
+      &lt; 10k TOKENS
+    </text>
+  </g>
+</svg>

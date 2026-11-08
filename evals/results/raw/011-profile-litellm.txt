@@ -1,0 +1,41 @@
+cProfile Report for litellm
+Target: D:\Github\_corpus\litellm
+Total files: 15227 (12949 code files)
+Score: 80
+
+Stage Timings Split:
+  indexing_tree_sec        : 0.2447s
+  profiler_sec             : 0.0151s
+  analysis_py_sec          : 9.5296s
+  safety_scan_sec          : 2.0575s
+  pillars_and_report_sec   : 30.3527s
+  total_wall_sec           : 42.1997s
+
+AST Parsing Statistics:
+  _python_imports calls : 4581 (7.3741s cumulative)
+  ast.parse calls       : 4581 (6.4194s cumulative)
+
+Top 15 Functions by Cumulative Time:
+         58102523 function calls (57841322 primitive calls) in 41.955 seconds
+
+   Ordered by: cumulative time
+   List reduced from 504 to 15 due to restriction <15>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000   41.955   41.955 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\auditor.py:98(run)
+        1    1.273    1.273   13.388   13.388 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\pillars_app.py:383(audit_database_waterflow)
+        1    6.056    6.056   12.953   12.953 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\pillars_app.py:525(audit_anti_crash_universal)
+   849625   11.643    0.000   11.643    0.000 {method 'search' of 're.Pattern' objects}
+        1    0.000    0.000    9.530    9.530 D:\Github\Project-Builder-4-Agents\evals\run_011_profile.py:41(timed_analysis)
+        1    0.000    0.000    9.530    9.530 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\auditor.py:506(_run_analysis)
+        1    0.014    0.014    9.529    9.529 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:546(analyze_project)
+        1    0.000    0.000    9.514    9.514 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:512(analyze)
+        1    0.368    0.368    7.924    7.924 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:301(_imports)
+     4581    0.446    0.000    7.374    0.002 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:195(_python_imports)
+     4581    0.903    0.000    6.419    0.001 C:\Users\<user>\AppData\Local\Programs\Python\Python312\Lib\ast.py:34(parse)
+     4581    5.516    0.001    5.516    0.001 {built-in method builtins.compile}
+    32453    0.049    0.000    2.647    0.000 C:\Users\<user>\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1022(read_text)
+    41951    0.088    0.000    2.407    0.000 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\tree.py:115(read_text)
+ 18245967    2.236    0.000    2.236    0.000 {method 'startswith' of 'str' objects}
+
+

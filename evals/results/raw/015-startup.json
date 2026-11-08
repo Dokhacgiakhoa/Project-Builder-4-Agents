@@ -1,0 +1,46 @@
+{
+  "old_build_013": {
+    "exe": "D:\\Github\\_sandbox\\013-clean-test\\Project-Health-Check.exe",
+    "runs": 10,
+    "durations_seconds": [
+      1.2173105000110809,
+      1.133590199999162,
+      0.9996056000090903,
+      0.9689825999957975,
+      0.9669967999943765,
+      0.9536282000044594,
+      0.9513676999922609,
+      1.0040685999993002,
+      1.0155478999949992,
+      1.0130753999983426
+    ],
+    "median_seconds": 1.0018,
+    "min_seconds": 0.9514,
+    "max_seconds": 1.2173,
+    "range_seconds": 0.2659
+  },
+  "new_build_015": {
+    "exe": "D:\\Github\\_sandbox\\015-single-build\\Project-Health-Check.exe",
+    "runs": 10,
+    "durations_seconds": [
+      1.0162369000026956,
+      0.9735029999865219,
+      0.9561716000025626,
+      0.9972887999902014,
+      1.0844293999980437,
+      1.2261149999976624,
+      1.209206899991841,
+      1.0754281000117771,
+      0.9882224000029964,
+      1.002418200005195
+    ],
+    "median_seconds": 1.0093,
+    "min_seconds": 0.9562,
+    "max_seconds": 1.2261,
+    "range_seconds": 0.2699
+  },
+  "comparison": {
+    "median_delta_seconds": 0.0075,
+    "median_delta_percentage": "+0.75%"
+  }
+}

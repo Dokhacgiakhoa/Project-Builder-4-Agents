@@ -1,0 +1,175 @@
+{
+  "scale-1k": {
+    "meta": {
+      "total_files": 897,
+      "code_files": 528,
+      "loc": 159241
+    },
+    "runs": [
+      {
+        "run": 1,
+        "wall_sec": 8.412,
+        "score": 82,
+        "ms_per_1k_lines": 52.83
+      },
+      {
+        "run": 2,
+        "wall_sec": 1.844,
+        "score": 82,
+        "ms_per_1k_lines": 11.58
+      },
+      {
+        "run": 3,
+        "wall_sec": 1.848,
+        "score": 82,
+        "ms_per_1k_lines": 11.61
+      }
+    ],
+    "mean_wall_sec": 4.035,
+    "mean_ms_per_1k_loc": 25.34
+  },
+  "scale-2k": {
+    "meta": {
+      "total_files": 1897,
+      "code_files": 1504,
+      "loc": 426600
+    },
+    "runs": [
+      {
+        "run": 1,
+        "wall_sec": 15.286,
+        "score": 82,
+        "ms_per_1k_lines": 35.83
+      },
+      {
+        "run": 2,
+        "wall_sec": 4.242,
+        "score": 82,
+        "ms_per_1k_lines": 9.94
+      },
+      {
+        "run": 3,
+        "wall_sec": 4.292,
+        "score": 82,
+        "ms_per_1k_lines": 10.06
+      }
+    ],
+    "mean_wall_sec": 7.94,
+    "mean_ms_per_1k_loc": 18.61
+  },
+  "scale-4k": {
+    "meta": {
+      "total_files": 3896,
+      "code_files": 2860,
+      "loc": 949287
+    },
+    "runs": [
+      {
+        "run": 1,
+        "wall_sec": 37.155,
+        "score": 83,
+        "ms_per_1k_lines": 39.14
+      },
+      {
+        "run": 2,
+        "wall_sec": 9.892,
+        "score": 83,
+        "ms_per_1k_lines": 10.42
+      },
+      {
+        "run": 3,
+        "wall_sec": 9.867,
+        "score": 83,
+        "ms_per_1k_lines": 10.39
+      }
+    ],
+    "mean_wall_sec": 18.971,
+    "mean_ms_per_1k_loc": 19.98
+  },
+  "scale-8k": {
+    "meta": {
+      "total_files": 7569,
+      "code_files": 5650,
+      "loc": 1617365
+    },
+    "runs": [
+      {
+        "run": 1,
+        "wall_sec": 71.369,
+        "score": 80,
+        "ms_per_1k_lines": 44.13
+      },
+      {
+        "run": 2,
+        "wall_sec": 16.092,
+        "score": 80,
+        "ms_per_1k_lines": 9.95
+      },
+      {
+        "run": 3,
+        "wall_sec": 16.16,
+        "score": 80,
+        "ms_per_1k_lines": 9.99
+      }
+    ],
+    "mean_wall_sec": 34.54,
+    "mean_ms_per_1k_loc": 21.36
+  },
+  "scale-15k": {
+    "meta": {
+      "total_files": 15227,
+      "code_files": 12949,
+      "loc": 4520832
+    },
+    "runs": [
+      {
+        "run": 1,
+        "wall_sec": 29.868,
+        "score": 80,
+        "ms_per_1k_lines": 6.61
+      },
+      {
+        "run": 2,
+        "wall_sec": 29.494,
+        "score": 80,
+        "ms_per_1k_lines": 6.52
+      },
+      {
+        "run": 3,
+        "wall_sec": 29.587,
+        "score": 80,
+        "ms_per_1k_lines": 6.54
+      }
+    ],
+    "mean_wall_sec": 29.65,
+    "mean_ms_per_1k_loc": 6.56
+  },
+  "fitting": {
+    "files_vs_time": {
+      "slope_sec_per_file": 0.001813,
+      "intercept_sec": 8.336,
+      "r_squared": 0.6321,
+      "is_linear": false
+    },
+    "loc_vs_time": {
+      "slope_sec_per_loc": 5e-06,
+      "intercept_sec": 10.8568,
+      "r_squared": 0.5007,
+      "is_linear": false
+    }
+  },
+  "fitting_warm": {
+    "files_vs_time": {
+      "slope_sec_per_file": 0.001902,
+      "intercept_sec": 1.1147,
+      "r_squared": 0.9926,
+      "is_linear": true
+    },
+    "loc_vs_time": {
+      "slope_sec_per_loc": 6e-06,
+      "intercept_sec": 2.8539,
+      "r_squared": 0.9611,
+      "is_linear": true
+    }
+  }
+}

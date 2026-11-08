@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-size: 16px;
+  }
+  body {
+    background-color: #f8fafc;
+    color: #0f172a;
+    font-size: 1rem;
+    line-height: 1.6;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  /* Borderless inputs by default */
+  input, textarea, select, button {
+    border: none !important;
+    outline: none !important;
+  }
+}
+
+/* Elegant Chamfered / Octagonal Cards (Chỉ vát góc tinh tế trên các khối Card) */
+.octa-card {
+  clip-path: polygon(
+    12px 0%,
+    calc(100% - 12px) 0%,
+    100% 12px,
+    100% calc(100% - 12px),
+    calc(100% - 12px) 100%,
+    12px 100%,
+    0% calc(100% - 12px),
+    0% 12px
+  );
+}
+
+.octa-card-sm {
+  clip-path: polygon(
+    6px 0%,
+    calc(100% - 6px) 0%,
+    100% 6px,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    6px 100%,
+    0% calc(100% - 6px),
+    0% 6px
+  );
+}
+
+.octa-card-lg {
+  clip-path: polygon(
+    18px 0%,
+    calc(100% - 18px) 0%,
+    100% 18px,
+    100% calc(100% - 18px),
+    calc(100% - 18px) 100%,
+    18px 100%,
+    0% calc(100% - 18px),
+    0% 18px
+  );
+}
+
+/* Modern Flat Chamfered Buttons (Không chém cụt chữ, sắc sảo) */
+.octa-btn {
+  clip-path: polygon(
+    6px 0%,
+    calc(100% - 6px) 0%,
+    100% 6px,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    6px 100%,
+    0% calc(100% - 6px),
+    0% 6px
+  );
+}
+
+/* Crisp 3D Floating Drop Shadows (Thay thế hoàn toàn cho Border) */
+.floating-shadow {
+  filter: drop-shadow(0 14px 28px rgba(15, 23, 42, 0.14)) drop-shadow(0 4px 10px rgba(15, 23, 42, 0.08));
+}
+
+.floating-shadow-lg {
+  filter: drop-shadow(0 22px 42px rgba(15, 23, 42, 0.18)) drop-shadow(0 8px 16px rgba(15, 23, 42, 0.10));
+}
+
+.floating-shadow-sm {
+  filter: drop-shadow(0 6px 14px rgba(15, 23, 42, 0.12));
+}
+
+.floating-shadow-blue {
+  filter: drop-shadow(0 8px 18px rgba(29, 78, 216, 0.35));
+}
+
+.floating-shadow-orange {
+  filter: drop-shadow(0 8px 18px rgba(234, 88, 12, 0.38));
+}

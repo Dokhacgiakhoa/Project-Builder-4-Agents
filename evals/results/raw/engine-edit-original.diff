@@ -1,0 +1,69 @@
+diff --git a/scripts/auditor_engine/constants.py b/scripts/auditor_engine/constants.py
+index eee66e0..bff207c 100644
+--- a/scripts/auditor_engine/constants.py
++++ b/scripts/auditor_engine/constants.py
+@@ -25,6 +25,17 @@ SKIP_REASONS = {
+     '.pytest_cache': 'cache test',
+     '.gradle': 'cache build Gradle',
+     'site-packages': 'thư viện Python cài tự động',
++    # Vùng mã mẫu: không phải mã của chính dự án, nếu quét sẽ làm sai hồ sơ (vd. bật nhầm Frontend)
++    'examples': 'mã ví dụ minh họa, không phải mã của dự án',
++    'example': 'mã ví dụ minh họa, không phải mã của dự án',
++    'fixtures': 'dữ liệu/mã mẫu cho test',
++    'samples': 'mã mẫu, không phải mã của dự án',
++}
++
++# Thư mục mẫu theo đường dẫn tương đối (posix, so khớp từng đoạn bằng fnmatch).
++SKIP_REL_PATTERNS = {
++    'profiles/*/starter': 'mã khởi tạo mẫu của profile',
++    'core/templates': 'mẫu tài liệu cấp cho dự án khác',
+ }
+ 
+ IGNORE_DIRS = set(SKIP_REASONS)
+diff --git a/scripts/auditor_engine/tree.py b/scripts/auditor_engine/tree.py
+index c1105df..f3b9f43 100644
+--- a/scripts/auditor_engine/tree.py
++++ b/scripts/auditor_engine/tree.py
+@@ -1,5 +1,6 @@
+ """Chỉ mục cây thư mục dự án (pruned indexing)."""
+ 
++import fnmatch
+ import os
+ import sys
+ import re
+@@ -7,7 +8,7 @@ import json
+ import datetime
+ from pathlib import Path
+ 
+-from .constants import IGNORE_DIRS, CODE_EXTENSIONS, SKIP_REASONS, ALLOWED_DOT_DIRS  # noqa: F401
++from .constants import IGNORE_DIRS, CODE_EXTENSIONS, SKIP_REASONS, SKIP_REL_PATTERNS, ALLOWED_DOT_DIRS  # noqa: F401
+ 
+ 
+ class ProjectTree:
+@@ -48,7 +49,25 @@ class ProjectTree:
+ 
+                     self.skipped.append((rel, SKIP_REASONS.get(d, '')))
+ 
+-            dirnames[:] = [d for d in dirnames if d not in IGNORE_DIRS and (not d.startswith('.') or d in ALLOWED_DOT_DIRS)]
++            rel_skip = set()
++
++            for d in dirnames:
++
++                if d in IGNORE_DIRS:
++
++                    continue
++
++                rel = (Path(dirpath) / d).relative_to(self.root).as_posix()
++
++                for pat, reason in SKIP_REL_PATTERNS.items():
++
++                    if fnmatch.fnmatchcase(rel, pat):
++
++                        self.skipped.append((rel, reason))
++
++                        rel_skip.add(d)
++
++            dirnames[:] = [d for d in dirnames if d not in IGNORE_DIRS and d not in rel_skip and (not d.startswith('.') or d in ALLOWED_DOT_DIRS)]
+ 
+             for d in dirnames:
+ 

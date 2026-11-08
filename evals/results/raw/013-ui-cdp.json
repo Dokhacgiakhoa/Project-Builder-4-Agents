@@ -1,0 +1,136 @@
+{
+  "item_3_1": {
+    "doc_lang": "en",
+    "toolbar_text": {
+      "browseFolderBtn": {
+        "text": "Browse",
+        "title": "Choose a folder on this computer"
+      },
+      "runAuditBtn": {
+        "text": "Health Check",
+        "title": "Run the full standards audit (zero-token, offline)"
+      },
+      "topAIDeepReviewBtn": {
+        "text": "AI Deep Review",
+        "title": "Configure an API Key in Settings (top right) to enable AI Review"
+      },
+      "themeToggleBtn": {
+        "text": "",
+        "title": "Switch Light / Dark theme"
+      },
+      "updateBtn": {
+        "text": "",
+        "title": "Check for updates"
+      },
+      "settingsBtn": {
+        "text": "",
+        "title": "Settings"
+      },
+      "targetFolderInput": {
+        "placeholder": "Select or paste the project folder path..."
+      }
+    },
+    "vietnamese_in_static_count": 0,
+    "vietnamese_in_static_samples": []
+  },
+  "item_3_2": {
+    "submenus": [
+      "Appearance",
+      "Language",
+      "API Keys",
+      "User Guide",
+      "About & Version"
+    ],
+    "section_titles": [
+      "Appearance",
+      "Language",
+      "API Keys",
+      "User Guide",
+      "About & Version"
+    ],
+    "api_key_checks": {
+      "provider_in_apikeys": true,
+      "keyInput_in_apikeys": true,
+      "modelInput_in_apikeys": true,
+      "testBtn_in_apikeys": true,
+      "includeCode_in_apikeys": true,
+      "other_sections_with_apikey_inputs": []
+    }
+  },
+  "item_3_3": {
+    "about_version": "v2.2.0"
+  },
+  "item_3_4": {
+    "saved_lang_after_save": "vi",
+    "doc_lang_restarted": "vi",
+    "toolbar_text_vi": {
+      "browseFolderBtn": {
+        "text": "Duyệt",
+        "title": "Chọn thư mục từ máy tính"
+      },
+      "runAuditBtn": {
+        "text": "Health Check",
+        "title": "Chạy thẩm định tiêu chuẩn toàn diện (Zero-Token, Offline)"
+      },
+      "topAIDeepReviewBtn": {
+        "text": "AI Deep Review",
+        "title": "Cần cấu hình API Key trong Cài đặt (góc trên bên phải) để kích hoạt AI Review"
+      },
+      "themeToggleBtn": {
+        "text": "",
+        "title": "Đổi giao diện Sáng / Tối"
+      },
+      "updateBtn": {
+        "text": "",
+        "title": "Kiểm tra cập nhật"
+      },
+      "settingsBtn": {
+        "text": "",
+        "title": "Cài đặt"
+      },
+      "targetFolderInput": {
+        "placeholder": "Chọn hoặc nhập đường dẫn thư mục dự án..."
+      }
+    },
+    "lang_after_cancel_in_json": "vi",
+    "doc_lang_after_cancel": "vi"
+  },
+  "item_3_5": {
+    "total_audit_text_nodes": 264,
+    "vietnamese_audit_text_nodes": 52,
+    "categories_counts": {
+      "finding_titles_and_remediations": 24,
+      "archetype_and_grade": 1,
+      "scan_log": 1,
+      "pillar_criteria": 3,
+      "other": 23
+    },
+    "samples": {
+      "finding_titles_and_remediations": [
+        "Thiếu tệp hiến pháp định hướng hành vi cho AI Agent (AGENTS.md, .cursorrules hoặc .mdc)",
+        "Core Baseline B1 chưa đạt: Thiếu AGENTS.md",
+        "Core Baseline B6 chưa đạt:",
+        "Core Baseline B2 chưa đạt: Thiếu CLAUDE.md",
+        "Core Baseline B3 chưa đạt: Thiếu docs/project-brief.md"
+      ],
+      "archetype_and_grade": [
+        "Audit complete! Total score: 43/100 [Grade F (CẦN TÁI CẤU TRÚC KIẾN TRÚC TOÀN DIỆN)]"
+      ],
+      "scan_log": [
+        "Hãy đọc tệp `project-review.md` ở gốc dự án (do Project Builder Analytics sinh ra) và sửa dự án theo đó:\n1. Xử lý các phát hiện mức Cao trước, rồi Trung bình, rồi Thấp.\n2. Với mỗi phát hiện, mở tài liệu khắc phục ghi cạnh nó trong Project-Builder-4-Agents (hoặc dùng skill `kit-consult` nếu có) và làm theo hướng dẫn, không tự bịa quy ước.\n3. Không đổi hợp đồng API/schema nếu chưa có ADR và chưa hỏi người dùng.\n4. Chạy lệnh test/lint/build trong AGENTS.md, rồi chạy lại Health Check để xác nhận.\nBối cảnh: Kho tài liệu / tri thức |"
+      ],
+      "pillar_criteria": [
+        "Hồ sơ ARCHITECTURE DECISION RECORDS (ADRS)",
+        "Hồ sơ kit (.builder/kit.json)",
+        "Kit knowledge: build 2026-11-08 (bundled, 53 docs). Phân tích tĩnh: không thấy import động/reflection. Độ tin cậy kiến trúc cao."
+      ],
+      "other": [
+        "Kho tài liệu / tri thức",
+        "Cấu trúc phẳng (ít thành phần)",
+        "Tự động hóa QUALITY GATE & CI/CD PIPELINE với GITHUB ACTIONS.",
+        "Chuẩn hóa hệ sinh thái AI AGENT (HIẾN PHÁP AGENTS.MD, SKILLS & WORKFLOWS) đón đầu kỷ nguyên Agentic AI.",
+        "Tệp quy chuẩn chỉ dẫn cho AI AGENT (AGENTS.md hoặc .CURSORRULES)"
+      ]
+    }
+  }
+}

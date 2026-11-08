@@ -1,0 +1,37 @@
+{
+  "repo_engine_sha256": "AB7ED1E1A87DDFD07152BFA781DA0CA3B90597B509C138E736BE8D8366778CD2",
+  "sha_before_launch": "AB7ED1E1A87DDFD07152BFA781DA0CA3B90597B509C138E736BE8D8366778CD2",
+  "match_before": true,
+  "instance_1": {
+    "pid": 35888,
+    "engine_pid": 34700,
+    "port": 63959,
+    "status": {
+      "status": "ready",
+      "version": "2.2.0"
+    }
+  },
+  "instance_2": {
+    "pid": 28604,
+    "engine_pid": 29332,
+    "port": 63958,
+    "status": {
+      "status": "ready",
+      "version": "2.2.0"
+    }
+  },
+  "sha_with_2_running": "AB7ED1E1A87DDFD07152BFA781DA0CA3B90597B509C138E736BE8D8366778CD2",
+  "instance_3": {
+    "pid": 23472,
+    "engine_pid": 13544,
+    "port": 49213,
+    "status": {
+      "status": "ready",
+      "version": "2.2.0"
+    }
+  },
+  "sha_with_3_running": "AB7ED1E1A87DDFD07152BFA781DA0CA3B90597B509C138E736BE8D8366778CD2",
+  "match_after": true,
+  "procs_at_05s": [],
+  "procs_at_50s": []
+}

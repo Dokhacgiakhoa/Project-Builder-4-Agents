@@ -1,0 +1,8 @@
+{
+  "server_alive_after_f5": true,
+  "scan_completed_after_f5": true,
+  "final_score": 80,
+  "server_exited_after_timeout": true,
+  "exit_code": 0,
+  "watchdog_timeout_seconds": 30.0
+}

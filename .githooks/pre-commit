@@ -1,0 +1,24 @@
+#!/bin/sh
+# Guard: private maintainer-lab content must never be committed (see AGENTS.md "Public repo vs private lab").
+BLOCKED=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '^evals/(handoff/|clean-machine-test/|[^/]+\.(py|ps1|cmd)$)|^lab/|(^|/)\.lab/')
+if [ -n "$BLOCKED" ]; then
+    echo "❌ [pre-commit] Private lab files staged (keep them in ../lab, not in this repo):"
+    echo "$BLOCKED"
+    exit 1
+fi
+PERSONAL=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '^(TASKS\.md|docs/worklog\.md|docs/project-brief\.md)$' | xargs -r grep -l -E 'Cậu|cậu' 2>/dev/null)
+if [ -n "$PERSONAL" ]; then
+    echo "❌ [pre-commit] Personal wording ('Cậu') found in public maintainer docs; use 'Maintainer':"
+    echo "$PERSONAL"
+    exit 1
+fi
+# Git pre-commit hook: Auto-sync documentation and manifest before committing
+echo "🔄 [pre-commit] Synchronizing documentation, badges & manifest..."
+python scripts/sync_docs.py
+if [ $? -ne 0 ]; then
+    echo "❌ [pre-commit] Documentation synchronization failed!"
+    exit 1
+fi
+
+# Automatically stage updated docs into the current commit
+git add README.md MANIFEST.json llms.txt 2>/dev/null || true

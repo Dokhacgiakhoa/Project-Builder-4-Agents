@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+
+<html lang="en" class="notranslate" translate="no" data-theme="dark">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="google" content="notranslate">
+
+  <meta name="color-scheme" content="dark light">
+
+  <meta name="theme-color" content="#0e0d13">
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+  <title>Project Builder Analytics</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+
+
+  <!-- TOP UNIFIED TOOLBAR -->
+
+  <header class="app-header">
+
+    <div class="header-left">
+
+      <div class="folder-input-wrapper">
+
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-muted); flex-shrink: 0;"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+
+        <input type="text" id="targetFolderInput" class="folder-input" placeholder="Select or paste the project folder path..." spellcheck="false">
+
+      </div>
+
+      <button class="btn btn-secondary" id="browseFolderBtn" title="Choose a folder on this computer">
+
+        <span>Browse</span>
+
+      </button>
+
+      <button class="btn btn-primary" id="runAuditBtn" title="Run the full standards audit (zero-token, offline)">
+
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+
+        <span>Run Analytics</span>
+
+      </button>
+
+      <button class="btn btn-ai" id="topAIDeepReviewBtn" title="Configure an API Key in Settings to enable AI Review" disabled>
+
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+
+        <span>AI Deep Review</span>
+
+      </button>
+
+    </div>
+
+    <div class="header-actions">
+
+      <button class="btn-icon" id="updateBtn" title="Check for updates">
+
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+
+      </button>
+
+      <button class="btn-icon" id="settingsBtn" title="Settings">
+
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- MAIN 2-PANE WORKSPACE -->
+
+  <main class="app-workspace">
+
+    <!-- LEFT SIDEBAR -->
+
+    <aside class="sidebar">
+
+      <!-- TOP: BÁO CÁO TỔNG QUAN -->
+
+      <div class="sidebar-top">
+
+        <div class="pillar-item active pillar-item-overview" data-pillar="overview">
+
+          <div class="pillar-left">
+
+            <span class="pillar-name overview-name">Overview report</span>
+
+          </div>
+
+          <svg class="overview-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- SECTION TITLE: HẠNG MỤC KIỂM TRA (ĐẶT DƯỚI BÁO CÁO TỔNG QUAN) -->
+
+      <div class="sidebar-title" id="sidebarPillarsTitle">Audit pillars (12)</div>
+
+
+
+      <!-- 12 HẠNG MỤC KIỂM TRA TOÀN DIỆN -->
+
+      <ul class="pillar-list" id="pillarList">
+
+        <li class="pillar-item" data-pillar="readme">
+
+          <div class="pillar-left">
+
+            <span class="status-dot dot-neutral" id="dot_readme"></span>
+
+            <span class="pillar-name">Readme & Onboarding</span>
+
+          </div>
+
+          <span class="pillar-score" id="score_readme">N/A</span>
+
+        </li>
+
+        <li class="pillar-item" data-pillar="backend">
+
+          <div class="pillar-left">
+
+            <span class="status-dot dot-neutral" id="dot_backend"></span>
+
+            <span class="pillar-name">Backend & Core Flow</span>
+
+          </div>
+
+          <span class="pillar-score" id="score_backend">N/A</span>
+
+        </li>
+
+        <li class="pillar-item" data-pillar="frontend">
+
+          <div class="pillar-left">
+
+            <span class="status-dot dot-neutral" id="dot_frontend"></span>
+
+            <span class="pillar-name">Frontend & UI/UX</span>
+
+          </div>
+
+          <span class="pillar-score" id="score_frontend">N/A</span>
+
+        </li>
+
+        <li class="pillar-item" data-pillar="database">
+
+          <div class="pillar-left">
+
+            <span class="status-dot dot-neutral" id="dot_database"></span>
+
+            <span class="pillar-name">Database & Query Safety</span>
+
+          </div>
+
+          <span class="pillar-score" id="score_database">N/A</span>
+
+        </li>
+
+        <li class="pillar-item" data-pillar="security">
+
+          <div class="pillar-left">
+
+            <span class="status-dot dot-neutral" id="dot_security"></span>
+
+            <span class="pillar-name">Security & Supply Chain</span>
+
+          </div>
+
+          <span class="pillar-score" id="score_security">N/A</span>
+
+        </li>
+
+        <li class="pillar-item" data-pillar="cloud">
+
+          <div class="pillar-left">
+
+            <span class="status-dot dot-neutral" id="dot_cloud"></span>
+
+            <span class="pillar-name">Cloud Infrastructure & DevOps</span>
+
+          </div>
+
+          <span class="pillar-score" id="score_cloud">N/A</span>
+
+        </li>
+
+        <li class="pillar-item" data-pillar="microservices">
+
+          <div class="pillar-left">
+
+            <span class="status-dot dot-neutral" id="dot_microservices"></span>
+
+            <span class="pillar-name">Distributed Systems & Gateway</span>
+
+          </div>
+
+          <span class="pillar-score" id="score_microservices">N/A</span>
+
+        </li>
+
+        <li class="pillar-item" data-pillar="data_caching">
+
+          <div class="pillar-left">
+
+            <span class="status-dot dot-neutral" id="dot_data_caching"></span>
+
+            <span class="pillar-name">Data Engineering & Cache</span>
+
+          </div>
+
+          <span class="pillar-score" id="score_data_caching">N/A</span>
+
+        </li>
+
+        <li class="pillar-item" data-pillar="observability">
+
+          <div class="pillar-left">
+
+            <span class="status-dot dot-neutral" id="dot_observability"></span>
+
+            <span class="pillar-name">Monitoring & Operations</span>
+
+          </div>
+
+          <span class="pillar-score" id="score_observability">N/A</span>
+
+        </li>
+
+        <li class="pillar-item" data-pillar="anticrash">
+
+          <div class="pillar-left">
+
+            <span class="status-dot dot-neutral" id="dot_anticrash"></span>
+
+            <span class="pillar-name">Runtime Anti-Crash</span>
+
+          </div>
+
+          <span class="pillar-score" id="score_anticrash">N/A</span>
+
+        </li>
+
+        <li class="pillar-item" data-pillar="agent_ecosystem">
+
+          <div class="pillar-left">
+
+            <span class="status-dot dot-neutral" id="dot_agent_ecosystem"></span>
+
+            <span class="pillar-name">AI Agent Ecosystem</span>
+
+          </div>
+
+          <span class="pillar-score" id="score_agent_ecosystem">N/A</span>
+
+        </li>
+
+        <li class="pillar-item" data-pillar="contracts">
+
+          <div class="pillar-left">
+
+            <span class="status-dot dot-neutral" id="dot_contracts"></span>
+
+            <span class="pillar-name">Architecture Records & API Contracts</span>
+
+          </div>
+
+          <span class="pillar-score" id="score_contracts">N/A</span>
+
+        </li>
+
+      </ul>
+
+
+
+      <!-- BOTTOM: BÁO CÁO & PROMPT AI + LỊCH SỬ QUÉT -->
+
+      <div class="sidebar-footer">
+
+        <div class="pillar-item pillar-item-action" data-pillar="report_prompt" id="pillar_report_prompt">
+
+          <div class="pillar-left">
+
+            <span class="status-dot dot-info" id="dot_report_prompt"></span>
+
+            <span class="pillar-name">Report & AI Prompt</span>
+
+          </div>
+
+          <span class="pillar-action-badge">MD / AI</span>
+
+        </div>
+
+
+
+        <div class="pillar-item pillar-item-history" data-pillar="history">
+
+          <div class="pillar-left">
+
+            <span class="status-dot dot-neutral" id="dot_history"></span>
+
+            <span class="pillar-name">Scan history</span>
+
+          </div>
+
+          <span class="pillar-score" id="score_history">--</span>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+
+
+    <!-- RIGHT MAIN CONTENT (SEAMLESS UNBOXED CANVAS) -->
+
+    <section class="content-area">
+
+
+
+      <!-- ========================================================
+
+           INSTALLATION-STYLE PROGRESS CONTAINER (CÓ CHIA VẠCH & LOG)
+
+           ======================================================== -->
+
+      <div class="installer-progress-container" id="installerProgressView" style="display: none;">
+
+        <div class="installer-header">
+
+          <div class="installer-title-row">
+
+            <div class="installer-spinner" id="installerSpinner"></div>
+
+            <div>
+
+              <h2 class="installer-title" id="installerMainTitle">Auditing source architecture...</h2>
+
+              <div class="installer-target" id="installerTargetDir">Project: --</div>
+
+            </div>
+
+          </div>
+
+          <div class="installer-percent" id="installerPercent">0%</div>
+
+        </div>
+
+
+
+        <!-- THANH CHIA CÁC CHẶNG ĐO KIỂM TIÊU CHUẨN ĐỘNG (SEGMENTED PROGRESS BAR) -->
+
+        <div class="segmented-bar-wrapper">
+
+          <div class="segmented-bar-label" id="segmentedBarLabel">Audit stages</div>
+
+          <div class="segmented-bar" id="installerSegmentsContainer">
+
+            <!-- Render động theo active_pillars thực tế của dự án -->
+
+          </div>
+
+        </div>
+
+
+
+        <!-- THANH TIẾN ĐỘ TỔNG THỂ -->
+
+        <div class="overall-progress-wrapper">
+
+          <div class="overall-progress-info">
+
+            <span id="installerStatusMessage">Initializing audit modules...</span>
+
+            <span id="installerStepBadge" class="installer-step-badge">Starting</span>
+
+          </div>
+
+          <div class="overall-progress-track">
+
+            <div class="overall-progress-fill" id="installerOverallFill"></div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- KHUNG NHẬT KÝ KIỂM TRA (INSTALLER ACTIVITY LOG) -->
+
+        <div class="installer-terminal">
+
+          <div class="terminal-top">
+
+            <div class="terminal-dots">
+
+              <span class="t-dot t-red"></span>
+
+              <span class="t-dot t-yellow"></span>
+
+              <span class="t-dot t-green"></span>
+
+            </div>
+
+            <span class="terminal-title">audit-runtime.log — Scan activity log</span>
+
+          </div>
+
+          <div class="terminal-body" id="installerLogFeed">
+
+            <div class="log-line log-muted">[00:00:00] Ready to scan.</div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- KHUNG HOÀN TẤT THẨM ĐỊNH -->
+
+        <div class="installer-finish-box" id="installerFinishBox" style="display: none;">
+
+          <div class="finish-text">
+
+            <span class="finish-icon">✓</span>
+
+            <span id="finishScoreSummary">Audit complete! Total score: --/100</span>
+
+          </div>
+
+          <button class="btn btn-primary" id="viewReportNowBtn">View Overview Results</button>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ========================================================
+
+           AUDIT RESULT VIEW (KẾT QUẢ ĐO KIỂM)
+
+           ======================================================== -->
+
+      <div class="audit-result-view" id="auditResultView">
+
+        <!-- TOP METRICS BANNER (DÀNH CHO TỔNG QUAN) -->
+
+        <div class="metrics-banner" id="overviewMetricsBanner">
+
+          <div class="score-summary-area">
+
+            <span class="score-summary-label">PROJECT TOTAL SCORE</span>
+
+            <div class="score-summary-value">
+
+              <span class="score-number" id="totalScore">--</span>
+
+              <span class="score-slash">/</span>
+
+              <span class="score-max">100</span>
+
+              <div id="qualityGateAlertContainer"></div>
+
+            </div>
+
+          </div>
+
+          <div class="metrics-divider"></div>
+
+          <div class="metadata-column">
+
+            <div class="meta-row">
+
+              <span class="meta-label">Project type:</span>
+
+              <span id="metaArchetype" class="meta-val" title="Undetermined">Undetermined</span>
+
+            </div>
+
+            <div class="meta-row">
+
+              <span class="meta-label">Architecture & Profile:</span>
+
+              <span id="metaArchStyle" class="meta-val" title="Undetermined">Undetermined</span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- TABS TỔNG QUAN (ĐẦY ĐỦ MỤC 0, 1, 2, 4, 7 CỦA PROJECT-REVIEW.MD) -->
+
+                        <nav class="content-tabs" id="overviewTabsNav">
+          <button class="tab-btn active" data-tab="tab-overview">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/>
+            </svg>
+            <span class="tab-label">Overview</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-analysis">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+            </svg>
+            <span class="tab-label">Analysis</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-findings">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+            <span class="tab-label">Findings</span>
+            <span class="tab-badge" id="findingCountBadge">0</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-baseline">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+            </svg>
+            <span class="tab-label">Baseline</span>
+            <span class="tab-badge" id="baselineCountBadge">0/9</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-safety-scope">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            <span class="tab-label">Safety & Scope</span>
+            <span class="tab-badge" id="safetyCountBadge">0</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-gaps">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+            </svg>
+            <span class="tab-label">Gaps & Clutter</span>
+            <span class="tab-badge" id="gapCountBadge">0</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-violations">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M3 21c0-2.1 1.7-3.9 3.8-4"/><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"/><path d="M22 13h-4"/><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"/>
+            </svg>
+            <span class="tab-label">Violations</span>
+            <span class="tab-badge" id="violationCountBadge">0</span>
+          </button>
+        </nav>
+
+
+
+        <!-- TAB CONTENT PANELS -->
+
+        <div class="tab-content">
+
+          <!-- PANEL: OVERVIEW (DASHBOARD GRID 2 CỘT CÂN XỨNG) -->
+
+          <div class="tab-panel active" id="tab-overview">
+
+            <div class="dashboard-grid-2col">
+
+              <!-- CỘT 1: HỒ SƠ CÔNG NGHỆ -->
+
+              <div class="dashboard-card">
+
+                <div class="dashboard-card-header">
+
+                  <h3 class="section-title">Tech profile & Kit configuration</h3>
+
+                  <p class="section-subtitle">Auto-detected from configs, dependencies and `.builder/kit.json`:</p>
+
+                </div>
+
+                <div class="tag-cloud" id="techStackTags">
+
+                  <span class="tech-tag">No data yet</span>
+
+                </div>
+
+              </div>
+
+
+
+              <!-- CỘT 2: ĐIỂM MẠNH KIẾN TRÚC -->
+
+              <div class="dashboard-card">
+
+                <div class="dashboard-card-header">
+
+                  <h3 class="section-title">Architecture strengths</h3>
+
+                  <p class="section-subtitle">Standards and good practices already met:</p>
+
+                </div>
+
+                <ul id="strengthList" class="clean-bullet-list">
+
+                  <li data-i18n-html="Ready. Click <strong>Run Analytics</strong> to scan the source code.">Ready. Click <strong>Run Analytics</strong> to scan the source code.</li>
+
+                </ul>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- PANEL: ACTIONABLE FINDINGS & REMEDIATION DOCS (MỤC 2) -->
+
+          <div class="tab-panel" id="tab-findings">
+
+            <div class="dashboard-card">
+
+              <div class="dashboard-card-header">
+
+                <h3 class="section-title">Findings to fix (Section 2 — Actionable Findings)</h3>
+
+                <p class="section-subtitle">Sorted by priority High → Medium → Low, with direct links to the remediation docs in Project-Builder-4-Agents:</p>
+
+              </div>
+
+              <div id="findingsTableContainer">
+
+                <div style="text-align: center; color: var(--text-dim); padding: 24px;">No audit data yet.</div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- PANEL: CORE BASELINE B1-B9 (MỤC 4) -->
+
+          <div class="tab-panel" id="tab-baseline">
+
+            <div class="dashboard-card">
+
+              <div class="dashboard-card-header">
+
+                <h3 class="section-title">Core Baseline B1–B9 (Section 4 — Mandatory for every Agent repo)</h3>
+
+                <p class="section-subtitle" data-i18n-html="9 foundation components independent of language or architecture style, per <code>core/README.md</code> (K-003):">9 foundation components independent of language or architecture style, per <code>core/README.md</code> (K-003):</p>
+
+              </div>
+
+              <div id="baselineTableContainer">
+
+                <div style="text-align: center; color: var(--text-dim); padding: 24px;">No audit data yet.</div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- PANEL: SAFETY & AUDIT SCOPE (MỤC 0 & MỤC 7) -->
+
+          <div class="tab-panel" id="tab-safety-scope">
+
+            <div class="dashboard-grid-2col">
+
+              <!-- MỤC 0: CẢNH BÁO AN TOÀN -->
+
+              <div class="dashboard-card">
+
+                <div class="dashboard-card-header">
+
+                  <h3 class="section-title" id="safetySectionTitle">0. Safety warnings (Prompt Injection)</h3>
+
+                  <p class="section-subtitle" data-i18n-html="Scans text files (md, json, html, txt, yaml...) for hidden directives, zero-width characters and command-running hooks/MCP (<code>SAFE-001</code>..<code>SAFE-005</code>):">Scans text files (md, json, html, txt, yaml...) for hidden directives, zero-width characters and command-running hooks/MCP (<code>SAFE-001</code>..<code>SAFE-005</code>):</p>
+
+                </div>
+
+                <div id="safetyContainer">
+
+                  <div class="muted-item">No safety scan data yet.</div>
+
+                </div>
+
+              </div>
+
+
+
+              <!-- MỤC 7: PHẠM VI QUÉT -->
+
+              <div class="dashboard-card">
+
+                <div class="dashboard-card-header">
+
+                  <h3 class="section-title">7. Audit Scope</h3>
+
+                  <p class="section-subtitle">Tells AI Agents the main directories, the generated directories to skip and the entry points to read first:</p>
+
+                </div>
+
+                <div id="scopeContainer">
+
+                  <div class="muted-item">No audit scope data yet.</div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- PANEL: PILLAR DETAIL VIEW -->
+
+          <div class="tab-panel" id="tab-pillar">
+
+            <div class="pillar-header-row" style="margin-bottom: 20px;">
+
+              <div>
+
+                <h2 class="pillar-detail-title" id="pillarDetailTitle">Readme & Onboarding</h2>
+
+                <div class="pillar-detail-subtitle" id="pillarDetailSubtitle">Detailed audit against the Project-Builder-4-Agents standards</div>
+
+              </div>
+
+              <div class="pillar-score-badge">
+
+                <span class="pillar-score-val" id="pillarDetailScore">-- / --</span>
+
+              </div>
+
+            </div>
+
+
+
+            <div class="dashboard-grid-2col">
+
+              <div class="dashboard-card">
+
+                <h3 class="section-title section-title-success">Criteria met</h3>
+
+                <ul id="pillarFoundList" class="clean-bullet-list">
+
+                  <li class="muted-item">No data yet.</li>
+
+                </ul>
+
+              </div>
+
+
+
+              <div class="dashboard-card">
+
+                <h3 class="section-title" id="pillarMissingTitle">Criteria not met</h3>
+
+                <ul id="pillarMissingList" class="clean-bullet-list">
+
+                  <li class="muted-item">No data yet.</li>
+
+                </ul>
+
+              </div>
+
+            </div>
+
+
+
+            <div class="dashboard-card" id="pillarViolationsSection" style="display: none; margin-top: 12px;">
+
+              <h3 class="section-title section-title-danger">Specific source violations</h3>
+
+              <div id="pillarViolationsContainer"></div>
+
+            </div>
+
+          </div>
+
+
+
+        <!-- PANEL: GAPS & BLOAT (DASHBOARD GRID 2 CỘT CÂN XỨNG) -->
+
+        <div class="tab-panel" id="tab-gaps">
+
+          <div class="dashboard-grid-2col">
+
+            <div class="dashboard-card">
+
+              <h3 class="section-title" style="color: #f59e0b;">Architecture standards not met</h3>
+
+              <ul id="gapsList" class="clean-bullet-list">
+
+                <li class="muted-item">No data yet.</li>
+
+              </ul>
+
+            </div>
+
+
+
+            <div class="dashboard-card">
+
+              <h3 class="section-title" style="color: #f87171;">Surplus files & Security risks</h3>
+
+              <ul id="bloatList" class="clean-bullet-list">
+
+                <li class="muted-item">No data yet.</li>
+
+              </ul>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- PANEL: PHÂN TÍCH DỰ ÁN (Project Model + đối chiếu Knowledge Pack, chạy offline) -->
+
+        <div class="tab-panel" id="tab-analysis">
+
+          <div class="section-block" style="padding-top: 4px;">
+
+            <div id="analysisContainer">
+
+              <div style="text-align: center; color: var(--text-dim); padding: 32px;">No analysis data yet. Run Analytics.</div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- PANEL: VIOLATIONS (PHÂN LOẠI & GOM NHÓM THEO TẦN SUẤT) -->
+
+        <div class="tab-panel" id="tab-violations">
+
+          <div class="section-block" style="padding-top: 4px;">
+
+            <div id="violationGroupedContainer">
+
+              <div style="text-align: center; color: var(--text-dim); padding: 32px;">
+
+                No violation data yet.
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- PANEL: HỒ SƠ BÁO CÁO & PROMPT AI (CHUYÊN BIỆT) -->
+
+        <div class="tab-panel" id="tab-report-prompt">
+
+          <div class="report-prompt-container">
+
+            <div class="panel-header-block">
+
+              <h2 class="panel-main-title">Report Files & AI Agent Prompt</h2>
+
+              <div class="panel-main-subtitle">Manage the project-review.md technical report and the standard refactoring prompt for AI.</div>
+
+            </div>
+
+
+
+            <div class="report-prompt-grid">
+
+              <!-- CARD 1: XUẤT BẢN BÁO CÁO MARKDOWN -->
+
+              <div class="dashboard-card report-file-card">
+
+                <div class="card-header-row">
+
+                  <div class="card-title-group">
+
+                    <span class="card-badge badge-md">MARKDOWN REPORT</span>
+
+                    <h3 class="card-title">project-review.md</h3>
+
+                  </div>
+
+                  <span class="status-pill pill-ready" id="reportFileStatusBadge">Ready</span>
+
+                </div>
+
+                <div class="file-path-display">
+
+                  <span class="file-path-label">File path:</span>
+
+                  <code class="file-path-code" id="reportFilePathDisplay">No report yet</code>
+
+                </div>
+
+                <p class="card-desc">Technical report with safety warnings (Section 0), findings with remediation docs (Section 2), 12-pillar scores (Section 3), Core Baseline B1–B9 (Section 4) and audit scope (Section 7).</p>
+
+                <div class="card-action-row">
+
+                  <button class="btn btn-primary" id="openReportBtn">
+
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+
+                    <span>Open Markdown report</span>
+
+                  </button>
+
+                  <button class="btn btn-secondary" id="openFolderBtn">
+
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+
+                    <span>Open report folder</span>
+
+                  </button>
+
+                  <button class="btn btn-secondary" id="copyReportPathBtn">
+
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+
+                    <span>Copy path</span>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+
+
+              <!-- CARD 2: PROMPT TÁI CẤU TRÚC CHO AI AGENT -->
+
+              <div class="dashboard-card prompt-agent-card">
+
+                <div class="card-header-row">
+
+                  <div class="card-title-group">
+
+                    <span class="card-badge badge-ai">AI AGENT PROMPT</span>
+
+                    <h3 class="card-title">Project Refactoring Prompt (Architect Refactor)</h3>
+
+                  </div>
+
+                  <button class="btn btn-secondary" id="copyPromptBtn">
+
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+
+                    <span id="copyPromptBtnText">Copy Prompt</span>
+
+                  </button>
+
+                </div>
+
+                <p class="card-desc" data-i18n-html="Use this prompt with <strong>Claude Code, Antigravity, Cursor or Codex</strong> so the Agent reads <code>project-review.md</code> and fixes issues using the remediation docs in <strong>Project-Builder-4-Agents</strong>:">Use this prompt with <strong>Claude Code, Antigravity, Cursor or Codex</strong> so the Agent reads <code>project-review.md</code> and fixes issues using the remediation docs in <strong>Project-Builder-4-Agents</strong>:</p>
+
+                <div class="prompt-box prompt-box-large" id="aiPromptBox">Click 'Run Analytics' to generate the standard Agent prompt.</div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- PANEL: AI DEEP REVIEW (KÍCH HOẠT TỪ NÚT HEADER) -->
+
+        <div class="tab-panel" id="tab-ai-deep">
+
+          <div class="report-prompt-container">
+
+            <div class="panel-header-block">
+
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+
+                <div>
+
+                  <h2 class="panel-main-title">Deep Review From a Senior Architect AI</h2>
+
+                  <div class="panel-main-subtitle">Overall architecture analysis, refactoring options and an optimization roadmap from an LLM.</div>
+
+                </div>
+
+                <button class="btn btn-primary" id="triggerLLMBtn">
+
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+
+                  <span>Re-analyze with AI</span>
+
+                </button>
+
+              </div>
+
+            </div>
+
+            <div class="dashboard-card" style="margin-top: 16px;">
+
+              <div class="prompt-box" id="llmAnalysisBox" style="min-height: 280px;">
+
+                Enter an API Key in Settings > API Keys (top right), then click '✨ AI Deep Review' in the title bar.
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      </div> <!-- End auditResultView -->
+
+    </section>
+
+  </main>
+
+
+
+  <!-- SETTINGS MODAL -->
+
+  <div class="modal-overlay" id="settingsModal">
+
+    <div class="modal-card modal-card-wide">
+
+      <div class="modal-header">
+
+        <span>Settings</span>
+
+        <button class="btn-icon" id="closeSettingsBtn" title="Close">✕</button>
+
+      </div>
+
+      <div class="settings-layout">
+
+        <nav class="settings-nav" id="settingsNav" aria-label="Settings sections">
+
+          <button type="button" class="settings-nav-item active" data-section="appearance"><span>Appearance</span></button>
+
+          <button type="button" class="settings-nav-item" data-section="language"><span>Language</span></button>
+
+          <button type="button" class="settings-nav-item" data-section="apikeys"><span>API Keys</span></button>
+
+          <button type="button" class="settings-nav-item" data-section="guide"><span>User Guide</span></button>
+
+          <button type="button" class="settings-nav-item" data-section="about"><span>About & Version</span></button>
+
+        </nav>
+
+
+
+        <div class="settings-panels">
+
+          <!-- APPEARANCE -->
+
+          <section class="settings-section active" id="settings-appearance">
+
+            <h3 class="settings-section-title">Appearance</h3>
+
+            <p class="settings-section-desc">Choose how the interface looks. The change previews instantly and is stored when you press Save.</p>
+
+            <div class="form-group">
+
+              <label class="form-label" for="settingsThemeSelect">Theme</label>
+
+              <select class="form-select" id="settingsThemeSelect">
+
+                <option value="dark">Dark (Slate)</option>
+
+                <option value="light">Light (Studio)</option>
+
+                <option value="midnight">Midnight (OLED)</option>
+
+                <option value="dracula">Dracula Purple</option>
+
+                <option value="tokyo-night">Tokyo Night</option>
+
+                <option value="nord">Nord Frost</option>
+
+                <option value="emerald">Emerald Matrix</option>
+
+                <option value="sepia">Warm Sepia</option>
+
+              </select>
+
+            </div>
+
+            <div class="theme-grid" id="themeCardsGrid">
+
+              <div class="theme-card" data-theme-value="dark">
+
+                <div class="theme-card-swatch">
+
+                  <span class="theme-card-dot" style="background:#050507"></span>
+
+                  <span class="theme-card-dot" style="background:#09080d"></span>
+
+                  <span class="theme-card-dot" style="background:#0284c7"></span>
+
+                </div>
+
+                <div class="theme-card-info">
+
+                  <div class="theme-card-title">Dark (Slate)</div>
+
+                  <div class="theme-card-desc">Antigravity default</div>
+
+                </div>
+
+                <div class="theme-card-check">
+
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+
+                </div>
+
+              </div>
+
+              <div class="theme-card" data-theme-value="light">
+
+                <div class="theme-card-swatch">
+
+                  <span class="theme-card-dot" style="background:#ffffff; border: 1px solid #cbd5e1"></span>
+
+                  <span class="theme-card-dot" style="background:#f8fafc"></span>
+
+                  <span class="theme-card-dot" style="background:#0284c7"></span>
+
+                </div>
+
+                <div class="theme-card-info">
+
+                  <div class="theme-card-title">Light (Studio)</div>
+
+                  <div class="theme-card-desc">Clean studio light</div>
+
+                </div>
+
+                <div class="theme-card-check">
+
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+
+                </div>
+
+              </div>
+
+              <div class="theme-card" data-theme-value="midnight">
+
+                <div class="theme-card-swatch">
+
+                  <span class="theme-card-dot" style="background:#000000"></span>
+
+                  <span class="theme-card-dot" style="background:#08080a"></span>
+
+                  <span class="theme-card-dot" style="background:#00f0ff"></span>
+
+                </div>
+
+                <div class="theme-card-info">
+
+                  <div class="theme-card-title">Midnight (OLED)</div>
+
+                  <div class="theme-card-desc">Pitch black high contrast</div>
+
+                </div>
+
+                <div class="theme-card-check">
+
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+
+                </div>
+
+              </div>
+
+              <div class="theme-card" data-theme-value="dracula">
+
+                <div class="theme-card-swatch">
+
+                  <span class="theme-card-dot" style="background:#1e1c2e"></span>
+
+                  <span class="theme-card-dot" style="background:#161424"></span>
+
+                  <span class="theme-card-dot" style="background:#bd93f9"></span>
+
+                </div>
+
+                <div class="theme-card-info">
+
+                  <div class="theme-card-title">Dracula Purple</div>
+
+                  <div class="theme-card-desc">Cyberpunk violet tone</div>
+
+                </div>
+
+                <div class="theme-card-check">
+
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+
+                </div>
+
+              </div>
+
+              <div class="theme-card" data-theme-value="tokyo-night">
+
+                <div class="theme-card-swatch">
+
+                  <span class="theme-card-dot" style="background:#1a1b26"></span>
+
+                  <span class="theme-card-dot" style="background:#16161e"></span>
+
+                  <span class="theme-card-dot" style="background:#7aa2f7"></span>
+
+                </div>
+
+                <div class="theme-card-info">
+
+                  <div class="theme-card-title">Tokyo Night</div>
+
+                  <div class="theme-card-desc">Modern deep indigo</div>
+
+                </div>
+
+                <div class="theme-card-check">
+
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+
+                </div>
+
+              </div>
+
+              <div class="theme-card" data-theme-value="nord">
+
+                <div class="theme-card-swatch">
+
+                  <span class="theme-card-dot" style="background:#242933"></span>
+
+                  <span class="theme-card-dot" style="background:#1e222b"></span>
+
+                  <span class="theme-card-dot" style="background:#88c0d0"></span>
+
+                </div>
+
+                <div class="theme-card-info">
+
+                  <div class="theme-card-title">Nord Frost</div>
+
+                  <div class="theme-card-desc">Soothing arctic slate</div>
+
+                </div>
+
+                <div class="theme-card-check">
+
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+
+                </div>
+
+              </div>
+
+              <div class="theme-card" data-theme-value="emerald">
+
+                <div class="theme-card-swatch">
+
+                  <span class="theme-card-dot" style="background:#06120e"></span>
+
+                  <span class="theme-card-dot" style="background:#091813"></span>
+
+                  <span class="theme-card-dot" style="background:#10b981"></span>
+
+                </div>
+
+                <div class="theme-card-info">
+
+                  <div class="theme-card-title">Emerald Matrix</div>
+
+                  <div class="theme-card-desc">Deep forest hacker pine</div>
+
+                </div>
+
+                <div class="theme-card-check">
+
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+
+                </div>
+
+              </div>
+
+              <div class="theme-card" data-theme-value="sepia">
+
+                <div class="theme-card-swatch">
+
+                  <span class="theme-card-dot" style="background:#fbf7ee; border: 1px solid #dfd4b7"></span>
+
+                  <span class="theme-card-dot" style="background:#f4ecd8"></span>
+
+                  <span class="theme-card-dot" style="background:#d97706"></span>
+
+                </div>
+
+                <div class="theme-card-info">
+
+                  <div class="theme-card-title">Warm Sepia</div>
+
+                  <div class="theme-card-desc">Eye-comfort reading tone</div>
+
+                </div>
+
+                <div class="theme-card-check">
+
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+
+          <!-- LANGUAGE -->
+
+          <section class="settings-section" id="settings-language">
+
+            <h3 class="settings-section-title">Language</h3>
+
+            <p class="settings-section-desc">Interface language. English is the default. Report content produced by the audit engine may still appear in its original language.</p>
+
+            <div class="form-group">
+
+              <label class="form-label" for="settingsLanguageSelect">Interface language</label>
+
+              <select class="form-select" id="settingsLanguageSelect">
+
+                <option value="en">English</option>
+
+                <option value="vi">Tiếng Việt</option>
+
+              </select>
+
+            </div>
+
+          </section>
+
+
+
+          <!-- API KEYS -->
+
+          <section class="settings-section" id="settings-apikeys">
+
+            <h3 class="settings-section-title">API Keys</h3>
+
+            <p class="settings-section-desc">Only needed for the optional AI Deep Review. Health Check itself runs fully offline. Keys are stored encrypted for your Windows account and are never sent back to this page.</p>
+
+            <div class="form-group">
+
+              <label class="form-label" for="settingsLLMProvider">AI provider (LLM Provider)</label>
+
+              <select class="form-select" id="settingsLLMProvider">
+
+                <option value="gemini">Google Gemini</option>
+
+                <option value="openai">OpenAI</option>
+
+                <option value="claude">Anthropic Claude</option>
+
+              </select>
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="form-label" for="settingsApiKeyInput">API Key</label>
+
+              <input type="password" class="form-input" id="settingsApiKeyInput" placeholder="Enter API Key" autocomplete="off">
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="form-label" for="settingsModelInput">Model name</label>
+
+              <input type="text" class="form-input" id="settingsModelInput" value="gemini-2.0-flash">
+
+            </div>
+
+            <div class="form-group">
+
+              <button class="btn btn-secondary" id="testLLMBtn" type="button">Test connection</button>
+
+              <span id="testLLMResult" style="margin-left: 8px; font-size: 12px;"></span>
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="form-label" style="display:flex;gap:8px;align-items:center;">
+
+                <input type="checkbox" id="settingsIncludeCode">
+
+                <span>Send snippets of the largest files to the AI (secrets masked)</span>
+
+              </label>
+
+              <div class="settings-hint">By default only the analysis model (structure, dependencies) is sent, never source code. AI Deep Review needs the Internet; Health Check normally runs fully offline.</div>
+
+            </div>
+
+          </section>
+
+
+
+          <!-- USER GUIDE -->
+
+          <section class="settings-section" id="settings-guide">
+
+            <h3 class="settings-section-title">User Guide</h3>
+
+            <ol class="guide-list">
+
+              <li data-i18n-html="<strong>Pick a project.</strong> Click <em>Browse</em> or paste the project folder path in the top bar.">placeholder</li>
+
+              <li data-i18n-html="<strong>Run Analytics.</strong> It scans files locally and offline, with no model calls. Large repositories can take up to a minute.">placeholder</li>
+
+              <li data-i18n-html="<strong>Read the Overview.</strong> The total score, project type and the tabs (Findings & Fixes, Core Baseline, Safety & Scope, Gaps & Clutter, Source violations) explain what is wrong.">placeholder</li>
+
+              <li data-i18n-html="<strong>Fix by priority.</strong> Each finding links to a remediation document in the kit; the documents are read online, nothing else is downloaded.">placeholder</li>
+
+              <li data-i18n-html="<strong>Hand it to your Agent.</strong> Open <em>Report & AI Prompt</em>, then copy the prompt into Claude Code, Antigravity, Cursor or Codex together with <code>project-review.md</code>.">placeholder</li>
+
+              <li data-i18n-html="<strong>Optional AI Deep Review.</strong> Add an API key under <em>Settings > API Keys</em>, then click <em>AI Deep Review</em> in the top bar.">placeholder</li>
+
+              <li data-i18n-html="<strong>Command line.</strong> The same single file works headless: <code>Project-Builder-Analytics.exe audit C:\path\to\project</code>.">placeholder</li>
+
+            </ol>
+
+            <div class="settings-hint">Tip: a heuristic scan can miss issues and can flag false positives, so treat the score as a guide, not a verdict.</div>
+
+          </section>
+
+
+
+          <!-- ABOUT -->
+
+          <section class="settings-section" id="settings-about">
+
+            <h3 class="settings-section-title">About & Version</h3>
+
+            <div class="about-grid">
+
+              <span class="about-label">Product</span><span>Project Builder Analytics</span>
+
+              <span class="about-label">Version</span><span id="aboutVersion">--</span>
+
+              <span class="about-label">Mode</span><span>Static audit, offline, no model calls</span>
+
+              <span class="about-label">Settings file</span><span><code>~/.starter-kit/settings.json</code></span>
+
+              <span class="about-label">Project</span><span><a href="https://github.com/Dokhacgiakhoa/Project-Builder-4-Agents" target="_blank" rel="noopener noreferrer">github.com/Dokhacgiakhoa/Project-Builder-4-Agents</a></span>
+
+            </div>
+
+            <div class="form-group" style="margin-top: 16px;">
+
+              <button class="btn btn-secondary" id="aboutCheckUpdateBtn" type="button">Check for updates</button>
+
+            </div>
+
+            <div class="form-group">
+
+              <button class="btn btn-secondary" id="updateKnowledgeBtn" type="button">Update kit knowledge (needs Internet)</button>
+
+              <span id="updateKnowledgeResult" style="margin-left: 8px; font-size: 12px;"></span>
+
+            </div>
+
+          </section>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button class="btn btn-secondary" id="cancelSettingsBtn">Cancel</button>
+
+        <button class="btn btn-primary" id="saveSettingsBtn">Save settings</button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- UPDATE MODAL -->
+
+  <div class="modal-overlay" id="updateModal">
+
+    <div class="modal-card">
+
+      <div class="modal-header">
+
+        <span>Check for updates</span>
+
+        <button class="btn-icon" id="closeUpdateBtn">✕</button>
+
+      </div>
+
+      <div class="modal-body" id="updateModalBody">
+
+        Checking GitHub...
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button class="btn btn-secondary" id="okUpdateBtn">Close</button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <script src="js/i18n.js"></script>
+
+  <script src="js/app.js"></script>
+
+</body>
+
+</html>
+

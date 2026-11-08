@@ -1,0 +1,119 @@
+{
+  "timestamp": "2026-11-07 17:49:50",
+  "shell_path": "D:\\Github\\health-check-test\\app-rel\\Project-Health-Check.exe",
+  "port": 55513,
+  "main_form_hwnd": 2362038,
+  "minimized_successfully": true,
+  "total_minimized_duration_sec": 423.2,
+  "engine_alive_throughout_7min": true,
+  "ui_responsive_after_restore": true,
+  "ui_eval_result": "Project Health Check — Project-Builder-4-Agents",
+  "polls_count": 41,
+  "polls_sample": [
+    {
+      "iteration": 1,
+      "elapsed_sec": 10.0,
+      "port_responding": true,
+      "status_data": {
+        "status": "ready",
+        "version": "2.2.0"
+      },
+      "engine_pids": [
+        11920,
+        20120
+      ]
+    },
+    {
+      "iteration": 6,
+      "elapsed_sec": 61.3,
+      "port_responding": true,
+      "status_data": {
+        "status": "ready",
+        "version": "2.2.0"
+      },
+      "engine_pids": [
+        11920,
+        20120
+      ]
+    },
+    {
+      "iteration": 12,
+      "elapsed_sec": 122.9,
+      "port_responding": true,
+      "status_data": {
+        "status": "ready",
+        "version": "2.2.0"
+      },
+      "engine_pids": [
+        11920,
+        20120
+      ]
+    },
+    {
+      "iteration": 18,
+      "elapsed_sec": 184.5,
+      "port_responding": true,
+      "status_data": {
+        "status": "ready",
+        "version": "2.2.0"
+      },
+      "engine_pids": [
+        11920,
+        20120
+      ]
+    },
+    {
+      "iteration": 24,
+      "elapsed_sec": 246.1,
+      "port_responding": true,
+      "status_data": {
+        "status": "ready",
+        "version": "2.2.0"
+      },
+      "engine_pids": [
+        11920,
+        20120
+      ]
+    },
+    {
+      "iteration": 30,
+      "elapsed_sec": 307.7,
+      "port_responding": true,
+      "status_data": {
+        "status": "ready",
+        "version": "2.2.0"
+      },
+      "engine_pids": [
+        11920,
+        20120
+      ]
+    },
+    {
+      "iteration": 36,
+      "elapsed_sec": 369.2,
+      "port_responding": true,
+      "status_data": {
+        "status": "ready",
+        "version": "2.2.0"
+      },
+      "engine_pids": [
+        11920,
+        20120
+      ]
+    },
+    {
+      "iteration": 41,
+      "elapsed_sec": 420.5,
+      "port_responding": true,
+      "status_data": {
+        "status": "ready",
+        "version": "2.2.0"
+      },
+      "engine_pids": [
+        11920,
+        20120
+      ]
+    }
+  ],
+  "final_procs_after_close": []
+}

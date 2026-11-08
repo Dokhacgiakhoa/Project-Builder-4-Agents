@@ -1,0 +1,531 @@
+{
+ "schema": 1,
+ "kit_ref": "main",
+ "docs": [
+  {
+   "id": "K-001",
+   "tier": "C",
+   "when": "When starting a new project or setting up standard scaffolding for an existing workspace",
+   "path": "BOOTSTRAP.md",
+   "title": "BOOTSTRAP — PROCEDURE FOR AI AGENTS BOOTSTRAPPING A PROJECT"
+  },
+  {
+   "id": "K-002",
+   "tier": "C",
+   "when": "When needing to interview user to clarify project, lock user journeys, and select stack",
+   "path": "core/discovery.md",
+   "type": "playbook",
+   "title": "DISCOVERY — BRAINSTORMING, PLANNING & SCOPE LOCK PLAYBOOK"
+  },
+  {
+   "id": "K-003",
+   "tier": "C",
+   "when": "When needing to know mandatory baseline standards for any agent-driven repository",
+   "path": "core/README.md",
+   "type": "reference",
+   "title": "CORE BASELINE — MANDATORY FOUNDATION FOR ALL AGENT REPOSITORIES"
+  },
+  {
+   "id": "K-004",
+   "tier": "C",
+   "when": "When needing to select an architecture profile matching project requirements",
+   "path": "profiles/README.md",
+   "type": "router",
+   "title": "SELECTING PROJECT PROFILES: ARCHITECTURE, PATTERNS & GUARDRAILS"
+  },
+  {
+   "id": "K-005",
+   "tier": "C",
+   "when": "When checking \"what is wrong with project\", before opening PR, or analyzing `project-review.md`",
+   "path": "scripts/README.md",
+   "type": "reference",
+   "title": "PROJECT BUILDER ANALYTICS — STATIC CODEBASE AUDITOR & GUARDRAIL"
+  },
+  {
+   "id": "K-006",
+   "tier": "C",
+   "when": "When opening untrusted repos/files, handling `SAFE-` security warnings, or prompt injection",
+   "path": "core/untrusted-content.md",
+   "type": "reference",
+   "title": "UNTRUSTED CONTENT & PROMPT INJECTION DEFENSE"
+  },
+  {
+   "id": "K-007",
+   "tier": "C",
+   "when": "When needing to understand Zero-Clone remote mechanics and the remote knowledge library architecture",
+   "path": "HOW_IT_WORKS.md",
+   "title": "HOW IT WORKS — OPERATIONAL SPECIFICATION FOR PROJECT-BUILDER-4-AGENTS"
+  },
+  {
+   "id": "S-001",
+   "tier": "C",
+   "when": "Writing code: naming, explicit error handling, defensive crash guards, zero hardcoded values",
+   "path": "core/standards/coding-conventions.md",
+   "type": "reference",
+   "title": "CODING CONVENTIONS & THE ANTI-CRASH STANDARD"
+  },
+  {
+   "id": "S-002",
+   "tier": "C",
+   "when": "Designing automated tests, resolving test gaps, choosing test levels (unit/integration/e2e)",
+   "path": "core/standards/test-strategy.md",
+   "type": "reference",
+   "title": "AUTOMATED TESTING STRATEGY (TEST PYRAMID & TDD)"
+  },
+  {
+   "id": "S-003",
+   "tier": "C",
+   "when": "Verification criteria before reporting \"Done\" or opening PR",
+   "path": "core/standards/definition-of-done.md",
+   "type": "reference",
+   "title": "DEFINITION OF DONE (DOD) & QUALITY GATE"
+  },
+  {
+   "id": "S-004",
+   "tier": "C",
+   "when": "Repeated bug fixes, surface patching, or untangling spaghetti code",
+   "path": "knowledge-base/tu-duy/anti-patching-architectural-thinking.md",
+   "title": "CẨM NANG TƯ DUY KIẾN TRÚC: CHẤM DỨT BẪY \"VÁ VÍU\" CỤC BỘ (ANTI-PATCHING)"
+  },
+  {
+   "id": "S-005",
+   "tier": "L",
+   "when": "Avoiding common pitfalls and anti-patterns when collaborating with AI agents",
+   "path": "knowledge-base/technical-book/anti-patterns/common-mistakes.md",
+   "title": "❌ Lỗi: Che mọi lỗi, không biết gì fail"
+  },
+  {
+   "id": "S-006",
+   "tier": "P",
+   "when": "When Agent is caught in a debugging doom loop, where fixes produce new errors and corrupt architecture",
+   "path": "profiles/playbooks/anti-doom-loop-guide.md",
+   "type": "playbook",
+   "title": "PLAYBOOK: PREVENTING VIBE CODING DOOM LOOPS"
+  },
+  {
+   "id": "S-007",
+   "tier": "P",
+   "when": "When setting up auto-syncing living documentation, git pre-commit hooks, and CI quality gates to reduce documentation rot",
+   "path": "profiles/playbooks/living-documentation-sync.md",
+   "type": "playbook",
+   "title": "Living Documentation & Auto-Sync Pipeline"
+  },
+  {
+   "id": "S-008",
+   "tier": "C",
+   "when": "Starting a non-trivial feature: staged spec -> clarify -> plan/tasks -> analyze -> implement-until-converged workflow with verification gates",
+   "path": "core/standards/feature-workflow.md",
+   "type": "playbook",
+   "title": "FEATURE WORKFLOW — STAGED SPEC-DRIVEN DELIVERY WITH GATES"
+  },
+  {
+   "id": "S-009",
+   "tier": "C",
+   "when": "Keeping a project work log so the next Agent session knows what was done, why, and what is left; resolving `WLOG-` findings",
+   "path": "core/standards/worklog.md",
+   "type": "reference",
+   "title": "WORK LOG STANDARD"
+  },
+  {
+   "id": "A-001",
+   "tier": "P",
+   "when": "Small MVPs, student projects, prototypes, simple CRUD",
+   "path": "profiles/architecture/simple-layered.md",
+   "type": "decision",
+   "not_when": "Complex business logic, multi-year lifespans, deep domain testing independent of frameworks",
+   "title": "PROFILE: SIMPLE LAYERED ARCHITECTURE",
+   "sections": {
+    "when_to_choose": [
+     "Solo developer or small team, lightweight business logic, rapid prototype delivery required.",
+     "Primarily CRUD data access; zero need to decouple database or framework."
+    ],
+    "when_not_to_choose": [
+     "Complex business rules requiring framework-independent domain unit tests: use clean-architecture.md.",
+     "Multiple independent features developed in parallel: use vertical-slice.md."
+    ],
+    "constraints": [
+     "Dependency flow: `routes → services → data`. Reverse direction is strictly prohibited; `routes` never query the DB directly.",
+     "`lib/` and `config/` are shared helpers and must not depend on the three layers above.",
+     "Guardrail Level M1 (see ../README.md): Working lint + test + build running in CI."
+    ],
+    "adding_a_feature": [
+     "Record objective and acceptance criteria in `tasks/task-spec.md`.",
+     "Write unit tests for `services` (1 happy path + 2 edge/failure cases).",
+     "Implement business logic function in `services`, accessing storage via `data`.",
+     "Create a thin route handler calling the service; validate inputs at the route layer.",
+     "Run test/lint/build verification commands; update `docs/project-brief.md` if user journeys change."
+    ],
+    "common_mistakes": [
+     "Route layer containing direct SQL/ORM queries or complex calculations (layer leakage).",
+     "Monolithic god-files > 350 lines combining UI, state, and database queries.",
+     "Committing credentials; missing `.env.example`.",
+     "Swallowing errors silently; bare `JSON.parse` without error handling."
+    ]
+   },
+   "slug": "simple-layered"
+  },
+  {
+   "id": "A-002",
+   "tier": "P",
+   "when": "Complex business logic, framework-independent domain models, long-term evolvability",
+   "path": "profiles/architecture/clean-architecture.md",
+   "type": "decision",
+   "not_when": "Small demos, simple CRUD, solo prototypes with minimal business logic",
+   "title": "PROFILE: CLEAN ARCHITECTURE (+ OPTIONAL DDD)",
+   "sections": {
+    "when_to_choose": [
+     "Rich enterprise business rules requiring consistent invariants across a long product lifecycle.",
+     "Need to execute high-speed unit tests on core business logic without spinning up databases or HTTP web servers.",
+     "Infrastructure volatility (anticipating swaps of database, cloud providers, or UI frameworks)."
+    ],
+    "when_not_to_choose": [
+     "Demos, prototypes, simple CRUD: use simple-layered.md; DTO and interface boilerplate exceeds benefits.",
+     "Systems best structured around independent feature workflows: use vertical-slice.md."
+    ],
+    "constraints": [
+     "Dependency Rule: All dependencies point inward. `Domain` must not import anything from outer layers or external frameworks. `Application` depends only on `Domain` and its own declared interfaces.",
+     "`Domain`/`Application` defines repository interfaces; `Infrastructure` provides concrete implementations. Wire dependencies via Dependency Injection (DI) at a single Composition Root.",
+     "Enforce domain invariants and state mutations inside rich entities (avoid anemic data bags).",
+     "Guardrail Level M2 (see ../README.md): Enforce package boundaries or linting rules prohibiting inward dependency leaks."
+    ],
+    "adding_a_feature": [
+     "Domain: Define or extend entities, value objects, domain events, and core invariants.",
+     "Application: Implement the use case and declare necessary repository/gateway interfaces.",
+     "Infrastructure: Implement repository interfaces against database or external APIs.",
+     "Presentation: Expose a thin HTTP endpoint that dispatches directly to the use case.",
+     "Automated Testing: Write domain and use case unit tests first (no database fixtures needed)."
+    ],
+    "common_mistakes": [
+     "Controllers or routes querying the database directly (`ARCH-001`).",
+     "`Domain` importing ORM libraries, database drivers, or HTTP clients.",
+     "Anemic entities (getters/setters only) with procedural business logic leaked into services.",
+     "Missing composition root; ad-hoc DI registration scattered across the codebase."
+    ]
+   },
+   "slug": "clean-architecture"
+  },
+  {
+   "id": "A-003",
+   "tier": "P",
+   "when": "Target folder layout for Clean Architecture in .NET / Python / TypeScript",
+   "path": "profiles/architecture/clean-architecture-layout.md",
+   "type": "reference",
+   "title": "CLEAN ARCHITECTURE DIRECTORY LAYOUT (LAYERED BLUEPRINT)"
+  },
+  {
+   "id": "A-004",
+   "tier": "P",
+   "when": "Systems with multiple independent, feature-sliced capabilities developed in parallel",
+   "path": "profiles/architecture/vertical-slice.md",
+   "type": "decision",
+   "not_when": "Features share heavily coupled core entities and strict transactional invariants",
+   "title": "PROFILE: VERTICAL SLICE ARCHITECTURE (FEATURE-BASED)",
+   "sections": {
+    "when_to_choose": [
+     "Multiple relatively independent features; goal is to add or modify a feature without touching other features.",
+     "Small team or multiple parallel AI agents collaborating on different features concurrently."
+    ],
+    "when_not_to_choose": [
+     "Features share heavily coupled domain models and business invariants: use clean-architecture.md or modular-monolith.md.",
+     "Very small, single-purpose projects: simple-layered.md is sufficient."
+    ],
+    "constraints": [
+     "Slices never import other feature slices. If duplication occurs, extract to `shared/` only after 2–3 real use cases emerge (rule of three, avoid premature abstraction).",
+     "`shared/` must never depend on `features/` and must never host feature-specific business rules.",
+     "Guardrail Level M2 (see ../README.md): Enforce lint rules prohibiting cross-feature imports between `features/*` folders."
+    ],
+    "adding_a_feature": [
+     "Scaffold `features/<action-verb-name>/` (name folders after user actions).",
+     "Write vertical slice tests first (from handler invocation to mocked or isolated persistence).",
+     "Implement `validator` $\\rightarrow$ `logic` $\\rightarrow$ `data` $\\rightarrow$ `handler`.",
+     "Register the new feature handler in `app.*` router."
+    ],
+    "common_mistakes": [
+     "One feature directly importing types or handlers from another feature slice.",
+     "`shared/` degenerating into a catch-all dumping ground containing feature-specific logic.",
+     "Inconsistent error handling or logging across slices due to missing `shared/` conventions."
+    ]
+   },
+   "slug": "vertical-slice"
+  },
+  {
+   "id": "A-005",
+   "tier": "P",
+   "when": "Monolithic systems growing in scale requiring strict bounded contexts and module boundaries",
+   "path": "profiles/architecture/modular-monolith.md",
+   "type": "decision",
+   "not_when": "Small projects with few domains; or systems already requiring independent container deployment per service",
+   "title": "PROFILE: MODULAR MONOLITH",
+   "sections": {
+    "when_to_choose": [
+     "System scope is growing and requires explicit module boundaries for task parallelization (humans or AI agents), but single-deployment operational simplicity is preferred.",
+     "Internal architecture can leverage Clean Architecture or Vertical Slice inside each individual module."
+    ],
+    "when_not_to_choose": [
+     "Small projects with single simple domains: use simple-layered.md or vertical-slice.md.",
+     "Strict operational requirements for independent scaling/deployment per service: requires microservices ADR and explicit user consultation."
+    ],
+    "constraints": [
+     "Modules interact with other modules exclusively via Public API contracts (interfaces, DTOs, or domain events). Direct import of another module's internal files is strictly prohibited.",
+     "Database tables must not be shared directly across module boundaries (access via module APIs).",
+     "`shared/` must never contain domain business logic.",
+     "Guardrail Level M3 (see ../README.md): Enforce package boundaries or lint rules prohibiting private internal imports; ADR required for boundary changes."
+    ],
+    "adding_a_feature": [
+     "Identify the owning domain module. If new, create module and register it in `specs/domains.md`.",
+     "Implement feature logic entirely inside that module.",
+     "If data from another module is needed: expose a method via that module's Public API, never bypass via internal imports."
+    ],
+    "common_mistakes": [
+     "Cross-importing private internal directories of foreign modules.",
+     "Leaking domain business logic into `shared/`.",
+     "Monolithic god-modules conflating multiple distinct business subdomains."
+    ]
+   },
+   "slug": "modular-monolith"
+  },
+  {
+   "id": "A-006",
+   "tier": "P",
+   "when": "Selecting and cross-referencing design patterns, refactoring code",
+   "path": "profiles/patterns/design-patterns-catalog.md",
+   "type": "reference",
+   "title": "CẨM NANG TRA CỨU DESIGN PATTERNS TRONG PHẦN MỀM & AI"
+  },
+  {
+   "id": "A-007",
+   "tier": "L",
+   "when": "Macro system design, C4 diagrams, distributed architectures",
+   "path": "knowledge-base/technical-book/architecture/system-design.md",
+   "title": "system-design"
+  },
+  {
+   "id": "A-008",
+   "tier": "P",
+   "when": "Writing or updating system architecture documentation (components, key flows)",
+   "path": "profiles/documentation/system-architecture.md",
+   "type": "reference",
+   "title": "KIẾN TRÚC TỔNG THỂ HỆ THỐNG (SYSTEM ARCHITECTURE)"
+  },
+  {
+   "id": "D-001",
+   "tier": "P",
+   "when": "Building scalable React frontend with feature-based modular structure",
+   "path": "profiles/frontend/bulletproof-react.md",
+   "type": "reference",
+   "title": "ADR 0008: FRONTEND FEATURE-DRIVEN ARCHITECTURE (BULLETPROOF REACT)"
+  },
+  {
+   "id": "D-002",
+   "tier": "P",
+   "when": "Scaffolding frontend starter codebase (Vite + React + TS + Tailwind)",
+   "path": "profiles/frontend/starter/README.md",
+   "title": "🎨 UNIVERSAL FRONTEND STARTER KIT (BULLETPROOF REACT)"
+  },
+  {
+   "id": "D-003",
+   "tier": "P",
+   "when": "Selecting UI archetype presets, light/dark themes, and design tokens",
+   "path": "profiles/design/ui-ux-archetypes-and-presets.md",
+   "type": "reference",
+   "title": "ADR 0009: UI/UX DESIGN ARCHETYPES AND THEME PRESET CATALOG"
+  },
+  {
+   "id": "D-004",
+   "tier": "P",
+   "when": "Browsing UI aesthetic archetype catalog",
+   "path": "profiles/design/design-archetypes-catalog.md",
+   "type": "reference",
+   "title": "Bảng Tổng Hợp UI/UX Design Archetypes & Thư Viện Mã Nguồn Mở"
+  },
+  {
+   "id": "D-005",
+   "tier": "P",
+   "when": "Prompts for generating matching visual styles and design tokens",
+   "path": "profiles/design/visual-dna-prompts.md",
+   "type": "reference",
+   "title": "AI Visual DNA Prompt Cookbook (Sổ Tay Prompt Giao Diện Cho Agent)"
+  },
+  {
+   "id": "D-006",
+   "tier": "P",
+   "when": "When translating screenshots or UI references into code without falling into visual doom loops",
+   "path": "profiles/design/screenshot-to-code-reverse-engineering.md",
+   "type": "playbook",
+   "title": "PLAYBOOK: SCREENSHOT-TO-CODE & VISUAL REVERSE ENGINEERING"
+  },
+  {
+   "id": "I-001",
+   "tier": "P",
+   "when": "Building apps with Agents, tool calling, RAG, MCP; evaluating quality (evals)",
+   "path": "profiles/ai-apps/agentic-patterns-and-evals.md",
+   "type": "reference",
+   "title": "ADR 0007: AI AGENTIC ARCHITECTURAL PATTERNS & EVALUATION PIPELINES"
+  },
+  {
+   "id": "I-002",
+   "tier": "L",
+   "when": "Reference RAG patterns and vector search templates",
+   "path": "knowledge-base/technical-book/patterns/rag-pattern.md",
+   "title": "Node: Retrieve context từ vector store"
+  },
+  {
+   "id": "G-001",
+   "tier": "C",
+   "when": "Configuring multi-tool agent setups (Claude Code, Codex, Antigravity, Cursor)",
+   "path": "knowledge-base/technical-book/agent-practices/multi-tool-config.md",
+   "title": "Multi-Tool Agent Config"
+  },
+  {
+   "id": "G-002",
+   "tier": "L",
+   "when": "Managing agent context window drift during long conversations",
+   "path": "knowledge-base/technical-book/agent-practices/context-management.md",
+   "title": "Context Management — chống agent drift"
+  },
+  {
+   "id": "G-003",
+   "tier": "L",
+   "when": "Applying security guardrails and execution limits for agents",
+   "path": "knowledge-base/technical-book/agent-practices/guardrails.md",
+   "title": "Guardrails & Anti-Hallucination"
+  },
+  {
+   "id": "G-004",
+   "tier": "L",
+   "when": "Authoring effective instructions and prompts for Claude Code",
+   "path": "knowledge-base/claude-code.md",
+   "title": "Dùng Claude Code hiệu quả — Phan Minh Tâm · Bùi Việt Hoàng (24/09)"
+  },
+  {
+   "id": "G-005",
+   "tier": "P",
+   "when": "When needing to select and configure curated skills for Agent by domain/stack without web searching",
+   "path": "profiles/skills-catalog/curated-agent-skills.md",
+   "type": "reference",
+   "title": "CURATED AGENT SKILLS MATRIX (ZERO-WEB TOKEN OPTIMIZED)"
+  },
+  {
+   "id": "G-006",
+   "tier": "P",
+   "when": "When needing to select and configure MCP Servers (Model Context Protocol) to connect production tools",
+   "path": "profiles/agent-configs/curated-mcp-matrix.md",
+   "type": "reference",
+   "title": "CURATED MCP SERVERS MATRIX FOR AI AGENTS"
+  },
+  {
+   "id": "G-007",
+   "tier": "P",
+   "when": "When needing to look up authoritative ecosystem tools, keywords, and precision search queries",
+   "path": "profiles/knowledge-map/agent-ecosystem-taxonomy.md",
+   "type": "reference",
+   "title": "AGENT ECOSYSTEM TAXONOMY & SEARCH COMPASS"
+  },
+  {
+   "id": "T-001",
+   "tier": "P",
+   "when": "Free-tier cloud infrastructure stack for small MVPs",
+   "path": "profiles/stacks/cloud-free-tier-stack.md",
+   "type": "reference",
+   "title": "ADR 0002: TECHNOLOGY STACK & CLOUD FREE-TIER GUIDELINES"
+  },
+  {
+   "id": "T-002",
+   "tier": "P",
+   "when": "Running local Postgres & Redis via Docker Compose",
+   "path": "profiles/stacks/postgres-redis.docker-compose.yml"
+  },
+  {
+   "id": "T-003",
+   "tier": "L",
+   "when": "Docker packaging and CI/CD pipelines",
+   "path": "knowledge-base/technical-book/devops/docker-cicd.md",
+   "title": "Stage 1: Build"
+  },
+  {
+   "id": "T-004",
+   "tier": "L",
+   "when": "Production deployment guide",
+   "path": "profiles/documentation/deployment-guide.md",
+   "type": "reference",
+   "title": "HƯỚNG DẪN TRIỂN KHAI HỆ THỐNG (DEPLOYMENT GUIDE)"
+  },
+  {
+   "id": "T-005",
+   "tier": "P",
+   "when": "When preparing to deploy product to real production (Go-Live / Production Deploy), beyond localhost",
+   "path": "profiles/deployment/go-live-production-checklist.md",
+   "type": "playbook",
+   "title": "PLAYBOOK: PRODUCTION GO-LIVE CHECKLIST"
+  },
+  {
+   "id": "O-001",
+   "tier": "P",
+   "when": "Authoring user and operational documentation via Diátaxis framework and incident runbooks",
+   "path": "profiles/documentation/documentation-and-pitch-standards.md",
+   "type": "reference",
+   "title": "ADR 0010: DOCUMENTATION FRAMEWORK (DIÁTAXIS) AND PITCH DECK STANDARDS"
+  },
+  {
+   "id": "O-002",
+   "tier": "L",
+   "when": "Pitch deck and investor presentation templates",
+   "path": "templates/pitch-deck/pitch-deck-template.md",
+   "title": "📊 PITCH DECK TEMPLATE (YC-STYLE STRUCTURE)"
+  },
+  {
+   "id": "O-003",
+   "tier": "L",
+   "when": "Project management, sprint workflows, and retrospectives",
+   "path": "knowledge-base/quan-tri-du-an/README.md",
+   "title": "🎓 Cổng Tài Liệu Workshop AI20K & VinUni (Quản Trị Dự Án & Xử Lý Xung Đột)"
+  },
+  {
+   "id": "O-004",
+   "tier": "C",
+   "when": "Establishing project roadmap, backlog, and sprint boards",
+   "path": "core/templates/planning/roadmap.md",
+   "title": "MASTER PROJECT ROADMAP (6-WEEK ROADMAP)"
+  },
+  {
+   "id": "O-005",
+   "tier": "L",
+   "when": "Environment debugging and common runtime issue troubleshooting",
+   "path": "knowledge-base/technical-book/troubleshooting.md",
+   "title": "Troubleshooting — Sửa lỗi thường gặp"
+  },
+  {
+   "id": "O-006",
+   "tier": "P",
+   "when": "Categorizing docs via Diátaxis (tutorial, how-to, reference, explanation)",
+   "path": "profiles/documentation/guides/diataxis-framework-guide.md",
+   "type": "reference",
+   "title": "📚 THE DIÁTAXIS DOCUMENTATION FRAMEWORK"
+  },
+  {
+   "id": "O-007",
+   "tier": "P",
+   "when": "Operational incident triage runbook template",
+   "path": "profiles/documentation/guides/incident-runbook-template.md",
+   "type": "reference",
+   "title": "🚨 PRODUCTION INCIDENT RESPONSE RUNBOOK (SỔ TAY XỬ LÝ SỰ CỐ PRODUCTION)"
+  },
+  {
+   "id": "O-008",
+   "tier": "P",
+   "when": "End-user application guide template",
+   "path": "profiles/documentation/guides/user-guide-template.md",
+   "type": "reference",
+   "title": "📖 [TÊN SẢN PHẨM] - HƯỚNG DẪN DÀNH CHO NGƯỜI DÙNG CUỐI (USER GUIDE)"
+  },
+  {
+   "id": "O-009",
+   "tier": "P",
+   "when": "Onboarding guide template for new team members",
+   "path": "profiles/documentation/guides/developer-onboarding-guide.md",
+   "type": "reference",
+   "title": "🚀 DEVELOPER ONBOARDING GUIDE (ZERO TO FIRST COMMIT TRONG 30 PHÚT)"
+  }
+ ],
+ "generated": "2026-11-08"
+}

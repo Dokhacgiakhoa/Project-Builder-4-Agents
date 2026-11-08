@@ -1,0 +1,164 @@
+=== PROFILE RUNS OF FULL AUDIT ON D:\Github\P-062 (cProfile) ===
+
+--- RUN 1 ---
+Wall Time: 24.871s | CPU Time: 24.0s | CPU/Wall Ratio: 0.965
+Stage Timing & Share of Total Wall Time:
+  - indexing_tree       :  0.088s (0.4%)
+  - profiler            :  0.005s (0.0%)
+  - analysis_py         :  2.219s (8.9%)
+  - safety_scan         : 11.398s (45.8%)
+
+Top 15 Functions by Cumulative Time:
+         42773105 function calls (42457591 primitive calls) in 24.871 seconds
+
+   Ordered by: cumulative time
+   List reduced from 581 to 15 due to restriction <15>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000   24.871   24.871 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\auditor.py:98(run)
+        1    0.060    0.060   12.854   12.854 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\safety.py:247(scan_safety)
+  1784768   11.600    0.000   11.600    0.000 {method 'search' of 're.Pattern' objects}
+     2865    0.418    0.000   10.756    0.004 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\safety.py:132(_scan_text)
+        1    0.000    0.000    6.219    6.219 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\auditor.py:506(_run_analysis)
+        1    0.003    0.003    6.218    6.218 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:523(analyze_project)
+        1    0.000    0.000    6.215    6.215 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:489(analyze)
+        1    0.072    0.072    5.178    5.178 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:278(_imports)
+     1037    0.554    0.001    4.856    0.005 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:195(_python_imports)
+  1289161    0.517    0.000    2.973    0.000 C:\Users\<user>\AppData\Local\Programs\Python\Python312\Lib\ast.py:369(walk)
+        1    0.442    0.442    2.664    2.664 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\pillars_app.py:560(audit_anti_crash_universal)
+  1272582    0.406    0.000    2.618    0.000 C:\Users\<user>\AppData\Local\Programs\Python\Python312\Lib\re\__init__.py:174(search)
+        1    0.183    0.183    2.343    2.343 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\pillars_app.py:383(audit_database_waterflow)
+  1288124    0.393    0.000    2.327    0.000 {method 'extend' of 'collections.deque' objects}
+    21176    0.102    0.000    2.078    0.000 C:\Users\<user>\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:663(relative_to)
+
+
+
+Per-Regex Time in _DIRECTIVE (Safety Scan):
+  - [COMBINED_MASTER] _DIRECTIVE                                 : 11.7232s (matches: 4)
+  - ignore\s+(all\s+|any\s+|the\s+)?(previous|prior|above|earlie : 0.3683s (matches: 3)
+  - disregard\s+(all\s+|any\s+|the\s+)?(previous|prior|above|ear : 0.2739s (matches: 0)
+  - forget\s+(all\s+|everything\s+)?(previous|prior|above|your)\ : 0.2707s (matches: 0)
+  - (override|bypass)\s+(the\s+|your\s+)?(system\s+prompt|safety : 0.6072s (matches: 0)
+  - you\s+are\s+now\s+(a|an|in)\b                                : 0.2670s (matches: 0)
+  - new\s+(system\s+)?instructions?\s*:                          : 0.2916s (matches: 0)
+  - (reveal|print|show|leak|exfiltrate|send)\s+(me\s+)?(your\s+| : 1.7506s (matches: 0)
+  - do\s+not\s+(tell|inform|mention\s+(this\s+)?to)\s+the\s+user : 0.2699s (matches: 0)
+  - (without|don'?t)\s+(telling|asking|informing)\s+the\s+user   : 0.5591s (matches: 0)
+  - (as|if\s+you\s+are)\s+an?\s+(ai|llm|assistant|agent|language : 0.7945s (matches: 0)
+  - (bỏ\s*qua|phớt\s*lờ|quên)\s+(tất\s+cả\s+|mọi\s+)?(các\s+)?(h : 0.7603s (matches: 0)
+  - (đừng|không\s+được|không\s+cần)\s+(nói|báo|cho)\s+(với\s+)?( : 0.7600s (matches: 0)
+  - (từ\s+bây\s+giờ|bây\s+giờ)\s+bạn\s+là\b                      : 0.6042s (matches: 0)
+  - (gửi|chuyển|đăng)\s+.{0,40}(api[\s_-]?key|mật\s*khẩu|token|b : 0.7972s (matches: 1)
+
+================================================================================
+
+--- RUN 2 ---
+Wall Time: 24.789s | CPU Time: 24.016s | CPU/Wall Ratio: 0.969
+Stage Timing & Share of Total Wall Time:
+  - indexing_tree       :  0.091s (0.4%)
+  - profiler            :  0.006s (0.0%)
+  - analysis_py         :  2.253s (9.1%)
+  - safety_scan         : 11.469s (46.3%)
+
+Top 15 Functions by Cumulative Time:
+         42738735 function calls (42424156 primitive calls) in 24.789 seconds
+
+   Ordered by: cumulative time
+   List reduced from 432 to 15 due to restriction <15>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000   24.789   24.789 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\auditor.py:98(run)
+        1    0.062    0.062   12.815   12.815 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\safety.py:247(scan_safety)
+  1784768   11.601    0.000   11.601    0.000 {method 'search' of 're.Pattern' objects}
+     2865    0.405    0.000   10.744    0.004 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\safety.py:132(_scan_text)
+        1    0.000    0.000    6.194    6.194 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\auditor.py:506(_run_analysis)
+        1    0.003    0.003    6.193    6.193 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:523(analyze_project)
+        1    0.000    0.000    6.190    6.190 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:489(analyze)
+        1    0.071    0.071    5.155    5.155 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:278(_imports)
+     1037    0.548    0.001    4.835    0.005 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:195(_python_imports)
+  1289161    0.518    0.000    2.985    0.000 C:\Users\<user>\AppData\Local\Programs\Python\Python312\Lib\ast.py:369(walk)
+        1    0.445    0.445    2.655    2.655 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\pillars_app.py:560(audit_anti_crash_universal)
+  1272582    0.405    0.000    2.599    0.000 C:\Users\<user>\AppData\Local\Programs\Python\Python312\Lib\re\__init__.py:174(search)
+  1288124    0.397    0.000    2.341    0.000 {method 'extend' of 'collections.deque' objects}
+        1    0.180    0.180    2.333    2.333 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\pillars_app.py:383(audit_database_waterflow)
+    21176    0.104    0.000    2.066    0.000 C:\Users\<user>\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:663(relative_to)
+
+
+
+Per-Regex Time in _DIRECTIVE (Safety Scan):
+  - [COMBINED_MASTER] _DIRECTIVE                                 : 11.7317s (matches: 4)
+  - ignore\s+(all\s+|any\s+|the\s+)?(previous|prior|above|earlie : 0.3627s (matches: 3)
+  - disregard\s+(all\s+|any\s+|the\s+)?(previous|prior|above|ear : 0.2791s (matches: 0)
+  - forget\s+(all\s+|everything\s+)?(previous|prior|above|your)\ : 0.2776s (matches: 0)
+  - (override|bypass)\s+(the\s+|your\s+)?(system\s+prompt|safety : 0.6172s (matches: 0)
+  - you\s+are\s+now\s+(a|an|in)\b                                : 0.2674s (matches: 0)
+  - new\s+(system\s+)?instructions?\s*:                          : 0.2822s (matches: 0)
+  - (reveal|print|show|leak|exfiltrate|send)\s+(me\s+)?(your\s+| : 1.7255s (matches: 0)
+  - do\s+not\s+(tell|inform|mention\s+(this\s+)?to)\s+the\s+user : 0.2692s (matches: 0)
+  - (without|don'?t)\s+(telling|asking|informing)\s+the\s+user   : 0.5633s (matches: 0)
+  - (as|if\s+you\s+are)\s+an?\s+(ai|llm|assistant|agent|language : 0.8248s (matches: 0)
+  - (bỏ\s*qua|phớt\s*lờ|quên)\s+(tất\s+cả\s+|mọi\s+)?(các\s+)?(h : 0.7580s (matches: 0)
+  - (đừng|không\s+được|không\s+cần)\s+(nói|báo|cho)\s+(với\s+)?( : 0.7710s (matches: 0)
+  - (từ\s+bây\s+giờ|bây\s+giờ)\s+bạn\s+là\b                      : 0.6194s (matches: 0)
+  - (gửi|chuyển|đăng)\s+.{0,40}(api[\s_-]?key|mật\s*khẩu|token|b : 0.7952s (matches: 1)
+
+================================================================================
+
+--- RUN 3 ---
+Wall Time: 24.797s | CPU Time: 24.188s | CPU/Wall Ratio: 0.975
+Stage Timing & Share of Total Wall Time:
+  - indexing_tree       :  0.087s (0.4%)
+  - profiler            :  0.005s (0.0%)
+  - analysis_py         :  2.194s (8.8%)
+  - safety_scan         : 11.333s (45.7%)
+
+Top 15 Functions by Cumulative Time:
+         42738735 function calls (42424156 primitive calls) in 24.797 seconds
+
+   Ordered by: cumulative time
+   List reduced from 432 to 15 due to restriction <15>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000   24.797   24.797 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\auditor.py:98(run)
+        1    0.061    0.061   12.824   12.824 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\safety.py:247(scan_safety)
+  1784768   11.580    0.000   11.580    0.000 {method 'search' of 're.Pattern' objects}
+     2865    0.409    0.000   10.735    0.004 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\safety.py:132(_scan_text)
+        1    0.000    0.000    6.206    6.206 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\auditor.py:506(_run_analysis)
+        1    0.003    0.003    6.206    6.206 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:523(analyze_project)
+        1    0.000    0.000    6.203    6.203 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:489(analyze)
+        1    0.072    0.072    5.165    5.165 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:278(_imports)
+     1037    0.549    0.001    4.835    0.005 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\analysis.py:195(_python_imports)
+  1289161    0.526    0.000    2.988    0.000 C:\Users\<user>\AppData\Local\Programs\Python\Python312\Lib\ast.py:369(walk)
+        1    0.441    0.441    2.666    2.666 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\pillars_app.py:560(audit_anti_crash_universal)
+  1272582    0.410    0.000    2.597    0.000 C:\Users\<user>\AppData\Local\Programs\Python\Python312\Lib\re\__init__.py:174(search)
+  1288124    0.397    0.000    2.332    0.000 {method 'extend' of 'collections.deque' objects}
+        1    0.180    0.180    2.324    2.324 D:\Github\Project-Builder-4-Agents\scripts\auditor_engine\pillars_app.py:383(audit_database_waterflow)
+    21176    0.108    0.000    2.080    0.000 C:\Users\<user>\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:663(relative_to)
+
+
+
+Per-Regex Time in _DIRECTIVE (Safety Scan):
+  - [COMBINED_MASTER] _DIRECTIVE                                 : 11.8012s (matches: 4)
+  - ignore\s+(all\s+|any\s+|the\s+)?(previous|prior|above|earlie : 0.3590s (matches: 3)
+  - disregard\s+(all\s+|any\s+|the\s+)?(previous|prior|above|ear : 0.2672s (matches: 0)
+  - forget\s+(all\s+|everything\s+)?(previous|prior|above|your)\ : 0.2653s (matches: 0)
+  - (override|bypass)\s+(the\s+|your\s+)?(system\s+prompt|safety : 0.6101s (matches: 0)
+  - you\s+are\s+now\s+(a|an|in)\b                                : 0.2726s (matches: 0)
+  - new\s+(system\s+)?instructions?\s*:                          : 0.2879s (matches: 0)
+  - (reveal|print|show|leak|exfiltrate|send)\s+(me\s+)?(your\s+| : 1.7100s (matches: 0)
+  - do\s+not\s+(tell|inform|mention\s+(this\s+)?to)\s+the\s+user : 0.2686s (matches: 0)
+  - (without|don'?t)\s+(telling|asking|informing)\s+the\s+user   : 0.5534s (matches: 0)
+  - (as|if\s+you\s+are)\s+an?\s+(ai|llm|assistant|agent|language : 0.8108s (matches: 0)
+  - (bỏ\s*qua|phớt\s*lờ|quên)\s+(tất\s+cả\s+|mọi\s+)?(các\s+)?(h : 0.7477s (matches: 0)
+  - (đừng|không\s+được|không\s+cần)\s+(nói|báo|cho)\s+(với\s+)?( : 0.7553s (matches: 0)
+  - (từ\s+bây\s+giờ|bây\s+giờ)\s+bạn\s+là\b                      : 0.6167s (matches: 0)
+  - (gửi|chuyển|đăng)\s+.{0,40}(api[\s_-]?key|mật\s*khẩu|token|b : 0.7973s (matches: 1)
+
+================================================================================
+
+=== VARIANCE ANALYSIS (19.5s vs 31.2s) ===
+Measured Runs: [24.871, 24.789, 24.797] | Min: 24.789s | Max: 24.871s | Diff: 0.08s
+Measured Causes:
+1. High CPU-to-Wall ratio (> 85%): The workload is predominantly CPU-bound by AST parsing in analysis.py and regex evaluation in safety.py.
+2. Dominant Stage: analysis.py (_imports, _python_imports) accounts for ~48-52% of total cumulative runtime due to AST parsing 1,037 Python files.
+3. Variance between 19.5s and 31.2s: During the first execution on Windows, PyInstaller unzips / loads DLLs into Temp and Windows File System Cache (Standby List) has not cached file handles. Successive runs benefit from warmed OS filesystem metadata and cache, reducing I/O wait and context switches.

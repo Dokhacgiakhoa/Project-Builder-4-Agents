@@ -1,0 +1,410 @@
+[
+  {
+    "name": "awesome-cursorrules",
+    "path": "D:\\Github\\_corpus\\awesome-cursorrules",
+    "category": "agent_instructions",
+    "has_git": true,
+    "total_files": 295,
+    "findings_count": 1,
+    "duration_seconds": 0.04,
+    "findings": [
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "aider",
+    "path": "D:\\Github\\_corpus\\aider",
+    "category": "agent_instructions",
+    "has_git": true,
+    "total_files": 691,
+    "findings_count": 1,
+    "duration_seconds": 0.05,
+    "findings": [
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "gitingest",
+    "path": "D:\\Github\\_corpus\\gitingest",
+    "category": "agent_instructions",
+    "has_git": true,
+    "total_files": 123,
+    "findings_count": 1,
+    "duration_seconds": 0.03,
+    "findings": [
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "litellm",
+    "path": "D:\\Github\\_corpus\\litellm",
+    "category": "agent_instructions",
+    "has_git": true,
+    "total_files": 15419,
+    "findings_count": 2,
+    "duration_seconds": 0.26,
+    "findings": [
+      {
+        "code": "SEC-005",
+        "message": "2 tệp có thể chứa bí mật đã bị commit vào git: ui/litellm-dashboard/.env.development, ui/litellm-dashboard/.env.production. Xoay khóa/mật khẩu rồi gỡ khỏi lịch sử, thêm vào .gitignore.",
+        "location": "ui/litellm-dashboard/.env.development"
+      },
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "continue",
+    "path": "D:\\Github\\_corpus\\continue",
+    "category": "agent_instructions",
+    "has_git": true,
+    "total_files": 2916,
+    "findings_count": 2,
+    "duration_seconds": 0.08,
+    "findings": [
+      {
+        "code": "SUP-004",
+        "message": "1 tệp thực thi/nhị phân nằm trong git: extensions/intellij/gradle/wrapper/gradle-wrapper.jar. Không thể đọc nội dung để kiểm; chỉ giữ khi có nguồn và checksum rõ ràng.",
+        "location": "extensions/intellij/gradle/wrapper/gradle-wrapper.jar"
+      },
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "anthropic-quickstarts",
+    "path": "D:\\Github\\_corpus\\anthropic-quickstarts",
+    "category": "agent_instructions",
+    "has_git": true,
+    "total_files": 755,
+    "findings_count": 2,
+    "duration_seconds": 0.05,
+    "findings": [
+      {
+        "code": "SUP-002",
+        "message": "3 phụ thuộc không ghim phiên bản (*, latest, URL/git không kèm commit): managed-agents/linear/package.json:@types/bun, managed-agents/mcp-server-typescript/package.json:@types/bun, managed-agents/slack/package.json:@types/bun.",
+        "location": "managed-agents/linear/package.json"
+      },
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "cline",
+    "path": "D:\\Github\\_corpus\\cline",
+    "category": "agent_instructions",
+    "has_git": true,
+    "total_files": 4417,
+    "findings_count": 1,
+    "duration_seconds": 0.11,
+    "findings": [
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "llama_index",
+    "path": "D:\\Github\\_corpus\\llama_index",
+    "category": "agent_instructions",
+    "has_git": true,
+    "total_files": 9798,
+    "findings_count": 1,
+    "duration_seconds": 0.27,
+    "findings": [
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "mkdocs",
+    "path": "D:\\Github\\_corpus\\mkdocs",
+    "category": "documentation_heavy",
+    "has_git": true,
+    "total_files": 280,
+    "findings_count": 1,
+    "duration_seconds": 0.04,
+    "findings": [
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "flask",
+    "path": "D:\\Github\\_corpus\\flask",
+    "category": "documentation_heavy",
+    "has_git": true,
+    "total_files": 234,
+    "findings_count": 2,
+    "duration_seconds": 0.04,
+    "findings": [
+      {
+        "code": "SEC-005",
+        "message": "1 tệp có thể chứa bí mật đã bị commit vào git: tests/test_apps/.env. Xoay khóa/mật khẩu rồi gỡ khỏi lịch sử, thêm vào .gitignore.",
+        "location": "tests/test_apps/.env"
+      },
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "requests",
+    "path": "D:\\Github\\_corpus\\requests",
+    "category": "documentation_heavy",
+    "has_git": true,
+    "total_files": 130,
+    "findings_count": 2,
+    "duration_seconds": 0.07,
+    "findings": [
+      {
+        "code": "SEC-005",
+        "message": "4 tệp có thể chứa bí mật đã bị commit vào git: tests/certs/expired/ca/ca-private.key, tests/certs/expired/server/server.key, tests/certs/mtls/client/client.key, tests/certs/valid/server/server.key. Xoay khóa/mật khẩu rồi gỡ khỏi lịch sử, thêm vào .gitignore.",
+        "location": "tests/certs/expired/ca/ca-private.key"
+      },
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "httpx",
+    "path": "D:\\Github\\_corpus\\httpx",
+    "category": "documentation_heavy",
+    "has_git": true,
+    "total_files": 125,
+    "findings_count": 1,
+    "duration_seconds": 0.04,
+    "findings": [
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "fastapi",
+    "path": "D:\\Github\\_corpus\\fastapi",
+    "category": "documentation_heavy",
+    "has_git": true,
+    "total_files": 3235,
+    "findings_count": 1,
+    "duration_seconds": 0.12,
+    "findings": [
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "pydantic",
+    "path": "D:\\Github\\_corpus\\pydantic",
+    "category": "documentation_heavy",
+    "has_git": true,
+    "total_files": 3574,
+    "findings_count": 1,
+    "duration_seconds": 0.08,
+    "findings": [
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "jinja",
+    "path": "D:\\Github\\_corpus\\jinja",
+    "category": "documentation_heavy",
+    "has_git": true,
+    "total_files": 105,
+    "findings_count": 1,
+    "duration_seconds": 0.03,
+    "findings": [
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "underthesea",
+    "path": "D:\\Github\\_corpus\\underthesea",
+    "category": "vietnamese_docs",
+    "has_git": true,
+    "total_files": 1461,
+    "findings_count": 3,
+    "duration_seconds": 0.07,
+    "findings": [
+      {
+        "code": "SEC-005",
+        "message": "1 tệp có thể chứa bí mật đã bị commit vào git: extensions/apps/directory/components/json_viewer/component/frontend/.env. Xoay khóa/mật khẩu rồi gỡ khỏi lịch sử, thêm vào .gitignore.",
+        "location": "extensions/apps/directory/components/json_viewer/component/frontend/.env"
+      },
+      {
+        "code": "SUP-004",
+        "message": "12 tệp thực thi/nhị phân nằm trong git: extensions/underthesea_core/tests/wt_crf_2018_09_13.bin, underthesea/pipeline/chunking/chunk_crf_2017_10_12.bin, underthesea/pipeline/ner/ner_crf_2017_10_12.bin, underthesea/pipeline/pos_tag/models/pos_crf_vlsp2013_20230303/dictionary.bin, underthesea/pipeline/pos_tag/models/pos_crf_vlsp2013_20230303/features.bin và 7 tệp khác. Không thể đọc nội dung để kiểm; chỉ giữ khi có nguồn và checksum rõ ràng.",
+        "location": "extensions/underthesea_core/tests/wt_crf_2018_09_13.bin"
+      },
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "phobert",
+    "path": "D:\\Github\\_corpus\\phobert",
+    "category": "vietnamese_docs",
+    "has_git": true,
+    "total_files": 4,
+    "findings_count": 1,
+    "duration_seconds": 0.03,
+    "findings": [
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "vncorenlp",
+    "path": "D:\\Github\\_corpus\\vncorenlp",
+    "category": "vietnamese_docs",
+    "has_git": true,
+    "total_files": 34,
+    "findings_count": 2,
+    "duration_seconds": 0.03,
+    "findings": [
+      {
+        "code": "SUP-004",
+        "message": "2 tệp thực thi/nhị phân nằm trong git: VnCoreNLP-1.1.1.jar, VnCoreNLP-1.2.jar. Không thể đọc nội dung để kiểm; chỉ giữ khi có nguồn và checksum rõ ràng.",
+        "location": "VnCoreNLP-1.1.1.jar"
+      },
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "llm-security",
+    "path": "D:\\Github\\_corpus\\llm-security",
+    "category": "prompt_injection_safety",
+    "has_git": true,
+    "total_files": 54,
+    "findings_count": 1,
+    "duration_seconds": 0.03,
+    "findings": [
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "rebuff",
+    "path": "D:\\Github\\_corpus\\rebuff",
+    "category": "prompt_injection_safety",
+    "has_git": true,
+    "total_files": 119,
+    "findings_count": 1,
+    "duration_seconds": 0.04,
+    "findings": [
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "garak",
+    "path": "D:\\Github\\_corpus\\garak",
+    "category": "prompt_injection_safety",
+    "has_git": true,
+    "total_files": 887,
+    "findings_count": 1,
+    "duration_seconds": 0.04,
+    "findings": [
+      {
+        "code": "WLOG-001",
+        "message": "Chưa có work log (docs/worklog.md): phiên Agent sau không biết đã làm gì và còn gì dở.",
+        "location": ""
+      }
+    ]
+  },
+  {
+    "name": "P-062",
+    "path": "D:\\Github\\P-062",
+    "category": "target_real_project",
+    "has_git": true,
+    "total_files": 5526,
+    "findings_count": 1,
+    "duration_seconds": 0.13,
+    "findings": [
+      {
+        "code": "HYG-002",
+        "message": "30 tệp log đã bị commit: eval/results/comprehensive-execution-20261020/browser-build-397-http/build.log, eval/results/comprehensive-execution-20261020/browser-optin2-v1/migrations.log, eval/results/comprehensive-execution-20261020/browser-optin2-v1/pytest.log, eval/results/comprehensive-execution-20261020/browser-optin2-v2/migrations.log, eval/results/comprehensive-execution-20261020/browser-optin2-v2/pytest.log và 25 tệp khác. Log dễ chứa token và dữ liệu cá nhân; thêm *.log vào .gitignore.",
+        "location": "eval/results/comprehensive-execution-20261020/browser-build-397-http/build.log"
+      }
+    ]
+  },
+  {
+    "name": "Project-Builder-4-Agents",
+    "path": "D:\\Github\\Project-Builder-4-Agents",
+    "category": "target_this_repo",
+    "has_git": true,
+    "total_files": 398,
+    "findings_count": 1,
+    "duration_seconds": 0.05,
+    "findings": [
+      {
+        "code": "SUP-004",
+        "message": "1 tệp thực thi/nhị phân nằm trong git: Project-Health-Check.exe. Không thể đọc nội dung để kiểm; chỉ giữ khi có nguồn và checksum rõ ràng.",
+        "location": "Project-Health-Check.exe"
+      }
+    ]
+  }
+]

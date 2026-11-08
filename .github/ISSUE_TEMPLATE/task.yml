@@ -1,0 +1,29 @@
+name: 🔨 Engineering Task
+description: Create a technical task or refactoring item
+title: "[TASK]: "
+labels: ["task"]
+body:
+  - type: input
+    id: us_id
+    attributes:
+      label: Associated User Story ID
+      placeholder: "US-001"
+    validations:
+      required: false
+  - type: textarea
+    id: goal
+    attributes:
+      label: Technical Objective
+      description: Which component needs to be implemented, configured, or refactored?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      placeholder: |
+        - [ ] Implement component per contract
+        - [ ] Pass 100% unit tests
+        - [ ] Update documentation under specs/
+    validations:
+      required: true

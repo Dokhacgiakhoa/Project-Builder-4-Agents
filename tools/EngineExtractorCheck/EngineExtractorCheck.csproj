@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Dependency-free checks for tools/ProjectReviewer/EngineExtractor.cs (ADR-0025).
+       Run: dotnet run, with the project path tools/EngineExtractorCheck. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\ProjectReviewer\EngineExtractor.cs" Link="EngineExtractor.cs" />
+  </ItemGroup>
+
+</Project>

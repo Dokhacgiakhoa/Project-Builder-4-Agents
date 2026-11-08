@@ -1,0 +1,128 @@
+{
+  "timestamp": "2026-11-07 17:35:39",
+  "shell_path": "D:\\Github\\health-check-test\\app-rel\\Project-Health-Check.exe",
+  "initial_port": 62299,
+  "initial_engine_pids": [
+    19464,
+    31036
+  ],
+  "engine_exit_time_sec": 180.72,
+  "observations": [
+    {
+      "checkpoint_sec": 3,
+      "actual_elapsed_sec": 3.76,
+      "engine_pids": [
+        19464,
+        31036
+      ],
+      "engine_count": 2,
+      "port": 62299,
+      "api_status": {
+        "responding": true,
+        "status_code": 200,
+        "data": {
+          "status": "ready",
+          "version": "2.2.0"
+        }
+      }
+    },
+    {
+      "checkpoint_sec": 30,
+      "actual_elapsed_sec": 30.22,
+      "engine_pids": [
+        19464,
+        31036
+      ],
+      "engine_count": 2,
+      "port": 62299,
+      "api_status": {
+        "responding": true,
+        "status_code": 200,
+        "data": {
+          "status": "ready",
+          "version": "2.2.0"
+        }
+      }
+    },
+    {
+      "checkpoint_sec": 90,
+      "actual_elapsed_sec": 90.36,
+      "engine_pids": [
+        19464,
+        31036
+      ],
+      "engine_count": 2,
+      "port": 62299,
+      "api_status": {
+        "responding": true,
+        "status_code": 200,
+        "data": {
+          "status": "ready",
+          "version": "2.2.0"
+        }
+      }
+    },
+    {
+      "checkpoint_sec": 150,
+      "actual_elapsed_sec": 150.56,
+      "engine_pids": [
+        19464,
+        31036
+      ],
+      "engine_count": 2,
+      "port": 62299,
+      "api_status": {
+        "responding": true,
+        "status_code": 200,
+        "data": {
+          "status": "ready",
+          "version": "2.2.0"
+        }
+      }
+    },
+    {
+      "checkpoint_sec": 180,
+      "actual_elapsed_sec": 180.72,
+      "engine_pids": [],
+      "engine_count": 0,
+      "port": 62299,
+      "api_status": {
+        "responding": false,
+        "error": "<urlopen error timed out>"
+      }
+    },
+    {
+      "checkpoint_sec": 185,
+      "actual_elapsed_sec": 185.4,
+      "engine_pids": [],
+      "engine_count": 0,
+      "port": 62299,
+      "api_status": {
+        "responding": false,
+        "error": "<urlopen error timed out>"
+      }
+    },
+    {
+      "checkpoint_sec": 190,
+      "actual_elapsed_sec": 190.07,
+      "engine_pids": [],
+      "engine_count": 0,
+      "port": 62299,
+      "api_status": {
+        "responding": false,
+        "error": "<urlopen error timed out>"
+      }
+    },
+    {
+      "checkpoint_sec": 200,
+      "actual_elapsed_sec": 200.86,
+      "engine_pids": [],
+      "engine_count": 0,
+      "port": 62299,
+      "api_status": {
+        "responding": false,
+        "error": "<urlopen error timed out>"
+      }
+    }
+  ]
+}

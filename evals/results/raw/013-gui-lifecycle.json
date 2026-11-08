@@ -1,0 +1,101 @@
+{
+  "single_instance": {
+    "shell_pid": 8632,
+    "window_title": "Project Builder Analytics — Project-Builder-4-Agents",
+    "hwnd": 7474586,
+    "engine_pids": [
+      19472,
+      35360
+    ],
+    "temp_engine_exists": true,
+    "temp_engine_size": 9361128,
+    "procs_at_05s": [],
+    "procs_at_50s": []
+  },
+  "concurrent_instances": {
+    "p1_pid": 13368,
+    "p2_pid": 30268,
+    "p1_alive": true,
+    "p2_alive": true,
+    "p1_windows": [
+      [
+        5378550,
+        "Tooltip"
+      ],
+      [
+        7016274,
+        "Project Builder Analytics — Project-Builder-4-Agents"
+      ],
+      [
+        14028048,
+        "GDI+ Window (Project-Health-Check.exe)"
+      ],
+      [
+        725090,
+        ".NET-BroadcastEventWindow.be6c52.0"
+      ],
+      [
+        16974010,
+        "CiceroUIWndFrame"
+      ],
+      [
+        528012,
+        "TF_FloatingLangBar_WndTitle"
+      ],
+      [
+        8524128,
+        "Default IME"
+      ],
+      [
+        3216124,
+        "MSCTFIME UI"
+      ],
+      [
+        6098776,
+        "Default IME"
+      ],
+      [
+        9637498,
+        "Default IME"
+      ]
+    ],
+    "p2_windows": [
+      [
+        3935512,
+        "Project Builder Analytics — Project-Builder-4-Agents"
+      ],
+      [
+        6426316,
+        "GDI+ Window (Project-Health-Check.exe)"
+      ],
+      [
+        1053426,
+        ".NET-BroadcastEventWindow.be6c52.0"
+      ],
+      [
+        1446634,
+        "Default IME"
+      ],
+      [
+        5706252,
+        "MSCTFIME UI"
+      ],
+      [
+        5312596,
+        "Default IME"
+      ],
+      [
+        5443644,
+        "Default IME"
+      ]
+    ],
+    "engine_pids": [
+      976,
+      20508,
+      22372,
+      33208
+    ],
+    "extracted_engine_exists": true,
+    "extracted_engine_size": 9361128
+  }
+}

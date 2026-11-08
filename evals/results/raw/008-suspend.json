@@ -1,0 +1,88 @@
+{
+  "timestamp": "2026-11-07 18:02:42",
+  "engine_exe": "D:\\Github\\health-check-test\\app-rel\\engine\\reviewer-engine.exe",
+  "pids": [
+    29332,
+    31076
+  ],
+  "port": 8997,
+  "watchdog_timeout": 20,
+  "heartbeats_sent": [
+    {
+      "time": 2.0,
+      "success": true
+    },
+    {
+      "time": 4.02,
+      "success": true
+    },
+    {
+      "time": 6.02,
+      "success": true
+    },
+    {
+      "time": 8.02,
+      "success": true
+    },
+    {
+      "time": 10.02,
+      "success": true
+    }
+  ],
+  "suspend_duration_sec": 60.0,
+  "alive_10s_after_resume": true,
+  "has_exited_at_10s": false,
+  "exit_time_after_resume_sec": 20.09,
+  "poll_log": [
+    {
+      "since_resume": 11.0,
+      "alive": true,
+      "poll_ret": null
+    },
+    {
+      "since_resume": 12.01,
+      "alive": true,
+      "poll_ret": null
+    },
+    {
+      "since_resume": 13.01,
+      "alive": true,
+      "poll_ret": null
+    },
+    {
+      "since_resume": 14.03,
+      "alive": true,
+      "poll_ret": null
+    },
+    {
+      "since_resume": 15.03,
+      "alive": true,
+      "poll_ret": null
+    },
+    {
+      "since_resume": 16.03,
+      "alive": true,
+      "poll_ret": null
+    },
+    {
+      "since_resume": 17.03,
+      "alive": true,
+      "poll_ret": null
+    },
+    {
+      "since_resume": 18.06,
+      "alive": true,
+      "poll_ret": null
+    },
+    {
+      "since_resume": 19.06,
+      "alive": true,
+      "poll_ret": null
+    },
+    {
+      "since_resume": 20.09,
+      "alive": false,
+      "poll_ret": null
+    }
+  ]
+}

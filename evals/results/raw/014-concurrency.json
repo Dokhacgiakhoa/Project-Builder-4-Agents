@@ -1,0 +1,53 @@
+{
+  "single_instance": {
+    "shell_pid": 2972,
+    "window_title": "Project Builder Analytics — Project-Builder-4-Agents",
+    "hwnd": 1902350,
+    "engine_pids": [
+      528,
+      34712
+    ],
+    "temp_engine_exists": true,
+    "temp_engine_size": 9361128,
+    "temp_engine_sha256": "80BDCBC21767CD3B9EE6D09BE51FE7115598385AF87999C4BFC113EE88E3A657",
+    "procs_at_05s": [],
+    "procs_at_50s": []
+  },
+  "concurrency_and_three_instances": {
+    "repo_engine_sha256": "80BDCBC21767CD3B9EE6D09BE51FE7115598385AF87999C4BFC113EE88E3A657",
+    "sha_before_launch": "80BDCBC21767CD3B9EE6D09BE51FE7115598385AF87999C4BFC113EE88E3A657",
+    "match_before": true,
+    "instance_1": {
+      "pid": 28956,
+      "engine_pid": 18608,
+      "port": 51363,
+      "status": {
+        "status": "ready",
+        "version": "2.2.0"
+      }
+    },
+    "instance_2": {
+      "pid": 26692,
+      "engine_pid": 35752,
+      "port": 51364,
+      "status": {
+        "status": "ready",
+        "version": "2.2.0"
+      }
+    },
+    "sha_with_2_running": "80BDCBC21767CD3B9EE6D09BE51FE7115598385AF87999C4BFC113EE88E3A657",
+    "instance_3": {
+      "pid": 36540,
+      "engine_pid": 12368,
+      "port": 60410,
+      "status": {
+        "status": "ready",
+        "version": "2.2.0"
+      }
+    },
+    "sha_with_3_running": "80BDCBC21767CD3B9EE6D09BE51FE7115598385AF87999C4BFC113EE88E3A657",
+    "match_after": true,
+    "procs_at_05s": [],
+    "procs_at_50s": []
+  }
+}

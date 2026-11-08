@@ -1,0 +1,34 @@
+Auditing 23 repositories against baseline...
+[MATCH] aider                      0.48s | Score: 46 | Non-SAFE: 27 | SAFE new: 0, lost: 0
+[MATCH] anthropic-quickstarts      0.68s | Score: 58 | Non-SAFE: 44 | SAFE new: 0, lost: 0
+[MATCH] awesome-cursorrules        0.32s | Score: 48 | Non-SAFE: 24 | SAFE new: 0, lost: 0
+[MATCH] cline                      6.25s | Score: 68 | Non-SAFE: 483 | SAFE new: 0, lost: 0
+[MATCH] continue                   5.74s | Score: 60 | Non-SAFE: 99 | SAFE new: 0, lost: 0
+[MATCH] fastapi                    3.97s | Score: 52 | Non-SAFE: 29 | SAFE new: 0, lost: 0
+[MATCH] flask                      0.37s | Score: 34 | Non-SAFE: 31 | SAFE new: 0, lost: 0
+[MATCH] garak                      1.73s | Score: 50 | Non-SAFE: 32 | SAFE new: 0, lost: 0
+[MATCH] gitingest                  0.19s | Score: 60 | Non-SAFE: 22 | SAFE new: 0, lost: 0
+[MATCH] httpx                      0.31s | Score: 36 | Non-SAFE: 28 | SAFE new: 0, lost: 0
+[MATCH] jinja                      0.36s | Score: 35 | Non-SAFE: 28 | SAFE new: 0, lost: 0
+[MATCH] litellm                   50.82s | Score: 80 | Non-SAFE: 1533 | SAFE new: 1, lost: 0
+[MATCH] llama_index               11.61s | Score: 66 | Non-SAFE: 92 | SAFE new: 0, lost: 0
+[MATCH] llm-security               0.13s | Score: 44 | Non-SAFE: 23 | SAFE new: 0, lost: 0
+[MATCH] mkdocs                     0.51s | Score: 32 | Non-SAFE: 32 | SAFE new: 0, lost: 0
+[MATCH] phobert                    0.13s | Score: 58 | Non-SAFE: 17 | SAFE new: 0, lost: 0
+[MATCH] pydantic                   6.48s | Score: 58 | Non-SAFE: 28 | SAFE new: 0, lost: 0
+[MATCH] rebuff                     0.20s | Score: 59 | Non-SAFE: 24 | SAFE new: 0, lost: 0
+[MATCH] requests                   0.31s | Score: 37 | Non-SAFE: 28 | SAFE new: 0, lost: 0
+[MATCH] underthesea                2.34s | Score: 59 | Non-SAFE: 40 | SAFE new: 0, lost: 0
+[MATCH] vncorenlp                  0.12s | Score: 48 | Non-SAFE: 23 | SAFE new: 0, lost: 0
+[MATCH] P-062                      8.46s | Score: 80 | Non-SAFE: 39 | SAFE new: 0, lost: 0
+[MATCH] Project-Builder-4-Agents   0.56s | Score: 90 | Non-SAFE: 7 | SAFE new: 0, lost: 0
+
+--- Non-SAFE Identity Summary ---
+SUCCESS: 100% IDENTICAL scores and non-SAFE findings across all 23 repositories! (0 discrepancies)
+
+--- SAFE Signal Changes ---
+Total new SAFE signals : 1
+Total lost SAFE signals: 0
+
+New SAFE signals:
+  + [litellm] litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml:93 SAFE-001

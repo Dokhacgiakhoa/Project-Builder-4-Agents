@@ -1,0 +1,29 @@
+name: ✨ Feature Request
+description: Propose a new feature or improvement
+title: "[FEAT]: "
+labels: ["enhancement", "needs-spec"]
+body:
+  - type: markdown
+    attributes:
+      value: Propose a feature following the *Who - What - Outcome* standard.
+  - type: textarea
+    id: who
+    attributes:
+      label: 1. WHO (Target Beneficiary)
+      description: Which user role or agent persona does this feature serve?
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: 2. WHAT (Problem & Pain Point)
+      description: What specific problem or limitation does this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: 3. OUTCOME (Expected Result)
+      description: What measurable metric or capability proves this feature succeeded?
+    validations:
+      required: true

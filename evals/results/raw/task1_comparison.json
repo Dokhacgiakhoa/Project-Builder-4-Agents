@@ -1,0 +1,2951 @@
+{
+  "with_edit": {
+    "label": "with-edit",
+    "total_scanned_files": 11507,
+    "total_safety_findings": 178,
+    "safety_summary": {
+      "awesome-cursorrules": {
+        "scanned": 268,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "aider": {
+        "scanned": 187,
+        "findings_count": 4,
+        "by_code": {
+          "SAFE-001": 4
+        },
+        "findings": [
+          {
+            "code": "SAFE-001",
+            "file": "aider/website/assets/sample.aider.conf.yml",
+            "line": 355
+          },
+          {
+            "code": "SAFE-001",
+            "file": "aider/website/docs/config/aider_conf.md",
+            "line": 409
+          },
+          {
+            "code": "SAFE-001",
+            "file": "aider/website/docs/config/dotenv.md",
+            "line": 376
+          },
+          {
+            "code": "SAFE-001",
+            "file": "aider/website/docs/config/options.md",
+            "line": 662
+          }
+        ]
+      },
+      "gitingest": {
+        "scanned": 31,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "litellm": {
+        "scanned": 1204,
+        "findings_count": 55,
+        "by_code": {
+          "SAFE-001": 55
+        },
+        "findings": [
+          {
+            "code": "SAFE-001",
+            "file": "litellm/policy_templates_backup.json",
+            "line": 2243
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/policy_templates_backup.json",
+            "line": 2267
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/policy_templates_backup.json",
+            "line": 2272
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/policy_templates_backup.json",
+            "line": 2287
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/policy_templates_backup.json",
+            "line": 2292
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/policy_templates_backup.json",
+            "line": 2297
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/policy_templates_backup.json",
+            "line": 2302
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 77
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 86
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 251
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 260
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 424
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 433
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 601
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 610
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 768
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 777
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 1227
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 1720
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_jailbreak.yaml",
+            "line": 79
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 1
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 4
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 67
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 71
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 73
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 75
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 79
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 85
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 87
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 95
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 121
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 123
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/prompt_injection.yaml",
+            "line": 91
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/prompt_injection.yaml",
+            "line": 97
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/prompt_injection.yaml",
+            "line": 99
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/prompt_injection.yaml",
+            "line": 113
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/sg_mas_model_security.yaml",
+            "line": 61
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/sg_mas_model_security.yaml",
+            "line": 62
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/sg_mas_model_security.yaml",
+            "line": 77
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/README.md",
+            "line": 127
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/README.md",
+            "line": 148
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/README.md",
+            "line": 173
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/example_config.yaml",
+            "line": 70
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/example_config.yaml",
+            "line": 87
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/litellm_content_filter/guardrail_benchmarks/results/claims_system_override_cf.json",
+            "line": 259
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+            "line": 4
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+            "line": 12
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+            "line": 15
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+            "line": 34
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+            "line": 55
+          },
+          {
+            "code": "SAFE-001",
+            "file": "tests/unit/interactions/interactions.openapi.json",
+            "line": 6097
+          },
+          {
+            "code": "SAFE-001",
+            "file": "ui/litellm-dashboard/src/i18n/locales/en.json",
+            "line": 4805
+          },
+          {
+            "code": "SAFE-001",
+            "file": "ui/litellm-dashboard/src/i18n/locales/en.json",
+            "line": 6578
+          },
+          {
+            "code": "SAFE-001",
+            "file": "ui/litellm-dashboard/src/i18n/locales/en.json",
+            "line": 10736
+          },
+          {
+            "code": "SAFE-001",
+            "file": "ui/litellm-dashboard/src/i18n/locales/en.json",
+            "line": 11050
+          }
+        ]
+      },
+      "continue": {
+        "scanned": 478,
+        "findings_count": 2,
+        "by_code": {
+          "SAFE-002": 2
+        },
+        "findings": [
+          {
+            "code": "SAFE-002",
+            "file": "CONTRIBUTING.md",
+            "line": 15
+          },
+          {
+            "code": "SAFE-002",
+            "file": "CONTRIBUTING.md",
+            "line": 108
+          }
+        ]
+      },
+      "anthropic-quickstarts": {
+        "scanned": 218,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "cline": {
+        "scanned": 374,
+        "findings_count": 2,
+        "by_code": {
+          "SAFE-001": 1,
+          "SAFE-005": 1
+        },
+        "findings": [
+          {
+            "code": "SAFE-001",
+            "file": "apps/cli/README.md",
+            "line": 250
+          },
+          {
+            "code": "SAFE-005",
+            "file": ".claude/settings.json",
+            "line": 1
+          }
+        ]
+      },
+      "llama_index": {
+        "scanned": 2631,
+        "findings_count": 2,
+        "by_code": {
+          "SAFE-002": 2
+        },
+        "findings": [
+          {
+            "code": "SAFE-002",
+            "file": "docs/src/content/docs/framework/CONTRIBUTING.md",
+            "line": 197
+          },
+          {
+            "code": "SAFE-002",
+            "file": "llama-index-integrations/retrievers/llama-index-retrievers-videodb/README.md",
+            "line": 26
+          }
+        ]
+      },
+      "mkdocs": {
+        "scanned": 77,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "flask": {
+        "scanned": 111,
+        "findings_count": 1,
+        "by_code": {
+          "SAFE-001": 1
+        },
+        "findings": [
+          {
+            "code": "SAFE-001",
+            "file": "docs/config.rst",
+            "line": 124
+          }
+        ]
+      },
+      "requests": {
+        "scanned": 46,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "httpx": {
+        "scanned": 40,
+        "findings_count": 3,
+        "by_code": {
+          "SAFE-001": 1,
+          "SAFE-002": 2
+        },
+        "findings": [
+          {
+            "code": "SAFE-001",
+            "file": "docs/advanced/clients.md",
+            "line": 172
+          },
+          {
+            "code": "SAFE-002",
+            "file": "tests/models/whatwg.json",
+            "line": 2296
+          },
+          {
+            "code": "SAFE-002",
+            "file": "tests/models/whatwg.json",
+            "line": 2311
+          }
+        ]
+      },
+      "fastapi": {
+        "scanned": 1752,
+        "findings_count": 65,
+        "by_code": {
+          "SAFE-002": 65
+        },
+        "findings": [
+          {
+            "code": "SAFE-002",
+            "file": "docs/de/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/de/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/de/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/de/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/en/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/en/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/en/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/en/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/en/docs/release-notes.md",
+            "line": 947
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/en/docs/release-notes.md",
+            "line": 954
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/en/docs/release-notes.md",
+            "line": 2695
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/es/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/es/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/es/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/es/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/fr/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/fr/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/fr/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/fr/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/hi/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/hi/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/hi/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/hi/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ja/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ja/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ja/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ja/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ja/docs/tutorial/background-tasks.md",
+            "line": 52
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ko/docs/async.md",
+            "line": 193
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ko/docs/async.md",
+            "line": 197
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ko/docs/async.md",
+            "line": 229
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ko/docs/async.md",
+            "line": 231
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/language_names.yml",
+            "line": 168
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/deployment/concepts.md",
+            "line": 203
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/deployment/concepts.md",
+            "line": 217
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/how-to/general.md",
+            "line": 42
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/tutorial/cors.md",
+            "line": 31
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/tutorial/cors.md",
+            "line": 52
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/tutorial/response-model.md",
+            "line": 175
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/tutorial/response-model.md",
+            "line": 191
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/tutorial/response-model.md",
+            "line": 209
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ru/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ru/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ru/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ru/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/tr/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/tr/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/tr/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/tr/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/uk/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/uk/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/uk/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/uk/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/zh-hant/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/zh-hant/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/zh-hant/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/zh-hant/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/zh/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/zh/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/zh/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/zh/docs/async.md",
+            "line": 230
+          }
+        ]
+      },
+      "pydantic": {
+        "scanned": 163,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "jinja": {
+        "scanned": 34,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "underthesea": {
+        "scanned": 503,
+        "findings_count": 8,
+        "by_code": {
+          "SAFE-002": 8
+        },
+        "findings": [
+          {
+            "code": "SAFE-002",
+            "file": "docs/docs/contribute/sponsors.md",
+            "line": 18
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/versioned_docs/version-9.2.11/contribute/sponsors.md",
+            "line": 18
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/versioned_docs/version-9.3.0/contribute/sponsors.md",
+            "line": 18
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/versioned_docs/version-9.4.0/contribute/sponsors.md",
+            "line": 18
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/versioned_docs/version-9.5.0/contribute/sponsors.md",
+            "line": 18
+          },
+          {
+            "code": "SAFE-002",
+            "file": "extensions/datasets/UD_Vietnamese-COL/corpus/raw/lyrics.txt",
+            "line": 8639
+          },
+          {
+            "code": "SAFE-002",
+            "file": "extensions/datasets/UD_Vietnamese-COL/corpus/ud/lyrics.txt",
+            "line": 26228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "extensions/datasets/UD_Vietnamese-COL/corpus/ud/lyrics.txt",
+            "line": 26240
+          }
+        ]
+      },
+      "phobert": {
+        "scanned": 3,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "vncorenlp": {
+        "scanned": 5,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "llm-security": {
+        "scanned": 5,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "rebuff": {
+        "scanned": 24,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "garak": {
+        "scanned": 326,
+        "findings_count": 20,
+        "by_code": {
+          "SAFE-001": 20
+        },
+        "findings": [
+          {
+            "code": "SAFE-001",
+            "file": "docs/source/probes/goat.rst",
+            "line": 36
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak-report/extracted_digest.json",
+            "line": 6432
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak-report/extracted_digest.json",
+            "line": 6576
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak-report/extracted_digest.json",
+            "line": 6770
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak-report/extracted_digest.json",
+            "line": 6960
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak-report/extracted_digest.json",
+            "line": 7368
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/autodan/autodan_prompts.json",
+            "line": 2
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/autodan/autodan_prompts.json",
+            "line": 4
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/cas/trait_typology.json",
+            "line": 186
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/cas/trait_typology.json",
+            "line": 188
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/cas/trait_typology.json",
+            "line": 779
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/dan/AntiDAN.json",
+            "line": 1
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/sysprompt_extraction/attacks.json",
+            "line": 5
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/sysprompt_extraction/attacks.json",
+            "line": 11
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/sysprompt_extraction/attacks.json",
+            "line": 12
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/sysprompt_extraction/attacks.json",
+            "line": 21
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/tap/tap_jailbreaks.txt",
+            "line": 6
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/resources/plugin_cache.json",
+            "line": 1360
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/resources/plugin_cache.json",
+            "line": 1393
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/resources/plugin_cache.json",
+            "line": 9161
+          }
+        ]
+      },
+      "P-062": {
+        "scanned": 2828,
+        "findings_count": 13,
+        "by_code": {
+          "SAFE-002": 4,
+          "SAFE-001": 4,
+          "SAFE-005": 5
+        },
+        "findings": [
+          {
+            "code": "SAFE-002",
+            "file": "btc-reference/cohort-4/mentor-g19/raw/slides_1.html",
+            "line": 1427
+          },
+          {
+            "code": "SAFE-002",
+            "file": "btc-reference/cohort-4/mentor-g19/raw/slides_1.html",
+            "line": 1789
+          },
+          {
+            "code": "SAFE-002",
+            "file": "btc-reference/cohort-4/mentor-g19/raw/slides_1.html",
+            "line": 2016
+          },
+          {
+            "code": "SAFE-002",
+            "file": "btc-reference/cohort-4/mentor-g19/raw/slides_1.html",
+            "line": 2145
+          },
+          {
+            "code": "SAFE-001",
+            "file": "btc-reference/khung-chung/technical-book/chapter-06.md",
+            "line": 313
+          },
+          {
+            "code": "SAFE-001",
+            "file": "btc-reference/khung-chung/technical-book/chapter-11.md",
+            "line": 115
+          },
+          {
+            "code": "SAFE-001",
+            "file": "docs/BE_LUONG_THAT_VI_HOVE.md",
+            "line": 135
+          },
+          {
+            "code": "SAFE-001",
+            "file": "eval/results/a4_stress_20261021/meta.json",
+            "line": 795
+          },
+          {
+            "code": "SAFE-005",
+            "file": ".agents/skills/ui-ux-pro-max/stack/.mcp.json",
+            "line": 1
+          },
+          {
+            "code": "SAFE-005",
+            "file": ".claude/settings.json",
+            "line": 1
+          },
+          {
+            "code": "SAFE-005",
+            "file": ".codex/hooks.json",
+            "line": 1
+          },
+          {
+            "code": "SAFE-005",
+            "file": ".cursor/hooks.json",
+            "line": 1
+          },
+          {
+            "code": "SAFE-005",
+            "file": ".gemini/settings.json",
+            "line": 1
+          }
+        ]
+      },
+      "Project-Builder-4-Agents": {
+        "scanned": 199,
+        "findings_count": 3,
+        "by_code": {
+          "SAFE-001": 3
+        },
+        "findings": [
+          {
+            "code": "SAFE-001",
+            "file": "core/untrusted-content.md",
+            "line": 18
+          },
+          {
+            "code": "SAFE-001",
+            "file": "knowledge-base/technical-book/chapter-06.md",
+            "line": 315
+          },
+          {
+            "code": "SAFE-001",
+            "file": "knowledge-base/technical-book/chapter-11.md",
+            "line": 116
+          }
+        ]
+      }
+    },
+    "hygiene_summary": {
+      "awesome-cursorrules": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "aider": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "gitingest": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "litellm": {
+        "findings_count": 2,
+        "by_code": {
+          "SEC-005": 1,
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "SEC-005",
+            "location": "ui/litellm-dashboard/.env.development"
+          },
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "continue": {
+        "findings_count": 2,
+        "by_code": {
+          "SUP-004": 1,
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "SUP-004",
+            "location": "extensions/intellij/gradle/wrapper/gradle-wrapper.jar"
+          },
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "anthropic-quickstarts": {
+        "findings_count": 2,
+        "by_code": {
+          "SUP-002": 1,
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "SUP-002",
+            "location": "managed-agents/linear/package.json"
+          },
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "cline": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "llama_index": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "mkdocs": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "flask": {
+        "findings_count": 2,
+        "by_code": {
+          "SEC-005": 1,
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "SEC-005",
+            "location": "tests/test_apps/.env"
+          },
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "requests": {
+        "findings_count": 2,
+        "by_code": {
+          "SEC-005": 1,
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "SEC-005",
+            "location": "tests/certs/expired/ca/ca-private.key"
+          },
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "httpx": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "fastapi": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "pydantic": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "jinja": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "underthesea": {
+        "findings_count": 3,
+        "by_code": {
+          "SEC-005": 1,
+          "SUP-004": 1,
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "SEC-005",
+            "location": "extensions/apps/directory/components/json_viewer/component/frontend/.env"
+          },
+          {
+            "code": "SUP-004",
+            "location": "extensions/underthesea_core/tests/wt_crf_2018_09_13.bin"
+          },
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "phobert": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "vncorenlp": {
+        "findings_count": 2,
+        "by_code": {
+          "SUP-004": 1,
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "SUP-004",
+            "location": "VnCoreNLP-1.1.1.jar"
+          },
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "llm-security": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "rebuff": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "garak": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "P-062": {
+        "findings_count": 1,
+        "by_code": {
+          "HYG-002": 1
+        },
+        "findings": [
+          {
+            "code": "HYG-002",
+            "location": "eval/results/comprehensive-execution-20261020/browser-build-397-http/build.log"
+          }
+        ]
+      },
+      "Project-Builder-4-Agents": {
+        "findings_count": 1,
+        "by_code": {
+          "SUP-004": 1
+        },
+        "findings": [
+          {
+            "code": "SUP-004",
+            "location": "Project-Health-Check.exe"
+          }
+        ]
+      }
+    },
+    "kit_result": {
+      "all_files_count": 288,
+      "code_files_count": 57,
+      "skipped_dirs": [
+        [
+          ".git",
+          "dữ liệu nội bộ của git"
+        ],
+        [
+          ".pytest_cache",
+          "cache test"
+        ],
+        [
+          "build",
+          "kết quả build"
+        ],
+        [
+          "examples",
+          "mã ví dụ minh họa, không phải mã của dự án"
+        ],
+        [
+          "core/templates",
+          "mẫu tài liệu cấp cho dự án khác"
+        ],
+        [
+          "evals/__pycache__",
+          "bytecode Python"
+        ],
+        [
+          "profiles/frontend/starter",
+          "mã khởi tạo mẫu của profile"
+        ],
+        [
+          "scripts/__pycache__",
+          "bytecode Python"
+        ],
+        [
+          "scripts/auditor_engine/__pycache__",
+          "bytecode Python"
+        ],
+        [
+          "scripts/reviewer_shell/__pycache__",
+          "bytecode Python"
+        ],
+        [
+          "scripts/token_dashboard/__pycache__",
+          "bytecode Python"
+        ],
+        [
+          "scripts/token_monitor/__pycache__",
+          "bytecode Python"
+        ],
+        [
+          "tests/__pycache__",
+          "bytecode Python"
+        ]
+      ],
+      "profile": {
+        "archetype": "Kho tài liệu / tri thức kèm công cụ",
+        "languages": [
+          "Python",
+          "JavaScript"
+        ],
+        "frameworks": [],
+        "has_frontend": false,
+        "has_backend": false
+      },
+      "score": 90,
+      "grade": "A (RẤT TỐT - SẴN SÀNG STAGING)",
+      "findings_by_code": {
+        "AGT-001": 1,
+        "ARCH-004": 1,
+        "SEC-001": 1,
+        "ARCH-003": 1,
+        "SEC-002": 2,
+        "SUP-004": 1
+      }
+    }
+  },
+  "without_edit": {
+    "label": "without-edit",
+    "total_scanned_files": 11828,
+    "total_safety_findings": 180,
+    "safety_summary": {
+      "awesome-cursorrules": {
+        "scanned": 268,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "aider": {
+        "scanned": 202,
+        "findings_count": 4,
+        "by_code": {
+          "SAFE-001": 4
+        },
+        "findings": [
+          {
+            "code": "SAFE-001",
+            "file": "aider/website/assets/sample.aider.conf.yml",
+            "line": 355
+          },
+          {
+            "code": "SAFE-001",
+            "file": "aider/website/docs/config/aider_conf.md",
+            "line": 409
+          },
+          {
+            "code": "SAFE-001",
+            "file": "aider/website/docs/config/dotenv.md",
+            "line": 376
+          },
+          {
+            "code": "SAFE-001",
+            "file": "aider/website/docs/config/options.md",
+            "line": 662
+          }
+        ]
+      },
+      "gitingest": {
+        "scanned": 31,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "litellm": {
+        "scanned": 1279,
+        "findings_count": 56,
+        "by_code": {
+          "SAFE-001": 56
+        },
+        "findings": [
+          {
+            "code": "SAFE-001",
+            "file": "litellm/policy_templates_backup.json",
+            "line": 2243
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/policy_templates_backup.json",
+            "line": 2267
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/policy_templates_backup.json",
+            "line": 2272
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/policy_templates_backup.json",
+            "line": 2287
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/policy_templates_backup.json",
+            "line": 2292
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/policy_templates_backup.json",
+            "line": 2297
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/policy_templates_backup.json",
+            "line": 2302
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 77
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 86
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 251
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 260
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 424
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 433
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 601
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 610
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 768
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 777
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 1227
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+            "line": 1720
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_jailbreak.yaml",
+            "line": 79
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 1
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 4
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 67
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 71
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 73
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 75
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 79
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 85
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 87
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 95
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 121
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+            "line": 123
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/prompt_injection.yaml",
+            "line": 91
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/prompt_injection.yaml",
+            "line": 97
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/prompt_injection.yaml",
+            "line": 99
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/prompt_injection.yaml",
+            "line": 113
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/sg_mas_model_security.yaml",
+            "line": 61
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/sg_mas_model_security.yaml",
+            "line": 62
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/sg_mas_model_security.yaml",
+            "line": 77
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/README.md",
+            "line": 127
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/README.md",
+            "line": 148
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/README.md",
+            "line": 173
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/example_config.yaml",
+            "line": 70
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/example_config.yaml",
+            "line": 87
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/litellm_content_filter/guardrail_benchmarks/results/claims_system_override_cf.json",
+            "line": 259
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+            "line": 4
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+            "line": 12
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+            "line": 15
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+            "line": 34
+          },
+          {
+            "code": "SAFE-001",
+            "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+            "line": 55
+          },
+          {
+            "code": "SAFE-001",
+            "file": "tests/unit/fixtures/together_ai_sync/models_serverless.json",
+            "line": 1
+          },
+          {
+            "code": "SAFE-001",
+            "file": "tests/unit/interactions/interactions.openapi.json",
+            "line": 6097
+          },
+          {
+            "code": "SAFE-001",
+            "file": "ui/litellm-dashboard/src/i18n/locales/en.json",
+            "line": 4805
+          },
+          {
+            "code": "SAFE-001",
+            "file": "ui/litellm-dashboard/src/i18n/locales/en.json",
+            "line": 6578
+          },
+          {
+            "code": "SAFE-001",
+            "file": "ui/litellm-dashboard/src/i18n/locales/en.json",
+            "line": 10736
+          },
+          {
+            "code": "SAFE-001",
+            "file": "ui/litellm-dashboard/src/i18n/locales/en.json",
+            "line": 11050
+          }
+        ]
+      },
+      "continue": {
+        "scanned": 478,
+        "findings_count": 2,
+        "by_code": {
+          "SAFE-002": 2
+        },
+        "findings": [
+          {
+            "code": "SAFE-002",
+            "file": "CONTRIBUTING.md",
+            "line": 15
+          },
+          {
+            "code": "SAFE-002",
+            "file": "CONTRIBUTING.md",
+            "line": 108
+          }
+        ]
+      },
+      "anthropic-quickstarts": {
+        "scanned": 218,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "cline": {
+        "scanned": 503,
+        "findings_count": 3,
+        "by_code": {
+          "SAFE-001": 2,
+          "SAFE-005": 1
+        },
+        "findings": [
+          {
+            "code": "SAFE-001",
+            "file": "apps/cli/README.md",
+            "line": 250
+          },
+          {
+            "code": "SAFE-001",
+            "file": "apps/cli/src/tests/fixtures/web-fetch.json",
+            "line": 233
+          },
+          {
+            "code": "SAFE-005",
+            "file": ".claude/settings.json",
+            "line": 1
+          }
+        ]
+      },
+      "llama_index": {
+        "scanned": 2652,
+        "findings_count": 2,
+        "by_code": {
+          "SAFE-002": 2
+        },
+        "findings": [
+          {
+            "code": "SAFE-002",
+            "file": "docs/src/content/docs/framework/CONTRIBUTING.md",
+            "line": 197
+          },
+          {
+            "code": "SAFE-002",
+            "file": "llama-index-integrations/retrievers/llama-index-retrievers-videodb/README.md",
+            "line": 26
+          }
+        ]
+      },
+      "mkdocs": {
+        "scanned": 77,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "flask": {
+        "scanned": 131,
+        "findings_count": 1,
+        "by_code": {
+          "SAFE-001": 1
+        },
+        "findings": [
+          {
+            "code": "SAFE-001",
+            "file": "docs/config.rst",
+            "line": 124
+          }
+        ]
+      },
+      "requests": {
+        "scanned": 46,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "httpx": {
+        "scanned": 40,
+        "findings_count": 3,
+        "by_code": {
+          "SAFE-001": 1,
+          "SAFE-002": 2
+        },
+        "findings": [
+          {
+            "code": "SAFE-001",
+            "file": "docs/advanced/clients.md",
+            "line": 172
+          },
+          {
+            "code": "SAFE-002",
+            "file": "tests/models/whatwg.json",
+            "line": 2296
+          },
+          {
+            "code": "SAFE-002",
+            "file": "tests/models/whatwg.json",
+            "line": 2311
+          }
+        ]
+      },
+      "fastapi": {
+        "scanned": 1752,
+        "findings_count": 65,
+        "by_code": {
+          "SAFE-002": 65
+        },
+        "findings": [
+          {
+            "code": "SAFE-002",
+            "file": "docs/de/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/de/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/de/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/de/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/en/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/en/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/en/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/en/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/en/docs/release-notes.md",
+            "line": 947
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/en/docs/release-notes.md",
+            "line": 954
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/en/docs/release-notes.md",
+            "line": 2695
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/es/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/es/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/es/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/es/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/fr/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/fr/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/fr/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/fr/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/hi/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/hi/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/hi/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/hi/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ja/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ja/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ja/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ja/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ja/docs/tutorial/background-tasks.md",
+            "line": 52
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ko/docs/async.md",
+            "line": 193
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ko/docs/async.md",
+            "line": 197
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ko/docs/async.md",
+            "line": 229
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ko/docs/async.md",
+            "line": 231
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/language_names.yml",
+            "line": 168
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/deployment/concepts.md",
+            "line": 203
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/deployment/concepts.md",
+            "line": 217
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/how-to/general.md",
+            "line": 42
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/tutorial/cors.md",
+            "line": 31
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/tutorial/cors.md",
+            "line": 52
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/tutorial/response-model.md",
+            "line": 175
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/tutorial/response-model.md",
+            "line": 191
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/pt/docs/tutorial/response-model.md",
+            "line": 209
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ru/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ru/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ru/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/ru/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/tr/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/tr/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/tr/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/tr/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/uk/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/uk/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/uk/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/uk/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/zh-hant/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/zh-hant/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/zh-hant/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/zh-hant/docs/async.md",
+            "line": 230
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/zh/docs/async.md",
+            "line": 192
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/zh/docs/async.md",
+            "line": 196
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/zh/docs/async.md",
+            "line": 228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/zh/docs/async.md",
+            "line": 230
+          }
+        ]
+      },
+      "pydantic": {
+        "scanned": 171,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "jinja": {
+        "scanned": 36,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "underthesea": {
+        "scanned": 506,
+        "findings_count": 8,
+        "by_code": {
+          "SAFE-002": 8
+        },
+        "findings": [
+          {
+            "code": "SAFE-002",
+            "file": "docs/docs/contribute/sponsors.md",
+            "line": 18
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/versioned_docs/version-9.2.11/contribute/sponsors.md",
+            "line": 18
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/versioned_docs/version-9.3.0/contribute/sponsors.md",
+            "line": 18
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/versioned_docs/version-9.4.0/contribute/sponsors.md",
+            "line": 18
+          },
+          {
+            "code": "SAFE-002",
+            "file": "docs/versioned_docs/version-9.5.0/contribute/sponsors.md",
+            "line": 18
+          },
+          {
+            "code": "SAFE-002",
+            "file": "extensions/datasets/UD_Vietnamese-COL/corpus/raw/lyrics.txt",
+            "line": 8639
+          },
+          {
+            "code": "SAFE-002",
+            "file": "extensions/datasets/UD_Vietnamese-COL/corpus/ud/lyrics.txt",
+            "line": 26228
+          },
+          {
+            "code": "SAFE-002",
+            "file": "extensions/datasets/UD_Vietnamese-COL/corpus/ud/lyrics.txt",
+            "line": 26240
+          }
+        ]
+      },
+      "phobert": {
+        "scanned": 3,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "vncorenlp": {
+        "scanned": 5,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "llm-security": {
+        "scanned": 5,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "rebuff": {
+        "scanned": 24,
+        "findings_count": 0,
+        "by_code": {},
+        "findings": []
+      },
+      "garak": {
+        "scanned": 326,
+        "findings_count": 20,
+        "by_code": {
+          "SAFE-001": 20
+        },
+        "findings": [
+          {
+            "code": "SAFE-001",
+            "file": "docs/source/probes/goat.rst",
+            "line": 36
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak-report/extracted_digest.json",
+            "line": 6432
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak-report/extracted_digest.json",
+            "line": 6576
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak-report/extracted_digest.json",
+            "line": 6770
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak-report/extracted_digest.json",
+            "line": 6960
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak-report/extracted_digest.json",
+            "line": 7368
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/autodan/autodan_prompts.json",
+            "line": 2
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/autodan/autodan_prompts.json",
+            "line": 4
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/cas/trait_typology.json",
+            "line": 186
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/cas/trait_typology.json",
+            "line": 188
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/cas/trait_typology.json",
+            "line": 779
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/dan/AntiDAN.json",
+            "line": 1
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/sysprompt_extraction/attacks.json",
+            "line": 5
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/sysprompt_extraction/attacks.json",
+            "line": 11
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/sysprompt_extraction/attacks.json",
+            "line": 12
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/sysprompt_extraction/attacks.json",
+            "line": 21
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/data/tap/tap_jailbreaks.txt",
+            "line": 6
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/resources/plugin_cache.json",
+            "line": 1360
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/resources/plugin_cache.json",
+            "line": 1393
+          },
+          {
+            "code": "SAFE-001",
+            "file": "garak/resources/plugin_cache.json",
+            "line": 9161
+          }
+        ]
+      },
+      "P-062": {
+        "scanned": 2865,
+        "findings_count": 13,
+        "by_code": {
+          "SAFE-002": 4,
+          "SAFE-001": 4,
+          "SAFE-005": 5
+        },
+        "findings": [
+          {
+            "code": "SAFE-002",
+            "file": "btc-reference/cohort-4/mentor-g19/raw/slides_1.html",
+            "line": 1427
+          },
+          {
+            "code": "SAFE-002",
+            "file": "btc-reference/cohort-4/mentor-g19/raw/slides_1.html",
+            "line": 1789
+          },
+          {
+            "code": "SAFE-002",
+            "file": "btc-reference/cohort-4/mentor-g19/raw/slides_1.html",
+            "line": 2016
+          },
+          {
+            "code": "SAFE-002",
+            "file": "btc-reference/cohort-4/mentor-g19/raw/slides_1.html",
+            "line": 2145
+          },
+          {
+            "code": "SAFE-001",
+            "file": "btc-reference/khung-chung/technical-book/chapter-06.md",
+            "line": 313
+          },
+          {
+            "code": "SAFE-001",
+            "file": "btc-reference/khung-chung/technical-book/chapter-11.md",
+            "line": 115
+          },
+          {
+            "code": "SAFE-001",
+            "file": "docs/BE_LUONG_THAT_VI_HOVE.md",
+            "line": 135
+          },
+          {
+            "code": "SAFE-001",
+            "file": "eval/results/a4_stress_20261021/meta.json",
+            "line": 795
+          },
+          {
+            "code": "SAFE-005",
+            "file": ".agents/skills/ui-ux-pro-max/stack/.mcp.json",
+            "line": 1
+          },
+          {
+            "code": "SAFE-005",
+            "file": ".claude/settings.json",
+            "line": 1
+          },
+          {
+            "code": "SAFE-005",
+            "file": ".codex/hooks.json",
+            "line": 1
+          },
+          {
+            "code": "SAFE-005",
+            "file": ".cursor/hooks.json",
+            "line": 1
+          },
+          {
+            "code": "SAFE-005",
+            "file": ".gemini/settings.json",
+            "line": 1
+          }
+        ]
+      },
+      "Project-Builder-4-Agents": {
+        "scanned": 210,
+        "findings_count": 3,
+        "by_code": {
+          "SAFE-001": 3
+        },
+        "findings": [
+          {
+            "code": "SAFE-001",
+            "file": "core/untrusted-content.md",
+            "line": 18
+          },
+          {
+            "code": "SAFE-001",
+            "file": "knowledge-base/technical-book/chapter-06.md",
+            "line": 315
+          },
+          {
+            "code": "SAFE-001",
+            "file": "knowledge-base/technical-book/chapter-11.md",
+            "line": 116
+          }
+        ]
+      }
+    },
+    "hygiene_summary": {
+      "awesome-cursorrules": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "aider": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "gitingest": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "litellm": {
+        "findings_count": 2,
+        "by_code": {
+          "SEC-005": 1,
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "SEC-005",
+            "location": "ui/litellm-dashboard/.env.development"
+          },
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "continue": {
+        "findings_count": 2,
+        "by_code": {
+          "SUP-004": 1,
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "SUP-004",
+            "location": "extensions/intellij/gradle/wrapper/gradle-wrapper.jar"
+          },
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "anthropic-quickstarts": {
+        "findings_count": 2,
+        "by_code": {
+          "SUP-002": 1,
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "SUP-002",
+            "location": "managed-agents/linear/package.json"
+          },
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "cline": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "llama_index": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "mkdocs": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "flask": {
+        "findings_count": 2,
+        "by_code": {
+          "SEC-005": 1,
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "SEC-005",
+            "location": "tests/test_apps/.env"
+          },
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "requests": {
+        "findings_count": 2,
+        "by_code": {
+          "SEC-005": 1,
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "SEC-005",
+            "location": "tests/certs/expired/ca/ca-private.key"
+          },
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "httpx": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "fastapi": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "pydantic": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "jinja": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "underthesea": {
+        "findings_count": 3,
+        "by_code": {
+          "SEC-005": 1,
+          "SUP-004": 1,
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "SEC-005",
+            "location": "extensions/apps/directory/components/json_viewer/component/frontend/.env"
+          },
+          {
+            "code": "SUP-004",
+            "location": "extensions/underthesea_core/tests/wt_crf_2018_09_13.bin"
+          },
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "phobert": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "vncorenlp": {
+        "findings_count": 2,
+        "by_code": {
+          "SUP-004": 1,
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "SUP-004",
+            "location": "VnCoreNLP-1.1.1.jar"
+          },
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "llm-security": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "rebuff": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "garak": {
+        "findings_count": 1,
+        "by_code": {
+          "WLOG-001": 1
+        },
+        "findings": [
+          {
+            "code": "WLOG-001",
+            "location": ""
+          }
+        ]
+      },
+      "P-062": {
+        "findings_count": 1,
+        "by_code": {
+          "HYG-002": 1
+        },
+        "findings": [
+          {
+            "code": "HYG-002",
+            "location": "eval/results/comprehensive-execution-20261020/browser-build-397-http/build.log"
+          }
+        ]
+      },
+      "Project-Builder-4-Agents": {
+        "findings_count": 1,
+        "by_code": {
+          "SUP-004": 1
+        },
+        "findings": [
+          {
+            "code": "SUP-004",
+            "location": "Project-Health-Check.exe"
+          }
+        ]
+      }
+    },
+    "kit_result": {
+      "all_files_count": 423,
+      "code_files_count": 128,
+      "skipped_dirs": [
+        [
+          ".git",
+          "dữ liệu nội bộ của git"
+        ],
+        [
+          ".pytest_cache",
+          "cache test"
+        ],
+        [
+          "build",
+          "kết quả build"
+        ],
+        [
+          "evals/__pycache__",
+          "bytecode Python"
+        ],
+        [
+          "profiles/frontend/starter/dist",
+          "kết quả build"
+        ],
+        [
+          "profiles/frontend/starter/node_modules",
+          "thư viện cài tự động (npm/yarn/pnpm)"
+        ],
+        [
+          "scripts/__pycache__",
+          "bytecode Python"
+        ],
+        [
+          "scripts/auditor_engine/__pycache__",
+          "bytecode Python"
+        ],
+        [
+          "scripts/reviewer_shell/__pycache__",
+          "bytecode Python"
+        ],
+        [
+          "scripts/token_dashboard/__pycache__",
+          "bytecode Python"
+        ],
+        [
+          "scripts/token_monitor/__pycache__",
+          "bytecode Python"
+        ],
+        [
+          "tests/__pycache__",
+          "bytecode Python"
+        ]
+      ],
+      "profile": {
+        "archetype": "Kho tài liệu / tri thức kèm công cụ",
+        "languages": [
+          "Python",
+          "TypeScript",
+          "JavaScript",
+          "C#"
+        ],
+        "frameworks": [
+          "ASP.NET CORE",
+          "REACT"
+        ],
+        "has_frontend": true,
+        "has_backend": true
+      },
+      "score": 100,
+      "grade": "A+ (XUẤT SẮC - SẴN SÀNG PRODUCTION)",
+      "findings_by_code": {
+        "SEC-001": 1,
+        "SUP-004": 1
+      }
+    }
+  }
+}

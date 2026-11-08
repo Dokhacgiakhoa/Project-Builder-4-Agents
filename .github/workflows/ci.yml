@@ -1,0 +1,67 @@
+name: Continuous Integration (CI)
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  quality-gate:
+    name: Code Quality & Test Gate
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.12', '3.14']
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      - name: Verify Context Files Integrity
+        run: |
+          echo "Checking mandatory context and spec files..."
+          for f in AGENTS.md BOOTSTRAP.md INDEX.md core/README.md profiles/README.md; do test -f "$f" || (echo "Missing $f" && exit 1); done
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: profiles/frontend/starter/package-lock.json
+
+      - name: Install Python test dependencies
+        run: python -m pip install pytest
+
+      - name: Check documentation links (INDEX.md must not lead agents astray)
+        run: python scripts/check_links.py
+
+      - name: Verify Documentation & Manifest Synchronization
+        run: python scripts/sync_docs.py --check
+
+      - name: Compile Python sources (syntax check)
+        run: python -m compileall -q scripts
+
+      - name: Run Python tests (Core Engine & Reviewer server)
+        run: python -m pytest tests -q
+
+      - name: Install frontend dependencies
+        working-directory: profiles/frontend/starter
+        run: npm ci
+
+      - name: Frontend lint
+        working-directory: profiles/frontend/starter
+        run: npm run lint
+
+      - name: Frontend type-check & build
+        working-directory: profiles/frontend/starter
+        run: npm run build
+
+      - name: Frontend unit tests
+        working-directory: profiles/frontend/starter
+        run: npm test

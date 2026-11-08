@@ -1,0 +1,83 @@
+{
+  "timestamp": "2026-11-07 17:30:03",
+  "shell_path": "D:\\Github\\health-check-test\\app-rel\\Project-Health-Check.exe",
+  "initial_port": 58349,
+  "initial_engine_pids": [
+    8072,
+    18332
+  ],
+  "observations": [
+    {
+      "checkpoint_sec": 3,
+      "actual_elapsed_sec": 3.0,
+      "engine_pids": [
+        8072,
+        18332
+      ],
+      "engine_count": 2,
+      "port": 58349,
+      "api_status": {
+        "responding": true,
+        "status_code": 200,
+        "data": {
+          "status": "ready",
+          "version": "2.2.0"
+        }
+      }
+    },
+    {
+      "checkpoint_sec": 30,
+      "actual_elapsed_sec": 30.0,
+      "engine_pids": [
+        8072,
+        18332
+      ],
+      "engine_count": 2,
+      "port": 58349,
+      "api_status": {
+        "responding": true,
+        "status_code": 200,
+        "data": {
+          "status": "ready",
+          "version": "2.2.0"
+        }
+      }
+    },
+    {
+      "checkpoint_sec": 90,
+      "actual_elapsed_sec": 90.0,
+      "engine_pids": [
+        8072,
+        18332
+      ],
+      "engine_count": 2,
+      "port": 58349,
+      "api_status": {
+        "responding": true,
+        "status_code": 200,
+        "data": {
+          "status": "ready",
+          "version": "2.2.0"
+        }
+      }
+    },
+    {
+      "checkpoint_sec": 200,
+      "actual_elapsed_sec": 200.0,
+      "engine_pids": [
+        8072,
+        18332
+      ],
+      "engine_count": 2,
+      "port": 58349,
+      "api_status": {
+        "responding": true,
+        "status_code": 200,
+        "data": {
+          "status": "ready",
+          "version": "2.2.0"
+        }
+      }
+    }
+  ]
+}

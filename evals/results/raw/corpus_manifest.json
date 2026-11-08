@@ -1,0 +1,170 @@
+[
+  {
+    "name": "awesome-cursorrules",
+    "url": "https://github.com/PatrickJS/awesome-cursorrules.git",
+    "category": "agent_instructions",
+    "commit_sha": "b044f956f021b6e8877f16781bcfc466a6a120e9",
+    "license": "CC0-1.0",
+    "path": "D:\\Github\\_corpus\\awesome-cursorrules"
+  },
+  {
+    "name": "aider",
+    "url": "https://github.com/Aider-AI/aider.git",
+    "category": "agent_instructions",
+    "commit_sha": "5dc9490bb35f9729ef2c95d00a19ccd30c26339c",
+    "license": "Apache-2.0",
+    "path": "D:\\Github\\_corpus\\aider"
+  },
+  {
+    "name": "gitingest",
+    "url": "https://github.com/cyclotruc/gitingest.git",
+    "category": "agent_instructions",
+    "commit_sha": "4e259a02fe72115bee538271622f1234a81c8e1a",
+    "license": "MIT",
+    "path": "D:\\Github\\_corpus\\gitingest"
+  },
+  {
+    "name": "litellm",
+    "url": "https://github.com/BerriAI/litellm.git",
+    "category": "agent_instructions",
+    "commit_sha": "5103d8a0ee88bfa2f5118c40f0b90fcf239c7f5f",
+    "license": "MIT",
+    "path": "D:\\Github\\_corpus\\litellm"
+  },
+  {
+    "name": "continue",
+    "url": "https://github.com/continuedev/continue.git",
+    "category": "agent_instructions",
+    "commit_sha": "5522c6f44ca0ac3528b37244818fbfa39b5af470",
+    "license": "Apache-2.0",
+    "path": "D:\\Github\\_corpus\\continue"
+  },
+  {
+    "name": "anthropic-quickstarts",
+    "url": "https://github.com/anthropics/anthropic-quickstarts.git",
+    "category": "agent_instructions",
+    "commit_sha": "4a4224bdf0e9cfb3332167b69c90457403813625",
+    "license": "MIT",
+    "path": "D:\\Github\\_corpus\\anthropic-quickstarts"
+  },
+  {
+    "name": "cline",
+    "url": "https://github.com/cline/cline.git",
+    "category": "agent_instructions",
+    "commit_sha": "94eecbbe1a2f899c66b118d13656651b0a884e1f",
+    "license": "Apache-2.0",
+    "path": "D:\\Github\\_corpus\\cline"
+  },
+  {
+    "name": "llama_index",
+    "url": "https://github.com/run-llama/llama_index.git",
+    "category": "agent_instructions",
+    "commit_sha": "444fdf0684707de62ebb447d658dba137dd9cb99",
+    "license": "MIT",
+    "path": "D:\\Github\\_corpus\\llama_index"
+  },
+  {
+    "name": "mkdocs",
+    "url": "https://github.com/mkdocs/mkdocs.git",
+    "category": "documentation_heavy",
+    "commit_sha": "2862536793b3c67d9d83c33e0dd6d50a791928f8",
+    "license": "MIT",
+    "path": "D:\\Github\\_corpus\\mkdocs"
+  },
+  {
+    "name": "flask",
+    "url": "https://github.com/pallets/flask.git",
+    "category": "documentation_heavy",
+    "commit_sha": "49943b5a94413a530761350f04e896f76e8d620e",
+    "license": "MIT",
+    "path": "D:\\Github\\_corpus\\flask"
+  },
+  {
+    "name": "requests",
+    "url": "https://github.com/psf/requests.git",
+    "category": "documentation_heavy",
+    "commit_sha": "3c7baaa05ab4aa49cc819ce3a819d260de19c157",
+    "license": "Apache-2.0",
+    "path": "D:\\Github\\_corpus\\requests"
+  },
+  {
+    "name": "httpx",
+    "url": "https://github.com/encode/httpx.git",
+    "category": "documentation_heavy",
+    "commit_sha": "b5addb64f0161ff6bfe94c124ef76f6a1fba5254",
+    "license": "MIT",
+    "path": "D:\\Github\\_corpus\\httpx"
+  },
+  {
+    "name": "fastapi",
+    "url": "https://github.com/tiangolo/fastapi.git",
+    "category": "documentation_heavy",
+    "commit_sha": "1ca09c13584ca45aa0921e5e40b31d49c5e3135a",
+    "license": "MIT",
+    "path": "D:\\Github\\_corpus\\fastapi"
+  },
+  {
+    "name": "pydantic",
+    "url": "https://github.com/pydantic/pydantic.git",
+    "category": "documentation_heavy",
+    "commit_sha": "dabcc6461dafa4337c52faf3e9941431ea41ce4a",
+    "license": "MIT",
+    "path": "D:\\Github\\_corpus\\pydantic"
+  },
+  {
+    "name": "jinja",
+    "url": "https://github.com/pallets/jinja.git",
+    "category": "documentation_heavy",
+    "commit_sha": "5ef70112a1ff19c05324ff889dd30405b1002044",
+    "license": "MIT",
+    "path": "D:\\Github\\_corpus\\jinja"
+  },
+  {
+    "name": "underthesea",
+    "url": "https://github.com/undertheseanlp/underthesea.git",
+    "category": "vietnamese_docs",
+    "commit_sha": "0d3cf4dfd6f8ac6df3fda74332187d7c49d8bdde",
+    "license": "Apache-2.0",
+    "path": "D:\\Github\\_corpus\\underthesea"
+  },
+  {
+    "name": "phobert",
+    "url": "https://github.com/VinAIResearch/PhoBERT.git",
+    "category": "vietnamese_docs",
+    "commit_sha": "7b4a3e38cd316c14d4006fe0328d3e2d6f1edada",
+    "license": "MIT",
+    "path": "D:\\Github\\_corpus\\phobert"
+  },
+  {
+    "name": "vncorenlp",
+    "url": "https://github.com/vncorenlp/VnCoreNLP.git",
+    "category": "vietnamese_docs",
+    "commit_sha": "62bbc58fe5d113c898eae112656be97dcf50b3a0",
+    "license": "GPL",
+    "path": "D:\\Github\\_corpus\\vncorenlp"
+  },
+  {
+    "name": "llm-security",
+    "url": "https://github.com/greshake/llm-security.git",
+    "category": "prompt_injection_safety",
+    "commit_sha": "c312325bee5f16d8f6524bd6f41e1510c5623a1e",
+    "license": "MIT",
+    "path": "D:\\Github\\_corpus\\llm-security"
+  },
+  {
+    "name": "rebuff",
+    "url": "https://github.com/protectai/rebuff.git",
+    "category": "prompt_injection_safety",
+    "commit_sha": "4d2fe064abf164e7381556d23e48e210080f8afa",
+    "license": "Apache-2.0",
+    "path": "D:\\Github\\_corpus\\rebuff"
+  },
+  {
+    "name": "garak",
+    "url": "https://github.com/leondz/garak.git",
+    "category": "prompt_injection_safety",
+    "commit_sha": "892779207cbc38f65a738ef9cbdfbc1e83aa0b55",
+    "license": "Apache-2.0",
+    "path": "D:\\Github\\_corpus\\garak"
+  }
+]

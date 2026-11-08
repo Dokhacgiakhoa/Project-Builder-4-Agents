@@ -1,0 +1,1311 @@
+{
+  "date": "2026-11-07",
+  "synthetic": {
+    "attack_samples_count": 49,
+    "attack_detected_count": 49,
+    "attack_detection_rate": 1.0,
+    "attack_sample_results": {
+      "atk_01": [
+        "SAFE-001"
+      ],
+      "atk_02": [
+        "SAFE-001"
+      ],
+      "atk_03": [
+        "SAFE-001"
+      ],
+      "atk_04": [
+        "SAFE-001"
+      ],
+      "atk_05": [
+        "SAFE-001"
+      ],
+      "atk_06": [
+        "SAFE-001"
+      ],
+      "atk_07": [
+        "SAFE-001"
+      ],
+      "atk_08": [
+        "SAFE-001"
+      ],
+      "atk_09": [
+        "SAFE-001"
+      ],
+      "atk_10": [
+        "SAFE-001"
+      ],
+      "atk_11": [
+        "SAFE-001"
+      ],
+      "atk_12": [
+        "SAFE-001"
+      ],
+      "atk_13": [
+        "SAFE-001"
+      ],
+      "atk_14": [
+        "SAFE-001"
+      ],
+      "atk_15": [
+        "SAFE-001"
+      ],
+      "atk_16": [
+        "SAFE-001"
+      ],
+      "atk_17": [
+        "SAFE-001"
+      ],
+      "atk_18": [
+        "SAFE-001"
+      ],
+      "atk_19": [
+        "SAFE-001"
+      ],
+      "atk_20": [
+        "SAFE-001"
+      ],
+      "atk_21": [
+        "SAFE-001"
+      ],
+      "atk_22": [
+        "SAFE-001"
+      ],
+      "atk_23": [
+        "SAFE-001"
+      ],
+      "atk_24": [
+        "SAFE-001"
+      ],
+      "atk_25": [
+        "SAFE-001"
+      ],
+      "atk_26": [
+        "SAFE-001"
+      ],
+      "atk_27": [
+        "SAFE-001"
+      ],
+      "atk_28": [
+        "SAFE-001"
+      ],
+      "atk_29": [
+        "SAFE-001"
+      ],
+      "atk_30": [
+        "SAFE-001"
+      ],
+      "atk_31": [
+        "SAFE-001"
+      ],
+      "atk_32": [
+        "SAFE-001"
+      ],
+      "atk_33": [
+        "SAFE-003"
+      ],
+      "atk_34": [
+        "SAFE-003"
+      ],
+      "atk_35": [
+        "SAFE-003"
+      ],
+      "atk_36": [
+        "SAFE-003"
+      ],
+      "atk_37": [
+        "SAFE-003"
+      ],
+      "atk_38": [
+        "SAFE-003"
+      ],
+      "atk_39": [
+        "SAFE-002"
+      ],
+      "atk_40": [
+        "SAFE-002"
+      ],
+      "atk_41": [
+        "SAFE-002"
+      ],
+      "atk_42": [
+        "SAFE-002"
+      ],
+      "atk_43": [
+        "SAFE-002"
+      ],
+      "atk_44": [
+        "SAFE-002"
+      ],
+      "atk_45": [
+        "SAFE-002"
+      ],
+      "atk_46": [
+        "SAFE-002"
+      ],
+      "atk_47": [
+        "SAFE-004"
+      ],
+      "atk_48": [
+        "SAFE-005"
+      ],
+      "atk_49": [
+        "SAFE-005"
+      ]
+    },
+    "missed_attacks": [],
+    "benign_samples_count": 23,
+    "benign_fp_count": 0,
+    "benign_sample_results": {
+      "benign_01": [],
+      "benign_02": [],
+      "benign_03": [],
+      "benign_04": [],
+      "benign_05": [],
+      "benign_06": [],
+      "benign_07": [],
+      "benign_08": [],
+      "benign_09": [],
+      "benign_10": [],
+      "benign_11": [],
+      "benign_12": [],
+      "benign_13": [],
+      "benign_14": [],
+      "benign_15": [],
+      "benign_16": [],
+      "benign_17": [],
+      "benign_18": [],
+      "benign_19": [],
+      "benign_20": [],
+      "benign_21": [],
+      "benign_22": [],
+      "benign_23": []
+    }
+  },
+  "corpus_repos": [
+    {
+      "repo": "awesome-cursorrules",
+      "path": "D:\\Github\\_corpus\\awesome-cursorrules",
+      "category": "agent_instructions",
+      "scanned": 268,
+      "skipped_large": 0,
+      "agent_files_count": 0,
+      "findings_count": 0,
+      "duration_seconds": 0.09,
+      "findings": []
+    },
+    {
+      "repo": "aider",
+      "path": "D:\\Github\\_corpus\\aider",
+      "category": "agent_instructions",
+      "scanned": 202,
+      "skipped_large": 2,
+      "agent_files_count": 1,
+      "findings_count": 4,
+      "duration_seconds": 0.1,
+      "findings": [
+        {
+          "code": "SAFE-001",
+          "file": "aider/website/assets/sample.aider.conf.yml",
+          "line": 355,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "aider/website/docs/config/aider_conf.md",
+          "line": 409,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "aider/website/docs/config/dotenv.md",
+          "line": 376,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "aider/website/docs/config/options.md",
+          "line": 662,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        }
+      ]
+    },
+    {
+      "repo": "gitingest",
+      "path": "D:\\Github\\_corpus\\gitingest",
+      "category": "agent_instructions",
+      "scanned": 31,
+      "skipped_large": 0,
+      "agent_files_count": 0,
+      "findings_count": 0,
+      "duration_seconds": 0.01,
+      "findings": []
+    },
+    {
+      "repo": "litellm",
+      "path": "D:\\Github\\_corpus\\litellm",
+      "category": "agent_instructions",
+      "scanned": 1282,
+      "skipped_large": 7,
+      "agent_files_count": 123,
+      "findings_count": 57,
+      "duration_seconds": 1.4,
+      "findings": [
+        {
+          "code": "SAFE-001",
+          "file": "litellm/policy_templates_backup.json",
+          "line": 2243,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/policy_templates_backup.json",
+          "line": 2267,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/policy_templates_backup.json",
+          "line": 2272,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/policy_templates_backup.json",
+          "line": 2287,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/policy_templates_backup.json",
+          "line": 2292,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/policy_templates_backup.json",
+          "line": 2297,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/policy_templates_backup.json",
+          "line": 2302,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+          "line": 77,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+          "line": 86,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+          "line": 251,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+          "line": 260,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+          "line": 424,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+          "line": 433,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+          "line": 601,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+          "line": 610,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+          "line": 768,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+          "line": 777,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+          "line": 1227,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/common_utils/codex_bundled_models_0.166.0.json",
+          "line": 1720,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_jailbreak.yaml",
+          "line": 79,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+          "line": 1,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+          "line": 4,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+          "line": 67,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+          "line": 71,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+          "line": 73,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+          "line": 75,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+          "line": 79,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+          "line": 85,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+          "line": 87,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+          "line": 93,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+          "line": 95,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+          "line": 121,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/categories/prompt_injection_system_prompt.yaml",
+          "line": 123,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/prompt_injection.yaml",
+          "line": 91,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/prompt_injection.yaml",
+          "line": 97,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/prompt_injection.yaml",
+          "line": 99,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/prompt_injection.yaml",
+          "line": 113,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/sg_mas_model_security.yaml",
+          "line": 61,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/sg_mas_model_security.yaml",
+          "line": 62,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/content_filter_data/policy_templates/sg_mas_model_security.yaml",
+          "line": 77,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/README.md",
+          "line": 127,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/README.md",
+          "line": 148,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/README.md",
+          "line": 173,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/example_config.yaml",
+          "line": 70,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/guardrail_hooks/ibm_guardrails/example_config.yaml",
+          "line": 87,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/guardrail_hooks/litellm_content_filter/guardrail_benchmarks/results/claims_system_override_cf.json",
+          "line": 259,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+          "line": 4,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+          "line": 12,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+          "line": 15,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+          "line": 34,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "litellm/proxy/guardrails/guardrail_hooks/semantic_guard/route_templates/prompt_injection.yaml",
+          "line": 55,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "tests/unit/fixtures/together_ai_sync/models_serverless.json",
+          "line": 1,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "tests/unit/interactions/interactions.openapi.json",
+          "line": 6097,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "ui/litellm-dashboard/src/i18n/locales/en.json",
+          "line": 4805,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "ui/litellm-dashboard/src/i18n/locales/en.json",
+          "line": 6578,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "ui/litellm-dashboard/src/i18n/locales/en.json",
+          "line": 10736,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "ui/litellm-dashboard/src/i18n/locales/en.json",
+          "line": 11050,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        }
+      ]
+    },
+    {
+      "repo": "continue",
+      "path": "D:\\Github\\_corpus\\continue",
+      "category": "agent_instructions",
+      "scanned": 478,
+      "skipped_large": 0,
+      "agent_files_count": 3,
+      "findings_count": 0,
+      "duration_seconds": 0.27,
+      "findings": []
+    },
+    {
+      "repo": "anthropic-quickstarts",
+      "path": "D:\\Github\\_corpus\\anthropic-quickstarts",
+      "category": "agent_instructions",
+      "scanned": 218,
+      "skipped_large": 0,
+      "agent_files_count": 25,
+      "findings_count": 0,
+      "duration_seconds": 0.1,
+      "findings": []
+    },
+    {
+      "repo": "cline",
+      "path": "D:\\Github\\_corpus\\cline",
+      "category": "agent_instructions",
+      "scanned": 503,
+      "skipped_large": 0,
+      "agent_files_count": 68,
+      "findings_count": 3,
+      "duration_seconds": 0.71,
+      "findings": [
+        {
+          "code": "SAFE-001",
+          "file": "apps/cli/README.md",
+          "line": 250,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "apps/cli/src/tests/fixtures/web-fetch.json",
+          "line": 233,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-005",
+          "file": ".claude/settings.json",
+          "line": 1,
+          "severity": "Trung bình",
+          "title": "Cấu hình Agent có thể thực thi lệnh (hook/MCP)"
+        }
+      ]
+    },
+    {
+      "repo": "llama_index",
+      "path": "D:\\Github\\_corpus\\llama_index",
+      "category": "agent_instructions",
+      "scanned": 2652,
+      "skipped_large": 11,
+      "agent_files_count": 2,
+      "findings_count": 0,
+      "duration_seconds": 0.91,
+      "findings": []
+    },
+    {
+      "repo": "mkdocs",
+      "path": "D:\\Github\\_corpus\\mkdocs",
+      "category": "documentation_heavy",
+      "scanned": 77,
+      "skipped_large": 0,
+      "agent_files_count": 0,
+      "findings_count": 0,
+      "duration_seconds": 0.03,
+      "findings": []
+    },
+    {
+      "repo": "flask",
+      "path": "D:\\Github\\_corpus\\flask",
+      "category": "documentation_heavy",
+      "scanned": 131,
+      "skipped_large": 0,
+      "agent_files_count": 0,
+      "findings_count": 1,
+      "duration_seconds": 0.04,
+      "findings": [
+        {
+          "code": "SAFE-001",
+          "file": "docs/config.rst",
+          "line": 124,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        }
+      ]
+    },
+    {
+      "repo": "requests",
+      "path": "D:\\Github\\_corpus\\requests",
+      "category": "documentation_heavy",
+      "scanned": 46,
+      "skipped_large": 0,
+      "agent_files_count": 0,
+      "findings_count": 0,
+      "duration_seconds": 0.02,
+      "findings": []
+    },
+    {
+      "repo": "httpx",
+      "path": "D:\\Github\\_corpus\\httpx",
+      "category": "documentation_heavy",
+      "scanned": 40,
+      "skipped_large": 0,
+      "agent_files_count": 0,
+      "findings_count": 3,
+      "duration_seconds": 0.03,
+      "findings": [
+        {
+          "code": "SAFE-001",
+          "file": "docs/advanced/clients.md",
+          "line": 172,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-002",
+          "file": "tests/models/whatwg.json",
+          "line": 2296,
+          "severity": "Cao",
+          "title": "Ký tự ẩn (zero-width/bidi/tag) có thể giấu nội dung"
+        },
+        {
+          "code": "SAFE-002",
+          "file": "tests/models/whatwg.json",
+          "line": 2311,
+          "severity": "Cao",
+          "title": "Ký tự ẩn (zero-width/bidi/tag) có thể giấu nội dung"
+        }
+      ]
+    },
+    {
+      "repo": "fastapi",
+      "path": "D:\\Github\\_corpus\\fastapi",
+      "category": "documentation_heavy",
+      "scanned": 1752,
+      "skipped_large": 0,
+      "agent_files_count": 1,
+      "findings_count": 12,
+      "duration_seconds": 0.9,
+      "findings": [
+        {
+          "code": "SAFE-002",
+          "file": "docs/en/docs/release-notes.md",
+          "line": 947,
+          "severity": "Cao",
+          "title": "Ký tự ẩn (zero-width/bidi/tag) có thể giấu nội dung"
+        },
+        {
+          "code": "SAFE-002",
+          "file": "docs/en/docs/release-notes.md",
+          "line": 954,
+          "severity": "Cao",
+          "title": "Ký tự ẩn (zero-width/bidi/tag) có thể giấu nội dung"
+        },
+        {
+          "code": "SAFE-002",
+          "file": "docs/ja/docs/tutorial/background-tasks.md",
+          "line": 52,
+          "severity": "Cao",
+          "title": "Ký tự ẩn (zero-width/bidi/tag) có thể giấu nội dung"
+        },
+        {
+          "code": "SAFE-002",
+          "file": "docs/language_names.yml",
+          "line": 168,
+          "severity": "Cao",
+          "title": "Ký tự ẩn (zero-width/bidi/tag) có thể giấu nội dung"
+        },
+        {
+          "code": "SAFE-002",
+          "file": "docs/pt/docs/deployment/concepts.md",
+          "line": 203,
+          "severity": "Cao",
+          "title": "Ký tự ẩn (zero-width/bidi/tag) có thể giấu nội dung"
+        },
+        {
+          "code": "SAFE-002",
+          "file": "docs/pt/docs/deployment/concepts.md",
+          "line": 217,
+          "severity": "Cao",
+          "title": "Ký tự ẩn (zero-width/bidi/tag) có thể giấu nội dung"
+        },
+        {
+          "code": "SAFE-002",
+          "file": "docs/pt/docs/how-to/general.md",
+          "line": 42,
+          "severity": "Cao",
+          "title": "Ký tự ẩn (zero-width/bidi/tag) có thể giấu nội dung"
+        },
+        {
+          "code": "SAFE-002",
+          "file": "docs/pt/docs/tutorial/cors.md",
+          "line": 31,
+          "severity": "Cao",
+          "title": "Ký tự ẩn (zero-width/bidi/tag) có thể giấu nội dung"
+        },
+        {
+          "code": "SAFE-002",
+          "file": "docs/pt/docs/tutorial/cors.md",
+          "line": 52,
+          "severity": "Cao",
+          "title": "Ký tự ẩn (zero-width/bidi/tag) có thể giấu nội dung"
+        },
+        {
+          "code": "SAFE-002",
+          "file": "docs/pt/docs/tutorial/response-model.md",
+          "line": 175,
+          "severity": "Cao",
+          "title": "Ký tự ẩn (zero-width/bidi/tag) có thể giấu nội dung"
+        },
+        {
+          "code": "SAFE-002",
+          "file": "docs/pt/docs/tutorial/response-model.md",
+          "line": 191,
+          "severity": "Cao",
+          "title": "Ký tự ẩn (zero-width/bidi/tag) có thể giấu nội dung"
+        },
+        {
+          "code": "SAFE-002",
+          "file": "docs/pt/docs/tutorial/response-model.md",
+          "line": 209,
+          "severity": "Cao",
+          "title": "Ký tự ẩn (zero-width/bidi/tag) có thể giấu nội dung"
+        }
+      ]
+    },
+    {
+      "repo": "pydantic",
+      "path": "D:\\Github\\_corpus\\pydantic",
+      "category": "documentation_heavy",
+      "scanned": 171,
+      "skipped_large": 0,
+      "agent_files_count": 2,
+      "findings_count": 0,
+      "duration_seconds": 0.15,
+      "findings": []
+    },
+    {
+      "repo": "jinja",
+      "path": "D:\\Github\\_corpus\\jinja",
+      "category": "documentation_heavy",
+      "scanned": 36,
+      "skipped_large": 0,
+      "agent_files_count": 0,
+      "findings_count": 0,
+      "duration_seconds": 0.01,
+      "findings": []
+    },
+    {
+      "repo": "underthesea",
+      "path": "D:\\Github\\_corpus\\underthesea",
+      "category": "vietnamese_docs",
+      "scanned": 506,
+      "skipped_large": 13,
+      "agent_files_count": 0,
+      "findings_count": 3,
+      "duration_seconds": 0.57,
+      "findings": [
+        {
+          "code": "SAFE-002",
+          "file": "extensions/datasets/UD_Vietnamese-COL/corpus/raw/lyrics.txt",
+          "line": 8639,
+          "severity": "Cao",
+          "title": "Ký tự ẩn (zero-width/bidi/tag) có thể giấu nội dung"
+        },
+        {
+          "code": "SAFE-002",
+          "file": "extensions/datasets/UD_Vietnamese-COL/corpus/ud/lyrics.txt",
+          "line": 26228,
+          "severity": "Cao",
+          "title": "Ký tự ẩn (zero-width/bidi/tag) có thể giấu nội dung"
+        },
+        {
+          "code": "SAFE-002",
+          "file": "extensions/datasets/UD_Vietnamese-COL/corpus/ud/lyrics.txt",
+          "line": 26240,
+          "severity": "Cao",
+          "title": "Ký tự ẩn (zero-width/bidi/tag) có thể giấu nội dung"
+        }
+      ]
+    },
+    {
+      "repo": "phobert",
+      "path": "D:\\Github\\_corpus\\phobert",
+      "category": "vietnamese_docs",
+      "scanned": 3,
+      "skipped_large": 0,
+      "agent_files_count": 0,
+      "findings_count": 0,
+      "duration_seconds": 0.0,
+      "findings": []
+    },
+    {
+      "repo": "vncorenlp",
+      "path": "D:\\Github\\_corpus\\vncorenlp",
+      "category": "vietnamese_docs",
+      "scanned": 5,
+      "skipped_large": 0,
+      "agent_files_count": 0,
+      "findings_count": 0,
+      "duration_seconds": 0.0,
+      "findings": []
+    },
+    {
+      "repo": "llm-security",
+      "path": "D:\\Github\\_corpus\\llm-security",
+      "category": "prompt_injection_safety",
+      "scanned": 5,
+      "skipped_large": 0,
+      "agent_files_count": 0,
+      "findings_count": 0,
+      "duration_seconds": 0.01,
+      "findings": []
+    },
+    {
+      "repo": "rebuff",
+      "path": "D:\\Github\\_corpus\\rebuff",
+      "category": "prompt_injection_safety",
+      "scanned": 24,
+      "skipped_large": 0,
+      "agent_files_count": 0,
+      "findings_count": 0,
+      "duration_seconds": 0.01,
+      "findings": []
+    },
+    {
+      "repo": "garak",
+      "path": "D:\\Github\\_corpus\\garak",
+      "category": "prompt_injection_safety",
+      "scanned": 326,
+      "skipped_large": 2,
+      "agent_files_count": 1,
+      "findings_count": 20,
+      "duration_seconds": 0.18,
+      "findings": [
+        {
+          "code": "SAFE-001",
+          "file": "docs/source/probes/goat.rst",
+          "line": 36,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak-report/extracted_digest.json",
+          "line": 6432,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak-report/extracted_digest.json",
+          "line": 6576,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak-report/extracted_digest.json",
+          "line": 6770,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak-report/extracted_digest.json",
+          "line": 6960,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak-report/extracted_digest.json",
+          "line": 7368,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak/data/autodan/autodan_prompts.json",
+          "line": 2,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak/data/autodan/autodan_prompts.json",
+          "line": 4,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak/data/cas/trait_typology.json",
+          "line": 186,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak/data/cas/trait_typology.json",
+          "line": 188,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak/data/cas/trait_typology.json",
+          "line": 779,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak/data/dan/AntiDAN.json",
+          "line": 1,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak/data/sysprompt_extraction/attacks.json",
+          "line": 5,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak/data/sysprompt_extraction/attacks.json",
+          "line": 11,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak/data/sysprompt_extraction/attacks.json",
+          "line": 12,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak/data/sysprompt_extraction/attacks.json",
+          "line": 21,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak/data/tap/tap_jailbreaks.txt",
+          "line": 6,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak/resources/plugin_cache.json",
+          "line": 1360,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak/resources/plugin_cache.json",
+          "line": 1393,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "garak/resources/plugin_cache.json",
+          "line": 9161,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        }
+      ]
+    },
+    {
+      "repo": "P-062",
+      "path": "D:\\Github\\P-062",
+      "category": "target_real_project",
+      "scanned": 2865,
+      "skipped_large": 1,
+      "agent_files_count": 828,
+      "findings_count": 9,
+      "duration_seconds": 1.94,
+      "findings": [
+        {
+          "code": "SAFE-001",
+          "file": "btc-reference/khung-chung/technical-book/chapter-06.md",
+          "line": 313,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "btc-reference/khung-chung/technical-book/chapter-11.md",
+          "line": 115,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "docs/BE_LUONG_THAT_VI_HOVE.md",
+          "line": 135,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "eval/results/a4_stress_20261021/meta.json",
+          "line": 795,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-005",
+          "file": ".agents/skills/ui-ux-pro-max/stack/.mcp.json",
+          "line": 1,
+          "severity": "Trung bình",
+          "title": "Cấu hình Agent có thể thực thi lệnh (hook/MCP)"
+        },
+        {
+          "code": "SAFE-005",
+          "file": ".claude/settings.json",
+          "line": 1,
+          "severity": "Trung bình",
+          "title": "Cấu hình Agent có thể thực thi lệnh (hook/MCP)"
+        },
+        {
+          "code": "SAFE-005",
+          "file": ".codex/hooks.json",
+          "line": 1,
+          "severity": "Trung bình",
+          "title": "Cấu hình Agent có thể thực thi lệnh (hook/MCP)"
+        },
+        {
+          "code": "SAFE-005",
+          "file": ".cursor/hooks.json",
+          "line": 1,
+          "severity": "Trung bình",
+          "title": "Cấu hình Agent có thể thực thi lệnh (hook/MCP)"
+        },
+        {
+          "code": "SAFE-005",
+          "file": ".gemini/settings.json",
+          "line": 1,
+          "severity": "Trung bình",
+          "title": "Cấu hình Agent có thể thực thi lệnh (hook/MCP)"
+        }
+      ]
+    },
+    {
+      "repo": "Project-Builder-4-Agents",
+      "path": "D:\\Github\\Project-Builder-4-Agents",
+      "category": "target_this_repo",
+      "scanned": 250,
+      "skipped_large": 0,
+      "agent_files_count": 15,
+      "findings_count": 11,
+      "duration_seconds": 0.18,
+      "findings": [
+        {
+          "code": "SAFE-001",
+          "file": "core/untrusted-content.md",
+          "line": 18,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "evals/handoff/010-pillars-speed-and-safe-pattern-gaps.md",
+          "line": 27,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "evals/handoff/010-pillars-speed-and-safe-pattern-gaps.md",
+          "line": 28,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "evals/results/2026-11-07-ag-report-001.md",
+          "line": 45,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "evals/results/2026-11-07-ag-report-001.md",
+          "line": 46,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-003",
+          "file": "evals/results/2026-11-07-ag-report-001.md",
+          "line": 47,
+          "severity": "Cao",
+          "title": "Lệnh cho AI giấu trong chú thích HTML hoặc phần tử bị ẩn"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "evals/results/2026-11-07-ag-report-003.md",
+          "line": 159,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "evals/results/2026-11-07-ag-report-003.md",
+          "line": 162,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-003",
+          "file": "evals/results/2026-11-07-ag-report-003.md",
+          "line": 165,
+          "severity": "Cao",
+          "title": "Lệnh cho AI giấu trong chú thích HTML hoặc phần tử bị ẩn"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "knowledge-base/technical-book/chapter-06.md",
+          "line": 315,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        },
+        {
+          "code": "SAFE-001",
+          "file": "knowledge-base/technical-book/chapter-11.md",
+          "line": 116,
+          "severity": "Cao",
+          "title": "Câu chữ ra lệnh cho AI/Agent nằm trong tệp dữ liệu"
+        }
+      ]
+    }
+  ]
+}
