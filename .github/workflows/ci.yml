@@ -24,7 +24,7 @@ jobs:
           for f in AGENTS.md BOOTSTRAP.md INDEX.md core/README.md profiles/README.md; do test -f "$f" || (echo "Missing $f" && exit 1); done
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
 
